@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Connected components</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for connected {spatstat.geom}"><tr><td>connected {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Connected components
+</h2>
+
+<h3>Description</h3>
+
+<p>Finds the topologically-connected components of a spatial object,
+such as the connected clumps of pixels in a binary image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+connected(X, ...)
+
+## S3 method for class 'owin'
+connected(X, ..., method="C", connect=8)
+
+## S3 method for class 'im'
+connected(X, ..., background = NA, method="C", connect=8)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial object such as a pixel image (object of class <code>"im"</code>)
+or a window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>background</code></td>
+<td>
+
+<p>Optional. Treat pixels with this value 
+as being part of the background.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String indicating the algorithm to be used. Either <code>"C"</code>
+or <code>"interpreted"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine the
+pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>connect</code></td>
+<td>
+
+<p>The connectivity of the pixel grid: either 8 or 4.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>connected</code> is generic, with methods
+for pixel images (class <code>"im"</code>) and windows (class <code>"owin"</code>)
+described here. There are also methods for
+tessellations (<code><a href="../../spatstat.geom/help/connected.tess.html">connected.tess</a></code>),
+point patterns (<code><a href="../../spatstat.geom/help/connected.ppp.html">connected.ppp</a></code> and
+<code>connected.lpp</code>),
+and linear networks (<code>connected.linnet</code>).
+</p>
+<p>The functions described here compute the connected component transform
+(Rosenfeld and Pfalz, 1966)
+of a binary image or binary mask. The argument <code>X</code> is first
+converted into a pixel image with logical values. Then the algorithm
+identifies the connected components (topologically-connected clumps
+of pixels) in the foreground.
+</p>
+<p>Two pixels belong to the same connected component if they have the value
+<code>TRUE</code> and if they are neighbours.
+This rule is applied repeatedly until it terminates.
+Then each connected component
+contains all the pixels that can be reached by stepping from neighbour
+to neighbour.
+</p>
+<p>Pixels are defined to be neighbours if they are physically adjacent to
+each other. If <code>connect=4</code>, each pixel has 4 neighbours,
+lying one step above or below, or one step to the left or right.  
+If <code>connect=8</code> (the default), each pixel has 8 neighbours,
+lying one step above or below, or one step to the left or right,
+or one diagonal step away. (Pixels at the edge of the image have fewer
+neighbours.) The 8-connected algorithm is the default
+because it gives better results when the pixel grid is coarse. The
+4-connected algorithm is faster and is recommended when the pixel grid
+is fine.
+</p>
+<p>If <code>method="C"</code>, the computation is performed by a compiled C language
+implementation of the classical algorithm of Rosenfeld and Pfalz
+(1966). If <code>method="interpreted"</code>, the computation is performed
+by an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> implementation of the algorithm of Park et al (2000). 
+</p>
+<p>The result is a factor-valued image, with levels that correspond to
+the connected components. The Examples show how to extract each
+connected component as a separate window object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) with factor values.
+The levels of the factor correspond to the connected components.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>It may be hard to distinguish different components 
+in the default plot because the colours of nearby components may be
+very similar. See the Examples for a randomised colour map.
+</p>
+<p>The algorithm for <code>method="interpreted"</code>
+can be very slow for large images (or images where
+the connected components include a large number of pixels).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Original <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code by Julian Burgos, University of Washington.
+Adapted for <span class="pkg">spatstat</span> by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Park, J.-M., Looney, C.G. and Chen, H.-C. (2000)
+Fast connected component labeling algorithm using a divide and conquer
+technique. Pages 373-376 in
+S.Y. Shin (ed) <em>Computers and Their Applications:</em> Proceedings of
+the ISCA 15th International Conference on Computers and Their
+Applications, March 29-31, 2000, New Orleans, Louisiana USA. ISCA
+2000, ISBN 1-880843-32-3. 
+</p>
+<p>Rosenfeld, A. and Pfalz, J.L. (1966)
+Sequential operations in digital processing.
+<em>Journal of the Association for Computing Machinery</em> <b>13</b>
+471-494.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/connected.ppp.html">connected.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/connected.tess.html">connected.tess</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>, 
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  d &lt;- distmap(cells, dimyx=256)
+  X &lt;- levelset(d, 0.07)
+  plot(X)
+  Z &lt;- connected(X)
+  plot(Z)
+  # or equivalently
+  Z &lt;- connected(d &lt;= 0.07)
+
+  # number of components
+  nc &lt;- length(levels(Z))
+  # plot with randomised colour map
+  plot(Z, col=hsv(h=sample(seq(0,1,length=nc), nc)))
+
+  # how to extract the components as a list of windows
+  W &lt;- tiles(tess(image=Z))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

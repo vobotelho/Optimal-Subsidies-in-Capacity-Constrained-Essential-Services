@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data to Hyperframe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.hyperframe {spatstat.geom}"><tr><td>as.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Data to Hyperframe
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts data from any suitable format into a hyperframe.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+as.hyperframe(x, ...)
+
+## Default S3 method:
+as.hyperframe(x, ...)
+
+## S3 method for class 'data.frame'
+as.hyperframe(x, ..., stringsAsFactors=FALSE)
+
+## S3 method for class 'hyperframe'
+as.hyperframe(x, ...)
+
+## S3 method for class 'listof'
+as.hyperframe(x, ...)
+
+## S3 method for class 'anylist'
+as.hyperframe(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Data in some other format.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stringsAsFactors</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, any column of the data frame <code>x</code> that
+contains character strings will be converted to a <code>factor</code>.
+If <code>FALSE</code>, no such conversion will occur.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A hyperframe is like a data frame, except that its entries
+can be objects of any kind.
+</p>
+<p>The generic function <code>as.hyperframe</code> converts any suitable kind
+of data into a hyperframe.
+</p>
+<p>There are methods for the classes
+<code>data.frame</code>, <code>listof</code>, <code>anylist</code> and a default method,
+all of which convert data that is like a hyperframe into
+a hyperframe object. (The method for the class <code>listof</code>
+and <code>anylist</code> converts a list of objects, of
+arbitrary type, into a hyperframe with one column.)
+These methods do not discard any information.
+</p>
+<p>There are also methods for other classes
+(see <code><a href="../../spatstat.geom/help/as.hyperframe.ppx.html">as.hyperframe.ppx</a></code>) which extract
+the coordinates from a spatial dataset. These methods
+do discard some information.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"hyperframe"</code> created by
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>.
+</p>
+
+
+<h3>Conversion of Strings to Factors</h3>
+
+<p>Note that <code>as.hyperframe.default</code>
+will convert a character vector to a factor.
+It behaves like <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code>.
+</p>
+<p>However <code>as.hyperframe.data.frame</code> does not convert strings to
+factors; it respects the structure of the data frame <code>x</code>.
+</p>
+<p>The behaviour can be changed using the argument <code>stringsAsFactors</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/as.hyperframe.ppx.html">as.hyperframe.ppx</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   df &lt;- data.frame(x=runif(4),y=letters[1:4])
+   as.hyperframe(df)
+
+   sims &lt;- replicate(3, runifrect(10), simplify=FALSE)
+   as.hyperframe(as.listof(sims))
+   as.hyperframe(as.solist(sims))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

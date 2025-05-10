@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute or Extract Effective Range of Cluster Kernel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clusterradius {spatstat.random}"><tr><td>clusterradius {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute or Extract Effective Range of Cluster Kernel
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a cluster point process model, this command
+returns a value beyond which the the probability density of the
+cluster offspring is neglible.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+clusterradius(model, ...)
+
+## S3 method for class 'character'
+clusterradius(model, ..., thresh = NULL, precision = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Cluster model. Either a fitted cluster or Cox model
+(object of class <code>"kppm"</code>), or a character string
+specifying the type of cluster model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Parameter values for the model,
+when <code>model</code> is a character string.
+</p>
+</td></tr>
+<tr valign="top"><td><code>thresh</code></td>
+<td>
+
+<p>Numerical threshold relative to the cluster kernel value at the
+origin (parent location) determining when the cluster kernel
+will be considered neglible. A sensible default is provided.
+</p>
+</td></tr>
+<tr valign="top"><td><code>precision</code></td>
+<td>
+
+<p>Logical. If <code>precision=TRUE</code> the precision of the calculated
+range is returned as an attribute to the range. See details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a cluster model this function by default returns the effective
+range of the model with the given parameters as used in spatstat. For
+the Matern cluster model (see e.g. <code><a href="../help/rMatClust.html">rMatClust</a></code>) this is
+simply the finite radius of the offsring density given by the paramter
+<code>scale</code> irrespective of other options given to this function. The
+remaining models in spatstat have infinite theoretical range, and an
+effective finite value is given as follows: For the Thomas model (see
+e.g. <code><a href="../help/rThomas.html">rThomas</a></code> the default is <code>4*scale</code> where scale
+is the scale or standard deviation parameter of the model. If
+<code>thresh</code> is given the value is instead found as described for the
+other models below.
+</p>
+<p>For the Cauchy model (see e.g. <code><a href="../help/rCauchy.html">rCauchy</a></code>) and the Variance
+Gamma (Bessel) model (see e.g. <code><a href="../help/rVarGamma.html">rVarGamma</a></code>) the value of
+<code>thresh</code> defaults to 0.001, and then this is used to compute the
+range numerically as follows. If <i>k(x,y)=k0(r)</i>
+with <i>r=sqrt(x^2+y^2)</i>
+denotes the isotropic cluster kernel then <i>f(r) = 2 &pi; r k0(r)</i> is the
+density function of the offspring distance from the parent. The range
+is determined as the value of <i>r</i> where <i>f(r)</i> falls below
+<code>thresh</code> times <i>k0(r)</i>.
+</p>
+<p>If <code>precision=TRUE</code> the precision related to the chosen range is
+returned as an attribute. Here the precision is defined as the polar
+integral of the kernel from distance 0 to the calculated
+range. Ideally this should be close to the value 1 which would be
+obtained for the true theretical infinite range.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A positive numeric.
+</p>
+<p>Additionally, the precision related to this range value is returned as
+an attribute <code>"prec"</code>, if <code>precision=TRUE</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/clusterkernel.html">clusterkernel</a></code>, <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../help/rMatClust.html">rMatClust</a></code>, <code><a href="../help/rThomas.html">rThomas</a></code>,
+<code><a href="../help/rCauchy.html">rCauchy</a></code>,
+<code><a href="../help/rVarGamma.html">rVarGamma</a></code>, <code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  clusterradius("Thomas", scale = .1)
+  clusterradius("Thomas", scale = .1, thresh = 0.001)
+  clusterradius("VarGamma", scale = .1, nu = 2, precision = TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

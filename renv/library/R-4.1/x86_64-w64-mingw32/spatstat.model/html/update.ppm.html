@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update a Fitted Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for update.ppm {spatstat.model}"><tr><td>update.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update a Fitted Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p><code>update</code> method for class <code>"ppm"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppm'
+update(object, ..., fixdummy=TRUE, use.internal=NULL,
+                                      envir=environment(terms(object)))
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An existing fitted point process model,
+typically produced by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments to be updated in the new call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fixdummy</code></td>
+<td>
+
+<p>Logical flag indicating whether the quadrature scheme for the
+call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> should use the same set of dummy points
+as that in the original call.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.internal</code></td>
+<td>
+
+<p>Optional. Logical flag indicating whether the model should be
+refitted using the internally saved data (<code>use.internal=TRUE</code>)
+or by re-evaluating these data in the
+current frame (<code>use.internal=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+
+<p>Environment in which to re-evaluate the call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../stats/html/update.html">update</a></code>
+for the class <code>"ppm"</code>. An object of class <code>"ppm"</code>
+describes a fitted point process model. See <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>)
+for details of this class.
+</p>
+<p><code>update.ppm</code> will modify the point process model
+specified by <code>object</code> according to the new arguments given,
+then re-fit it.
+The actual re-fitting is performed by the model-fitting
+function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>If you are comparing several model fits to the same data,
+or fits of the same model to different data, it is
+strongly advisable to use <code>update.ppm</code>
+rather than trying to fit them by hand.
+This is because <code>update.ppm</code> re-fits the model
+in a way which is comparable to the original fit.
+</p>
+<p>The arguments <code>...</code> are matched to the formal arguments
+of <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> as follows.
+</p>
+<p>First, all the <em>named</em> arguments in <code>...</code> are matched
+with the formal arguments of <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+Use <code>name=NULL</code> to remove the argument <code>name</code> from the
+call.
+</p>
+<p>Second, any <em>unnamed</em> arguments in <code>...</code> are
+matched with formal arguments of <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> if the matching
+is obvious from the class of the object. Thus <code>...</code> may contain
+</p>
+
+<ul>
+<li>
+<p>exactly one argument of class <code>"ppp"</code> or <code>"quad"</code>,
+which will be interpreted as the named argument <code>Q</code>;
+</p>
+</li>
+<li>
+<p>exactly one argument of class <code>"formula"</code>, which will be
+interpreted as the named argument <code>trend</code> (or as specifying
+a change to the trend formula);
+</p>
+</li>
+<li>
+<p>exactly one argument of class <code>"interact"</code>, which will be
+interpreted as the named argument <code>interaction</code>;
+</p>
+</li>
+<li>
+<p>exactly one argument of class <code>"data.frame"</code>, which will be
+interpreted as the named argument <code>covariates</code>.
+</p>
+</li></ul>
+
+<p>The <code>trend</code> argument can be a formula that specifies a
+<em>change</em> to the current trend formula. For example, the
+formula <code>~ . + Z</code> specifies that the additional covariate
+<code>Z</code> will be added to the right hand side of the trend
+formula in the existing <code>object</code>.
+</p>
+<p>The argument <code>fixdummy=TRUE</code> ensures comparability of the
+objects before and after updating.
+When <code>fixdummy=FALSE</code>, calling <code>update.ppm</code>
+is exactly the same as calling <code>ppm</code> with the updated
+arguments. However, the original and updated models
+are not strictly comparable (for example, their pseudolikelihoods
+are not strictly comparable) unless they used the same set of dummy
+points for the quadrature scheme. Setting <code>fixdummy=TRUE</code>
+ensures that the re-fitting will be performed using the same set
+of dummy points. This is highly recommended.
+</p>
+<p>The value of <code>use.internal</code> determines where to find data
+to re-evaluate the model (data for the arguments mentioned in
+the original call to <code>ppm</code> that are not overwritten by
+arguments to <code>update.ppm</code>).
+</p>
+<p>If <code>use.internal=FALSE</code>, then arguments 
+to <code>ppm</code> are <em>re-evaluated</em> in the frame where you
+call <code>update.ppm</code>. This is like the behaviour of the
+other methods for <code><a href="../../stats/html/update.html">update</a></code>. This means that if you have changed
+any of the objects referred to in the call, these changes will be
+taken into account. Also if the original call to <code>ppm</code> included
+any calls to random number generators, these calls will be recomputed,
+so that you will get a different outcome of the random numbers.
+</p>
+<p>If <code>use.internal=TRUE</code>, then arguments to <code>ppm</code> are extracted
+from internal data stored inside the current fitted
+model <code>object</code>. This is useful if you don't want to 
+re-evaluate anything. It is also necessary if 
+if <code>object</code> has been restored from a dump file
+using <code><a href="../../base/html/load.html">load</a></code> or <code><a href="../../base/html/source.html">source</a></code>. In such cases,
+we have lost the environment in which <code>object</code> was fitted,
+and data cannot be re-evaluated.
+</p>
+<p>By default, if <code>use.internal</code> is missing, <code>update.ppm</code> will
+re-evaluate the arguments if this is possible, and use internal data
+if not.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another fitted point process model (object of class <code>"ppm"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  data(cells)
+
+  # fit the stationary Poisson process
+  fit &lt;- ppm(nztrees, ~ 1)
+
+  # fit a nonstationary Poisson process
+  fitP &lt;- update(fit, trend=~x)
+  fitP &lt;- update(fit, ~x)
+
+  # change the trend formula: add another term to the trend
+  fitPxy &lt;- update(fitP, ~ . + y)
+  # change the trend formula: remove the x variable
+  fitPy &lt;- update(fitPxy, ~ . - x)
+
+  # fit a stationary Strauss process
+  fitS &lt;- update(fit, interaction=Strauss(13))
+  fitS &lt;- update(fit, Strauss(13))
+
+  # refit using a different edge correction
+  fitS &lt;- update(fitS, correction="isotropic")
+
+  # re-fit the model to a subset
+  # of the original point pattern
+  nzw &lt;- owin(c(0,148),c(0,95))
+  nzsub &lt;- nztrees[,nzw]
+  fut &lt;- update(fitS, Q=nzsub)
+  fut &lt;- update(fitS, nzsub)
+
+  # WARNING: the point pattern argument is called 'Q'
+
+  ranfit &lt;- ppm(rpoispp(42), ~1, Poisson())
+  ranfit
+  # different random data!  
+  update(ranfit)
+  # the original data
+  update(ranfit, use.internal=TRUE)  
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

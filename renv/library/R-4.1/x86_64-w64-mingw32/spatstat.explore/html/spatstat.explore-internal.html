@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal spatstat.explore functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.explore-internal {spatstat.explore}"><tr><td>spatstat.explore-internal {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal spatstat.explore functions</h2>
+
+<h3>Description</h3>
+
+<p>Internal spatstat.explore functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+## S3 method for class 'localpcfmatrix'
+x[i, ...]
+## S3 method for class 'rat'
+x[...]
+adjust.ratfv(f, columns, numfactor, denfactor)
+ang2rad(ang, unit, start, clockwise)
+## S3 method for class 'bw.optim'
+as.data.frame(x, ...)
+## S3 method for class 'fv'
+as.data.frame(x, ...)
+assemble.plot.objects(xlim, ylim, ..., lines, polygon)
+bandwidth.is.infinite(sigma)
+BartCalc(fY, fK)
+bermantestCalc(fram, which, alternative, ...)
+bermantestEngine(model, covariate, which, alternative, ...,
+                 modelname, covname, dataname)
+bind.ratfv(x, numerator, denominator, labl, desc, preferred,
+           ratio, quotient)
+bw.optim(cv, h, iopt, ..., cvname, hname, criterion,
+         optimum, warnextreme, hargnames, yexp, unitname,
+         template, exponent, hword)
+calc.DR(COV, z, Dim)
+calc.NNIR(COV, z, pos, Dim)
+calc.SAVE(COV, z, Dim)
+calc.SIR(COV, z)
+calc.TSE(COV, z, pos, Dim1, Dim2)
+censtimeCDFest(o, cc, d, breaks, ...,
+     KM, RS, HAN, RAW, han.denom, tt, pmax, fname, fexpr)
+check.testfun(f, f1, X)
+circticks(R, at, unit, start, clockwise, labels)
+clarkevansCalc(X, correction, clipregion, working)
+## S3 method for class 'rat'
+compatible(A, B, ...)
+conform.ratfv(x)
+CressieReadStatistic(OBS,EXP,lambda,normalise,named)
+CressieReadSymbol(lambda)
+CressieReadName(lambda)
+cutoff2Dkernel(kernel, sigma, varcov, ..., scalekernel, cutoff, fatal)
+CVforPCF(bw, stuff)
+Deviation(x, ref, leaveout, n, xi)
+densitycrossEngine(Xdata, Xquery, sigma, ...,
+                    kernel, scalekernel,
+                    weights, edge, varcov,
+                    diggle, sorted, cutoff,
+                    se, kerpow)
+densitypointsEngine(x, sigma, ...,
+                    kernel, scalekernel, kerpow,
+                    weights, edge, varcov,
+                    leaveoneout, diggle, sorted, spill, cutoff,
+                    debug)
+digestCovariates(..., W)
+digital.volume(range, nval, vside)
+## S3 method for class 'fasp'
+dim(x)
+## S3 method for class 'fasp'
+dimnames(x)
+## S3 replacement method for class 'fasp'
+dimnames(x) &lt;- value
+distributecbind(x)
+ensure.listarg(x, n, singletypes, xtitle, things)
+envelopeEngine(X, fun, simul,
+           nsim, nrank, ..., funargs, funYargs,
+           verbose, clipdata, 
+           transform, global, ginterval, use.theory,
+           alternative, scale, clamp,
+           savefuns, savepatterns, saveresultof,
+           weights,
+           nsim2, VARIANCE, nSD,
+           Yname,
+           maxnerr, rejectNA, silent, maxerr.action,
+           internal, cl,
+           envir.user, expected.arg, do.pwrong,
+           foreignclass, collectrubbish)
+envelopeProgressData(X, fun, ..., exponent,
+                     alternative, leaveout, scale, clamp,
+                     normalize, deflate, rmin, 
+                     save.envelope, savefuns, savepatterns)
+envelopeTest(X, ..., exponent, alternative,
+            rinterval, leaveout, scale, clamp, tie.rule,
+            interpolate, save.interpolant,
+            save.envelope, savefuns, savepatterns,
+            Xname, badXfatal, verbose)
+## S3 method for class 'hasenvelope'
+envelope(Y, ..., Yname)
+## S3 method for class 'matrix'
+envelope(Y, ..., argvals, rvals,
+  observed, theory, funX, nsim, nsim2, jsim, jsim.mean,
+  type, alternative, scale, clamp, csr, use.theory, nrank, ginterval, nSD,
+  savefuns, check, Yname, argname, arg.desc,
+  do.pwrong, weights, precomputed, gaveup)
+evaluateCovariate(covariate, locations, ...)
+evaluateCovariateAtPixels(covariate, locations, ...,
+                          types, eps, dimyx, rule.eps)
+evaluateCovariateAtPoints(covariate, locations, ..., allow.column)
+evaluate2Dkernel(kernel, x, y, sigma, varcov, ..., scalekernel)
+ExpSmoothLog(X, ..., at, weights, se)
+exactppm(X, baseline, ..., subset, eps, dimyx, rule.eps)
+extractAtomicQtests(x)
+fasp(fns, which, formulae, dataname, title, rowNames, colNames, checkfv)
+f3engine(x, y, z, box, vside, range, nval, correction)
+f3Cengine(x, y, z, box, vside, rmax, nrval)
+findbestlegendpos(...)
+findcbind(root, depth, maxdepth)
+flatfname(x)
+FormatFaspFormulae(f, argname)
+fvexprmap(x)
+fvlabels(x, expand=FALSE)
+fvlabels(x) &lt;- value
+fvlabelmap(x, dot=TRUE)
+fvlegend(object, elang)
+g3engine(x, y, z, box, rmax, nrval, correction)
+g3Cengine(x, y, z, box, rmax, nrval)
+getSumFun(abbreviation, classname, ismarked, fatal)
+good.correction.K(X)
+hasenvelope(X, E)
+implemented.for.K(correction, windowtype, explicit)
+is.atomicQtest(x)
+## S3 method for class 'exactppm'
+is.poisson(x)
+is.scov(x)
+## S3 method for class 'exactppm'
+is.stationary(x)
+k3engine(x, y, z, box, rmax, nrval, correction)
+Kborder.engine(X, rmax, nr, correction, weights, ratio)
+Knone.engine(X, rmax, nr, weights, ratio)
+Krect.engine(X, rmax, nr, correction, weights,
+             ratio, fname, use.integers)
+Kount(dIJ, bI, b, breaks)
+Kwtsum(dIJ, bI, wIJ, b, w, breaks, fatal)
+localKengine(X, ..., wantL, lambda, rmax, correction, verbose, rvalue)
+localKmultiEngine(X, from, to,
+           lambdaFrom, lambdaTo, ..., rmax, wantL,
+           correction, verbose, rvalue, sigma, varcov,
+           lambdaX, update, leaveoneout,
+           Iexplain, Jexplain, Ikey, Jkey)
+localpcfengine(X, ..., delta, rmax, nr, stoyan, lambda, rvalue)
+localpcfmatrix(X, i, ..., lambda, delta, rmax, nr, stoyan)
+lookup2DkernelInfo(kernel)
+makefvlabel(op, accent, fname, sub, argname)
+maskLaslett(X, ..., eps, dimyx, xy, rule.eps, oldX, verbose, plotit)
+match2DkernelName(kernel)
+mctestSigtraceEngine(R, devdata, devsim, ...,
+     interpolate, confint, alpha, exponent, unitname)
+meanlistfv(z, ...)
+## S3 replacement method for class 'fv'
+names(x) &lt;- value
+nncleanEngine(kthNND, k, d, ..., tol, maxit,
+              plothist, lineargs, verbose, Xname)
+## S3 method for class 'listof'
+pairs(..., plot=TRUE)
+## S3 method for class 'solist'
+pairs(..., plot=TRUE)
+pcf3engine(x, y, z, box, rmax, nrval, correction, delta)
+pcfmulti.inhom(X, I, J, lambdaI, lambdaJ, ...,
+               lambdaX, r, breaks, kernel,
+               bw, adjust.bw, stoyan, correction,
+               sigma, adjust.sigma, varcov, update, leaveoneout, 
+               Iname, Jname)
+## S3 method for class 'bw.frac'
+plot(x, ...)
+## S3 method for class 'bw.optim'
+plot(x, ..., showopt, optargs)
+## S3 method for class 'localpcfmatrix'
+plot(x, ...)
+## S3 method for class 'plotpairsim'
+plot(x, ...)
+## S3 method for class 'spatialcdf'
+plot(x, ..., xlab, ylab, do.points)
+polyLaslett(X, ..., oldX, verbose, plotit)
+## S3 method for class 'exactppm'
+predict(object, locations, ..., eps, dimyx, rule.eps)
+prefixfv(x, tagprefix, descprefix, lablprefix, whichtags)
+## S3 method for class 'bw.frac'
+print(x, ...)
+## S3 method for class 'bw.optim'
+print(x, ...)
+## S3 method for class 'densityfun'
+print(x, ...)
+## S3 method for class 'envelope'
+print(x, ...)
+## S3 method for class 'exactppm'
+print(x, ...)
+## S3 method for class 'fasp'
+print(x, ...)
+## S3 method for class 'fv'
+print(x, ..., tight)
+## S3 method for class 'fvfun'
+print(x, ...)
+## S3 method for class 'hasenvelope'
+print(x, ...)
+## S3 method for class 'laslett'
+print(x, ...)
+## S3 method for class 'localpcfmatrix'
+print(x, ...)
+## S3 method for class 'plotpairsim'
+print(x, ...)
+## S3 method for class 'quadrattest'
+print(x, ...)
+## S3 method for class 'rat'
+print(x, ...)
+## S3 method for class 'Smoothfun'
+print(x, ...)
+## S3 method for class 'summary.bw.optim'
+print(x, ..., digits)
+## S3 method for class 'summary.ssf'
+print(x, ...)
+quadrat.testEngine(X, nx, ny, alternative, method, conditional, CR, 
+     ..., nsim, Xcount, xbreaks, ybreaks, tess, fit, df.est, Xname, fitname)
+ratfv(df, numer, denom, ..., ratio)
+rebadge.as.crossfun(x, main, sub, i, j)
+rebadge.as.dotfun(x, main, sub, i)
+rebadge.fv(x, new.ylab, new.fname, tags, new.desc, new.labl, new.yexp,
+           new.dotnames, new.preferred, new.formula, new.tags)
+rebadgeLabels(x, new.fname)
+reconcile.fv(...)
+RelevantDeviation(x, alternative, clamp, scaling)
+rename.fv(x, fname, ylab, yexp)
+resolve.2D.kernel(...,
+            sigma, varcov, x, mindist, adjust, bwfun, allow.zero)
+resolve.foxall.window(X, Y, W, warn.trim)
+resolve.lambda(X, lambda, ...)
+## S3 method for class 'ppp'
+resolve.lambda(X, lambda, ...,
+               sigma, varcov, leaveoneout, update, check)
+resolve.lambdacross(X, I, J, lambdaI, lambdaJ, ...)
+## S3 method for class 'ppp'
+resolve.lambdacross(X, I, J, lambdaI, lambdaJ, ...,
+         lambdaX, sigma, varcov, leaveoneout, update, lambdaIJ,
+         Iexplain, Jexplain)
+resolve.reciplambda(X, lambda, reciplambda, ...)
+## S3 method for class 'ppp'
+resolve.reciplambda(X, lambda, reciplambda, ...,
+                    sigma, varcov, leaveoneout, update, check)
+resolveEinfo(x, what, fallback, warn, atomic)
+rhohatEngine(model, covariate, reference, volume, ...,
+               subset, weights, method, horvitz, smoother,
+               resolution, spatCovarArgs,
+               n, bw, adjust, from, to, 
+               bwref, covname, covunits, confidence,
+               breaks,
+               modelcall, callstring)
+rhohatCalc(ZX, Zvalues, lambda, denom, ...,
+           weights, lambdaX,
+           method, horvitz, smoother, do.CI, 
+           n, bw, adjust, from, to, 
+           bwref, covname, confidence, breaks, positiveCI, markovCI,
+           covunits, modelcall, callstring, savestuff)
+rmax.Rigid(X, g)
+rmax.rule(fun, W, lambda)
+rocData(covariate, nullmodel, ..., high, p)
+rocModel(lambda, nullmodel, ..., high, p)
+roseContinuous(ang, rad, unit, ...,
+               start, clockwise, main, labels, at, do.plot)
+scanmeasure(X, ...)
+## S3 method for class 'ppp'
+scanmeasure(X, r, ..., method) 
+## S3 method for class 'im'
+scanmeasure(X, r, ...)
+scanPoisLRTS(nZ, nG, muZ, muG, alternative)
+scanBinomLRTS(nZ, nG, muZ, muG, alternative)
+second.moment.calc(x, sigma, edge, what, ...,
+                   varcov, expand, obswin, npts, debug)
+second.moment.engine(x, sigma, edge, what, ...,
+      kernel, scalekernel, kerpow,
+      obswin, varcov, npts, debug, fastgauss)
+sewpcf(d, w, denargs, lambda2area, divisor)
+sewsmod(d, ff, wt, Ef, rvals, method="smrep", ..., nwtsteps=500)
+## S3 method for class 'quadrattest'
+shift(X, ...)
+simulrecipe(type, expr, envir, csr, pois, constraints)
+## S3 method for class 'fv'
+StieltjesCalc(M, f, ...)
+## S3 method for class 'solist'
+Smooth(X, ...)
+smoothcrossEngine(Xdata, Xquery, values, sigma, ...,
+                    weights, varcov,
+                    kernel, scalekernel, sorted, cutoff)
+smoothpointsEngine(x, values, sigma, ...,
+                   kernel, scalekernel,
+                   weights, varcov, leaveoneout, sorted, cutoff, debug)
+spatialCDFframe(model, covariate, ..., jitter, covariateAtPoints,
+                make.quantile.function)
+spatialCDFtest(model, covariate, test, ...,
+         dimyx, eps, rule.eps, interpolate, jitter,
+         nsim, verbose, modelname, covname, dataname)
+spatialCDFtestCalc(fra, test, ..., details)
+spatialCovariateEvidence(model, covariate, ...)
+## S3 method for class 'exactppm'
+spatialCovariateEvidence(model, covariate, ..., lambdatype,
+          dimyx, eps, rule.eps, interpolate, jitter, jitterfactor,
+          modelname, covname, dataname, subset, clip.predict) 
+## S3 method for class 'ppp'
+spatialCovariateEvidence(model, covariate, ..., lambdatype,
+          dimyx, eps, rule.eps, interpolate, jitter, jitterfactor,
+          modelname, covname, dataname, subset, clip.predict)
+sphere.volume(range, nval = 10)
+## S3 method for class 'bw.optim'
+summary(object, ...)
+## S3 method for class 'envelope'
+summary(object,...)
+tweak.fv.entry(x, current.tag, new.labl, new.desc, new.tag)
+tweak.ratfv.entry(x, ...)
+twostage.test(X, ..., exponent, nsim, nsimsub,
+              alternative, reuse, leaveout, interpolate,
+              savefuns, savepatterns, verbose, badXfatal, testblurb)
+twostage.envelope(X, ..., nsim, nsimsub, nrank,
+                  alternative, reuse, leaveout, interpolate,
+                  savefuns, savepatterns, verbose, badXfatal, testlabel)
+updateData(model, X, ...)
+## Default S3 method:
+updateData(model, X, ..., warn)
+validate2Dkernel(kernel, fatal)
+validate.angles(angles, unit, guess)
+validate.weights(x, recip, how, allowzero, allowinf)
+vanilla.fv(x)
+weightedclosepairs(X, r, correction, what)
+X2testEngine(OBS, EXP, ..., method, CR, df, nsim,
+     conditional, alternative, testname, dataname)
+
+
+
+
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These internal <span class="pkg">spatstat.explore</span> functions should not be called
+directly by the user. Their names and capabilities may change
+without warning from one version of <span class="pkg">spatstat.explore</span> to the next.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return values of these functions are not documented,
+and may change without warning.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

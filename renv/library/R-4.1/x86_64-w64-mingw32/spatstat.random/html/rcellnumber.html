@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Random Numbers of Points for Cell Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rcellnumber {spatstat.random}"><tr><td>rcellnumber {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Generate Random Numbers of Points for Cell Process
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates random integers for the Baddeley-Silverman counterexample.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rcellnumber(n, N = 10, mu=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of random integers to be generated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>N</code></td>
+<td>
+
+<p>Distributional parameter: the largest possible value
+(when <code>mu &lt;= 1</code>).
+An integer greater than 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean of the distribution (equals the variance).
+Any positive real number.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>mu = 1</code> (the default),
+this function generates random integers which have mean and variance
+equal to 1, but which do not have a Poisson distribution. 
+The random integers take the values <i>0</i>, <i>1</i> and <i>N</i>
+with probabilities <i>1/N</i>, <i>(N-2)/(N-1)</i> and <i>1/(N(N-1))</i>
+respectively.
+See Baddeley and Silverman (1984).
+</p>
+<p>If <code>mu</code> is another positive number, the random integers will
+have mean and variance equal to <code>mu</code>. They are obtained by
+generating the
+one-dimensional counterpart of the cell process and counting the
+number of points in the interval from <code>0</code> to <code>mu</code>. The
+maximum possible value of each random integer is <code>N * ceiling(mu)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer vector of length <code>n</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J. and Silverman, B.W. (1984)
+A cautionary example on the use of second-order methods for analyzing
+point patterns. <em>Biometrics</em> <b>40</b>, 1089-1094.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rcell.html">rcell</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   rcellnumber(30, 3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

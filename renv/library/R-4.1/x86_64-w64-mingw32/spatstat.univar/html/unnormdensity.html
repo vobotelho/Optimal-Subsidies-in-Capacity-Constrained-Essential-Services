@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Weighted kernel smoother</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for unnormdensity {spatstat.univar}"><tr><td>unnormdensity {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Weighted kernel smoother
+</h2>
+
+<h3>Description</h3>
+
+<p>An unnormalised version of kernel density estimation
+where the weights are not required to sum to 1.
+The weights may be positive, negative or zero.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+unnormdensity(x, ..., weights = NULL, defaults)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Numeric vector of data
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>.
+Arguments must be <em>named</em>.
+</p>
+</td></tr></table>
+<p>'
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional numeric vector of weights for the data.
+The default is equivalent to assuming a weight of 1 for each observation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>defaults</code></td>
+<td>
+
+<p>Optional, named list of arguments passed to
+<code><a href="../../stats/help/density.default.html">density.default</a></code>. These will be overridden by
+arguments in <code>...</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is an alternative to the standard <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> kernel density estimation function
+<code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+<p>The standard <code><a href="../../stats/help/density.default.html">density.default</a></code>
+requires the <code>weights</code> to be nonnegative numbers that add up to 1,
+and returns a probability density (a function that integrates to 1).
+</p>
+<p>This function <code>unnormdensity</code> does not impose any requirement
+on the <code>weights</code> except that they be finite. Individual weights may be
+positive, negative or zero. The result is a function that does not
+necessarily integrate to 1 and may be negative. The result is
+the convolution of the kernel <i>k</i> with the weighted data,
+</p>
+<p style="text-align: center;"><i>
+    f(x) = sum of w[i] * k(x - x[i])
+  </i></p>
+
+<p>where <i>x[i]</i> are the data points and <i>w[i]</i> are the
+weights.
+</p>
+<p>The argument <code>weights</code> should be a numeric vector of the same
+length as <code>x</code>, or a single numeric value. The default is to
+assume a weight of 1 for each observation in <code>x</code>.
+</p>
+<p>The algorithm first selects the kernel bandwidth by
+applying <code><a href="../../stats/help/density.default.html">density.default</a></code> to the data
+<code>x</code> with normalised, positive weight vector
+<code>w = abs(weights)/sum(abs(weights))</code> and
+extracting the selected bandwidth.
+Then the result is computed by applying
+applying <code><a href="../../stats/help/density.default.html">density.default</a></code> to <code>x</code> twice
+using the normalised positive and negative parts of the weights.
+</p>
+<p>Note that the arguments <code>...</code> must be passed by name,
+i.e. in the form (<code>name=value</code>). Arguments that do not match
+an argument of <code><a href="../../stats/help/density.default.html">density.default</a></code> will be ignored
+<em>silently</em>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"density"</code> as described in
+<code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>If <code>weights</code> is not specified,
+the default is to assign a weight <i>w[i]=1</i> to each
+observation <i>x[i]</i>.
+</p>
+<p>This is not the same behaviour as in <code><a href="../../stats/html/density.html">density.default</a></code> which
+effectively assumes a weight of <i>1/n</i> for each observation <i>x[i]</i>
+where <code>n=length(x)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/density.default.html">density.default</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  d &lt;- unnormdensity(1:3, weights=c(-1,0,1), bw=0.3)
+  if(interactive()) plot(d)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

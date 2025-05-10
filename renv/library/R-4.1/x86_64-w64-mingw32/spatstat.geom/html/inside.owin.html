@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether Points Are Inside A Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for inside.owin {spatstat.geom}"><tr><td>inside.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test Whether Points Are Inside A Window</h2>
+
+<h3>Description</h3>
+
+<p>Test whether points lie inside or outside
+a given window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ inside.owin(x, y, w)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Vector of <i>x</i> coordinates of points to be tested.
+(Alternatively, a point pattern object providing both
+<i>x</i> and <i>y</i> coordinates.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>Vector of <i>y</i> coordinates of points to be tested.
+</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>A window.
+This should be an object of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+or can be given in any format acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a>()</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function tests whether each of the points 
+<code>(x[i],y[i])</code> lies inside or outside
+the window <code>w</code> and returns <code>TRUE</code> if it is inside.
+</p>
+<p>The boundary of the window is treated as being inside.
+</p>
+<p>If <code>w</code> is of type <code>"rectangle"</code> or 
+<code>"polygonal"</code>, the algorithm uses analytic geometry
+(the discrete Stokes theorem).
+Computation time is linear in the number of points
+and (for polygonal windows) in the number of vertices of the
+boundary polygon. Boundary cases are correct to single
+precision accuracy.
+</p>
+<p>If <code>w</code> is of type <code>"mask"</code> then the 
+pixel closest to <code>(x[i],y[i])</code> is tested. The
+results may be incorrect for points lying within 
+one pixel diameter of the window boundary.
+</p>
+<p>Normally <code>x</code> and <code>y</code> must be numeric vectors of
+equal length (length zero is allowed) containing the coordinates
+of points. Alternatively <code>x</code>
+can be a point pattern (object of class <code>"ppp"</code>) while <code>y</code>
+is missing; then the coordinates of the point pattern are extracted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical vector whose <code>i</code>th entry is 
+<code>TRUE</code> if the corresponding point <code>(x[i],y[i])</code>
+is inside <code>w</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # hexagonal window
+  k &lt;- 6
+  theta &lt;- 2 * pi * (0:(k-1))/k
+  co &lt;- cos(theta)
+  si &lt;- sin(theta)
+  mas &lt;- owin(c(-1,1), c(-1,1), poly=list(x=co, y=si))
+  if(human &lt;- interactive()) {
+  plot(mas)
+  }
+
+  # random points in rectangle
+  x &lt;- runif(30,min=-1, max=1)
+  y &lt;- runif(30,min=-1, max=1)
+
+  ok &lt;- inside.owin(x, y, mas)
+
+  if(human) {
+  points(x[ok], y[ok])
+  points(x[!ok], y[!ok], pch="x")
+  }  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

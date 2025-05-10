@@ -1,0 +1,89 @@
+a9298de49018795158ffb5bb90108c29 *DESCRIPTION
+d6d9362d95ede8532a9798a8a88c6c66 *INDEX
+1ee0683cce6d3479250337954c075d63 *LICENSE
+824d7ce632b81e07874201adfe544e7a *Meta/Rd.rds
+c8440c06be5e093e05779d74c0ffa6b7 *Meta/features.rds
+f292de7a71ab41c88bceb487d27ef974 *Meta/hsearch.rds
+a5831aec3888662ad4a8824a11763e9e *Meta/links.rds
+9b6a0cf5ff29a1f3a86f844c5c69d0df *Meta/nsInfo.rds
+41cd9a7f51e1f7f2f8447dc57d1b585b *Meta/package.rds
+a4679a72b9e3d5f8c1de28b08b7fb418 *Meta/vignette.rds
+2d565b05b44828688c19e56c3b9d276c *NAMESPACE
+10d0733f02c7db9aa305d9bcce305c77 *NEWS
+d6c68f1fe41ced6e98a766a3757313da *R/sodium
+e7367f240ceee59c17be5dea9f139a54 *R/sodium.rdb
+6f82487a35136756739ec3288957ec06 *R/sodium.rdx
+1d23262332c6890c4168d0e76ce1be10 *doc/crypto101.R
+6f6e78c2093a31a5018f2eb7bbe62cbc *doc/crypto101.html
+0a0a32751fa2a4b540d77d37f6aee55b *doc/crypto101.rmd
+cdc99a225d4c44af96daec7a8353bd58 *doc/index.html
+49a4f7f62cb5ed6e939d1e5f0d4cb65c *doc/intro.R
+99fe0a14dc2e877ae4f656687ffbb7f2 *doc/intro.html
+84ad0cef3074919cc6ac312b0a7d6431 *doc/intro.rmd
+b5c9c5248adb00ce4a5c4970e2693cf2 *help/AnIndex
+cd50ea4ae7c7a77d1c99103f660d65eb *help/Authenticated encryption.html
+c01b86695659f1f34c8b00389fb2a939 *help/Diffie-Hellman.html
+dd593570da6a92a635061fc3e038eb35 *help/Hash functions.html
+5bf669e1da6849672f8be6c6eab503a3 *help/Key generation.html
+3c8c4a0cd426aa7454e9143db693d641 *help/Password storage.html
+7a8c8ed60f996deb2b973a77dad06b85 *help/Signatures.html
+52ca1751ad6b9a565b9591dc1c73b141 *help/Simple encryption.html
+eb735240f4b8519e58505fa254d99d2f *help/Sodium utilities.html
+4500066cbc5033cd13fc8b501e89a135 *help/Stream ciphers.html
+b64dc21078869cb9f95872a8d8efdac0 *help/Symmetric encryption.html
+41aaa6b39d0a081764c9dd80d424f66d *help/aliases.rds
+dd593570da6a92a635061fc3e038eb35 *help/argon2.html
+cd50ea4ae7c7a77d1c99103f660d65eb *help/auth_decrypt.html
+cd50ea4ae7c7a77d1c99103f660d65eb *help/auth_encrypt.html
+eb735240f4b8519e58505fa254d99d2f *help/bin2hex.html
+4500066cbc5033cd13fc8b501e89a135 *help/chacha20.html
+b64dc21078869cb9f95872a8d8efdac0 *help/data_decrypt.html
+b64dc21078869cb9f95872a8d8efdac0 *help/data_encrypt.html
+b64dc21078869cb9f95872a8d8efdac0 *help/data_tag.html
+c01b86695659f1f34c8b00389fb2a939 *help/diffie.html
+c01b86695659f1f34c8b00389fb2a939 *help/diffie_hellman.html
+dd593570da6a92a635061fc3e038eb35 *help/hash.html
+dd593570da6a92a635061fc3e038eb35 *help/hashing.html
+eb735240f4b8519e58505fa254d99d2f *help/helpers.html
+eb735240f4b8519e58505fa254d99d2f *help/hex2bin.html
+5bf669e1da6849672f8be6c6eab503a3 *help/keygen.html
+cd50ea4ae7c7a77d1c99103f660d65eb *help/messaging.html
+3c8c4a0cd426aa7454e9143db693d641 *help/password.html
+3c8c4a0cd426aa7454e9143db693d641 *help/password_store.html
+3c8c4a0cd426aa7454e9143db693d641 *help/password_verify.html
+1841f0eef17e3496c7fd511b497941e7 *help/paths.rds
+5bf669e1da6849672f8be6c6eab503a3 *help/pubkey.html
+eb735240f4b8519e58505fa254d99d2f *help/random.html
+4500066cbc5033cd13fc8b501e89a135 *help/salsa20.html
+dd593570da6a92a635061fc3e038eb35 *help/scrypt.html
+dd593570da6a92a635061fc3e038eb35 *help/sha256.html
+dd593570da6a92a635061fc3e038eb35 *help/sha512.html
+dd593570da6a92a635061fc3e038eb35 *help/shorthash.html
+7a8c8ed60f996deb2b973a77dad06b85 *help/sig.html
+7a8c8ed60f996deb2b973a77dad06b85 *help/sig_keygen.html
+7a8c8ed60f996deb2b973a77dad06b85 *help/sig_pubkey.html
+7a8c8ed60f996deb2b973a77dad06b85 *help/sig_sign.html
+7a8c8ed60f996deb2b973a77dad06b85 *help/sig_verify.html
+52ca1751ad6b9a565b9591dc1c73b141 *help/simple.html
+52ca1751ad6b9a565b9591dc1c73b141 *help/simple_decrypt.html
+52ca1751ad6b9a565b9591dc1c73b141 *help/simple_encrypt.html
+11dc9abcf488015d4bb31adaebd42e03 *help/sodium.rdb
+30d9fdad0f2fcfa0bf058d31510f130b *help/sodium.rdx
+4500066cbc5033cd13fc8b501e89a135 *help/stream.html
+b64dc21078869cb9f95872a8d8efdac0 *help/symmetric.html
+4500066cbc5033cd13fc8b501e89a135 *help/xchacha20.html
+4500066cbc5033cd13fc8b501e89a135 *help/xsalsa20.html
+4978889a2faebdd82f37131006bac732 *html/00Index.html
+b6763e6916890c631fdc3f2643803b1a *html/R.css
+64bca69fa34af68aed5e971a94fd0277 *html/diffie.html
+9b123098dafe131b6591b97821488b26 *html/hash.html
+39f96aee93361143702045118f817a82 *html/helpers.html
+5e48f5f7a4253c09746ac3a408011fef *html/keygen.html
+665d8a75f847afa828d0b62131fb9564 *html/messaging.html
+26aa6e1a69738fe6b0d7a4b4905413a4 *html/password.html
+750f1ddd9a670e4b88a2e799b4f2d0f2 *html/sig.html
+660a8714776aa5d088cbbb63969a5170 *html/simple.html
+63243cdae871347e7ea6a2a67f000940 *html/stream.html
+b24e481b9bb74d8e95df91b79bd05381 *html/symmetric.html
+225e17865cd6ad55321a21c508e01e2e *libs/i386/sodium.dll
+84ef6d6eac2bd9777ed53d20255f9f50 *libs/x64/sodium.dll

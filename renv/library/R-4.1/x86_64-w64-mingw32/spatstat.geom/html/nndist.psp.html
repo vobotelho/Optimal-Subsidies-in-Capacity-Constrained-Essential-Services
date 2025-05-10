@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest neighbour distances between line segments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nndist.psp {spatstat.geom}"><tr><td>nndist.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nearest neighbour distances between line segments</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distance from each line segment 
+to its nearest neighbour in a line segment pattern.
+Alternatively finds the distance to the second nearest,
+third nearest etc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'psp'
+nndist(X, ..., k=1, method="C")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer, or integer vector. The algorithm will compute the distance to the
+<code>k</code>th nearest neighbour. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String specifying which method of calculation to use.
+Values are <code>"C"</code> and <code>"interpreted"</code>.
+Usually not specified.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>
+for the class <code>"psp"</code>.
+</p>
+<p>If <code>k=1</code>, this function computes the distance from each line segment 
+to the nearest other line segment in <code>X</code>.
+In general it computes the distance from each line segment to the
+<code>k</code>th nearest other line segment.
+The argument <code>k</code> can also be a vector, and this computation will
+be performed for each value of <code>k</code>.
+</p>
+<p>Distances are calculated using the Hausdorff metric. The Hausdorff
+distance between two line segments is the maximum distance
+from any point on one of the segments to the nearest point on
+the other segment.   
+</p>
+<p>If there are fewer than <code>max(k)+1</code> line segments in the pattern,
+some of the nearest neighbour distances will be infinite (<code>Inf</code>).
+</p>
+<p>The argument <code>method</code> is not normally used. It is
+retained only for checking the validity of the software.
+If <code>method = "interpreted"</code> then the distances are
+computed using interpreted <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code only. If <code>method="C"</code>
+(the default) then compiled <code>C</code> code is used.
+The <code>C</code> code is somewhat faster.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector or matrix containing the 
+nearest neighbour distances for each line segment.
+</p>
+<p>If <code>k = 1</code> (the default), the return value is a
+numeric vector <code>v</code> such that <code>v[i]</code> is the
+nearest neighbour distance for the <code>i</code>th segment.
+</p>
+<p>If <code>k</code> is a single integer, then the return value is a
+numeric vector <code>v</code> such that <code>v[i]</code> is the
+<code>k</code>th nearest neighbour distance for the
+<code>i</code>th segment.
+</p>
+<p>If <code>k</code> is a vector, then the return value is a
+matrix <code>m</code> such that <code>m[i,j]</code> is the
+<code>k[j]</code>th nearest neighbour distance for the
+<code>i</code>th segment.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by <code>nndist(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>nndist(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.ppp.html">nndist.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   L &lt;- psp(runif(10), runif(10), runif(10), runif(10), owin())
+   D &lt;- nndist(L)
+   D &lt;- nndist(L, k=1:3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

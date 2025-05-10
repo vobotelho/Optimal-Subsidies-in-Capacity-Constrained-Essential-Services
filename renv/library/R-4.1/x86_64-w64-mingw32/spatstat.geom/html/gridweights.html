@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Quadrature Weights Based on Grid Counts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for gridweights {spatstat.geom}"><tr><td>gridweights {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Quadrature Weights Based on Grid Counts</h2>
+
+<h3>Description</h3>
+
+<p>Computes quadrature weights for a given set of points,
+using the &ldquo;counting weights&rdquo; for a grid of rectangular tiles.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ gridweights(X, ntile, ..., window=NULL, verbose=FALSE, npix=NULL, areas=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Data defining a point pattern.</p>
+</td></tr>
+<tr valign="top"><td><code>ntile</code></td>
+<td>
+<p>Number of tiles
+in each row and column of the rectangular grid.
+An integer vector of length 1 or 2.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+<p>Default window for the point pattern</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Logical flag. If <code>TRUE</code>, information will be printed
+about the computation of the grid weights.
+</p>
+</td></tr>
+<tr valign="top"><td><code>npix</code></td>
+<td>
+<p>Dimensions of pixel grid to use when
+computing a digital approximation to the tile areas.
+</p>
+</td></tr>
+<tr valign="top"><td><code>areas</code></td>
+<td>
+<p>Vector of areas of the tiles, if they are already known.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes a set of quadrature weights
+for a given pattern of points
+(typically comprising both &ldquo;data&rdquo; and 'dummy&rdquo; points).
+See <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code> for an explanation of quadrature
+weights and quadrature schemes.
+</p>
+<p>The weights are computed by the &ldquo;counting weights&rdquo; rule
+based on a regular grid of rectangular tiles.
+First <code>X</code> and (optionally) <code>window</code> are converted into a
+point pattern object. Then the bounding rectangle of the window of
+the point pattern is
+divided into a regular <code>ntile[1] * ntile[2]</code> grid of rectangular tiles.
+The weight attached to a point of <code>X</code> is the area of the tile
+in which it lies, divided by the number of points of <code>X</code> lying in
+that tile.
+</p>
+<p>For non-rectangular windows the tile areas are currently calculated
+by approximating the window as a binary mask. The accuracy of this
+approximation is controlled by <code>npix</code>, which becomes
+the argument <code>dimyx</code> of <code><a href="../help/as.mask.html">as.mask</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Vector of nonnegative weights for each point in <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.geom/help/dirichletWeights.html">dirichletWeights</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Q &lt;- quadscheme(runifrect(15))
+  X &lt;- as.ppp(Q) # data and dummy points together
+  w &lt;- gridweights(X, 10)
+  w &lt;- gridweights(X, c(10, 10))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ponderosa Pine Tree Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ponderosa {spatstat.data}"><tr><td>ponderosa {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Ponderosa Pine Tree Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>The data record the locations of 108 Ponderosa Pine
+(<em>Pinus ponderosa</em>) trees in a 120 metre square region in the Klamath
+National Forest in northern California, published as Figure 2 of
+Getis and Franklin (1987).
+</p>
+<p>Franklin et al. (1985) determined the locations of approximately 5000
+trees from United States Forest Service aerial photographs and
+digitised them for analysis. Getis and Franklin (1987) selected a 120
+metre square subregion that appeared to exhibit clustering. This subregion
+is the <code>ponderosa</code> dataset.
+</p>
+<p>In principle these data are equivalent to
+Figure 2 of Getis and Franklin (1987) but they are not exactly
+identical; some of the spatial locations appear to be slightly
+perturbed.
+</p>
+<p>The data points identified as A, B, C on Figure 2 of Getis and Franklin
+(1987) correspond to points numbered 42, 7 and 77 in the dataset
+respectively.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(ponderosa)</pre>
+
+
+<h3>Format</h3>
+
+<p>Typing <code>data(ponderosa)</code> gives access to two objects,
+<code>ponderosa</code> and <code>ponderosa.extra</code>.
+</p>
+<p>The dataset <code>ponderosa</code> is a spatial point pattern 
+(object of class <code>"ppp"</code>)
+representing the point pattern of tree positions.
+See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format.
+Spatial coordinates are given in metres.
+</p>
+<p>The dataset <code>ponderosa.extra</code> is a list containing supplementary
+data. The entry <code>id</code> contains the index numbers of the
+three special points A, B, C in the point pattern. The entry
+<code>plotit</code> is a function that can be called to produce a nice plot
+of the point pattern.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Prof. Janet Franklin, University of California, Santa Barbara</p>
+
+
+<h3>References</h3>
+
+<p>Franklin, J., Michaelsen, J. and Strahler, A.H. (1985)
+Spatial analysis of density dependent pattern in coniferous forest
+stands.
+<em>Vegetatio</em> <b>64</b>, 29&ndash;36.
+</p>
+<p>Getis, A. and Franklin, J. (1987)
+Second-order neighbourhood analysis of mapped point patterns.
+<em>Ecology</em> <b>68</b>, 473&ndash;477.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   data(ponderosa)
+  if(require(spatstat.geom)) {
+   ponderosa.extra$plotit()
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

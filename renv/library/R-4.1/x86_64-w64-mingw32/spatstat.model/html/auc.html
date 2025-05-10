@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Area Under ROC Curve</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for auc.ppm {spatstat.model}"><tr><td>auc.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Area Under ROC Curve
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the AUC (area under the Receiver Operating Characteristic
+curve) for
+a fitted point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+## S3 method for class 'ppm'
+auc(X, ...)
+
+## S3 method for class 'kppm'
+auc(X, ...)
+
+## S3 method for class 'slrm'
+auc(X, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code> or <code>"lpp"</code>)
+or fitted point process model (object of class <code>"ppm"</code>,
+<code>"kppm"</code>, <code>"slrm"</code> or <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> controlling the
+pixel resolution for calculations.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the AUC, the area under the Receiver Operating
+Characteristic curve. The ROC itself is computed by <code><a href="../../spatstat.explore/help/roc.html">roc</a></code>.
+</p>
+<p>For a fitted point process model <code>X</code>,
+the AUC measures the ability of the
+fitted model intensity to separate the spatial domain
+into areas of high and low density of points.
+Suppose <i>&lambda;(u)</i> is the intensity function of the model.
+The AUC is the probability that
+<i>&lambda;(x[i]) &gt; &lambda;(U)</i>.
+That is, AUC is the probability that a randomly-selected data point
+has higher predicted intensity than does a randomly-selected spatial
+location.
+The AUC is <b>not</b> a measure of the goodness-of-fit of the model
+(Lobo et al, 2007).
+</p>
+<p>(For spatial logistic regression models (class <code>"slrm"</code>)
+replace &ldquo;intensity&rdquo; by &ldquo;probability of presence&rdquo;
+in the text above.)
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric.
+For <code>auc.ppm</code>, <code>auc.kppm</code> and <code>auc.lppm</code>, the result is a 
+numeric vector of length 2 giving the AUC value 
+and the theoretically expected AUC value for this model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Lobo, J.M.,
+Jimenez-Valverde, A.
+and Real, R. (2007)
+AUC: a misleading measure of the performance of predictive
+distribution models.
+<em>Global Ecology and Biogeography</em> <b>17</b>(2) 145&ndash;151.
+</p>
+<p>Nam, B.-H. and D'Agostino, R. (2002)
+Discrimination index, the area under the ROC curve.
+Pages 267&ndash;279 in 
+Huber-Carol, C., Balakrishnan, N., Nikulin, M.S. 
+and Mesbah, M., <em>Goodness-of-fit tests and model validity</em>,
+Birkhauser, Basel.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/roc.html">roc</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(swedishpines ~ x+y)
+  auc(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

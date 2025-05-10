@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate Expression Involving Pixel Images on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for eval.linim {spatstat.linnet}"><tr><td>eval.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate Expression Involving Pixel Images on Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Evaluates any expression involving one or more pixel images
+on a linear network, and returns a pixel image on the same linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  eval.linim(expr, envir, harmonize=TRUE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>expr</code></td>
+<td>
+<p>An expression in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+involving the names of objects of class <code>"linim"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>Optional. The environment in which to evaluate the
+expression.</p>
+</td></tr>
+<tr valign="top"><td><code>harmonize</code></td>
+<td>
+
+<p>Logical. Whether to resolve inconsistencies between
+the pixel grids.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. Whether to issue a warning if the pixel grids were
+inconsistent.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function a wrapper to make it easier to perform
+pixel-by-pixel calculations. It is one of several functions
+whose names begin with <code>eval</code> which work on objects of
+different types. This particular function is designed to work with
+objects of class <code>"linim"</code> which represent
+pixel images on a linear network. 
+</p>
+<p>Suppose <code>X</code> is a pixel image on a linear network (object of
+class <code>"linim"</code>. Then <code>eval.linim(X+3)</code>
+will add 3 to the value of every pixel in <code>X</code>, and return
+the resulting pixel image on the same linear network.
+</p>
+<p>Suppose <code>X</code> and <code>Y</code> are two pixel images on the same
+linear network, with compatible pixel dimensions. Then
+<code>eval.linim(X + Y)</code> will add the corresponding pixel values in
+<code>X</code> and <code>Y</code>, and return the resulting pixel image
+on the same linear network.
+</p>
+<p>In general, <code>expr</code> can be any expression in the R language involving
+(a) the <em>names</em> of pixel images, (b) scalar
+constants, and (c) functions which are vectorised.
+See the Examples.
+</p>
+<p>First <code>eval.linim</code> determines which of the <em>variable names</em>
+in the expression <code>expr</code> refer to pixel images. Each such name
+is replaced by a matrix containing the pixel values. The expression is
+then evaluated. The result should be a matrix; it is taken as
+the matrix of pixel values.
+</p>
+<p>The expression <code>expr</code> must be vectorised.
+There must be at least one linear pixel image in the expression.
+</p>
+<p>All images must have compatible dimensions.
+If <code>harmonize=FALSE</code>, images that are incompatible will cause an error.
+If <code>harmonize=TRUE</code>, images that have incompatible dimensions
+will be resampled so that they are compatible; if <code>warn=TRUE</code>,
+a warning will be issued.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An image object of class <code>"linim"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>,
+<code><a href="../../spatstat.linnet/help/linim.html">linim</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  M &lt;- psp2mask(as.psp(simplenet))
+  Z &lt;- as.im(function(x,y) {x-y}, W=M)
+  X &lt;- linim(simplenet, Z)
+  X
+
+  Y &lt;- linfun(function(x,y,seg,tp){y^2+x}, simplenet)
+  Y &lt;- as.linim(Y)
+  
+  eval.linim(X + 3)
+  eval.linim(X - Y)
+  eval.linim(abs(X - Y))
+  Z &lt;- eval.linim(sin(X * pi) + Y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vertices and Edges of Dirichlet Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dirichletVertices {spatstat.geom}"><tr><td>dirichletVertices {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Vertices and Edges of Dirichlet Tessellation
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the Dirichlet-Voronoi tessellation of a point pattern
+and extracts the vertices or edges of the tiles.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dirichletVertices(X)
+
+dirichletEdges(X, clip=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip</code></td>
+<td>
+
+<p>Logical value specifying whether to clip the tile edges to the
+window. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These function compute the Dirichlet-Voronoi tessellation of <code>X</code>
+(see <code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>)
+and extract the vertices or edges of the tiles of the tessellation.
+</p>
+<p>The Dirichlet vertices are the spatial locations which are locally
+farthest away from <code>X</code>, that is, where the distance function
+of <code>X</code> reaches a local maximum.
+</p>
+<p>The Dirichlet edges are the dividing lines equally distant between
+a pair of points of <code>X</code>.
+</p>
+<p>The Dirichlet tessellation of <code>X</code> is computed
+using <code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>. The vertices or edges of all
+tiles of the tessellation are extracted.
+</p>
+<p>For <code>dirichletVertices</code>, any vertex which
+lies on the boundary of the window of <code>X</code> is deleted.
+The remaining vertices are returned, as a point pattern,
+without duplicated entries.
+</p>
+<p>For <code>dirichletEdges</code>, the edges are initially computed
+inside the rectangle <code>Frame(X)</code>.
+Then if <code>clip=TRUE</code> (the default), these edges are intersected
+with <code>Window(X)</code>, which may cause an edge to be broken into
+several pieces.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>dirichletVertices</code>
+returns a point pattern (object of class <code>"ppp"</code>) in the same window
+as <code>X</code>.
+</p>
+<p><code>dirichletEdges</code> returns a line segment pattern (object of
+class <code>"psp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>,
+<code><a href="../../spatstat.geom/help/dirichletAreas.html">dirichletAreas</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(dirichlet(cells))
+
+  plot(dirichletVertices(cells), add=TRUE)
+
+  ed &lt;- dirichletEdges(cells)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

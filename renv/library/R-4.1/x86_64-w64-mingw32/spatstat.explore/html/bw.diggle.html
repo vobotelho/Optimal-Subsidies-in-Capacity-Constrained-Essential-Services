@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cross Validated Bandwidth Selection for Kernel Density</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.diggle {spatstat.explore}"><tr><td>bw.diggle {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Cross Validated Bandwidth Selection for Kernel Density
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses cross-validation to select a smoothing bandwidth
+for the kernel estimation of point process intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   bw.diggle(X, ..., correction="good", hmax=NULL, nr=512, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Character string passed to <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+determining the edge correction to be used to
+calculate the <i>K</i> function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hmax</code></td>
+<td>
+
+<p>Numeric. Maximum value of bandwidth that should be considered.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nr</code></td>
+<td>
+
+<p>Integer. Number of steps in the distance value <i>r</i> to use in computing
+numerical integrals. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, issue a warning if the minimum of
+the cross-validation criterion occurs at one of the ends of the
+search interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate bandwidth <code>sigma</code>
+for the kernel estimator of point process intensity
+computed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+<p>The bandwidth <i>&sigma;</i> is chosen to 
+minimise the mean-square error criterion defined by Diggle (1985).
+The algorithm uses the method of Berman and Diggle (1989) to
+compute the quantity
+</p>
+<p style="text-align: center;"><i>
+    M(&sigma;) = MSE(&sigma;)/&lambda;^2 - g(0)
+  </i></p>
+
+<p>as a function of bandwidth <i>&sigma;</i>,
+where <i>MSE(&sigma;)</i> is the
+mean squared error at bandwidth <i>&sigma;</i>,
+while <i>&lambda;</i> is the mean intensity,
+and <i>g</i> is the pair correlation function. 
+See Diggle (2003, pages 115-118) for a summary of this method.
+</p>
+<p>The result is a numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+which can be plotted to show the (rescaled) mean-square error
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Definition of bandwidth</h3>
+
+<p>The smoothing parameter <code>sigma</code> returned by <code>bw.diggle</code>
+(and displayed on the horizontal axis of the plot)
+corresponds to <code>h/2</code>, where <code>h</code> is the smoothing
+parameter described in Diggle (2003, pages 116-118) and
+Berman and Diggle (1989).
+In those references, the smoothing kernel 
+is the uniform density on the disc of radius <code>h</code>. In
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>, the smoothing kernel is the
+isotropic Gaussian density with standard deviation <code>sigma</code>.
+When replacing one kernel by another, the usual
+practice is to adjust the bandwidths so that the kernels have equal
+variance (cf. Diggle 2003, page 118). This implies that <code>sigma = h/2</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Berman, M. and Diggle, P. (1989)
+Estimating weighted integrals of the
+second-order intensity of a spatial point process.
+<em>Journal of the Royal Statistical Society, series B</em>
+<b>51</b>, 81&ndash;92.
+</p>
+<p>Diggle, P.J. (1985)
+A kernel method for smoothing point process data.
+<em>Applied Statistics</em> (Journal of the Royal Statistical Society,
+Series C) <b>34</b> (1985) 138&ndash;147.
+</p>
+<p>Diggle, P.J. (2003)
+<em>Statistical analysis of spatial point patterns</em>,
+Second edition. Arnold.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>.
+</p>
+<p>Alternative methods:
+<code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code>,
+<code><a href="../../spatstat.explore/help/bw.scott.html">bw.scott</a></code>,
+<code><a href="../../spatstat.explore/help/bw.CvL.html">bw.CvL</a></code>,
+<code><a href="../../spatstat.explore/help/bw.frac.html">bw.frac</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  attach(split(lansing))
+  b &lt;- bw.diggle(hickory)
+  plot(b, ylim=c(-2, 0), main="Cross validation for hickories")
+  if(interactive()) {
+   plot(density(hickory, b))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

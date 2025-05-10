@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Multi-Dimensional Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.boxx {spatstat.geom}"><tr><td>methods.boxx {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Multi-Dimensional Box
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for class <code>"boxx"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'boxx'
+print(x, ...)
+  ## S3 method for class 'boxx'
+unitname(x)
+  ## S3 replacement method for class 'boxx'
+unitname(x) &lt;- value
+  ## S3 method for class 'boxx'
+scale(x, center=TRUE, scale=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"boxx"</code> representing a multi-dimensional box.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to <code>print.default</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Name of the unit of length. See <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>center,scale</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../base/help/scale.default.html">scale.default</a></code>
+to determine the rescaling.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/print.html">print</a></code>, <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>,
+<code><a href="../../spatstat.geom/help/unitname+3C-.html">unitname&lt;-</a></code> and <code><a href="../../base/help/scale.html">scale</a></code>
+for the class <code>"boxx"</code> of multi-dimensional boxes.
+</p>
+<p>The 
+<code>print</code> method prints a description of the box,
+the <code>unitname</code> method extracts the name of the unit of
+length in which the box coordinates are expressed, while the assignment method
+for <code>unitname</code> assigns this unit name.
+</p>
+<p>The <code>scale</code> method rescales each spatial coordinate of <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.boxx</code> the value is <code>NULL</code>.
+For <code>unitname.boxx</code> an object of class <code>"units"</code>.
+For <code>unitname&lt;-.boxx</code> and
+<code>scale.boxx</code> the result is the updated <code>"boxx"</code> object <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/boxx.html">boxx</a></code>,
+<code><a href="../../spatstat.geom/help/is.boxx.html">is.boxx</a></code>,
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>,
+<code><a href="../../base/help/scale.html">scale</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   B &lt;- boxx(c(0,10),c(0,10),c(0,5),c(0,1), unitname=c("metre", "metres"))
+   B
+   is.boxx(B)
+   unitname(B)
+   # Northern European usage
+   unitname(B) &lt;- "meter"
+   scale(B)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

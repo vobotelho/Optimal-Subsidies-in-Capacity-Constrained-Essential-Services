@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Pixel Image on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.linim {spatstat.linnet}"><tr><td>plot.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Pixel Image on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a pixel image on a linear network,
+the pixel values are displayed
+either as colours or as line widths.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linim'
+plot(x, ..., style = c("colour", "width"),
+             scale, adjust = 1, fatten = 0, 
+             negative.args = list(col=2),
+             legend=TRUE,
+             leg.side=c("right", "left", "bottom", "top"),
+             leg.sep=0.1,
+             leg.wid=0.1,
+             leg.args=list(),
+             leg.scale=1,
+             zlim,
+             box=FALSE,
+             do.plot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The pixel image to be plotted. An object of class <code>"linim"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra graphical parameters, passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>
+if <code>style="colour"</code>, or to <code><a href="../../graphics/help/polygon.html">polygon</a></code>
+if <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string (partially matched)
+specifying the type of plot. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Physical scale factor for representing the pixel values as
+line widths. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Adjustment factor for the conversion of 
+pixel value to line width, when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatten</code></td>
+<td>
+
+<p>Distance by which the line segments should be thickened,
+when <code>style="colour"</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>negative.args</code></td>
+<td>
+
+<p>A list of arguments to be passed to <code><a href="../../graphics/help/polygon.html">polygon</a></code>
+specifying how to plot negative values of <code>x</code>
+when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical value indicating whether to plot a legend
+(colour ribbon or scale bar).
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.side</code></td>
+<td>
+
+<p>Character string (partially matched) indicating where to display the legend
+relative to the main image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.sep</code></td>
+<td>
+
+<p>Factor controlling the space between the legend and the image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.wid</code></td>
+<td>
+
+<p>Factor controlling the width of the legend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.scale</code></td>
+<td>
+
+<p>Rescaling factor for annotations on the legend.
+The values on the numerical scale
+printed beside the legend will be multiplied by this rescaling factor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.args</code></td>
+<td>
+
+<p>List of additional arguments passed to
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>,
+<code><a href="../../graphics/help/axis.html">axis</a></code>
+or <code><a href="../../graphics/help/text.default.html">text.default</a></code> 
+to control the display of the legend.
+These may override the <code>...</code> arguments. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>zlim</code></td>
+<td>
+
+<p>The range of numerical values that should be mapped.
+A numeric vector of length 2.
+Defaults to the range of values of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>box</code></td>
+<td>
+
+<p>Logical value indicating whether to draw a bounding box.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually perform the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for objects 
+of class <code>"linim"</code>. Such an object represents
+a pixel image defined on a linear network.
+</p>
+<p>If <code>style="colour"</code> (the default) then
+the pixel values of <code>x</code> are plotted as colours,
+using <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+The mapping from pixel values to colours is determined by any
+additional arguments <code>...</code> which are passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+<p>If <code>style="width"</code> then
+the pixel values of <code>x</code> are used to determine the widths of
+thick lines centred on the line segments of the linear network.
+This style of plot is often attributed to Xie and Yan (2008).
+The mapping from pixel values to line widths is determined by
+the arguments <code>scale</code> and <code>adjust</code>.
+The plotting of colours and borders of the lines is controlled by
+the additional arguments <code>...</code> which are passed to
+<code><a href="../../graphics/help/polygon.html">polygon</a></code>. A different set of colours and borders can be
+assigned to negative pixel values by passing a list of arguments in
+<code>negative.args</code> as shown in the Examples.
+</p>
+<p>A legend is displayed alongside the plot
+if <code>legend=TRUE</code> (the default). The legend
+displays the relationship between pixel values and colours
+(if <code>style="colour"</code>) or between pixel values and
+line widths (if <code>style="width"</code>).
+</p>
+<p>The plotting of the legend itself is controlled by the arguments
+<code>leg.side</code>, <code>leg.sep</code>, <code>leg.wid</code>, <code>leg.scale</code>
+and the list of arguments <code>leg.args</code>, which are described above.
+If <code>style="colour"</code>, these arguments are mapped to
+the arguments <code>ribside</code>, <code>ribsep</code>, <code>ribwid</code>,
+<code>ribscale</code> and <code>ribargs</code> respectively, which are passed
+to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>style="colour"</code>, the result is
+an object of class <code>"colourmap"</code> specifying the colour map used.
+If <code>style="width"</code>, the result is 
+a numeric value <code>v</code> giving the physical scale:
+one unit of pixel value is represented as <code>v</code> physical units on the plot.
+</p>
+<p>The result also has an attribute <code>"bbox"</code> giving a bounding box
+for the plot. The bounding box includes the ribbon or scale bar, if present,
+but not the main title.
+</p>
+
+
+<h3>Thin lines</h3>
+
+<p>When <code>style="colour"</code> it often appears that the lines are
+drawn too thin. This occurs because <code>x</code> is a pixel image,
+in which the only pixels that have a defined value are those which lie
+directly over the network. To make the lines appear thicker in the
+plot, use the argument <code>fatten</code>. The domain of the image will be
+expanded by a distance equal to <code>fatten/2</code> in every direction
+using <code><a href="../../spatstat.geom/help/dilation.owin.html">dilation.owin</a></code>; the pixel values will
+be extrapolated to this expanded domain using
+<code><a href="../../spatstat.geom/help/nearestValue.html">nearestValue</a></code>. This may improve the visual appearance
+of the plot.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+<p>Xie, Z. and Yan, J. (2008) 
+Kernel Density Estimation of traffic accidents in a network space.
+<em>Computers, Environment and Urban Systems</em> <b>32</b>, 396&ndash;406.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linim.html">linim</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>,
+<code><a href="../../graphics/help/polygon.html">polygon</a></code>,
+<code><a href="../../spatstat.geom/help/default.image.colours.html">default.image.colours</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- linfun(function(x,y,seg,tp){y^2+x}, simplenet)
+  X &lt;- as.linim(X)
+  
+  plot(X, main="Colour represents function value")
+  plot(X, fatten=0.02, main="fattened")
+
+  plot(X, style="width", main="Width proportional to function value")
+
+  # signed values
+  f &lt;- linfun(function(x,y,seg,tp){y-x}, simplenet)
+  plot(f, style="w", main="Negative values in red")
+
+  plot(f, style="w", negative.args=list(density=10),
+       main="Negative values are hatched")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

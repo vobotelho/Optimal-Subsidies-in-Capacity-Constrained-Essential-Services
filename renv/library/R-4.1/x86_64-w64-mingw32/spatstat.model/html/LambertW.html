@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lambert's W Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for LambertW {spatstat.model}"><tr><td>LambertW {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Lambert's W Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes Lambert's W-function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+LambertW(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Vector of nonnegative numbers.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Lambert's W-function is the inverse function of
+<i>f(y) = y * exp(y)</i>.
+That is, <i>W</i> is the function such that
+</p>
+<p style="text-align: center;"><i>
+    W(x) * exp(W(x)) = x
+  </i></p>
+
+<p>This command <code>LambertW</code> computes <i>W(x)</i> for each entry
+in the argument <code>x</code>. 
+If the library <span class="pkg">gsl</span> has been installed, then the function
+<code>lambert_W0</code> in that library is invoked. Otherwise,
+values of the W-function are computed by root-finding, using the
+function <code><a href="../../stats/help/uniroot.html">uniroot</a></code>.
+</p>
+<p>Computation using <span class="pkg">gsl</span> is about 100 times faster.
+</p>
+<p>If any entries of <code>x</code> are infinite or <code>NA</code>, the corresponding
+results are <code>NA</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Corless, R, Gonnet, G, Hare, D, Jeffrey, D and Knuth, D (1996),
+On the Lambert W function.
+<em>Computational Mathematics</em>, <b>5</b>, 325&ndash;359.
+</p>
+<p>Roy, R and Olver, F (2010),
+Lambert W function. In Olver, F, Lozier, D and Boisvert, R (eds.),
+<em>NIST Handbook of Mathematical Functions</em>,
+Cambridge University Press.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   LambertW(exp(1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

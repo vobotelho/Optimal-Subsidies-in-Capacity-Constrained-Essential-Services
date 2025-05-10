@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hyper Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for hyperframe {spatstat.geom}"><tr><td>hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hyper Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Create a hyperframe: a two-dimensional array in which each column
+consists of values of the same atomic type (like the columns
+of a data frame) or objects of the same class. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   hyperframe(...,
+             row.names=NULL, check.rows=FALSE, check.names=TRUE,
+             stringsAsFactors=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments of the form <code>value</code> or <code>tag=value</code>.
+Each <code>value</code> is either an atomic vector, a factor,
+a list of objects of the same class, a single atomic value,
+or a single object.
+Each <code>value</code> will become a column of the array.
+The <code>tag</code> determines the name of the column. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>row.names,check.rows,check.names,stringsAsFactors</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../base/help/data.frame.html">data.frame</a></code> controlling the
+names of the rows, whether to check that rows are consistent,
+whether to check validity of the column names, and whether to
+convert character columns to factors.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A hyperframe is like a data frame, except that its entries
+can be objects of any kind.
+</p>
+<p>A hyperframe is a two-dimensional array in which each column consists of
+values of one atomic type (as in a data frame) or consists of
+objects of one class.
+</p>
+<p>The arguments <code>...</code> are any number of arguments of
+the form <code>value</code> or <code>tag=value</code>. Each <code>value</code> will
+become a column of the array. The <code>tag</code> determines the name
+of the column.
+</p>
+<p>Each <code>value</code> can be either
+</p>
+
+<ul>
+<li><p> an atomic vector or factor
+(i.e. numeric vector, integer vector, character vector, logical
+vector, complex vector, factor, or an
+object of class <code>"Date"</code> or <code>"Surv"</code>)
+</p>
+</li>
+<li><p> a list of objects which are all of the same class
+</p>
+</li>
+<li><p> one atomic value, which will be replicated to make an atomic
+vector or factor
+</p>
+</li>
+<li><p> one object, which will be replicated to make a list of objects.
+</p>
+</li></ul>
+
+<p>All columns (vectors, factors and lists) must be of the same length,
+if their length is greater than 1. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"hyperframe"</code>.
+</p>
+
+
+<h3>Methods for Hyperframes</h3>
+
+<p>There are methods for
+<code>print</code>, <code>plot</code>, <code>summary</code>, <code>with</code>, <code>split</code>,
+<code>[</code>, <code>[&lt;-</code>,
+<code>[[</code>, <code>[[&lt;-</code>,
+<code>$</code>, <code>$&lt;-</code>,
+<code>names</code>, <code>as.data.frame</code> <code>as.list</code>,
+<code>cbind</code> and <code>rbind</code> for the class of hyperframes. There is also
+<code>is.hyperframe</code> and <code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code>.
+</p>
+
+
+<h3>Handling Character Strings</h3>
+
+<p>The argument <code>stringsAsFactors</code>
+is a logical value (passed to <code><a href="../../base/help/data.frame.html">data.frame</a></code>)
+specifying how to handle pixel values which
+are character strings. If <code>TRUE</code>, character values are
+interpreted as factor levels. If <code>FALSE</code>, they remain
+as character strings. The default values of <code>stringsAsFactors</code>
+depends on the version of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+
+<ul>
+<li><p> In <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> versions <code>&lt; 4.1.0</code>
+the factory-fresh default is <code>stringsAsFactors=FALSE</code> and
+the default can be changed by setting
+<code>options(stringsAsFactors=FALSE)</code>.
+</p>
+</li>
+<li><p> in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> versions <code>&gt;= 4.1.0</code> the default
+is <code>stringsAsFactors=FALSE</code> and there is no option to
+change the default.
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/as.hyperframe.ppx.html">as.hyperframe.ppx</a></code>,
+<code><a href="../../spatstat.geom/help/plot.hyperframe.html">plot.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.hyperframe.html">[.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/with.hyperframe.html">with.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/split.hyperframe.html">split.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/as.data.frame.hyperframe.html">as.data.frame.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/cbind.hyperframe.html">cbind.hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/rbind.hyperframe.html">rbind.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # equivalent to a data frame
+  hyperframe(X=1:10, Y=3)
+
+ # list of functions
+  hyperframe(f=list(sin, cos, tan))
+
+ # table of functions and matching expressions
+  hyperframe(f=list(sin, cos, tan),
+             e=list(expression(sin(x)), expression(cos(x)), expression(tan(x))))
+
+  hyperframe(X=1:10, Y=letters[1:10], Z=factor(letters[1:10]),
+    stringsAsFactors=FALSE)
+
+  lambda &lt;- runif(4, min=50, max=100)
+if(require(spatstat.random)) {
+  X &lt;- solapply(as.list(lambda), rpoispp)
+} else {
+  X &lt;- solapply(as.list(lambda), function(lam) runifrect(rpois(1, lam)))
+}
+  h &lt;- hyperframe(lambda=lambda, X=X)
+  h
+
+  h$lambda2 &lt;- lambda^2
+  h[, "lambda3"] &lt;- lambda^3
+  h[, "Y"] &lt;- X
+
+  h[[2, "lambda3"]]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

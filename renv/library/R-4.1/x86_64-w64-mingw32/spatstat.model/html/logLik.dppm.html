@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Log Likelihood and AIC for Fitted Determinantal Point Process...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for logLik.dppm {spatstat.model}"><tr><td>logLik.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Log Likelihood and AIC for Fitted Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the log Palm likelihood, deviance, and AIC
+of a fitted determinantal point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'dppm'
+logLik(object, ...)
+## S3 method for class 'dppm'
+AIC(object, ..., k=2)
+## S3 method for class 'dppm'
+extractAIC(fit, scale=0, k=2, ...)
+## S3 method for class 'dppm'
+nobs(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object,fit</code></td>
+<td>
+<p>Fitted point process model.
+An object of class <code>"dppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>Numeric value specifying the weight of the
+equivalent degrees of freedom in the AIC. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../stats/html/logLik.html">logLik</a></code>,
+<code><a href="../../stats/html/extractAIC.html">extractAIC</a></code>  and
+<code><a href="../../stats/html/nobs.html">nobs</a></code>
+for the class <code>"dppm"</code>.
+</p>
+<p>An object of class <code>"dppm"</code> represents a fitted
+Cox or cluster point process model.
+It is obtained from the model-fitting function <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+<p>These methods apply only when the model was fitted
+by maximising the Palm likelihood (Tanaka et al, 2008)
+by calling <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code> with the argument <code>method="palm"</code>.
+</p>
+<p>The method <code>logLik.dppm</code> computes the
+maximised value of the log Palm likelihood for the fitted model <code>object</code>.
+</p>
+<p>The methods <code>AIC.dppm</code> and <code>extractAIC.dppm</code> compute the
+Akaike Information Criterion AIC for the fitted model
+based on the Palm likelihood (Tanaka et al, 2008)
+</p>
+<p style="text-align: center;"><i>
+    AIC = -2 * log(PL) + k * edf
+  </i></p>
+
+<p>where <i>PL</i> is the maximised Palm likelihood of the fitted model,
+and <i>edf</i> is the effective degrees of freedom
+of the model.
+</p>
+<p>The method <code>nobs.dppm</code> returns the number of points
+in the original data point pattern to which the model was fitted.
+</p>
+<p>The <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code><a href="../../stats/html/step.html">step</a></code> uses these methods, but it does
+not work for determinantal models yet due to a missing implementation
+of <code>update.dppm</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>logLik</code> returns a numerical value, belonging to the class
+<code>"logLik"</code>, with an attribute <code>"df"</code> giving the degrees of
+freedom.
+</p>
+<p><code>AIC</code> returns a numerical value.
+</p>
+<p><code>extractAIC</code> returns a numeric vector of length 2
+containing the degrees of freedom and the AIC value.
+</p>
+<p><code>nobs</code> returns an integer value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Tanaka, U. and Ogata, Y. and Stoyan, D. (2008)
+Parameter estimation and model selection for
+Neyman-Scott point processes.
+<em>Biometrical Journal</em> <b>50</b>, 43&ndash;57.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,
+<code><a href="../../spatstat.model/help/logLik.ppm.html">logLik.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- dppm(swedishpines ~ x, dppGauss(), method="palm")
+  nobs(fit)
+  logLik(fit)
+  extractAIC(fit)
+  AIC(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

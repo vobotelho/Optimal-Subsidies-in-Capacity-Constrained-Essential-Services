@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Receiver Operating Characteristic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for roc.ppm {spatstat.model}"><tr><td>roc.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Receiver Operating Characteristic
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the Receiver Operating Characteristic curve
+for a point pattern or a fitted point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+## S3 method for class 'ppm'
+roc(X, ...)
+
+## S3 method for class 'kppm'
+roc(X, ...)
+
+## S3 method for class 'slrm'
+roc(X, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code> or <code>"lpp"</code>)
+or fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code>, <code>"slrm"</code>
+or <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> controlling the
+pixel resolution for calculations.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes Receiver Operating
+Characteristic curve. The area under the ROC is computed by <code><a href="../../spatstat.explore/help/auc.html">auc</a></code>.
+</p>
+<p>For a point pattern <code>X</code> and a covariate <code>Z</code>, the
+ROC is a plot showing the ability of the 
+covariate to separate the spatial domain
+into areas of high and low density of points.
+For each possible threshold <i>z</i>, the algorithm calculates
+the fraction <i>a(z)</i> of area in the study region where the
+covariate takes a value greater than <i>z</i>, and the
+fraction <i>b(z)</i> of data points for which the covariate value
+is greater than <i>z</i>. The ROC is a plot of <i>b(z)</i> against
+<i>a(z)</i> for all thresholds <i>z</i>. 
+</p>
+<p>For a fitted point process model, 
+the ROC shows the ability of the
+fitted model intensity to separate the spatial domain
+into areas of high and low density of points.
+The ROC is <b>not</b> a diagnostic for the goodness-of-fit of the model
+(Lobo et al, 2007).
+</p>
+<p>(For spatial logistic regression models (class <code>"slrm"</code>)
+replace &ldquo;intensity&rdquo; by &ldquo;probability of presence&rdquo;
+in the text above.)
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>)
+which can be plotted to show the ROC curve.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Lobo, J.M.,
+Jimenez-Valverde, A.
+and Real, R. (2007)
+AUC: a misleading measure of the performance of predictive
+distribution models.
+<em>Global Ecology and Biogeography</em> <b>17</b>(2) 145&ndash;151.
+</p>
+<p>Nam, B.-H. and D'Agostino, R. (2002)
+Discrimination index, the area under the ROC curve.
+Pages 267&ndash;279 in 
+Huber-Carol, C., Balakrishnan, N., Nikulin, M.S. 
+and Mesbah, M., <em>Goodness-of-fit tests and model validity</em>,
+Birkhauser, Basel.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/auc.html">auc</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(swedishpines ~ x+y)
+  plot(roc(fit))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

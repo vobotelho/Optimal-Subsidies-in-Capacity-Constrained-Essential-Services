@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nested Split</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nestsplit {spatstat.geom}"><tr><td>nestsplit {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nested Split
+</h2>
+
+<h3>Description</h3>
+
+<p>Applies two splitting operations to a point pattern,
+producing a list of lists of patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nestsplit(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern to be split.
+Object of class <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Data determining the splitting factors or splitting regions.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function splits the point pattern <code>X</code> into several
+sub-patterns using <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>, then splits each of the
+sub-patterns into sub-sub-patterns using <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>
+again.
+The result is a hyperframe containing the sub-sub-patterns
+and two factors indicating the grouping.
+</p>
+<p>The arguments <code>...</code> determine the two splitting factors
+or splitting regions. Each argument may be:
+</p>
+
+<ul>
+<li><p> a factor (of length equal to the number of points in <code>X</code>)
+</p>
+</li>
+<li><p> the name of a column of marks of <code>X</code> (provided this
+column contains factor values)
+</p>
+</li>
+<li><p> a tessellation (class <code>"tess"</code>)
+</p>
+</li>
+<li><p> a pixel image (class <code>"im"</code>) with factor values
+</p>
+</li>
+<li><p> a window (class <code>"owin"</code>)
+</p>
+</li>
+<li><p> identified by name (in the form <code>name=value</code>)
+as one of the formal arguments of <code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code> or
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>
+</p>
+</li></ul>
+
+<p>The arguments will be processed to yield a list of two
+splitting factors/tessellations. The splits will be applied
+to <code>X</code> consecutively to produce the sub-sub-patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A hyperframe with three columns. The first column contains the
+sub-sub-patterns. The second and third columns are factors
+which identify the grouping according to the two splitting factors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Original idea by Ute Hahn.
+Code by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # factor and tessellation
+  Nft &lt;- nestsplit(amacrine, marks(amacrine), quadrats(amacrine, 3, 1))
+  Ntf &lt;- nestsplit(amacrine, quadrats(amacrine, 3, 1), marks(amacrine))
+  Ntf
+
+  # two factors
+  big &lt;- with(marks(betacells), area &gt; 300)
+  Nff &lt;- nestsplit(betacells, "type", factor(big))
+
+  # two tessellations
+  Tx &lt;- quantess(redwood, "x", 4)
+  Td &lt;- dirichlet(runifrect(5, Window(redwood)))
+  Ntt &lt;- nestsplit(redwood, Td, Tx)
+  Ntt2 &lt;- nestsplit(redwood, Td, ny=3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

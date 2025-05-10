@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intensity of Fitted Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intensity.ppm {spatstat.model}"><tr><td>intensity.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Intensity of Fitted Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the intensity of a fitted point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppm'
+intensity(X, ..., approx=c("Poisson", "DPP"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code> in some cases.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>approx</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the type of
+approximation to the intensity for a non-Poisson model.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>
+for fitted point process models (class <code>"ppm"</code>).
+</p>
+<p>The intensity of a point process model is the expected
+number of random points per unit area. 
+</p>
+<p>If <code>X</code> is a Poisson point process model, the intensity of the
+process is computed exactly.
+The result is a numerical value if <code>X</code>
+is a stationary Poisson point process, and a pixel image if <code>X</code>
+is non-stationary. (In the latter case, the resolution of the pixel
+image is controlled by the arguments <code>...</code> which are passed
+to <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>.)
+</p>
+<p>If <code>X</code> is a Gibbs point process model that is not a Poisson model,
+the intensity is computed approximately:
+</p>
+
+<ul>
+<li><p> if <code>approx="Poisson"</code> (the default),
+the intensity is computed  using the Poisson-saddlepoint approximation
+(Baddeley and Nair, 2012a, 2012b, 2017; Anderssen et al, 2014).
+This approximation is currently available for pairwise-interaction
+models (Baddeley and Nair, 2012a, 2012b)
+and for the area-interaction model and Geyer saturation model
+(Baddeley and Nair, 2017).
+</p>
+<p>If the model is non-stationary. the pseudostationary solution
+(Baddeley and Nair, 2012b; Anderssen et al, 2014) is used.
+The result is a pixel image,
+whose resolution is controlled by the arguments <code>...</code>
+which are passed to <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>.
+</p>
+</li>
+<li><p> if <code>approx="DPP"</code>, the intensity is calculated using
+the approximation of (Coeurjolly and Lavancier, 2018) based on a
+determinantal point process. This approximation is more accurate
+than the Poisson saddlepoint approximation, for inhibitory
+interactions. However the DPP approximation is only available
+for stationary pairwise interaction models.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A numeric value (if the model is stationary)
+or a pixel image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Gopalan Nair, and Frederic Lavancier.
+</p>
+
+
+<h3>References</h3>
+
+<p>Anderssen, R.S., Baddeley, A., DeHoog, F.R. and Nair, G.M. (2014)
+Solution of an integral equation arising in spatial point process theory.
+<em>Journal of Integral Equations and Applications</em> 
+<b>26</b> (4) 437&ndash;453.
+</p>
+<p>Baddeley, A. and Nair, G. (2012a) 
+Fast approximation of the intensity of Gibbs point processes.
+<em>Electronic Journal of Statistics</em> <b>6</b> 1155&ndash;1169.
+</p>
+<p>Baddeley, A. and Nair, G. (2012b)
+Approximating the moments of a spatial point process.
+<em>Stat</em> <b>1</b>, 1, 18&ndash;30.
+<code>DOI: 10.1002/sta4.5</code>
+</p>
+<p>Baddeley, A. and Nair, G. (2017)
+Poisson-saddlepoint approximation for Gibbs point
+processes with infinite-order interaction: in memory
+of Peter Hall.
+<em>Journal of Applied Probability</em> <b>54</b>, 4, 1008&ndash;1026.
+</p>
+<p>Coeurjolly, J.-F. and Lavancier, F. (2018)
+Approximation intensity for pairwise interaction Gibbs point processes
+using determinantal point processes.
+<em>Electronic Journal of Statistics</em> <b>12</b> 3181&ndash;3203.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>,
+<code><a href="../../spatstat.geom/help/intensity.ppp.html">intensity.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fitP &lt;- ppm(swedishpines ~ 1)
+  intensity(fitP)
+  fitS &lt;- ppm(swedishpines ~ 1, Strauss(9))
+  intensity(fitS)
+  intensity(fitS, approx="D")
+  fitSx &lt;- ppm(swedishpines ~ x, Strauss(9))
+  lamSx &lt;- intensity(fitSx)
+  fitG &lt;- ppm(swedishpines ~ 1, Geyer(9, 1))
+  lamG &lt;- intensity(fitG)
+  fitA &lt;- ppm(swedishpines ~ 1, AreaInter(7))
+  lamA &lt;- intensity(fitA)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Make Function Tables Compatible</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for harmonise.fv {spatstat.explore}"><tr><td>harmonise.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Make Function Tables Compatible</h2>
+
+<h3>Description</h3>
+
+<p>Convert several objects of class <code>"fv"</code> 
+to the same values of the function argument.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+harmonise(..., strict=FALSE)
+
+## S3 method for class 'fv'
+harmonize(..., strict=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of function tables (objects of class <code>"fv"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>strict</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, a column of data will be deleted
+if columns of the same name do not appear in every object.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A function value table (object of class <code>"fv"</code>) is
+essentially a data frame giving the values of a function <i>f(x)</i>
+(or several alternative estimates of this value)
+at equally-spaced values of the function argument <i>x</i>.
+</p>
+<p>The command <code><a href="../../spatstat.geom/help/harmonise.html">harmonise</a></code> is generic. This is the
+method for objects of class <code>"fv"</code>.
+</p>
+<p>This command makes any number of <code>"fv"</code> objects compatible,
+in the loose sense that they have the same sequence of values of
+<i>x</i>. They can then be combined by <code><a href="../../spatstat.explore/help/cbind.fv.html">cbind.fv</a></code>,
+but not necessarily by <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>.
+</p>
+<p>All arguments <code>...</code> must be function value tables
+(objects of class <code>"fv"</code>). 
+The result will be a list, of length equal to the number of
+arguments <code>...</code>, containing new versions of each of these functions,
+converted to a common sequence of <i>x</i> values.
+If the arguments were named (<code>name=value</code>) then the return value
+also carries these names.
+</p>
+<p>The range of <i>x</i> values in the resulting functions
+will be the intersection of the ranges of <i>x</i> values
+in the original functions. 
+The spacing of <i>x</i> values in the resulting functions
+will be the finest (narrowest) of the spacings of the
+<i>x</i> values in the original functions.
+Function values are interpolated using <code><a href="../../stats/help/approxfun.html">approxfun</a></code>.
+</p>
+<p>If <code>strict=TRUE</code>, each column of data will be retained only if
+a column of the same name appears in all of the arguments <code>...</code>.
+This ensures that the resulting objects are strictly compatible
+in the sense of <code><a href="../../spatstat.explore/help/compatible.fv.html">compatible.fv</a></code>,
+and can be combined using <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>
+or <code><a href="../../spatstat.explore/help/collapse.fv.html">collapse.fv</a></code>.
+</p>
+<p>If <code>strict=FALSE</code> (the default), this does not occur,
+and then the resulting objects are <b>not</b> guaranteed to be compatible
+in the sense of <code><a href="../../spatstat.explore/help/compatible.fv.html">compatible.fv</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list, of length equal to the number of arguments <code>...</code>,
+whose entries are objects of class <code>"fv"</code>.
+If the arguments were named (<code>name=value</code>) then the return value
+also carries these names.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../../spatstat.explore/help/cbind.fv.html">cbind.fv</a></code>,
+<code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>,
+<code><a href="../../spatstat.explore/help/compatible.fv.html">compatible.fv</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   H &lt;- harmonise(K=Kest(cells), G=Gest(cells))
+   H
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

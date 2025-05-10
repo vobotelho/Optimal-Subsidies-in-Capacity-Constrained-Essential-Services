@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mixed Poisson Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dmixpois {spatstat.random}"><tr><td>dmixpois {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Mixed Poisson Distribution
+</h2>
+
+<h3>Description</h3>
+
+<p>Density, distribution function, quantile function and random
+generation for a mixture of Poisson distributions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dmixpois(x, mu, sd, invlink = exp, GHorder = 5)
+pmixpois(q, mu, sd, invlink = exp, lower.tail = TRUE, GHorder = 5)
+qmixpois(p, mu, sd, invlink = exp, lower.tail = TRUE, GHorder = 5)
+rmixpois(n, mu, sd, invlink = exp)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>vector of (non-negative integer) quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+<p>vector of quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>vector of probabilities.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of random values to return.</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean of the linear predictor. A single numeric value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sd</code></td>
+<td>
+
+<p>Standard deviation of the linear predictor. A single numeric value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>invlink</code></td>
+<td>
+
+<p>Inverse link function. A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+used to transform the linear predictor into the
+parameter <code>lambda</code> of the Poisson distribution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lower.tail</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), probabilities are
+<i>P[X &le; x]</i>, otherwise, <i>P[X &gt; x]</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>GHorder</code></td>
+<td>
+
+<p>Number of quadrature points in the Gauss-Hermite quadrature approximation.
+A small positive integer.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are analogous to
+<code><a href="../../stats/html/Poisson.html">dpois</a></code>
+<code><a href="../../stats/html/Poisson.html">ppois</a></code>,
+<code><a href="../../stats/html/Poisson.html">qpois</a></code> and
+<code><a href="../../stats/html/Poisson.html">rpois</a></code>
+except that they apply to a mixture of Poisson distributions.
+</p>
+<p>In effect, the Poisson mean parameter <code>lambda</code> is randomised
+by setting <code>lambda = invlink(Z)</code> where <code>Z</code>
+has a Gaussian <i>N(&mu;, &sigma;^2)</i> distribution.
+The default is <code>invlink=exp</code> which means that
+<code>lambda</code> is lognormal. Set <code>invlink=I</code> to assume
+that <code>lambda</code> is approximately Normal.
+</p>
+<p>For <code>dmixpois</code>, <code>pmixpois</code> and <code>qmixpois</code>,
+the probability distribution is approximated using Gauss-Hermite
+quadrature. For <code>rmixpois</code>, the deviates are simulated
+exactly.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector:
+<code>dmixpois</code> gives probability masses,
+<code>ppois</code> gives cumulative probabilities,
+<code>qpois</code> gives (non-negative integer) quantiles, and
+<code>rpois</code> generates (non-negative integer) random deviates.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/Poisson.html">dpois</a></code>,
+<code><a href="../../spatstat.random/help/gauss.hermite.html">gauss.hermite</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  dmixpois(7, 10, 1, invlink = I)
+  dpois(7, 10)
+
+  pmixpois(7, log(10), 0.2)
+  ppois(7, 10)
+
+  qmixpois(0.95, log(10), 0.2)
+  qpois(0.95, 10)
+
+  x &lt;- rmixpois(100, log(10), log(1.2))
+  mean(x)
+  var(x)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

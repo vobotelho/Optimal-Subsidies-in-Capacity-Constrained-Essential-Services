@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Images on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.linim {spatstat.linnet}"><tr><td>methods.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Images on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for the class <code>"linim"</code> of functions on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'linim'
+print(x, ...)
+
+  ## S3 method for class 'linim'
+summary(object, ...)
+
+  ## S3 method for class 'linim'
+as.im(X, ...)
+
+  ## S3 method for class 'linim'
+as.data.frame(x, ...)
+
+  ## S3 method for class 'linim'
+shift(X, ...)
+
+  ## S3 method for class 'linim'
+scalardilate(X, f, ..., origin=NULL)
+
+  ## S3 method for class 'linim'
+affine(X, mat=diag(c(1,1)), vec=c(0,0), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,x,object</code></td>
+<td>
+
+<p>A pixel image on a linear network
+(object of class <code>"linim"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>Numeric. Scalar dilation factor.</p>
+</td></tr>
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>Numeric matrix representing the linear transformation.</p>
+</td></tr>
+<tr valign="top"><td><code>vec</code></td>
+<td>
+<p>Numeric vector of length 2 specifying the shift vector.</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+<p>Character string determining a location
+that will be shifted to the origin. Options are
+<code>"centroid"</code>, <code>"midpoint"</code> and <code>"bottomleft"</code>.
+Partially matched. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/print.html">print</a></code>, <code><a href="../../base/html/summary.html">summary</a></code>
+and <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code>,
+and the <span class="pkg">spatstat</span> generic functions
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>, 
+<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code> and 
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>.
+</p>
+<p>An object of class <code>"linfun"</code> represents a
+pixel image defined on a linear network. 
+</p>
+<p>The method <code>as.im.linim</code> extracts the pixel values
+and returns a pixel image of class <code>"im"</code>.
+</p>
+<p>The method <code>as.data.frame.linim</code> returns a data frame
+giving spatial locations (in cartesian and network coordinates)
+and corresponding function values.
+</p>
+<p>The methods <code>shift.linim</code>,
+<code>scalardilate.linim</code> and <code>affine.linim</code>
+apply geometric transformations to the pixels and the underlying
+linear network, without changing the pixel values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.linim</code> the result is <code>NULL</code>.
+</p>
+<p>The function <code>summary.linim</code> returns an object of class
+<code>"summary.linim"</code>. In normal usage this summary is
+automatically printed by <code><a href="../../spatstat.linnet/help/print.summary.linim.html">print.summary.linim</a></code>.
+</p>
+<p>For <code>as.im.linim</code> the result is an object of class <code>"im"</code>.
+</p>
+<p>For the geometric transformations <code>shift.linim</code>,
+<code>scalardilate.linim</code> and <code>affine.linim</code>, the result is
+another object of class <code>"linim"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   M &lt;- psp2mask(as.psp(simplenet))
+   Z &lt;- as.im(function(x,y) {x-y}, W=M)
+   X &lt;- linim(simplenet, Z)
+   ## ............  print basic details .........................
+   X
+   ## ............  print gory details  .........................
+   summary(X)
+   ## ...........................................................
+   shift(X, c(1,1))
+   scalardilate(X, 2)
+   head(as.data.frame(X))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

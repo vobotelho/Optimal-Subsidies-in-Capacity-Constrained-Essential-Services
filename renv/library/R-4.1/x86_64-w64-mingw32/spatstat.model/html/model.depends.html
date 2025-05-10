@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Identify Covariates Involved in each Model Term</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for model.depends {spatstat.model}"><tr><td>model.depends {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Identify Covariates Involved in each Model Term
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted model (of any kind), identify which of the covariates
+is involved in each term of the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+model.depends(object)
+model.is.additive(object)
+model.covariates(object, fitted=TRUE, offset=TRUE)
+has.offset.term(object)
+has.offset(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted model of any kind.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fitted,offset</code></td>
+<td>
+
+<p>Logical values determining which type of covariates to include.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>object</code> can be a fitted model of any kind,
+including models of the classes <code><a href="../../stats/html/lm.html">lm</a></code>, <code><a href="../../stats/html/glm.html">glm</a></code>
+and <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>To be precise,
+<code>object</code> must belong to a class for which there are methods
+for <code><a href="../../stats/html/formula.html">formula</a></code>, <code><a href="../../stats/html/terms.html">terms</a></code>
+and <code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>.
+</p>
+<p>The command <code>model.depends</code> determines the relationship between
+the original covariates (the data supplied when <code>object</code> was
+fitted) and the canonical covariates (the columns of the design matrix).
+It returns a logical matrix, with one row for each canonical
+covariate, and one column for each of the original covariates,
+with the <code>i,j</code> entry equal to <code>TRUE</code> if the
+<code>i</code>th canonical covariate depends on the <code>j</code>th
+original covariate.
+</p>
+<p>If the model formula of <code>object</code> includes offset terms
+(see <code><a href="../../stats/html/offset.html">offset</a></code>), then the return value of <code>model.depends</code>
+also has an attribute <code>"offset"</code>. This is a logical value or
+matrix with one row for each offset term and one column for each of
+the original covariates, with the <code>i,j</code> entry equal to <code>TRUE</code> if the
+<code>i</code>th offset term depends on the <code>j</code>th
+original covariate.
+</p>
+<p>The command <code>model.covariates</code> returns a character vector
+containing the names of all (original) covariates that were actually
+used to fit the model. By default, this includes all covariates that
+appear in the model formula, including offset terms as well as 
+canonical covariate terms. To omit the offset terms, set
+<code>offset=FALSE</code>. To omit the canonical covariate terms,
+set <code>fitted=FALSE</code>.
+</p>
+<p>The command <code>model.is.additive</code> determines whether the model
+is additive, in the sense that there is no canonical covariate that
+depends on two or more original covariates. It returns a logical value.
+</p>
+<p>The command <code>has.offset.term</code> is a faster way to determine whether the
+model <em>formula</em> includes an <code>offset</code> term.
+</p>
+<p>The functions <code>model.depends</code> and <code>has.offset.term</code>
+only detect <code>offset</code> terms which are present
+in the model formula. They do not detect numerical offsets in the
+model object, that were inserted using the <code>offset</code> argument
+in <code>lm</code>, <code>glm</code> etc. To detect the presence of offsets
+of both kinds, use <code>has.offset</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value or matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- 1:10
+   y &lt;- 3*x + 2
+   z &lt;- rep(c(-1,1), 5)
+   fit &lt;- lm(y ~ poly(x,2) + sin(z))
+   model.depends(fit)
+   model.covariates(fit)
+   model.is.additive(fit)
+
+   fitoff1 &lt;- lm(y ~ x + offset(z))
+   fitoff2 &lt;- lm(y ~ x, offset=z)
+   has.offset.term(fitoff1)
+   has.offset(fitoff1)
+   has.offset.term(fitoff2)
+   has.offset(fitoff2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

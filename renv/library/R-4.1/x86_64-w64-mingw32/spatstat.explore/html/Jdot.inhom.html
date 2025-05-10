@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Multitype J function (i-to-any)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Jdot.inhom {spatstat.explore}"><tr><td>Jdot.inhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Multitype J function (i-to-any)
+</h2>
+
+<h3>Description</h3>
+
+<p>For a multitype point pattern, 
+estimate the inhomogeneous multitype <i>J</i> function 
+summarising the interpoint dependence between
+points of type <i>i</i> and points of any type.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Jdot.inhom(X, i, 
+             lambdaI = NULL, lambdadot = NULL,
+             lambdamin = NULL,
+             ...,
+             r = NULL, ReferenceMeasureMarkSetI = NULL, ratio = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>The observed point pattern, 
+from which an estimate of the inhomogeneous multitype <i>J</i> function
+<i>Ji.(r)</i> will be computed.
+It must be a multitype point pattern (a marked point pattern
+whose marks are a factor). See under Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>The type (mark value)
+of the points in <code>X</code> from which distances are measured.
+A character string (or something that will be converted to a
+character string).
+Defaults to the first level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaI</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity of the sub-process of
+points of type <code>i</code>.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the type <code>i</code> points in <code>X</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdadot</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity of the point process.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the points in <code>X</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdamin</code></td>
+<td>
+
+<p>Optional. The minimum possible value of the intensity
+over the spatial domain. A positive numerical value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to control
+the pixel resolution for the computation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>vector of values for the argument <i>r</i> at which
+the inhomogeneous <i>K</i> function
+should be evaluated. Not normally given by the user;
+there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ReferenceMeasureMarkSetI</code></td>
+<td>
+
+<p>Optional. The total measure of the mark set. A positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical value indicating whether to save ratio information.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is the counterpart of <code><a href="../../spatstat.explore/help/Jdot.html">Jdot</a></code>
+for inhomogeneous patterns. It is computed as a special case
+of <code><a href="../../spatstat.explore/help/Jmulti.inhom.html">Jmulti.inhom</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"fv"</code> containing the estimate of the
+inhomogeneous multitype <i>J</i> function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jonatan Gonzalez and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cronie, O. and Van Lieshout, M.N.M. (2015)
+Summary statistics for inhomogeneous marked point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+DOI: 10.1007/s10463-015-0515-z
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Jdot.inhom.html">Jdot.inhom</a></code>, <code><a href="../../spatstat.explore/help/Jmulti.inhom.html">Jmulti.inhom</a></code>,
+<code><a href="../../spatstat.explore/help/Jdot.html">Jdot</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rescale(amacrine)
+  if(interactive() &amp;&amp; require(spatstat.model)) {
+    ## how to do it normally
+    mod &lt;- ppm(X ~ marks * x)
+    lam &lt;- fitted(mod, dataonly=TRUE)
+    lmin &lt;- min(predict(mod)[["off"]]) * 0.9
+    dd &lt;- NULL
+  } else {
+    ## for package testing 
+    lam &lt;- intensity(X)[as.integer(marks(X))]
+    lmin &lt;- intensity(X)[2] * 0.9
+    dd &lt;- 32
+  }
+  lamI &lt;- lam[marks(X) == "on"]
+  JD &lt;- Jdot.inhom(X, "on", lambdaI=lamI, lambdadot=lam, lambdamin=lmin,
+                   dimyx=dd)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

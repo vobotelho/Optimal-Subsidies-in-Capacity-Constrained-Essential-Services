@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Text String</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.textstring {spatstat.geom}"><tr><td>plot.textstring {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Text String</h2>
+
+<h3>Description</h3>
+
+<p>Plots an object of class <code>"textstring"</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'textstring'
+plot(x, ..., do.plot = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"textstring"</code> to be plotted.
+This object is created by the command <code><a href="../../spatstat.geom/help/textstring.html">textstring</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional graphics arguments passed to
+<code><a href="../../graphics/help/text.html">text</a></code> to control the plotting of text.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually plot the text.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>x</code> should be an object of class <code>"textstring"</code> 
+created by the command <code><a href="../../spatstat.geom/help/textstring.html">textstring</a></code>. 
+</p>
+<p>This function displays the text using 
+<code><a href="../../graphics/help/text.html">text</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (class <code>"owin"</code>) enclosing the plotted graphics.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/onearrow.html">onearrow</a></code>,
+<code><a href="../../spatstat.geom/help/yardstick.html">yardstick</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- Window(humberside)
+  te &lt;- textstring(centroid.owin(W), txt="Humberside", cex=2.5)
+  te
+  plot(layered(W, te), main="")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

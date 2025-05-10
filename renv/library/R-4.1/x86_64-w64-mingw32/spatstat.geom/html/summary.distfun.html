@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summarizing a Function of Spatial Location</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for summary.distfun {spatstat.geom}"><tr><td>summary.distfun {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Summarizing a Function of Spatial Location
+</h2>
+
+<h3>Description</h3>
+
+<p>Prints a useful summary of a function of spatial location.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'distfun'
+summary(object, ...)
+
+  ## S3 method for class 'funxy'
+summary(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An object of class <code>"distfun"</code> or <code>"funxy"</code>
+representing a function of spatial coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> controlling the
+pixel resolution used to compute the summary.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are the <code><a href="../../base/help/summary.html">summary</a></code> methods
+for the classes <code>"funxy"</code> and <code>"distfun"</code>.
+</p>
+<p>An object of class <code>"funxy"</code> represents a function
+of spatial location, defined in a particular region of space.
+This includes objects of the special class <code>"distfun"</code> which represent
+distance functions.
+</p>
+<p>The <code>summary</code> method computes a summary of the function values.
+The function is evaluated on a grid of locations using
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code> and numerical values at these locations
+are summarised using <code><a href="../../spatstat.geom/help/summary.im.html">summary.im</a></code>. The pixel resolution
+for the grid of locations is determined by the arguments
+<code>...</code> which are passed to <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>summary.funxy</code> the result is
+an object of class <code>"summary.funxy"</code>.
+For <code>summary.distfun</code> the result is
+an object of class <code>"summary.distfun"</code>.
+There are <code>print</code> methods for these classes.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code>, <code><a href="../../spatstat.geom/help/funxy.html">funxy</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   f &lt;- function(x,y) { x^2 + y^2 - 1} 
+   g &lt;- funxy(f, square(2))
+   summary(g)
+
+   summary(distfun(cells))
+   summary(distfun(cells), dimyx=256)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

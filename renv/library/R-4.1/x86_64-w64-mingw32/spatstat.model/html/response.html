@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract the Values of the Response from a Fitted Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for response {spatstat.model}"><tr><td>response {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract the Values of the Response from a Fitted Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted model (of any kind)
+extract the values of the response variable.
+For a point process model, the observed point pattern is extracted.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+response(object)
+
+## S3 method for class 'lm'
+response(object)
+
+## S3 method for class 'glm'
+response(object)
+
+## S3 method for class 'ppm'
+response(object)
+
+## S3 method for class 'kppm'
+response(object)
+
+## S3 method for class 'dppm'
+response(object)
+
+## S3 method for class 'slrm'
+response(object)
+
+## S3 method for class 'rppm'
+response(object)
+
+## S3 method for class 'mppm'
+response(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted model (object of class
+<code>"lm"</code>,
+<code>"glm"</code>,
+<code>"ppm"</code>,
+<code>"kppm"</code>,
+<code>"dppm"</code>,
+<code>"slrm"</code>, 
+<code>"rppm"</code>, or
+<code>"mppm"</code>
+or some other class).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For fitted linear models of class <code>"lm"</code>
+and fitted generalized linear models of class <code>"glm"</code>,
+the numerical values of the response variable are extracted
+if they are available, and otherwise <code>NULL</code> is returned.
+</p>
+<p>For fitted point process models of class
+<code>"ppm"</code>,
+<code>"kppm"</code>,
+<code>"dppm"</code>,
+<code>"slrm"</code>, <code>"lppm"</code> or <code>"rppm"</code>,
+the original data point pattern is extracted.
+</p>
+<p>For a fitted point process model of class <code>"mppm"</code>,
+the list of original data point patterns is extracted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>response.lm</code> and <code>response.glm</code>,
+a numeric vector, or <code>NULL</code>.
+</p>
+<p>For
+<code>response.ppm</code>,
+<code>response.kppm</code>,
+<code>response.dppm</code>,
+<code>response.slrm</code>
+and <code>response.rppm</code>,
+a two-dimensional spatial point pattern (class <code>"ppp"</code>).
+</p>
+<p>For <code>response.mppm</code>, a list of
+two-dimensional spatial point patterns (objects of class
+<code>"ppp"</code>).
+The list also belongs to classes <code>"solist"</code> and <code>"ppplist"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(cells ~ x)
+  response(fit)  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

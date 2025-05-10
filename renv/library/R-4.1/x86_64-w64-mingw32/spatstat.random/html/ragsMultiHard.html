@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Alternating Gibbs Sampler for Multitype Hard Core Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ragsMultiHard {spatstat.random}"><tr><td>ragsMultiHard {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Alternating Gibbs Sampler for Multitype Hard Core Process
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a realisation of the multitype hard core point process
+using the alternating Gibbs sampler.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ragsMultiHard(beta, hradii, ..., types=NULL, bmax = NULL,
+              periodic=FALSE, ncycles = 100)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>beta</code></td>
+<td>
+
+<p>First order trend. A numeric vector, a pixel image,
+a function, a list of functions, or a list of pixel images.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hradii</code></td>
+<td>
+
+<p>Matrix of hard core radii between each pair of types.
+Diagonal entries should be <code>0</code> or <code>NA</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>types</code></td>
+<td>
+
+<p>Vector of all possible types for the multitype point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/rmpoispp.html">rmpoispp</a></code>
+when generating random points. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>bmax</code></td>
+<td>
+
+<p>Optional upper bound on <code>beta</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical value indicating whether to measure distances in the
+periodic sense, so that opposite sides of the (rectangular) window
+are treated as identical.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ncycles</code></td>
+<td>
+
+<p>Number of cycles of the sampler to be performed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Alternating Gibbs Sampler for a multitype point process
+is an iterative simulation procedure. Each step of the sampler
+updates the pattern of points of a particular type <code>i</code>,
+by drawing a realisation from the conditional distribution of
+points of type <code>i</code> given the points of all other types.
+Successive steps of the sampler update the points of type 1, then
+type 2, type 3, and so on. 
+</p>
+<p>This is an experimental implementation which currently works only
+for multitype hard core processes (see <code><a href="../../spatstat.model/help/MultiHard.html">MultiHard</a></code>)
+in which there is no interaction between points of the same type,
+and for the area-interaction process (see <code><a href="../help/ragsAreaInter.html">ragsAreaInter</a></code>).
+</p>
+<p>The argument <code>beta</code> gives the first order trend for
+each possible type of point. It may be a single number, a numeric
+vector, a <code>function(x,y)</code>, a pixel image, a list of functions,
+a <code>function(x,y,m)</code>, or a list of pixel images. 
+</p>
+<p>The argument <code>hradii</code> is the matrix of hard core radii
+between each pair of possible types of points. Two points of types
+<code>i</code> and <code>j</code> respectively are forbidden to lie closer than
+a distance <code>hradii[i,j]</code> apart. The diagonal of this matrix must
+contain <code>NA</code> or <code>0</code> values, indicating that there is no hard
+core constraint applying between points of the same type.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rags.html">rags</a></code>,
+<code><a href="../help/ragsAreaInter.html">ragsAreaInter</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  b &lt;- c(30,20)
+  h &lt;- 0.05 * matrix(c(0,1,1,0), 2, 2)
+  ragsMultiHard(b, h, ncycles=10)
+  ragsMultiHard(b, h, ncycles=5, periodic=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Merge Levels of a Factor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for mergeLevels {spatstat.geom}"><tr><td>mergeLevels {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Merge Levels of a Factor
+</h2>
+
+<h3>Description</h3>
+
+<p>Specified levels of the factor will be merged into a single level.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mergeLevels(.f, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>.f</code></td>
+<td>
+
+<p>A factor (or a factor-valued pixel image
+or a point pattern with factor-valued marks).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>List of <code>name=value</code> pairs, where <code>name</code> is the
+new merged level, and <code>value</code> is the vector of old
+levels that will be merged.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This utility function takes a factor <code>.f</code>
+and merges specified levels of the factor.
+</p>
+<p>The grouping is specified by the arguments <code>...</code>
+which must each be given in the form <code>new=old</code>, where
+<code>new</code> is the name for the new merged level,
+and <code>old</code> is a character vector containing the old levels
+that are to be merged.
+</p>
+<p>The result is a new factor (or factor-valued object),
+in which the levels listed in <code>old</code>
+have been replaced by a single level <code>new</code>.
+</p>
+<p>An argument of the form <code>name=character(0)</code> or <code>name=NULL</code>
+is interpreted to mean that all other levels of the old factor
+should be mapped to <code>name</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another factor of the same length as <code>.f</code>
+(or object of the same kind as <code>.f</code>).
+</p>
+
+
+<h3>Tips for manipulating factor levels</h3>
+
+<p>To remove unused levels from a factor <code>f</code>,
+just type <code>f &lt;- factor(f)</code>.
+</p>
+<p>To change the ordering of levels in a factor,
+use <code><a href="../../base/help/factor.html">factor</a>(f, levels=l)</code> or
+<code><a href="../../stats/help/relevel.html">relevel</a>(f, ref)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/factor.html">factor</a></code>,
+<code><a href="../../stats/help/relevel.html">relevel</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   likert &lt;- c("Strongly Agree", "Agree", "Neutral",
+               "Disagree", "Strongly Disagree")
+   answers &lt;- factor(sample(likert, 15, replace=TRUE), levels=likert)
+   answers
+   mergeLevels(answers, Positive=c("Strongly Agree", "Agree"),
+                        Negative=c("Strongly Disagree", "Disagree"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

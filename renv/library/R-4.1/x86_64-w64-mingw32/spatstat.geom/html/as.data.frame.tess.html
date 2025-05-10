@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Tessellation to Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.data.frame.tess {spatstat.geom}"><tr><td>as.data.frame.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Tessellation to Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Converts a spatial tessellation object to a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'tess'
+as.data.frame(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Tessellation (object of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Further arguments passed to
+<code><a href="../../spatstat.geom/help/as.data.frame.owin.html">as.data.frame.owin</a></code> or
+<code><a href="../../spatstat.geom/help/as.data.frame.im.html">as.data.frame.im</a></code> and ultimately to
+<code><a href="../../base/help/as.data.frame.html">as.data.frame.default</a></code>
+to determine the row names and other features.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function converts the tessellation <code>x</code> to a data frame.
+</p>
+<p>If <code>x</code> is a pixel image tessellation (a pixel image with factor
+values specifying the tile membership of each pixel) then this
+pixel image is converted to a data frame by
+<code><a href="../../spatstat.geom/help/as.data.frame.im.html">as.data.frame.im</a></code>. The result is a data frame with
+columns <code>x</code> and <code>y</code> giving the pixel coordinates,
+and <code>Tile</code> identifying the tile containing the pixel.
+</p>
+<p>If <code>x</code> is a tessellation consisting of a rectangular grid of tiles
+or a list of polygonal tiles, then each tile is converted to a
+data frame by <code><a href="../../spatstat.geom/help/as.data.frame.owin.html">as.data.frame.owin</a></code>, and these data frames
+are joined together, yielding a single large data frame containing
+columns <code>x</code>, <code>y</code> giving the coordinates of vertices of the
+polygons, and <code>Tile</code> identifying the tile.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with columns named <code>x</code>, <code>y</code>, <code>Tile</code>,
+and possibly other columns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.data.frame.owin.html">as.data.frame.owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.data.frame.im.html">as.data.frame.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- as.data.frame(dirichlet(cells))
+  head(Z, 10)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

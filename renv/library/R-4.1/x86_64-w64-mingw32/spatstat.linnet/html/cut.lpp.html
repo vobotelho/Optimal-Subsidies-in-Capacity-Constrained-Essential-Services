@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Classify Points in a Point Pattern on a Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for cut.lpp {spatstat.linnet}"><tr><td>cut.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Classify Points in a Point Pattern on a Network</h2>
+
+<h3>Description</h3>
+
+<p>For a point pattern on a linear network, 
+classify the points into distinct types
+according to the numerical marks in the pattern, or according to
+another variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+cut(x, z=marks(x), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>z</code></td>
+<td>
+
+<p>Data determining the classification. A numeric vector,
+a factor, a pixel image on a linear network (class <code>"linim"</code>),
+a function on a linear network (class <code>"linfun"</code>),
+a tessellation on a linear network (class <code>"lintess"</code>), a string
+giving the name of a column of marks, or one of the coordinate
+names <code>"x"</code>, <code>"y"</code>, <code>"seg"</code> or <code>"tp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../base/html/cut.html">cut.default</a></code>.
+They determine the breakpoints for the mapping from numerical values
+in <code>z</code> to factor values in the output.
+See <code><a href="../../base/html/cut.html">cut.default</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function has the effect of classifying each point in the point
+pattern <code>x</code> into one of several possible types. The
+classification is based on the dataset <code>z</code>, which may be either
+</p>
+
+<ul>
+<li>
+<p>a factor (of length equal to the number of points in <code>z</code>)
+determining the classification of each point in <code>x</code>.
+Levels of the factor determine the classification.
+</p>
+</li>
+<li>
+<p>a numeric vector (of length equal to the number of points in
+<code>z</code>). The range of values of <code>z</code> will be divided into
+bands (the number of bands is determined by <code>...</code>)
+and <code>z</code> will be converted to a factor using
+<code><a href="../../base/html/cut.html">cut.default</a></code>.
+</p>
+</li>
+<li>
+<p>a pixel image on a network (object of class <code>"linim"</code>).
+The value of <code>z</code> at each point of <code>x</code> will be
+used as the classifying variable.
+</p>
+</li>
+<li>
+<p>a function on a network (object of class <code>"linfun"</code>, see
+<code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code>). 
+The value of <code>z</code> at each point of <code>x</code> will be
+used as the classifying variable.
+</p>
+</li>
+<li>
+<p>a tessellation on a network (object of class <code>"lintess"</code>, see
+<code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>). Each point of <code>x</code> will be classified
+according to the tile of the tessellation into which it falls.
+</p>
+</li>
+<li>
+<p>a character string, giving the name of one of the columns
+of <code>marks(x)</code>, if this is a data frame.
+</p>
+</li>
+<li>
+<p>a character string identifying one of the coordinates:
+the spatial coordinates
+<code>"x"</code>, <code>"y"</code> or the segment identifier <code>"seg"</code>
+or the fractional coordinate along the segment, <code>"tp"</code>.
+</p>
+</li></ul>
+
+<p>The default is to take <code>z</code> to be the vector of marks in
+<code>x</code> (or the first column in the data frame of marks of <code>x</code>,
+if it is a data frame). If the marks are numeric, then the range of values
+of the numerical marks is divided into several intervals, and each
+interval is associated with a level of a factor. 
+The result is a
+marked point pattern, on the same linear network,
+with the same point locations as
+<code>x</code>, but with the numeric mark of each point discretised
+by replacing it by the factor level.
+This is a convenient way to transform a marked point pattern
+which has numeric marks into a multitype point pattern,
+for example to plot it or analyse it. See the examples.
+</p>
+<p>To select some points from <code>x</code>, use the subset operators
+<code><a href="../../spatstat.linnet/help/+5B.lpp.html">[.lpp</a></code> or <code><a href="../../spatstat.linnet/help/subset.lpp.html">subset.lpp</a></code> instead.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A multitype point pattern on the same linear network,
+that is, a point pattern object
+(of class <code>"lpp"</code>) with a <code>marks</code> vector that is a factor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/cut.html">cut</a></code>,
+<code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>,
+<code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code>,
+<code><a href="../../spatstat.linnet/help/linim.html">linim</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(20, simplenet)
+  f &lt;- linfun(function(x,y,seg,tp) { x }, simplenet)
+  plot(cut(X, f, breaks=4))
+  plot(cut(X, "x", breaks=4))
+  plot(cut(X, "seg"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

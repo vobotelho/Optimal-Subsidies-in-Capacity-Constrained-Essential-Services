@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data to Multi-Dimensional Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.boxx {spatstat.geom}"><tr><td>as.boxx {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data to Multi-Dimensional Box</h2>
+
+<h3>Description</h3>
+
+<p>Interprets data as the dimensions of a multi-dimensional box.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.boxx(..., warn.owin = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Data that can be interpreted as giving the dimensions of a
+multi-dimensional box. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn.owin</code></td>
+<td>
+
+<p>Logical value indicating whether to print a warning
+if a non-rectangular window (object of class <code>"owin"</code>)
+is supplied.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Either a single argument should be provided which is one
+of the following:
+</p>
+
+<ul>
+<li><p> an object of class <code>"boxx"</code>
+</p>
+</li>
+<li><p> an object of class <code>"box3"</code>
+</p>
+</li>
+<li><p> an object of class <code>"owin"</code>
+</p>
+</li>
+<li><p> a numeric vector of even length, specifying the corners
+of the box. See Examples
+</p>
+</li></ul>
+
+<p>or a list of arguments acceptable to <code><a href="../../spatstat.geom/help/boxx.html">boxx</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>"boxx"</code> object.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # Convert unit square to two dimensional box.
+ W &lt;- owin()
+ as.boxx(W)
+ # Make three dimensional box [0,1]x[0,1]x[0,1] from numeric vector
+ as.boxx(c(0,1,0,1,0,1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

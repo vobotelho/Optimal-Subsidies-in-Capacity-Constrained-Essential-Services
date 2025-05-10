@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Move Point To Nearest Line</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for project2segment {spatstat.geom}"><tr><td>project2segment {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Move Point To Nearest Line</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and a line segment pattern,
+this function moves each point to the closest location
+on a line segment.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+project2segment(X, Y)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+<p>A line segment pattern (object of class <code>"psp"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each point <code>x</code> in the point pattern <code>X</code>, this function
+finds the closest line segment <code>y</code> in the line segment pattern
+<code>Y</code>. It then &lsquo;projects&rsquo; the point <code>x</code> onto the line segment
+<code>y</code> by finding the position <code>z</code> along <code>y</code>
+which is closest to <code>x</code>. This position <code>z</code> is returned,
+along with supplementary information.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with the following components. Each component has length equal to
+the number of points in <code>X</code>, and its entries correspond to the
+points of <code>X</code>.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>Xproj </code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>
+containing the projected points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mapXY </code></td>
+<td>
+
+<p>Integer vector identifying the nearest segment to each point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>d</code></td>
+<td>
+
+<p>Numeric vector of distances from each point of <code>X</code> to
+the corresponding projected point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tp</code></td>
+<td>
+
+<p>Numeric vector giving the scaled parametric coordinate 
+<i>0 &lt;= tp &lt;= 1</i> of the position of the projected point
+along the segment.
+</p>
+</td></tr>
+</table>
+<p>For example suppose <code>mapXY[2] = 5</code> and <code>tp[2] = 0.33</code>.
+Then <code>Y[5]</code> is the line segment lying closest to <code>X[2]</code>.
+The projection of the point <code>X[2]</code> onto the segment <code>Y[5]</code>
+is the point <code>Xproj[2]</code>, which lies one-third of the way
+between the first and second endpoints of the line segment <code>Y[5]</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nearestsegment.html">nearestsegment</a></code> for a faster way to determine
+which segment is closest to each point.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rsyst(square(1), nx=5)
+  Y &lt;- as.psp(matrix(runif(20), 5, 4), window=owin())
+  plot(Y, lwd=3, col="green")
+  plot(X, add=TRUE, col="red", pch=16)
+  v &lt;- project2segment(X,Y)
+  Xproj &lt;- v$Xproj
+  plot(Xproj, add=TRUE, pch=16)
+  arrows(X$x, X$y, Xproj$x, Xproj$y, angle=10, length=0.15, col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Change the Window of a Spatial Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Window {spatstat.geom}"><tr><td>Window {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract or Change the Window of a Spatial Object
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial object (such as a point pattern or pixel image)
+in two dimensions, these functions extract or change the window
+in which the object is defined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   Window(X, ...)
+
+   Window(X, ...) &lt;- value
+
+   ## S3 method for class 'ppp'
+Window(X, ...)
+
+   ## S3 replacement method for class 'ppp'
+Window(X, ...) &lt;- value
+
+   ## S3 method for class 'quad'
+Window(X, ...)
+
+   ## S3 replacement method for class 'quad'
+Window(X, ...) &lt;- value
+
+   ## S3 method for class 'psp'
+Window(X, ...)
+
+   ## S3 replacement method for class 'psp'
+Window(X, ...) &lt;- value
+
+   ## S3 method for class 'im'
+Window(X, ...)
+
+   ## S3 replacement method for class 'im'
+Window(X, ...) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial object such as a point pattern, line segment pattern
+or pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments. They are ignored by all the methods listed here.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Another window (object of class <code>"owin"</code>) to be used as the
+window for <code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>Window</code> and <code>Window&lt;-</code> are generic.
+</p>
+<p><code>Window(X)</code> extracts the spatial window in which <code>X</code> is
+defined.
+</p>
+<p><code>Window(X) &lt;- W</code> changes the window in which <code>X</code> is defined
+to the new window <code>W</code>, and <em>discards any data outside</em> <code>W</code>.
+In particular:
+</p>
+
+<ul>
+<li>
+<p>If <code>X</code> is a point pattern (object of class <code>"ppp"</code>)
+then <code>Window(X) &lt;- W</code> discards any points of <code>X</code> which
+fall outside <code>W</code>.
+</p>
+</li>
+<li>
+<p>If <code>X</code> is a quadrature scheme (object of class <code>"quad"</code>)
+then <code>Window(X) &lt;- W</code> discards any points of <code>X</code> which
+fall outside <code>W</code>, and discards the corresponding quadrature
+weights.
+</p>
+</li>
+<li>
+<p>If <code>X</code> is a line segment pattern (object of class
+<code>"psp"</code>) then <code>Window(X) &lt;- W</code> clips the segments of <code>X</code>
+to the boundaries of <code>W</code>.
+</p>
+</li>
+<li>
+<p>If <code>X</code> is a pixel image (object of class <code>"im"</code>)
+then <code>Window(X) &lt;- W</code> has the effect that pixels
+lying outside <code>W</code> are retained but their pixel values
+are set to <code>NA</code>.
+</p>
+</li></ul>
+
+<p>Many other classes of spatial object have a method
+for <code>Window</code>, but not <code>Window&lt;-</code>.
+See <code><a href="../help/Window.tess.html">Window.tess</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>Window</code> is a window (object of class
+<code>"owin"</code>).
+</p>
+<p>The result of <code>Window&lt;-</code> is the updated object <code>X</code>,
+of the same class as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/Window.ppm.html">Window.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   ## point patterns
+   Window(cells)
+   X &lt;- demopat
+   Window(X)
+   Window(X) &lt;- as.rectangle(Window(X))
+
+   ## line segment patterns
+   X &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+   Window(X)
+   Window(X) &lt;- square(0.5)
+
+   ## images
+   Z &lt;- setcov(owin())
+   Window(Z)
+   Window(Z) &lt;- square(0.5)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

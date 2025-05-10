@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest Neighbours Between Two Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nncross {spatstat.geom}"><tr><td>nncross {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nearest Neighbours Between Two Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Given two point patterns <code>X</code> and <code>Y</code>,
+finds the nearest neighbour in <code>Y</code> of each point of <code>X</code>.
+Alternatively <code>Y</code> may be a line segment pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nncross(X, Y, ...)
+
+  ## S3 method for class 'ppp'
+nncross(X, Y,
+          iX=NULL, iY=NULL,
+          what = c("dist", "which"),
+          ...,
+          k = 1,
+          sortby=c("range", "var", "x", "y"),
+          is.sorted.X = FALSE,
+          is.sorted.Y = FALSE,
+          metric=NULL)
+
+  ## Default S3 method:
+nncross(X, Y, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+<p>Either a point pattern (object of class <code>"ppp"</code>)
+or a line segment pattern (object of class <code>"psp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>iX, iY</code></td>
+<td>
+<p>Optional identifiers, applicable only in the case where
+<code>Y</code> is a point pattern, used to determine whether a point in
+<code>X</code> is identical to a point in <code>Y</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string specifying what information should be returned.
+Either the nearest neighbour distance (<code>"dist"</code>),
+the identifier of the nearest neighbour (<code>"which"</code>),
+or both.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer, or integer vector. The algorithm will compute the distance to the
+<code>k</code>th nearest neighbour.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sortby</code></td>
+<td>
+
+<p>Determines which coordinate to use to sort the point patterns.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>is.sorted.X, is.sorted.Y</code></td>
+<td>
+
+<p>Logical values attesting whether the point patterns <code>X</code> and
+<code>Y</code> have been sorted. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>metric</code></td>
+<td>
+
+<p>Optional. A distance metric
+(object of class <code>"metric"</code>, see <code><a href="../../spatstat.geom/help/metric.object.html">metric.object</a></code>)
+which will be used to compute the distances.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given two point patterns <code>X</code> and <code>Y</code> this
+function finds, for each point of <code>X</code>, 
+the nearest point of <code>Y</code>. The distance between these points
+is also computed.
+If the argument <code>k</code> is specified, then the <code>k</code>-th nearest
+neighbours will be found.
+</p>
+<p>Alternatively if <code>X</code> is a point pattern and <code>Y</code> is a line
+segment pattern, the function finds the nearest line segment to each point
+of <code>X</code>, and computes the distance.
+</p>
+<p>The return value is a data frame, with rows corresponding to
+the points of <code>X</code>.  The first column gives the nearest neighbour
+distances (i.e. the <code>i</code>th entry is the distance 
+from the <code>i</code>th point of <code>X</code> to the nearest element of
+<code>Y</code>). The second column gives the indices of the nearest
+neighbours (i.e.\ the <code>i</code>th entry is the index of
+the nearest element in <code>Y</code>.)
+If <code>what="dist"</code> then only the vector of distances is returned.
+If <code>what="which"</code> then only the vector of indices is returned.
+</p>
+<p>The argument <code>k</code> may be an integer or an integer vector.
+If it is a single integer, then the <code>k</code>-th nearest neighbours
+are computed. If it is a vector, then the <code>k[i]</code>-th nearest
+neighbours are computed for each entry <code>k[i]</code>. For example, setting
+<code>k=1:3</code> will compute the nearest, second-nearest and
+third-nearest neighbours. The result is a data frame.
+</p>
+<p>Note that this function is not symmetric in <code>X</code> and <code>Y</code>.
+To find the nearest neighbour in <code>X</code> of each point in <code>Y</code>,
+where <code>Y</code> is a point pattern, use <code>nncross(Y,X)</code>.
+</p>
+<p>The arguments <code>iX</code> and <code>iY</code> are used when
+the two point patterns <code>X</code> and <code>Y</code> have some points in
+common.  In this situation <code>nncross(X, Y)</code> would return some zero
+distances. To avoid this, attach a unique integer identifier to
+each point, such that two points are identical if their
+identifying numbers are equal. Let <code>iX</code> be the vector of
+identifier values for the points in <code>X</code>, and <code>iY</code>
+the vector of identifiers for points in <code>Y</code>. Then the code
+will only compare two points if they have different values of the
+identifier. See the Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame, or a vector if the data frame would contain only one column.
+</p>
+<p>By default (if <code>what=c("dist", "which")</code> and <code>k=1</code>)
+a data frame with two columns:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>dist</code></td>
+<td>
+<p>Nearest neighbour distance</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+<p>Nearest neighbour index in <code>Y</code></p>
+</td></tr>
+</table>
+<p>If <code>what="dist"</code> and <code>k=1</code>, a vector of nearest neighbour distances.
+</p>
+<p>If <code>what="which"</code> and <code>k=1</code>, a vector of nearest neighbour
+indices.
+</p>
+<p>If <code>k</code> is specified, the result is a data frame with
+columns containing the <code>k</code>-th nearest neighbour distances
+and/or nearest neighbour indices.
+</p>
+
+
+<h3>Efficiency, sorting data, and pre-sorted data</h3>
+
+<p>Read this section if you care about the speed of computation.
+</p>
+<p>For efficiency, the algorithm sorts the point patterns <code>X</code> and <code>Y</code>
+into increasing order of the <i>x</i> coordinate
+or increasing order of the the <i>y</i> coordinate.
+Sorting is only an intermediate step;
+it does not affect the output, which is always given in the same
+order as the original data.
+</p>
+<p>By default (if <code>sortby="range"</code>),
+the sorting will occur on the coordinate that has the larger range of
+values (according to the frame of the enclosing window of <code>Y</code>).
+If <code>sortby = "var"</code>), sorting will occur on the coordinate that
+has the greater variance (in the pattern <code>Y</code>).
+Setting <code>sortby="x"</code> or <code>sortby = "y"</code> will specify that
+sorting should occur on the <i>x</i> or <i>y</i> coordinate, respectively.
+</p>
+<p>If the point pattern <code>X</code> is already
+sorted, then the corresponding argument <code>is.sorted.X</code>
+should be set to <code>TRUE</code>, and <code>sortby</code> should be set
+equal to <code>"x"</code> or <code>"y"</code> to indicate which coordinate
+is sorted.
+</p>
+<p>Similarly if <code>Y</code> is already sorted, then <code>is.sorted.Y</code>
+should be set to <code>TRUE</code>, and <code>sortby</code> should be set
+equal to <code>"x"</code> or <code>"y"</code> to indicate which coordinate
+is sorted.
+</p>
+<p>If both <code>X</code> and <code>Y</code> are sorted <em>on the same coordinate
+axis</em> then both <code>is.sorted.X</code> and <code>is.sorted.Y</code>
+should be set to <code>TRUE</code>, and <code>sortby</code> should be set
+equal to <code>"x"</code> or <code>"y"</code> to indicate which coordinate
+is sorted.  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>,
+and Jens Oehlschlaegel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code> for nearest neighbour
+distances in a single point pattern.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # two different point patterns
+  X &lt;- runifrect(15)
+  Y &lt;- runifrect(20)
+  N &lt;- nncross(X,Y)$which
+  # note that length(N) = 15
+  plot(superimpose(X=X,Y=Y), main="nncross", cols=c("red","blue"))
+  arrows(X$x, X$y, Y[N]$x, Y[N]$y, length=0.15)
+
+  # third-nearest neighbour
+  NXY &lt;- nncross(X, Y, k=3)
+  NXY[1:3,]
+  # second and third nearest neighbours
+  NXY &lt;- nncross(X, Y, k=2:3)
+  NXY[1:3,]
+
+  # two patterns with some points in common
+  Z &lt;- runifrect(50)
+  X &lt;- Z[1:30]
+  Y &lt;- Z[20:50]
+  iX &lt;- 1:30
+  iY &lt;- 20:50
+  N &lt;- nncross(X,Y, iX, iY)$which
+  N &lt;- nncross(X,Y, iX, iY, what="which") #faster
+  plot(superimpose(X=X, Y=Y), main="nncross", cols=c("red","blue"))
+  arrows(X$x, X$y, Y[N]$x, Y[N]$y, length=0.15)
+
+  # point pattern and line segment pattern
+  X &lt;- runifrect(15)
+  Y &lt;- psp(runif(10), runif(10), runif(10), runif(10), square(1))
+  N &lt;- nncross(X,Y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

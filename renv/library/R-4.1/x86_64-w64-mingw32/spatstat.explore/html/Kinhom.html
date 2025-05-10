@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous K-function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kinhom {spatstat.explore}"><tr><td>Kinhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Inhomogeneous K-function</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the inhomogeneous <i>K</i> function of
+a non-stationary point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Kinhom(X, lambda=NULL, ..., r = NULL, breaks = NULL,
+    correction=c("border", "bord.modif", "isotropic", "translate"),
+    renormalise=TRUE,
+    normpower=1,
+    update=TRUE,
+    leaveoneout=TRUE,
+    nlarge = 1000,
+    lambda2=NULL, reciplambda=NULL, reciplambda2=NULL,
+    diagonal=TRUE,
+    sigma=NULL, varcov=NULL,
+    ratio=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>The observed data point pattern,
+from which an estimate of the inhomogeneous <i>K</i> function
+will be computed.
+An object of class <code>"ppp"</code>
+or in a format recognised by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity function.
+Either a vector giving the intensity values
+at the points of the pattern <code>X</code>,
+a pixel image (object of class <code>"im"</code>) giving the
+intensity values at all locations, a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code>)
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments. Ignored if <code>lambda</code> is present.
+Passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> if <code>lambda</code> is omitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>vector of values for the argument <i>r</i> at which
+the inhomogeneous <i>K</i> function
+should be evaluated. Not normally given by the user;
+there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"border"</code>, <code>"bord.modif"</code>,
+<code>"isotropic"</code>, <code>"Ripley"</code>, <code>"translate"</code>,
+<code>"translation"</code>,
+<code>"none"</code> or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>renormalise</code></td>
+<td>
+
+<p>Logical. Whether to renormalise the estimate. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normpower</code></td>
+<td>
+
+<p>Integer (usually either 1 or 2).
+Normalisation power. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>lambda</code> is a fitted model
+(class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>).
+If <code>update=TRUE</code> (the default),
+the model will first be refitted to the data <code>X</code>
+(using <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code> or <code><a href="../../spatstat.model/help/update.kppm.html">update.kppm</a></code>)
+before the fitted intensity is computed.
+If <code>update=FALSE</code>, the fitted intensity of the
+model will be computed without re-fitting it to <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value (passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> or
+<code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>) specifying whether to use a
+leave-one-out rule when calculating the intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nlarge</code></td>
+<td>
+
+<p>Optional. Efficiency threshold.
+If the number of points exceeds <code>nlarge</code>, then only the
+border correction will be computed, using a fast algorithm.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda2</code></td>
+<td>
+
+<p>Advanced use only.
+Matrix containing estimates of the products
+<i>lambda(x[i]) * lambda(x[j])</i>
+of the intensities at each pair of data points 
+<i>x[i]</i> and <i>x[j]</i>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>reciplambda</code></td>
+<td>
+
+<p>Alternative to <code>lambda</code>.
+Values of the estimated <em>reciprocal</em> <i>1/lambda</i>
+of the intensity function.
+Either a vector giving the reciprocal intensity values
+at the points of the pattern <code>X</code>,
+a pixel image (object of class <code>"im"</code>) giving the
+reciprocal intensity values at all locations,
+or a <code>function(x,y)</code> which can be evaluated to give the
+reciprocal intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reciplambda2</code></td>
+<td>
+
+<p>Advanced use only. Alternative to <code>lambda2</code>.
+A matrix giving values of the estimated <em>reciprocal products</em>
+<i>1/(lambda(x[i]) * lambda(x[j]))</i>
+of the intensities at each pair of data points 
+<i>x[i]</i> and <i>x[j]</i>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>diagonal</code></td>
+<td>
+
+<p>Do not use this argument.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma,varcov</code></td>
+<td>
+
+<p>Optional arguments passed to  <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the smoothing bandwidth, when <code>lambda</code> is
+estimated by kernel smoothing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This computes a generalisation of the <i>K</i> function
+for inhomogeneous point patterns, proposed by
+Baddeley, Moller and Waagepetersen (2000).
+</p>
+<p>The &ldquo;ordinary&rdquo; <i>K</i> function
+(variously known as the reduced second order moment function
+and Ripley's <i>K</i> function), is
+described under <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>. It is defined only
+for stationary point processes.
+</p>
+<p>The inhomogeneous <i>K</i> function
+<i>Kinhom(r)</i>
+is a direct generalisation to nonstationary point processes.
+Suppose <i>x</i> is a point process with non-constant intensity
+<i>lambda(u)</i> at each location <i>u</i>.
+Define <i>Kinhom(r)</i> to be the expected
+value, given that <i>u</i> is a point of <i>x</i>,
+of the sum of all terms
+<i>1/lambda(x[j])</i>
+over all points <i>x[j]</i>
+in the process separated from <i>u</i> by a distance less than <i>r</i>.
+This reduces to the ordinary <i>K</i> function if
+<i>lambda()</i> is constant.
+If <i>x</i> is an inhomogeneous Poisson process with intensity
+function <i>lambda(u)</i>, then
+<i>Kinhom(r) = pi * r^2</i>.
+</p>
+<p>Given a point pattern dataset, the 
+inhomogeneous <i>K</i> function can be estimated
+essentially by summing the values
+<i>1/(lambda(x[i]) * lambda(x[j]))</i>
+for all pairs of points <i>x[i], x[j]</i>
+separated by a distance less than <i>r</i>.
+</p>
+<p>This allows us to inspect a point pattern for evidence of 
+interpoint interactions after allowing for spatial inhomogeneity
+of the pattern. Values 
+<i>Kinhom(r) &gt; pi * r^2</i>
+are suggestive of clustering.
+</p>
+<p>The argument <code>lambda</code> should supply the
+(estimated) values of the intensity function <i>lambda</i>.
+It may be either
+</p>
+
+<dl>
+<dt>a numeric vector</dt><dd>
+<p>containing the values
+of the intensity function at the points of the pattern <code>X</code>.
+</p>
+</dd>
+<dt>a pixel image</dt><dd>
+<p>(object of class <code>"im"</code>)
+assumed to contain the values of the intensity function
+at all locations in the window. 
+</p>
+</dd>
+<dt>a fitted point process model</dt><dd>
+<p>(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>)
+whose fitted <em>trend</em> can be used as the fitted intensity.
+(If <code>update=TRUE</code> the model will first be refitted to the
+data <code>X</code> before the trend is computed.)
+</p>
+</dd>
+<dt>a function</dt><dd>
+<p>which can be evaluated to give values of the intensity at
+any locations.
+</p>
+</dd>
+<dt>omitted:</dt><dd>
+<p>if <code>lambda</code> is omitted, then it will be estimated using
+a &lsquo;leave-one-out&rsquo; kernel smoother.
+</p>
+</dd>
+</dl>
+
+<p>If <code>lambda</code> is a numeric vector, then its length should
+be equal to the number of points in the pattern <code>X</code>.
+The value <code>lambda[i]</code> is assumed to be the 
+the (estimated) value of the intensity
+<i>lambda(x[i])</i> for
+the point <i>x[i]</i> of the pattern <i>X</i>.
+Each value must be a positive number; <code>NA</code>'s are not allowed.
+</p>
+<p>If <code>lambda</code> is a pixel image, the domain of the image should
+cover the entire window of the point pattern. If it does not (which
+may occur near the boundary because of discretisation error),
+then the missing pixel values 
+will be obtained by applying a Gaussian blur to <code>lambda</code> using
+<code><a href="../../spatstat.explore/help/blur.html">blur</a></code>, then looking up the values of this blurred image
+for the missing locations. 
+(A warning will be issued in this case.)
+</p>
+<p>If <code>lambda</code> is a function, then it will be evaluated in the
+form <code>lambda(x,y)</code> where <code>x</code> and <code>y</code> are vectors
+of coordinates of the points of <code>X</code>. It should return a numeric
+vector with length equal to the number of points in <code>X</code>.
+</p>
+<p>If <code>lambda</code> is omitted, then it will be estimated using
+a &lsquo;leave-one-out&rsquo; kernel smoother,
+as described in Baddeley, Moller
+and Waagepetersen (2000).  The estimate <code>lambda[i]</code> for the
+point <code>X[i]</code> is computed by removing <code>X[i]</code> from the
+point pattern, applying kernel smoothing to the remaining points using
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>, and evaluating the smoothed intensity
+at the point <code>X[i]</code>. The smoothing kernel bandwidth is controlled
+by the arguments <code>sigma</code> and <code>varcov</code>, which are passed to
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> along with any extra arguments.
+</p>
+<p>Edge corrections are used to correct bias in the estimation
+of <i>Kinhom</i>.
+Each edge-corrected estimate of
+<i>Kinhom(r)</i> is
+of the form
+</p>
+<p style="text-align: center;"><i>
+    K^inhom(r)= (1/A) sum[i] sum[j] 1(d[i,j] &lt;= r) * 
+    e(x[i],x[j],r)/(lambda(x[i]) * lambda(x[j]))
+  </i></p>
+
+<p>where <code>A</code> is a constant denominator, 
+<i>d[i,j]</i> is the distance between points
+<i>x[i]</i> and <i>x[j]</i>, and
+<i>e(x[i],x[j],r)</i> is
+an edge correction factor. For the &lsquo;border&rsquo; correction,
+</p>
+<p style="text-align: center;"><i>
+    1(b[i] &gt; r)/(sum[j] 1(b[j] &gt; r)/lambda(x[j]))
+  </i></p>
+
+<p>where <i>b[i]</i> is the distance from <i>x[i]</i>
+to the boundary of the window. For the &lsquo;modified border&rsquo;
+correction, 
+</p>
+<p style="text-align: center;"><i>
+    1(b[i] &gt; r)/area(W [-] r)
+  </i></p>
+
+<p>where <i>W [-] r</i> is the eroded window obtained
+by trimming a margin of width <i>r</i> from the border of the original
+window.
+For the &lsquo;translation&rsquo; correction,
+</p>
+<p style="text-align: center;"><i>
+    1/area(W intersect (W + x[j]-x[i]))
+  </i></p>
+
+<p>and for the &lsquo;isotropic&rsquo; correction,
+</p>
+<p style="text-align: center;"><i>
+    1/(area(W) g(x[i],x[j]))
+  </i></p>
+
+<p>where <i>g(x[i],x[j])</i> is the fraction of the
+circumference of the circle with centre <i>x[i]</i> and radius
+<i>||x[i]-x[j]||</i> which lies inside the window.
+</p>
+<p>If <code>renormalise=TRUE</code> (the default), then the estimates
+described above 
+are multiplied by <i>c^normpower</i> where 
+<i>
+    c = area(W)/sum[i] (1/lambda(x[i])).
+  </i>
+This rescaling reduces the variability and bias of the estimate
+in small samples and in cases of very strong inhomogeneity.
+The default value of <code>normpower</code> is 1 (for consistency with
+previous versions of <span class="pkg">spatstat</span>)
+but the most sensible value is 2, which would correspond to rescaling
+the <code>lambda</code> values so that
+<i>
+    sum[i] (1/lambda(x[i])) = area(W).
+  </i>
+</p>
+<p>If the point pattern <code>X</code> contains more than about 1000 points,
+the isotropic and translation edge corrections can be computationally
+prohibitive. The computations for the border method are much faster,
+and are statistically efficient when there are large numbers of
+points. Accordingly, if the number of points in <code>X</code> exceeds
+the threshold <code>nlarge</code>, then only the border correction will be
+computed. Setting <code>nlarge=Inf</code> or <code>correction="best"</code>
+will prevent this from happening.
+Setting <code>nlarge=0</code> is equivalent to selecting only the border
+correction with <code>correction="border"</code>.
+</p>
+<p>The pair correlation function can also be applied to the
+result of <code>Kinhom</code>; see <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+<p>Essentially a data frame containing at least the following columns,
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the vector of values of the argument <i>r</i> 
+at which <i>Kinhom(r)</i> has been estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>vector of values of <i>pi * r^2</i>,
+the theoretical value of <i>Kinhom(r)</i>
+for an inhomogeneous Poisson process
+</p>
+</td></tr>
+</table>
+<p>and containing additional columns
+according to the choice specified in the <code>correction</code>
+argument. The additional columns are named
+<code>border</code>, <code>trans</code> and <code>iso</code>
+and give the estimated values of 
+<i>Kinhom(r)</i>
+using the border correction, translation correction,
+and Ripley isotropic correction, respectively.
+</p>
+<p>If <code>ratio=TRUE</code> then the return value also has two
+attributes called <code>"numerator"</code> and <code>"denominator"</code>
+which are <code>"fv"</code> objects
+containing the numerators and denominators of each
+estimate of <i>Kinhom(r)</i>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.,
+Moller, J. and Waagepetersen, R. (2000)
+Non- and semiparametric estimation of interaction in
+inhomogeneous point patterns.
+<em>Statistica Neerlandica</em> <b>54</b>, 329&ndash;350.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # inhomogeneous pattern of maples
+  X &lt;- unmark(split(lansing)$maple)
+  
+
+  if(require("spatstat.model")) {
+    # (1) intensity function estimated by model-fitting
+    # Fit spatial trend: polynomial in x and y coordinates
+    fit &lt;- ppm(X, ~ polynom(x,y,2), Poisson())
+    # (a) predict intensity values at points themselves,
+    #     obtaining a vector of lambda values
+    lambda &lt;- predict(fit, locations=X, type="trend")
+    # inhomogeneous K function
+    Ki &lt;- Kinhom(X, lambda)
+    plot(Ki)
+    # (b) predict intensity at all locations,
+    #     obtaining a pixel image
+    lambda &lt;- predict(fit, type="trend")
+    Ki &lt;- Kinhom(X, lambda)
+    plot(Ki)
+  }
+
+  # (2) intensity function estimated by heavy smoothing
+  Ki &lt;- Kinhom(X, sigma=0.1)
+  plot(Ki)
+
+  # (3) simulated data: known intensity function
+  lamfun &lt;- function(x,y) { 50 + 100 * x }
+  # inhomogeneous Poisson process
+  Y &lt;- rpoispp(lamfun, 150, owin())
+  # inhomogeneous K function
+  Ki &lt;- Kinhom(Y, lamfun)
+  plot(Ki)
+
+  # How to make simulation envelopes:
+  #      Example shows method (2)
+  if(interactive()) {
+    smo &lt;- density.ppp(X, sigma=0.1)
+    Ken &lt;- envelope(X, Kinhom, nsim=99,
+                    simulate=expression(rpoispp(smo)),
+                    sigma=0.1, correction="trans")
+    plot(Ken)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Clark and Evans Aggregation Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clarkevans {spatstat.explore}"><tr><td>clarkevans {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Clark and Evans Aggregation Index</h2>
+
+<h3>Description</h3>
+
+<p>Computes the Clark and Evans aggregation index
+<i>R</i> for a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+clarkevans(X, correction=c("none", "Donnelly", "cdf"),
+              clipregion=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Character vector.
+The type of edge correction(s) to be applied.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipregion</code></td>
+<td>
+
+<p>Clipping region for the guard area correction.
+A window (object of class <code>"owin"</code>).
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Clark and Evans (1954) aggregation index <i>R</i> is a crude
+measure of clustering or ordering of a point pattern.
+It is the ratio of the observed mean nearest neighbour distance
+in the pattern to that expected for a Poisson point process
+of the same intensity.
+A value <i>R&gt;1</i> suggests ordering, while <i>R&lt;1</i> suggests
+clustering.
+</p>
+<p>Without correction for edge effects, the value of <code>R</code> will be
+positively biased. Edge effects arise because, for a point of <code>X</code>
+close to the edge of the window, the true nearest neighbour may
+actually lie outside the window. Hence observed nearest neighbour
+distances tend to be larger than the true nearest neighbour distances.
+</p>
+<p>The argument <code>correction</code> specifies an edge correction
+or several edge corrections to be applied. It is a character vector
+containing one or more of the options
+<code>"none"</code>, <code>"Donnelly"</code>, <code>"guard"</code> and <code>"cdf"</code>
+(which are recognised by partial matching).
+These edge corrections are:
+</p>
+
+<dl>
+<dt>&quot;none&quot;:</dt><dd>
+<p>No edge correction is applied. 
+</p>
+</dd>
+<dt>&quot;Donnelly&quot;:</dt><dd>
+<p>Edge correction of Donnelly (1978), available for rectangular
+windows only.
+The theoretical expected value of mean nearest neighbour distance
+under a Poisson process is adjusted for edge effects by the 
+edge correction of Donnelly (1978). The value of <i>R</i> is the
+ratio of the observed mean nearest neighbour distance to this
+adjusted theoretical mean.
+</p>
+</dd>
+<dt>&quot;guard&quot;:</dt><dd>
+<p>Guard region or buffer area method.
+The observed mean nearest neighbour distance
+for the point pattern <code>X</code>
+is re-defined by averaging only over those points of <code>X</code>
+that fall inside the sub-window <code>clipregion</code>.
+</p>
+</dd>
+<dt>&quot;cdf&quot;:</dt><dd>
+<p>Cumulative Distribution Function method.
+The nearest neighbour distance distribution function <i>G(r)</i>
+of the stationary point process is estimated by <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>
+using the Kaplan-Meier type edge correction. Then the mean of the
+distribution is calculated from the cdf. 
+</p>
+</dd>
+</dl>
+
+<p>Alternatively <code>correction="all"</code> selects all options.
+</p>
+<p>If the argument <code>clipregion</code> is given, then the selected
+edge corrections will be assumed to include <code>correction="guard"</code>.
+</p>
+<p>To perform a test based on the Clark-Evans index,
+see <code><a href="../../spatstat.explore/help/clarkevans.test.html">clarkevans.test</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value, or a numeric vector with named components
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>naive</code></td>
+<td>
+<p><i>R</i> without edge correction</p>
+</td></tr>
+<tr valign="top"><td><code>Donnelly</code></td>
+<td>
+<p><i>R</i> using Donnelly edge correction</p>
+</td></tr>
+<tr valign="top"><td><code>guard</code></td>
+<td>
+<p><i>R</i> using guard region</p>
+</td></tr>
+<tr valign="top"><td><code>cdf</code></td>
+<td>
+<p><i>R</i> using cdf method</p>
+</td></tr>
+</table>
+<p>(as selected by <code>correction</code>). The value of the <code>Donnelly</code>
+component will be <code>NA</code> if the window of <code>X</code> is not a rectangle.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>John Rudge
+<a href="mailto:rudge@esc.cam.ac.uk">rudge@esc.cam.ac.uk</a>
+with modifications by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Clark, P.J. and Evans, F.C. (1954)
+Distance to nearest neighbour as a measure of spatial
+relationships in populations <em>Ecology</em> <b>35</b>,
+445&ndash;453.
+</p>
+<p>Donnelly, K. (1978) Simulations to determine the variance
+and edge-effect of total nearest neighbour distance.
+In I. Hodder (ed.) <em>Simulation studies in archaeology</em>,
+Cambridge/New York: Cambridge University Press, pp 91&ndash;95.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/clarkevans.test.html">clarkevans.test</a></code>,
+<code><a href="../../spatstat.explore/help/hopskel.html">hopskel</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # Example of a clustered pattern
+  clarkevans(redwood)
+
+  # Example of an ordered pattern
+  clarkevans(cells)
+
+  # Random pattern
+  X &lt;- rpoispp(100)
+  clarkevans(X)
+
+  # How to specify a clipping region
+  clip1 &lt;- owin(c(0.1,0.9),c(0.1,0.9))
+  clip2 &lt;- erosion(Window(cells), 0.1)
+  clarkevans(cells, clipregion=clip1)
+  clarkevans(cells, clipregion=clip2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

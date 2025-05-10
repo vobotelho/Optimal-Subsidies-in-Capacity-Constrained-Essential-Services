@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Field of clusters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for clusterfield.kppm {spatstat.model}"><tr><td>clusterfield.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Field of clusters</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the superposition of cluster kernels at the location of a
+point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'kppm'
+clusterfield(model, locations = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Cluster model. Either a fitted cluster model (object of class
+<code>"kppm"</code>), a character string specifying the type of cluster
+model, or a function defining the cluster kernel. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>locations</code></td>
+<td>
+
+<p>A point pattern giving the locations of the kernels. Defaults to the
+centroid of the observation window for the <code>"kppm"</code> method and
+to the center of a unit square otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> or the
+cluster kernel. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>clusterfield</code> is generic,
+with a method for <code>"kppm"</code> (described here)
+and methods for <code>"character"</code> and <code>"function"</code>.
+</p>
+<p>The method <code>clusterfield.kppm</code> extracts the relevant information
+from the fitted model and calls <code><a href="../../spatstat.random/help/clusterfield.function.html">clusterfield.function</a></code>.
+</p>
+<p>The calculations are performed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> and
+<code>...</code> arguments are passed thereto for control over the pixel
+resolution etc.
+(These arguments are then passed on to <code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>
+and <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>.)
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+</p>
+<p><code><a href="../../spatstat.random/help/clusterfield.html">clusterfield</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- kppm(redwood~1, "Thomas")
+  Z &lt;- clusterfield(fit, eps = 0.01)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

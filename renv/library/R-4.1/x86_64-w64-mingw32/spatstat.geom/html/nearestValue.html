@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Image of Nearest Defined Pixel Value</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nearestValue {spatstat.geom}"><tr><td>nearestValue {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Image of Nearest Defined Pixel Value
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a pixel image defined on a subset of a rectangle,
+this function assigns a value to every pixel in the rectangle,
+by looking up the value of the nearest pixel that has a value.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nearestValue(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A pixel image in <span class="pkg">spatstat</span> is always stored on
+a rectangular grid of pixels, but its value may be <code>NA</code>
+on some pixels, indicating that the image is not defined at those
+pixels.
+</p>
+<p>This function assigns a value to every pixel in the rectangular grid.
+For each pixel <code>a</code> in the grid, if the value of <code>X</code> is not
+defined at <code>a</code>, the function finds the nearest other pixel <code>b</code>
+at which the value of <code>X</code> is defined, and takes the pixel value at
+<code>b</code> as the new pixel value at <code>a</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another image of the same kind as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/blur.html">blur</a></code>, <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- as.im(function(x,y) { x + y }, letterR)
+  Y &lt;- nearestValue(X)
+  plot(solist("X"=X,"nearestValue(X)"=Y), main="", panel.end=letterR)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

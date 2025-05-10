@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Density Estimation for Circular Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for circdensity {spatstat.explore}"><tr><td>circdensity {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Density Estimation for Circular Data
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes a kernel smoothed estimate of the probability density
+for angular data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+circdensity(x, sigma = "nrd0", ...,
+               bw = NULL,
+               weights=NULL, unit = c("degree", "radian"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Numeric vector, containing angular data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth, or bandwidth selection rule, passed to
+<code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+<p>Alternative to <code>sigma</code> for consistency with other functions.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to
+<code><a href="../../stats/help/density.default.html">density.default</a></code>,
+such as <code>kernel</code> and <code>weights</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional numeric vector of weights for the data in <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unit</code></td>
+<td>
+
+<p>The unit of angle in which <code>x</code> is expressed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The angular values <code>x</code> are smoothed using
+(by default) the wrapped Gaussian kernel with standard deviation <code>sigma</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"density"</code> (produced by
+<code><a href="../../stats/help/density.default.html">density.default</a></code>) which can be plotted
+by <code>plot</code> or by <code><a href="../../spatstat.explore/help/rose.html">rose</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/density.default.html">density.default</a></code>),
+<code><a href="../../spatstat.explore/help/rose.html">rose</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ang &lt;- runif(1000, max=360)
+  rose(circdensity(ang, 12))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

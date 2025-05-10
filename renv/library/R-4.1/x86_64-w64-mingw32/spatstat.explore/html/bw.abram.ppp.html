@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Abramson's Adaptive Bandwidths For Spatial Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.abram.ppp {spatstat.explore}"><tr><td>bw.abram.ppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Abramson's Adaptive Bandwidths For Spatial Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes adaptive smoothing bandwidths for a spatial point pattern,
+according to the inverse-square-root rule of Abramson (1982).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+bw.abram(X, h0, 
+         ...,
+         at=c("points", "pixels"),
+         hp = h0, pilot = NULL, trim=5, smoother=density.ppp)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+for which the variable bandwidths should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>h0</code></td>
+<td>
+
+<p>A scalar value giving the global smoothing bandwidth
+in the same units as the coordinates of <code>X</code>.
+The default is <code>h0=<a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a>(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code> to control the pixel resolution,
+or passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> or <code>smoother</code>
+to control the type of smoothing, when computing the pilot estimate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>Character string (partially matched) specifying whether
+to compute bandwidth values at the points of <code>X</code>
+(<code>at="points"</code>, the default) or to compute bandwidths
+at every pixel in a fine pixel grid (<code>at="pixels"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>hp</code></td>
+<td>
+
+<p>Optional. A scalar pilot bandwidth, used for estimation
+of the pilot density if required. Ignored if <code>pilot</code> is a pixel image
+(object of class <code>"im"</code>); see below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pilot</code></td>
+<td>
+
+<p>Optional. Specification of a pilot density
+(possibly unnormalised).
+If <code>pilot=NULL</code> the pilot density
+is computed by applying fixed-bandwidth density estimation to
+<code>X</code> using bandwidth <code>hp</code>.
+If <code>pilot</code> is a point pattern, the pilot density is 
+is computed using a fixed-bandwidth estimate based
+on <code>pilot</code> and <code>hp</code>.
+If <code>pilot</code> is a pixel image (object of class <code>"im"</code>),
+this is taken to be the (possibly unnormalised)
+pilot density, and <code>hp</code> is ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>A trimming value required to curb excessively large bandwidths.
+See Details. The default is sensible in most cases.
+</p>
+</td></tr>
+<tr valign="top"><td><code>smoother</code></td>
+<td>
+
+<p>Smoother for the pilot.
+A function or character string, specifying the function
+to be used to compute the pilot estimate when
+<code>pilot</code> is <code>NULL</code> or is a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes adaptive smoothing bandwidths
+using the methods of Abramson (1982) and Hall and Marron (1988).
+</p>
+<p>The function <code><a href="../../spatstat.univar/help/bw.abram.html">bw.abram</a></code> is generic. The function
+<code>bw.abram.ppp</code> documented here is the method
+for spatial point patterns (objects of class <code>"ppp"</code>).
+</p>
+<p>If <code>at="points"</code> (the default) a smoothing bandwidth is
+computed for each point in the pattern <code>X</code>. Alternatively if
+<code>at="pixels"</code> a smoothing bandwidth is computed for
+each spatial location in a pixel grid.
+</p>
+<p>Under the Abramson-Hall-Marron rule, the bandwidth at location <i>u</i> is
+</p>
+<p style="text-align: center;"><i>
+    h(u) = h0 * min(\tilde{f}(u)^{-1/2}/&gamma;, trim)
+  </i></p>
+
+<p>where <i>\tilde{f}(u)</i> is a pilot estimate of the spatially varying
+probability density. The variable bandwidths are rescaled by <i>&gamma;</i>, the
+geometric mean of the <i>\tilde{f}(u)^{-1/2}</i> terms evaluated at the
+data; this allows the global bandwidth <code>h0</code> to be considered on
+the same scale as a corresponding fixed bandwidth. The trimming value
+<code>trim</code> has the same interpretation as the required &lsquo;clipping&rsquo; of
+the pilot density at some small nominal value (see Hall and Marron,
+1988), to necessarily prevent extreme bandwidths (which
+can occur at very isolated observations).
+</p>
+<p>The pilot density or intensity is determined as follows:
+</p>
+
+<ul>
+<li><p> If <code>pilot</code> is a pixel image, this is taken as the
+pilot density or intensity.
+</p>
+</li>
+<li><p> If <code>pilot</code> is <code>NULL</code>, then the pilot intensity is
+computed as a fixed-bandwidth kernel
+intensity estimate using <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> applied to
+the data pattern <code>X</code> using
+the pilot bandwidth <code>hp</code>.
+</p>
+</li>
+<li>
+<p>If <code>pilot</code> is a different point pattern on the same spatial
+domain as <code>X</code>, then the pilot intensity is
+computed as a fixed-bandwidth kernel
+intensity estimate using <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> applied to
+<code>pilot</code> using the pilot bandwidth <code>hp</code>.
+</p>
+</li></ul>
+
+<p>In each case the pilot density or intensity is renormalised to
+become a probability density, and then the Abramson rule is applied.
+</p>
+<p>Instead of calculating the pilot as a fixed-bandwidth density
+estimate, the user can specify another density estimation procedure
+using the argument <code>smoother</code>. This should be either a function
+or the character string name of a function. It will replace
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> as the function used to calculate the
+pilot estimate. The pilot estimate will be computed as
+<code>smoother(X, sigma=hp, ...)</code> if <code>pilot</code> is <code>NULL</code>,
+or <code>smoother(pilot, sigma=hp, ...)</code> if <code>pilot</code> is a point
+pattern. If <code>smoother</code> does not recognise the argument name
+<code>sigma</code> for the smoothing bandwidth, then <code>hp</code> is effectively
+ignored, as shown in the Examples.  
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either a numeric vector of length <code>npoints(X)</code>
+giving the Abramson bandwidth for each point
+(when <code>at = "points"</code>, the default),
+or the entire pixel <code><a href="../../spatstat.geom/help/im.html">im</a></code>age
+of the Abramson bandwidths over the relevant spatial domain
+(when <code>at = "pixels"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a>. Adapted by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Abramson, I. (1982)
+On bandwidth variation in kernel estimates &mdash; a square root law.
+<em>Annals of Statistics</em>, <b>10</b>(4), 1217-1223. 
+</p>
+<p>Davies, T.M. and Baddeley, A. (2018)
+Fast computation of spatially adaptive kernel estimates.
+<em>Statistics and Computing</em>, <b>28</b>(4), 937-956. 
+</p>
+<p>Davies, T.M., Marshall, J.C., and Hazelton, M.L. (2018)
+Tutorial on kernel estimation of continuous spatial
+and spatiotemporal relative risk.
+<em>Statistics in Medicine</em>, <b>37</b>(7), 1191-1221. 
+</p>
+<p>Hall, P. and Marron, J.S. (1988)
+Variable window width kernel density estimates of probability
+densities.
+<em>Probability Theory and Related Fields</em>, <b>80</b>, 37-49. 
+</p>
+<p>Silverman, B.W. (1986)
+<em>Density Estimation for Statistics and Data Analysis</em>.
+Chapman and Hall, New York.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/bw.abram.html">bw.abram</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# 'ch' just 58 laryngeal cancer cases
+ch &lt;- split(chorley)[[1]]
+
+h &lt;- bw.abram(ch,h0=1,hp=0.7)
+length(h)
+summary(h)
+if(interactive()) hist(h)
+
+# calculate pilot based on all 1036 observations
+h.pool &lt;- bw.abram(ch,h0=1,hp=0.7,pilot=chorley)
+length(h.pool)
+summary(h.pool)
+if(interactive()) hist(h.pool)
+
+# get full image used for 'h' above
+him &lt;- bw.abram(ch,h0=1,hp=0.7,at="pixels")
+plot(him);points(ch,col="grey")
+
+# use Voronoi-Dirichlet pilot ('hp' is ignored)
+hvo &lt;- bw.abram(ch, h0=1, smoother=densityVoronoi)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

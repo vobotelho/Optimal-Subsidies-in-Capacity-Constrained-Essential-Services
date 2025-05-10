@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Envelopes for Dao-Genton Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dg.envelope {spatstat.explore}"><tr><td>dg.envelope {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Global Envelopes for Dao-Genton Test
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the global envelopes
+corresponding to the Dao-Genton test of goodness-of-fit.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dg.envelope(X, ...,
+            nsim = 19, nsimsub=nsim-1, nrank = 1,
+            alternative=c("two.sided", "less", "greater"),
+            leaveout=1, interpolate = FALSE,
+            savefuns=FALSE, savepatterns=FALSE,
+            verbose = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Either a point pattern dataset (object of class <code>"ppp"</code>,
+<code>"lpp"</code> or <code>"pp3"</code>) or a fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"slrm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to 
+<code><a href="../../spatstat.explore/help/mad.test.html">mad.test</a></code> or <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> to
+control the conduct of the test.
+Useful arguments include <code>fun</code> to determine the summary
+function, <code>rinterval</code> to determine the range of
+<i>r</i> values used in the test, and
+<code>verbose=FALSE</code> to turn off the messages.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated patterns to be generated in the primary
+experiment. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsimsub</code></td>
+<td>
+
+<p>Number of simulations in each basic test. There will be <code>nsim</code>
+repetitions of the basic test, each involving <code>nsimsub</code> simulated
+realisations, so there will be a total
+of <code>nsim * (nsimsub + 1)</code> simulations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrank</code></td>
+<td>
+
+<p>Integer. Rank of the envelope value amongst the <code>nsim</code> simulated
+values. A rank of 1 means that the minimum and maximum
+simulated values will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>Character string determining whether the envelope corresponds
+to a two-sided test (<code>alternative="two.sided"</code>, the default)
+or a one-sided test with a lower critical boundary
+(<code>alternative="less"</code>) or a one-sided test
+with an upper critical boundary (<code>alternative="greater"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveout</code></td>
+<td>
+
+<p>Optional integer 0, 1 or 2 indicating how to calculate the
+deviation between the observed summary function and the
+nominal reference value, when the reference value must be estimated
+by simulation. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>interpolate</code></td>
+<td>
+
+<p>Logical value indicating whether to interpolate the distribution of
+the test statistic by kernel smoothing, as described in
+Dao and Genton (2014, Section 5).
+</p>
+</td></tr>
+<tr valign="top"><td><code>savefuns</code></td>
+<td>
+
+<p>Logical flag indicating whether to save the simulated
+function values (from the first stage).
+</p>
+</td></tr>
+<tr valign="top"><td><code>savepatterns</code></td>
+<td>
+
+<p>Logical flag indicating whether to save the simulated
+point patterns (from the first stage). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value determining whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Computes global simulation envelopes corresponding to the
+Dao-Genton (2014) adjusted Monte Carlo goodness-of-fit test.
+The envelopes were developed in Baddeley et al (2015) and
+described in Baddeley, Rubak and Turner (2015).
+</p>
+<p>If <code>X</code> is a point pattern, the null hypothesis is CSR.
+</p>
+<p>If <code>X</code> is a fitted model, the null hypothesis is that model.
+</p>
+<p>The Dao-Genton test is biased when the significance level is very small
+(small <i>p</i>-values are not reliable) and
+we recommend <code><a href="../../spatstat.explore/help/bits.envelope.html">bits.envelope</a></code> in this case.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley, Andrew Hardegen, Tom Lawrence,
+Robin Milne, Gopalan Nair and Suman Rakshit.
+Implemented by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Dao, N.A. and Genton, M. (2014)
+A Monte Carlo adjusted goodness-of-fit test for
+parametric models describing spatial point patterns.
+<em>Journal of Graphical and Computational Statistics</em>
+<b>23</b>, 497&ndash;517.
+</p>
+<p>Baddeley, A., Hardegen, A., Lawrence, L., 
+Milne, R.K., Nair, G.M. and Rakshit, S. (2015)
+Pushing the envelope: extensions of graphical
+Monte Carlo tests. Unpublished manuscript.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/dg.test.html">dg.test</a></code>,
+<code><a href="../../spatstat.explore/help/mad.test.html">mad.test</a></code>,
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ns &lt;- if(interactive()) 19 else 4
+  E &lt;- dg.envelope(swedishpines, Lest, nsim=ns)
+  E
+  plot(E)
+  Eo &lt;- dg.envelope(swedishpines, Lest, alternative="less", nsim=ns)
+  Ei &lt;- dg.envelope(swedishpines, Lest, interpolate=TRUE, nsim=ns)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

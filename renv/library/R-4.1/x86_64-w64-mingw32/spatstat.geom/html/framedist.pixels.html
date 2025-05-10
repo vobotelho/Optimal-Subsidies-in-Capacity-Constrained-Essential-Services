@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance to Bounding Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for framedist.pixels {spatstat.geom}"><tr><td>framedist.pixels {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distance to Bounding Frame</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distances from each pixel to the bounding rectangle.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ framedist.pixels(w, ..., style=c("image", "matrix", "coords"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>A window (object of class <code>"owin"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution.</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string (partially matched) determining the format of
+the output: either <code>"matrix"</code>, <code>"coords"</code> or
+<code>"image"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes, for each pixel <i>u</i>
+in the rectangular frame <code>Frame(w)</code>, the shortest distance
+to the boundary of <i>Frame(w)</i>.
+</p>
+<p>The grid of pixels is determined by the arguments <code>"\dots"</code> 
+passed to <code><a href="../help/as.mask.html">as.mask</a></code>. The distance from each pixel to the
+boundary is calculated exactly, using analytic geometry.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>style="image"</code>, a pixel image (object of class <code>"im"</code>)
+containing the distances from each pixel in the image raster
+to the boundary of the window.
+</p>
+<p>If <code>style="matrix"</code>,
+a matrix giving the distances from each pixel in the image raster
+to the boundary of the window. Rows of this matrix correspond to
+the <i>y</i> coordinate and columns to the <i>x</i> coordinate.
+</p>
+<p>If <code>style="coords"</code>, a list with three components
+<code>x,y,z</code>, where <code>x,y</code> are vectors of length <i>m,n</i>
+giving the <i>x</i> and <i>y</i> coordinates respectively,
+and <code>z</code> is an <i>m x n</i> matrix such that
+<code>z[i,j]</code> is the distance from <code>(x[i],y[j])</code> to the
+boundary of the window. Rows of this matrix correspond to the
+<i>x</i> coordinate and columns to the <i>y</i> coordinate.
+This result can be plotted with <code>persp</code>, <code>image</code>
+or <code>contour</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/bdist.pixels.html">bdist.pixels</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  opa &lt;- par(mfrow=c(1,2))
+  plot(framedist.pixels(letterR))
+  plot(bdist.pixels(letterR))
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

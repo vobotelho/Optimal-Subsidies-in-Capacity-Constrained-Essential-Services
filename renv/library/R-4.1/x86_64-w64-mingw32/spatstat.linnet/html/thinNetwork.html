@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Remove Vertices or Segments from a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for thinNetwork {spatstat.linnet}"><tr><td>thinNetwork {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Remove Vertices or Segments from a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Delete some vertices and/or segments from a linear network
+or related object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+thinNetwork(X, retainvertices=NULL, retainedges=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>),
+a point pattern on a linear network (object of class
+<code>"lpp"</code>) or a pixel image on a linear network
+(object of class <code>"linim"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>retainvertices</code></td>
+<td>
+
+<p>Optional. Subset index specifying which vertices should be retained
+(not deleted). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>retainedges</code></td>
+<td>
+
+<p>Optional. Subset index specifying which edges (segments) should be retained
+(not deleted). 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function deletes some of the vertices and edges (segments) in the
+linear network.
+</p>
+<p>The arguments <code>retainvertices</code> and <code>retainedges</code> can be
+any kind of subset index: a vector of positive integers specifying which
+vertices/edges should be retained; a vector of negative integers
+specifying which vertices/edges should be deleted; or a logical vector
+specifying whether each vertex/edge should be retained (<code>TRUE</code>)
+or deleted (<code>FALSE</code>).
+</p>
+<p>Vertices are indexed in the same sequence as in
+<code>vertices(as.linnet(X))</code>.
+Segments are indexed in the same sequence as in
+<code>as.psp(as.linnet(X))</code>.
+</p>
+<p>The argument <code>retainedges</code> has higher precedence than
+<code>retainvertices</code> in the sense that:
+</p>
+
+<ul>
+<li><p> If <code>retainedges</code> is given, then
+any vertex which is an endpoint of a retained edge will also be
+retained.
+</p>
+</li>
+<li>
+<p>If <code>retainvertices</code> is given and <code>retainedges</code> is <b>missing</b>,
+then any segment joining two retained vertices will also be retained.
+</p>
+</li>
+<li>
+<p>Thus, when both <code>retainvertices</code> and <code>retainedges</code> are
+given, it is possible that more vertices will be retained than those
+specified by <code>retainvertices</code>.
+</p>
+</li></ul>
+
+<p>After the network has been altered, other consequential changes will
+occur, including renumbering of the segments and vertices.
+If <code>X</code> is a point pattern on a linear network, then data points
+will be deleted if they lie on a deleted edge.
+If <code>X</code> is a pixel image on a linear network, then the image
+will be restricted to the new sub-network.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of the same kind as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Suman Rakshit.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code> to make a network;
+</p>
+<p><code><a href="../../spatstat.linnet/help/connected.linnet.html">connected.linnet</a></code> to extract connected components.
+</p>
+<p><code><a href="../../spatstat.linnet/help/repairNetwork.html">repairNetwork</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   L &lt;- simplenet
+   plot(L, main="thinNetwork(L, retainedges=c(-3, -5))")
+   text(midpoints.psp(as.psp(L)), labels=1:nsegments(L), pos=3)
+   Lsub &lt;- thinNetwork(L, retainedges=c(-3, -5))
+   plot(Lsub, add=TRUE, col="blue", lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

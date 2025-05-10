@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Perturbation of a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rjitter {spatstat.geom}"><tr><td>rjitter {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Perturbation of a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Applies independent random displacements to each point in a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+rjitter(X, ...)
+
+## S3 method for class 'ppp'
+rjitter(X, radius, retry=TRUE, giveup = 10000, trim=FALSE,
+        ..., nsim=1, drop=TRUE, adjust=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+
+<p>Scale of perturbations. A positive numerical value.
+The displacement vectors will be uniformly
+distributed in a circle of this radius.
+There is a sensible default.
+Alternatively, <code>radius</code> may be a numeric vector of length
+equal to the number of points in <code>X</code>, giving a different
+displacement radius for each data point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>retry</code></td>
+<td>
+
+<p>What to do when a perturbed point lies outside the window
+of the original point pattern. If <code>retry=FALSE</code>,
+the point will be lost; if <code>retry=TRUE</code>,
+the algorithm will try again.
+</p>
+</td></tr>
+<tr valign="top"><td><code>giveup</code></td>
+<td>
+
+<p>Maximum number of unsuccessful attempts.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, the displacement radius
+for each data point will be constrained to be less than or equal to
+the distance from the data point to the window boundary.
+This ensures that all displaced points will fall inside the window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Adjustment factor applied to the radius.
+A numeric value or numeric vector.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>rjitter</code> is generic, with methods for point
+patterns (described here) and for some other types of geometrical objects.
+</p>
+<p>Each of the points in the point pattern <code>X</code> is subjected to
+an independent random displacement. The displacement vectors are
+uniformly distributed in a circle of radius <code>radius</code>.
+</p>
+<p>If a displaced point lies outside the window, then if
+<code>retry=FALSE</code> the point will be lost. 
+</p>
+<p>However if <code>retry=TRUE</code>, the algorithm will try again: each time a
+perturbed point lies outside the window, the algorithm will reject
+the perturbed point and
+generate another proposed perturbation of the original point,
+until one lies inside the window, or until <code>giveup</code> unsuccessful
+attempts have been made. In the latter case, any unresolved points
+will be included, without any perturbation. The return value will
+always be a point pattern with the same number of points as <code>X</code>.
+</p>
+<p>If <code>trim=TRUE</code>, then the displacement radius for each data point
+will be constrained to be less than or equal to 
+the distance from the data point to the window boundary.
+This ensures that the randomly displaced points will
+always fall inside the window; no displaced points will be lost and no
+retrying will be required. However, it implies that a point lying
+exactly on the boundary will never be perturbed.
+</p>
+<p>If <code>adjust</code> is given, the jittering radius will be multiplied
+by <code>adjust</code>. This allows the user to specify
+that the radius should be a multiple of the default radius.
+</p>
+<p>The resulting point pattern
+has an attribute <code>"radius"</code> giving the value
+of <code>radius</code> used.
+If <code>retry=TRUE</code>, the resulting point pattern also has an attribute
+<code>"tries"</code> reporting the maximum number of trials needed to
+ensure that all jittered points were inside the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>rjitter.ppp</code> is
+a point pattern (an object of class <code>"ppp"</code>)
+or a list of point patterns.
+</p>
+<p>Each point pattern has attributes <code>"radius"</code>
+and (if <code>retry=TRUE</code>) <code>"tries"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/rexplode.html">rexplode</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rsyst(owin(), 10, 10)
+   Y &lt;- rjitter(X, 0.02)
+   plot(Y)
+   Z &lt;- rjitter(X)
+   U &lt;- rjitter(X, 0.025, trim=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

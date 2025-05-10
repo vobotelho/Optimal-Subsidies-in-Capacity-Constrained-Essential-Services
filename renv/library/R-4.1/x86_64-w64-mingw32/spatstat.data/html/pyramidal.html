@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pyramidal Neurons in Cingulate Cortex</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pyramidal {spatstat.data}"><tr><td>pyramidal {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pyramidal Neurons in Cingulate Cortex
+</h2>
+
+<h3>Description</h3>
+
+<p>Point patterns giving the locations of pyramidal neurons in micrographs
+from area 24, layer 2 of the cingulate cortex in the human brain.
+There is one point pattern from each of 31 human subjects.
+The subjects are divided into three groups:
+controls (12 subjects), schizoaffective (9  subjects)
+and schizophrenic (10 subjects).
+</p>
+<p>Each point pattern is recorded in a unit square region; the unit of
+measurement is unknown.
+</p>
+<p>These data were introduced and analysed by
+Diggle, Lange and Benes (1991). 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(pyramidal)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>pyramidal</code> is a hyperframe with 31 rows, one row for each
+subject. It has a column named
+<code>Neurons</code> containing the point patterns of neuron locations,
+and a column named <code>group</code> which is a factor with levels
+<code>"control", "schizoaffective", "schizophrenic"</code>
+identifying the grouping of subjects.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Peter Diggle's website.
+</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P.J., Lange, N. and Benes, F.M. (1991). Analysis of variance
+for replicated spatial point patterns in clinical neuroanatomy.
+<em>Journal of the American Statistical Association</em>
+<b>86</b>, 618&ndash;625.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+pyr &lt;- pyramidal
+pyr$grp &lt;- abbreviate(pyramidal$group, minlength=7)
+plot(pyr, quote(plot(Neurons, pch=16, main=grp)), main="Pyramidal Neurons")
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

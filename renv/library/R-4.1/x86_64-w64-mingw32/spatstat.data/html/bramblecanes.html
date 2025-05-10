@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hutchings' Bramble Canes data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bramblecanes {spatstat.data}"><tr><td>bramblecanes {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hutchings' Bramble Canes data</h2>
+
+<h3>Description</h3>
+
+<p>Data giving the locations and ages of bramble canes in a field.
+A marked point pattern. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(bramblecanes)</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code> 
+representing the point pattern of plant locations.
+Entries include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> Cartesian <i>x</i>-coordinate of plant </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> Cartesian <i>y</i>-coordinate of plant </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> factor with levels 0,1, 2 indicating age
+  </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format.
+</p>
+
+
+<h3>Notes</h3>
+
+<p>These data record the <i>(x,y)</i> locations and ages of bramble canes in a 
+field <i>9</i> metres square, rescaled to the unit square. 
+The canes were classified according to age as either newly emergent, 
+one or two years old. These are encoded as marks 0, 1 and 2 respectively
+in the dataset.
+</p>
+<p>The data were recorded and analysed by Hutchings (1979)
+and further analysed by Diggle (1981a, 1981b, 1983),
+Diggle and Milne (1983), and Van Lieshout and Baddeley (1999).
+All analyses found that the pattern of newly emergent canes
+exhibits clustering, which Hutchings attributes to &ldquo;vigorous
+vegetative reproduction&rdquo;. 
+</p>
+
+
+<h3>Source</h3>
+
+<p>Hutchings (1979), data published in Diggle (1983)</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P. J. (1981a)
+Some graphical methods in the analysis of spatial point patterns.
+In <em>Interpreting multivariate data</em>, V. Barnett (Ed.)
+John Wiley and Sons. 
+</p>
+<p>Diggle, P. J. (1981b).
+Statistical analysis of spatial point patterns.
+<em>N.Z. Statist.</em> <b>16</b>, 22&ndash;41.
+</p>
+<p>Diggle, P.J. (1983)
+<em>Statistical analysis of spatial point patterns</em>.
+Academic Press.
+</p>
+<p>Diggle, P. J. and Milne, R. K. (1983)
+Bivariate Cox processes: some models for bivariate spatial point patterns.
+<em>Journal of the Royal Statistical Soc. Series B</em> 
+<b>45</b>, 11&ndash;21.
+</p>
+<p>Hutchings, M. J. (1979)
+Standing crop and pattern in pure stands of Mercurialis
+perennis and Rubus fruticosus in mixed deciduous woodland.
+<em>Oikos</em> <b>31</b>, 351&ndash;357.
+</p>
+<p>Van Lieshout, M.N.M. and Baddeley, A.J. (1999)
+Indices of dependence between types in multivariate point patterns.
+<em>Scandinavian Journal of Statistics</em> <b>26</b>, 511&ndash;532.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+   bramblecanes
+   # convert coordinates to metres
+   (Bram &lt;- rescale(bramblecanes))
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

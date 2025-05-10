@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nonparametric Estimate of Spatially-Varying Relative Risk</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for relrisk.ppp {spatstat.explore}"><tr><td>relrisk.ppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nonparametric Estimate of Spatially-Varying Relative Risk
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a multitype point pattern, this function estimates the
+spatially-varying probability of each type of point, or the ratios of
+such probabilities, using kernel smoothing.
+The default smoothing bandwidth is selected by
+cross-validation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+relrisk(X, sigma = NULL, ...,
+           at = c("pixels", "points"),
+           weights = NULL, varcov = NULL, 
+           relative=FALSE,
+           adjust=1, edge=TRUE, diggle=FALSE,
+           se=FALSE, wtype=c("value", "multiplicity"),
+           casecontrol=TRUE, control=1, case, fudge=0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A multitype point pattern (object of class <code>"ppp"</code>
+which has factor valued marks).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Optional. The numeric value of the smoothing bandwidth
+(the standard deviation of isotropic
+Gaussian smoothing kernel).
+Alternatively <code>sigma</code> may be a function which can be used
+to select a different bandwidth for each type of point. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code> to select the
+bandwidth, or passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> to control the
+pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>Character string specifying whether to compute the probability values
+at a grid of pixel locations (<code>at="pixels"</code>) or
+only at the points of <code>X</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Weights for the data points of <code>X</code>.
+A numeric vector, an <code>expression</code>, or a pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>varcov</code></td>
+<td>
+
+<p>Optional. Variance-covariance matrix of anisotopic Gaussian
+smoothing kernel. Incompatible with <code>sigma</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>relative</code></td>
+<td>
+
+<p>Logical.
+If <code>FALSE</code> (the default) the algorithm
+computes the probabilities of each type of point.
+If <code>TRUE</code>, it computes the    
+<em>relative risk</em>, the ratio of probabilities
+of each type relative to the probability of a control.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Optional. Adjustment factor for the bandwidth <code>sigma</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>Logical value indicating whether to apply edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>diggle</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, use the Jones-Diggle improved edge correction,
+which is more accurate but slower to compute than the default
+correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+
+<p>Logical value indicating whether to compute standard errors
+as well.
+</p>
+</td></tr>
+<tr valign="top"><td><code>wtype</code></td>
+<td>
+
+<p>Character string (partially matched) specifying how the weights
+should be interpreted for the calculation of standard error.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>casecontrol</code></td>
+<td>
+
+<p>Logical. Whether to treat a bivariate point pattern
+as consisting of cases and controls, and return only the
+probability or relative risk of a case.
+Ignored if there are more than 2 types of points.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+<p>Integer, or character string, identifying which mark value
+corresponds to a control. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>case</code></td>
+<td>
+
+<p>Integer, or character string, identifying which mark value
+corresponds to a case (rather than a control)
+in a bivariate point pattern.
+This is an alternative to the argument <code>control</code>
+in a bivariate point pattern. 
+Ignored if there are more than 2 types of points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fudge</code></td>
+<td>
+
+<p>Optional. A single numeric value,
+or a numeric vector with one entry for each type of point.
+This value will be added to the estimates
+of point process intensity, before calculation of the relative risk.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The command <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> is generic and can be used to
+estimate relative risk in different ways.
+</p>
+<p>This function <code>relrisk.ppp</code> is the method for point pattern
+datasets. It computes <em>nonparametric</em> estimates of relative risk
+by kernel smoothing (Bithell, 1990, 1991; Diggle, 2003; Baddeley,
+Rubak and Turner, 2015). 
+</p>
+<p>If <code>X</code>  is a bivariate point pattern
+(a multitype point pattern consisting of two types of points)
+then by default,
+the points of the first type (the first level of <code>marks(X)</code>)
+are treated as controls or non-events, and points of the second type
+are treated as cases or events. Then by default this command computes
+the spatially-varying <em>probability</em> of a case,
+i.e. the probability <i>p(u)</i>
+that a point at spatial location <i>u</i>
+will be a case. If <code>relative=TRUE</code>, it computes the
+spatially-varying <em>relative risk</em> of a case relative to a
+control, <i>r(u) = p(u)/(1- p(u))</i>.
+</p>
+<p>If <code>X</code> is a multitype point pattern with <i>m &gt; 2</i> types,
+or if <code>X</code> is a bivariate point pattern
+and <code>casecontrol=FALSE</code>,
+then by default this command computes, for each type <i>j</i>,
+a nonparametric estimate of
+the spatially-varying <em>probability</em> of an event of type <i>j</i>.
+This is the probability <i>p[j](u)</i>
+that a point at spatial location <i>u</i>
+will belong to type <i>j</i>.
+If <code>relative=TRUE</code>, the command computes the
+<em>relative risk</em> of an event of type <i>j</i>
+relative to a control,
+<i>r[j](u) = p[j](u)/p[k](u)</i>,
+where events of type <i>k</i> are treated as controls.
+The argument <code>control</code> determines which type <i>k</i>
+is treated as a control.
+</p>
+<p>If <code>at = "pixels"</code> the calculation is performed for
+every spatial location <i>u</i> on a fine pixel grid, and the result
+is a pixel image representing the function <i>p(u)</i>
+or a list of pixel images representing the functions 
+<i>p[j](u)</i> or <i>r[j](u)</i>
+for <i>j = 1,...,m</i>.
+An infinite value of relative risk (arising because the
+probability of a control is zero) will be returned as <code>NA</code>.
+</p>
+<p>If <code>at = "points"</code> the calculation is performed
+only at the data points <i>x[i]</i>. By default
+the result is a vector of values
+<i>p(x[i])</i> giving the estimated probability of a case
+at each data point, or a matrix of values 
+<i>p[j](x[i])</i> giving the estimated probability of
+each possible type <i>j</i> at each data point.
+If <code>relative=TRUE</code> then the relative risks
+<i>r(x[i])</i> or <i>r[j](x[i])</i> are
+returned.
+An infinite value of relative risk (arising because the
+probability of a control is zero) will be returned as <code>Inf</code>.
+</p>
+<p>Estimation is performed by a simple Nadaraja-Watson type kernel
+smoother (Bithell, 1990, 1991; Diggle, 2003; Baddeley, Rubak and
+Turner, 2015, section 14.4).
+The smoothing bandwidth can be specified in any of the following ways:
+</p>
+
+<ul>
+<li> <p><code>sigma</code> is a single numeric value, giving the standard
+deviation of the isotropic Gaussian kernel.
+</p>
+</li>
+<li> <p><code>sigma</code> is a numeric vector of length 2, giving the
+standard deviations in the <i>x</i> and <i>y</i> directions of
+a Gaussian kernel.
+</p>
+</li>
+<li> <p><code>varcov</code> is a 2 by 2 matrix giving the
+variance-covariance matrix of the Gaussian kernel.
+</p>
+</li>
+<li> <p><code>sigma</code> is a <code>function</code> which selects
+the bandwidth. 
+Bandwidth selection will be applied
+<b>separately to each type of point</b>.
+An example of such a function is <code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code>.
+</p>
+</li>
+<li> 
+<p><code>sigma</code> and <code>varcov</code>
+are both missing or null. Then a <b>common</b>
+smoothing bandwidth <code>sigma</code>
+will be selected by cross-validation using <code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>.
+</p>
+</li>
+<li>
+<p>An infinite smoothing bandwidth, <code>sigma=Inf</code>, is permitted
+and yields a constant estimate of relative risk.
+</p>
+</li></ul>
+
+<p>If <code>se=TRUE</code> then standard errors will also be computed,
+based on asymptotic theory, <em>assuming a Poisson process</em>.
+</p>
+<p>The optional argument <code>weights</code> may provide numerical weights
+for the points of <code>X</code>. It should be a numeric vector of length
+equal to <code>npoints(X)</code>.
+</p>
+<p>The argument <code>weights</code> can also be an <code>expression</code>.
+It will be evaluated in the data frame <code>as.data.frame(X)</code>
+to obtain a vector of weights. The expression may involve
+the symbols <code>x</code> and <code>y</code> representing the Cartesian
+coordinates, and the symbol <code>marks</code> representing the mark values.
+</p>
+<p>The argument <code>weights</code> can also be a pixel image
+(object of class <code>"im"</code>). numerical weights for the data points
+will be extracted from this image (by looking up the pixel values
+at the locations of the data points in <code>X</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>se=FALSE</code> (the default), the format is described below.
+If <code>se=TRUE</code>, the result is a list of two entries,
+<code>estimate</code> and <code>SE</code>, each having the format described below.
+</p>
+<p>If <code>X</code> consists of only two types of points,
+and if <code>casecontrol=TRUE</code>,
+the result is a pixel image (if <code>at="pixels"</code>)
+or a vector (if <code>at="points"</code>).
+The pixel values or vector values
+are the probabilities of a case if <code>relative=FALSE</code>,
+or the relative risk of a case (probability of a case divided by the
+probability of a control) if <code>relative=TRUE</code>.
+</p>
+<p>If <code>X</code> consists of more than two types of points,
+or if <code>casecontrol=FALSE</code>, the result is:
+</p>
+
+<ul>
+<li><p> (if <code>at="pixels"</code>)
+a list of pixel images, with one image for each possible type of point.
+The result also belongs to the class <code>"solist"</code> so that it can
+be printed and plotted.
+</p>
+</li>
+<li>
+<p>(if <code>at="points"</code>)
+a matrix of probabilities, with rows corresponding to
+data points <i>x[i]</i>, and columns corresponding
+to types <i>j</i>.
+</p>
+</li></ul>
+
+<p>The pixel values or matrix entries
+are the probabilities of each type of point if <code>relative=FALSE</code>,
+or the relative risk of each type (probability of each type divided by the
+probability of a control) if <code>relative=TRUE</code>.
+</p>
+<p>If <code>relative=FALSE</code>, the resulting values always lie between 0
+and 1. If <code>relative=TRUE</code>, the results are either non-negative
+numbers, or the values <code>Inf</code> or <code>NA</code>. 
+</p>
+
+
+<h3>Standard error</h3>
+
+<p>If <code>se=TRUE</code>, the standard error of the estimate will also be
+calculated. The calculation assumes a Poisson point process. 
+</p>
+<p>If <code>weights</code> are given, then the calculation of standard error
+depends on the interpretation of the weights. This is controlled by
+the argument <code>wtype</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>wtype="value"</code> (the default),
+the weights are interpreted as numerical values observed
+at the data locations. Roughly speaking,
+standard errors are proportional to the absolute
+values of the weights.
+</p>
+</li>
+<li>
+<p>If <code>wtype="multiplicity"</code> the weights are interpreted as
+multiplicities so that a weight of 2 is equivalent to having a pair
+of duplicated points at the data location. Roughly speaking,
+standard errors are proportional
+to the square roots of the weights. Negative weights are not
+permitted.
+</p>
+</li></ul>
+
+<p>The default rule is now <code>wtype="value"</code> but previous versions
+of <code>relrisk.ppp</code> (in <span class="pkg">spatstat.explore</span> versions
+<code>3.1-0</code> and earlier) effectively used <code>wtype="multiplicity"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+<p>Bithell, J.F. (1990)
+An application of density estimation to geographical epidemiology.
+<em>Statistics in Medicine</em> <b>9</b>, 691&ndash;701.
+</p>
+<p>Bithell, J.F. (1991)
+Estimation of relative risk functions.
+<em>Statistics in Medicine</em> <b>10</b>, 1745&ndash;1751.
+</p>
+<p>Diggle, P.J. (2003)
+<em>Statistical analysis of spatial point patterns</em>,
+Second edition. Arnold.
+</p>
+<p>Diggle, P.J., Zheng, P. and Durr, P. (2005)
+Non-parametric estimation of spatial segregation in a
+multivariate point process: bovine tuberculosis in
+Cornwall, UK. 
+<em>Applied Statistics</em> <b>54</b>, 645&ndash;658.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>There is another method <code><a href="../../spatstat.model/help/relrisk.ppm.html">relrisk.ppm</a></code> for point process
+models which computes <em>parametric</em>
+estimates of relative risk, using the fitted model.
+</p>
+<p>See also 
+<code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>,
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   p.oak &lt;- relrisk(urkiola, 20)
+   if(interactive()) {
+      plot(p.oak, main="proportion of oak")
+      plot(eval.im(p.oak &gt; 0.3), main="More than 30 percent oak")
+      plot(split(lansing), main="Lansing Woods")
+      p.lan &lt;- relrisk(lansing, 0.05, se=TRUE)
+      plot(p.lan$estimate, main="Lansing Woods species probability")
+      plot(p.lan$SE, main="Lansing Woods standard error")
+      wh &lt;- im.apply(p.lan$estimate, which.max)
+      types &lt;- levels(marks(lansing))
+      wh &lt;- eval.im(types[wh])
+      plot(wh, main="Most common species")
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

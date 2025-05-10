@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update a Fitted Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for update.dppm {spatstat.model}"><tr><td>update.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update a Fitted Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p><code>update</code> method for class <code>"dppm"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'dppm'
+update(object, ..., evaluate=TRUE,
+                       envir=environment(terms(object)))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted determinantal point process model.
+An object of class <code>"dppm"</code>,
+obtained from <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>evaluate</code></td>
+<td>
+
+<p>Logical value indicating whether to return the updated fitted model
+(<code>evaluate=TRUE</code>, the default) or just the updated call to <code>dppm</code>
+(<code>evaluate=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+
+<p>Environment in which to re-evaluate the call to <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>object</code> should be a fitted determinantal point process model,
+obtained from the model-fitting function <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+The model will be updated according to the new arguments provided.
+</p>
+<p>If the argument <code>trend</code> is provided, it determines the
+intensity in the updated model. It should be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> formula
+(with or without a left hand side). It may include the symbols
+<code>+</code> or <code>-</code> to specify addition or deletion of terms
+in the current model formula, as shown in the Examples below.
+The symbol <code>.</code> refers to the current contents of the
+formula.
+</p>
+<p>The intensity in the updated model is determined by the
+argument <code>trend</code> if it is provided, or otherwise by any unnamed
+argument that is a formula, or otherwise by the formula of the
+original model, <code>formula(object)</code>.
+</p>
+<p>The spatial point pattern data to which the new model is fitted
+is determined by the left hand side of the updated model formula,
+if this is present. Otherwise it is determined by the argument
+<code>X</code> if it is provided, or otherwise by any unnamed argument
+that is a point pattern or a quadrature scheme.
+</p>
+<p>The model is refitted using <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another fitted cluster point process model (object of
+class <code>"dppm"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,  <code><a href="../../spatstat.model/help/plot.dppm.html">plot.dppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.dppm.html">predict.dppm</a></code>, <code><a href="../../spatstat.model/help/simulate.dppm.html">simulate.dppm</a></code>,
+<code><a href="../../spatstat.model/help/methods.dppm.html">methods.dppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- dppm(swedishpines ~ x + y, dppGauss, method="c")
+  fitx &lt;- update(fit, ~x)
+  fit2 &lt;- update(fit, flipxy(swedishpines))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

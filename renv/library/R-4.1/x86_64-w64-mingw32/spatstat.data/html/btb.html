@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bovine Tuberculosis Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for btb {spatstat.data}"><tr><td>btb {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Bovine Tuberculosis Data
+</h2>
+
+<h3>Description</h3>
+
+<p>Geospatial data of 873 farm locations with detected bovine
+tuberculosis in Cornwall, UK, over the years 1989-2002. 
+This data-set was first analysed in Diggle, Zheng and Durr
+(2005).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(btb)</pre>
+
+
+<h3>Format</h3>
+
+<p>Loading this dataset supplies the point pattern <code>btb</code>
+and the additional object <code>btb.extra</code>.
+</p>
+<p><code>btb</code> is a marked point pattern
+(see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>)
+containing 873 points.
+Its spatial coordinates are Eastings and Northings in kilometres
+giving the farm locations. It has two columns of marks:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>year</code> </td><td style="text-align: left;"> Year of detection:
+    a <code>factor</code> with levels 1989 to 2002
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>spoligotype</code> </td><td style="text-align: left;"> Spoligotype of tuberculosis:
+    a <code>factor</code> with four levels
+    &ldquo;9&rdquo;, &ldquo;12&rdquo;, &ldquo;15&rdquo;, &ldquo;20&rdquo; </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>Loading the dataset <code>btb</code> will also load the object
+<code>btb.extra</code> containing additional data. This is a list
+(of class <code>"solist"</code>) containing two elements,
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>standard</code> </td><td style="text-align: left;"> The standard version of the BTB dataset
+    used in many publications. This is a marked point pattern,
+    identical to <code>btb</code> except that its window of observation 
+    is a slightly larger and simpler polygon than the window of
+    <code>btb</code>. 
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>full</code> </td><td style="text-align: left;"> A more extensive dataset
+    compiled from files supplied by Professor Diggle.
+    This is a marked point pattern, identical to <code>standard</code>
+    except that it includes 46 additional farm locations where
+    bovine tuberculosis was detected, but where the spoligotype
+    was not one of the four common spoligotypes. There are 919 data
+    points altogether.
+    The attribute <code>attr(full, "retained")</code> is a logical vector
+    indicating which of the points in <code>full</code> was retained
+    or deleted to obtain <code>standard</code>.
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Source</h3>
+
+<p>Professor Peter Diggle.
+</p>
+<p>Roger Sainsbury of the UK's State Veterinary Service helped to
+collect the data-set. Jackie Inwald and Si Palmer of the Department of
+Bacterial Diseases, Veterinary Laboratories Agency, Weybridge, UK
+carried out the spoligotyping.
+</p>
+<p>Peter Diggle supplied the point coordinates, spoligotype data
+and year data, and the coordinates of the window used in
+<code>btb.extra</code>.
+</p>
+<p>Tilman Davies drew the finer window used in <code>btb</code>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P.J., Zheng, P. and Durr, P. (2005)
+Nonparametric estimation of spatial segregation in
+a multivariate point process: bovine tuberculosis in Cornwall, UK.
+<em>Applied Statistics</em>, <b>54</b>, 645&ndash;658.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+    summary(btb)
+    plot(subset(btb, select=spoligotype), cols=2:5)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

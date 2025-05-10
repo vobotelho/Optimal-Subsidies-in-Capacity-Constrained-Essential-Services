@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Delaunay Triangulation of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for delaunay {spatstat.geom}"><tr><td>delaunay {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Delaunay Triangulation of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Computes the Delaunay triangulation of a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+delaunay(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Spatial point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Delaunay triangulation of a spatial point pattern <code>X</code>
+is defined as follows. First the Dirichlet/Voronoi tessellation
+based on <code>X</code> is computed; see <code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>. This
+tessellation is extended to cover the entire two-dimensional plane.
+Then two points of <code>X</code>
+are defined to be Delaunay neighbours if their Dirichlet/Voronoi tiles
+share a common boundary. Every pair of Delaunay neighbours is
+joined by a straight line to make the Delaunay triangulation.
+The result is a tessellation, consisting of
+disjoint triangles. The union of these triangles is the convex hull of
+<code>X</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>). The window of the
+tessellation is the convex hull of <code>X</code>, not the original window
+of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>,
+<code><a href="../../spatstat.geom/help/convexhull.xy.html">convexhull.xy</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/delaunayDistance.html">delaunayDistance</a></code>,
+<code>delaunayNetwork</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(42)
+  plot(delaunay(X))
+  plot(X, add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

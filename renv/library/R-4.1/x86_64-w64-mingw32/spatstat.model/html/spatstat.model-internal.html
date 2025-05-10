@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal spatstat.model functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatstat.model-internal {spatstat.model}"><tr><td>spatstat.model-internal {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal spatstat.model functions</h2>
+
+<h3>Description</h3>
+
+<p>Internal spatstat.model functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+
+accumulateStatus(x, stats)
+active.interactions(object)
+adaptcoef(new.coef, fitcoef, drop)
+## S3 method for class 'msr'
+affine(X, mat, vec, ...)
+areadelta2(X, r, ..., sparseOK)
+as.isf(object)
+augment.msr(x, ..., sigma, recompute)
+blankcoefnames(x)
+bt.frame(Q, trend, interaction, ..., covariates,
+         correction, rbord, use.gam, allcovar)
+bigvaluerule(objfun, objargs, startpar, ...)
+cannot.update(...)
+check.separable(dmat, covname, isconstant, fatal)
+## S3 method for class 'summary.kppm'
+coef(object, ...)
+## S3 method for class 'summary.ppm'
+coef(object, ...)
+## S3 method for class 'summary.slrm'
+coef(object, ...)
+## S3 method for class 'vblogit'
+coef(object, ...) 
+condSimCox(object, nsim, ..., window, n.cond, w.cond,
+           giveup, maxchunk, saveLambda, verbose, drop)
+damaged.ppm(object)
+data.mppm(x)
+deltasuffstat(model, ...,
+              restrict, dataonly, sparseOK, quadsub,
+              force, warn.forced, verbose, use.special)
+## S3 method for class 'ppmInfluence'
+dfbetas(model, ...)
+diagnose.ppm.engine(object, ..., type, typename, opt,
+                         sigma, rbord, compute.sd, compute.cts,
+                         envelope, nsim, nrank,
+                         rv, oldstyle, splineargs, verbose)
+## S3 method for class 'msr'
+dim(x)
+## S3 method for class 'msr'
+dimnames(x)
+doMultiStraussHard(iradii, hradii, types)
+dppDpcf(model, ...)
+dppmFixIntensity(DPP, lambda, po)
+dppmFixAlgorithm(algorithm, changealgorithm, clusters, startpar)
+DPPSaddle(beta, fi)
+DPPSaddlePairwise(beta, fi)
+enet.engine(model, ..., standardize, lambda, alpha, adaptive) 
+equalpairs(U, X, marked=FALSE)
+evalInteraction(X,P,E,interaction,correction,splitInf,...,
+                precomputed,savecomputed)
+evalInterEngine(X,P,E,interaction,correction,splitInf,...,
+                Reach,precomputed,savecomputed)
+evalPairPotential(X,P,E,pairpot,potpars,R)
+evalPairwiseTerm(fint, d)
+expandDot(f, dotvars)
+## S3 method for class 'slrm'
+extractAIC(fit, scale = 0, k = 2, ...)
+fakefii(model)
+## S3 method for class 'hackglmmPQL'
+family(object, ...)
+## S3 method for class 'vblogit'
+family(object, ...)
+fill.coefs(coefs, required)
+findCovariate(covname, scope, scopename=NULL)
+fii(interaction, coefs, Vnames, IsOffset, vnameprefix)
+## S3 method for class 'msr'
+flipxy(X)
+forbid.logi(object)
+## S3 method for class 'hackglmmPQL'
+formula(x, ...)
+getdataname(defaultvalue, ..., dataname)
+getglmdata(object, ...)
+## S3 method for class 'ppm'
+getglmdata(object, ..., drop=FALSE)
+## S3 method for class 'mppm'
+getglmdata(object, ...)
+## S3 method for class 'slrm'
+getglmdata(object, ...)
+getglmfit(object, ...)
+## S3 method for class 'ppm'
+getglmfit(object, ...)
+## S3 method for class 'mppm'
+getglmfit(object, ...)
+## S3 method for class 'slrm'
+getglmfit(object, ...)
+getglmsubset(object, ...)
+## S3 method for class 'ppm'
+getglmsubset(object, ...)
+## S3 method for class 'mppm'
+getglmsubset(object, ...)
+## S3 method for class 'slrm'
+getglmsubset(object, ...)
+getppmdatasubset(object)
+getppmOriginalCovariates(object)
+geyercounts(U,X,r,sat,Xcounts,EqualPairs)
+geyerdelta2(X,r,sat,...,sparseOK, correction)
+GLMpredict(fit, data, coefs, changecoef, type)
+hackglmmPQL(fixed, random, family, data, correlation, weights,
+            control, niter, verbose, subset, ..., reltol)
+hasglmfit(object)
+## S3 method for class 'mppm'
+hasglmfit(object)
+## S3 method for class 'ppm'
+hasglmfit(object)
+## S3 method for class 'slrm'
+hasglmfit(object)
+hierarchicalordering(i, s)
+hiermat(x, h)
+ho.engine(model, ..., nsim, nrmh, start, control, verb)
+illegal.iformula(ifmla, itags, dfvarnames)
+impliedpresence(tags, formula, df, extranames=character(0))
+impliedcoefficients(object, tag, new.coef)
+## S3 method for class 'ppmInfluence'
+influence(model, ...)
+instantiate.interact(x, par)
+interactionfamilyname(object)
+intermaker(f, blank)
+## S3 method for class 'ppm'
+is.expandable(x)  
+is.interact(x)
+## S3 method for class 'mppm'
+is.marked(X, ...)
+## S3 method for class 'msr'
+is.marked(X, ...)
+## S3 method for class 'rppm'
+is.marked(X, ...)
+## S3 method for class 'slrm'
+is.marked(X, ...)
+is.mppm(x)
+## S3 method for class 'mppm'
+is.multitype(X, ...)
+## S3 method for class 'msr'
+is.multitype(X, ...)
+## S3 method for class 'rppm'
+is.multitype(X, ...)
+## S3 method for class 'slrm'
+is.multitype(X, ...)
+## S3 method for class 'mppm'
+is.poisson(x)
+## S3 method for class 'rppm'
+is.poisson(x)
+Kpcf.kppm(model, what)
+## S3 method for class 'slrm'
+Kmodel(model, ...)
+killinteraction(model)
+kppmComLik(X, Xname, po, clusters, control, stabilize, weightfun, rmax,
+           algorithm, DPP, ..., pspace)
+kppmMinCon(X, Xname, po, clusters, control, stabilize, statistic, statargs,
+           algorithm, DPP, ..., pspace)
+kppmPalmLik(X, Xname, po, clusters, control, stabilize, weightfun, rmax, 
+           algorithm, DPP, ..., pspace)
+kppmCLadap(X, Xname, po, clusters, control, weightfun, 
+           rmax, epsilon, DPP, algorithm, ...,
+           startpar, globStrat)
+## S3 method for class 'ppm'
+labels(object, ...)
+## S3 method for class 'ppmInfluence'
+leverage(model, ...)
+## S3 method for class 'objsurf'
+lines(x, ..., directed)
+logi.engine(Q, trend, interaction, ...,
+            quad.args,
+            covariates, subsetexpr, clipwin,
+            correction, rbord, covfunargs, allcovar, 
+            vnamebase, vnameprefix, justQ, savecomputed, precomputed,
+            VB)
+## S3 method for class 'vblogit'
+logLik(object, ...)
+LurkEngine(object, type, cumulative, plot.sd, 
+           quadpoints, wts, Z, subQset, 
+           covvalues, resvalues, 
+           clip, clipwindow, cov.is.im, covrange, 
+           typename, covname,
+           cl, clenv,
+           oldstyle, check,
+           verbose, nx, splineargs,
+           envelope, nsim, nrank, Xsim,
+           internal, checklength)
+make.pspace(..., canonical, adjusted, trace, save, trajectory,
+             nhalfgrid, strict, penalised, penalty,
+             penal.args, tau, clusters, fitmethod,
+             flatness, C0factor, xval, xval.args,
+             debug, transfo)
+mapInterVars(object, subs, mom)
+Mayer(fi, exponent)
+model.se.image(fit, W, ..., what, new.coef)
+modelFrameGam(formula, ...)
+mpl.engine(Q, trend, interaction, ...,
+         covariates, subsetexpr, clipwin, covfunargs, correction,
+	 rbord, use.gam, gcontrol,
+         GLM, GLMfamily, GLMcontrol, famille,
+         forcefit, nd, eps, quad.args, allcovar, callstring,
+         precomputed, savecomputed, preponly,
+         rename.intercept, justQ, weightfactor)
+mpl.get.covariates(covariates, locations, type, covfunargs, need.deriv)
+mpl.prepare(Q, X, P, trend, interaction, covariates, 
+            want.trend, want.inter, correction, rbord, Pname,
+            callstring, ...,
+            subsetexpr,
+            covfunargs, allcovar, precomputed, savecomputed,
+            vnamebase, vnameprefix, warn.illegal, warn.unidentifiable,
+            weightfactor, skip.border, clip.interaction, splitInf)
+mpl.usable(x)
+newformula(old, change, eold, enew, expandpoly, dotvars)
+newstyle.coeff.handling(object)
+nndcumfun(X, ..., r)
+no.trend.ppm(x)
+objsurfEngine(objfun, optpar, objargs,
+              ..., dotargs, objname,
+              new.objargs, parmap, 
+              ngrid, xlim, ylim, ratio, verbose)
+optimConverged(x)
+optimStatus(x, call)
+optimNsteps(x)
+outdated.interact(object)
+oversize.quad(Q, ..., nU, nX, p)
+PairPotentialType(pairpot)
+## S3 method for class 'detpointprocfamily'
+parameters(model, ...)
+partialModelMatrix(X,D,model,callstring,...)
+## S3 method for class 'slrm'
+pcfmodel(model, ...)
+ploterodewin(W1, W2, col.edge, col.inside, do.plot, ...)
+ploterodeimage(W, Z, ..., Wcol, rangeZ, colsZ, do.plot)
+## S3 method for class 'addvar'
+plot(x, ..., do.points=FALSE)
+## S3 method for class 'lurk'
+plot(x, ..., shade)
+## S3 method for class 'minconfit'
+plot(x, ...)
+## S3 method for class 'parres'
+plot(x, ...)
+## S3 method for class 'qqppm'
+plot(x, ..., limits=TRUE,
+           monochrome=spatstat.options('monochrome'),
+           limcol=if(monochrome) "black" else "red")
+poisson.fits.better(object)
+PoissonCompareCalc(object)
+PoisSaddle(beta, fi)
+PoisSaddleArea(beta, fi)
+PoisSaddleGeyer(beta, fi)
+PoisSaddlePairwise(beta, fi)
+PPMmodelmatrix(object, data, ..., subset, Q, keepNA, irregular,
+               splitInf, eps, dimyx, xy, rule.eps)
+## Default S3 method:
+ppm(Q, trend, interaction,
+       ..., covariates, data, covfunargs, subset, clipwin,
+       correction, rbord, use.gam, method, forcefit,
+       improve.type, improve.args, emend, project,
+       prior.mean, prior.var,
+       nd, eps, quad.args, gcontrol, nsim, nrmh, start, control,
+       verb, callstring)
+ppmCovariates(model)
+ppmDerivatives(fit, what, Dcovfun, loc, covfunargs)
+ppmInfluenceEngine(fit, what, ..., iScore, iHessian, iArgs,
+              drop, method, fine, precomputed, sparseOK,
+              fitname, multitypeOK, entrywise, matrix.action,
+              dimyx, eps, rule.eps,
+              geomsmooth)
+## S3 method for class 'vblogit'
+predict(object, newdata, type, se.fit, dispersion,
+                          terms, na.action, ...)
+## S3 method for class 'profilepl'
+predict(object, ...)
+printStatus(x, errors.only)
+printStatusList(stats)
+## S3 method for class 'addvar'
+print(x, ...)
+## S3 method for class 'bt.frame'
+print(x, ...)
+## S3 method for class 'diagppm'
+print(x, ...)
+## S3 method for class 'detpointprocfamily'
+print(x, ...)
+## S3 method for class 'detpointprocfamilyfun'
+print(x, ...)
+## S3 method for class 'hierarchicalordering'
+print(x, ...)
+## S3 method for class 'influence.ppm'
+print(x, ...)
+## S3 method for class 'interact'
+print(x, ..., family, brief, banner)       
+## S3 method for class 'intermaker'
+print(x, ...)
+## S3 method for class 'isf'
+print(x, ...)
+## S3 method for class 'leverage.ppm'
+print(x, ...)
+## S3 method for class 'lurk'
+print(x, ...)
+## S3 method for class 'minconfit'
+print(x, ...)
+## S3 method for class 'mppm'
+print(x, ...)
+## S3 method for class 'msr'
+print(x, ...)
+## S3 method for class 'parres'
+print(x, ...)
+## S3 method for class 'plotppm'
+print(x, ...)
+## S3 method for class 'profilepl'
+print(x, ...)
+## S3 method for class 'qqppm'
+print(x, ...)
+## S3 method for class 'rppm'
+print(x, ...)
+## S3 method for class 'summary.mppm'
+print(x, ..., brief)
+## S3 method for class 'summary.slrm'
+print(x, ...)
+## S3 method for class 'vblogit'
+print(x, ...)
+quad.mppm(x)
+quadBlockSizes(nX, nD, p, nMAX, announce)
+## S3 method for class 'slrm'
+reach(x, ...)
+reduceformula(fmla, deletevar, verbose)
+reincarnate.interact(object)
+## S3 method for class 'msr'
+rescale(X, s, unitname)
+resid4plot(RES, plot.neg, plot.smooth,
+           spacing, outer, srange, monochrome, main,
+           xlab, ylab, rlab, col.neg, col.smooth, ...)
+resid1plot(RES, opt, plot.neg, plot.smooth,
+              srange, monochrome, main,
+              add, show.all, do.plot, col.neg, col.smooth, ...)
+resid1panel(observedX, observedV,
+            theoreticalX, theoreticalV, theoreticalSD,
+            xlab,ylab, ..., do.plot)
+## S3 method for class 'exactppm'
+response(object)
+## S3 method for class 'msr'
+rotate(X, angle, ..., centre)
+SaddleApprox(beta, fi, approx)
+safeFiniteValue(x, default)
+safePositiveValue(x, default)
+## S3 method for class 'msr'
+scalardilate(X, f, ...)
+## S3 method for class 'influence.ppm'
+shift(X, ...)
+## S3 method for class 'leverage.ppm'
+shift(X, ...)
+## S3 method for class 'msr'
+shift(X, ...)
+signalStatus(x, errors.only)
+## S3 method for class 'profilepl'
+simulate(object, ...)
+slr.prepare(CallInfo, envir, data, dataAtPoints, splitby, clip)
+slrAssemblePixelData(Y, Yname, W, covimages, dataAtPoints, pixelarea)
+slrmInfluence(model, what, ...)
+## S3 method for class 'ppm'
+spatialCovariateEvidence(model, covariate, ..., lambdatype,
+          dimyx, eps, rule.eps, interpolate, jitter, jitterfactor,
+          modelname, covname, dataname, subset, clip.predict) 
+## S3 method for class 'slrm'
+spatialCovariateEvidence(model, covariate, ..., lambdatype,
+          jitter, jitterfactor,
+          modelname, covname, dataname, subset, raster.action) 
+spatialCovariateUnderModel(model, covariate, ...)
+## S3 method for class 'ppm'
+spatialCovariateUnderModel(model, covariate, ...)
+## S3 method for class 'kppm'
+spatialCovariateUnderModel(model, covariate, ...)
+## S3 method for class 'dppm'
+spatialCovariateUnderModel(model, covariate, ...)
+## S3 method for class 'slrm'
+spatialCovariateUnderModel(model, covariate, ...)
+spatstatDPPModelInfo(model)
+splitHybridInteraction(coeffs, inte)
+sp.foundclass(cname, inlist, formalname, argsgiven)             
+sp.foundclasses(cnames, inlist, formalname, argsgiven)
+strausscounts(U,X,r,EqualPairs)
+stripGLMM(object)
+suffloc(object)
+suffstat.generic(model, X, callstring)
+suffstat.poisson(model, X, callstring)
+## S3 method for class 'mppm'
+summary(object, ..., brief=FALSE)
+## S3 method for class 'msr'
+summary(object, ...)
+## S3 method for class 'profilepl'
+summary(object, ...)
+## S3 method for class 'vblogit'
+summary(object, ...)
+## S3 method for class 'rppm'
+terms(x, ...)
+tweak.coefs(model, new.coef)
+## S3 method for class 'msr'
+unitname(x) 
+## S3 replacement method for class 'msr'
+unitname(x) &lt;- value 
+## S3 method for class 'ippm'
+update(object, ..., envir) 
+## S3 method for class 'msr'
+update(object, ...)
+## S3 method for class 'ppm'
+updateData(model, X, ..., warn)
+## S3 method for class 'kppm'
+updateData(model, X, ...)
+## S3 method for class 'dppm'
+updateData(model, X, ...)
+## S3 method for class 'slrm'
+updateData(model, X, ...)
+varcountEngine(g, B, lambdaB, f, R, what)
+versionstring.interact(object)
+versionstring.ppm(object)
+windows.mppm(x)
+
+
+
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These internal <span class="pkg">spatstat.model</span> functions should not be called
+directly by the user. Their names and capabilities may change
+without warning from one version of <span class="pkg">spatstat.model</span> to the next.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return values of these functions are not documented,
+and may change without warning.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

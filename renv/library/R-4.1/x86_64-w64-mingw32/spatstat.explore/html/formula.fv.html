@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Change the Plot Formula for a Function Value Table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for formula.fv {spatstat.explore}"><tr><td>formula.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract or Change the Plot Formula for a Function Value Table
+</h2>
+
+<h3>Description</h3>
+
+<p>Extract or change the default plotting formula
+for an object of class <code>"fv"</code> (function value table).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+formula(x, ...)
+
+formula(x, ...) &lt;- value
+
+## S3 replacement method for class 'fv'
+formula(x, ...) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>"fv"</code>,
+containing the values of several estimates of a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>New value of the formula. Either a <code>formula</code> or a character
+string.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A function value table
+(object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>)
+is a convenient way of storing and plotting
+several different estimates of the same function.
+</p>
+<p>The default behaviour of <code>plot(x)</code> for a function value table
+<code>x</code> is determined by a formula
+associated with <code>x</code> called its <em>plot formula</em>.
+See <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code> for explanation about these formulae.
+</p>
+<p>The function <code>formula.fv</code> is a method for the generic command
+<code><a href="../../stats/html/formula.html">formula</a></code>. It extracts the plot formula associated with
+the object.
+</p>
+<p>The function <code>formula&lt;-</code> is generic. It changes the formula
+associated with an object. 
+</p>
+<p>The function <code>formula&lt;-.fv</code> is the method for <code>formula&lt;-</code>
+for the class <code>"fv"</code>. It changes the plot formula associated with
+the object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>formula.fv</code> is a character string containing the
+plot formula. The result of <code>formula&lt;-.fv</code> is a new object of
+class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.html">fv</a></code>,  
+<code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>,
+<code><a href="../../stats/help/formula.html">formula</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K &lt;- Kest(cells)
+   formula(K)
+   formula(K) &lt;- (iso ~ r)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

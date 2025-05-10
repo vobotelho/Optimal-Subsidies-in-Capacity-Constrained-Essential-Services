@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Point patterns of whale and dolphin sightings.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cetaceans {spatstat.data}"><tr><td>cetaceans {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Point patterns of whale and dolphin sightings.
+</h2>
+
+<h3>Description</h3>
+
+<p>Nine (independent replicate) point patterns of whale and
+dolphin sightings obtained from aircraft flying along eight
+parallel transects in the region of Great Barrier Island,
+the Hauraki Gulf and the Coromandel Peninsula (New Zealand).
+Most of the transects are interrupted by portions of land mass.
+Observations were recorded within narrow rectangles of total width
+840 metres (420 metres on each side of the transect).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   data(cetaceans)
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The object <code>cetaceans</code> is a <em>hyperframe</em> (see
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a>()</code>) with 9 rows and 4 columns.
+Each row of this hyperframe represents a replicate survey.
+The columns are <code>whales</code>, <code>dolphins</code>, <code>fish</code>
+and <code>plankton</code>.
+</p>
+<p>Each entry in the hyperframe is a point pattern.
+The <code>dolphins</code> column consists of
+marked patterns (with marks having levels <code>dd</code> and <code>tt</code>)
+while the other columns contain unmarked point patterns.
+</p>
+<p>The object <code>cetaceans.extra</code> is a list containing auxiliary data.
+It currently contains only one entry, <code>patterns</code>, which
+contains the same information as <code>cetaceans</code> in another form.
+This is a list, of class <code>solist</code>
+(&ldquo;spatial object list&rdquo;; see <code><a href="../../spatstat.geom/help/solist.html">solist</a>()</code>,
+<code><a href="../../spatstat.geom/help/as.solist.html">as.solist</a>()</code>).
+It is a list of length 9, in which each entry is a marked point
+pattern, representing the result of one survey. 
+Each pattern was obtained by superimposing the
+<code>whales</code>, <code>dolphins</code>, <code>fish</code> and <code>plankton</code> patterns
+from the corresponding row of <code>cetaceans</code>.
+The marks of these patterns have levels <code>be</code>, <code>dd</code>,
+<code>fi</code>, <code>tt</code> and <code>zo</code>.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The data were obtained from nine aerial surveys, conducted
+from 02/12/2013 to 22/04/2014.  Each survey was conducted over
+the course of a single day.  The gap between successive surveys
+ranged from two to six weeks (making it &ldquo;not unreasonable&rdquo;
+to treat the patterns obtained as being independent).  The marks
+of the patterns referred to above may be interpreted as follows:
+</p>
+
+<ul>
+<li><p><code>be</code>: whales &mdash; Bryde's whale (Balaenoptera edeni)
+</p>
+</li>
+<li><p><code>dd</code>: dolphins &mdash; Common dolphin (Delphinus delphis)
+</p>
+</li>
+<li><p><code>fi</code>: fish &mdash; Any species that forms schools
+</p>
+</li>
+<li><p><code>tt</code>: dolphins &mdash; Bottlenose dolphin (Tursiops truncatus)
+</p>
+</li>
+<li><p><code>zo</code>: plankton &mdash; Zooplankton
+</p>
+</li></ul>
+
+<p>The window for the point patterns in these data sets is of type
+<code>polygonal</code> and consists of a number of thin rectangular
+strips. These are arranged along eight parallel transects.
+</p>
+<p>The units in which the patterns are presented are kilometres.
+</p>
+<p>These data are rather &ldquo;sparse&rdquo;.  For example there are
+a total of only eight whale observations in the entire data set
+(all nine surveys).  Thus conclusions drawn from these data should
+be treated with even more than the usual amount of circumspection.
+</p>
+
+
+<h3>Source</h3>
+
+<p>These data were kindly supplied by Lily Kozmian-Ledward, who
+studied them in the course of writing her Master's thesis at
+the University of Auckland, under the joint supervision of
+Dr. Rochelle Constantine, University of Auckland and Dr Leigh
+Torres, Oregon State University.
+</p>
+
+
+<h3>References</h3>
+
+<p>Kozmian-Ledward, L. (2014).
+<em>Spatial ecology of cetaceans in the Hauraki Gulf, New Zealand.</em>
+Unpublished MSc thesis, University of Auckland, New Zealand.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.model)) {
+     cet &lt;- cetaceans
+     cet$dMplank &lt;- with(cet, distfun(plankton, undef=20))
+     cet$dMfish &lt;- with(cet, distfun(fish, undef=20))
+     fit.whales &lt;- mppm(whales ~ dMplank + dMfish,data=cet)
+     anova(fit.whales,test="Chi")
+     # Note that inference is *conditional* on the fish and
+     # plankton patterns.
+     cetPats &lt;- cetaceans.extra$patterns
+     plot(Window(cetPats[[1]]),main="The window")
+     plot(cetPats,nrows=3,main="All data")
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update a Graphics Symbol Map.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for update.symbolmap {spatstat.geom}"><tr><td>update.symbolmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Update a Graphics Symbol Map.
+</h2>
+
+<h3>Description</h3>
+
+<p>This command updates the <code>object</code> using the
+arguments given.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'symbolmap'
+update(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Graphics symbol map (object of class <code>"symbolmap"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional or replacement arguments to <code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../stats/help/update.html">update</a></code>
+for the class <code>"symbolmap"</code> of graphics symbol maps.
+It updates the <code>object</code> using the parameters given in the
+extra arguments <code>...</code>.
+</p>
+<p>The extra arguments must be given in
+the form <code>name=value</code> and must be recognisable to
+<code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>. They override any parameters
+of the same name in <code>object</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"symbolmap"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code> to create a graphics symbol map.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  g &lt;- symbolmap(size=function(x) x/50)
+  g
+  update(g, range=c(0,1))
+  update(g, size=42)
+  update(g, shape="squares", range=c(0,1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

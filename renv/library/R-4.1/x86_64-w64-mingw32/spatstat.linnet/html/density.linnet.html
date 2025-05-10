@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Smoothing of Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for density.linnet {spatstat.linnet}"><tr><td>density.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Kernel Smoothing of Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Compute a kernel smoothed intensity function for
+the line segments of a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'linnet'
+density(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/density.psp.html">density.psp</a></code>
+to control the amount of smoothing and the spatial resolution
+of the result.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the method for the generic function <code><a href="../../stats/help/density.html">density</a></code>
+for the class <code>"linnet"</code> (linear networks).
+</p>
+<p>The network <code>x</code> is first converted to a line segment pattern
+(object of class <code>"psp"</code>). Then the method
+<code><a href="../../spatstat.explore/help/density.psp.html">density.psp</a></code> is applied to the
+segment pattern.
+</p>
+<p>A kernel estimate of the intensity of the line segment pattern
+is computed. The result is 
+the convolution of the isotropic Gaussian kernel, of
+standard deviation <code>sigma</code>, with the line segments.
+</p>
+<p>The intensity of a line segment pattern
+is the (spatially-varying) amount of segment length per unit area,
+expressed in the same units as the coordinates of <code>x</code>.
+If the units of <code>x</code> are in metres, then an intensity value of 3
+means that there are 3 metres of segment length per square metre of
+spatial domain.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/density.psp.html">density.psp</a></code>
+for more details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image in two dimensions (object of class <code>"im"</code>)
+or a numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.psp.html">density.psp</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../stats/help/density.html">density</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  D &lt;- density(simplenet, 0.1)
+  plot(D)
+  plot(simplenet, add=TRUE, col="white")
+  ## compare with average intensity
+  volume(simplenet)/area(Window(simplenet))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

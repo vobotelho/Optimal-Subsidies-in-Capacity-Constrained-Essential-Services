@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Detect Numerical Rounding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rounding {spatstat.univar}"><tr><td>rounding {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Detect Numerical Rounding 
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a numeric vector,
+determine whether the values have been rounded
+to a certain number of decimal places.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rounding(x)
+
+## Default S3 method:
+rounding(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A numeric vector, or an object containing numeric spatial coordinates.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>rounding</code> is generic.
+Its purpose is to determine whether numerical values have been rounded
+to a certain number of decimal places.
+</p>
+<p>The <span class="pkg">spatstat</span> family of packages provides methods for
+<code>rounding</code> for various spatial objects.
+</p>
+<p>For a numeric vector <code>x</code>, the default method <code>rounding.default</code>
+determines whether the values in <code>x</code> have been rounded
+to a certain number of decimal places.
+</p>
+
+<ul>
+<li> 
+<p>If the entries of <code>x</code> are not all integers, then
+<code>rounding(x)</code> returns the smallest number of digits <code>d</code>
+after the decimal point
+such that <code><a href="../../base/help/round.html">round</a>(x, digits=d)</code> is identical to
+<code>x</code>.
+For example if <code>rounding(x) = 2</code> then the entries of
+<code>x</code> are rounded to 2 decimal places, and are multiples of 0.01.
+</p>
+</li>
+<li> 
+<p>If all the entries of <code>x</code> are integers, then
+<code>rounding(x)</code> returns <code>-d</code>, where
+<code>d</code> is the smallest number of digits <em>before</em> the decimal point
+such that <code><a href="../../base/help/round.html">round</a>(x, digits=-d)</code> is identical to
+<code>x</code>.
+For example if <code>rounding(x) = -3</code> then the entries of
+<code>x</code> are multiples of 1000.
+If <code>rounding(x) = 0</code> then the entries of <code>x</code> are integers
+but not multiples of 10.
+</p>
+</li>
+<li>
+<p>If all entries of <code>x</code> are equal to 0, a value of 0 is returned.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An integer.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>round.ppp</code> in package <code>spatstat.geom</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   rounding(c(0.1, 0.3, 1.2))
+   rounding(c(1940, 1880, 2010))
+   rounding(0)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

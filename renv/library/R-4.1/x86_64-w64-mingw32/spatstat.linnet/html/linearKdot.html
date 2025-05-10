@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Multitype K Function (Dot-type) for Linear Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linearKdot {spatstat.linnet}"><tr><td>linearKdot {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Multitype K Function (Dot-type) for Linear Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>For a multitype point pattern on a linear network,
+estimate the multitype <i>K</i> function
+which counts the expected number of points (of any type)
+within a given distance of a point of type <i>i</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linearKdot(X, i, r=NULL, ..., correction="Ang")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the dot type <i>K</i> function
+<i>K[i.](r)</i> will be computed.
+An object of class <code>"lpp"</code> which 
+must be a multitype point pattern (a marked point pattern
+whose marks are a factor).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>Number or character string identifying the type (mark value)
+of the points in <code>X</code> from which distances are measured.
+Defaults to the first level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>numeric vector. The values of the argument <i>r</i>
+at which the <i>K</i>-function
+<i>K[i.](r)</i> should be evaluated.
+There is a sensible default.
+First-time users are strongly advised not to specify this argument.
+See below for important conditions on <i>r</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Geometry correction.
+Either <code>"none"</code> or <code>"Ang"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a counterpart of the function <code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code> 
+for a point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+<p>The argument <code>i</code> will be interpreted as
+levels of the factor <code>marks(X)</code>. 
+If <code>i</code> is missing, it defaults to the first
+level of the marks factor.
+</p>
+<p>The argument <code>r</code> is the vector of values for the
+distance <i>r</i> at which <i>Ki.(r)</i> should be evaluated. 
+The values of <i>r</i> must be increasing nonnegative numbers
+and the maximum <i>r</i> value must not exceed the radius of the
+largest disc contained in the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The argument <code>i</code> is interpreted as a
+level of the factor <code>marks(X)</code>. Beware of the usual
+trap with factors: numerical values are not
+interpreted in the same way as character values. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A, Jammalamadaka, A. and Nair, G. (2014)
+Multitype point process analysis of spines on the
+dendrite network of a neuron.
+<em>Applied Statistics</em> (Journal of the Royal Statistical
+Society, Series C), <b>63</b>, 673&ndash;694.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code>,
+<code><a href="../../spatstat.linnet/help/linearKcross.html">linearKcross</a></code>,
+<code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K &lt;- linearKdot(chicago, "assault")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

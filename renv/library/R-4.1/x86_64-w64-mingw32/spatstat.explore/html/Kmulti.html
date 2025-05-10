@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Marked K-Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kmulti {spatstat.explore}"><tr><td>Kmulti {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Marked K-Function
+</h2>
+
+<h3>Description</h3>
+
+<p>For a marked point pattern, 
+estimate the multitype <i>K</i> function
+which counts the expected number of points of subset <i>J</i>
+within a given distance from a typical point in subset <code>I</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Kmulti(X, I, J, r=NULL, breaks=NULL, correction, ..., rmax=NULL, ratio=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the multitype <i>K</i> function
+<i>KIJ(r)</i> will be computed.
+It must be a marked point pattern.
+See under Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>I</code></td>
+<td>
+<p>Subset index specifying the points of <code>X</code>
+from which distances are measured. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>J</code></td>
+<td>
+<p>Subset index specifying the points in <code>X</code> to which
+distances are measured. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>numeric vector. The values of the argument <i>r</i>
+at which the multitype <i>K</i> function
+<i>KIJ(r)</i> should be evaluated.
+There is a sensible default.
+First-time users are strongly advised not to specify this argument.
+See below for important conditions on <i>r</i>.
+If necessary, specify <code>rmax</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"border"</code>, <code>"bord.modif"</code>,
+<code>"isotropic"</code>, <code>"Ripley"</code>, <code>"translate"</code>,
+<code>"translation"</code>, <code>"periodic"</code>,
+<code>"none"</code> or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum desired value of the argument <i>r</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>Kmulti</code>
+generalises <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> (for unmarked point
+patterns) and <code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code> and <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code> (for
+multitype point patterns) to arbitrary marked point patterns.
+</p>
+<p>Suppose <i>X[I]</i>, <i>X[J]</i> are subsets, possibly
+overlapping, of a marked point process.
+The multitype <i>K</i> function 
+is defined so that
+<i>lambda[J] KIJ(r)</i> equals the expected number of
+additional random points of <i>X[J]</i> 
+within a distance <i>r</i> of a
+typical point of  <i>X[I]</i>.
+Here <i>lambda[J]</i>
+is the intensity of <i>X[J]</i> 
+i.e. the expected number of points of <i>X[J]</i> per unit area.
+The function <i>KIJ</i> is determined by the 
+second order moment properties of <i>X</i>.
+</p>
+<p>The argument <code>X</code> must be a point pattern (object of class
+<code>"ppp"</code>) or any data that are acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+<p>The arguments <code>I</code> and <code>J</code> specify two subsets of the
+point pattern. They may be any type of subset indices, for example,
+logical vectors of length equal to <code>npoints(X)</code>,
+or integer vectors with entries in the range 1 to
+<code>npoints(X)</code>, or negative integer vectors.
+</p>
+<p>Alternatively, <code>I</code> and <code>J</code> may be <b>functions</b>
+that will be applied to the point pattern <code>X</code> to obtain
+index vectors. If <code>I</code> is a function, then evaluating
+<code>I(X)</code> should yield a valid subset index. This option
+is useful when generating simulation envelopes using
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+<p>The argument <code>r</code> is the vector of values for the
+distance <i>r</i> at which <i>KIJ(r)</i> should be evaluated. 
+It is also used to determine the breakpoints
+(in the sense of <code><a href="../../graphics/html/hist.html">hist</a></code>)
+for the computation of histograms of distances.
+</p>
+<p>First-time users would be strongly advised not to specify <code>r</code>.
+However, if it is specified, <code>r</code> must satisfy <code>r[1] = 0</code>, 
+and <code>max(r)</code> must be larger than the radius of the largest disc 
+contained in the window. 
+</p>
+<p>This algorithm assumes that <code>X</code> can be treated
+as a realisation of a stationary (spatially homogeneous) 
+random spatial point process in the plane, observed through
+a bounded window.
+The window (which is specified in <code>X</code> as <code>Window(X)</code>)
+may have arbitrary shape.
+</p>
+<p>Biases due to edge effects are
+treated in the same manner as in <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>.
+The edge corrections implemented here are
+</p>
+
+<dl>
+<dt>border</dt><dd><p>the border method or
+&ldquo;reduced sample&rdquo; estimator (see Ripley, 1988). This is
+the least efficient (statistically) and the fastest to compute.
+It can be computed for a window of arbitrary shape.
+</p>
+</dd>
+<dt>isotropic/Ripley</dt><dd><p>Ripley's isotropic correction
+(see Ripley, 1988; Ohser, 1983).
+This is currently implemented only for rectangular and polygonal windows.
+</p>
+</dd>
+<dt>translate</dt><dd><p>Translation correction (Ohser, 1983).
+Implemented for all window geometries.
+</p>
+</dd>
+</dl>
+
+<p>The pair correlation function <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> can also be applied to the
+result of <code>Kmulti</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+<p>Essentially a data frame containing numeric columns 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the function <i>KIJ(r)</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value of  <i>KIJ(r)</i>
+for a marked Poisson process, namely <i>pi * r^2</i>
+</p>
+</td></tr>
+</table>
+<p>together with a column or columns named 
+<code>"border"</code>, <code>"bord.modif"</code>,
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the function <i>KIJ(r)</i>
+obtained by the edge corrections named.
+</p>
+<p>If <code>ratio=TRUE</code> then the return value also has two
+attributes called <code>"numerator"</code> and <code>"denominator"</code>
+which are <code>"fv"</code> objects
+containing the numerators and denominators of each
+estimate of <i>K(r)</i>. 
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The function <i>KIJ</i> is not necessarily differentiable.
+</p>
+<p>The border correction (reduced sample) estimator of
+<i>KIJ</i> used here is pointwise approximately 
+unbiased, but need not be a nondecreasing function of <i>r</i>,
+while the true  <i>KIJ</i> must be nondecreasing.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cressie, N.A.C. <em>Statistics for spatial data</em>.
+John Wiley and Sons, 1991.
+</p>
+<p>Diggle, P.J. <em>Statistical analysis of spatial point patterns</em>.
+Academic Press, 1983.
+</p>
+<p>Diggle, P. J. (1986).
+Displaced amacrine cells in the retina of a
+rabbit : analysis of a bivariate spatial point pattern. 
+<em>J. Neurosci. Meth.</em> <b>18</b>, 115&ndash;125.
+</p>
+<p>Harkness, R.D and Isham, V. (1983)
+A bivariate spatial point pattern of ants' nests.
+<em>Applied Statistics</em> <b>32</b>, 293&ndash;303
+</p>
+<p>Lotwick, H. W. and Silverman, B. W. (1982).
+Methods for analysing spatial processes of several types of points.
+<em>J. Royal Statist. Soc. Ser. B</em> <b>44</b>, 406&ndash;413.
+</p>
+<p>Ripley, B.D. <em>Statistical inference for spatial processes</em>.
+Cambridge University Press, 1988.
+</p>
+<p>Stoyan, D, Kendall, W.S. and Mecke, J.
+<em>Stochastic geometry and its applications</em>.
+2nd edition. Springer Verlag, 1995.
+</p>
+<p>Van Lieshout, M.N.M. and Baddeley, A.J. (1999)
+Indices of dependence between types in multivariate point patterns.
+<em>Scandinavian Journal of Statistics</em> <b>26</b>, 511&ndash;532.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>,
+<code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+     # Longleaf Pine data: marks represent diameter
+    trees &lt;- longleaf
+    
+    K &lt;- Kmulti(trees, marks(trees) &lt;= 15, marks(trees) &gt;= 25)
+    plot(K)
+    # functions determining subsets
+    f1 &lt;- function(X) { marks(X) &lt;= 15 }
+    f2 &lt;- function(X) { marks(X) &gt;= 15 }
+    K &lt;- Kmulti(trees, f1, f2)
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

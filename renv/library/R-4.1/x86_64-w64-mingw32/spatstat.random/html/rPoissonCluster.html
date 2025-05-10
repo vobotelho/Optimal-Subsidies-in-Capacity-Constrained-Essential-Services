@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Poisson Cluster Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rPoissonCluster {spatstat.random}"><tr><td>rPoissonCluster {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate Poisson Cluster Process</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern, a realisation of the
+general Poisson cluster process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rPoissonCluster(kappa, expand, rcluster, win = owin(c(0,1),c(0,1)),
+                 ..., nsim=1, drop=TRUE, saveparents=TRUE, kappamax=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+
+<p>Intensity of the Poisson process of cluster centres.
+A single positive number, a function, or a pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>expand</code></td>
+<td>
+
+<p>Size of the expansion of the simulation window for generating parent
+points. A single non-negative number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rcluster</code></td>
+<td>
+
+<p>A function which generates random clusters.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Window in which to simulate the pattern.
+An object of class <code>"owin"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code>rcluster</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>saveparents</code></td>
+<td>
+
+<p>Logical value indicating whether to save the locations of the
+parent points as an attribute.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kappamax</code></td>
+<td>
+
+<p>Optional. Upper bound on the values of <code>kappa</code>
+when <code>kappa</code> is a function or pixel image.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm generates a realisation of the
+general Poisson cluster process, with the cluster mechanism
+given by the function <code>rcluster</code>. 
+</p>
+<p>First, the algorithm
+generates a Poisson point process of &ldquo;parent&rdquo; points 
+with intensity <code>kappa</code> in an expanded
+window as explained below.. Here <code>kappa</code> may be a single
+positive number, a function <code>kappa(x, y)</code>, or a pixel image
+object of class <code>"im"</code> (see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>).
+See <code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code> for details.
+</p>
+<p>Second, each parent point is replaced by a random cluster of points,
+created by calling the function <code>rcluster</code>.  These clusters are
+combined together to yield a single point pattern, and the restriction
+of this pattern to the window <code>win</code> is then returned as the
+result of <code>rPoissonCluster</code>.
+</p>
+<p>The expanded window consists of <code><a href="../../spatstat.geom/help/as.rectangle.html">as.rectangle</a>(win)</code>
+extended by the amount <code>expand</code> in each direction. The size of
+the expansion is saved in the attribute <code>"expand"</code> and may be
+extracted by <code>attr(X, "expand")</code> where <code>X</code> is the generated
+point pattern.
+</p>
+<p>The function <code>rcluster</code> should expect to be called as
+<code>rcluster(xp[i],yp[i],...)</code> for each parent point at a location
+<code>(xp[i],yp[i])</code>. The return value of <code>rcluster</code>
+should be a list with elements
+<code>x,y</code> which are vectors of equal length giving the absolute
+<i>x</i> and <code>y</code> coordinates of the points in the cluster.
+</p>
+<p>If the return value of <code>rcluster</code> is a point pattern (object of
+class <code>"ppp"</code>) then it may have marks. The result of
+<code>rPoissonCluster</code> will then be a marked point pattern.
+</p>
+<p>If required, the intermediate stages of the simulation (the parents
+and the individual clusters) can also be extracted from
+the return value of <code>rPoissonCluster</code>
+through the attributes <code>"parents"</code> and <code>"parentid"</code>.
+The attribute <code>"parents"</code> is the point pattern of parent points.
+The attribute <code>"parentid"</code> is an integer vector specifying
+the parent for each of the points in the simulated pattern.
+(If these data are not required, it is more efficient to
+set <code>saveparents=FALSE</code>.)
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>)
+if <code>nsim=1</code>, or a list of point patterns if <code>nsim &gt; 1</code>.
+</p>
+<p>Additionally,  some intermediate results of the simulation are
+returned as attributes of the point pattern: see Details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>,
+<code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code>,
+<code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>,
+<code><a href="../../spatstat.random/help/rNeymanScott.html">rNeymanScott</a></code>,
+<code><a href="../../spatstat.random/help/rGaussPoisson.html">rGaussPoisson</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # each cluster consist of 10 points in a disc of radius 0.2
+  nclust &lt;- function(x0, y0, radius, n) {
+              return(runifdisc(n, radius, centre=c(x0, y0)))
+            }
+  plot(rPoissonCluster(10, 0.2, nclust, radius=0.2, n=5))
+
+  # multitype Neyman-Scott process (each cluster is a multitype process)
+  nclust2 &lt;- function(x0, y0, radius, n, types=c("a", "b")) {
+     X &lt;- runifdisc(n, radius, centre=c(x0, y0))
+     M &lt;- sample(types, n, replace=TRUE)
+     marks(X) &lt;- M
+     return(X)
+  }
+  plot(rPoissonCluster(15,0.1,nclust2, radius=0.1, n=5))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

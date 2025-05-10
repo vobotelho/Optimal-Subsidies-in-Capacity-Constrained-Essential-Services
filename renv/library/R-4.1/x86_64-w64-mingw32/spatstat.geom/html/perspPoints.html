@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Draw Points or Lines on a Surface Viewed in Perspective</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for perspPoints {spatstat.geom}"><tr><td>perspPoints {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Draw Points or Lines on a Surface Viewed in Perspective
+</h2>
+
+<h3>Description</h3>
+
+<p>After a surface has been plotted in a perspective view
+using <code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>, these functions can be used to
+draw points or lines on the surface.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+perspPoints(x, y=NULL, ..., Z, M, occluded=TRUE)
+
+perspLines(x, y = NULL, ..., Z, M, occluded=TRUE)
+
+perspSegments(x0, y0 = NULL, x1 = NULL, y1 = NULL, ..., Z, M, occluded=TRUE)
+
+perspContour(Z, M, ...,
+             nlevels=10, levels=pretty(range(Z), nlevels),
+             occluded=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Spatial coordinates,
+acceptable to <code><a href="../../grDevices/help/xy.coords.html">xy.coords</a></code>,
+for the points or lines on the horizontal plane.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"im"</code>)
+specifying the surface heights.
+</p>
+</td></tr>
+<tr valign="top"><td><code>M</code></td>
+<td>
+
+<p>Projection matrix returned from <code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>
+when <code>Z</code> was plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Graphical arguments passed to
+<code><a href="../../graphics/help/points.html">points</a></code>,
+<code><a href="../../graphics/help/lines.html">lines</a></code> or
+<code><a href="../../graphics/help/segments.html">segments</a></code>
+to control the drawing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x0,y0,x1,y1</code></td>
+<td>
+
+<p>Spatial coordinates of the line segments, on the
+horizontal plane. Alternatively <code>x0</code> can be a
+line segment pattern (object of class <code>"psp"</code>)
+and <code>y0,x1,y1</code> can be <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nlevels</code></td>
+<td>
+<p>Number of contour levels</p>
+</td></tr>
+<tr valign="top"><td><code>levels</code></td>
+<td>
+<p>Vector of heights of contours.</p>
+</td></tr>
+<tr valign="top"><td><code>occluded</code></td>
+<td>
+
+<p>Logical value specifying whether parts of the surface
+can be obscured by other parts of the surface. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>After a surface has been plotted in a perspective view,
+these functions can be used to draw points or lines on the surface.
+</p>
+<p>The user should already have called <code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>
+to display the perspective view of the surface <code>Z</code>
+and to obtain the perspective matrix <code>M</code> by typing
+<code>M &lt;- persp(Z, ...)</code>. The points and lines will be drawn in
+their correct three-dimensional position according to the same
+perspective.
+</p>
+<p>If <code>occluded=TRUE</code> (the default), then the surface is
+treated as if it were opaque. The code will
+draw only those points and lines which are visible
+from the viewer's standpoint, and not obscured by other parts
+of the surface lying closer to the viewer.
+The user should already have called <code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>
+in the form <code>M &lt;- persp(Z, visible=TRUE, ...)</code> 
+to compute the visibility information.
+</p>
+<p>If <code>occluded=FALSE</code>, then the surface is treated
+as if it were transparent. 
+All the specified points and lines will be drawn on the
+surface.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Same as the return value from
+<code><a href="../../graphics/help/points.html">points</a></code>
+or <code><a href="../../graphics/help/segments.html">segments</a></code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  M &lt;- persp(bei.extra$elev, colmap=terrain.colors(128),
+             apron=TRUE, theta=-30, phi=20,
+             zlab="Elevation", main="", 
+             expand=6, visible=TRUE, shade=0.3)
+
+  perspContour(bei.extra$elev, M=M, col="pink", nlevels=12)
+  perspPoints(bei, Z=bei.extra$elev, M=M, pch=16, cex=0.3, col="chartreuse")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Estimate of Intensity on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for density.lpp {spatstat.linnet}"><tr><td>density.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Kernel Estimate of Intensity on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the intensity of a point process on a linear network
+by applying kernel smoothing to the point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+density(x, sigma=NULL, ...,
+        weights=NULL,
+        distance=c("path", "euclidean"),
+        continuous=TRUE,
+        kernel="gaussian")
+
+## S3 method for class 'splitppx'
+density(x, sigma=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>)
+to be smoothed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth (standard deviation of the kernel).
+A single numerical value
+in the same units as the spatial coordinates of <code>x</code>.
+Alternatively <code>sigma</code> may be a function which selects a
+bandwidth when applied to <code>X</code>,
+for example, <code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code> or <code><a href="../../spatstat.linnet/help/bw.lppl.html">bw.lppl</a></code>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments controlling the algorithm
+and the spatial resolution of the result.
+These arguments are passed either to
+<code><a href="../../spatstat.linnet/help/densityQuick.lpp.html">densityQuick.lpp</a></code>, <code><a href="../../spatstat.linnet/help/densityHeat.lpp.html">densityHeat.lpp</a></code>
+or <code><a href="../../spatstat.linnet/help/densityEqualSplit.html">densityEqualSplit</a></code> depending on the algorithm chosen.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Numeric vector of weights associated with the
+points of <code>x</code>. Weights may be positive, negative or zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>distance</code></td>
+<td>
+
+<p>Character string (partially matched) specifying whether to use
+a kernel based on paths in the network (<code>distance="path"</code>, the default)
+or a two-dimensional kernel (<code>distance="euclidean"</code>). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>Character string specifying the smoothing kernel.
+See <code><a href="../../spatstat.univar/help/dkernel.html">dkernel</a></code> for possible options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>continuous</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the
+&ldquo;equal-split continuous&rdquo; smoother (<code>continuous=TRUE</code>, the
+default) or the &ldquo;equal-split discontinuous&rdquo; smoother
+(<code>continuous=FALSE</code>). Applies only when <code>distance="path"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Kernel smoothing is applied to the points of <code>x</code>
+using either a kernel based on path distances in the network,
+or a two-dimensional kernel.
+The result is a pixel image on the linear network (class
+<code>"linim"</code>) which can be plotted.
+</p>
+
+<ul>
+<li><p> If <code>distance="path"</code> (the default)
+then the smoothing is performed
+using a kernel based on path distances in the network, as described in
+described in Okabe and Sugihara (2012) and McSwiggan et al (2016).
+</p>
+
+<ul>
+<li>
+<p>If <code>continuous=TRUE</code> (the default), smoothing is performed
+using the &ldquo;equal-split continuous&rdquo; rule described in
+Section 9.2.3 of Okabe and Sugihara (2012).
+The resulting function is continuous on the linear network.
+</p>
+</li>
+<li>
+<p>If <code>continuous=FALSE</code>, smoothing is performed
+using the &ldquo;equal-split discontinuous&rdquo; rule described in
+Section 9.2.2 of Okabe and Sugihara (2012). The
+resulting function is continuous except at the network vertices.
+</p>
+</li>
+<li>
+<p>In the default case
+(where <code>distance="path"</code> and
+<code>continuous=TRUE</code> and <code>kernel="gaussian"</code>,
+computation is performed rapidly by solving the classical heat equation
+on the network, as described in McSwiggan et al (2016).
+The arguments are passed to <code><a href="../../spatstat.linnet/help/densityHeat.lpp.html">densityHeat.lpp</a></code> which performs
+the computation.
+Computational time is short, but increases quadratically
+with <code>sigma</code>.
+</p>
+</li>
+<li>
+<p>In all other cases, computation is performed by path-tracing
+as described in Okabe and Sugihara (2012);
+the arguments are passed to <code><a href="../../spatstat.linnet/help/densityEqualSplit.html">densityEqualSplit</a></code>
+which performs the computation.
+Computation time can be extremely long, and
+increases exponentially with <code>sigma</code>.
+</p>
+</li></ul>
+
+</li>
+<li><p> If <code>distance="euclidean"</code>, the smoothing is performed
+using a two-dimensional kernel. The arguments are passed to
+<code><a href="../../spatstat.linnet/help/densityQuick.lpp.html">densityQuick.lpp</a></code> to perform the computation.
+Computation time is very short.
+See the help for <code><a href="../../spatstat.linnet/help/densityQuick.lpp.html">densityQuick.lpp</a></code> for further details.
+</p>
+</li></ul>
+
+<p>There is also a method for split point patterns on a linear network
+(class <code>"splitppx"</code>) which will return a list of pixel images.
+</p>
+<p>The argument <code>sigma</code> specifies the smoothing bandwidth.
+If <code>sigma</code> is missing or <code>NULL</code>,
+the default is one-eighth of the length of the shortest side
+of the bounding box of <code>x</code>.
+If <code>sigma</code> is a function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, it is assumed
+to be a bandwidth selection rule, and it will be applied to <code>x</code>
+to compute the bandwidth value.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image on the linear network (object of class <code>"linim"</code>),
+or in some cases, a numeric vector of length equal to <code>npoints(x)</code>.
+</p>
+
+
+<h3>Infinite bandwidth</h3>
+
+<p>If <code>sigma=Inf</code>, the resulting density estimate is 
+constant over all locations,
+and is equal to the average density of points per unit length.
+(If the network is not connected, then this rule
+is applied separately to each connected component of the network).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Greg McSwiggan.
+</p>
+
+
+<h3>References</h3>
+
+<p>McSwiggan, G., Baddeley, A. and Nair, G. (2016)
+Kernel density estimation on a linear network.
+<em>Scandinavian Journal of Statistics</em> <b>44</b>, 324&ndash;345.
+</p>
+<p>Okabe, A. and Sugihara, K. (2012)
+<em>Spatial analysis along networks</em>.
+Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/linim.html">linim</a></code>,
+<code><a href="../../spatstat.linnet/help/densityQuick.lpp.html">densityQuick.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/densityHeat.lpp.html">densityHeat.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/densityVoronoi.lpp.html">densityVoronoi.lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(3, simplenet)
+  D &lt;- density(X, 0.2, verbose=FALSE)
+  plot(D, style="w", main="", adjust=2)
+  Dq &lt;- density(X, 0.2, distance="euclidean")
+  plot(Dq, style="w", main="", adjust=2)
+  Dw &lt;- density(X, 0.2, weights=c(1,2,-1), verbose=FALSE)
+  De &lt;- density(X, 0.2, kernel="epanechnikov", verbose=FALSE)
+  Ded &lt;- density(X, 0.2, kernel="epanechnikov", continuous=FALSE, verbose=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

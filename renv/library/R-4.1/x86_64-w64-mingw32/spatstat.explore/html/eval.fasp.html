@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate Expression Involving Function Arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for eval.fasp {spatstat.explore}"><tr><td>eval.fasp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate Expression Involving Function Arrays</h2>
+
+<h3>Description</h3>
+
+<p>Evaluates any expression involving one or more function arrays
+(<code>fasp</code> objects) and returns another function array.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  eval.fasp(expr, envir, dotonly=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>expr</code></td>
+<td>
+
+<p>An expression involving the names of objects of class <code>"fasp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+
+<p>Optional. The environment in which to evaluate the expression,
+or a named list containing <code>"fasp"</code> objects to be used in
+the expression.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dotonly</code></td>
+<td>
+<p>Logical. Passed to <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a wrapper to make it easier to perform
+pointwise calculations with the arrays of summary functions
+used in spatial statistics.
+</p>
+<p>A function array (object of class <code>"fasp"</code>) can be regarded as a matrix
+whose entries are functions. Objects of this kind
+are returned by the command <code><a href="../help/alltypes.html">alltypes</a></code>.
+</p>
+<p>Suppose <code>X</code> is an object of class <code>"fasp"</code>.
+Then <code>eval.fasp(X+3)</code> effectively adds 3 to the value of
+every function in the array <code>X</code>, and returns
+the resulting object. 
+</p>
+<p>Suppose <code>X</code> and <code>Y</code> are two objects of class <code>"fasp"</code>
+which are compatible (for example the arrays
+must have the same dimensions). Then 
+<code>eval.fasp(X + Y)</code> will add the corresponding functions in
+each cell of the arrays <code>X</code> and <code>Y</code>,
+and return the resulting array of functions.
+</p>
+<p>Suppose <code>X</code> is an object of class <code>"fasp"</code>
+and <code>f</code> is an object of class <code>"fv"</code>.
+Then <code>eval.fasp(X + f)</code> will add the function <code>f</code>
+to the functions in each cell of the array <code>X</code>,
+and return the resulting array of functions.
+</p>
+<p>In general, <code>expr</code> can be any expression involving
+(a) the <em>names</em> of objects of class <code>"fasp"</code> or <code>"fv"</code>,
+(b) scalar constants, and (c) functions which are vectorised.
+See the Examples.
+</p>
+<p>First <code>eval.fasp</code> determines which of the <em>variable names</em>
+in the expression <code>expr</code> refer to objects of class <code>"fasp"</code>.
+The expression is then evaluated for each cell of the array
+using <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>.
+</p>
+<p>The expression <code>expr</code> must be vectorised.
+There must be at least one object of class <code>"fasp"</code> in the expression.
+All such objects must be compatible.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"fasp"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code>,
+<code><a href="../help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  K &lt;- alltypes(amacrine, "K")
+
+  # expressions involving a fasp object
+  eval.fasp(K + 3)
+  L &lt;- eval.fasp(sqrt(K/pi))
+
+  # expression involving two fasp objects
+  D &lt;- eval.fasp(K - L)
+
+  # subtracting the unmarked K function from the cross-type K functions
+  K0 &lt;- Kest(unmark(amacrine))
+  DK &lt;- eval.fasp(K - K0)
+
+  ## Use of 'envir'
+  S &lt;- eval.fasp(1-G, list(G=alltypes(amacrine, 'G')))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

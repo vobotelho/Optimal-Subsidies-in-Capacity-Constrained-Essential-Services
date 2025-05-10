@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cross Validated Bandwidth Selection for Relative Risk...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for bw.relrisk.lpp {spatstat.linnet}"><tr><td>bw.relrisk.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Cross Validated Bandwidth Selection for Relative Risk Estimation
+on a Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses cross-validation to select a smoothing bandwidth
+for the estimation of relative risk on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+bw.relrisk(X, ...,
+    method = c("likelihood", "leastsquares", "KelsallDiggle", "McSwiggan"),
+    distance=c("path", "euclidean"),
+    hmin = NULL, hmax = NULL, nh = NULL,
+    fast = TRUE, fastmethod = "onestep",
+    floored = TRUE, reference = c("thumb", "uniform", "sigma"),
+    allow.infinite = TRUE, epsilon = 1e-20, fudge = 0,
+    verbose = FALSE, warn = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A multitype point pattern on a linear network (object of class
+<code>"lpp"</code> which has factor-valued marks).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> to control the
+resolution of the algorithm.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string (partially matched)
+determining the cross-validation method.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>distance</code></td>
+<td>
+
+<p>Character string (partially matched)
+specifying the type of smoothing kernel.
+See <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hmin,hmax</code></td>
+<td>
+
+<p>Optional. Numeric values.
+Range of trial values of smoothing bandwith <code>sigma</code>
+to consider. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nh</code></td>
+<td>
+
+<p>Number of trial values of smoothing bandwidth <code>sigma</code>
+to consider.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fast</code></td>
+<td>
+
+<p>Logical value specifying whether the leave-one-out density estimates
+should be computed using a fast approximation (<code>fast=TRUE</code>, the
+default) or exactly (<code>fast=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>fastmethod, floored</code></td>
+<td>
+
+<p>Developer use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reference</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the
+bandwidth for calculating the
+reference intensities used in the McSwiggan method
+(modified Kelsall-Diggle method).
+<code>reference="sigma"</code> means the maximum bandwidth considered,
+which is given by the argument <code>sigma</code>.
+<code>reference="thumb"</code> means the bandwidths selected by
+Scott's rule of thumb <code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code>.
+<code>reference="uniform"</code> means infinite bandwidth corresponding to
+uniform intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>allow.infinite</code></td>
+<td>
+
+<p>Logical value indicating whether an infinite bandwidth
+(corresponding to a constant relative risk) should be permitted
+as a possible choice of bandwidth.
+</p>
+</td></tr>
+<tr valign="top"><td><code>epsilon</code></td>
+<td>
+
+<p>A small constant value added to the reference density in some
+of the cross-validation calculations, to improve performance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fudge</code></td>
+<td>
+
+<p>Fudge factor to prevent very small density estimates in the
+leave-one-out calculation. If <code>fudge &gt; 0</code>,
+then the lowest permitted value
+for a leave-one-out estimate of intensity is
+<code>fudge/L</code>, where <code>L</code> is the total length of the
+network. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports,
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, issue a warning if the minimum of
+the cross-validation criterion occurs at one of the ends of the
+search interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the generic <code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>.
+It computes an optimal value of smoothing bandwidth
+for the nonparametric estimation of relative risk on a linear network
+using <code><a href="../../spatstat.linnet/help/relrisk.lpp.html">relrisk.lpp</a></code>.
+The optimal value is found by minimising a cross-validation criterion.
+</p>
+<p>The cross-validation criterion is selected by the argument <code>method</code>:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>method="likelihood"</code> </td><td style="text-align: left;"> (negative) likelihood cross-validation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="leastsquares"</code> </td><td style="text-align: left;"> least squares cross-validation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="KelsallDiggle"</code> </td><td style="text-align: left;"> Kelsall and Diggle (1995) density
+  ratio cross-validation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="McSwiggan"</code> </td><td style="text-align: left;"> McSwiggan et al (2019) modified
+  density ratio cross-validation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>See McSwiggan et al (2019) for details.
+</p>
+<p>The result is a numerical value giving the selected bandwidth <code>sigma</code>.
+The result also belongs to the class <code>"bw.optim"</code>
+allowing it to be printed and plotted. The plot shows the cross-validation
+criterion as a function of bandwidth.
+The &lsquo;optimal&rsquo; bandwidth is the value of bandwidth
+which minimises the cross-validation criterion. 
+</p>
+<p>The range of values for the smoothing bandwidth <code>sigma</code>
+is set by the arguments <code>hmin, hmax</code>. There is a sensible default,
+based on the linear network version of Scott's rule
+<code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code>.
+</p>
+<p>If the optimal bandwidth is achieved at an endpoint of the
+interval <code>[hmin, hmax]</code>, the algorithm will issue a warning
+(unless <code>warn=FALSE</code>). If this occurs, then it is probably advisable
+to expand the interval by changing the arguments <code>hmin, hmax</code>.
+</p>
+<p>The cross-validation procedure is based on kernel estimates
+of intensity, which are computed by <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+Any arguments <code>...</code> are passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>
+to control the kernel estimation procedure. This includes the
+argument <code>distance</code> which specifies the type of kernel.
+The default is <code>distance="path"</code>;
+the fastest option is <code>distance="euclidean"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../../spatstat.explore/help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Kelsall, J.E. and Diggle, P.J. (1995)
+Kernel estimation of relative risk.
+<em>Bernoulli</em> <b>1</b>, 3&ndash;16.
+</p>
+<p>McSwiggan, G., Baddeley, A. and Nair, G. (2019)
+Estimation of relative risk for events on a linear network.
+<em>Statistics and Computing</em> <b>30</b> (2) 469&ndash;484.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/relrisk.lpp.html">relrisk.lpp</a></code>, <code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>,
+<code><a href="../../spatstat.explore/help/bw.optim.object.html">bw.optim.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   set.seed(2020)
+   X &lt;- superimpose(A=runiflpp(20, simplenet),
+                    B=runifpointOnLines(20, as.psp(simplenet)[1]))
+   plot(bw.relrisk(X, hmin=0.13, hmax=0.22, method="McSwiggan"))
+   plot(bw.relrisk(X, hmin=0.1, hmax=0.2, nh=8, distance="euclidean"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

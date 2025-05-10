@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reverse the Colours in a Colour Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rev.colourmap {spatstat.geom}"><tr><td>rev.colourmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Reverse the Colours in a Colour Map
+</h2>
+
+<h3>Description</h3>
+
+<p>Reverse the sequence of colour values in a colour map.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'colourmap'
+rev(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A colour map (object of class <code>"colourmap"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic <code><a href="../../base/help/rev.html">rev</a></code>
+for the class of colour maps.
+</p>
+<p>The sequence of colour values in the colour map will be reversed,
+without changing any other details. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A colour map (object of class <code>"colourmap"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>,
+<code><a href="../../spatstat.geom/help/colouroutputs.html">colouroutputs</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  co &lt;- colourmap(rainbow(100), range=c(-1,1))
+  opa &lt;- par(mfrow=c(1,2))
+  plot(co, vertical=TRUE)
+  plot(rev(co), vertical=TRUE)
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

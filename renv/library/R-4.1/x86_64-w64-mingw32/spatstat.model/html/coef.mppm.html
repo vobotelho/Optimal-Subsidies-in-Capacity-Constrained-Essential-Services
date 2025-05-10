@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Coefficients of Point Process Model Fitted to Multiple Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for coef.mppm {spatstat.model}"><tr><td>coef.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Coefficients of Point Process Model Fitted to Multiple Point Patterns
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a list of point patterns,
+extract the coefficients of the fitted model.
+A method for <code>coef</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'mppm'
+coef(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model (an object of class <code>"mppm"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the generic function <code><a href="../../stats/html/coef.html">coef</a></code>.
+</p>
+<p>The argument <code>object</code> must be a fitted point process model
+(object of class <code>"mppm"</code>) produced by the 
+fitting algorithm <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>). This represents a
+point process model that has been fitted
+to a list of several point pattern datasets. See <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>
+for information.
+</p>
+<p>This function extracts the vector of coefficients of the fitted model.
+This is the estimate of the parameter vector
+<i>&theta;</i> such that the conditional intensity of the model
+is of the form
+</p>
+<p style="text-align: center;"><i>
+    &lambda;(u,x) = \exp(&theta; . S(u,x))
+  </i></p>
+
+<p>where <i>S(u,x)</i> is a (vector-valued) statistic.
+</p>
+<p>For example, if the model <code>object</code> is the uniform Poisson process,
+then <code>coef(object)</code> will yield a single value
+(named <code>"(Intercept)"</code>) which is the logarithm of the
+fitted intensity of the Poisson process.
+</p>
+<p>If the fitted model includes random effects (i.e. if the argument
+<code>random</code> was specified in the call to <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>),
+then the fitted coefficients are different for each point pattern
+in the original data, so <code>coef(object)</code> is a data frame
+with one row for each point pattern, and one column for each
+parameter. Use <code><a href="../../spatstat.model/help/fixef.mppm.html">fixef.mppm</a></code> to extract the vector of fixed effect
+coefficients, and <code><a href="../../spatstat.model/help/ranef.mppm.html">ranef.mppm</a></code> to extract the random
+effect coefficients at each level.
+</p>
+<p>Use <code><a href="../../spatstat.model/help/print.mppm.html">print.mppm</a></code> to print a more useful
+description of the fitted model.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either a vector containing the fitted coefficients,
+or a data frame containing the fitted coefficients for each point pattern.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley, Ida-Maria Sintorn and Leanne Bischoff.
+Implemented in <span class="pkg">spatstat</span> by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/fixef.mppm.html">fixef.mppm</a></code> and <code><a href="../../spatstat.model/help/ranef.mppm.html">ranef.mppm</a></code>
+for the fixed and random effect coefficients in a model that includes
+random effects.
+</p>
+<p><code><a href="../../spatstat.model/help/print.mppm.html">print.mppm</a></code>,
+<code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    H &lt;- hyperframe(X=waterstriders)
+
+    fit.Poisson &lt;- mppm(X ~ 1, H)
+    coef(fit.Poisson)
+
+    # The single entry "(Intercept)" 
+    # is the log of the fitted intensity of the Poisson process
+
+    fit.Strauss &lt;- mppm(X~1, H, Strauss(7))
+    coef(fit.Strauss)
+
+    # The two entries "(Intercept)" and "Interaction"
+    # are respectively log(beta) and log(gamma)
+    # in the usual notation for Strauss(beta, gamma, r)
+
+    # Tweak data to exaggerate differences
+    H$X[[1]] &lt;- rthin(H$X[[1]], 0.3)
+    # Model with random effects
+    fitran &lt;- mppm(X ~ 1, H, random=~1|id)
+    coef(fitran)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create Pixel Image on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linim {spatstat.linnet}"><tr><td>linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Create Pixel Image on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of class <code>"linim"</code> that represents
+a pixel image on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  linim(L, Z, ..., restrict=TRUE, df=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>restrict</code></td>
+<td>
+
+<p>Advanced use only.
+Logical value indicating whether to ensure that all pixels in <code>Z</code>
+which do not lie on the network <code>L</code> have pixel value <code>NA</code>.
+This condition must be satisfied, but if you set
+<code>restrict=FALSE</code> it will not be checked, and the code will
+run faster.
+</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+
+<p>Advanced use only. Data frame giving full details of the mapping between
+the pixels of <code>Z</code> and the lines of <code>L</code>.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command creates an object of class <code>"linim"</code> that represents
+a pixel image defined on a linear network.
+Typically such objects are
+used to represent the result of smoothing or model-fitting on the
+network. Most users will not need to call <code>linim</code> directly.
+</p>
+<p>The argument <code>L</code> is a linear network (object of class <code>"linnet"</code>).
+It gives the exact spatial locations
+of the line segments of the network, and their connectivity.
+</p>
+<p>The argument <code>Z</code> is a pixel image object of class <code>"im"</code>
+that gives a pixellated approximation of the function values.
+</p>
+<p>For increased efficiency, advanced users may specify the 
+optional argument <code>df</code>. This is a data frame giving the
+precomputed mapping between the pixels of <code>Z</code>
+and the line segments of <code>L</code>.
+It should have columns named <code>xc, yc</code> containing the coordinates of
+the pixel centres, <code>x,y</code> containing the projections of these
+pixel centres onto the linear network, <code>mapXY</code> identifying the
+line segment on which each projected point lies, and <code>tp</code> giving
+the parametric position of <code>(x,y)</code> along the segment.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"linim"</code> that also inherits the class
+<code>"im"</code>.
+There is a special method for plotting this class.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010)
+<em>Statistical methodology for events on a network</em>.
+Master's thesis, School of Mathematics and Statistics, University of
+Western Australia.
+</p>
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+<p>McSwiggan, G., Nair, M.G. and Baddeley, A. (2012)
+Fitting Poisson point process models to events 
+on a linear network. Manuscript in preparation.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>,
+<code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>,
+<code><a href="../../spatstat.linnet/help/eval.linim.html">eval.linim</a></code>,
+<code><a href="../../spatstat.linnet/help/Math.linim.html">Math.linim</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- as.im(function(x,y) {x-y}, Frame(simplenet))
+  X &lt;- linim(simplenet, Z)
+  X
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

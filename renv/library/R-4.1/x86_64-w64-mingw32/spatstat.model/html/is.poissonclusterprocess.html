@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Recognise Poisson Cluster Process Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.poissonclusterprocess {spatstat.model}"><tr><td>is.poissonclusterprocess {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Recognise Poisson Cluster Process Models
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model (either a model that has been fitted to
+data, or a model specified by its parameters), 
+determine whether the model is a Poisson cluster process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.poissonclusterprocess(model)
+## S3 method for class 'kppm'
+is.poissonclusterprocess(model)
+## S3 method for class 'zclustermodel'
+is.poissonclusterprocess(model)
+## Default S3 method:
+is.poissonclusterprocess(model)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Any kind of object representing a spatial point process model,
+either a model fitted to data, or a specification of a point process model.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>model</code> represents a fitted spatial point process
+model (such as an object of class <code>"ppm"</code>, <code>"kppm"</code> or
+similar) or a specification of a point process model
+(such as an object of class <code>"zclustermodel"</code>).
+</p>
+<p>This function returns <code>TRUE</code> if the <code>model</code> is a Poisson cluster
+process, and <code>FALSE</code> otherwise.
+</p>
+<p>The function <code>is.poissonclusterprocess</code> is generic, with methods
+for classes <code>kppm</code> and <code>zclustermodel</code>, and a default
+method. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>, <code><a href="../../spatstat.model/help/zclustermodel.html">zclustermodel</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fut &lt;- kppm(redwood ~ 1, "Thomas")
+  is.poissonclusterprocess(fut)
+  fot &lt;- slrm(cells ~ x, dimyx=16)
+  is.poissonclusterprocess(fot)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

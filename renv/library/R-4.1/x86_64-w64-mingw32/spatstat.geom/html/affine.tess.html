@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Geometrical Transformation To Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for affine.tess {spatstat.geom}"><tr><td>affine.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Geometrical Transformation To Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Apply various geometrical transformations of the plane
+to each tile in a tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'tess'
+reflect(X)
+
+  ## S3 method for class 'tess'
+flipxy(X)
+
+  ## S3 method for class 'tess'
+shift(X, ...)
+
+  ## S3 method for class 'tess'
+rotate(X, angle=pi/2, ..., centre=NULL)
+
+  ## S3 method for class 'tess'
+scalardilate(X, f, ...)
+
+  ## S3 method for class 'tess'
+affine(X, mat=diag(c(1,1)), vec=c(0,0), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Tessellation (object of class <code>"tess"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+
+<p>Rotation angle in radians (positive values represent
+anticlockwise rotations).
+</p>
+</td></tr>
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>Matrix representing a linear transformation.</p>
+</td></tr>
+<tr valign="top"><td><code>vec</code></td>
+<td>
+<p>Vector of length 2 representing a translation.</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>Positive number giving scale factor.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to other methods.</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+
+<p>Centre of rotation.
+Either a vector of length 2, or a character string
+(partially matched to <code>"centroid"</code>, <code>"midpoint"</code>
+or <code>"bottomleft"</code>).
+The default is the coordinate origin <code>c(0,0)</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are method for the generic functions 
+<code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code>,
+<code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>, 
+<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code>,
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>
+for tessellations (objects of class <code>"tess"</code>).
+</p>
+<p>The individual tiles of the tessellation, and the window
+containing the tessellation, are all subjected to the same
+geometrical transformation.
+</p>
+<p>The transformations are performed by the corresponding method
+for windows (class <code>"owin"</code>) or images (class <code>"im"</code>)
+depending on the type of tessellation.
+</p>
+<p>If the argument <code>origin</code> is used in <code>shift.tess</code>
+it is interpreted as applying to the window containing the
+tessellation. Then all tiles are shifted by the same vector.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another tessellation (of class <code>"tess"</code>) representing the
+result of applying the geometrical transformation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Generic functions
+<code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>, 
+<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code>,
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>.
+</p>
+<p>Methods for windows:
+<code><a href="../../spatstat.geom/help/reflect.default.html">reflect.default</a></code>,
+<code><a href="../../spatstat.geom/help/shift.owin.html">shift.owin</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.owin.html">rotate.owin</a></code>, 
+<code><a href="../../spatstat.geom/help/scalardilate.owin.html">scalardilate.owin</a></code>,
+<code><a href="../../spatstat.geom/help/affine.owin.html">affine.owin</a></code>.
+</p>
+<p>Methods for images:
+<code><a href="../../spatstat.geom/help/reflect.im.html">reflect.im</a></code>,
+<code><a href="../../spatstat.geom/help/shift.im.html">shift.im</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.im.html">rotate.im</a></code>, 
+<code><a href="../../spatstat.geom/help/scalardilate.im.html">scalardilate.im</a></code>,
+<code><a href="../../spatstat.geom/help/affine.im.html">affine.im</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  live &lt;- interactive()
+  if(live) {
+    H &lt;- hextess(letterR, 0.2)
+    plot(H)
+    plot(reflect(H))
+    plot(rotate(H, pi/3))
+  } else H &lt;- hextess(letterR, 0.6)
+
+  # shear transformation
+  shear &lt;- matrix(c(1,0,0.6,1),2,2)
+  sH &lt;- affine(H, shear)
+  if(live) plot(sH)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

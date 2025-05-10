@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Increments of a Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for increment.fv {spatstat.explore}"><tr><td>increment.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Increments of a Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the change in the value of a function <code>f</code>
+when the function argument increases by <code>delta</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+increment.fv(f, delta)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Object of class <code>"fv"</code> representing a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+
+<p>Numeric. The increase in the value of the function argument.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the new function
+</p>
+<p style="text-align: center;"><i>g(x) = f(x+h) - f(x-h)</i></p>
+
+<p>where <code>h = delta/2</code>. The value of <i>g(x)</i> is
+the change in the value of <i>f</i> over an interval of length
+<code>delta</code> centred at <i>x</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"fv"</code> compatible with <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>, 
+<code><a href="../../spatstat.explore/help/deriv.fv.html">deriv.fv</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(increment.fv(Kest(cells), 0.05))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

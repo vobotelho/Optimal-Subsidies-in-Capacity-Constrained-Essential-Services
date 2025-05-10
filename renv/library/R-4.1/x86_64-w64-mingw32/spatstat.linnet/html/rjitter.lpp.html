@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Perturbation of a Point Pattern on a Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rjitter.lpp {spatstat.linnet}"><tr><td>rjitter.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Perturbation of a Point Pattern on a Network</h2>
+
+<h3>Description</h3>
+
+<p>Applies independent random displacements to each point
+in a point pattern on a network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+rjitter(X, radius, ..., nsim = 1, drop = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+
+<p>Scale of perturbations. A positive numerical value.
+Each point will be displaced by a random distance,
+with maximum displacement equal to this value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> is generic. This function is
+the method for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+<p>Each of the points in <code>X</code> will be displaced along the network
+by a random amount, independently of other points.
+The maximum displacement distance is specified by <code>radius</code>.
+Each point remains on the same line segment of the network
+as it originally was.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>)
+or a list of such point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> for point patterns in two dimensions.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(3, simplenet)
+   plot(X, pch=16)
+   Y &lt;- rjitter(X, 0.1)
+   plot(Y, add=TRUE, cols=3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

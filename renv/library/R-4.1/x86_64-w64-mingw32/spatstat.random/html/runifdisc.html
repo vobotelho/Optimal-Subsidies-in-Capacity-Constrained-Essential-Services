@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate N Uniform Random Points in a Disc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for runifdisc {spatstat.random}"><tr><td>runifdisc {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate N Uniform Random Points in a Disc</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern
+containing <i>n</i> independent uniform random points
+in a circular disc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ runifdisc(n, radius=1, centre=c(0,0), ..., nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+<p>Radius of the circle.</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+<p>Coordinates of the centre of the circle.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/disc.html">disc</a></code> controlling the
+accuracy of approximation to the circle.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates <code>n</code> independent random points,
+uniformly distributed in a circular disc.
+</p>
+<p>It is faster (for a circular window) than the general
+code used in <code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>.
+</p>
+<p>To generate random points in an ellipse, first generate points in a
+circle using <code>runifdisc</code>,
+then transform to an ellipse using <code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+as shown in the examples.
+</p>
+<p>To generate random points in other windows, use
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>.
+To generate non-uniform random points, use <code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>)
+if <code>nsim=1</code>, or a list of point patterns if <code>nsim &gt; 1</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/disc.html">disc</a></code>,
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>,
+<code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # 100 random points in the unit disc
+ plot(runifdisc(100))
+ # 42 random points in the ellipse with major axis 3 and minor axis 1
+ X &lt;- runifdisc(42)
+ Y &lt;- affine(X, mat=diag(c(3,1)))
+ plot(Y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

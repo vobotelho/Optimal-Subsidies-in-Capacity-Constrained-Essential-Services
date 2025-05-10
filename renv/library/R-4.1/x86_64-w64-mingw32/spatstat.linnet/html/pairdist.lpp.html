@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise shortest-path distances between points on a linear...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairdist.lpp {spatstat.linnet}"><tr><td>pairdist.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pairwise shortest-path distances between points on
+a linear network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a pattern of points on a linear network, compute the
+matrix of distances between all pairs of points, measuring
+distance by the shortest path in the network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+pairdist(X, ..., method="C")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Optional string determining the method of calculation.
+Either <code>"interpreted"</code> or <code>"C"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a pattern of points on a linear network, this function computes the
+matrix of distances between all pairs of points, measuring
+distance by the shortest path in the network. 
+</p>
+<p>If two points cannot be joined by a path,
+the distance between them is infinite (<code>Inf</code>).
+</p>
+<p>The argument <code>method</code> is not normally used. It is
+retained only for developers to check the validity of the software.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A symmetric matrix, whose values are nonnegative numbers or infinity
+(<code>Inf</code>).
+</p>
+
+
+<h3>Algorithms and accuracy</h3>
+
+<p>Distances are accurate within the numerical tolerance of the
+network, <code>summary(X)$toler</code>.
+</p>
+<p>For network data stored in the non-sparse
+representation described in <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>,
+then pairwise distances are computed using the matrix of path distances
+between vertices of the network, using <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code if
+<code>method = "interpreted"</code>, or using C code if 
+<code>method="C"</code> (the default).
+</p>
+<p>For networks stored in the sparse representation,
+the argument <code>method</code> has no effect, and the distances are
+computed using an efficient C algorithm.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by <code>pairdist(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>pairdist(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(12, simplenet)
+   d &lt;- pairdist(X)
+   d[1:3, 1:3]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

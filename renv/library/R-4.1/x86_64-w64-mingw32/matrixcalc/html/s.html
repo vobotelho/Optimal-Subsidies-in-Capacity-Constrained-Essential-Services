@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Direct sum of two arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for %s% {matrixcalc}"><tr><td>%s% {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Direct sum of two arrays </h2>
+
+<h3>Description</h3>
+
+<p>This function computes the direct sum of two arrays.  The arrays can be
+numerical vectors or matrices.  The result ia the block diagonal matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+x%s%y
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a numeric matrix or vector </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> a numeric matrix or vector </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If either <i>\bf{x}</i> or y is a vector, it is converted to a matrix.  The result
+is a block diagonal matrix <i>&le;ft\lbrack {\begin{array}{cc}
+   {\bf{x}} &amp; {\bf{0}}  \\
+   {\bf{0}} &amp; {\bf{y}}  \\
+\end{array}} \right\rbrack</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a>, Kurt Hornik <a href="mailto:Kurt.Hornik@wu-wien.ac.at">Kurt.Hornik@wu-wien.ac.at</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix( seq( 1, 4 ) )
+y &lt;- matrix( seq( 5, 8 ) )
+print( x %s% y )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

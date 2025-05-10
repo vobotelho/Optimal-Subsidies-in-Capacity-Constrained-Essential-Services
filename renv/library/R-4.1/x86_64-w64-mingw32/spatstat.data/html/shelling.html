@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Artillery Impacts in Ukraine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for shelling {spatstat.data}"><tr><td>shelling {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Artillery Impacts in Ukraine
+</h2>
+
+<h3>Description</h3>
+
+<p>Spatial point patterns of the impacts of high-explosive artillery rounds 
+in two fields in eastern Ukraine.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(shelling)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>shelling</code> and <code>shelling2</code> are point patterns (objects of
+class <code>"ppp"</code>) containing 106 and 110 points respectively
+inside polygonal observation windows. Spatial coordinates are given in
+metres, relative to an origin at the southwest corner
+of the containing rectangle.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The datasets <code>shelling</code> and <code>shelling2</code>
+give the spatial locations of impact marks,
+likely the result of high-explosive artillery rounds,
+in two fields in eastern Ukraine scarred by shelling.
+</p>
+<p>The fields are 1 km south of the village of Yakovlivka,
+near the cities of Soledar and Bakhmut,
+in Bakhmut Raion, Donetsk Oblast, Ukraine.
+<code>shelling</code> is located at 48 degrees 41 minutes 36 seconds North,
+38 degrees 09 minutes 08 seconds East,
+while <code>shelling2</code> is an adjacent field to the east,
+at approximately 48 degrees 41 minutes 38 seconds
+North, 38 degrees 09 minutes 33 seconds East.
+</p>
+<p>The data were extracted by Tilman Davies from satellite imagery
+taken on 19 June 2022 and provided by Google Earth (2022).
+Data were accessed on  18 April 2024.
+The coordinates of the individual
+impact points and the region boundary were geo-located using Google
+Earth Pro. For each field,
+the resulting raw latitude and longitude coordinates were
+projected to approximate planar distances in meters
+using the centroid of the field.
+Spatial coordinates in the datasets are given in
+metres, relative to an origin at the southwest corner
+of the containing rectangle.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Google Earth and Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Google Earth Pro (2022). Satellite imagery of Soledar taken on 19 June 2022.
+Google Earth Pro 7.3.6, Maxar Technologies, Airbus.
+<a href="https://earth.google.com/web">https://earth.google.com/web</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(spatstat.geom)) {
+  plot(shelling, pch=3)
+  N &lt;- onearrow(830, 400, 830, 530, "N")
+  plot(N, add=TRUE)
+  shelling &lt;- rescale(shelling, 1000, "km")
+  if(require(spatstat.explore)) {
+    plot(density(shelling))
+  }
+}
+
+if(require(spatstat.geom)) {
+  plot(shelling2, pch=3)
+  A &lt;- onearrow(465, 590, 465, 710, "N")
+  plot(A, add=TRUE)
+  alpha &lt;- atan2(775.7, 471.4) # about 59 degrees
+  plot(rotate(shelling2, alpha))
+  plot(rotate(A, alpha), add=TRUE)
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

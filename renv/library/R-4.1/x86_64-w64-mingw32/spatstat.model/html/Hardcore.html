@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Hard Core Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Hardcore {spatstat.model}"><tr><td>Hardcore {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Hard Core Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the hard core point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Hardcore(hc=NA)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>hc</code></td>
+<td>
+<p>The hard core distance</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A hard core process with 
+hard core distance <i>h</i> and abundance
+parameter <i>beta</i> 
+is a pairwise interaction point process
+in which distinct points are not allowed to come closer
+than a distance <i>h</i> apart.
+</p>
+<p>The probability density is zero if any pair of points
+is closer than <i>h</i> units apart, and otherwise equals
+</p>
+<p style="text-align: center;"><i>
+    f(x_1,&hellip;,x_n) =
+    alpha . beta^n(x) 
+  </i></p>
+
+<p>where <i>x[1],&hellip;,x[n]</i> represent the 
+points of the pattern, <i>n(x)</i> is the number of points in the
+pattern, and <i>alpha</i> is the normalising constant.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the hard core process
+pairwise interaction is 
+yielded by the function <code>Hardcore()</code>. See the examples below.
+</p>
+<p>If the hard core distance argument <code>hc</code> is missing or <code>NA</code>,
+it will be estimated from the data when <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> is called.
+The estimated value of <code>hc</code> is the minimum nearest neighbour distance
+multiplied by <i>n/(n+1)</i>, where <i>n</i> is the
+number of data points.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the hard core
+process with hard core distance <code>hc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Ripley, B.D. (1981) 
+<em>Spatial statistics</em>.
+John Wiley and Sons.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>,
+<code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>,
+<code><a href="../../spatstat.model/help/MultiHard.html">MultiHard</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Hardcore(0.02)
+   # prints a sensible description of itself
+
+   ppm(cells ~1, Hardcore(0.05))
+   # fit the stationary hard core process to `cells'
+
+   # estimate hard core radius from data
+   ppm(cells ~1, Hardcore())
+   
+     # equivalent:
+     ppm(cells ~1, Hardcore)
+   
+
+   
+     # fit a nonstationary hard core process
+     # with log-cubic polynomial trend
+     ppm(cells ~ polynom(x,y,3), Hardcore(0.05))
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

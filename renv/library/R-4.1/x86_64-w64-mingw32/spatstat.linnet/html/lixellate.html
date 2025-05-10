@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Subdivide Segments of a Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lixellate {spatstat.linnet}"><tr><td>lixellate {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Subdivide Segments of a Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Each line segment of a linear network
+will be divided into several shorter segments
+(line elements or lixels).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lixellate(X, ..., nsplit, eps, sparse = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>)
+or a point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsplit</code></td>
+<td>
+
+<p>Number of pieces into which <em>each</em> line segment of <code>X</code>
+should be divided. Either a single integer, or an integer vector
+with one entry for each line segment in <code>X</code>.
+Incompatible with <code>eps</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Maximum length of the resulting pieces of line segment.
+A single numeric value.
+Incompatible with <code>nsplit</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sparse</code></td>
+<td>
+
+<p>Optional. Logical value specifying whether the resulting
+linear network should be represented using a sparse matrix.
+If <code>sparse=NULL</code>, then the representation will be the
+same as in <code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each line segment in <code>X</code> will be subdivided into equal pieces.
+The result is an object of the same kind as <code>X</code>, representing the
+same data as <code>X</code> except that the segments have been subdivided.
+</p>
+<p>Splitting is controlled by the arguments <code>nsplit</code> and <code>eps</code>,
+exactly one of which should be given.
+</p>
+<p>If <code>nsplit</code> is given, it specifies the 
+number of pieces into which <em>each</em> line segment of <code>X</code>
+should be divided. It should be either a single integer, or an integer vector
+of length equal to the number of line segments in <code>X</code>.
+</p>
+<p>If <code>eps</code> is given, it specifies the maximum length of
+any resulting piece of line segment. 
+</p>
+<p>It is strongly advisable to use <code>sparse=TRUE</code> (the default)
+to limit the computation time.
+</p>
+<p>If <code>X</code> is a point pattern (class <code>"lpp"</code>) then the
+spatial coordinates and marks of each data point are unchanged, but the
+local coordinates will change, because they are
+adjusted to map them to the new subdivided network.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of the same kind as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan, 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>, <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A &lt;- lixellate(simplenet, nsplit=4)
+   plot(A, main="lixellate(simplenet, nsplit=4)")
+   points(vertices(A), pch=16)
+
+   spiders
+   lixellate(spiders, nsplit=3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

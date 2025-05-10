@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set Control Parameters for Metropolis-Hastings Algorithm.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rmhcontrol {spatstat.random}"><tr><td>rmhcontrol {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set Control Parameters for Metropolis-Hastings Algorithm.</h2>
+
+<h3>Description</h3>
+
+<p>Sets up a list of parameters controlling the iterative behaviour
+of the Metropolis-Hastings algorithm. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   rmhcontrol(...)
+
+   ## Default S3 method:
+rmhcontrol(..., p=0.9, q=0.5, nrep=5e5,
+                      expand=NULL, periodic=NULL, ptypes=NULL,
+                      x.cond=NULL, fixall=FALSE, nverb=0,
+                      nsave=NULL, nburn=nsave, track=FALSE,
+                      pstage=c("block", "start"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to methods.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Probability of proposing a shift (as against a birth/death).</p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+<p>Conditional probability of proposing a death given that a
+birth or death will be proposed.</p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+<p>Total number of steps (proposals) of Metropolis-Hastings
+algorithm that should be run.</p>
+</td></tr>
+<tr valign="top"><td><code>expand</code></td>
+<td>
+
+<p>Simulation window or expansion rule.
+Either a window (object of class <code>"owin"</code>)
+or a numerical expansion factor, specifying that
+simulations are to be performed in a domain other than the
+original data window, then clipped to the original data window.
+This argument is passed to <code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code>.
+A numerical expansion factor can be in several formats:
+see <code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical value (or <code>NULL</code>) indicating whether to simulate
+&ldquo;periodically&rdquo;, i.e. identifying opposite edges of the rectangular
+simulation window. A <code>NULL</code> value means &ldquo;undecided.&rdquo;
+</p>
+</td></tr>
+<tr valign="top"><td><code>ptypes</code></td>
+<td>
+<p>For multitype point processes, the distribution of
+the mark attached to a new random point (when a birth is
+proposed)</p>
+</td></tr>
+<tr valign="top"><td><code>x.cond</code></td>
+<td>
+<p>Conditioning points for conditional simulation.</p>
+</td></tr>
+<tr valign="top"><td><code>fixall</code></td>
+<td>
+<p>(Logical) for multitype point processes,
+whether to fix the number of points of each type.</p>
+</td></tr>
+<tr valign="top"><td><code>nverb</code></td>
+<td>
+<p>Progress reports will be printed every <code>nverb</code>
+iterations</p>
+</td></tr>
+<tr valign="top"><td><code>nsave,nburn</code></td>
+<td>
+
+<p>If these values are specified, then
+intermediate states of the simulation algorithm will be saved
+every <code>nsave</code> iterations, after an initial burn-in period of
+<code>nburn</code> iterations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>track</code></td>
+<td>
+
+<p>Logical flag indicating whether to save the transition
+history of the simulations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pstage</code></td>
+<td>
+
+<p>Character string specifying when to generate
+proposal points. Either <code>"start"</code> or <code>"block"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Metropolis-Hastings algorithm, implemented as <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>,
+generates simulated realisations of point process models.
+The function <code>rmhcontrol</code>
+sets up a list of parameters which control the 
+iterative behaviour
+and termination of the Metropolis-Hastings algorithm, for use in a
+subsequent call to <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>. It also checks that the
+parameters are valid.
+</p>
+<p>(A separate function <code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>
+determines the initial state of the algorithm,
+and <code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code> determines the model to be simulated.)
+</p>
+<p>The parameters are as follows:
+</p>
+
+<dl>
+<dt>p</dt><dd><p>The probability of proposing a &ldquo;shift&rdquo;
+(as opposed to a birth or death) in the Metropolis-Hastings
+algorithm.
+</p>
+<p>If <i>p = 1</i> then the algorithm only alters existing points,
+so the number of points never changes, i.e. we are
+simulating conditionally upon the number of points.
+The number of points is determined by the initial state
+(specified by <code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>).
+</p>
+<p>If <i>p=1</i> and <code>fixall=TRUE</code> and the model
+is a multitype point process model, then the algorithm
+only shifts the locations of existing points and does not
+alter their marks (types). 
+This is equivalent to simulating conditionally
+upon the number of points of each type.
+These numbers are again specified by the initial state.
+</p>
+<p>If <i>p = 1</i> then no expansion of the simulation window
+is allowed (see <code>expand</code> below).
+</p>
+<p>The default value of <code>p</code> can be changed by setting
+the parameter <code>rmh.p</code> in <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>.
+</p>
+</dd>
+<dt>q</dt><dd><p>The conditional probability of proposing a death
+(rather than a birth) given that a shift is not proposed.
+This is of course ignored if <code>p</code> is equal to 1.
+</p>
+<p>The default value of <code>q</code> can be changed by setting
+the parameter <code>rmh.q</code> in <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>.
+</p>
+</dd>
+<dt>nrep</dt><dd><p>The number of repetitions or iterations 
+to be made by the Metropolis-Hastings algorithm.  It should
+be large.
+</p>
+<p>The default value of <code>nrep</code> can be changed by setting
+the parameter <code>rmh.nrep</code> in <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>.
+</p>
+</dd>
+<dt>expand</dt><dd>
+<p>Either a number or a window (object of class <code>"owin"</code>).
+Indicates that the process is to be simulated on a 
+domain other than the original data window <code>w</code>,
+then clipped to <code>w</code> when the algorithm has finished.
+This would often be done in order to approximate the
+simulation of a stationary process (Geyer, 1999)
+or more generally a process existing in the
+whole plane, rather than just in the window <code>w</code>.
+</p>
+<p>If <code>expand</code> is a window object, it is taken as the
+larger domain in which simulation is performed.
+</p>
+<p>If <code>expand</code> is numeric, it is interpreted
+as an expansion factor or expansion distance
+for determining the simulation domain from the data window.
+It should be a <em>named</em> scalar, such as
+<code>expand=c(area=2)</code>, <code>expand=c(distance=0.1)</code>,
+<code>expand=c(length=1.2)</code>.  See <code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a>()</code> for
+more details. If the name is omitted, it defaults to <code>area</code>.
+</p>
+<p>Expansion is not permitted if the number of points has been
+fixed by setting <code>p = 1</code> or if the
+starting configuration has been specified via the
+argument <code>x.start</code> in <code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>.
+</p>
+<p>If <code>expand</code> is <code>NULL</code>, this is interpreted to mean
+&ldquo;not yet decided&rdquo;. An expansion rule will be determined
+at a later stage, using appropriate defaults.
+See <code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code>.
+</p>
+</dd>
+<dt>periodic</dt><dd><p>A logical value (or <code>NULL</code>)
+determining whether to simulate &ldquo;periodically&rdquo;.
+If <code>periodic</code> is <code>TRUE</code>, and if the simulation window
+is a rectangle, then the simulation algorithm effectively
+identifies opposite edges of the rectangle. Points
+near the right-hand edge of the rectangle are deemed to be close
+to points near the left-hand edge. Periodic simulation usually
+gives a better approximation to a stationary point process.
+For periodic simulation, the simulation window must be a rectangle.
+(The simulation window is determined by <code>expand</code> as described
+above.)
+</p>
+<p>The value <code>NULL</code> means &lsquo;undecided&rsquo;.
+The decision is postponed until <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code> is called.
+Depending on the point process model to be simulated,
+<code>rmh</code> will then set <code>periodic=TRUE</code> if the simulation window
+is expanded <em>and</em> the expanded simulation window is rectangular;
+otherwise <code>periodic=FALSE</code>.
+</p>
+<p>Note that <code>periodic=TRUE</code> is only permitted when the
+simulation window (i.e. the expanded window) is rectangular.       
+</p>
+</dd>
+<dt>ptypes</dt><dd><p>A vector of probabilities (summing to 1) to be used
+in assigning a random type to a new point.  Defaults to a vector
+each of whose entries is <i>1/nt</i> where <i>nt</i> is the number
+of types for the process.  Convergence of the simulation
+algorithm should be improved if <code>ptypes</code> is close to the
+relative frequencies of the types which will result from the
+simulation.
+</p>
+</dd>
+<dt>x.cond</dt><dd>
+<p>If this argument is given,
+then <em>conditional simulation</em> will be performed,
+and <code>x.cond</code> specifies the location of the
+fixed points as well as the type of conditioning.
+It should be either a point pattern
+(object of class <code>"ppp"</code>) or a <code>list(x,y)</code>
+or a <code>data.frame</code>.
+See the section on Conditional Simulation.
+</p>
+</dd>
+<dt>fixall</dt><dd><p>A logical scalar specifying whether to condition on
+the number of points of each type.  Meaningful only if a marked
+process is being simulated, and if <i>p = 1</i>.  A warning message
+is given if <code>fixall</code> is set equal to <code>TRUE</code> when it is
+not meaningful.
+</p>
+</dd>
+<dt>nverb</dt><dd><p>An integer specifying how often &ldquo;progress reports&rdquo;
+(which consist simply of the number of repetitions completed)
+should be printed out.  If nverb is left at 0, the default,
+the simulation proceeds silently.
+</p>
+</dd>
+<dt>nsave,nburn</dt><dd>
+<p>If these integers are given, then the
+current state of the simulation algorithm (i.e. the current
+random point pattern) will be saved every <code>nsave</code> iterations,
+starting from iteration <code>nburn</code>.
+(Alternatively <code>nsave</code> can be a vector, specifying
+different numbers of iterations between each successive save.
+This vector will be recycled until the end of the simulations.)
+</p>
+</dd>
+<dt>track</dt><dd>
+<p>Logical flag indicating whether to save the transition
+history of the simulations (i.e. information specifying
+what type of proposal was made, and whether it was accepted
+or rejected, for each iteration).
+</p>
+</dd>
+<dt>pstage</dt><dd>
+<p>Character string specifying the stage of the algorithm
+at which the randomised proposal points should be generated.
+If <code>pstage="start"</code> or if <code>nsave=0</code>,
+the entire sequence of <code>nrep</code>
+random proposal points is generated at the start of the
+algorithm. This is the original
+behaviour of the code, and should be used in order to maintain
+consistency with older versions of <span class="pkg">spatstat</span>.
+If <code>pstage="block"</code> and <code>nsave &gt; 0</code>, then
+a set of <code>nsave</code> random proposal points will be generated
+before each block of <code>nsave</code> iterations. This is much more
+efficient.
+The default is <code>pstage="block"</code>.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"rmhcontrol"</code>, which is essentially
+a list of parameter values for the algorithm.
+</p>
+<p>There is a <code>print</code> method for this class, which prints
+a sensible description of the parameters chosen.
+</p>
+
+
+<h3>Conditional Simulation</h3>
+
+<p>For a Gibbs point process <i>X</i>,
+the Metropolis-Hastings algorithm easily accommodates several
+kinds of conditional simulation:
+</p>
+
+<dl>
+<dt>conditioning on the total number of points:</dt><dd>
+<p>We fix the total number of points <i>N(X)</i> to be equal to
+<i>n</i>. We simulate from the conditional distribution of
+<i>X</i> given <i>N(X) = n</i>. 
+</p>
+</dd>
+<dt>conditioning on the number of points of each type:</dt><dd>
+<p>In a multitype point process, where <i>Y[[j]]</i> denotes the
+process of points of type <i>j</i>, we fix the number
+<i>N(Y[[j]])</i> of points of type <i>j</i> to be equal to
+<i>n[j]</i>, for <i>j=1,2,...,m</i>.
+We simulate from the conditional distribution of <i>X</i>
+given <i>N(Y[[j]]) = n[j]</i> for
+<i>j=1,2,...,m</i>. 
+</p>
+</dd>
+<dt>conditioning on the realisation in a subwindow:</dt><dd>
+<p>We require that the point process <i>X</i> should,
+within a specified sub-window <i>V</i>,
+coincide with a specified point pattern <i>y</i>.
+We simulate from the conditional distribution of <i>X</i>
+given <i>(X intersect V) = y</i>.
+</p>
+</dd>
+<dt>Palm conditioning:</dt><dd>
+<p>We require that the point process <i>X</i> include
+a specified list of points <i>y</i>. We simulate from
+the point process with probability density
+<i>g(x) = c * f(x union y)</i>
+where <i>f</i> is the probability density of the original
+process <i>X</i>, and <i>c</i> is a normalising constant.
+</p>
+</dd>
+</dl>
+
+<p>To achieve each of these types of conditioning we
+do as follows:
+</p>
+
+<dl>
+<dt>conditioning on the total number of points:</dt><dd>
+<p>Set <code>p=1</code>.
+The number of points is determined by the initial state
+of the simulation: see <code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>.
+</p>
+</dd>
+<dt>conditioning on the number of points of each type:</dt><dd>
+<p>Set <code>p=1</code> and <code>fixall=TRUE</code>.
+The number of points of each type is determined by the initial state
+of the simulation: see <code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>.
+</p>
+</dd>
+<dt>conditioning on the realisation in a subwindow:</dt><dd>
+<p>Set <code>x.cond</code> to be a point pattern (object of
+class <code>"ppp"</code>). Its window <code>V=Window(x.cond)</code> becomes the
+conditioning subwindow <i>V</i>.
+</p>
+</dd>
+<dt>Palm conditioning:</dt><dd>
+<p>Set <code>x.cond</code> to be a <code>list(x,y)</code> or <code>data.frame</code>
+with two columns containing the coordinates of the points, or a 
+<code>list(x,y,marks)</code> or <code>data.frame</code> with three columns
+containing the coordinates and marks of the points.
+</p>
+</dd>
+</dl>
+
+<p>The arguments <code>x.cond</code>, <code>p</code> and <code>fixall</code> can be
+combined.   
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Geyer, C.J. (1999)
+Likelihood Inference for Spatial Point
+Processes. Chapter 3 in  O.E. Barndorff-Nielsen, W.S. Kendall and
+M.N.M. Van Lieshout (eds) <em>Stochastic Geometry: Likelihood and
+Computation</em>, Chapman and Hall / CRC,  Monographs on Statistics and
+Applied Probability, number 80. Pages 79&ndash;140.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>,
+<code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code>,
+<code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>,
+<code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # parameters given as named arguments
+   c1 &lt;- rmhcontrol(p=0.3,periodic=TRUE,nrep=1e6,nverb=1e5)
+
+   # parameters given as a list
+   liz &lt;- list(p=0.9, nrep=1e4)
+   c2 &lt;- rmhcontrol(liz)
+
+   # parameters given in rmhcontrol object
+   c3 &lt;- rmhcontrol(c1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

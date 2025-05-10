@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pool Several Quadrat Tests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pool.quadrattest {spatstat.explore}"><tr><td>pool.quadrattest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pool Several Quadrat Tests
+</h2>
+
+<h3>Description</h3>
+
+<p>Pool several quadrat tests into a single quadrat test.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'quadrattest'
+pool(..., df=NULL, df.est=NULL, nsim=1999,
+                                Xname=NULL, CR=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of objects, each of which is a quadrat test
+(object of class <code>"quadrattest"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+
+<p>Optional. Number of degrees of freedom of the test statistic.
+Relevant only for <i>chi^2</i> tests.
+Incompatible with <code>df.est</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>df.est</code></td>
+<td>
+
+<p>Optional. The number of fitted parameters, or the
+number of degrees of freedom lost by estimation of
+parameters. 
+Relevant only for <i>chi^2</i> tests.
+Incompatible with <code>df</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulations, for Monte Carlo test.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Xname</code></td>
+<td>
+
+<p>Optional. Name of the original data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>CR</code></td>
+<td>
+
+<p>Optional. Numeric value of the Cressie-Read exponent <code>CR</code>
+overriding the value used in the tests.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.explore/help/pool.html">pool</a></code> is generic. This is the method for the
+class <code>"quadrattest"</code>.
+</p>
+<p>An object of class <code>"quadrattest"</code> represents a
+<i>chi^2</i> test or Monte Carlo test
+of goodness-of-fit for a point process model, based on quadrat counts.
+Such objects are created by the command <code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>.
+</p>
+<p>Each of the arguments <code>...</code> must be an object of class
+<code>"quadrattest"</code>. They must all be the same type of test
+(chi-squared test or Monte Carlo test, conditional or unconditional)
+and must all have the same type of alternative hypothesis.
+</p>
+<p>The test statistic of the pooled test is the Pearson <i>X^2</i>
+statistic taken over all cells (quadrats) of all tests.
+The <i>p</i> value of the pooled test is then computed using
+either a Monte Carlo test or a <i>chi^2</i> test.
+</p>
+<p>For a pooled <i>chi^2</i> test, the number of degrees of freedom of
+the combined test is computed by adding the degrees of freedom
+of all the tests (equivalent to assuming the tests are independent)
+unless it is determined by the arguments <code>df</code> or <code>df.est</code>.
+The resulting <i>p</i> value is computed to obtain the
+pooled test.
+</p>
+<p>For a pooled Monte Carlo test, new simulations are performed
+to determine the pooled Monte Carlo <i>p</i> value. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"quadrattest"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pool.html">pool</a></code>,
+<code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Y &lt;- split(humberside)
+  test1 &lt;- quadrat.test(Y[[1]])
+  test2 &lt;- quadrat.test(Y[[2]])
+  pool(test1, test2, Xname="Humberside")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

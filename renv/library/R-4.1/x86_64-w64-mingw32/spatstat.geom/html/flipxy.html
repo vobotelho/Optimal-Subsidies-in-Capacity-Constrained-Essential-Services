@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exchange X and Y Coordinates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for flipxy {spatstat.geom}"><tr><td>flipxy {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exchange X and Y Coordinates</h2>
+
+<h3>Description</h3>
+
+<p>Exchanges the <i>x</i> and <i>y</i> coordinates in a spatial dataset.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ flipxy(X)
+ ## S3 method for class 'owin'
+flipxy(X)
+ ## S3 method for class 'ppp'
+flipxy(X)
+ ## S3 method for class 'psp'
+flipxy(X)
+ ## S3 method for class 'im'
+flipxy(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Spatial dataset. An object of class
+<code>"owin"</code>, <code>"ppp"</code>, <code>"psp"</code> or <code>"im"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function swaps the <i>x</i> and <i>y</i> coordinates of a spatial
+dataset. This could also be performed using the command <code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+but <code>flipxy</code> is faster.
+</p>
+<p>The function <code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a></code> is generic, with methods
+for the classes of objects listed above.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of the same type, representing the
+result of swapping the <i>x</i> and <i>y</i> coordinates.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- flipxy(cells)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

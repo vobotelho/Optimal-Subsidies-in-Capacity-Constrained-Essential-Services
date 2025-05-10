@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map as a Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for distfun {spatstat.geom}"><tr><td>distfun {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Distance Map as a Function 
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the distance function of an object, and return it as a function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  distfun(X, ...)
+
+  ## S3 method for class 'ppp'
+distfun(X, ..., k=1, undef=Inf)
+
+  ## S3 method for class 'psp'
+distfun(X, ...)
+
+  ## S3 method for class 'owin'
+distfun(X, ..., invert=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Any suitable dataset representing a two-dimensional
+object, such as a point pattern (object of class <code>"ppp"</code>),
+a window (object of class <code>"owin"</code>) or a
+line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments are ignored. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>An integer. The distance to the <code>k</code>th nearest point
+will be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>undef</code></td>
+<td>
+
+<p>The value that should be returned if the distance is undefined
+(that is, if <code>X</code> contains fewer than <code>k</code> points).
+</p>
+</td></tr>
+<tr valign="top"><td><code>invert</code></td>
+<td>
+
+<p>If <code>TRUE</code>, compute the distance transform of the
+complement of <code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The &ldquo;distance function&rdquo; of a set of points <i>A</i> is the
+mathematical function <i>f</i> such that, for any 
+two-dimensional spatial location <i>(x,y)</i>,
+the function value <code>f(x,y)</code>
+is the shortest distance from <i>(x,y)</i> to <i>A</i>.
+</p>
+<p>The command <code>f &lt;- distfun(X)</code> returns a <em>function</em>
+in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with arguments <code>x,y</code>, that represents the
+distance function of <code>X</code>. Evaluating the function <code>f</code>
+in the form <code>v &lt;- f(x,y)</code>, where <code>x</code> and <code>y</code>
+are any numeric vectors of equal length containing coordinates of
+spatial locations, yields the values of the distance function at these
+locations. Alternatively <code>x</code> can be a
+point pattern (object of class <code>"ppp"</code> or <code>"lpp"</code>) of
+locations at which the distance function should be computed (and then
+<code>y</code> should be missing).
+</p>
+<p>This should be contrasted with the related command <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>
+which computes the distance function of <code>X</code>
+on a grid of locations, and returns the distance
+values in the form of a pixel image.
+</p>
+<p>The distance values returned by <code>f &lt;- distfun(X); d &lt;- f(x)</code>
+are computed using coordinate geometry; they are more accurate,
+but slower to compute, than the distance values returned by
+<code>Z &lt;- distmap(X); d &lt;- Z[x]</code>
+which are computed using a fast recursive algorithm. 
+</p>
+<p>The result of <code>f &lt;- distfun(X)</code> also belongs to the class
+<code>"funxy"</code> and to the special class <code>"distfun"</code>.
+It can be printed and plotted immediately as shown in the Examples.
+</p>
+<p>A <code>distfun</code> object can be converted to a pixel image
+using <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> with arguments <code>x,y</code>.
+The function belongs to the class <code>"distfun"</code> which has
+methods for <code>print</code> and <code>summary</code>, and for geometric
+operations like <code>shift</code>.
+It also belongs to the class <code>"funxy"</code> which has methods
+for <code>plot</code>, <code>contour</code> and <code>persp</code>.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by the distance function
+<code>f &lt;- distfun(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is
+a composite expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>f</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>,
+<code><a href="../../spatstat.geom/help/summary.distfun.html">summary.distfun</a></code>,
+<code><a href="../../spatstat.geom/help/methods.distfun.html">methods.distfun</a></code>,
+<code><a href="../../spatstat.geom/help/methods.funxy.html">methods.funxy</a></code>,
+<code><a href="../../spatstat.geom/help/plot.funxy.html">plot.funxy</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   f &lt;- distfun(letterR)
+   f
+   plot(f)
+   f(0.2, 0.3)
+
+   plot(distfun(letterR, invert=TRUE), eps=0.1)
+
+   d &lt;- distfun(cells)
+   d2 &lt;- distfun(cells, k=2)
+   d(0.5, 0.5)
+   d2(0.5, 0.5)
+   domain(d)
+   summary(d)
+
+   z &lt;- d(japanesepines)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

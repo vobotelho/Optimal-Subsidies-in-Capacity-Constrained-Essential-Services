@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Result of Berman Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.bermantest {spatstat.explore}"><tr><td>plot.bermantest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Result of Berman Test</h2>
+
+<h3>Description</h3>
+
+<p>Plot the result of Berman's test of goodness-of-fit
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'bermantest'
+plot(x, ...,
+                   lwd=par("lwd"), col=par("col"), lty=par("lty"),
+                   lwd0=lwd, col0=2, lty0=2)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object to be plotted. An object of class <code>"bermantest"</code>
+produced by <code><a href="../../spatstat.explore/help/berman.test.html">berman.test</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments that will be passed to the plotting function
+<code><a href="../../stats/html/ecdf.html">plot.ecdf</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col,lwd,lty</code></td>
+<td>
+
+<p>The width, colour and type of lines used to plot the
+empirical distribution curve.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col0,lwd0,lty0</code></td>
+<td>
+
+<p>The width, colour and type of lines used to plot the
+predicted (null) distribution curve.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"bermantest"</code>.
+An object of this class represents the outcome of Berman's test
+of goodness-of-fit of a spatial Poisson point process model,
+computed by <code><a href="../../spatstat.explore/help/berman.test.html">berman.test</a></code>.
+</p>
+<p>For the <em>Z1</em> test (i.e. if <code>x</code> was computed using
+<code>berman.test( ,which="Z1")</code>), 
+the plot displays the two cumulative distribution functions
+that are compared by the test: namely the empirical cumulative distribution
+function of the covariate at the data points, <i>Fhat</i>,
+and the predicted
+cumulative distribution function of the covariate under the model,
+<i>F0</i>, both plotted against the value of the covariate.
+Two vertical lines show the mean values of these two distributions.
+If the model is correct, the two curves should be close; the test is
+based on comparing the two vertical lines.
+</p>
+<p>For the <em>Z2</em> test (i.e. if <code>x</code> was computed using
+<code>berman.test( ,which="Z2")</code>), the plot displays the empirical
+cumulative distribution function of the values
+<i>U[i] = F0(Y[i])</i> where <i>Y[i]</i> is the
+value of the covariate at the <i>i</i>-th data point. The diagonal line
+with equation <i>y=x</i> is also shown. Two vertical lines show the
+mean of the values <i>U[i]</i> and the value <i>1/2</i>. If the
+model is correct, the two curves should be close. The test is based on
+comparing the two vertical lines. 
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/berman.test.html">berman.test</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(berman.test(cells, "x"))
+
+   if(require("spatstat.model")) {
+     # synthetic data: nonuniform Poisson process
+     X &lt;- rpoispp(function(x,y) { 100 * exp(-x) }, win=square(1))
+
+     # fit uniform Poisson process
+     fit0 &lt;- ppm(X ~1)
+
+     # test covariate = x coordinate
+     xcoord &lt;- function(x,y) { x }
+
+     # test wrong model
+     k &lt;- berman.test(fit0, xcoord, "Z1")
+   
+     # plot result of test
+     plot(k, col="red", col0="green")
+
+     # Z2 test
+     k2 &lt;- berman.test(fit0, xcoord, "Z2")
+     plot(k2, col="red", col0="green")
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

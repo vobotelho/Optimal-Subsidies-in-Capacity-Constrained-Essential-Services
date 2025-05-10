@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Crossing Points of Two Line Segment Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for crossing.psp {spatstat.geom}"><tr><td>crossing.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Crossing Points of Two Line Segment Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Finds any crossing points between 
+two line segment patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  crossing.psp(A,B,fatal=TRUE,details=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+
+<p>Line segment patterns (objects of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>details</code></td>
+<td>
+
+<p>Logical value indicating whether to return additional information.
+See below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating what to do
+if the windows of <code>A</code> and <code>B</code> do not overlap.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function finds any crossing points between
+the line segment patterns <code>A</code> and <code>B</code>.
+</p>
+<p>A crossing point occurs whenever one of the line segments in <code>A</code>
+intersects one of the line segments in <code>B</code>, at a nonzero
+angle of intersection.
+</p>
+<p>The result is a point pattern consisting of all the intersection points.
+</p>
+<p>If <code>details=TRUE</code>, additional information is computed,
+specifying where each intersection point came from.
+The resulting point pattern has a data frame of marks, with columns
+named <code>iA, jB, tA, tB</code>. The marks <code>iA</code>
+and <code>jB</code> are the indices of the line segments in <code>A</code> and
+<code>B</code>, respectively, which produced each intersection point.
+The marks <code>tA</code> and <code>tB</code> are numbers between 0 and 1
+specifying the position of the intersection point along the
+original segments.
+</p>
+<p>If the windows <code>Window(A)</code> and <code>Window(B)</code> do not
+overlap, then an error will be reported if <code>fatal=TRUE</code>,
+while if <code>fatal=FALSE</code> an error will not occur
+and the result will be <code>NULL</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/selfcrossing.psp.html">selfcrossing.psp</a></code>,
+<code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  a &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  b &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  plot(a, col="green", main="crossing.psp")
+  plot(b, add=TRUE, col="blue")
+  P &lt;- crossing.psp(a,b)
+  plot(P, add=TRUE, col="red")
+  as.data.frame(crossing.psp(a,b,details=TRUE))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

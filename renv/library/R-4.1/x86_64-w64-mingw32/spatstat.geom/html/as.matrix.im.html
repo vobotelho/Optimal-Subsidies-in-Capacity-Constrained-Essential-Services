@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Pixel Image to Matrix or Array</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.matrix.im {spatstat.geom}"><tr><td>as.matrix.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Pixel Image to Matrix or Array</h2>
+
+<h3>Description</h3>
+
+<p>Converts a pixel image to a matrix or an array.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'im'
+as.matrix(x, ...)
+  ## S3 method for class 'im'
+as.array(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A pixel image (object of class <code>"im"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>See below.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>as.matrix.im</code> converts the pixel image <code>x</code>
+into a matrix containing the pixel values.
+It is handy when you want to extract a summary of the pixel values.
+See the Examples.
+</p>
+<p>The function <code>as.array.im</code> converts the pixel image to an array.
+By default this is a three-dimensional array of dimension <i>n</i> by
+<i>m</i> by <i>1</i>. 
+If the extra arguments <code>...</code> are given, they will be passed
+to <code><a href="../../base/html/array.html">array</a></code>, and they may change the dimensions of the
+array.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix or array.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.matrix.owin.html">as.matrix.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # artificial image
+   Z &lt;- setcov(square(1))
+
+   M &lt;- as.matrix(Z)
+
+   median(M)
+   
+   # plot the cumulative distribution function of pixel values
+   # plot(ecdf(as.matrix(Z)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

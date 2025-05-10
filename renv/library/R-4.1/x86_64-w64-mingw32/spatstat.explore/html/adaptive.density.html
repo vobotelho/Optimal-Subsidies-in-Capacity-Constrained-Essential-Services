@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Adaptive Estimate of Intensity of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for adaptive.density {spatstat.explore}"><tr><td>adaptive.density {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Adaptive Estimate of Intensity of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Computes an adaptive estimate of the intensity function of a point
+pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+adaptive.density(X, ..., method=c("voronoi","kernel", "nearest"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code> or
+<code>"lpp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Character string specifying the estimation method</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to
+<code><a href="../../spatstat.explore/help/densityVoronoi.html">densityVoronoi</a></code>, <code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>
+or <code><a href="../../spatstat.explore/help/nndensity.ppp.html">nndensity.ppp</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is an alternative to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+and <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>. It
+computes an estimate of the intensity function of a point pattern
+dataset. The result is a pixel image giving the estimated intensity.
+</p>
+<p>If <code>method="voronoi"</code> the data are passed to the function
+<code><a href="../../spatstat.explore/help/densityVoronoi.html">densityVoronoi</a></code> which estimates the intensity using
+the Voronoi-Dirichlet tessellation.
+</p>
+<p>If <code>method="kernel"</code> the data are passed to the function
+<code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code> which estimates the intensity
+using a variable-bandwidth kernel estimator. (This is not yet supported
+when <code>X</code> has class <code>"lpp"</code>.)
+</p>
+<p>If <code>method="nearest"</code> the data are passed to the function
+<code><a href="../../spatstat.explore/help/nndensity.ppp.html">nndensity.ppp</a></code> which estimates the intensity using the
+distance to the <code>k</code>-th nearest data point. (This is not yet supported
+when <code>X</code> has class <code>"lpp"</code>.)
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code> or <code>"linim"</code>)
+whose values are estimates of the intensity of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Mehdi Moradi <a href="mailto:m2.moradi@yahoo.com">m2.moradi@yahoo.com</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/densityVoronoi.html">densityVoronoi</a></code>,
+<code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/nndensity.ppp.html">nndensity.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(adaptive.density(nztrees, 1), main="Voronoi estimate")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

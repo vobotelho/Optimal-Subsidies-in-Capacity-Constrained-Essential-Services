@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sector K-function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Ksector {spatstat.explore}"><tr><td>Ksector {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sector K-function</h2>
+
+<h3>Description</h3>
+
+<p>A directional counterpart of Ripley's <i>K</i> function,
+in which pairs of points are counted only when the
+vector joining the pair happens to
+lie in a particular range of angles.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Ksector(X, begin = 0, end = 360, ...,
+        units = c("degrees", "radians"), 
+        r = NULL, breaks = NULL,
+        correction = c("border", "isotropic", "Ripley", "translate"),
+        domain=NULL, ratio = FALSE, verbose=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of <i>K(r)</i> will be computed.
+An object of class <code>"ppp"</code>, or data
+in any format acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>begin,end</code></td>
+<td>
+
+<p>Numeric values giving the range of angles inside which
+points will be counted. Angles are measured in degrees
+(if <code>units="degrees"</code>, the default) or radians
+(if <code>units="radians"</code>) anti-clockwise from the positive <i>x</i>-axis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+
+<p>Units in which the angles <code>begin</code> and <code>end</code> are expressed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Vector of values for the argument <i>r</i> at which <i>K(r)</i> 
+should be evaluated. Users are advised <em>not</em> to specify this
+argument; there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional. A character vector containing any selection of the
+options <code>"none"</code>, <code>"border"</code>, <code>"bord.modif"</code>,
+<code>"isotropic"</code>, <code>"Ripley"</code>, <code>"translate"</code>,
+<code>"translation"</code>, <code>"none"</code>, <code>"good"</code> or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional window. The first point <i>x[i]</i> of each pair of points
+will be constrained to lie in <code>domain</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports
+and warnings.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a directional counterpart of Ripley's <i>K</i> function
+(see <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>) in which, instead of counting all
+pairs of points within a specified distance <i>r</i>, we
+count only the pairs <i>x[i], x[j]</i>
+for which the vector <i>x[j] - x[i]</i>
+falls in a particular range of angles.
+</p>
+<p>This can be used to evaluate evidence for anisotropy
+in the point pattern <code>X</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> containing the estimated
+function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ K &lt;- Ksector(swedishpines, 0, 90)
+ plot(K)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

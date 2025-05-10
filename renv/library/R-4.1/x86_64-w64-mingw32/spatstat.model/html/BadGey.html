@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hybrid Geyer Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for BadGey {spatstat.model}"><tr><td>BadGey {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hybrid Geyer Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the Baddeley-Geyer point process model, defined
+as a hybrid of several Geyer interactions. The model
+can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  BadGey(r, sat)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>vector of interaction radii</p>
+</td></tr>
+<tr valign="top"><td><code>sat</code></td>
+<td>
+
+<p>vector of saturation parameters,
+or a single common value of saturation parameter
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is Baddeley's generalisation of the
+Geyer saturation point process model,
+described in <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>, to a process with multiple interaction
+distances. 
+</p>
+<p>The BadGey point process with interaction radii
+<i>r[1], &hellip;, r[k]</i>,
+saturation thresholds <i>s[1],&hellip;,s[k]</i>,
+intensity parameter <i>&beta;</i> and
+interaction parameters
+<i>&gamma;[1], &hellip;, &gamma;[k]</i>,
+is the point process
+in which each point
+<i>x[i]</i> in the pattern <i>X</i>
+contributes a factor
+</p>
+<p style="text-align: center;"><i>
+    &beta; &gamma;[1]^v(1, x_i, X) &hellip; &gamma;[k]^v(k, x_i, X)
+  </i></p>
+
+<p>to the probability density of the point pattern,
+where
+</p>
+<p style="text-align: center;"><i>
+    v(j, x[i], X) = min(s[j], t(j, x[i], X))
+  </i></p>
+
+<p>where <i>t(j,x[i],X)</i> denotes the
+number of points in the pattern <i>X</i> which lie
+within a distance <i>r[j]</i>
+from the point <i>x[i]</i>. 
+</p>
+<p><code>BadGey</code> is used to fit this model to data.
+The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the piecewise constant Saturated pairwise
+interaction is yielded by the function <code>BadGey()</code>.
+See the examples below.
+</p>
+<p>The argument <code>r</code> specifies the vector of interaction distances.
+The entries of <code>r</code> must be strictly increasing, positive numbers.
+</p>
+<p>The argument <code>sat</code> specifies the vector of saturation parameters
+that are applied to the point counts <i>t(j,x[i],X)</i>.
+It should be a vector of the same length as <code>r</code>, and its entries
+should be nonnegative numbers. Thus <code>sat[1]</code> is applied to the
+count of points within a distance <code>r[1]</code>, and <code>sat[2]</code> to the
+count of points within a distance <code>r[2]</code>, etc.
+Alternatively <code>sat</code> may be a single number, and this saturation
+value will be applied to every count.
+</p>
+<p>Infinite values of the
+saturation parameters are also permitted; in this case
+<i>v(j, x[i], X) = t(j, x[i], X)</i>
+and there is effectively no &lsquo;saturation&rsquo; for the distance range in
+question. If all the saturation parameters are set to <code>Inf</code> then
+the model is effectively a pairwise interaction process, equivalent to
+<code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code> (however the interaction parameters
+<i>&gamma;</i> obtained from <code><a href="../../spatstat.model/help/BadGey.html">BadGey</a></code>
+have a complicated relationship to the interaction
+parameters <i>&gamma;</i> obtained from <code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code>).
+</p>
+<p>If <code>r</code> is a single number, this model is virtually equivalent to the 
+Geyer process, see <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of a point process. 
+</p>
+
+
+<h3>Hybrids</h3>
+
+<p>A &lsquo;hybrid&rsquo; interaction is one which is built by combining
+several different interactions (Baddeley et al, 2013).
+The <code>BadGey</code> interaction can be described as a 
+hybrid of several <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code> interactions.
+</p>
+<p>The <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code> command can be used to build
+hybrids of any interactions. If the <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code> operator
+is applied to several <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code> models, the result is
+equivalent to a <code>BadGey</code> model.
+This can be useful for incremental model selection.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+in collaboration with Hao Wang and Jeff Picka
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Mateu, J. and Bevan, A. (2013)
+Hybrids of Gibbs point process models and their implementation.
+<em>Journal of Statistical Software</em> <b>55</b>:11, 1&ndash;43.
+<code>DOI: 10.18637/jss.v055.i11</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairsat.family.html">pairsat.family</a></code>,
+<code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>,
+<code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code>,
+<code><a href="../../spatstat.model/help/SatPiece.html">SatPiece</a></code>,
+<code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   BadGey(c(0.1,0.2), c(1,1))
+   # prints a sensible description of itself
+   BadGey(c(0.1,0.2), 1)
+
+   # fit a stationary Baddeley-Geyer model
+   ppm(cells ~1, BadGey(c(0.07, 0.1, 0.13), 2))
+
+   # nonstationary process with log-cubic polynomial trend
+   
+     ppm(cells ~polynom(x,y,3), BadGey(c(0.07, 0.1, 0.13), 2))
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Minimum or Maximum Nearest-Neighbour Distance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for maxnndist {spatstat.geom}"><tr><td>maxnndist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Minimum or Maximum Nearest-Neighbour Distance
+</h2>
+
+<h3>Description</h3>
+
+<p>A faster way to compute the minimum or maximum
+nearest-neighbour distance in a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+minnndist(X, positive=FALSE, by=NULL)
+maxnndist(X, positive=FALSE, by=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>positive</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code> (the default), compute the usual
+nearest-neighbour distance.
+If <code>TRUE</code>, ignore coincident points, so that the
+nearest neighbour distance for each point is greater than zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>by</code></td>
+<td>
+
+<p>Optional. A factor, which separates <code>X</code> into groups.
+The algorithm will compute the distance to
+the nearest point in each group. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions find the minimum and maximum values
+of nearest-neighbour distances in the point pattern <code>X</code>.
+<code>minnndist(X)</code> and <code>maxnndist(X)</code> are 
+equivalent to, but faster than, <code>min(nndist(X))</code>
+and <code>max(nndist(X))</code> respectively.
+</p>
+<p>The value is <code>NA</code> if <code>npoints(X) &lt; 2</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric value (possibly <code>NA</code>).
+</p>
+<p>If <code>by</code> is given, the result is a numeric matrix
+giving the minimum or maximum nearest neighbour distance
+between each subset of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  min(nndist(swedishpines))
+  minnndist(swedishpines)
+
+  max(nndist(swedishpines))
+  maxnndist(swedishpines)
+
+  minnndist(lansing, positive=TRUE)
+
+  if(interactive()) {
+     X &lt;- runifrect(1e6)
+     system.time(min(nndist(X)))
+     system.time(minnndist(X))
+  }
+
+  minnndist(amacrine, by=marks(amacrine))
+  maxnndist(amacrine, by=marks(amacrine))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

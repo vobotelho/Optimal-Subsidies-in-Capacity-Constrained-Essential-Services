@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise distances</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairdist {spatstat.geom}"><tr><td>pairdist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise distances</h2>
+
+<h3>Description</h3>
+
+<p>Computes the matrix of distances between all pairs of &lsquo;things&rsquo;
+in a dataset
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  pairdist(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object specifying the locations of a set of &lsquo;things&rsquo;
+(such as a set of points or a set of line segments).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Further arguments depending on the method.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a dataset <code>X</code> and <code>Y</code>
+(representing either a point pattern or
+a line segment pattern)
+<code>pairdist</code> computes the distance between each pair of
+&lsquo;things&rsquo; in the dataset, and returns 
+a matrix containing these distances.
+</p>
+<p>The function <code>pairdist</code> is generic, with
+methods for point patterns (objects of class <code>"ppp"</code>),
+line segment patterns (objects of class <code>"psp"</code>)
+and a default method. See the documentation
+for <code><a href="../../spatstat.geom/help/pairdist.ppp.html">pairdist.ppp</a></code>, <code><a href="../../spatstat.geom/help/pairdist.psp.html">pairdist.psp</a></code>
+or <code><a href="../../spatstat.geom/help/pairdist.default.html">pairdist.default</a></code> for details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A square matrix whose <code>[i,j]</code> entry is the distance
+between the &lsquo;things&rsquo; numbered <code>i</code> and <code>j</code>.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by <code>pairdist(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>pairdist(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>
+and 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pairdist.ppp.html">pairdist.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.psp.html">pairdist.psp</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.default.html">pairdist.default</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

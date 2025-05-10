@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Randomly Shift a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rshift.ppp {spatstat.random}"><tr><td>rshift.ppp {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Randomly Shift a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Randomly shifts the points of a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'ppp'
+rshift(X, ..., which=NULL, group, nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Point pattern to be subjected to a random shift.
+An object of class <code>"ppp"</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments that determine the random shift. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>group</code></td>
+<td>
+
+<p>Optional. Factor specifying a grouping of the points of <code>X</code>,
+or <code>NULL</code> indicating that all points belong to the same group.
+Each group will be shifted together, and
+separately from other groups.
+By default, points in a marked point pattern are grouped
+according to their mark values,
+while points in an unmarked point pattern are treated as a single group.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Optional. Identifies which groups of the pattern will be shifted,
+while other groups are not shifted. A vector of levels of <code>group</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This operation randomly shifts the locations of the points
+in a point pattern.
+</p>
+<p>The function <code>rshift</code> is generic. This function <code>rshift.ppp</code>
+is the method for point patterns.
+</p>
+<p>The most common use of this function is to shift the
+points in a multitype point pattern.
+By default, points of the same type are shifted in parallel
+(i.e. points of a common type are shifted by a common displacement vector),
+and independently of other types.
+This is useful for testing the hypothesis of independence of types
+(the null hypothesis that the sub-patterns of points of each type
+are independent point processes).
+</p>
+<p>In general the points of <code>X</code> are divided into groups,
+then the points within a group are shifted by a common
+random displacement vector. Different groups of points are shifted
+independently. The grouping is determined as follows:
+</p>
+
+<ul>
+<li>
+<p>If the argument <code>group</code> is present, then this determines the grouping.
+</p>
+</li>
+<li>
+<p>Otherwise, if <code>X</code> is a multitype point pattern,
+the marks determine the grouping.
+</p>
+</li>
+<li>
+<p>Otherwise, all points belong to a single group.
+</p>
+</li></ul>
+
+<p>The argument <code>group</code> should be a factor, of length equal to the
+number of points in <code>X</code>. Alternatively <code>group</code> may be <code>NULL</code>,
+which specifies that all points of <code>X</code> belong to a single group.
+</p>
+<p>By default, every group of points will be shifted.
+The argument <code>which</code> indicates that only some of the groups
+should be shifted, while other groups should be left unchanged.
+<code>which</code> must be a vector of levels of <code>group</code>
+(for example, a vector of types in a multitype pattern)
+indicating which groups are to be shifted. 
+</p>
+<p>The displacement vector, i.e. the vector
+by which the data points are shifted,
+is generated at random.
+Parameters that control the randomisation
+and the handling of edge effects are passed through
+the <code>...</code> argument. They are
+</p>
+
+<dl>
+<dt>radius,width,height</dt><dd>
+<p>Parameters of the random shift vector.
+</p>
+</dd>
+<dt>edge</dt><dd>
+<p>String indicating how to deal with edges of the pattern.
+Options are <code>"torus"</code>, <code>"erode"</code> and <code>"none"</code>.
+</p>
+</dd>
+<dt>clip</dt><dd>
+<p>Optional. Window to which the final point pattern should be clipped.
+</p>
+</dd>
+</dl>
+
+<p>If the window is a rectangle, the <em>default</em> behaviour is 
+to generate a displacement vector at random with equal probability
+for all possible displacements. This means that the <i>x</i> and
+<i>y</i> coordinates of the displacement vector are independent random
+variables, uniformly distributed over the range of possible coordinates.
+</p>
+<p>Alternatively, the displacement vector can be generated by
+another random mechanism, controlled by the arguments
+<code>radius</code>, <code>width</code> and <code>height</code>. 
+</p>
+
+<dl>
+<dt>rectangular:</dt><dd>
+<p>if <code>width</code> and <code>height</code> are given, then 
+the displacement vector is uniformly distributed
+in a rectangle of these dimensions, centred at
+the origin.  The maximum possible displacement in the <i>x</i>
+direction is <code>width/2</code>. The maximum possible displacement in
+the <i>y</i> direction is <code>height/2</code>. The <i>x</i> and <i>y</i>
+displacements are independent. (If <code>width</code> and <code>height</code>
+are actually equal to the dimensions of the observation window,
+then this is equivalent to the default.)
+</p>
+</dd>
+<dt>radial:</dt><dd>
+<p>if <code>radius</code> is given, then the displacement vector is
+generated by choosing a random point inside a disc of
+the given radius, centred at the origin, with uniform probability
+density over the disc. Thus the argument <code>radius</code> determines
+the maximum possible displacement distance.
+The argument <code>radius</code> is incompatible with the
+arguments <code>width</code> and <code>height</code>.
+</p>
+</dd>
+</dl>
+
+<p>The argument <code>edge</code> controls what happens when 
+a shifted point lies outside the window of <code>X</code>.
+Options are:
+</p>
+
+<dl>
+<dt>&quot;none&quot;:</dt><dd>
+<p>Points shifted outside the window of <code>X</code>
+simply disappear. 
+</p>
+</dd>
+<dt>&quot;torus&quot;:</dt><dd>
+<p>Toroidal or periodic boundary.
+Treat opposite edges of the window as identical, so that a point
+which disappears off the right-hand edge will re-appear at the
+left-hand edge. This is called a &ldquo;toroidal shift&rdquo; because it makes the
+rectangle topologically equivalent to the surface of a torus
+(doughnut).
+</p>
+<p>The window must be a rectangle. Toroidal shifts are undefined
+if the window is non-rectangular.
+</p>
+</dd>
+<dt>&quot;erode&quot;:</dt><dd>
+<p>Clip the point pattern to a smaller window.
+</p>
+<p>If the random displacements are generated by a radial
+mechanism (see above), then the window of <code>X</code>
+is eroded by a distance equal to the value of the argument
+<code>radius</code>, using <code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>.
+</p>
+<p>If the random displacements are generated by a rectangular
+mechanism, then the window of <code>X</code> is
+(if it is not rectangular) eroded by a distance
+<code>max(height,width)</code> using <code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>;
+or (if it is rectangular) trimmed by a margin of width <code>width</code>
+at the left and right sides and trimmed by a margin of
+height <code>height</code> at the top and bottom.
+</p>
+<p>The rationale for this is that the clipping window is
+the largest window for which edge effects can be ignored.
+</p>
+</dd>
+</dl>
+
+<p>The optional argument <code>clip</code> specifies a smaller window
+to which the pattern should be restricted.
+</p>
+<p>If <code>nsim &gt; 1</code>, then the simulation procedure is
+performed <code>nsim</code> times; the result is a list of <code>nsim</code>
+point patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+or a list of point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rshift.html">rshift</a></code>,
+<code><a href="../../spatstat.random/help/rshift.psp.html">rshift.psp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # random toroidal shift
+   # shift "on" and "off" points separately
+   X &lt;- rshift(amacrine)
+
+   # shift "on" points and leave "off" points fixed
+   X &lt;- rshift(amacrine, which="on")
+
+   # shift all points simultaneously
+   X &lt;- rshift(amacrine, group=NULL)
+
+   # maximum displacement distance 0.1 units
+   X &lt;- rshift(amacrine, radius=0.1, nsim=2)
+
+   # shift with erosion
+   X &lt;- rshift(amacrine, radius=0.1, edge="erode")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

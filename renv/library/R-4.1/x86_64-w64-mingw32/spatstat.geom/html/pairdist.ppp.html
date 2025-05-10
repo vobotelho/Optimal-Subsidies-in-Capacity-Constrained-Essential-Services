@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise distances</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairdist.ppp {spatstat.geom}"><tr><td>pairdist.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise distances</h2>
+
+<h3>Description</h3>
+
+<p>Computes the matrix of distances between all pairs of points
+in a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppp'
+pairdist(X, ...,
+                        periodic=FALSE, method="C", squared=FALSE, metric=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical. Specifies whether to apply a periodic edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String specifying which method of calculation to use.
+Values are <code>"C"</code> and <code>"interpreted"</code>.
+Usually not specified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>squared</code></td>
+<td>
+
+<p>Logical. If <code>squared=TRUE</code>, the squared distances are
+returned instead (this computation is faster).
+</p>
+</td></tr>
+<tr valign="top"><td><code>metric</code></td>
+<td>
+
+<p>Optional. A metric (object of class <code>"metric"</code>)
+that will be used to define and compute the distances.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code>pairdist</code>.
+</p>
+<p>Given a point pattern <code>X</code> (an object of class <code>"ppp"</code>),
+this function computes the Euclidean distances between all pairs of
+points in <code>X</code>, and returns the matrix of distances.
+</p>
+<p>Alternatively if <code>periodic=TRUE</code> and the window containing <code>X</code> is a
+rectangle, then the distances will be computed in the &lsquo;periodic&rsquo;
+sense (also known as &lsquo;torus&rsquo; distance): opposite edges of the
+rectangle are regarded as equivalent.
+This is meaningless if the window is not a rectangle.
+</p>
+<p>If <code>squared=TRUE</code> then the <em>squared</em> Euclidean distances
+<i>d^2</i> are returned, instead of the Euclidean distances <i>d</i>.
+The squared distances are faster to calculate, and are sufficient for
+many purposes (such as finding the nearest neighbour of a point).
+</p>
+<p>The argument <code>method</code> is not normally used. It is
+retained only for checking the validity of the software.
+If <code>method = "interpreted"</code> then the distances are
+computed using interpreted R code only. If <code>method="C"</code>
+(the default) then C code is used. The C code is somewhat faster.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A square matrix whose <code>[i,j]</code> entry is the distance
+between the points numbered <code>i</code> and <code>j</code>.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by <code>pairdist(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>pairdist(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>
+and 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.default.html">pairdist.default</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.psp.html">pairdist.psp</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   d &lt;- pairdist(cells)
+   d &lt;- pairdist(cells, periodic=TRUE)
+   d &lt;- pairdist(cells, squared=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

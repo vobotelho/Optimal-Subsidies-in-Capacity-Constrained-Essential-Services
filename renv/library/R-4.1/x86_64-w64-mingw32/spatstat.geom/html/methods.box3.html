@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Three-Dimensional Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.box3 {spatstat.geom}"><tr><td>methods.box3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Three-Dimensional Box
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for class <code>"box3"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'box3'
+print(x, ...)
+  ## S3 method for class 'box3'
+unitname(x) 
+  ## S3 replacement method for class 'box3'
+unitname(x) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"box3"</code> representing a three-dimensional box.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to <code>print.default</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Name of the unit of length. See <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/print.html">print</a></code> and <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>
+for the class <code>"box3"</code> of three-dimensional boxes.
+</p>
+<p>The <code>print</code> method prints a description of the box,
+while the <code>unitname</code> method extracts the name of the unit of
+length in which the box coordinates are expressed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.box3</code> the value is <code>NULL</code>.
+For <code>unitname.box3</code> an object of class <code>"units"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/box3.html">box3</a></code>,
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- box3(c(0,10),c(0,10),c(0,5), unitname=c("metre", "metres"))
+   X
+   unitname(X)
+   # Northern European usage
+   unitname(X) &lt;- "meter"
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

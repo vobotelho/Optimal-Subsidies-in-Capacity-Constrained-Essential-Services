@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perimeter Length of Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for perimeter {spatstat.geom}"><tr><td>perimeter {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Perimeter Length of Window
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the perimeter length of a window
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+perimeter(w)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>)
+or data that can be converted to a window by <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the perimeter (length of the boundary) of the
+window <code>w</code>. If <code>w</code> is a rectangle or a polygonal window,
+the perimeter is the sum of the lengths of the edges of <code>w</code>.
+If <code>w</code> is a mask, it is first converted to a polygonal window
+using <code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code>, then staircase edges are removed
+using <code><a href="../../spatstat.geom/help/simplify.owin.html">simplify.owin</a></code>, and the perimeter of the resulting
+polygon is computed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value giving the perimeter length of the window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/area.owin.html">area.owin</a></code>
+<code><a href="../../spatstat.geom/help/diameter.owin.html">diameter.owin</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  perimeter(square(3))
+  perimeter(letterR)
+  if(interactive()) print(perimeter(as.mask(letterR)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

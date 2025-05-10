@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Whether One Window is Contained In Another</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.subset.owin {spatstat.geom}"><tr><td>is.subset.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determine Whether One Window is Contained In Another</h2>
+
+<h3>Description</h3>
+
+<p>Tests whether window <code>A</code> is a subset of window <code>B</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.subset.owin(A, B)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A</code></td>
+<td>
+<p>A window object (see Details).</p>
+</td></tr>
+<tr valign="top"><td><code>B</code></td>
+<td>
+<p>A window object (see Details).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function tests whether the window <code>A</code> is a subset
+of the window <code>B</code>.
+</p>
+<p>The arguments <code>A</code> and <code>B</code> must be window objects
+(either objects of class <code>"owin"</code>, or data that can be
+coerced to this class by <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>).
+</p>
+<p>Various algorithms are used, depending on the geometrical type
+of the two windows.
+</p>
+<p>Note that if <code>B</code> is not rectangular, the algorithm proceeds by
+discretising <code>A</code>, converting it to a pixel mask using 
+<code><a href="../help/as.mask.html">as.mask</a></code>. In this case the resulting
+answer is only &ldquo;approximately correct&rdquo;. The accuracy of the
+approximation can be controlled: see <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical scalar; <code>TRUE</code> if <code>A</code> is a sub-window of <code>B</code>,
+otherwise <code>FALSE</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   w1 &lt;- as.owin(c(0,1,0,1))
+   w2 &lt;- as.owin(c(-1,2,-1,2))
+   is.subset.owin(w1,w2)  # Returns TRUE.
+   is.subset.owin(w2,w1)  # Returns FALSE.
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

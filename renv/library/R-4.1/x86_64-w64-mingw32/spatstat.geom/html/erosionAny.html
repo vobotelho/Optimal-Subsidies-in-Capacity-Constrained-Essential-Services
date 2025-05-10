@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Morphological Erosion of Windows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for erosionAny {spatstat.geom}"><tr><td>erosionAny {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Morphological Erosion of Windows</h2>
+
+<h3>Description</h3>
+
+<p>Compute the morphological erosion of one spatial window by another.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+erosionAny(A, B)
+
+A %(-)% B
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+
+<p>Windows (objects of class <code>"owin"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The operator <code>A %(-)% B</code> and function <code>erosionAny(A,B)</code>
+are synonymous: they both compute the
+morphological erosion of the window <code>A</code> by the window <code>B</code>.
+</p>
+<p>The morphological erosion
+<i>A %(-)% B</i>
+of region <i>A</i> by region <i>B</i>
+is the spatial region consisting of all vectors <i>z</i>
+such that, when <i>B</i> is shifted by the vector <i>z</i>, the result
+is a subset of <i>A</i>.
+</p>
+<p>Equivalently
+</p>
+<p style="text-align: center;"><i>
+    (A^c %+% (-B))^c
+  </i></p>
+
+<p>where <i>%+%</i> is the Minkowski sum,
+<i>A^c</i> denotes the set complement, and <i>(-B)</i> is
+the reflection of <i>B</i> through the origin, consisting of all
+vectors <i>-b</i> where <i>b</i> is a point in <i>B</i>.
+</p>
+<p>If <code>B</code> is a disc of radius <code>r</code>, then
+<code>erosionAny(A, B)</code> is equivalent to <code>erosion(A, r)</code>.
+See <code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>.
+</p>
+<p>The algorithm currently computes the result as a polygonal
+window using the <span class="pkg">polyclip</span> library. 
+It will be quite slow if applied to binary mask windows.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another window (object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>,
+<code><a href="../../spatstat.geom/help/MinkowskiSum.html">MinkowskiSum</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  B &lt;- square(c(-0.1, 0.1))
+  RminusB &lt;- letterR %(-)% B
+  FR &lt;- grow.rectangle(Frame(letterR), 0.3)
+  plot(FR, main="", type="n")
+  plot(letterR, add=TRUE, lwd=2, hatch=TRUE, box=FALSE)
+  plot(RminusB, add=TRUE, col="blue", box=FALSE)
+  plot(shift(B, vec=c(3.49, 2.98)),
+       add=TRUE, border="red", lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

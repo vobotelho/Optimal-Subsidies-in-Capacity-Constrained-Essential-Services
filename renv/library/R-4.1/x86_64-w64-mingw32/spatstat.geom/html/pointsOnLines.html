@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Place Points Evenly Along Specified Lines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pointsOnLines {spatstat.geom}"><tr><td>pointsOnLines {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Place Points Evenly Along Specified Lines</h2>
+
+<h3>Description</h3>
+
+<p>Given a line segment pattern, place a series of points
+at equal distances along each line segment.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pointsOnLines(X, eps = NULL, np = 1000, shortok=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A line segment pattern (object of class <code>"psp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+<p>Spacing between successive points.</p>
+</td></tr>
+<tr valign="top"><td><code>np</code></td>
+<td>
+<p>Approximate total number of points (incompatible with
+<code>eps</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>shortok</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code>, very short segments
+(of length shorter than <code>eps</code>) will not generate any points.
+If <code>TRUE</code>, a very short segment will be represented by its
+midpoint.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each line segment in the pattern <code>X</code>, a succession of points
+is placed along the line segment. These points are equally spaced at
+a distance <code>eps</code>, except for the first and last points
+in the sequence. 
+</p>
+<p>The spacing <code>eps</code> is measured in coordinate units of <code>X</code>.
+</p>
+<p>If <code>eps</code> is not given, then it is determined by
+<code>eps = len/np</code> where <code>len</code> is the total length of the
+segments in <code>X</code>. The actual number of points will then be slightly
+larger than <code>np</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>) in the same window
+as <code>X</code>. The result also has an attribute called <code>"map"</code> which
+maps the points to their parent line segments.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.html">psp</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.random/help/runifpointOnLines.html">runifpointOnLines</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- psp(runif(20), runif(20), runif(20), runif(20),  window=owin())
+  Y &lt;- pointsOnLines(X, eps=0.05)
+  plot(X, main="")
+  plot(Y, add=TRUE, pch="+")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

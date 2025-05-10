@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Diffusion Estimate of Point Pattern Intensity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityHeat {spatstat.explore}"><tr><td>densityHeat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Diffusion Estimate of Point Pattern Intensity
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes a diffusion estimate of intensity for a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+densityHeat(x, sigma, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code> or another class).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth. Usually a single number giving the equivalent
+standard deviation of the smoother. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments depending on the method.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The generic function <code>densityHeat</code> computes an
+estimate of point process intensity using a diffusion kernel method.
+</p>
+<p>Further details depend on the class of point pattern <code>x</code>.
+See the help file for the appropriate method.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Depends on the class of <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley and Tilman Davies.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>For two-dimensional point patterns (objects of class <code>"ppp"</code>),
+the diffusion kernel estimator is <code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code>.
+The usual kernel estimator is <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+and the tessellation-based estimator is
+<code><a href="../../spatstat.explore/help/adaptive.density.html">adaptive.density</a></code>.
+</p>
+
+
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

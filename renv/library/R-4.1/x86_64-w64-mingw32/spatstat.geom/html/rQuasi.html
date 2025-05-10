@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Quasirandom Point Pattern in Given Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rQuasi {spatstat.geom}"><tr><td>rQuasi {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Generate Quasirandom Point Pattern in Given Window
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates a quasirandom pattern of points in any two-dimensional window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rQuasi(n, W, type = c("Halton", "Hammersley"), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Maximum number of points to be generated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) in which to generate
+the points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String identifying the quasirandom generator.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to the quasirandom generator.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a quasirandom point pattern,
+using the quasirandom sequence generator
+<code><a href="../../spatstat.geom/help/Halton.html">Halton</a></code> or <code><a href="../../spatstat.geom/help/Hammersley.html">Hammersley</a></code>
+as specified.
+</p>
+<p>If <code>W</code> is a rectangle, 
+exactly <code>n</code> points will be generated.
+</p>
+<p>If <code>W</code> is not a rectangle, <code>n</code> points will be generated in the
+containing rectangle <code>as.rectangle(W)</code>,
+and only the points lying inside <code>W</code> will be retained.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Point pattern (object of class <code>"ppp"</code>) inside the window <code>W</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/Halton.html">Halton</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(rQuasi(256, letterR))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

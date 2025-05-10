@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Window to Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pixellate.owin {spatstat.geom}"><tr><td>pixellate.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Window to Pixel Image
+</h2>
+
+<h3>Description</h3>
+
+<p>Convert a window to 
+a pixel image by measuring the area of intersection
+between the window and each pixel in a raster.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'owin'
+pixellate(x, W = NULL, ..., DivideByPixelArea=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) to be converted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional. Window determining the pixel raster on which the conversion
+should occur. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional. Extra arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to determine the pixel raster.
+</p>
+</td></tr>
+<tr valign="top"><td><code>DivideByPixelArea</code></td>
+<td>
+
+<p>Logical value, indicating whether the resulting pixel values
+should be divided by the pixel area.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code>pixellate</code>.
+</p>
+<p>It converts a window <code>x</code> into
+a pixel image, by measuring the <em>amount</em> of <code>x</code> that is
+inside each pixel.
+</p>
+<p>(The related function <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+also converts <code>x</code> into a pixel image,
+but records only the presence or absence of
+<code>x</code> in each pixel.)
+</p>
+<p>The pixel raster for the conversion is determined by the
+argument <code>W</code> and the extra arguments <code>...</code>.
+</p>
+
+<ul>
+<li> 
+<p>If <code>W</code> is given, and it is a binary mask (a window
+of type <code>"mask"</code>) then it determines the pixel raster.
+</p>
+</li>
+<li>
+<p>If <code>W</code> is given, but it is not a binary mask (it is a
+window of another type) then it will be converted to a binary mask
+using <code>as.mask(W, ...)</code>.
+</p>
+</li>
+<li>
+<p>If <code>W</code> is not given, it defaults to
+<code>as.mask(as.rectangle(x), ...)</code>
+</p>
+</li></ul>
+
+<p>In the second and third cases it would be common to use the
+argument <code>dimyx</code> to control the number of pixels. See the Examples.
+</p>
+<p>The algorithm then computes the area
+of intersection of each pixel with the window.
+</p>
+<p>The result is a pixel image with pixel entries equal to these
+intersection areas.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code>,
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(pixellate(letterR, dimyx=15))
+   W &lt;- grow.rectangle(as.rectangle(letterR), 0.2)
+   plot(pixellate(letterR, W, dimyx=15))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

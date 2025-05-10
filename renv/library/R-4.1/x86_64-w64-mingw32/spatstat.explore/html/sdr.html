@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sufficient Dimension Reduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sdr {spatstat.explore}"><tr><td>sdr {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Sufficient Dimension Reduction
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and a set of predictors,
+find a minimal set of new predictors, each constructed as
+a linear combination of the original predictors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+sdr(X, covariates, ...)
+
+## S3 method for class 'ppp'
+sdr(X, covariates,
+                  method = c("DR", "NNIR", "SAVE", "SIR", "TSE"),
+                  Dim1 = 1, Dim2 = 1, predict=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariates</code></td>
+<td>
+
+<p>A list of pixel images (objects of class <code>"im"</code>)
+to serve as predictor variables.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string indicating which method to use. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Dim1</code></td>
+<td>
+
+<p>Dimension of the first order Central Intensity Subspace
+(applicable when <code>method</code> is <code>"DR"</code>, <code>"NNIR"</code>,
+<code>"SAVE"</code> or <code>"TSE"</code>). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>Dim2</code></td>
+<td>
+
+<p>Dimension of the second order Central Intensity Subspace
+(applicable when <code>method="TSE"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>predict</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the new predictors
+as well.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments (ignored by <code>sdr.ppp</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a point pattern <i>X</i> and predictor variables
+<i>Z[1], ..., Z[p]</i>,
+Sufficient Dimension Reduction methods
+(Guan and Wang, 2010) attempt to find a minimal set
+of new predictor variables, each constructed by taking a linear combination
+of the original predictors, which explain the dependence of
+<i>X</i> on   <i>Z[1], ..., Z[p]</i>.
+The methods do not assume any particular form of dependence
+of the point pattern on the predictors.
+The predictors are assumed to
+be Gaussian random fields.
+</p>
+<p>Available methods are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>method="DR"</code> </td><td style="text-align: left;"> directional regression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="NNIR"</code> </td><td style="text-align: left;"> nearest neighbour inverse regression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="SAVE"</code> </td><td style="text-align: left;"> sliced average variance estimation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="SIR"</code> </td><td style="text-align: left;"> sliced inverse regression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="TSE"</code> </td><td style="text-align: left;"> two-step estimation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>The result includes a matrix <code>B</code> whose columns are estimates
+of the basis vectors of the space of new predictors. That is,
+the <code>j</code>th column of <code>B</code> expresses the <code>j</code>th new
+predictor as a linear combination of the original predictors.
+</p>
+<p>If <code>predict=TRUE</code>, the new predictors are also evaluated.
+They can also be evaluated using <code><a href="../../spatstat.explore/help/sdrPredict.html">sdrPredict</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with components <code>B, M</code>
+or <code>B, M1, M2</code> where
+<code>B</code> is a matrix whose columns are estimates of the basis vectors
+for the space, and <code>M</code> or <code>M1,M2</code> are matrices containing
+estimates of the kernel.
+</p>
+<p>If <code>predict=TRUE</code>, the result also includes a component
+<code>Y</code> which is a list of pixel images giving the values of the
+new predictors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Matlab original by Yongtao Guan,
+translated to <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> by Suman Rakshit.
+</p>
+
+
+<h3>References</h3>
+
+<p>Guan, Y. and Wang, H. (2010)
+Sufficient dimension reduction for spatial point
+processes directed by Gaussian random fields.
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>72</b>, 367&ndash;387.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/sdrPredict.html">sdrPredict</a></code> to compute the new predictors from the
+coefficient matrix.
+</p>
+<p><code><a href="../../spatstat.explore/help/dimhat.html">dimhat</a></code> to estimate the subspace dimension.
+</p>
+<p><code><a href="../../spatstat.explore/help/subspaceDistance.html">subspaceDistance</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A &lt;- sdr(bei, bei.extra, predict=TRUE)
+   A
+   Y1 &lt;- A$Y[[1]]
+   plot(Y1)
+   points(bei, pch=".", cex=2)
+   # investigate likely form of dependence
+   plot(rhohat(bei, Y1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

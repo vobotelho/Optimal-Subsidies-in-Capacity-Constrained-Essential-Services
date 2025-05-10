@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Tensor product of arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for tensor {tensor}"><tr><td>tensor {tensor}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Tensor product of arrays</h2>
+
+<h3>Description</h3>
+
+<p>The tensor product of two arrays is notionally an
+outer product of the arrays collapsed in specific extents by
+summing along the appropriate diagonals.  For example, a matrix
+product is the tensor product along the second extent of the
+first matrix and the first extent of the second.  Thus <code>A
+%*% B</code> could also be evaluated as <code>tensor(A, B, 2, 1)</code>,
+likewise <code>A %*% t(B)</code> could be <code>tensor(A, B, 2, 2)</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+tensor(A, B, alongA = integer(0), alongB = integer(0))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A, B</code></td>
+<td>
+<p>Numerical vectors, matrices or arrays</p>
+</td></tr>
+<tr valign="top"><td><code>alongA</code></td>
+<td>
+<p>Extents in <code>A</code> to be collapsed</p>
+</td></tr>
+<tr valign="top"><td><code>alongB</code></td>
+<td>
+<p>Extents in <code>B</code> to be collapsed</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This code does the &lsquo;obvious&rsquo; thing, which is to perm the
+&quot;along&quot; extents to the end (for <code>A</code>) and beginning (for
+<code>B</code>) of the two objects and then do a matrix multiplication
+and reshape.</p>
+
+
+<h3>Value</h3>
+
+<p>Generally, an array with dimension comprising the
+remaining extents of <code>A</code> concatenated with the remaining
+extents of <code>B</code>.
+</p>
+<p>If both <code>A</code> and <code>B</code> are completely collapsed then the
+result is a scalar <b>without</b> a <code>dim</code> attribute.  This
+is quite deliberate and consistent with the general rule that the
+dimension of the result is the sum of the original dimensions
+less the sum of the collapse dimensions (and so could be zero).
+A 1D array of length 1 arises in a different set of
+circumstances, eg if <code>A</code> is a 1 by 5 matrix and <code>B</code> is
+a 5-vector then <code>tensor(A, B, 2, 1)</code> is a 1D array of length
+1.</p>
+
+
+<h3>Shortcuts</h3>
+
+<p>Some special cases of <code>tensor</code> may be
+independently useful, and these have got shortcuts as follows.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+%*t%	</td><td style="text-align: left;">	Matrix product <code>A %*% t(B)</code>	</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+%t*%	</td><td style="text-align: left;">	Matrix product <code>t(A) %*% B</code>	</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+%t*t%	</td><td style="text-align: left;">	Matrix product <code>t(A) %*% t(B)</code>	
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Jonathan Rougier, <a href="mailto:J.C.Rougier@durham.ac.uk">J.C.Rougier@durham.ac.uk</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/matmult.html">matmult</a></code>, <code><a href="../../base/html/aperm.html">aperm</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  A &lt;- matrix(1:6, 2, 3)
+  dimnames(A) &lt;- list(happy = LETTERS[1:2], sad = NULL)
+  B &lt;- matrix(1:12, 4, 3)
+  stopifnot(A %*% t(B) == tensor(A, B, 2, 2))
+
+  A &lt;- A %o% A
+  C &lt;- tensor(A, B, 2, 2)
+  stopifnot(all(dim(C) == c(2, 2, 3, 4)))
+  D &lt;- tensor(C, B, c(4, 3), c(1, 2))
+  stopifnot(all(dim(D) == c(2, 2)))
+
+  E &lt;- matrix(9:12, 2, 2)
+  s &lt;- tensor(D, E, 1:2, 1:2)
+  stopifnot(s == sum(D * E), is.null(dim(s)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tensor</em> version 1.5 <a href="00Index.html">Index</a>]</div>
+</body></html>

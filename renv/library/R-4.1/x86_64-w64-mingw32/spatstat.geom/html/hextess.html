@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hexagonal Grid or Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for hextess {spatstat.geom}"><tr><td>hextess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Hexagonal Grid or Tessellation
+</h2>
+
+<h3>Description</h3>
+
+<p>Construct a hexagonal grid of points,
+or a hexagonal tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hexgrid(W, s, offset = c(0, 0), origin=NULL, trim = TRUE)
+
+hextess(W, s, offset = c(0, 0), origin=NULL, trim = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window in which to construct the hexagonal grid or tessellation.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>Side length of hexagons. A positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>offset</code></td>
+<td>
+
+<p>Numeric vector of length 2 specifying a shift of the
+hexagonal grid. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+<p>Numeric vector of length 2 specifying the initial origin
+of the hexagonal grid, before the offset is applied.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>Logical value indicating whether to restrict the result to
+the window <code>W</code>. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>hexgrid</code> constructs a hexagonal grid of points
+on the window <code>W</code>. If <code>trim=TRUE</code> (the default),
+the grid is intersected with <code>W</code> so that all points lie
+inside <code>W</code>. If <code>trim=FALSE</code>, then we retain all grid points
+which are the centres of hexagons that intersect <code>W</code>.
+</p>
+<p><code>hextess</code> constructs a tessellation of hexagons
+on the window <code>W</code>. If <code>trim=TRUE</code> (the default),
+the tessellation is restricted to the interior of <code>W</code>,
+so that there will be some fragmentary hexagons near the
+boundary of <code>W</code>. If <code>trim=FALSE</code>, the tessellation
+consists of all hexagons which intersect <code>W</code>.
+</p>
+<p>The points of <code>hexgrid(...)</code> are the
+centres of the tiles of <code>hextess(...)</code> 
+in the same order.
+</p>
+<p>In the initial position of the grid or tessellation,
+one of the grid points (tile centres) is placed at the 
+<code>origin</code>, which defaults to the midpoint of the
+bounding rectangle of <code>W</code>. The grid can be shifted
+relative to this origin by specifing the <code>offset</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value of <code>hexgrid</code> is a point pattern (object of class
+<code>"ppp"</code>).
+</p>
+<p>The value of <code>hextess</code> is a tessellation (object of class <code>"tess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/tess.html">tess</a></code>
+</p>
+<p><code><a href="../../spatstat.geom/help/hexagon.html">hexagon</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    W &lt;- Window(chorley)
+    s &lt;- 0.7
+  } else {
+    W &lt;- letterR
+    s &lt;- 0.3
+  }
+  plot(hextess(W, s))
+  plot(hexgrid(W, s), add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

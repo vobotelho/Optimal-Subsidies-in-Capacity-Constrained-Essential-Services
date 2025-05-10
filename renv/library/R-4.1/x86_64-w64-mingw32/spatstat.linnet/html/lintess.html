@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Tessellation on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lintess {spatstat.linnet}"><tr><td>lintess {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Tessellation on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a tessellation on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lintess(L, df, marks=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+
+<p>Data frame of local coordinates for the pieces that make up the 
+tiles of the tessellation. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>marks</code></td>
+<td>
+
+<p>Vector or data frame of 
+marks associated with the tiles of the tessellation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tessellation on a linear network <code>L</code> is a partition of the
+network into non-overlapping pieces (tiles). Each tile consists of one
+or more line segments which are subsets of the line segments making up
+the network. A tile can consist of several disjoint pieces.
+</p>
+<p>The data frame <code>df</code> should have columns named
+<code>seg</code>, <code>t0</code>, <code>t1</code> and <code>tile</code>.
+Any additional columns will be ignored.
+</p>
+<p>Each row of the data frame specifies one sub-segment of the network
+and allocates it to a particular tile.
+</p>
+<p>The <code>seg</code> column specifies which line segment of the network
+contains the sub-segment. Values of <code>seg</code> are integer indices
+for the segments in <code>as.psp(L)</code>.
+</p>
+<p>The <code>t0</code> and <code>t1</code> columns specify the start and end points
+of the sub-segment. They should be numeric values between 0 and 1
+inclusive, where the values 0 and 1 representing the network vertices
+that are joined by this network segment.
+</p>
+<p>The <code>tile</code> column specifies which tile of the tessellation
+includes this sub-segment. It will be coerced to a factor and its
+levels will be the names of the tiles.
+</p>
+<p>If <code>df</code> is missing or <code>NULL</code>, the result is a tessellation
+with only one tile, consisting of the entire network <code>L</code>.
+</p>
+<p>Additional data called <em>marks</em> may be associated with
+each tile of the tessellation. The argument <code>marks</code> should be
+a vector with one entry for each tile (that is, one entry for each
+level of <code>df$tile</code>) or a data frame with one row for each tile.
+In general <code>df</code> and <code>marks</code> will have different numbers of rows.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"lintess"</code>.
+There are methods for <code>print</code>, <code>plot</code> and
+<code>summary</code> for this object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Greg McSwiggan.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code> for linear networks.
+</p>
+<p><code><a href="../../spatstat.linnet/help/plot.lintess.html">plot.lintess</a></code> for plotting.
+</p>
+<p><code><a href="../../spatstat.linnet/help/divide.linnet.html">divide.linnet</a></code> to make a tessellation demarcated by
+given points.
+</p>
+<p><code><a href="../../spatstat.linnet/help/chop.linnet.html">chop.linnet</a></code> to make a tessellation demarcated by
+infinite lines.
+</p>
+<p><code><a href="../../spatstat.linnet/help/lineardirichlet.html">lineardirichlet</a></code> to create the Dirichlet-Voronoi
+tessellation from a point pattern on a linear network.
+</p>
+<p><code><a href="../../spatstat.linnet/help/as.linfun.lintess.html">as.linfun.lintess</a></code>, <code><a href="../../spatstat.linnet/help/as.linnet.lintess.html">as.linnet.lintess</a></code> and
+<code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code> to convert to other classes.
+</p>
+<p><code><a href="../../spatstat.linnet/help/tile.lengths.html">tile.lengths</a></code> to compute the length of each tile
+in the tessellation.
+</p>
+<p>The undocumented methods <code>Window.lintess</code> and
+<code>as.owin.lintess</code> extract the spatial window.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # tessellation consisting of one tile for each existing segment
+   ns &lt;- nsegments(simplenet)
+   df &lt;- data.frame(seg=1:ns, t0=0, t1=1, tile=letters[1:ns])
+   u &lt;- lintess(simplenet, df)
+   u
+   plot(u)
+   S &lt;- as.psp(simplenet)
+   marks(u) &lt;- data.frame(len=lengths_psp(S), ang=angles.psp(S))
+   u
+   plot(u)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data to a Point Pattern on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.lpp {spatstat.linnet}"><tr><td>as.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Data to a Point Pattern on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Convert various kinds of data to a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.lpp(x=NULL, y=NULL, seg=NULL, tp=NULL, ...,
+         marks=NULL, L=NULL, check=FALSE, sparse)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Vectors of cartesian coordinates, or any data
+acceptable to <code><a href="../../grDevices/help/xy.coords.html">xy.coords</a></code>.
+Alternatively <code>x</code> can be a point pattern
+on a linear network (object of class <code>"lpp"</code>)
+or a planar point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>seg,tp</code></td>
+<td>
+
+<p>Optional local coordinates. Vectors of the same length
+as <code>x,y</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>marks</code></td>
+<td>
+
+<p>Optional marks for the point pattern.
+A vector or factor with one entry for each point,
+or a data frame or hyperframe with one row for each point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>)
+on which the points lie.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical. Whether to check the validity of the spatial coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sparse</code></td>
+<td>
+
+<p>Optional logical value indicating whether to store the
+linear network data in a sparse matrix representation or not.
+See <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function converts data in various formats into a point pattern
+on a linear network  (object of class <code>"lpp"</code>).
+</p>
+<p>The possible formats are:
+</p>
+
+<ul>
+<li>
+<p><code>x</code> is already a point pattern on a linear network
+(object of class <code>"lpp"</code>).
+Then <code>x</code> is returned unchanged.
+</p>
+</li>
+<li>
+<p><code>x</code> is a planar point pattern (object of class <code>"ppp"</code>).
+Then <code>x</code> is converted to a point pattern on the linear network
+<code>L</code> using <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+</li>
+<li>
+<p><code>x,y,seg,tp</code> are vectors of equal length.
+These specify that the <code>i</code>th point has Cartesian coordinates
+<code>(x[i],y[i])</code>, and lies on segment number <code>seg[i]</code> of the
+network <code>L</code>, at a fractional position <code>tp[i]</code> along that
+segment (with <code>tp=0</code> representing one endpoint and
+<code>tp=1</code> the other endpoint of the segment).
+</p>
+</li>
+<li>
+<p><code>x,y</code> are missing and <code>seg,tp</code> are vectors of equal length
+as described above.
+</p>
+</li>
+<li>
+<p><code>seg,tp</code> are <code>NULL</code>, and <code>x,y</code> are data in a format
+acceptable to <code><a href="../../grDevices/help/xy.coords.html">xy.coords</a></code> specifying the
+Cartesian coordinates.
+</p>
+</li>
+<li>
+<p>Only the arguments <code>x</code> and <code>L</code> are given,
+and <code>x</code> is a data frame with one of the following types:
+</p>
+
+<ul>
+<li><p> two columns labelled <code>seg,tp</code> interpreted as local
+coordinates on the network.
+</p>
+</li>
+<li><p> two columns labelled <code>x,y</code> interpreted as Cartesian
+coordinates.
+</p>
+</li>
+<li><p> four columns labelled <code>x,y,seg,tp</code>
+interpreted as Cartesian coordinates and local coordinates.
+</p>
+</li></ul>
+
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A point pattern
+on a linear network (object of class <code>"lpp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A &lt;- as.psp(simplenet)
+   X &lt;- runifpointOnLines(10, A)
+   is.ppp(X)
+   Y &lt;- as.lpp(X, L=simplenet)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

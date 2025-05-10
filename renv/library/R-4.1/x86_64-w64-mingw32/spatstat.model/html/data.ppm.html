@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Original Data from a Fitted Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for data.ppm {spatstat.model}"><tr><td>data.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Original Data from a Fitted Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted point process model,
+this function extracts the original point pattern dataset
+to which the model was fitted.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  data.ppm(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>fitted point process model (an object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ppm"</code> represents a point process model
+that has been fitted to data. It is typically produced by
+the model-fitting algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+The object contains complete information about the original data
+point pattern to which the model was fitted.
+This function extracts the original data pattern.
+</p>
+<p>See <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code> for a list of all operations that can be
+performed on objects of class <code>"ppm"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ fit &lt;- ppm(cells, ~1, Strauss(r=0.1))
+ X &lt;- data.ppm(fit)
+ # 'X' is identical to 'cells'
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Palaeolithic Stone Tools</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for stonetools {spatstat.data}"><tr><td>stonetools {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Palaeolithic Stone Tools
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset is a spatial point pattern giving the locations of
+palaeolithic stone tools (&lsquo;lithic&rsquo; specimens) and animal bone
+fragments (&lsquo;bone&rsquo;), accurately surveyed in a layer of soil at David's Site, Olduvai Gorge,
+Tanzania. The surveyed layer is about 20 cm thick and approximately 1.85 million years old.
+</p>
+<p>Details of the study, and data analysis, are reported by Diez-Martin et
+al. (2021). Please cite this article in any use of the data.
+</p>
+<p>The data are presented as a two-dimensional point pattern
+with two columns of marks: the vertical position <code>Z</code> (numeric)
+and the type of artefact <code>TYPE</code> (factor with levels
+<code>BONE</code> and <code>LITHIC</code>). The window of observation is an
+irregular polygon, approximately 40 by 30 metres across.
+Spatial coordinates and vertical coordinate are expressed in metres.
+There are 3563 bone fragments and 1182 lithic
+specimens making a total of 4745 points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data("stonetools")</pre>
+
+
+<h3>Format</h3>
+
+<p>Marked spatial point pattern (object of class <code>"ppp"</code>, see
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>) with two columns of marks,
+<code>Z</code> (numeric) and <code>TYPE</code> (factor with levels
+<code>BONE</code> and <code>LITHIC</code>). The window of observation is
+an irregular polygon. Spatial coordinate unit is metres.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dr. L. Cobo and Prof. F. Diez-Martin.
+Please cite Diez-Martin et al (2021) in any use of these data.
+</p>
+
+
+<h3>References</h3>
+
+<p>Diez-Martin, F., Cobo-Sanchez, L., Baddeley, A., Uribelarrea, D.,
+Mabulla, A., Baquedano, E. and Dominguez-Rodrigo, M. (2021)
+Tracing the spatial imprint of Oldowan technological behaviors: A view
+from DS (Bed I, Olduvai Gorge, Tanzania).
+<em>PLOS ONE, Public Library of Science</em>, <b>16</b>, 1&ndash;47.
+<code>DOI: 10.1371/journal.pone.0254603</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+plot(subset(stonetools, select=TYPE), cex=0.5, cols=2:3)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

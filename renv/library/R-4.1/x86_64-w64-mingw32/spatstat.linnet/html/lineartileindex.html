@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Which Tile Contains Each Given Point on a Linear...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lineartileindex {spatstat.linnet}"><tr><td>lineartileindex {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Determine Which Tile Contains Each Given Point on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a tessellation on a linear network,
+and a list of points on the network,
+determine which tile of the tessellation contains each of the given points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lineartileindex(seg, tp, Z, method = c("encode", "C", "interpreted"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>seg,tp</code></td>
+<td>
+
+<p>Vectors of local coordinates of the query points.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>A tessellation on a linear network (object of class
+<code>"lintess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This low-level function is 
+the analogue of <code><a href="../../spatstat.geom/help/tileindex.html">tileindex</a></code> for linear networks.
+For a tessellation <code>Z</code> on a linear network,
+and a list of query points on the same network,
+the function determines which tile of the tessellation 
+contains each query point.
+</p>
+<p>Argument <code>Z</code> should be a tessellation on a linear network
+(object of class <code>"lintess"</code>).
+</p>
+<p>The vectors <code>seg</code> and <code>tp</code> specify the locations
+of the query points, on the same network, using local coordinates:
+<code>seg</code> contains integer values specifying which
+segment of the network contains each query point;
+<code>tp</code> contains numeric values between 0 and 1 specifying the
+fractional position along that segment.
+</p>
+<p>The result is a factor, of the same length as <code>seg</code> and <code>tp</code>,
+indicating which tile contains each point. The levels of the factor
+are the names of the tiles of <code>Z</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A factor, of the same length as <code>seg</code> and <code>tp</code>,
+whose levels are the names of the tiles of <code>Z</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>.
+</p>
+<p><code><a href="../../spatstat.linnet/help/as.linfun.lintess.html">as.linfun.lintess</a></code> to create a function whose
+value is the tile index.
+</p>
+<p><code><a href="../../spatstat.linnet/help/cut.lpp.html">cut.lpp</a></code> for a neater way to classify
+the points of a point pattern on a linear network
+according to a tessellation on the network.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Z &lt;- lineardirichlet(runiflpp(15, simplenet))
+   X &lt;- runiflpp(10, simplenet)
+   coX &lt;- coords(X)
+   ii &lt;- lineartileindex(coX$seg, coX$tp, Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

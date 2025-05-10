@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Local Multitype K Function (Cross-Type)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for localKcross {spatstat.explore}"><tr><td>localKcross {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Local Multitype K Function (Cross-Type)</h2>
+
+<h3>Description</h3>
+
+<p>for a multitype point pattern,
+computes the cross-type version of
+the local K function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  localKcross(X, from, to, ..., rmax = NULL,
+              correction = "Ripley", verbose = TRUE, rvalue=NULL)
+  localLcross(X, from, to, ..., rmax = NULL, correction = "Ripley")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A multitype point pattern (object of class <code>"ppp"</code>
+with marks which are a factor).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Further arguments passed from <code>localLcross</code> to
+<code>localKcross</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum desired value of the argument <i>r</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>from</code></td>
+<td>
+
+<p>Type of points from which distances should be measured.
+A single value;
+one of the possible levels of <code>marks(X)</code>,
+or an integer indicating which level.
+</p>
+</td></tr>
+<tr valign="top"><td><code>to</code></td>
+<td>
+
+<p>Type of points to which distances should be measured.
+A single value; 
+one of the possible levels of <code>marks(X)</code>,
+or an integer indicating which level.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>String specifying the edge correction to be applied.
+Options are <code>"none"</code>, <code>"translate"</code>, <code>"translation"</code>,
+<code>"Ripley"</code>,
+<code>"isotropic"</code> or <code>"best"</code>.
+Only one correction may be specified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical flag indicating whether to print progress
+reports during the calculation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rvalue</code></td>
+<td>
+<p>Optional. A <em>single</em> value of the distance argument
+<i>r</i> at which the function L or K should be computed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a multitype spatial point pattern <code>X</code>,
+the local cross-type <i>K</i> function <code>localKcross</code>
+is the local version of the multitype <i>K</i> function
+<code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>. 
+Recall that <code>Kcross(X, from, to)</code> is a sum of contributions
+from all pairs of points in <code>X</code> where
+the first point belongs to <code>from</code>
+and the second point belongs to type <code>to</code>.
+The <em>local</em> cross-type <i>K</i>
+function is defined for each point <code>X[i]</code> that belongs to
+type <code>from</code>, and it consists of all the contributions to
+the cross-type <i>K</i> function that originate from point <code>X[i]</code>:
+</p>
+<p style="text-align: center;"><i>
+    K[i,from,to](r) = sqrt( (a/((n-1)* pi)) * sum[j] e[i,j])
+  </i></p>
+
+<p>where the sum is over all points <i>j != i</i>
+belonging to type <code>to</code>, that lie
+within a distance <i>r</i> of the <i>i</i>th point, 
+<i>a</i> is the area of the observation window, <i>n</i> is the number
+of points in <code>X</code>, and <i>e[i,j]</i> is an edge correction
+term (as described in <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>).
+The value of <i>K[i,from,to](r)</i>
+can also be interpreted as one
+of the summands that contributes to the global estimate of the
+<code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code> function.
+</p>
+<p>By default, the function <i>K[i,from,to](r)</i>
+is computed for a range of <i>r</i> values
+for each point <i>i</i> belonging to type <code>from</code>.
+The results are stored as a function value
+table (object of class <code>"fv"</code>) with a column of the table
+containing the function estimates for each point of the pattern
+<code>X</code> belonging to type <code>from</code>.
+</p>
+<p>Alternatively, if the argument <code>rvalue</code> is given, and it is a
+single number, then the function will only be computed for this value
+of <i>r</i>, and the results will be returned as a numeric vector,
+with one entry of the vector for each point of the pattern <code>X</code>
+belonging to type <code>from</code>.
+</p>
+<p>The local cross-type <i>L</i> function <code>localLcross</code>
+is computed by applying the transformation
+<i>L(r) = sqrt(K(r)/(2*pi))</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>rvalue</code> is given, the result is a numeric vector
+of length equal to the number of points in the point pattern
+that belong to type <code>from</code>.
+</p>
+<p>If <code>rvalue</code> is absent, the result is 
+an object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+Essentially a data frame containing columns
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the vector of values of the argument <i>r</i> 
+at which the function <i>K</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value <i>K(r) = pi * r^2</i>
+or <i>L(r)=r</i> for a stationary Poisson process
+</p>
+</td></tr>
+</table>
+<p>together with columns containing the values of the
+neighbourhood density function for each point in the pattern.
+Column <code>i</code> corresponds to the <code>i</code>th point
+of type <code>from</code>.
+The last two columns contain the <code>r</code> and <code>theo</code> values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>,
+<code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code>,
+<code><a href="../../spatstat.explore/help/localK.html">localK</a></code>,
+<code><a href="../../spatstat.explore/help/localL.html">localL</a></code>.
+</p>
+<p>Inhomogeneous counterparts of <code>localK</code> and <code>localL</code>
+are computed by <code><a href="../../spatstat.explore/help/localKcross.inhom.html">localKcross.inhom</a></code> and
+<code><a href="../../spatstat.explore/help/localLinhom.html">localLinhom</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- amacrine
+
+  # compute all the local Lcross functions
+  L &lt;- localLcross(X)
+
+  # plot all the local Lcross functions against r
+  plot(L, main="local Lcross functions for amacrine", legend=FALSE)
+
+  # plot only the local L function for point number 7
+  plot(L, iso007 ~ r)
+  
+  # compute the values of L(r) for r = 0.1 metres
+  L12 &lt;- localLcross(X, rvalue=0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

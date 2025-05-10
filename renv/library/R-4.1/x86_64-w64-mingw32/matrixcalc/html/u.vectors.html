@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: u vectors of an identity matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for u.vectors {matrixcalc}"><tr><td>u.vectors {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> u vectors of an identity matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function constructs an order n * ( n + 1 ) / 2 identity matrix
+and an order matrix u that that maps the ordered pair of indices
+(i,j) i=j, ..., n; j=1, ..., n to a column in this identity matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+u.vectors(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> a positive integer value for the order of underlying matrices </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function firsts constructs an identity matrix of order <i>\frac{1}{2}n&le;ft( {n + 1} \right)</i>.
+<i>{{{\bf{u}}_{i,j}}}</i> is the column vector in the order <i>\frac{1}{2}n&le;ft( {n + 1} \right)</i> identity
+matrix for column <i>k = &le;ft( {j - 1} \right)n + i - \frac{1}{2}j&le;ft( {j - 1} \right)</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with two named components
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>k </code></td>
+<td>
+<p>order <i>n</i> square matrix that maps each ordered pair (i,j) to a column in the identity matrix</p>
+</td></tr>
+<tr valign="top"><td><code>I </code></td>
+<td>
+<p>order <i>\frac{1}{2}n&le;ft( {n + 1} \right)</i> identity matrix</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>If the argument is not an integer, the function displays an error message and stops.
+If the argument is less than two, the function displays an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1980). The elimination matrix, some lemmas and applications,
+<em>SIAM Journal on Algebraic Discrete Methods</em>, 1(4), December 1980, 422-449.
+</p>
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+u &lt;- u.vectors( 3 )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

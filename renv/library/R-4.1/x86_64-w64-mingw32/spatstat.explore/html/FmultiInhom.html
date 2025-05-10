@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Marked F-Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for FmultiInhom {spatstat.explore}"><tr><td>FmultiInhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Marked F-Function
+</h2>
+
+<h3>Description</h3>
+
+<p>For a marked point pattern, 
+estimate the inhomogeneous version of the multitype <i>F</i> function,
+effectively the cumulative distribution function of the distance from
+a fixed point to the nearest point in subset <i>J</i>,
+adjusted for spatially varying intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Fmulti.inhom(X, J,
+              lambda = NULL, lambdaJ = NULL, lambdamin = NULL,
+              ...,
+              r = NULL)
+
+  FmultiInhom(X, J,
+              lambda = NULL, lambdaJ = NULL, lambdamin = NULL,
+              ...,
+              r = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial point pattern (object of class <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>J</code></td>
+<td>
+
+<p>A subset index specifying the subset of points to which
+distances are measured. Any kind of subset index acceptable
+to <code><a href="../../spatstat.geom/help/[.ppp.html">[.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Intensity estimates for each point of <code>X</code>.
+A numeric vector of length equal to <code>npoints(X)</code>.
+Incompatible with <code>lambdaJ</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaJ</code></td>
+<td>
+
+<p>Intensity estimates for each point of <code>X[J]</code>.
+A numeric vector of length equal to <code>npoints(X[J])</code>.
+Incompatible with <code>lambda</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdamin</code></td>
+<td>
+
+<p>A lower bound for the intensity,
+or at least a lower bound for the values in <code>lambdaJ</code>
+or <code>lambda[J]</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to control
+the pixel resolution for the computation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Vector of distance values at which the inhomogeneous <i>G</i>
+function should be estimated. There is a sensible default.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See Cronie and Van Lieshout (2015).
+</p>
+<p>The functions <code>FmultiInhom</code> and <code>Fmulti.inhom</code> are identical.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"fv"</code> containing the estimate of the
+inhomogeneous multitype <i>F</i> function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ottmar Cronie and Marie-Colette van Lieshout.
+Rewritten for <span class="pkg">spatstat</span> by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cronie, O. and Van Lieshout, M.N.M. (2015)
+Summary statistics for inhomogeneous marked point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+DOI: 10.1007/s10463-015-0515-z
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Finhom.html">Finhom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- amacrine
+  J &lt;- (marks(X) == "off")
+  online &lt;- interactive()
+  eps &lt;- if(online) NULL else 0.025
+  if(online &amp;&amp; require(spatstat.model)) {
+    mod &lt;- ppm(X ~ marks * x, eps=eps)
+    lambdaX &lt;- fitted(mod, dataonly=TRUE)
+    lambdaOff &lt;- predict(mod, eps=eps)[["off"]]
+    lmin &lt;- min(lambdaOff) * 0.9
+  } else {
+    ## faster computation for package checker only
+    lambdaX &lt;- intensity(X)[as.integer(marks(X))]
+    lmin &lt;- intensity(X)[2] * 0.9
+  }
+
+  plot(FmultiInhom(X, J, lambda=lambdaX, lambdamin=lmin, eps=eps))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

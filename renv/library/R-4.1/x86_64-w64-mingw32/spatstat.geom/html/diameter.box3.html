@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Geometrical Calculations for Three-Dimensional Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for diameter.box3 {spatstat.geom}"><tr><td>diameter.box3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Geometrical Calculations for Three-Dimensional Box
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the volume, diameter, shortest side, side lengths, 
+or eroded volume of a three-dimensional box.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'box3'
+diameter(x)
+
+## S3 method for class 'box3'
+volume(x)
+
+shortside(x)
+sidelengths(x)
+eroded.volumes(x, r)
+
+## S3 method for class 'box3'
+shortside(x)
+
+## S3 method for class 'box3'
+sidelengths(x)
+
+## S3 method for class 'box3'
+eroded.volumes(x, r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Three-dimensional box (object of class <code>"box3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Numeric value or vector of numeric values for which eroded volumes
+should be calculated.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>diameter.box3</code> computes the diameter of the box.
+<code>volume.box3</code> computes the volume of the box.
+<code>shortside.box3</code> finds the shortest of the three side lengths
+of the box.
+<code>sidelengths.box3</code> returns all three side lengths
+of the box.
+</p>
+<p><code>eroded.volumes</code> computes, for each entry <code>r[i]</code>,
+the volume of the smaller box obtained by removing a slab of
+thickness <code>r[i]</code> from each face of the box. This smaller box is
+the subset consisting of points that lie at least <code>r[i]</code> units
+away from the boundary of the box.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>diameter.box3</code>, <code>shortside.box3</code> and
+<code>volume.box3</code>, a single numeric
+value. For <code>sidelengths.box3</code>, a vector of three numbers.
+For <code>eroded.volumes</code>, a numeric vector of the same length
+as <code>r</code>.  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.box3.html">as.box3</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    X &lt;- box3(c(0,10),c(0,10),c(0,5))
+    diameter(X) 
+    volume(X)
+    sidelengths(X)
+    shortside(X)
+    hd &lt;- shortside(X)/2
+    eroded.volumes(X, seq(0,hd, length=10))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

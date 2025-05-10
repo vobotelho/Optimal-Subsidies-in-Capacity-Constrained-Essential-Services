@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Creation Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for creation.matrix {matrixcalc}"><tr><td>creation.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Creation Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the order n creation matrix, a square matrix with the
+sequence 1, 2, ..., n - 1 on the sub-diagonal below the principal diagonal.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+creation.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> a positive integer greater than 1 </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The order <i>n</i> creation matrix is also called the derivation matrix and is
+used in numerical mathematics and physics. It arises in the solution of linear
+dynamical systems.  The form of the matrix is 
+<i>&le;ft\lbrack {\begin{array}{cccccc}
+0&amp;0&amp;0&amp; \cdots &amp;0&amp;0\\
+1&amp;0&amp;0&amp; \cdots &amp;0&amp;0\\
+0&amp;2&amp;0&amp; \cdots &amp;0&amp;0\\
+0&amp;0&amp;3&amp; \ddots &amp;0&amp;0\\
+ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \ddots &amp;{}\\
+0&amp;0&amp;0&amp; \cdots &amp;{n - 1}&amp;0
+\end{array}} \right\rbrack</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n</i> matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument n is not an integer that is greater than 1, 
+the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Aceto, L. and D. Trigiante (2001). Matrices of Pascal and Other Greats,
+<em>American Mathematical Monthly</em>, March 2001, 108(3), 232-245.
+</p>
+<p>Weinberg, S. (1995). <em>The Quantum Theory of Fields</em>, Cambridge
+University Press.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+H &lt;- creation.matrix( 10 )
+print( H )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perspective Plot of Marked Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for persp.ppp {spatstat.geom}"><tr><td>persp.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Perspective Plot of Marked Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>For a spatial point pattern with numeric marks,
+generate a perspective plot in which each data point is
+shown as a vertical spike, with height proportional to the mark value.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppp'
+persp(x, ..., main, type=c("l", "b"),
+            grid = TRUE, ngrid = 10,
+            col.grid = "grey", col.base = "white",
+            win.args=list(),
+            spike.args = list(), neg.args = list(),
+            point.args=list(), 
+            which.marks = 1,
+            zlab = NULL, zlim = NULL, zadjust = 1,
+            legend=TRUE, legendpos="bottomleft",
+            leg.args=list(lwd=4), leg.col=c("black", "orange"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial point pattern (object of class <code>"ppp"</code>)
+with numeric marks, or a data frame of marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional graphical arguments passed to
+<code><a href="../../graphics/html/persp.html">persp.default</a></code> to determine the perspective view
+(for example the rotation angle <code>theta</code> and the elevation angle
+<code>phi</code>)
+or passed to <code><a href="../../graphics/help/segments.html">segments</a></code> to control the drawing
+of lines (for example <code>lwd</code> for line width)
+or passed to <code><a href="../../graphics/help/points.default.html">points.default</a></code> to control the drawing
+of points (for example <code>pch</code> for symbol type).
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Optional main title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Single character specifying how each observation will be plotted:
+<code>type="l"</code> for lines, 
+<code>type="b"</code> for both lines and points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>grid</code></td>
+<td>
+
+<p>Logical value specifying whether to draw a grid of reference lines
+on the horizontal plane.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Number of grid lines to draw in each direction, if <code>grid=TRUE</code>.
+An integer, or a pair of integers specifying the number of grid
+lines along the horizontal and vertical axes respectively.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.grid</code></td>
+<td>
+
+<p>Colour of grid lines, if <code>grid=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.base</code></td>
+<td>
+
+<p>Colour with which to fill the horizontal plane.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win.args</code></td>
+<td>
+
+<p>List of arguments passed to <code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>
+to control the drawing of the window of <code>x</code>.
+Applicable only when the window is not a rectangle.
+</p>
+</td></tr>
+<tr valign="top"><td><code>spike.args</code></td>
+<td>
+
+<p>List of arguments passed to <code><a href="../../graphics/help/segments.html">segments</a></code>
+to control the drawing of the spikes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>neg.args</code></td>
+<td>
+
+<p>List of arguments passed to <code><a href="../../graphics/help/segments.html">segments</a></code>
+applicable only to those spikes which have negative height
+(corresponding to a mark value which is negative).
+</p>
+</td></tr>
+<tr valign="top"><td><code>point.args</code></td>
+<td>
+
+<p>List of arguments passed to <code><a href="../../graphics/help/points.default.html">points.default</a></code>
+to control the drawing of the points, when <code>type="b"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which.marks</code></td>
+<td>
+
+<p>Integer, or character name, identifying the column of marks which
+should be used, when <code>marks(x)</code> is a data frame.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zlab</code></td>
+<td>
+
+<p>Optional. Label for the vertical axis. 
+Character string or expression.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zlim</code></td>
+<td>
+
+<p>Optional. Range of values on the vertical axis.
+A numeric vector of length 2.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zadjust</code></td>
+<td>
+
+<p>Scale adjustment factor controlling the height of spikes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical value specifying whether to draw a reference scale bar for the
+vertical axis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legendpos</code></td>
+<td>
+
+<p>Position of the reference scale bar. Either a character string
+matching one of the options
+<code>"bottomleft"</code>, <code>"bottomright"</code>,
+<code>"topleft"</code>, <code>"topright"</code>,
+<code>"bottom"</code>, <code>"left"</code>, <code>"top"</code> or <code>"right"</code>,
+or a numeric vector of length 2 specifing the coordinate position
+of the base of the reference scale bar.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.args</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../graphics/help/segments.html">segments</a></code>
+to control the drawing of the reference scale bar.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.col</code></td>
+<td>
+
+<p>A vector (usually of length 2) of colour values
+for successive intervals in the reference scale.
+The default is a reference scale consisting of
+black and orange stripes.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../graphics/help/persp.html">persp</a></code> is generic. This is the
+method for spatial point patterns (objects of class <code>"ppp"</code>).
+The argument <code>x</code> must be a point pattern with numeric marks,
+or with a data frame of marks.
+</p>
+<p>A perspective view will be plotted. The eye position is determined by
+the arguments <code>theta</code> and <code>phi</code>
+passed to <code><a href="../../graphics/help/persp.default.html">persp.default</a></code>.
+</p>
+<p>First the horizontal plane is drawn in perspective view,
+using a faint grid of lines to help suggest the perspective.
+Next the observation window of <code>x</code> is placed on the horizontal
+plane and its edges are drawn in perspective view.
+Finally for each data point in <code>x</code>, a vertical spike is erected
+at the spatial location of the data point, with height equal to the
+mark value of the point.
+</p>
+<p>If any mark values are negative, the corresponding spikes will
+penetrate below the horizontal plane. They can be drawn in a different
+colour by specifying <code>neg.args</code> as shown in the examples.
+</p>
+<p>Like all spatial plots in the <span class="pkg">spatstat</span> family,
+<code>persp.ppp</code> does not independently rescale
+the <i>x</i> and <i>y</i> coordinates. A long narrow window will be
+represented as a long narrow window in the perspective view.
+To override this and allow the coordinates to be independently
+rescaled, use the argument <code>scale=TRUE</code> which will be passed
+to <code><a href="../../graphics/help/persp.default.html">persp.default</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) the perspective transformation matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   persp(longleaf, theta=-30, phi=35, spike.args=list(lwd=3), zadjust=1.5)
+
+   # negative mark values
+   X &lt;- longleaf
+   marks(X) &lt;- marks(X) - 20
+   persp(X, theta=80, phi=35, neg.args=list(col="red"),
+         spike.args=list(lwd=3), zadjust=1.2)
+
+   # irregular window
+   Australia &lt;- Window(austates)
+   Y &lt;- runifrect(70, Frame(Australia))[Australia]
+   marks(Y) &lt;- runif(npoints(Y))
+   persp(Y, theta=30, phi=20, col.base="lightblue",
+         win.args=list(col="pink", border=NA),
+         spike.args=list(lwd=2), zadjust=1.5)
+
+   persp(Y, type="b",
+         theta=30, phi=20, col.base="lightblue",
+         win.args=list(col="pink", border=NA),
+         spike.args=list(lty=3), point.args=list(col="blue"), zadjust=1.5)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Signed or Vector-Valued Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.msr {spatstat.model}"><tr><td>plot.msr {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Signed or Vector-Valued Measure</h2>
+
+<h3>Description</h3>
+
+<p>Plot a signed measure or vector-valued measure.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'msr'
+plot(x, ...,
+                     add = FALSE,
+                     how = c("image", "contour", "imagecontour"),
+                     main = NULL,
+                     do.plot = TRUE,
+                     multiplot = TRUE,
+                     massthresh = 0,
+                     equal.markscale = FALSE,
+                     equal.ribbon = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The signed or vector measure to be plotted.
+An object of class <code>"msr"</code> (see <code><a href="../../spatstat.model/help/msr.html">msr</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>
+to control the interpolation of the
+continuous density component of <code>x</code>,
+or passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> or <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+to control the appearance of the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical flag; if <code>TRUE</code>, the graphics are added to the existing
+plot. If <code>FALSE</code> (the default) a new plot is initialised.
+</p>
+</td></tr>
+<tr valign="top"><td><code>how</code></td>
+<td>
+
+<p>String indicating how to display the continuous density component.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>String. Main title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value determining whether to actually perform the plotting.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiplot</code></td>
+<td>
+
+<p>Logical value indicating whether it is permissible to display
+a plot with multiple panels (representing different components of
+a vector-valued measure, or different types of points in a multitype
+measure.) 
+</p>
+</td></tr>
+<tr valign="top"><td><code>massthresh</code></td>
+<td>
+
+<p>Threshold for plotting atoms.
+A single numeric value or <code>NULL</code>.
+If <code>massthresh=0</code> (the default) then only atoms with
+nonzero mass will be plotted.
+If <code>massthresh &gt; 0</code> then only atoms whose absolute mass
+exceeds <code>massthresh</code> will be plotted.
+If <code>massthresh=NULL</code>, then all atoms of the measure will be plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>equal.markscale</code></td>
+<td>
+
+<p>Logical value indicating whether different panels should use the
+same symbol map (to represent the masses of atoms of the measure).
+</p>
+</td></tr>
+<tr valign="top"><td><code>equal.ribbon</code></td>
+<td>
+
+<p>Logical value indicating whether different panels should use the
+same colour map (to represent the density values in the
+diffuse component of the measure).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"msr"</code>.
+</p>
+<p>The continuous density component of <code>x</code> is interpolated
+from the existing data by <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>,
+and then displayed as a colour image by <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+<p>The discrete atomic component of <code>x</code> is then superimposed on this
+image by plotting the atoms as circles (for positive mass)
+or squares (for negative mass) by <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>.
+By default, atoms with zero mass are not plotted at all. 
+</p>
+<p>To smooth both the discrete and continuous components,
+use   <code><a href="../../spatstat.model/help/Smooth.msr.html">Smooth.msr</a></code>.
+</p>
+<p>Use the argument <code>clipwin</code> to restrict the plot to a subset
+of the full data.
+</p>
+<p>To remove atoms with tiny masses, use the argument <code>massthresh</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisible) colour map (object of class <code>"colourmap"</code>) for the
+colour image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/msr.html">msr</a></code>,
+<code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>,
+<code><a href="../../spatstat.model/help/Smooth.msr.html">Smooth.msr</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>,
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X, ~x+y)
+   rp &lt;- residuals(fit, type="pearson")
+   rs &lt;- residuals(fit, type="score")
+
+   plot(rp)
+   plot(rs)
+   plot(rs, how="contour")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

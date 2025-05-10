@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate Expression Involving Components of a Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for with.msr {spatstat.model}"><tr><td>with.msr {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate Expression Involving Components of a Measure</h2>
+
+<h3>Description</h3>
+
+<p>An expression involving the names of components of a measure
+is evaluated.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'msr'
+with(data, expr, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>expr</code></td>
+<td>
+
+<p>An expression to be evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function
+<code><a href="../../base/help/with.html">with</a></code> for the class <code>"msr"</code>.
+The argument <code>data</code> should be an object of class <code>"msr"</code>
+representing a measure (a function which assigns a value to each
+subset of two-dimensional space).
+</p>
+<p>This function can be used to extract the components of the measure,
+or to perform more complicated manipulations of the components.
+</p>
+<p>The argument <code>expr</code> should be an un-evaluated expression
+in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language. The expression may involve any of the variable
+names listed below with their corresponding meanings. 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>qlocations</code> </td><td style="text-align: left;"> (point pattern) all quadrature locations  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>qweights</code> </td><td style="text-align: left;"> (numeric) all quadrature weights  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>density</code> </td><td style="text-align: left;"> (numeric) density value at each quadrature point  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>discrete</code> </td><td style="text-align: left;"> (numeric) discrete mass at each quadrature point  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>continuous</code> </td><td style="text-align: left;"> (numeric) increment of continuous component  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>increment</code> </td><td style="text-align: left;"> (numeric) increment of measure  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>is.atom</code> </td><td style="text-align: left;"> (logical) whether quadrature point is an atom  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>atoms</code> </td><td style="text-align: left;"> (point pattern) locations of atoms  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>atommass</code> </td><td style="text-align: left;"> (numeric) massess of atoms
+  </td>
+</tr>
+
+</table>
+
+<p>The measure is the sum of discrete and continuous components.
+The discrete component assigns non-zero mass to several points called atoms.
+The continuous component has a density which should be integrated
+over a region to determine the value for that region.
+</p>
+<p>An object of class <code>"msr"</code> approximates the continuous component
+by a sum over quadrature points. The quadrature points are chosen
+so that they include the atoms of the measure. In the list above,
+we have <code>increment = continuous + discrete</code>,
+<code>continuous = density * qweights</code>,
+<code>is.atom = (discrete &gt; 0)</code>,
+<code>atoms = qlocations[is.atom]</code> and
+<code>atommass = discrete[is.atom]</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of evaluating the expression could be
+an object of any kind.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/msr.html">msr</a></code>,
+<code><a href="../../spatstat.model/help/split.msr.html">split.msr</a></code>,
+<code><a href="../../spatstat.model/help/measureContinuous.html">measureContinuous</a></code>, <code><a href="../../spatstat.model/help/measurePositive.html">measurePositive</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X, ~x+y)
+   rp &lt;- residuals(fit, type="pearson")
+
+   with(rp, atoms)
+   with(rp, qlocations %mark% continuous)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

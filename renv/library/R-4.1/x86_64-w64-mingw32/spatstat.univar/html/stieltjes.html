@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Integral of Function Against Cumulative Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for stieltjes {spatstat.univar}"><tr><td>stieltjes {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Integral of Function Against Cumulative Distribution</h2>
+
+<h3>Description</h3>
+
+<p>Computes the Stieltjes integral 
+of a function <i>f</i> with respect to a function <i>M</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+stieltjes(f, M, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>The integrand. A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+</td></tr>
+<tr valign="top"><td><code>M</code></td>
+<td>
+
+<p>The cumulative function against which <code>f</code> will be
+integrated. An object of class <code>"fv"</code> or <code>"stepfun"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code>f</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the Stieltjes integral
+</p>
+<p style="text-align: center;"><i>I = integral f(x) dM(x)</i></p>
+
+<p>of a real-valued function <i>f(x)</i>
+with respect to a nondecreasing function <i>M(x)</i>.
+</p>
+<p>One common use of the Stieltjes integral is
+to find the mean value of a random variable from its
+cumulative distribution function <i>F(x)</i>. The mean value is
+the Stieltjes integral of <i>f(x)=x</i> with respect to <i>F(x)</i>.
+</p>
+<p>The argument <code>f</code> should be a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+It should accept a numeric vector argument <code>x</code> and should return
+a numeric vector of the same length.
+</p>
+<p>The argument <code>M</code> should be either a step function
+(object of class <code>"stepfun"</code>) or a function value table
+(object of class <code>"fv"</code> 
+).
+Objects of class <code>"stepfun"</code> are returned by
+<code><a href="../../stats/help/ecdf.html">ecdf</a></code>, <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>,
+
+and other utilities.
+
+
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the value of the Stieltjes integral
+computed using each of the versions of the function <code>M</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- runif(100)
+  w &lt;- runif(100)
+  H &lt;- ewcdf(x, w)
+  stieltjes(function(x) { x^2 }, H)
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

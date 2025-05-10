@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Aherne's hamster tumour data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hamster {spatstat.data}"><tr><td>hamster {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Aherne's hamster tumour data</h2>
+
+<h3>Description</h3>
+
+<p>Point pattern of cell nuclei in hamster kidney, each nucleus classified as
+either &lsquo;dividing&rsquo; or &lsquo;pyknotic&rsquo;.
+A multitype point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(hamster)</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code>
+representing the point pattern of cell locations.
+Entries include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> Cartesian <i>x</i>-coordinate of cell </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> Cartesian <i>y</i>-coordinate of cell </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> factor with levels <code>"dividing"</code>
+    and <code>"pyknotic"</code>.
+  </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format.
+</p>
+
+
+<h3>Notes</h3>
+
+<p>These data were presented and analysed by Diggle (1983, section 7.3).
+</p>
+<p>The data give the positions of the centres of the nuclei of certain
+cells in a histological
+section of tissue from a laboratory-induced metastasising lymphoma
+in the kidney of a hamster.
+</p>
+<p>The nuclei are classified as either
+&quot;pyknotic&quot; (corresponding to dying cells) or &quot;dividing&quot; (corresponding
+to cells arrested in metaphase, i.e. in the act of dividing). The
+background void is occupied by unrecorded, interphase cells in
+relatively large numbers. 
+</p>
+<p>The sampling window is a square, originally about 0.25 mm square
+in real units, which has been rescaled to the unit square.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dr W. A. Aherne, Department of Pathology, University of
+Newcastle-upon-Tyne, UK. Data supplied by Prof. Peter Diggle</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P.J. (1983)
+<em>Statistical analysis of spatial point patterns</em>.
+Academic Press.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+  hamster
+  ## rescale to microns
+  (Ham &lt;- rescale(hamster))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,31 @@
+bccorr                  Compute limited mobility bias corrected
+                        correlation between fixed effects
+btrap                   Bootstrap standard errors for the group fixed
+                        effects
+cgsolve                 Solve a symmetric linear system with the
+                        conjugate gradient method
+chainsubset             Chain subset conditions
+compfactor              Find the connected components
+condfstat               Compute conditional F statistic for weak
+                        instruments in an IV-estimation with multiple
+                        endogenous variables
+demeanlist              Centre vectors on multiple groups
+efactory                Create estimable function
+felm                    Fit a linear model with multiple group fixed
+                        effects
+fevcov                  Compute limited mobility bias corrected
+                        covariance matrix between fixed effects
+getfe                   Retrieve the group fixed effects
+is.estimable            Verify estimability of function
+kaczmarz                Solve a linear system defined by factors
+lfe-package             Overview. Linear Group Fixed Effects
+makeDmatrix             Make sparse matrix of dummies from factor list
+mctrace                 Compute trace of a large matrix by sample means
+nlexpect                Compute expectation of a function of the
+                        coefficients.
+sargan                  Compute Sargan's S
+summary.felm            Summarize felm model fits
+varvars                 Compute the variance of the fixed effect
+                        variance estimate
+waldtest                Compute Wald test for joint restrictions on
+                        coefficients

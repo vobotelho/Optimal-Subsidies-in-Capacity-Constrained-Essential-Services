@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hilbert matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hilbert.matrix {matrixcalc}"><tr><td>hilbert.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Hilbert matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function returns an n by n Hilbert matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hilbert.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> Order of the Hilbert matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A Hilbert matrix is an order <i>n</i> square matrix of unit fractions with elements 
+defined as <i>H_{i,j}  = {1 \mathord{&le;ft/
+ {\vphantom {1 {&le;ft( {i + j - 1} \right)}}} \right.
+ } {&le;ft( {i + j - 1} \right)}}</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument is less than or equal to zero, the function displays an error message and stops.
+If the argument is not an integer, the function displays an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Hilbert, David (1894). Ein Beitrag zur Theorie des Legendre schen Polynoms,
+<em>Acta Mathematica</em>, Springer, Netherlands, 18, 155-159.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+H &lt;- hilbert.matrix( 4 )
+print( H )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

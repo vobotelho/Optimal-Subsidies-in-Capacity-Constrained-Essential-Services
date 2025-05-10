@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bronze gradient filter data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bronzefilter {spatstat.data}"><tr><td>bronzefilter {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Bronze gradient filter data</h2>
+
+<h3>Description</h3>
+
+<p>These data represent a spatially inhomogeneous pattern of
+circular section profiles of particles, observed in a
+longitudinal plane section through a gradient sinter
+filter made from bronze powder, prepared by Ricardo Bernhardt, Dresden. 
+</p>
+<p>The material was produced by sedimentation of bronze powder with varying 
+grain diameter and subsequent sintering,
+as described in Bernhardt et al. (1997). 
+</p>
+<p>The data are supplied as a marked point pattern of circle centres marked by
+circle radii.
+The coordinates of the centres and the radii are recorded in mm.
+The field of view is an <i>18 * 7</i> mm rectangle.
+</p>
+<p>The data were first analysed by Hahn et al. (1999).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(bronzefilter)</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code>
+representing the point pattern of cell locations.
+Entries include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> Cartesian <i>x</i>-coordinate of bronze grain profile centre</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> Cartesian <i>y</i>-coordinate of bronze grain profile centre</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> radius of bronze grain profile
+  </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format.
+All coordinates are recorded in mm.
+</p>
+
+
+<h3>Source</h3>
+
+<p>R.\ Bernhardt (section image), H.\ Wendrock (coordinate measurement). 
+Adjusted, formatted and communicated by U.\ Hahn.
+</p>
+
+
+<h3>References</h3>
+
+<p>Bernhardt, R., Meyer-Olbersleben, F. and Kieback, B. (1997)
+Fundamental investigation on the preparation of gradient structures
+by sedimentation of different powder fractions under gravity.
+<em>Proc. of the 4th Int. Conf. On Composite Engineering,
+July 6&ndash;12 1997, ICCE/4</em>, Hawaii, Ed. David Hui, 147&ndash;148.
+</p>
+<p>Hahn U., Micheletti, A., Pohlink, R., Stoyan D. and Wendrock, H.(1999) 
+Stereological analysis and modelling of gradient structures. 
+<em>Journal of Microscopy</em>, <b>195</b>, 113&ndash;124.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  data(bronzefilter)
+  if(require(spatstat.geom)) {
+  plot(bronzefilter, markscale=2)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

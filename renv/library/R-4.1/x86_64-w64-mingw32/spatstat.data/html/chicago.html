@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Chicago Crime Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for chicago {spatstat.data}"><tr><td>chicago {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Chicago Crime Data
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset is a record of spatial locations of crimes
+reported in the period 25 April to 8 May 2002,
+in an area of Chicago (Illinois, USA)
+close to the University of Chicago.
+The original crime map was published in the
+Chicago Weekly News in 2002. 
+</p>
+<p>The data give the spatial location (street address) of each crime report,
+and the type of crime. The type labels are interpreted as follows:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>assault</code> </td><td style="text-align: left;"> battery/assault </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>burglary</code> </td><td style="text-align: left;"> burglary </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>cartheft</code> </td><td style="text-align: left;"> motor vehicle theft </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>damage</code> </td><td style="text-align: left;"> criminal damage </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>robbery</code> </td><td style="text-align: left;"> robbery </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>theft</code> </td><td style="text-align: left;"> theft </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>trespass</code> </td><td style="text-align: left;"> criminal trespass
+  </td>
+</tr>
+
+</table>
+
+<p>All crimes occurred on or near a street. The data give the
+coordinates of all streets in the survey area, and their connectivity.
+</p>
+<p>Spatial coordinates are expressed in feet (one foot is 0.3048 metres).
+</p>
+<p>The dataset <code>chicago</code> is an object of class <code>"lpp"</code>
+representing a point pattern on a linear network.
+See <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code> for further information on the format.
+</p>
+<p>These data were published and analysed in
+Ang, Baddeley and Nair (2012).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(chicago)</pre>
+
+
+<h3>Format</h3>
+
+<p>Object of class <code>"lpp"</code>. 
+See <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Chicago Weekly News, 2002.
+Manually digitised by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010)
+<em>Statistical methodology for events on a network</em>.
+Master's thesis, School of Mathematics and Statistics, University of
+Western Australia.
+</p>
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+<p>Chicago Weekly News website: <a href="http://www.chicagoweeklynews.com">http://www.chicagoweeklynews.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(chicago)
+  if(require(spatstat.linnet)) {
+plot(chicago)
+plot(as.linnet(chicago), main="Chicago Street Crimes",col="green")
+plot(as.ppp(chicago), add=TRUE, col="red", chars=c(16,2,22,17,24,15,6))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

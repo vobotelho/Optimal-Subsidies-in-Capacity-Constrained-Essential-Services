@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Transform the Quantiles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for transformquantiles {spatstat.univar}"><tr><td>transformquantiles {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Transform the Quantiles
+</h2>
+
+<h3>Description</h3>
+
+<p>Apply a transformation to the quantiles of a vector,
+or to the quantiles of the pixel values in a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+transformquantiles(X, uniform = FALSE, reverse = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A numeric vector, matrix, array, or a pixel image
+(object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>uniform</code></td>
+<td>
+
+<p>Logical value specifying whether each quantile value should be
+replaced by the corresponding cumulative probability
+(called <em>histogram equalisation</em>, <em>transformation to uniformity</em>
+or <em>probability integral transformation</em>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>reverse</code></td>
+<td>
+
+<p>Logical value specifying whether to swap the
+upper and lower quantiles. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>X</code> may be a vector, matrix,
+array, or a pixel image (object of class <code>"im"</code>).
+</p>
+<p>The algorithm will first extract the entries or pixel values of
+<code>X</code> as a vector, and sort the values into ascending order.
+</p>
+<p>If <code>uniform=TRUE</code>, the entries in this vector will be replaced by the
+corresponding cumulative probabilities (the <code>k</code>th
+smallest value will be replaced by the
+number <code>(k-0.5)/n</code> where <code>n</code> is the total number of values).
+</p>
+<p>If <code>reverse=TRUE</code>, the resulting vector will be reversed
+so that it is in descending order (so that the <code>k</code>th smallest
+value will be swapped with the <code>k</code>th largest value).
+</p>
+<p>Finally the transformed values will be replaced into the original
+positions in the vector, matrix, array, or pixel image.
+</p>
+<p>The case <code>uniform=TRUE, reverse=FALSE</code> is called
+<em>transformation to uniformity</em>, the
+<em>probability integral transformation</em>,
+<em>histogram equalisation</em>, or <em>quantile transformation</em>.
+The resulting values are uniformly distributed between 0 and 1;
+a histogram of the values in <code>X</code> is flat.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of the same type as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>To apply an arbitrary function <code>f</code> to the pixel values in an image,
+use the idiom <code>X[] &lt;- f(X[])</code>.
+
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- c(3, 5, 1, 2, 4)
+  transformquantiles(X, reverse=TRUE)
+  transformquantiles(X, uniform=TRUE)
+  transformquantiles(X, uniform=TRUE, reverse=TRUE)
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

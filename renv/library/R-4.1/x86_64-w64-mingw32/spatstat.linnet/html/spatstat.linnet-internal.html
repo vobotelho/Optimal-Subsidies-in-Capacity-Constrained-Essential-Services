@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal spatstat.linnet functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatstat.linnet-internal {spatstat.linnet}"><tr><td>spatstat.linnet-internal {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal spatstat.linnet functions</h2>
+
+<h3>Description</h3>
+
+<p>Internal spatstat.linnet functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+
+
+
+
+ApplyConnected(X, Engine, r, ..., rule, auxdata)
+DoCountEnds(X, D, toler)
+DoCountCrossEnds(X, I, J, DIJ, toler)
+FDMKERNEL(lppobj, dtt, dtx, M, nsave, weights,
+          stepnames, setuponly, verbose)
+## S3 method for class 'linfun'
+as.linfun(X, ...)
+## S3 method for class 'lintess'
+as.owin(W, ...)
+## S3 method for class 'lppm'
+getglmdata(object, ...)
+## S3 method for class 'lppm'
+getglmfit(object, ...)
+## S3 method for class 'lppm'
+getglmsubset(object, ...)
+## S3 method for class 'lppm'
+hasglmfit(object)
+default.linnet.tolerance(L)
+evaluateNetCovariate(covariate, locations, ...)
+evaluateNetCovariateAlongNetwork(covariate, locations, ..., types)
+evaluateNetCovariateAtPoints(covariate, locations, ..., allow.column)
+exactlppm(X, baseline, ..., subset)
+## S3 method for class 'exactlppm'
+is.poisson(x)
+## S3 method for class 'exactlppm'
+is.stationary(x)
+makeLinnetTolerance(toler)
+## S3 method for class 'exactlppm'
+predict(object, locations,...)
+## S3 method for class 'exactlppm'
+print(x, ...)
+## S3 method for class 'lintess'
+print(x, ...)
+## S3 method for class 'summary.linim'
+print(x, ...)
+## S3 method for class 'summary.linnet'
+print(x, ...)
+## S3 method for class 'summary.lintess'
+print(x, ...)
+## S3 method for class 'lintess'
+summary(object, ...)
+## S3 method for class 'exactlppm'
+response(object)
+## S3 method for class 'lintess'
+nobjects(x)
+## S3 method for class 'lintess'
+Window(X, ...)
+## S3 replacement method for class 'linnet'
+Window(X, ..., check=TRUE) &lt;- value
+## S3 replacement method for class 'lpp'
+Window(X, ..., check=TRUE) &lt;- value
+densitypointsLPP(x, sigma, ...,
+                 weights, nsigma, leaveoneout, fast,
+                 fastmethod, floored,
+                 dx, dt, iterMax, verbose, debug)
+flatdensityfunlpp(X, ..., disconnect, weights, what)
+flatdensityatpointslpp(X, ..., leaveoneout, disconnect, weights, what)
+local2lpp(L, seg, tp, X, df.only)
+looHeatLPP(U0, Amatrix, npts, niter, nsave,
+           lixelweight, lixelmap, verbose) 
+looVoronoiLPP(X)
+validate.lpp.coords(X, fatal, context)
+## S3 method for class 'lppm'
+as.ppm(object)
+pointsAlongNetwork(L, delta)
+lineardiscEngine(L, x, r, want)
+linearEuclidEngine(X, fun, ..., r, reweight, denom,
+                   samplesize, showworking, correction)
+linearKengine(X, ..., r, reweight, denom, samplesize,
+              correction, ratio, showworking)
+linearKmulti(X, I, J, r, ..., correction)
+linearKmulti.inhom(X, I, J, lambdaI, lambdaJ, r, ..., correction,
+             normalise, sigma)
+linearpcfengine(X, ..., r, reweight, denom, samplesize, correction, ratio)
+linearpcfmulti(X, I, J, r, ..., correction)
+linearpcfmulti.inhom(X, I, J, lambdaI, lambdaJ, r, ...,
+                     correction, normalise,
+                     sigma, adjust.sigma, bw, adjust.bw)
+linearKmultiEngine(X, I, J, ...,
+                   r, reweight, denom, samplesize, correction, showworking)
+linearPCFmultiEngine(X, I, J, ...,
+                   r, reweight, denom, samplesize, correction, showworking)
+resampleNetworkDataFrame(df, template)
+## S3 method for class 'lpp'
+resolve.lambda(X, lambda, subset, ...,
+       update, leaveoneout, everywhere, loo.given, sigma, lambdaname)
+sortalongsegment(df)
+## S3 method for class 'lppm'
+spatialCovariateEvidence(model, covariate, ..., lambdatype, 
+          eps, dimyx, xy, rule.eps,
+          delta, nd, interpolate, jitter, jitterfactor,
+          modelname, covname, dataname, subset, clip.predict)
+## S3 method for class 'exactlppm'
+spatialCovariateEvidence(model, covariate, ...,
+          lambdatype, interpolate, jitter, jitterfactor,
+          modelname, covname, dataname, subset, clip.predict)
+vnnFind(seg, tp, ns, nv, from, to, seglen, huge, tol, kmax)
+ldtEngine(nv, ns, from, to, seglen, huge,
+          coUXord, vnndist, vnnwhich, vnnlab)
+resolve.heat.steps(sigma, ..., dx, dt,
+                   niter, iterMax, nsave,
+                   seglengths, maxdegree, AMbound, L,
+                   finespacing, fineNsplit, fineNlixels,
+                   W, eps, dimyx, xy, 
+                   allow.adjust, warn.adjust,
+                   verbose, stepnames)
+rmaxEuclidean(L, verbose, show)
+qkdeEngine(x, sigma, ..., at, what,
+           leaveoneout, diggle, raw, edge2D, edge,
+           weights, varcov, positive, shortcut,
+           precomputed, savecomputed)
+## S3 method for class 'lppm'
+updateData(model, X, ...)
+Math(x, ...)
+Ops(e1, e2)
+Complex(z)
+Summary(..., na.rm = FALSE)
+
+
+
+
+LinimOp(e1, e2, op)
+LinimListOp(e1, e2, op)
+traceTessLinnet(A, L)
+
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These internal <span class="pkg">spatstat.linnet</span> functions should not be called
+directly by the user. Their names and capabilities may change
+without warning from one version of <span class="pkg">spatstat.linnet</span> to the next.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return values of these functions are not documented,
+and may change without warning.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

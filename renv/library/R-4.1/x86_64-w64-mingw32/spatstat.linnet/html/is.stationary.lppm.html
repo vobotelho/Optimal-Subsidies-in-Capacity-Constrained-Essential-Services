@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Recognise Stationary and Poisson Point Process Models on a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.stationary.lppm {spatstat.linnet}"><tr><td>is.stationary.lppm {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Recognise Stationary and Poisson Point Process Models on a Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model that has been fitted to data on a network,
+determine whether the model is a stationary point process,
+and whether it is a Poisson point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lppm'
+is.stationary(x)
+
+## S3 method for class 'lppm'
+is.poisson(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A fitted spatial point process model on a linear network
+(object of class <code>"lppm"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>x</code> represents a fitted spatial point process model
+on a linear network.
+</p>
+<p><code>is.stationary(x)</code> returns <code>TRUE</code> if <code>x</code> represents
+a stationary point process, and <code>FALSE</code> if not.
+</p>
+<p><code>is.poisson(x)</code> returns <code>TRUE</code> if <code>x</code> represents
+a Poisson point process, and <code>FALSE</code> if not.
+</p>
+<p>The functions <code><a href="../../spatstat.random/help/is.stationary.html">is.stationary</a></code>
+and <code><a href="../../spatstat.random/help/is.poisson.html">is.poisson</a></code> are generic,
+with methods for many classes of models.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.marked.html">is.marked</a></code>
+to determine whether a model is a marked
+point process. 
+</p>
+<p><code><a href="../../spatstat.random/help/is.stationary.html">is.stationary</a></code>, 
+<code><a href="../../spatstat.random/help/is.poisson.html">is.poisson</a></code> for generics.
+</p>
+<p><code><a href="../../spatstat.linnet/help/summary.lppm.html">summary.lppm</a></code> for detailed information.
+</p>
+<p>Model-fitting function
+<code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- lppm(spiders ~ x)
+  is.stationary(fit)
+  is.poisson(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

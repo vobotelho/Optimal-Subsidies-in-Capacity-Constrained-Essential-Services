@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class owin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for owin.object {spatstat.geom}"><tr><td>owin.object {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class owin</h2>
+
+<h3>Description</h3>
+
+<p>A class <code>owin</code> to define the &ldquo;observation window&rdquo; of a point pattern
+</p>
+
+
+<h3>Details</h3>
+
+<p>In the <span class="pkg">spatstat</span> library, a point pattern dataset must include
+information about the window or region in which the pattern was
+observed. A window is described by an object of class <code>"owin"</code>.
+Windows of arbitrary shape are supported.
+</p>
+<p>An object of class <code>"owin"</code> has one of three types:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>"rectangle"</code>: </td><td style="text-align: left;">
+      a rectangle in the two-dimensional plane with edges parallel to the axes
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"polygonal"</code>: </td><td style="text-align: left;">
+    a region whose boundary is a polygon or several polygons.
+    The region may have holes and may consist of several disconnected pieces.
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"mask"</code>: </td><td style="text-align: left;">
+      a binary image (a logical matrix)
+      set to <code>TRUE</code> for pixels inside the window and
+      <code>FALSE</code> outside the window.
+  </td>
+</tr>
+
+</table>
+
+<p>Objects of class <code>"owin"</code> may be created by the function
+<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>
+and converted from other types of data by the function
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+<p>They may be manipulated by the functions 
+<code><a href="../../spatstat.geom/help/as.rectangle.html">as.rectangle</a></code>,
+<code><a href="../help/as.mask.html">as.mask</a></code>, 
+<code><a href="../../spatstat.geom/help/complement.owin.html">complement.owin</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>,
+<code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>,
+<code><a href="../../spatstat.geom/help/opening.html">opening</a></code>
+and
+<code><a href="../../spatstat.geom/help/closing.html">closing</a></code>.
+</p>
+<p>Geometrical calculations available for windows include
+<code><a href="../../spatstat.geom/help/area.owin.html">area.owin</a></code>,
+<code><a href="../../spatstat.geom/help/perimeter.html">perimeter</a></code>,
+<code><a href="../../spatstat.geom/help/diameter.owin.html">diameter.owin</a></code>,
+<code><a href="../../spatstat.geom/help/boundingbox.html">boundingbox</a></code>,
+<code><a href="../../spatstat.geom/help/eroded.areas.html">eroded.areas</a></code>,
+<code><a href="../../spatstat.geom/help/bdist.points.html">bdist.points</a></code>,
+<code><a href="../../spatstat.geom/help/bdist.pixels.html">bdist.pixels</a></code>,
+and
+<code>even.breaks.owin</code>.
+The mapping between continuous coordinates and pixel raster indices
+is facilitated by the functions
+<code><a href="../../spatstat.geom/help/raster.x.html">raster.x</a></code>,
+<code><a href="../../spatstat.geom/help/raster.y.html">raster.y</a></code> and
+<code><a href="../../spatstat.geom/help/nearest.raster.point.html">nearest.raster.point</a></code>.
+</p>
+<p>There is a <code>plot</code> method for window objects,
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>. This may be useful if you wish to
+plot a point pattern's window without the points for graphical
+purposes.
+</p>
+<p>There are also methods for
+<code>summary</code> and <code>print</code>. 
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>In a window of type <code>"mask"</code>, the 
+row index corresponds to increasing <i>y</i> coordinate,
+and the column index corresponds to increasing <i>x</i> coordinate.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.rectangle.html">as.rectangle</a></code>,
+<code><a href="../help/as.mask.html">as.mask</a></code>,
+<code><a href="../../spatstat.geom/help/summary.owin.html">summary.owin</a></code>,
+<code><a href="../../spatstat.geom/help/print.owin.html">print.owin</a></code>,
+<code><a href="../../spatstat.geom/help/complement.owin.html">complement.owin</a></code>,
+<code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>,
+<code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>,
+<code><a href="../../spatstat.geom/help/opening.html">opening</a></code>,
+<code><a href="../../spatstat.geom/help/closing.html">closing</a></code>,
+<code><a href="../../spatstat.geom/help/affine.owin.html">affine.owin</a></code>,
+<code><a href="../../spatstat.geom/help/shift.owin.html">shift.owin</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.owin.html">rotate.owin</a></code>,
+<code><a href="../../spatstat.geom/help/raster.x.html">raster.x</a></code>,
+<code><a href="../../spatstat.geom/help/raster.y.html">raster.y</a></code>,
+<code><a href="../../spatstat.geom/help/nearest.raster.point.html">nearest.raster.point</a></code>,
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>,
+<code><a href="../../spatstat.geom/help/area.owin.html">area.owin</a></code>,
+<code><a href="../../spatstat.geom/help/boundingbox.html">boundingbox</a></code>,
+<code><a href="../../spatstat.geom/help/diameter.html">diameter</a></code>,
+<code><a href="../../spatstat.geom/help/eroded.areas.html">eroded.areas</a></code>,
+<code><a href="../../spatstat.geom/help/bdist.points.html">bdist.points</a></code>,
+<code><a href="../../spatstat.geom/help/bdist.pixels.html">bdist.pixels</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ w &lt;- owin()
+ w &lt;- owin(c(0,1), c(0,1))
+ # the unit square
+  
+ w &lt;- owin(c(0,1), c(0,2))
+ if(FALSE) {
+   plot(w)
+   # plots edges of a box 1 unit x 2 units
+   v &lt;- locator() 
+   # click on points in the plot window
+   # to be the vertices of a polygon 
+   # traversed in anticlockwise order 
+   u &lt;- owin(c(0,1), c(0,2), poly=v)
+   plot(u)
+   # plots polygonal boundary using polygon()
+   plot(as.mask(u, eps=0.02))
+   # plots discrete pixel approximation to polygon
+ }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

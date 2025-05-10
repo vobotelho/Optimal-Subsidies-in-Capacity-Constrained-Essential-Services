@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bandwidth Selection Based on Window Geometry</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.frac {spatstat.explore}"><tr><td>bw.frac {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Bandwidth Selection Based on Window Geometry
+</h2>
+
+<h3>Description</h3>
+
+<p>Select a smoothing bandwidth for smoothing a point pattern,
+based only on the geometry of the spatial window.
+The bandwidth is a specified quantile of the distance
+between two independent random points in the window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   bw.frac(X, ..., f=1/4)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>) or
+point pattern (object of class <code>"ppp"</code>)
+or other data which can be converted to a window
+using <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/distcdf.html">distcdf</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Probability value (between 0 and 1)
+determining the quantile of the distribution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate bandwidth <code>sigma</code>
+for the kernel estimator of point process intensity
+computed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+<p>The bandwidth <i>&sigma;</i> is computed as a 
+quantile of the distance between two independent random points
+in the window. The default is the lower quartile of this
+distribution.
+</p>
+<p>If <i>F(r)</i> is the cumulative distribution function of the
+distance between two independent random points uniformly distributed
+in the window, then the value returned is the quantile
+with probability <i>f</i>. That is, the bandwidth is 
+the value <i>r</i> such that <i>F(r) = f</i>.
+</p>
+<p>The cumulative distribution function  <i>F(r)</i> is
+computed using <code><a href="../../spatstat.explore/help/distcdf.html">distcdf</a></code>. We then
+we compute the smallest number <i>r</i>
+such that <i>F(r) &gt;= f</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.frac"</code>
+which can be plotted to show the cumulative distribution function
+and the selected quantile.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>For estimating point process intensity, see
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code>,
+<code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code>,
+<code><a href="../../spatstat.explore/help/bw.scott.html">bw.scott</a></code>,
+<code><a href="../../spatstat.explore/help/bw.CvL.html">bw.CvL</a></code>.
+</p>
+<p>For other smoothing purposes, see
+<code><a href="../../spatstat.explore/help/bw.stoyan.html">bw.stoyan</a></code>,
+<code><a href="../../spatstat.explore/help/bw.smoothppp.html">bw.smoothppp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  h &lt;- bw.frac(letterR)
+  h
+  plot(h, main="bw.frac(letterR)")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

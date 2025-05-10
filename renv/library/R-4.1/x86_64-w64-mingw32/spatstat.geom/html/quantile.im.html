@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sample Quantiles of Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quantile.im {spatstat.geom}"><tr><td>quantile.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sample Quantiles of Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Compute the sample quantiles of the pixel values of a
+given pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'im'
+quantile(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A pixel image.
+An object of class <code>"im"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../stats/html/quantile.html">quantile.default</a></code>.
+They determine the probabilities for which quantiles should be
+computed. See <code><a href="../../stats/html/quantile.html">quantile.default</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This simple function applies the generic <code><a href="../../stats/html/quantile.html">quantile</a></code> operation
+to the pixel values of the image <code>x</code>. 
+</p>
+<p>This function is a convenient
+way to inspect an image and to obtain summary statistics.
+See the examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of quantiles. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/quantile.html">quantile</a></code>,
+<code><a href="../../spatstat.geom/help/cut.im.html">cut.im</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# artificial image data
+Z &lt;- setcov(square(1))
+
+# find the quartiles
+quantile(Z)
+
+# find the deciles
+quantile(Z, probs=(0:10)/10)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

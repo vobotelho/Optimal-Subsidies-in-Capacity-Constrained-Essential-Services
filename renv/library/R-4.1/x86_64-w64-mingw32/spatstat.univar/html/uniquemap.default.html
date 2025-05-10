@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Map Duplicate Entries to Unique Entries</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for uniquemap.default {spatstat.univar}"><tr><td>uniquemap.default {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Map Duplicate Entries to Unique Entries
+</h2>
+
+<h3>Description</h3>
+
+<p>Determine whether entries in a vector
+(or rows in a matrix or data frame)
+are duplicated,
+choose a unique representative for each set of duplicates,
+and map the duplicates to the unique representative.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+uniquemap(x)
+
+## Default S3 method:
+uniquemap(x)
+
+## S3 method for class 'data.frame'
+uniquemap(x)
+
+## S3 method for class 'matrix'
+uniquemap(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A vector, data frame or matrix,
+or another type of data.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>uniquemap</code> is generic, with methods
+for point patterns, data frames, and a default method.
+</p>
+<p>The default method expects a vector. It determines whether any entries
+of the vector <code>x</code> are duplicated,
+and constructs a mapping of the indices of <code>x</code>
+so that all duplicates are mapped to a unique representative index.
+</p>
+<p>The result is an integer vector <code>u</code> such that
+<code>u[j] = i</code> if
+the entries <code>x[i]</code> and <code>x[j]</code> are identical and
+point <code>i</code> has been chosen as the unique representative.
+The entry <code>u[i] = i</code> means either that point <code>i</code> is
+unique, or that it has been chosen as the unique representative
+of its equivalence class.
+</p>
+<p>The method for <code>data.frame</code> determines whether any rows of the
+data frame <code>x</code> are duplicated, and constructs a mapping of the
+row indices so that all duplicate rows are mapped to a unique
+representative row.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/duplicated.html">duplicated</a></code>.
+</p>
+<p><code>uniquemap.ppp</code> in <span class="pkg">spatstat.geom</span>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- c(3, 5, 2, 4, 2, 3)
+  uniquemap(x)
+
+  df &lt;- data.frame(A=x, B=42)
+  uniquemap(df)
+
+  z &lt;- cbind(x, 10-x)
+  uniquemap(z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

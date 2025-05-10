@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate a Fitted Spatial Logistic Regression Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for simulate.slrm {spatstat.model}"><tr><td>simulate.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate a Fitted Spatial Logistic Regression Model</h2>
+
+<h3>Description</h3>
+
+<p>Generates simulated realisations from a fitted
+spatial logistic regresson model
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'slrm'
+simulate(object, nsim = 1, seed=NULL, ...,
+         window=NULL, covariates=NULL, verbose=TRUE, drop=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted spatial logistic regression model. An object of class <code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated realisations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+
+<p>an object specifying whether and how to initialise
+the random number generator. Either <code>NULL</code> or an integer that will
+be used in a call to <code><a href="../../base/help/Random.html">set.seed</a></code>
+before simulating the point patterns. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Optional. Window (object of class <code>"owin"</code>) in which the
+model should be simulated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariates</code></td>
+<td>
+
+<p>Optional. A named list containing new values for the covariates in the
+model. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical. Whether to print progress reports (when <code>nsim &gt; 1</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code>, the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the generic function
+<code><a href="../../stats/help/simulate.html">simulate</a></code> for the class <code>"slrm"</code> of fitted
+spatial logistic regression models.
+</p>
+<p>Simulations are performed by <code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>
+after the intensity has been computed by <code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code>.
+</p>
+<p>The return value is a list of point patterns.
+It also carries an attribute <code>"seed"</code> that
+captures the initial state of the random number generator.
+This follows the convention used in
+<code>simulate.lm</code> (see <code><a href="../../stats/help/simulate.html">simulate</a></code>).
+It can be used to force a sequence of simulations to be
+repeated exactly, as shown in the examples for <code><a href="../../stats/help/simulate.html">simulate</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of length <code>nsim</code> containing simulated point patterns
+(objects of class <code>"ppp"</code>).
+</p>
+<p>The return value also carries an attribute <code>"seed"</code> that
+captures the initial state of the random number generator.
+See Details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>,
+<code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>,
+<code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code>,
+<code><a href="../../stats/help/simulate.html">simulate</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- copper$SouthPoints
+  fit &lt;- slrm(X ~ 1)
+  simulate(fit, 2)
+  fitxy &lt;- slrm(X ~ x+y)
+  simulate(fitxy, 2, window=square(2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

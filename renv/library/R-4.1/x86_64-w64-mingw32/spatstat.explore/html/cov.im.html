@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Covariance and Correlation between Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cov.im {spatstat.explore}"><tr><td>cov.im {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Covariance and Correlation between Images
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the covariance or correlation between (the corresponding pixel
+values in) several images.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cov.im(..., use = "everything", method = c("pearson", "kendall", "spearman"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, each of which is 
+a pixel image (object of class <code>"im"</code>).
+Alternatively, a single argument which is a list of pixel images.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../stats/help/cov.html">cov</a></code>
+or <code><a href="../../stats/help/cor.html">cor</a></code> determining how to handle
+<code>NA</code> values in the data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../stats/help/cov.html">cov</a></code>
+or <code><a href="../../stats/help/cor.html">cor</a></code> determining the type of correlation
+that will be computed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The arguments <code>...</code>
+should be pixel images (objects of class <code>"im"</code>).
+Their spatial domains must overlap, but need not have the same
+pixel dimensions.
+</p>
+<p>These functions compute the covariance or correlation between
+the corresponding pixel values in the images given.
+</p>
+<p>The pixel image domains are intersected, and converted to a
+common pixel resolution. Then the corresponding pixel values of each image are
+extracted. Finally the correlation or covariance between the
+pixel values of each pair of images, at corresponding pixels, is
+computed.
+</p>
+<p>The result is a symmetric matrix with one row and column for each image.
+The <code>[i,j]</code> entry is the correlation or covariance between
+the <code>i</code>th and <code>j</code>th images in the argument list.
+The row names and column names of the matrix are copied from the
+argument names if they were given (i.e. if the arguments were given
+as <code>name=value</code>).
+</p>
+<p>Note that <code><a href="../../stats/help/cor.html">cor</a></code> and <code><a href="../../stats/help/cov.html">cov</a></code>
+are not generic, so you have to type <code>cor.im</code>, <code>cov.im</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A symmetric matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/cor.html">cor</a></code>,
+<code><a href="../../stats/help/cov.html">cov</a></code>
+</p>
+<p><code><a href="../../spatstat.explore/help/pairs.im.html">pairs.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  cor.im(bei.extra)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

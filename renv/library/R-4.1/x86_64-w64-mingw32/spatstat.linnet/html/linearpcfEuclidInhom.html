@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Linear Pair Correlation Function Based on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linearpcfEuclidInhom {spatstat.linnet}"><tr><td>linearpcfEuclidInhom {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Linear Pair Correlation Function Based on Euclidean Distances
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes an estimate of the inhomogeneous pair correlation function
+based on Euclidean distances, for a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   linearpcfEuclidInhom(X, lambda = NULL, r = NULL, ...,
+      normalise = TRUE, normpower = 2,
+      update = TRUE, leaveoneout = TRUE,
+      sigma=NULL, adjust.sigma=1, bw="nrd0", adjust.bw=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Intensity values for the point pattern. Either a numeric vector,
+a <code>function</code>, a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>) or
+a fitted point process model (object of class <code>"ppm"</code>
+or <code>"lppm"</code>) or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Numeric vector of values of the function argument <i>r</i>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), the denominator of the estimator is 
+data-dependent (equal to the sum of the reciprocal intensities at the data
+points, raised to <code>normpower</code>), which reduces the sampling variability.
+If <code>FALSE</code>, the denominator is the length of the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normpower</code></td>
+<td>
+
+<p>Integer (usually either 1 or 2).
+Normalisation power. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>lambda</code> is a fitted model
+(class <code>"lppm"</code> or <code>"ppm"</code>).
+If <code>update=TRUE</code> (the default),
+the model will first be refitted to the data <code>X</code>
+(using <code><a href="../../spatstat.linnet/help/update.lppm.html">update.lppm</a></code> or <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code>)
+before the fitted intensity is computed.
+If <code>update=FALSE</code>, the fitted intensity of the
+model will be computed without re-fitting it to <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value specifying whether to use a
+leave-one-out rule when calculating the intensity.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth (passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>)
+for kernel density estimation of the intensity when
+<code>lambda=NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust.sigma</code></td>
+<td>
+
+<p>Numeric value. <code>sigma</code> will be multiplied by this value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Smoothing bandwidth (passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>)
+for one-dimensional kernel smoothing of the pair correlation function.
+Either a numeric value, or a character string recognised
+by <code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust.bw</code></td>
+<td>
+
+<p>Numeric value. <code>bw</code> will be multiplied by this value.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the inhomogeneous version of the 
+pair correlation function based on <em>Euclidean</em> distances,
+for a point pattern on a linear network.
+</p>
+<p>This is different from the inhomogeneous pair correlation function based on
+<em>shortest-path</em> distances,
+which is computed by <code><a href="../../spatstat.linnet/help/linearpcfinhom.html">linearpcfinhom</a></code>.
+</p>
+<p>The inhomogeneous pair correlation function
+based on <em>Euclidean</em> distances
+is defined in equation (30) of Rakshit, Nair and Baddeley (2017).
+Estimation is performed as described in equation (34) of 
+Rakshit, Nair and Baddeley (2017).
+</p>
+<p>The argument <code>lambda</code> should provide estimated values
+of the intensity of the point process at each point of <code>X</code>.
+</p>
+<p>If <code>lambda=NULL</code>, the intensity will be estimated by kernel
+smoothing by calling <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> with the smoothing
+bandwidth <code>sigma</code>, and with any other relevant arguments
+that might be present in <code>...</code>. A leave-one-out kernel estimate
+will be computed if <code>leaveoneout=TRUE</code>.
+</p>
+<p>If <code>lambda</code> is given, then it
+may be a numeric vector (of length equal to
+the number of points in <code>X</code>), or a <code>function(x,y)</code> that will be
+evaluated at the points of <code>X</code> to yield numeric values, 
+or a pixel image (object of class <code>"im"</code>) or a fitted point 
+process model (object of class <code>"ppm"</code> or <code>"lppm"</code>).
+</p>
+<p>If <code>lambda</code> is a fitted point process model,
+the default behaviour is to update the model by re-fitting it to
+the data, before computing the fitted intensity.
+This can be disabled by setting <code>update=FALSE</code>.
+The intensity at data points will be computed
+by <code><a href="../../spatstat.linnet/help/fitted.lppm.html">fitted.lppm</a></code> or <code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>.
+A leave-one-out estimate will be computed if <code>leaveoneout=TRUE</code>
+and <code>update=TRUE</code>.
+</p>
+<p>If <code>normalise=TRUE</code> (the default), then the estimate
+is multiplied by <i>c^normpower</i> where 
+<i>
+    c = length(L)/sum[i] (1/lambda(x[i])).
+  </i>
+This rescaling reduces the variability and bias of the estimate
+in small samples and in cases of very strong inhomogeneity.
+The default value of <code>normpower</code> is 1 (for consistency with
+previous versions of <span class="pkg">spatstat</span>)
+but the most sensible value is 2, which would correspond to rescaling
+the <code>lambda</code> values so that
+<i>
+    sum[i] (1/lambda(x[i])) = area(W).
+  </i>
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Warning</h3>
+
+<p>Older versions of <code><a href="../../spatstat.linnet/help/linearpcfEuclidInhom.html">linearpcfEuclidInhom</a></code> interpreted
+<code>lambda=NULL</code> to mean that the homogeneous function
+<code><a href="../../spatstat.linnet/help/linearpcfEuclid.html">linearpcfEuclid</a></code> should be computed. This was changed to the
+current behaviour in version <code>3.1-0</code> of <span class="pkg">spatstat.linnet</span>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Rakshit. S., Nair, G. and Baddeley, A. (2017)
+Second-order analysis of point patterns on a network
+using any distance metric. <em>Spatial Statistics</em> <b>22</b> (1) 129&ndash;154.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linearKEuclidInhom.html">linearKEuclidInhom</a></code>, <code><a href="../../spatstat.linnet/help/linearpcfEuclid.html">linearpcfEuclid</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.linnet/help/linearpcfinhom.html">linearpcfinhom</a></code> for the corresponding function
+based on shortest-path distances.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoislpp(5, simplenet)
+  fit &lt;- lppm(X ~x)
+  g &lt;- linearpcfEuclidInhom(X, lambda=fit)
+  plot(g)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

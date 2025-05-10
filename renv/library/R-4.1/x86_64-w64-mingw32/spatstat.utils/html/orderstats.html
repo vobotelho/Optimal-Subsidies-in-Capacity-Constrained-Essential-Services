@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Order Statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for orderstats {spatstat.utils}"><tr><td>orderstats {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Order Statistics
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the <code>k</code>-th smallest value in a dataset,
+or find which entry in a dataset is the <code>k</code>-th smallest.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+orderstats(x, k, decreasing = FALSE)
+orderwhich(x, k, decreasing = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Data whose order statistics will be computed. A numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Rank. An integer, or vector of integers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>decreasing</code></td>
+<td>
+
+<p>Logical value specifing whether a rank of 1
+is assigned to the highest value (<code>decreasing=TRUE</code>)
+or the lowest value (<code>decreasing=FALSE</code>, the default).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are low-level functions for efficiently computing order statistics:
+<code>orderstats(x, k)</code> returns the <code>k</code>-th smallest value in <code>x</code>,
+and <code>orderwhich(x, k)</code> returns the <em>position</em> of the
+<code>k</code>-th smallest value in <code>x</code>.
+</p>
+<p>Given a dataset of values <i>x[1], ..., x[n]</i>,
+the <em>order statistic</em> of rank <i>k</i> is the <i>k</i>-th smallest
+value in the dataset. The order statistic of rank 1 is the smallest
+value, and the order statistic of rank <i>n</i> is the largest value.
+The order statistic of rank <i>k</i> is denoted <i>x([k])</i>.
+</p>
+<p>The full sequence of order statistics
+</p>
+<p style="text-align: center;"><i>
+    x([1]) &lt;= x([2]) &lt;= ... &lt;= x([n])
+  </i></p>
+
+<p>can simply be obtained by sorting the original values
+into increasing order.
+</p>
+<p>The command <code>orderstats(x, k)</code> is equivalent to
+<code><a href="../../base/html/sort.html">sort</a>(x)[k]</code>; it calculates the
+<code>k</code>-th smallest value in <code>x</code>. 
+</p>
+<p>The command <code>orderwhich(x, k)</code> is equivalent to
+<code><a href="../../base/html/order.html">order</a>(x)[k]</code>. It identifies the <em>position</em> of the
+<code>k</code>-th smallest value in <code>x</code>, that is, it returns the
+index <code>j</code> such that <code>x[j]</code> is the <code>k</code>-th smallest value
+in <code>x</code>.
+</p>
+<p>The functions <code>orderstats</code> and <code>orderwhich</code> are more
+efficient than using <code>sort</code> and <code>order</code>
+when it is only desired to calculate a few of the
+order statistics (for example, only the smallest and second-smallest
+values in the dataset).
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>orderstats</code> returns a vector of the same kind as <code>x</code>,
+with the same length as <code>k</code>.
+<code>orderwhich</code> returns an integer vector 
+with the same length as <code>k</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/sort.html">sort</a></code>, <code><a href="../../base/html/order.html">order</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- runif(10)
+  orderstats(x, 2)
+  sort(x)[2]
+  orderwhich(x, 2:3)
+  order(x)[2:3]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

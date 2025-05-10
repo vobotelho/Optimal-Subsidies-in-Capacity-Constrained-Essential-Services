@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cross Validated Bandwidth Selection for Relative Risk...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.relrisk {spatstat.explore}"><tr><td>bw.relrisk {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Cross Validated Bandwidth Selection for Relative Risk Estimation
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses cross-validation to select a smoothing bandwidth
+for the estimation of relative risk.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   bw.relrisk(X, ...)
+
+   ## S3 method for class 'ppp'
+bw.relrisk(X, method = "likelihood", ...,
+           nh = spatstat.options("n.bandwidth"),
+           hmin=NULL, hmax=NULL, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A multitype point pattern (object of class <code>"ppp"</code>
+which has factor valued marks).
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string determining the cross-validation method.
+Current options are <code>"likelihood"</code>,
+<code>"leastsquares"</code> or
+<code>"weightedleastsquares"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nh</code></td>
+<td>
+
+<p>Number of trial values of smoothing bandwith <code>sigma</code>
+to consider. The default is 32.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hmin, hmax</code></td>
+<td>
+
+<p>Optional. Numeric values.
+Range of trial values of smoothing bandwith <code>sigma</code>
+to consider. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, issue a warning if the minimum of
+the cross-validation criterion occurs at one of the ends of the
+search interval.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+or to other methods for <code>bw.relrisk</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate bandwidth for the nonparametric
+estimation of relative risk using <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code>.
+</p>
+<p>Consider the indicators <i>y[i,j]</i> which equal <i>1</i> when
+data point <i>x[i]</i> belongs to type <i>j</i>, and equal <i>0</i>
+otherwise.
+For a particular value of smoothing bandwidth,
+let <i>p*[j](u)</i> be the estimated
+probabilities that a point at location <i>u</i> will belong to
+type <i>j</i>. 
+Then the bandwidth is chosen to minimise either the negative likelihood,
+the squared error, or the approximately standardised squared error, of the
+indicators <i>y[i,j]</i> relative to the fitted
+values  <i>p*[j](x[i])</i>. See Diggle (2003)
+or Baddeley et al (2015).
+</p>
+<p>The result is a numerical value giving the selected bandwidth <code>sigma</code>.
+The result also belongs to the class <code>"bw.optim"</code>
+allowing it to be printed and plotted. The plot shows the cross-validation
+criterion as a function of bandwidth.  
+</p>
+<p>The range of values for the smoothing bandwidth <code>sigma</code>
+is set by the arguments <code>hmin, hmax</code>. There is a sensible default,
+based on multiples of Stoyan's rule of thumb <code><a href="../../spatstat.explore/help/bw.stoyan.html">bw.stoyan</a></code>.
+</p>
+<p>If the optimal bandwidth is achieved at an endpoint of the
+interval <code>[hmin, hmax]</code>, the algorithm will issue a warning
+(unless <code>warn=FALSE</code>). If this occurs, then it is probably advisable
+to expand the interval by changing the arguments <code>hmin, hmax</code>.
+</p>
+<p>Computation time depends on the number <code>nh</code> of trial values
+considered, and also on the range <code>[hmin, hmax]</code> of values
+considered, because larger values of <code>sigma</code> require
+calculations involving more pairs of data points.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+<p>Diggle, P.J. (2003)
+<em>Statistical analysis of spatial point patterns</em>,
+Second edition. Arnold.
+</p>
+<p>Kelsall, J.E. and Diggle, P.J. (1995)
+Kernel estimation of relative risk.
+<em>Bernoulli</em> <b>1</b>, 3&ndash;16.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code>,
+<code><a href="../../spatstat.explore/help/bw.stoyan.html">bw.stoyan</a></code>.
+</p>
+<p><code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  
+  b &lt;- bw.relrisk(urkiola)
+  b
+  plot(b)
+  b &lt;- bw.relrisk(urkiola, hmax=20)
+  plot(b)
+  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

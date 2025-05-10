@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Smoothed Relative Density of Pairs of Covariate Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rho2hat {spatstat.explore}"><tr><td>rho2hat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Smoothed Relative Density of Pairs of Covariate Values
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and two spatial covariates <i>Z1</i> and
+<i>Z2</i>, construct a smooth estimate of the relative risk of
+the pair <i>(Z1, Z2)</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rho2hat(object, cov1, cov2, ..., method=c("ratio", "reweight"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>),
+a quadrature scheme (object of class <code>"quad"</code>)
+or a fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>cov1,cov2</code></td>
+<td>
+
+<p>The two covariates.
+Each argument is either a <code>function(x,y)</code> or a pixel image (object of
+class <code>"im"</code>) providing the values of the covariate at any
+location, or one of the strings <code>"x"</code> or <code>"y"</code>
+signifying the Cartesian coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> to smooth
+the scatterplots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string determining the smoothing method. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a bivariate version of <code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>.
+</p>
+<p>If <code>object</code> is a point pattern, this command
+produces a smoothed version of the scatterplot of
+the values of the covariates <code>cov1</code> and <code>cov2</code>
+observed at the points of the point pattern. 
+</p>
+<p>The covariates <code>cov1,cov2</code> must have continuous values.
+</p>
+<p>If <code>object</code> is a fitted point process model, suppose <code>X</code> is
+the original data point pattern to which the model was fitted. Then
+this command assumes <code>X</code> is a realisation of a Poisson point
+process with intensity function of the form
+</p>
+<p style="text-align: center;"><i>
+    lambda(u) = rho(Z1(u), Z2(u)) * kappa(u)
+  </i></p>
+
+<p>where <i>kappa(u)</i> is the intensity of the fitted model
+<code>object</code>, and <i>rho(z1, z2)</i> is a function
+to be estimated. The algorithm computes a smooth estimate of the
+function <i>rho</i>.
+</p>
+<p>The <code>method</code> determines how the density estimates will be
+combined to obtain an estimate of <i>rho(z1, z2)</i>:
+</p>
+
+<ul>
+<li>
+<p>If <code>method="ratio"</code>, then <i>rho(z1,z2)</i> is
+estimated by the ratio of two density estimates.
+The numerator is a (rescaled) density estimate obtained by
+smoothing the points <i>(Z1(y[i]), Z2(y[i]))</i> 
+obtained by evaluating the two covariate <i>Z1, Z2</i>
+at the data points <i>y[i]</i>. The denominator
+is a density estimate of the reference distribution of
+<i>(Z1, Z2)</i>.
+</p>
+</li>
+<li>
+<p>If <code>method="reweight"</code>, then <i>rho(z1,z2)</i> is
+estimated by applying density estimation to the 
+points <i>(Z1(y[i]), Z2(y[i]))</i>
+obtained by evaluating the two covariate <i>Z1, Z2</i>
+at the data points <i>y[i]</i>,
+with weights inversely proportional to the reference density of
+<i>(Z1, Z2)</i>.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>). Also
+belongs to the special class <code>"rho2hat"</code> which has a plot method.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Chang, Y.-M., Song, Y. and Turner, R. (2012)
+Nonparametric estimation of the dependence of a point
+process on spatial covariates.
+<em>Statistics and Its Interface</em> <b>5</b> (2), 221&ndash;236.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>,
+<code><a href="../../spatstat.explore/help/methods.rho2hat.html">methods.rho2hat</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  attach(bei.extra)
+  plot(rho2hat(bei, elev, grad))
+  if(require("spatstat.model")) {
+    fit &lt;- ppm(bei ~elev, covariates=bei.extra)
+    
+      plot(rho2hat(fit, elev, grad))
+    
+    plot(rho2hat(fit, elev, grad, method="reweight"))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

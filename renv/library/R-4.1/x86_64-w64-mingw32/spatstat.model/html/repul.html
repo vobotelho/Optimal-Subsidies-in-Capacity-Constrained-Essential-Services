@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Repulsiveness Index of a Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for repul.dppm {spatstat.model}"><tr><td>repul.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Repulsiveness Index of a Determinantal Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes a measure of the degree of repulsion between points
+in a determinantal point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+repul(model, ...)
+
+## S3 method for class 'dppm'
+repul(model, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted point process model
+of determinantal type (object of class <code>"dppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The repulsiveness index <i>mu</i> of a determinantal
+point process model was defined by
+Lavancier, Moller and Rubak (2015) as
+</p>
+<p style="text-align: center;"><i>
+    mu = lambda * integral[(1-g(x))]
+  </i></p>
+
+<p>where <i>&lambda;</i> is the intensity of the model and
+<i>g(x)</i> is the pair correlation function, and
+the integral is taken over all two-dimensional vectors <i>x</i>.
+</p>
+<p>Values of <i>&mu;</i> are dimensionless.
+Larger values of <i>mu</i> indicate stronger repulsion
+between points.
+</p>
+<p>If the model is stationary, the result is a single number.
+</p>
+<p>If the model is not stationary, 
+the result is a pixel image (obtained by multiplying
+the spatially-varying intensity by the integral defined above).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value or a pixel image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Lavancier, F., Moller, J.  and Rubak, E. (2015),
+Determinantal point process models and statistical inference.
+<em>Journal of Royal Statistical Society:
+Series B (Statistical Methodology)</em>,
+<b>77</b>, 853&ndash;877.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  jpines &lt;- residualspaper$Fig1
+  
+  fit &lt;- dppm(jpines ~ 1, dppGauss)
+  repul(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

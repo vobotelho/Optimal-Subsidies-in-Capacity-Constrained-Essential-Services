@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Adaptive Kernel Estimate of Intensity for Split Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityAdaptiveKernel.splitppp {spatstat.explore}"><tr><td>densityAdaptiveKernel.splitppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Adaptive Kernel Estimate of Intensity for Split Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Computes an adaptive estimate of the intensity function 
+(using a variable-bandwidth smoothing kernel)
+for each of the components of a split point pattern,
+or each of the point patterns in a list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'splitppp'
+densityAdaptiveKernel(X, bw=NULL, ..., weights=NULL)
+
+## S3 method for class 'ppplist'
+densityAdaptiveKernel(X, bw=NULL, ..., weights=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Split point pattern (object of class <code>"splitppp"</code>
+created by <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>) to be smoothed.
+Alternatively a list of point patterns,
+of class <code>"ppplist"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Smoothing bandwidths. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to
+<code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>.
+These may include arguments that will be passed to
+<code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code> to compute
+the smoothing bandwidths if <code>bw</code> is missing,
+and arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the spatial resolution of the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Numerical weights for the points. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes a spatially-adaptive kernel estimate of the
+spatially-varying intensity for each of the point patterns
+in the list <code>X</code>, using <code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>.
+</p>
+<p>The argument <code>bw</code> specifies smoothing bandwidths
+for the data points.
+Normally it should be a list, with the same length as
+<code>x</code>. The entry <code>bw[[i]]</code> will determine the
+smoothing bandwidths for the pattern <code>x[[i]]</code>, and may be given in
+any format acceptable to <code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>.
+For example, <code>bw[[i]]</code> can be
+a numeric vector of length equal to <code>npoints(x[[i]])</code>,
+a single numeric value, 
+a pixel image (object of class <code>"im"</code>),
+an <code>expression</code>, or a function of class <code>"funxy"</code>.
+For convenience, <code>bw</code> can also be a single <code>expression</code>,
+or a single pixel image, or a single function.
+If <code>bw</code> is missing or <code>NULL</code>, the default is to compute
+bandwidths using <code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code>.
+</p>
+<p>The argument <code>weights</code> specifies numerical case weights
+for the data points.
+Normally it should be a list, with the same length as
+<code>x</code>. The entry <code>weights[[i]]</code> will determine the
+case weights for the pattern <code>x[[i]]</code>, and may be given in
+any format acceptable to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+For example, <code>weights[[i]]</code> can be
+a numeric vector of length equal to <code>npoints(x[[i]])</code>,
+a single numeric value, a numeric matrix,
+a pixel image (object of class <code>"im"</code>),
+an <code>expression</code>, or a function of class <code>"funxy"</code>.
+For convenience, <code>weights</code> can also be a single <code>expression</code>,
+or a single pixel image (object of class <code>"im"</code>),
+or a single function of class <code>"funxy"</code>.
+If <code>weights</code> is missing or <code>NULL</code>, all weights are assumed
+to be equal to 1.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of pixel images (objects of class <code>"im"</code>)
+which can be plotted or printed;
+or a list of numeric vectors giving the values at specified points.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- amacrine
+  if(!interactive()) X &lt;- X[c(TRUE,FALSE,FALSE,FALSE)]
+  Z &lt;- densityAdaptiveKernel(split(X), h0=0.15)
+  plot(Z, main="Adaptive kernel estimate")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

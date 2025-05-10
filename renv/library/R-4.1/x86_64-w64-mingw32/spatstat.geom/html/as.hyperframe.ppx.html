@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract coordinates and marks of multidimensional point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.hyperframe.ppx {spatstat.geom}"><tr><td>as.hyperframe.ppx {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract coordinates and marks of multidimensional point pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Given any kind of spatial or space-time point pattern,
+extract the coordinates and marks of the points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppx'
+as.hyperframe(x, ...)
+## S3 method for class 'ppx'
+as.data.frame(x, ...)
+## S3 method for class 'ppx'
+as.matrix(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A general multidimensional space-time point pattern 
+(object of class <code>"ppx"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ppx"</code> (see <code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code>)
+represents a marked point pattern
+in multidimensional space and/or time. There may be any
+number of spatial coordinates, any number of temporal coordinates,
+and any number of mark variables. The individual marks may be
+atomic (numeric values, factor values, etc) or objects of any kind.
+</p>
+<p>The function <code>as.hyperframe.ppx</code> extracts the coordinates
+and the marks as a <code>"hyperframe"</code> (see
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>) with one row of data for each
+point in the pattern. This is a method for the generic
+function <code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code>.
+</p>
+<p>The function <code>as.data.frame.ppx</code> discards those mark variables
+which are not atomic values, and extracts the coordinates
+and the remaining marks as a <code>data.frame</code>
+with one row of data for each
+point in the pattern. This is a method for the generic
+function <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code>.
+</p>
+<p>Finally <code>as.matrix(x)</code> is equivalent to
+<code>as.matrix(as.data.frame(x))</code> for an object of class
+<code>"ppx"</code>. Be warned that, if there are any columns of non-numeric
+data (i.e. if there are mark variables that are factors),
+the result will be a matrix of character values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>hyperframe</code>, <code>data.frame</code> or <code>matrix</code> as appropriate.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code>,
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   df &lt;- data.frame(x=runif(4),y=runif(4),t=runif(4))
+   X &lt;- ppx(data=df, coord.type=c("s","s","t"))
+   as.data.frame(X)
+
+   # ppx with marks which are point patterns
+   val &lt;- runif(4, max=10)
+   num &lt;- sapply(val, rpois, n=1)
+   E &lt;- lapply(num, runifrect)
+   hf &lt;- hyperframe(t=val, e=as.listof(E))
+   Z &lt;- ppx(data=hf, domain=c(0,10))
+
+   # convert ppx to a hyperframe
+   as.hyperframe(Z)
+   as.data.frame(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

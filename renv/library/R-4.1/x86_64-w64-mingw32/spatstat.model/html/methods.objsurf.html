@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Objective Function Surfaces</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.objsurf {spatstat.model}"><tr><td>methods.objsurf {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Objective Function Surfaces
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for printing and plotting an objective function surface.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'objsurf'
+print(x, ...)
+## S3 method for class 'objsurf'
+plot(x, ...)
+## S3 method for class 'objsurf'
+image(x, ...)
+## S3 method for class 'objsurf'
+contour(x, ...)
+## S3 method for class 'objsurf'
+persp(x, ...)
+## S3 method for class 'objsurf'
+summary(object, ...)
+## S3 method for class 'summary.objsurf'
+print(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>Object of class <code>"objsurf"</code> representing an objective function surface.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to plot methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/print.html">print</a></code>, <code><a href="../../graphics/html/plot.default.html">plot</a></code>,
+<code><a href="../../graphics/html/image.html">image</a></code>, <code><a href="../../graphics/html/contour.html">contour</a></code>, <code><a href="../../graphics/html/persp.html">persp</a></code>
+and <code><a href="../../base/html/summary.html">summary</a></code> for the class <code>"objsurf"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.objsurf</code>, <code>print.summary.objsurf</code>,
+<code>plot.objsurf</code> and <code>image.objsurf</code> the value is <code>NULL</code>.
+</p>
+<p>For <code>contour.objsurf</code> and <code>persp.objsurf</code>
+the value is described in the help for
+<code><a href="../../graphics/html/contour.html">contour.default</a></code> and <code><a href="../../graphics/html/persp.html">persp.default</a></code>
+respectively.
+</p>
+<p>For <code>summary.objsurf</code> the result is a list, of class
+<code>summary.objsurf</code>, containing summary information. This list is
+printed in sensible format by <code>print.summary.objsurf</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/objsurf.html">objsurf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ fit &lt;- kppm(redwood ~ 1, "Thomas")
+ os &lt;- objsurf(fit)
+  os
+  summary(os)
+  plot(os)
+  contour(os, add=TRUE)
+  persp(os)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

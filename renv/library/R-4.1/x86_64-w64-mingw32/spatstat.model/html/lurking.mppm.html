@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lurking Variable Plot for Multiple Point Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lurking.mppm {spatstat.model}"><tr><td>lurking.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Lurking Variable Plot for Multiple Point Patterns
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a lurking variable plot of spatial point process residuals
+against a covariate, for a model fitted to several point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'mppm'
+lurking(object, covariate, type="eem",
+                       ...,
+                       separate = FALSE, 
+                       plot.it = TRUE,
+                       covname, oldstyle = FALSE, nx = 512, main="")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted model. An object of class <code>"mppm"</code> representing a
+point process model fitted to several point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariate</code></td>
+<td>
+
+<p>The covariate to be used on the horizontal axis.
+Either an <code>expression</code> which can be evaluated in the
+original data, or a list of pixel images, one image for each
+point pattern in the original data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String indicating the type of residuals or weights to be computed.
+Choices include <code>"eem"</code>,
+<code>"raw"</code>, <code>"inverse"</code> and <code>"pearson"</code>.
+See <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code> for all possible choices.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.model/help/lurking.ppm.html">lurking.ppm</a></code>,
+including arguments controlling the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>separate</code></td>
+<td>
+
+<p>Logical value indicating whether to compute a separate lurking
+variable plot for each of the original point patterns.
+If <code>FALSE</code> (the default), a single lurking-variable plot
+is produced by combining residuals from all patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plot.it</code></td>
+<td>
+
+<p>Logical value indicating whether 
+plots should be shown. If <code>plot.it=FALSE</code>, only
+the computed coordinates for the plots are returned.
+See <em>Value</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covname</code></td>
+<td>
+
+<p>A string name for the covariate, to be used in axis labels of plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>oldstyle</code></td>
+<td>
+
+<p>Logical flag indicating whether error bounds should be plotted
+using the approximation given in the original paper
+(<code>oldstyle=TRUE</code>),
+or using the correct asymptotic formula (<code>oldstyle=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>nx</code></td>
+<td>
+
+<p>Integer. Number of covariate values to be used in the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Character string giving a main title for the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a &lsquo;lurking variable&rsquo; plot for a
+point process model fitted to several point patterns.
+Residuals from the model represented by <code>object</code>
+are plotted against the covariate specified by <code>covariate</code>.
+This plot can be used to reveal departures from the fitted model.
+</p>
+<p>The function <code>lurking</code> is generic. This is the method
+for the class <code>mppm</code>.
+The argument <code>object</code> must be a fitted point process model
+object of class <code>"mppm"</code>) produced by the
+model-fitting algorithm <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>separate=FALSE</code> (the default), 
+the return value is an object 
+belonging to the class <code>"lurk"</code>, for which there
+are methods for <code>plot</code> and <code>print</code>.
+See <code><a href="../../spatstat.model/help/lurking.html">lurking</a></code> for details of the format.
+</p>
+<p>If <code>separate=TRUE</code>, the result is a list of such objects,
+and also belongs to the class <code>anylist</code> so that it can be
+printed and plotted. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+with thanks to Nicholas Read.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/lurking.ppm.html">lurking.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- mppm(Points ~ Image + Group, demohyper)
+  lurking(fit, expression(Image), type="P")
+  lurking(fit, expression(Image), type="P", separate=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

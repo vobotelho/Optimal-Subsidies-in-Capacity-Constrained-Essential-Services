@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate Logical Expression Involving Pixel Images and Return...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for solutionset {spatstat.geom}"><tr><td>solutionset {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate Logical Expression Involving Pixel Images and Return
+Region Where Expression is True</h2>
+
+<h3>Description</h3>
+
+<p>Given a logical expression involving one or more pixel images,
+find all pixels where the expression is true,
+and assemble these pixels into a window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  solutionset(..., envir)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>An expression in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, involving one or more
+pixel images.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>Optional. The environment in which to evaluate the
+expression.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a logical expression involving one or more pixel images,
+this function will find all pixels where the expression is true,
+and assemble these pixels into a spatial window.
+</p>
+<p>Pixel images in <code>spatstat</code>
+are represented by objects of class <code>"im"</code>
+(see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>). These are essentially matrices of
+pixel values, with extra attributes recording the pixel dimensions,
+etc.
+</p>
+<p>Suppose <code>X</code> is a pixel image. Then <code>solutionset(abs(X) &gt; 3)</code>
+will find all the pixels in <code>X</code> for which the pixel value
+is greater than 3 in absolute value, and return a window containing
+all these pixels.
+</p>
+<p>If <code>X</code> and <code>Y</code> are two pixel images,
+<code>solutionset(X &gt; Y)</code> will find all pixels for which the
+pixel value of <code>X</code> is greater than the corresponding pixel value
+of <code>Y</code>, and return a window containing these pixels.
+</p>
+<p>In general, <code>...</code> can be any logical expression involving
+pixel images.
+</p>
+<p>The code first tries to evaluate the expression using
+<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>.
+This is successful if the expression involves only
+(a) the <em>names</em> of pixel images, (b) scalar
+constants, and (c) functions which are vectorised.
+There must be at least one pixel image in the expression.
+The expression <code>expr</code> must be vectorised.
+See the Examples.
+</p>
+<p>If this is unsuccessful, the code then tries to evaluate the
+expression using pixel arithmetic. This is successful if all the
+arithmetic operations in the expression are listed
+in <code><a href="../../spatstat.geom/help/Math.im.html">Math.im</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A spatial window
+(object of class <code>"owin"</code>, see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>,
+<code><a href="../../spatstat.geom/help/levelset.html">levelset</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # test images
+  X &lt;- as.im(function(x,y) { x^2 - y^2 }, unit.square())
+  Y &lt;- as.im(function(x,y) { 3 * x + y  - 1}, unit.square())
+
+  W &lt;- solutionset(abs(X) &gt; 0.1)
+  W &lt;- solutionset(X &gt; Y)
+  W &lt;- solutionset(X + Y &gt;= 1)
+
+  area(solutionset(X &lt; Y))
+
+  solutionset(distmap(cells) &lt; 0.05)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide Linear Network at Cut Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for divide.linnet {spatstat.linnet}"><tr><td>divide.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Divide Linear Network at Cut Points
+</h2>
+
+<h3>Description</h3>
+
+<p>Make a tessellation of a linear network by dividing it into
+pieces demarcated by the points of a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ divide.linnet(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The points <code>X</code> are interpreted as dividing the linear network
+<code>L=as.linnet(X)</code> into separate pieces.
+</p>
+<p>Two locations on <code>L</code>
+belong to the same piece if and only if they can be joined by a path
+in <code>L</code> that does not cross any of the points of <code>X</code>.
+</p>
+<p>The result is a
+tessellation of the network (object of class <code>"lintess"</code>)
+representing the division of <code>L</code> into pieces. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation on a linear network (object of class <code>"lintess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+and Greg McSwiggan.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>, <code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(5, simplenet)
+  plot(divide.linnet(X))
+  plot(X, add=TRUE, pch=16, show.network=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

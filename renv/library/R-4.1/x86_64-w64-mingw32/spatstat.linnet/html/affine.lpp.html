@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Geometrical Transformations to Point Pattern on a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for affine.lpp {spatstat.linnet}"><tr><td>affine.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Geometrical Transformations to Point Pattern on a Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Apply geometrical transformations to a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+affine(X, mat=diag(c(1,1)), vec=c(0,0), ...)
+
+  ## S3 method for class 'lpp'
+shift(X, vec=c(0,0), ..., origin=NULL)
+
+  ## S3 method for class 'lpp'
+rotate(X, angle=pi/2, ..., centre=NULL)
+
+  ## S3 method for class 'lpp'
+scalardilate(X, f, ...)
+
+  ## S3 method for class 'lpp'
+rescale(X, s, unitname)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>Matrix representing a linear transformation.</p>
+</td></tr>
+<tr valign="top"><td><code>vec</code></td>
+<td>
+<p>Vector of length 2 representing a translation.</p>
+</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+<p>Rotation angle in radians.</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>Scalar dilation factor.</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>Unit conversion factor: the new units are <code>s</code> times the old units.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+<p>Character string determining a location
+that will be shifted to the origin. Options are
+<code>"centroid"</code>, <code>"midpoint"</code> and <code>"bottomleft"</code>.
+Partially matched. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+
+<p>Centre of rotation.
+Either a vector of length 2, or a character string
+(partially matched to <code>"centroid"</code>, <code>"midpoint"</code>
+or <code>"bottomleft"</code>).
+The default is the coordinate origin <code>c(0,0)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. New name for the unit of length.
+A value acceptable to the function <code><a href="../../spatstat.geom/help/unitname+3C-.html">unitname&lt;-</a></code>
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic functions
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code> and
+<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code>
+applicable to objects of class <code>"lpp"</code>.
+</p>
+<p>All of these functions
+perform geometrical transformations on the object <code>X</code>,
+except for <code>rescale</code>, which simply rescales the units of length.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another point pattern on a linear network (object of class
+<code>"lpp"</code>) 
+representing the
+result of applying the geometrical transformation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+<p>Generic functions
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code>,
+<code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoislpp(2, simplenet)
+  U &lt;- rotate(X, pi)
+  V &lt;- shift(X, c(0.1, 0.2))
+  stretch &lt;- diag(c(2,3))
+  Y &lt;- affine(X, mat=stretch)
+  shear &lt;- matrix(c(1,0,0.6,1),ncol=2, nrow=2)
+  Z &lt;- affine(X, mat=shear, vec=c(0, 1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

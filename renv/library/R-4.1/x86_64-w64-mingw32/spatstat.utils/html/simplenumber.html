@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simple Rational Number</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for simplenumber {spatstat.utils}"><tr><td>simplenumber {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Simple Rational Number
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a numeric value, try to express it
+as a simple rational number.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+simplenumber(x, unit = "", multiply = "*", tol = .Machine$double.eps)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A single numeric value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unit</code></td>
+<td>
+
+<p>Optional. Character string giving the name of the unit 
+in which <code>x</code> is expressed. Typically an irrational number
+such as <code>pi</code>. See Examples.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiply</code></td>
+<td>
+
+<p>Optional. Character string representing multiplication.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+
+<p>Numerical tolerance.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The code tries to express <code>x</code> as an integer <code>x=n</code>, or as
+the reciprocal of an integer <code>x=1/n</code>, or
+as a simple rational number <code>x = m/n</code>, where <code>m,n</code> are
+small integers.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character string representing the simple number,
+or <code>NULL</code> if not successful.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  simplenumber(0.3)
+  simplenumber(0.333333333333333333333333)
+  x &lt;- pi * 2/3
+  simplenumber(x/pi, "pi")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

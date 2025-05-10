@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generic Calculation of K Function and Pair Correlation...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for compileK {spatstat.explore}"><tr><td>compileK {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Generic Calculation of K Function and Pair Correlation Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Low-level functions which 
+calculate the estimated <i>K</i> function
+and estimated pair correlation function
+(or any similar functions)
+from a matrix of pairwise distances and optional weights.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+compileK(D, r, weights = NULL, denom = 1,
+         check = TRUE, ratio = FALSE, fname = "K",
+         samplesize=denom)
+
+compilepcf(D, r, weights = NULL, denom = 1,
+         check = TRUE, endcorrect = TRUE, ratio=FALSE,
+	 ..., fname = "g", samplesize=denom)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>D</code></td>
+<td>
+
+<p>A square matrix giving the distances between all pairs of points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>An equally spaced, finely spaced sequence of distance values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional numerical weights for the pairwise distances.
+A numeric matrix with the same dimensions as <code>D</code>.
+If absent, the weights are taken to equal 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>denom</code></td>
+<td>
+
+<p>Denominator for the estimator.
+A single number, or a numeric vector with the same length
+as <code>r</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value specifying whether to check that <code>D</code> is a
+valid matrix of pairwise distances.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical value indicating whether to store ratio information.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>
+controlling the kernel smoothing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>endcorrect</code></td>
+<td>
+
+<p>Logical value indicating whether to apply End Correction of
+the pair correlation estimate at <code>r=0</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fname</code></td>
+<td>
+
+<p>Character string giving the name of the function being estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>samplesize</code></td>
+<td>
+
+<p>The sample size that should be used as the denominator when
+<code>ratio=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These low-level functions construct estimates of
+the <i>K</i> function or pair correlation function,
+or any similar functions, given only the matrix of pairwise
+distances and optional weights associated with these distances.
+</p>
+<p>These functions are useful for code development and for teaching,
+because they perform a common task, and do the housekeeping required to
+make an object of class <code>"fv"</code> that represents the estimated
+function. However, they are not very efficient. 
+</p>
+<p><code>compileK</code> calculates the weighted estimate
+of the <i>K</i> function,
+</p>
+<p style="text-align: center;"><i>
+    K(r) = (1/v(r)) &sum;[i] &sum;[j] 1(d[i,j] &le; r) w[i,j]
+  </i></p>
+
+<p>and <code>compilepcf</code> calculates the weighted estimate of the
+pair correlation function,
+</p>
+<p style="text-align: center;"><i>
+    g(r) = (1/v(r)) &sum;[i] &sum;[j] &kappa; ( d[i,j] - r) w[i,j]
+  </i></p>
+
+<p>where <i>d[i,j]</i> is the distance between spatial points
+<i>i</i> and <i>j</i>, with corresponding weight <i>w[i,j]</i>,
+and <i>v(r)</i> is a specified denominator. Here <i>&kappa;</i>
+is a fixed-bandwidth smoothing kernel. 
+</p>
+<p>For a point pattern in two dimensions, the usual denominator <i>v(r)</i>
+is constant for the <i>K</i> function, and proportional to <i>r</i>
+for the pair correlation function. See the Examples.
+</p>
+<p>The result is an object of class <code>"fv"</code> representing the
+estimated function. This object has only one column of function
+values. Additional columns (such as a column giving the theoretical
+value) must be added by the user, with the aid of
+<code><a href="../../spatstat.explore/help/bind.fv.html">bind.fv</a></code>.
+</p>
+<p>If <code>ratio=TRUE</code>, the result also belongs to class <code>"rat"</code>
+and has attributes containing the numerator and denominator
+of the function estimate.
+(If <code>samplesize</code> is given, the numerator and denominator are
+rescaled by a common factor so that the denominator is
+equal to <code>samplesize</code>.)
+This allows function estimates from
+several datasets to be pooled using <code><a href="../../spatstat.explore/help/pool.html">pool</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> representing the estimated function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> for definitions of the <i>K</i> function
+and pair correlation function.
+</p>
+<p><code><a href="../../spatstat.explore/help/bind.fv.html">bind.fv</a></code> to add more columns.
+</p>
+<p><code><a href="../../spatstat.explore/help/compileCDF.html">compileCDF</a></code> for the corresponding low-level utility
+for estimating a cumulative distribution function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Equivalent to Kest(japanesepines) and pcf(japanesepines)
+  X &lt;- japanesepines
+  D &lt;- pairdist(X)
+  Wt &lt;- edge.Ripley(X, D)
+  lambda &lt;- intensity(X)
+  a &lt;- (npoints(X)-1) * lambda
+  r &lt;- seq(0, 0.25, by=0.01)
+  K &lt;- compileK(D=D, r=r, weights=Wt, denom=a)
+  g &lt;- compilepcf(D=D, r=r, weights=Wt, denom= a * 2 * pi * r)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

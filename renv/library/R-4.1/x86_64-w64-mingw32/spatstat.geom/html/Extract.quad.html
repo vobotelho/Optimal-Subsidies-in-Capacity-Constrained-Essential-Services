@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Subset of Quadrature Scheme</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.quad {spatstat.geom}"><tr><td>Extract.quad {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Subset of Quadrature Scheme</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of a quadrature scheme.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'quad'
+x[...]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A quadrature scheme (object of class <code>"quad"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code> to determine the
+subset.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function extracts a designated subset of a quadrature scheme.
+</p>
+<p>The function <code>[.quad</code> is a method for <code><a href="../../base/html/Extract.html">[</a></code> for the
+class <code>"quad"</code>. It extracts a designated subset of a quadrature
+scheme.
+</p>
+<p>The subset to be extracted is determined by the arguments <code>...</code> which
+are interpreted by <code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code>. Thus it is possible to take the
+subset consisting of all quadrature points that lie inside a
+given region, or a subset of quadrature points identified by
+numeric indices.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A quadrature scheme (object of class <code>"quad"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ Q &lt;- quadscheme(nztrees)
+ W &lt;- owin(c(0,148),c(0,95)) # a subwindow
+ Q[W]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

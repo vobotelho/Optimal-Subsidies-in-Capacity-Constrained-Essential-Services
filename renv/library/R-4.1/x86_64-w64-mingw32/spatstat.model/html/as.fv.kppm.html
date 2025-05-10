@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Fitted Model To Class fv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.fv.kppm {spatstat.model}"><tr><td>as.fv.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Fitted Model To Class fv</h2>
+
+<h3>Description</h3>
+
+<p>Converts fitted model into a function table (an object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'kppm'
+as.fv(x)
+
+  ## S3 method for class 'dppm'
+as.fv(x)
+
+  ## S3 method for class 'minconfit'
+as.fv(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A fitted model which will be converted into a function table</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The generic command <code>as.fv</code> converts data <code>x</code>, that
+could be interpreted as the values of a function,
+into a function value table (object of the class <code>"fv"</code>
+as described in <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>). This object can then
+be plotted easily using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>Objects of class <code>"kppm"</code> (and related classes) represent
+a model that has been fitted to a dataset 
+by computing a summary function of the dataset and
+matching it to the corresponding summary function of the model.
+The methods for <code>as.fv</code> for classes <code>"kppm"</code>,
+<code>"dppm"</code> and <code>"minconfit"</code> extract this information:
+the result is a function table containing the
+observed summary function and the best fit summary function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  as.fv(kppm(redwood))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for distfun.lpp {spatstat.linnet}"><tr><td>distfun.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Distance Map on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the distance function of a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+distfun(X, ..., k=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>An integer. The distance to the <code>k</code>th nearest point
+will be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments are ignored. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>On a linear network <i>L</i>, the &ldquo;geodesic distance function&rdquo;
+of a set of points <i>A</i> in <i>L</i> is the
+mathematical function <i>f</i> such that, for any 
+location <i>s</i> on <i>L</i>,
+the function value <code>f(s)</code>
+is the shortest-path distance from <i>s</i> to <i>A</i>.
+</p>
+<p>The command <code>distfun.lpp</code> is a method for the generic command
+<code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code>
+for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+<p>If <code>X</code> is a point pattern on a linear network,
+<code>f &lt;- distfun(X)</code> returns a <em>function</em>
+in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language that represents the
+distance function of <code>X</code>. Evaluating the function <code>f</code>
+in the form <code>v &lt;- f(x,y)</code>, where <code>x</code> and <code>y</code>
+are any numeric vectors of equal length containing coordinates of
+spatial locations, yields the values of the distance function at these
+locations. More efficiently <code>f</code> can be called in the form
+<code>v &lt;- f(x, y, seg, tp)</code> where <code>seg</code> and <code>tp</code> are the local
+coordinates on the network. It can also be called as
+<code>v &lt;- f(x)</code> where <code>x</code> is a point pattern on the same linear
+network.
+</p>
+<p>The function <code>f</code> obtained from <code>f &lt;- distfun(X)</code>
+also belongs to the class <code>"linfun"</code>. 
+It can be printed and plotted immediately as shown in the Examples.
+It can be 
+converted to a pixel image using <code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> with arguments <code>x,y</code> and optional
+arguments <code>seg,tp</code>.
+It also belongs to the class <code>"linfun"</code> which has methods
+for <code>plot</code>, <code>print</code> etc.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by the distance function
+<code>f &lt;- distfun(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is
+a composite expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>f</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code>,
+<code><a href="../../spatstat.linnet/help/methods.linfun.html">methods.linfun</a></code>.
+</p>
+<p>To identify <em>which</em> point is the nearest neighbour, see
+<code><a href="../../spatstat.linnet/help/nnfun.lpp.html">nnfun.lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(3, simplenet)
+   f &lt;- distfun(X)
+   f
+   plot(f)
+
+   # using a distfun as a covariate in a point process model:
+   Y &lt;- runiflpp(4, simplenet)
+   fit &lt;- lppm(Y ~D, covariates=list(D=f))
+
+   f(Y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

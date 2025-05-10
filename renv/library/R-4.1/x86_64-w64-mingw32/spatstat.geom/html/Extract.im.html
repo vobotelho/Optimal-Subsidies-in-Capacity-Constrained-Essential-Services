@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Subset of Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.im {spatstat.geom}"><tr><td>Extract.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Subset of Image</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset or subregion of a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'im'
+x[i, j, ..., drop=TRUE, tight=FALSE,
+                                 raster=NULL, rescue=is.owin(i)]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A two-dimensional pixel image.
+An object of class <code>"im"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Object defining the subregion or subset to be extracted.
+Either a spatial window (an object of class <code>"owin"</code>), or a
+pixel image with logical values, or a linear network (object of
+class <code>"linnet"</code>) or a point pattern (an object
+of class <code>"ppp"</code>), or any type of index that applies to a
+matrix, or something that can be converted to a point pattern
+by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code> (using the window of <code>x</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+
+<p>An integer or logical vector serving as the column index if
+matrix indexing is being used. Ignored if <code>i</code> is a spatial object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value, specifying whether to return a vector containing
+the selected pixel values (<code>drop=TRUE</code>, the default)
+or to return a pixel image containing
+these values in their original spatial positions
+(<code>drop=FALSE</code>).
+The exception is that if <code>i</code> is a point pattern,
+then <code>drop</code> specifies whether to delete <code>NA</code> values.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tight</code></td>
+<td>
+
+<p>Logical value. If <code>tight=TRUE</code>, and if the result of the
+subset operation is an image, the image will be trimmed
+to the smallest possible rectangle.
+</p>
+</td></tr>
+<tr valign="top"><td><code>raster</code></td>
+<td>
+
+<p>Optional. An object of class <code>"owin"</code> or <code>"im"</code>
+determining a pixel grid.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rescue</code></td>
+<td>
+
+<p>Logical value indicating whether rectangular blocks of data
+should always be returned as pixel images.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function extracts a subset of the pixel values in a
+pixel image. (To reassign the pixel values, see <code><a href="../../spatstat.geom/help/+5B+3C-.im.html">[&lt;-.im</a></code>).
+</p>
+<p>The image <code>x</code> must be an object of class
+<code>"im"</code> representing a pixel image defined inside a
+rectangle in two-dimensional space (see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>).
+</p>
+<p>The subset to be extracted is determined by the arguments <code>i,j</code>
+according to the following rules (which are checked in this order):
+</p>
+
+<ol>
+<li>
+<p><code>i</code> is a spatial object such as a window,
+a pixel image with logical values,
+a linear network, or a point pattern;  or
+</p>
+</li>
+<li>
+<p><code>i,j</code> are indices for the matrix <code>as.matrix(x)</code>; or
+</p>
+</li>
+<li>
+<p><code>i</code> can be converted to a point pattern
+by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>(i, W=Window(x))</code>,
+and <code>i</code> is not a matrix.
+</p>
+</li></ol>
+
+<p>If <code>i</code> is a spatial window (an object of class <code>"owin"</code>),
+the pixels inside this window are selected. 
+</p>
+
+<ul>
+<li>
+<p>If <code>drop=TRUE</code> (the default) and either
+<code>is.rectangle(i)=FALSE</code> or <code>rescue=FALSE</code>,
+the pixel values are extracted;
+the result is a vector, with one entry for each pixel of <code>x</code>
+that lies inside the window <code>i</code>.
+Pixel values may be <code>NA</code>, indicating that the selected pixel
+lies outside the spatial domain of the image.
+</p>
+</li>
+<li>
+<p>if <code>drop=FALSE</code>,
+the result is another pixel image, obtained by setting 
+the pixel values to <code>NA</code> outside the window <code>i</code>.
+The effect is that the pixel image <code>x</code> is clipped to the
+window <code>i</code>.
+</p>
+</li>
+<li> 
+<p>if <code>i</code> is a rectangle and <code>rescue=TRUE</code>,
+the result is a pixel image as described above.
+</p>
+</li>
+<li>
+<p>To ensure that an image is produced in all circumstances,
+set <code>drop=FALSE</code>.
+To ensure that pixel values are extracted as a vector
+in all circumstances, set <code>drop=TRUE, rescue=FALSE</code>.
+</p>
+</li></ul>
+
+<p>If <code>i</code> is a pixel image with logical values,
+it is interpreted as a spatial window (with <code>TRUE</code> values
+inside the window and <code>FALSE</code> outside).
+</p>
+<p>If <code>i</code> is a linear network (object of class <code>"linnet"</code>),
+the pixels which lie on this network are selected.
+</p>
+
+<ul>
+<li> 
+<p>If <code>drop=TRUE</code> (the default),
+the pixel values are extracted;
+the result is a vector, with one entry for each pixel of <code>x</code>
+that lies along the network <code>i</code>.
+Pixel values may be <code>NA</code>, indicating that the selected pixel
+lies outside the spatial domain of the image.
+</p>
+</li>
+<li>
+<p>if <code>drop=FALSE</code>,
+the result is a pixel image on a linear network (object of
+class <code>"linim"</code>), obtained by setting the pixel values of
+<code>x</code> to <code>NA</code> except for those which lie on the network <code>i</code>.
+The effect is that the pixel image <code>x</code> is restricted to the
+network <code>i</code>.
+</p>
+</li></ul>
+
+<p>If <code>i</code> is a point pattern (an object of class
+<code>"ppp"</code>) or something that can be converted to a point pattern,
+then the values of the pixel image at the points of
+this pattern are extracted.
+The result is a vector of pixel values.
+This is a simple way to read the
+pixel values at a given spatial location. 
+</p>
+
+<ul>
+<li><p> if <code>drop=FALSE</code> the length of the result 
+is equal to the number of points in the pattern. It may contain
+<code>NA</code> values which indicate that the corresponding point
+lies outside the spatial domain of the image.
+</p>
+</li>
+<li><p> if <code>drop=TRUE</code> (the default), <code>NA</code> values are
+deleted. The result is a vector whose length may be shorter than
+the number of points of the pattern.
+</p>
+</li></ul>
+
+<p>If the optional argument <code>raster</code> is given, then it should
+be a binary image mask or a pixel image. Then
+<code>x</code> will first be converted to an image defined on the
+pixel grid implied by <code>raster</code>, before the subset operation
+is carried out.
+In particular, <code>x[i, raster=i, drop=FALSE]</code> will return
+an image defined on the same pixel array as the object <code>i</code>.
+</p>
+<p>If <code>i</code> does not satisfy any of the conditions above, then
+the algorithm attempts to interpret <code>i</code> and <code>j</code>
+as indices for the matrix <code>as.matrix(x)</code>.
+Either <code>i</code> or <code>j</code> may be missing or blank.
+The result is usually a vector or matrix of pixel values.
+Exceptionally the result is a pixel image if <code>i,j</code> determines
+a rectangular subset of the pixel grid, and if the user specifies
+<code>rescue=TRUE</code>.
+</p>
+<p>Finally, if none of the above conditions is met,
+the object <code>i</code> may also be a data frame or list of <code>x,y</code>
+coordinates which will be converted to a point pattern, taking the
+observation window to be <code>Window(x)</code>. Then the pixel values
+at these points will be extracted as a vector.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either a pixel image or a vector of pixel values. See Details.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>If you have a 2-column matrix containing the <i>x,y</i> coordinates
+of point locations, then to prevent this being interpreted as an
+array index, you should convert it to a <code>data.frame</code>
+or to a point pattern.
+</p>
+<p>If <code>W</code> is a window or a pixel image, then <code>x[W, drop=FALSE]</code> 
+will return an image defined on the same pixel array
+as the original image <code>x</code>. If you want to obtain an image
+whose pixel dimensions agree with those of <code>W</code>, use the
+<code>raster</code> argument, <code>x[W, raster=W, drop=FALSE]</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/+5B+3C-.im.html">[&lt;-.im</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # make up an image
+ X &lt;- setcov(unit.square())
+ plot(X)
+
+ # a rectangular subset
+ W &lt;- owin(c(0,0.5),c(0.2,0.8))
+ Y &lt;- X[W]
+ plot(Y)
+
+ # a polygonal subset
+ R &lt;- affine(letterR, diag(c(1,1)/2), c(-2,-0.7))
+ plot(X[R, drop=FALSE])
+ plot(X[R, drop=FALSE, tight=TRUE])
+
+ # a point pattern
+ Y &lt;- X[cells]
+
+ # look up a specified location
+ X[list(x=0.1,y=0.2)]
+
+ # 10 x 10 pixel array
+ X &lt;- as.im(function(x,y) { x + y }, owin(c(-1,1),c(-1,1)), dimyx=10)
+ # 100 x 100 
+ W &lt;- as.mask(disc(1, c(0,0)), dimyx=100)
+ # 10 x 10 raster
+ X[W,drop=FALSE]
+ # 100 x 100 raster
+ X[W, raster=W, drop=FALSE]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

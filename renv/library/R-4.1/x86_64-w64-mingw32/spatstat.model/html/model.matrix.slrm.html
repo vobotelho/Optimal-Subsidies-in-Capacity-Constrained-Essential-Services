@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Design Matrix from Spatial Logistic Regression Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for model.matrix.slrm {spatstat.model}"><tr><td>model.matrix.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Design Matrix from Spatial Logistic Regression Model</h2>
+
+<h3>Description</h3>
+
+<p>This function extracts the design matrix of a
+spatial logistic regression model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'slrm'
+model.matrix(object, ..., keepNA=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted spatial logistic regression model. An object of class 
+<code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments (such as <code>na.action</code>) passed to
+<code><a href="../../stats/html/model.matrix.html">model.matrix.lm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>keepNA</code></td>
+<td>
+
+<p>Logical. Determines whether rows containing <code>NA</code> values will be
+deleted or retained.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command is a method for the generic function
+<code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>. It extracts the design matrix of a
+spatial logistic regression.
+</p>
+<p>The <code>object</code> must be a fitted
+spatial logistic regression 
+(object of class <code>"slrm"</code>).
+Such objects are produced by the model-fitting
+function <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>.
+</p>
+<p>Usually the result is a matrix with one column for every
+constructed covariate in the model, and one row
+for every pixel in the grid used to fit the model.
+</p>
+<p>If <code>object</code> was fitted using split pixels (by calling
+<code><a href="../../spatstat.model/help/slrm.html">slrm</a></code> using the argument <code>splitby</code>) then the
+matrix has one row for every pixel or half-pixel.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix. Columns of the matrix are canonical covariates in the model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>,
+<code><a href="../../spatstat.model/help/model.images.html">model.images</a></code>,
+<code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- slrm(japanesepines ~x)
+   head(model.matrix(fit))
+   # matrix with two columns: '(Intercept)' and 'x'
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

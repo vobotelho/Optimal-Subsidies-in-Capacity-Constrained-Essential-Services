@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Power Exponential Spectral Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dppPowerExp {spatstat.model}"><tr><td>dppPowerExp {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Power Exponential Spectral Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Function generating an instance of the Power Exponential
+Spectral determinantal point process model.</p>
+
+
+<h3>Usage</h3>
+
+<pre>dppPowerExp(...)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments of the form <code>tag=value</code> specifying the
+parameters. See Details.</p>
+</td></tr> 
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Power Exponential Spectral DPP is defined in (Lavancier, Moller and Rubak, 2015)
+The possible parameters are:
+</p>
+
+<ul>
+<li><p> the intensity <code>lambda</code> as a positive numeric
+</p>
+</li>
+<li><p> the scale parameter <code>alpha</code> as a positive numeric
+</p>
+</li>
+<li><p> the shape parameter <code>nu</code> as a positive numeric
+(artificially required to be less than 20 in the code for numerical
+stability)
+</p>
+</li>
+<li><p> the dimension <code>d</code> as a positive integer
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"detpointprocfamily"</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Lavancier, F. Moller, J. and Rubak, E. (2015)
+Determinantal point process models and statistical inference
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>77</b>, 853&ndash;977.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dppBessel.html">dppBessel</a></code>,
+<code><a href="../../spatstat.model/help/dppCauchy.html">dppCauchy</a></code>,
+<code><a href="../../spatstat.model/help/dppGauss.html">dppGauss</a></code>,
+<code><a href="../../spatstat.model/help/dppMatern.html">dppMatern</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+m &lt;- dppPowerExp(lambda=100, alpha=.01, nu=1, d=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Integral of Function Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for integral.fv {spatstat.explore}"><tr><td>integral.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Integral of Function Object
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the integral of a function 
+over a specified range.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+integral(f, domain = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A function value table
+(object of class <code>"fv"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional. Range of values of the argument <i>x</i> over which the
+density <i>f(x)</i> should be integrated. A numeric vector of length
+2 giving the minimum and maximum values of <i>x</i>. Infinite limits
+are permitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.univar/help/integral.html">integral</a></code>.
+It computes the numerical integral
+</p>
+<p style="text-align: center;"><i>
+    I = integral f(x) dx
+  </i></p>
+
+<p>of the function object <code>f</code>.
+If <code>domain</code> is specified, the integral is restricted to the
+interval of <i>x</i> values given by the <code>domain</code>.
+</p>
+<p>The result is a numeric value or numeric vector containing one entry
+for each column of function values in <code>f</code>.
+</p>
+<p>Integrals are calculated numerically using the trapezoidal rule
+restricted to the domain given.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value, or a numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/fv.object.html">fv.object</a></code>, <code><a href="../../spatstat.univar/help/integral.html">integral</a></code>
+</p>
+<p><code><a href="../../spatstat.univar/help/stieltjes.html">stieltjes</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  g &lt;- pcf(redwood, divisor="d")
+  integral(g, domain=c(0, 0.1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

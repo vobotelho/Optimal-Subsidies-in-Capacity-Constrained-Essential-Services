@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel distributions and random generation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dkernel {spatstat.univar}"><tr><td>dkernel {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Kernel distributions and random generation</h2>
+
+<h3>Description</h3>
+
+<p>Density, distribution function, quantile function and random
+generation for several distributions used in kernel estimation
+for numerical data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dkernel(x, kernel = "gaussian", mean = 0, sd = 1)
+pkernel(q, kernel = "gaussian", mean = 0, sd = 1, lower.tail = TRUE)
+qkernel(p, kernel = "gaussian", mean = 0, sd = 1, lower.tail = TRUE)
+rkernel(n, kernel = "gaussian", mean = 0, sd = 1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, q</code></td>
+<td>
+<p>Vector of quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Vector of probabilities.</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>String name of the kernel.
+Options are
+<code>"gaussian"</code>, <code>"rectangular"</code>,
+<code>"triangular"</code>,
+<code>"epanechnikov"</code>,
+<code>"biweight"</code>,
+<code>"cosine"</code> and <code>"optcosine"</code>.
+(Partial matching is used).
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Number of observations.</p>
+</td></tr>
+<tr valign="top"><td><code>mean</code></td>
+<td>
+<p>Mean of distribution.</p>
+</td></tr>
+<tr valign="top"><td><code>sd</code></td>
+<td>
+<p>Standard deviation of distribution.</p>
+</td></tr>
+<tr valign="top"><td><code>lower.tail</code></td>
+<td>
+<p>logical; if <code>TRUE</code> (the default),
+then probabilities are <i>P[X &le; x]</i>,
+otherwise, <i>P(X &gt; x)</i>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions give the
+probability density, cumulative distribution function,
+quantile function and random generation for several
+distributions used in kernel estimation for one-dimensional
+(numerical) data.
+</p>
+<p>The available kernels are those used in <code><a href="../../stats/help/density.default.html">density.default</a></code>,
+namely <code>"gaussian"</code>, <code>"rectangular"</code>,
+<code>"triangular"</code>,
+<code>"epanechnikov"</code>,
+<code>"biweight"</code>,
+<code>"cosine"</code> and <code>"optcosine"</code>.
+For more information about these kernels,
+see <code><a href="../../stats/help/density.default.html">density.default</a></code>. 
+</p>
+<p><code>dkernel</code> gives the probability density,
+<code>pkernel</code> gives the cumulative distribution function,
+<code>qkernel</code> gives the quantile function,
+and <code>rkernel</code> generates random deviates.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector.
+For <code>dkernel</code>, a vector of the same length as <code>x</code>
+containing the corresponding values of the probability density.
+For <code>pkernel</code>, a vector of the same length as <code>x</code>
+containing the corresponding values of the cumulative distribution function.
+For <code>qkernel</code>, a vector of the same length as <code>p</code>
+containing the corresponding quantiles.
+For <code>rkernel</code>, a vector of length <code>n</code>
+containing randomly generated values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Martin Hazelton <a href="mailto:Martin.Hazelton@otago.ac.nz">Martin.Hazelton@otago.ac.nz</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/density.default.html">density.default</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.factor.html">kernel.factor</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.moment.html">kernel.moment</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.squint.html">kernel.squint</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- seq(-3,3,length=100)
+  plot(x, dkernel(x, "epa"), type="l",
+           main=c("Epanechnikov kernel", "probability density"))
+  plot(x, pkernel(x, "opt"), type="l",
+           main=c("OptCosine kernel", "cumulative distribution function"))
+  p &lt;- seq(0,1, length=256)
+  plot(p, qkernel(p, "biw"), type="l",
+           main=c("Biweight kernel", "cumulative distribution function"))
+  y &lt;- rkernel(100, "tri")
+  hist(y, main="Random variates from triangular density")
+  rug(y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

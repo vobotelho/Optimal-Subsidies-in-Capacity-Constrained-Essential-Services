@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create Adjacency Matrix for Spatial Grid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gridadjacencymatrix {spatstat.sparse}"><tr><td>gridadjacencymatrix {spatstat.sparse}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Create Adjacency Matrix for Spatial Grid
+</h2>
+
+<h3>Description</h3>
+
+<p>Given the dimensions of a rectangular grid of points, this command
+creates the adjacency matrix for the corresponding neighbourhood
+graph, whose vertices are the grid points, and whose edges are the
+joins between neighbouring grid points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gridadjacencymatrix(dims, across = TRUE, down = TRUE, diagonal=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dims</code></td>
+<td>
+
+<p>Grid dimensions. An integer, or a vector of two integers.
+First entry specifies the number of points in the <i>y</i> direction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>across</code></td>
+<td>
+
+<p>Logical value equal to <code>TRUE</code> if horizontal neighbours should
+be joined.
+</p>
+</td></tr>
+<tr valign="top"><td><code>down</code></td>
+<td>
+
+<p>Logical value equal to <code>TRUE</code> if vertical neighbours should
+be joined.
+</p>
+</td></tr>
+<tr valign="top"><td><code>diagonal</code></td>
+<td>
+
+<p>Logical value equal to <code>TRUE</code> if diagonal neighbours should
+be joined.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>N = prod(dims)</code> is the total number of grid points,
+then the result is an <code>N * N</code> sparse matrix with logical entries
+equal to <code>TRUE</code> if the corresponding grid points are joined.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A sparse matrix. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  gridadjacencymatrix(c(2,3))  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.sparse</em> version 3.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

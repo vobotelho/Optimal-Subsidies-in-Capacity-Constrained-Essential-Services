@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fitted Intensity for Point Process on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fitted.lppm {spatstat.linnet}"><tr><td>fitted.lppm {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fitted Intensity for Point Process on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a point pattern on a linear network,
+compute the fitted intensity of the model
+at the points of the pattern,
+or at the points of the quadrature scheme used to fit the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lppm'
+fitted(object, ...,
+                      dataonly = FALSE, new.coef = NULL,
+		      leaveoneout = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted point process model on a linear network
+(object of class <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dataonly</code></td>
+<td>
+
+<p>Logical value indicating whether to computed fitted intensities
+at the points of the original point pattern dataset
+(<code>dataonly=TRUE</code>)
+or at all the quadrature points of the quadrature scheme
+used to fit the model (<code>dataonly=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>new.coef</code></td>
+<td>
+
+<p>Numeric vector of parameter values to replace the 
+fitted model parameters <code>coef(object)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> the fitted value at each data
+point will be computed using a leave-one-out method. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../stats/help/fitted.html">fitted</a></code>
+for the class <code>"lppm"</code> of fitted point process models on a linear
+network.
+</p>
+<p>The locations <i>u</i> at which the fitted conditional intensity/trend
+is evaluated, are the points of the
+quadrature scheme used to fit the model in <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+They include the data points (the points of the original point pattern
+dataset <code>x</code>) and other &ldquo;dummy&rdquo; points 
+in the window of observation.
+</p>
+<p>If <code>leaveoneout=TRUE</code>, fitted values will be computed
+for the data points only, using a &lsquo;leave-one-out&rsquo; rule: 
+the fitted value at <code>X[i]</code> is effectively computed by
+deleting this point from the data and re-fitting the model to the
+reduced pattern <code>X[-i]</code>, then predicting the value at
+<code>X[i]</code>. (Instead of literally performing this calculation,
+we apply a Taylor approximation using the influence function
+computed in <code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector containing the values of the fitted spatial trend.
+</p>
+<p>Entries in this vector correspond to the quadrature points (data or
+dummy points) used to fit the model. 
+The quadrature points can be extracted from <code>object</code>
+by <code>union.quad(quad.ppm(object))</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>,
+<code><a href="../../spatstat.linnet/help/predict.lppm.html">predict.lppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- lppm(spiders~x+y)
+   a &lt;- fitted(fit)
+   b &lt;- fitted(fit, dataonly=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

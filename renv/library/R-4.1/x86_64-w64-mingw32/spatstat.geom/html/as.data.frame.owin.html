@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Window to Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.data.frame.owin {spatstat.geom}"><tr><td>as.data.frame.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Window to Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Converts a window object to a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'owin'
+as.data.frame(x, ..., drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Further arguments passed to
+<code><a href="../../base/help/as.data.frame.html">as.data.frame.default</a></code>
+to determine the row names and other features.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating whether to discard pixels that are
+outside the window, when <code>x</code> is a binary mask.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function returns a data frame specifying the coordinates of the
+window.
+</p>
+<p>If <code>x</code> is a binary mask window,
+the result is a data frame with columns <code>x</code> and <code>y</code>
+containing the spatial coordinates of each <em>pixel</em>.
+If <code>drop=TRUE</code> (the default), only pixels inside the window are retained.
+If <code>drop=FALSE</code>, all pixels are retained, and the data frame has
+an extra column <code>inside</code> containing the logical value of each pixel
+(<code>TRUE</code> for pixels inside the window, <code>FALSE</code> for outside).
+</p>
+<p>If <code>x</code> is a rectangle or a polygonal window,
+the result is a data frame with columns <code>x</code> and <code>y</code>
+containing the spatial coordinates of the <em>vertices</em> of the
+window. If the boundary consists of several polygons, the data frame
+has additional columns <code>id</code>, identifying which polygon is being
+traced, and <code>sign</code>, indicating whether the polygon is an
+outer or inner boundary (<code>sign=1</code> and <code>sign=-1</code>
+respectively).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with columns named <code>x</code> and <code>y</code>,
+and possibly other columns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.data.frame.im.html">as.data.frame.im</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.data.frame.html">as.owin.data.frame</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   as.data.frame(square(1))
+
+   holey &lt;- owin(poly=list(
+                        list(x=c(0,10,0), y=c(0,0,10)),
+                        list(x=c(2,2,4,4), y=c(2,4,4,2))))
+   as.data.frame(holey)
+
+   M &lt;- as.mask(holey, eps=0.5)
+   Mdf &lt;- as.data.frame(M)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

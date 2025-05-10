@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Farthest Distance to Boundary of Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fardist {spatstat.geom}"><tr><td>fardist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Farthest Distance to Boundary of Window
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the farthest distance from each pixel, or each data point,
+to the boundary of the window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  fardist(X, ...)
+
+  ## S3 method for class 'owin'
+fardist(X, ..., squared=FALSE)
+
+  ## S3 method for class 'ppp'
+fardist(X, ..., squared=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial object such as a window or point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution, if required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>squared</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the squared distances will be
+returned.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>fardist</code> is generic, with methods for
+the classes <code>owin</code> and <code>ppp</code>.
+</p>
+<p>For a window <code>W</code>, the command <code>fardist(W)</code>
+returns a pixel image in which the value at each pixel
+is the <em>largest</em> distance from that pixel to the boundary of
+<code>W</code>.
+</p>
+<p>For a point pattern <code>X</code>, with window <code>W</code>, the
+command <code>fardist(X)</code> returns a numeric vector
+with one entry for each point of <code>X</code>, giving the
+largest distance from that data point to the boundary of <code>W</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>fardist.owin</code>, a pixel image (object of class <code>"im"</code>).
+</p>
+<p>For <code>fardist.ppp</code>, a numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fardist(cells)
+
+  plot(FR &lt;- fardist(letterR))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

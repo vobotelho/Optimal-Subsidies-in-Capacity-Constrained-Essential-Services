@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous multitype K Function (Cross-type) for Linear...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linearKcross.inhom {spatstat.linnet}"><tr><td>linearKcross.inhom {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous multitype K Function (Cross-type) for Linear Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>For a multitype point pattern on a linear network,
+estimate the inhomogeneous multitype <i>K</i> function
+which counts the expected number of points of type <i>j</i>
+within a given distance of a point of type <i>i</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linearKcross.inhom(X, i, j, lambdaI=NULL, lambdaJ=NULL,
+                   r=NULL, ..., correction="Ang", normalise=TRUE,
+                   sigma=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the cross type <i>K</i> function
+<i>Kij(r)</i> will be computed.
+An object of class <code>"lpp"</code> which 
+must be a multitype point pattern (a marked point pattern
+whose marks are a factor).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>Number or character string identifying the type (mark value)
+of the points in <code>X</code> from which distances are measured.
+Defaults to the first level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+<p>Number or character string identifying the type (mark value)
+of the points in <code>X</code> to which distances are measured.
+Defaults to the second level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaI</code></td>
+<td>
+
+<p>Intensity values for the points of type <code>i</code>. Either a numeric vector,
+a <code>function</code>, a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>) or
+a fitted point process model (object of class <code>"ppm"</code>
+or <code>"lppm"</code>) or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaJ</code></td>
+<td>
+
+<p>Intensity values for the points of type <code>j</code>. Either a numeric vector,
+a <code>function</code>, a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>) or
+a fitted point process model (object of class <code>"ppm"</code>
+or <code>"lppm"</code>) or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>numeric vector. The values of the argument <i>r</i>
+at which the <i>K</i>-function
+<i>Kij(r)</i> should be evaluated.
+There is a sensible default.
+First-time users are strongly advised not to specify this argument.
+See below for important conditions on <i>r</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Geometry correction.
+Either <code>"none"</code> or <code>"Ang"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code>lambdaI</code> and <code>lambdaJ</code> if
+they are functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), the denominator of the estimator is 
+data-dependent (equal to the sum of the reciprocal intensities at
+the points of type <code>i</code>), which reduces the sampling variability.
+If <code>FALSE</code>, the denominator is the length of the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>
+for estimation of intensities when either <code>lambdaI</code> or
+<code>lambdaJ</code> is <code>NULL</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a counterpart of the function <code><a href="../../spatstat.explore/help/Kcross.inhom.html">Kcross.inhom</a></code> 
+for a point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+<p>The arguments <code>i</code> and <code>j</code> will be interpreted as
+levels of the factor <code>marks(X)</code>. 
+If <code>i</code> and <code>j</code> are missing, they default to the first
+and second level of the marks factor, respectively.
+</p>
+<p>The argument <code>r</code> is the vector of values for the
+distance <i>r</i> at which <i>Kij(r)</i> should be evaluated. 
+The values of <i>r</i> must be increasing nonnegative numbers
+and the maximum <i>r</i> value must not exceed the radius of the
+largest disc contained in the window.
+</p>
+<p>If <code>lambdaI</code> or <code>lambdaJ</code> is missing or <code>NULL</code>, it will
+be estimated by kernel smoothing using <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+</p>
+<p>If <code>lambdaI</code> or <code>lambdaJ</code> is a fitted point process model,
+the default behaviour is to update the model by re-fitting it to
+the data, before computing the fitted intensity.
+This can be disabled by setting <code>update=FALSE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The arguments <code>i</code> and <code>j</code> are interpreted as
+levels of the factor <code>marks(X)</code>. Beware of the usual
+trap with factors: numerical values are not
+interpreted in the same way as character values. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A, Jammalamadaka, A. and Nair, G. (2014)
+Multitype point process analysis of spines on the
+dendrite network of a neuron.
+<em>Applied Statistics</em> (Journal of the Royal Statistical
+Society, Series C), <b>63</b>, 673&ndash;694.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linearKdot.html">linearKdot</a></code>,
+<code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   lam &lt;- table(marks(chicago))/(summary(chicago)$totlength)
+   lamI &lt;- function(x,y,const=lam[["assault"]]){ rep(const, length(x)) }
+   lamJ &lt;- function(x,y,const=lam[["robbery"]]){ rep(const, length(x)) }
+
+   K &lt;- linearKcross.inhom(chicago, "assault", "robbery", lamI, lamJ)
+
+   # using fitted models for the intensity
+   # fit &lt;- lppm(chicago ~marks + x)
+   # K &lt;- linearKcross.inhom(chicago, "assault", "robbery", fit, fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

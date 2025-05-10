@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Join Vertices in a Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for joinVertices {spatstat.linnet}"><tr><td>joinVertices {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Join Vertices in a Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Join the specified vertices in a linear network, creating a new network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+joinVertices(L, from, to, marks=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>)
+or point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+
+<p>Integers, or integer vectors of equal length,
+specifying the vertices which should be joined.
+Alternatively <code>from</code> can be a 2-column matrix of integers
+and <code>to</code> is missing or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>marks</code></td>
+<td>
+
+<p>Optional vector or data frame of values associated with the new edges.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Vertices of the network are numbered by their order of appearance
+in the point pattern <code>vertices(L)</code>.
+</p>
+<p>If <code>from</code> and <code>to</code> are single integers, then the
+pair of vertices numbered <code>from</code> and <code>to</code> will be
+joined to make a new segment of the network.
+If <code>from</code> and <code>to</code> are vectors of integers, then
+vertex <code>from[i]</code> will be joined to vertex <code>to[i]</code> for
+each <code>i = 1,2,..</code>.
+</p>
+<p>If <code>L</code> is a network (class <code>"linnet"</code>), the result is
+another network, created by adding new segments.
+If <code>L</code> is a point pattern on a network (class <code>"lpp"</code>), the
+result is another point pattern object, created by adding new segments to
+the underlying network, and retaining the points.
+</p>
+<p>In the resulting object, the new line segments are appended to the
+existing list of line segments.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A linear network (object of class <code>"linnet"</code>)
+or point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>, <code><a href="../../spatstat.linnet/help/methods.linnet.html">methods.linnet</a></code>,
+<code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  snet &lt;- joinVertices(simplenet, 4, 8)
+  plot(solist(simplenet, snet), main="")
+  X &lt;- runiflpp(3, simplenet)
+  Y &lt;- joinVertices(X, 4, 8)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

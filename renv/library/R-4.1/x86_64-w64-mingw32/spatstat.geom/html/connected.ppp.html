@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Connected Components of a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for connected.ppp {spatstat.geom}"><tr><td>connected.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Connected Components of a Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Finds the topologically-connected components of a point pattern,
+when all pairs of points closer than a threshold distance are joined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+connected(X, R, ...)
+
+## S3 method for class 'pp3'
+connected(X, R, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code> or <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>R</code></td>
+<td>
+
+<p>Threshold distance. Pairs of points closer than <code>R</code> units apart
+will be joined together.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments, not recognised by these methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function can be used to identify clumps of points in a point pattern.
+</p>
+<p>The function <code>connected</code> is generic. This file documents the methods for
+point patterns in dimension two or three (objects of class <code>"ppp"</code> or
+<code>"pp3"</code>).
+</p>
+<p>The point pattern <code>X</code> is first converted into an abstract graph
+by joining every pair of points that lie closer than <code>R</code> units
+apart. Then the connected components of this graph are identified.
+</p>
+<p>Two points in <code>X</code> belong to the same connected component if they
+can be reached by a series of steps between points of <code>X</code>,
+each step being shorter than <code>R</code> units in length.
+</p>
+<p>The result is a vector of labels for the points of <code>X</code>
+where all the points in a connected component have the same label.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern, equivalent to <code>X</code> except that the points
+have factor-valued marks, with levels corresponding to the
+connected components.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/connected.im.html">connected.im</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>, 
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Y &lt;- connected(redwoodfull, 0.1)
+   if(interactive()) {
+    plot(Y, cols=1:length(levels(marks(Y))),
+         main="connected(redwoodfull, 0.1)")
+   }
+   X &lt;- osteo$pts[[1]]
+   Z &lt;- connected(X, 32)
+   if(interactive()) {
+    plot(Z, col=marks(Z), main="")
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

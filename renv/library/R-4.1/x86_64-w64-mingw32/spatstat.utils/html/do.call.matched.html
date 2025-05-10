@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Call a Function, Passing Only Recognised Arguments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for do.call.matched {spatstat.utils}"><tr><td>do.call.matched {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Call a Function, Passing Only Recognised Arguments
+</h2>
+
+<h3>Description</h3>
+
+<p>Call a specified function, using only those arguments which are
+known to be acceptable to the function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  do.call.matched(fun, arglist, funargs, extrargs = NULL,
+                  matchfirst = FALSE, sieve = FALSE, skipargs = NULL,
+                  envir=parent.frame())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>A function, or a character string giving the name of a function,
+to be called.
+</p>
+</td></tr>
+<tr valign="top"><td><code>arglist</code></td>
+<td>
+
+<p>A named list of arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>funargs</code></td>
+<td>
+
+<p>Character vector giving the names of arguments that are recognised
+by <code>fun</code>. Defaults to the names of the formal arguments of
+<code>fun</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>extrargs</code></td>
+<td>
+
+<p>Optional. Character vector giving the names of additional arguments
+that can be handled by <code>fun</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>skipargs</code></td>
+<td>
+
+<p>Optional. Character vector giving the names of arguments which should
+<b>not</b> be passed to <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>matchfirst</code></td>
+<td>
+
+<p>Logical value indicating whether the first entry
+of <code>arglist</code> is permitted to have an empty name
+and should be matched to the first argument of <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sieve</code></td>
+<td>
+
+<p>Logical value indicating whether to return the
+un-used arguments as well as the result of the function call.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+
+<p>An environment within which to evaluate the call,
+if any entries of <code>arglist</code> are quoted expressions.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a wrapper for <code><a href="../../base/help/do.call.html">do.call</a></code>
+which avoids passing arguments that are unrecognised by <code>fun</code>.
+</p>
+<p>In the simplest case <code>do.call.matched(fun, arglist)</code>
+is like <code>do.call(fun, arglist)</code>, except that
+entries of <code>arglist</code> which do not match any formal
+argument of <code>fun</code> are removed.
+Extra argument names can be permitted using <code>extrargs</code>,
+and argument names can be forbidden using <code>skipargs</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>sieve=FALSE</code> (the default), the result is the
+return value from <code>fun</code>.
+</p>
+<p>If <code>sieve=TRUE</code>, the result is a list with entries
+<code>result</code> (the return value from <code>fun</code>) and
+<code>otherargs</code> (a list of the arguments that were not passed
+to <code>fun</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/resolve.defaults.html">resolve.defaults</a></code>,
+<code><a href="../../spatstat.utils/help/do.call.without.html">do.call.without</a></code>.
+</p>
+<p><code><a href="../../base/help/do.call.html">do.call</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- function(x=0,y=0, ...) { paste(x, y, ..., sep=", ") }
+  f()
+  do.call.matched(f, list(y=2))
+  do.call.matched(f, list(y=2, z=5), extrargs="z")
+  do.call.matched(f, list(y=2, z=5), extrargs="z", skipargs="y")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

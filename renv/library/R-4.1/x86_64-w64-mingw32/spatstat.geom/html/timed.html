@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Record the Computation Time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for timed {spatstat.geom}"><tr><td>timed {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Record the Computation Time
+</h2>
+
+<h3>Description</h3>
+
+<p>Saves the result of a calculation as an object of class <code>"timed"</code>
+which includes information about the time taken to compute the result.
+The computation time is printed when the object is printed.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+timed(x, ..., starttime = NULL, timetaken = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An expression to be evaluated, or an object that has already
+been evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>starttime</code></td>
+<td>
+
+<p>The time at which the computation is defined to have started.
+The default is the current time.
+Ignored if <code>timetaken</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>timetaken</code></td>
+<td>
+
+<p>The length of time taken to perform the computation.
+The default is the time taken to evaluate <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a simple mechanism for recording how long it takes to
+perform complicated calculations (usually for the purposes of
+reporting in a publication).
+</p>
+<p>If <code>x</code> is an expression to be evaluated, <code>timed(x)</code>
+evaluates the expression and measures the
+time taken to evaluate it.
+The result is saved as an object of the class
+<code>"timed"</code>. Printing this object displays the computation time.
+</p>
+<p>If <code>x</code> is an object which has already been computed,
+then the time taken to compute the object can be specified either directly
+by the argument <code>timetaken</code>, or indirectly by the argument
+<code>starttime</code>.
+</p>
+
+<ul>
+<li>
+<p><code>timetaken</code> is the duration of time taken to perform
+the computation. It should be the difference of two clock times
+returned by <code><a href="../../base/html/proc.time.html">proc.time</a></code>. Typically the user
+sets <code>begin &lt;- proc.time()</code> before commencing the calculations,
+then <code>end &lt;- proc.time()</code> after completing the calculations,
+and then sets <code>timetaken &lt;- end - begin</code>.
+</p>
+</li>
+<li>
+<p><code>starttime</code> is the clock time at which the computation started.
+It should be a value that was returned by <code><a href="../../base/html/proc.time.html">proc.time</a></code>
+at some earlier time when the calculations commenced.
+When <code>timed</code> is called, the computation time will be taken
+as the difference between the current clock time and
+<code>starttime</code>. Typically the user
+sets <code>begin &lt;- proc.time()</code> before commencing the calculations,
+and when the calculations are completed, the user calls
+<code>result &lt;- timed(result, starttime=begin)</code>. 
+</p>
+</li></ul>
+
+<p>If the result of evaluating <code>x</code> belongs to other S3 classes,
+then the result of <code>timed(x, ...)</code> also inherits these classes,
+and printing the object will display the appropriate information for these
+classes as well.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object inheriting the class <code>"timed"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/timeTaken.html">timeTaken</a></code> to extract the time taken.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  timed(minnndist(cells))
+
+  answer &lt;- timed(42, timetaken=4.1e17)
+  answer
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

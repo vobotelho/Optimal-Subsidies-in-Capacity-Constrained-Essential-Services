@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Piecewise Constant Pairwise Interaction Point Process...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for PairPiece {spatstat.model}"><tr><td>PairPiece {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Piecewise Constant Pairwise Interaction Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of a pairwise interaction point process model
+with piecewise constant potential function. The model
+can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  PairPiece(r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>vector of jump points for the potential function</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A pairwise interaction point process in a bounded region
+is a stochastic point process with probability density of the form
+</p>
+<p style="text-align: center;"><i>
+    f(x_1,&hellip;,x_n) =
+    alpha . product { b(x[i]) } product { h(x_i, x_j) }
+  </i></p>
+
+<p>where <i>x[1],&hellip;,x[n]</i> represent the 
+points of the pattern. The first product on the right hand side is
+over all points of the pattern; the second product is over all
+unordered pairs of points of the pattern.
+</p>
+<p>Thus each point <i>x[i]</i> of the pattern contributes a factor 
+<i>b(x[i])</i> to the probability density, and each pair of
+points <i>x[i], x[j]</i> contributes a factor
+<i>h(x[i], x[j])</i> to the density.
+</p>
+<p>The pairwise interaction term <i>h(u, v)</i> is called
+<em>piecewise constant</em>
+if it depends only on the distance between <i>u</i> and <i>v</i>,
+say <i>h(u,v) = H(||u-v||)</i>, and <i>H</i> is a piecewise constant
+function (a function which is constant except for jumps at a finite
+number of places). The use of piecewise constant interaction terms
+was first suggested by Takacs (1986).
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the piecewise constant pairwise
+interaction is yielded by the function <code>PairPiece()</code>.
+See the examples below.
+</p>
+<p>The entries of <code>r</code> must be strictly increasing, positive numbers.
+They are interpreted as the points of discontinuity of <i>H</i>.
+It is assumed that <i>H(s) =1</i> for all <i>s &gt; rmax</i>
+where <i>rmax</i> is the maximum value in <code>r</code>. Thus the
+model has as many regular parameters (see <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>) 
+as there are entries in <code>r</code>. The <i>i</i>-th regular parameter
+<i>theta[i]</i> is the logarithm of the value of the
+interaction function <i>H</i> on the interval
+<i>[r[i-1],r[i])</i>. 
+</p>
+<p>If <code>r</code> is a single number, this model is similar to the 
+Strauss process, see <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>. The difference is that
+in <code>PairPiece</code> the interaction function is continuous on the
+right, while in <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code> it is continuous on the left.
+</p>
+<p>The analogue of this model for multitype point processes
+has not yet been implemented.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of a point process. The process is a pairwise interaction process,
+whose interaction potential is piecewise constant, with jumps
+at the distances given in the vector <i>r</i>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Takacs, R. (1986)
+Estimator for the pair potential of a Gibbsian point process.
+<em>Statistics</em> <b>17</b>, 429&ndash;433.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>
+<code><a href="../../spatstat.model/help/rmh.ppm.html">rmh.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   PairPiece(c(0.1,0.2))
+   # prints a sensible description of itself
+
+   ppm(cells ~1, PairPiece(r = c(0.05, 0.1, 0.2)))
+   # fit a stationary piecewise constant pairwise interaction process
+
+   
+     ppm(cells ~polynom(x,y,3), PairPiece(c(0.05, 0.1)))
+     # nonstationary process with log-cubic polynomial trend
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

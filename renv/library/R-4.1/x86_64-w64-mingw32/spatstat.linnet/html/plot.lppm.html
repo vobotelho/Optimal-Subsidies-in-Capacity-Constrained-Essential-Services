@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Fitted Point Process Model on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.lppm {spatstat.linnet}"><tr><td>plot.lppm {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Fitted Point Process Model on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Plots the fitted intensity of a point process model
+on a linear network. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lppm'
+plot(x, ..., type="trend")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>"lppm"</code> representing a fitted point process
+model on a linear network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code> to control the
+plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string (either <code>"trend"</code> or <code>"cif"</code>)
+determining whether to plot the fitted first order trend
+or the conditional intensity.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is the plot method for the class 
+<code>"lppm"</code>. It computes the fitted intensity of the
+point process model, and displays it using <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>.
+</p>
+<p>The default is to display intensity values as colours. Alternatively
+if the argument <code>style="width"</code> is given, intensity values are
+displayed as the widths of thick lines drawn over the network.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>,
+<code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>,
+<code><a href="../../spatstat.linnet/help/methods.lppm.html">methods.lppm</a></code>,
+<code><a href="../../spatstat.linnet/help/predict.lppm.html">predict.lppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(10, simplenet)  
+  fit &lt;- lppm(X ~x)
+  plot(fit)
+  plot(fit, style="width")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

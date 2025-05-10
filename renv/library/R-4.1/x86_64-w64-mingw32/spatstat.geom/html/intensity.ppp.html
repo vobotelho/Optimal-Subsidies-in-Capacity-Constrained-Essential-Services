@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Empirical Intensity of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intensity.ppp {spatstat.geom}"><tr><td>intensity.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Empirical Intensity of Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the average number of points per unit area
+in a point pattern dataset.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+intensity(X, ..., weights=NULL)
+
+## S3 method for class 'splitppp'
+intensity(X, ..., weights=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional.
+Numeric vector of weights attached to the points of <code>X</code>.
+Alternatively, an <code>expression</code> which can be evaluated to
+give a vector of weights.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>.
+It computes the empirical intensity of a point pattern
+(object of class <code>"ppp"</code>),
+i.e. the average density of points per unit area.
+</p>
+<p>If the point pattern is multitype, the intensities of the
+different types are computed separately.
+</p>
+<p>Note that the intensity will be computed as the number of points
+per square unit, based on the unit of length for <code>X</code>,
+given by <code>unitname(X)</code>. If the unit of length is a strange multiple
+of a standard unit, like <code>5.7 metres</code>, then it can be converted
+to the standard unit using <code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>. See the Examples.
+</p>
+<p>If <code>weights</code> are given, then the intensity is
+computed as the total <em>weight</em> per square unit.
+The argument <code>weights</code> should be a numeric vector
+of weights for each point of <code>X</code> (weights may be negative or
+zero).
+</p>
+<p>Alternatively <code>weights</code> can be an <code>expression</code>
+which will be evaluated for the dataset to yield a vector of weights.
+The expression may involve the Cartesian coordinates <i>x,y</i> of the
+points, and the marks of the points, if any. Variable names
+permitted in the expression include <code>x</code> and <code>y</code>,
+the name <code>marks</code> if <code>X</code> has a single column of marks,
+the names of any columns of marks if <code>X</code> has a data frame of
+marks, and the names of constants or functions that exist
+in the global environment. See the Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value (giving the intensity) or numeric vector
+(giving the intensity for each possible type).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>, 
+<code><a href="../../spatstat.model/help/intensity.ppm.html">intensity.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  japanesepines
+  intensity(japanesepines)
+  unitname(japanesepines)
+  intensity(rescale(japanesepines))
+
+  intensity(amacrine)
+  intensity(split(amacrine))
+
+  # numeric vector of weights
+  volumes &lt;- with(marks(finpines), (pi/4) * height * diameter^2)
+  intensity(finpines, weights=volumes)
+
+  # expression for weights
+  intensity(finpines, weights=expression((pi/4) * height * diameter^2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

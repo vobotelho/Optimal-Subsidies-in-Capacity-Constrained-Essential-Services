@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Intensity Functions of Two Spatial Covariates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for methods.rho2hat {spatstat.explore}"><tr><td>methods.rho2hat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Intensity Functions of Two Spatial Covariates
+</h2>
+
+<h3>Description</h3>
+
+<p>These are methods for the class <code>"rho2hat"</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rho2hat'
+plot(x, ..., do.points=FALSE)
+
+## S3 method for class 'rho2hat'
+print(x, ...)
+
+## S3 method for class 'rho2hat'
+predict(object, ..., relative=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>An object of class <code>"rho2hat"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.points</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the observed values of
+the covariates at the data points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>relative</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the
+estimated point process intensity (<code>relative=FALSE</code>)
+or the relative risk (<code>relative=TRUE</code>) in the case
+of a relative risk estimate.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../stats/html/predict.html">predict</a></code> and
+<code><a href="../../graphics/html/plot.default.html">plot</a></code> 
+for the class <code>"rho2hat"</code>.
+</p>
+<p>An object of class <code>"rho2hat"</code> is an estimate
+of the intensity of a point process, as a function of two
+given spatial covariates. See <code><a href="../../spatstat.explore/help/rho2hat.html">rho2hat</a></code>.
+</p>
+<p>The method <code>plot.rho2hat</code> displays the estimated function
+<i>rho</i> using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>, and optionally
+adds a <code><a href="../../graphics/html/rug.html">rug</a></code> plot of the observed values of the covariate.
+In this plot the two axes represent possible values of the two covariates.
+</p>
+<p>The method <code>predict.rho2hat</code> computes a pixel image of the
+intensity <i>rho(Z1(u), Z2(u))</i>
+at each spatial location <i>u</i>, where <i>Z1(u)</i>
+and <i>Z2(u)</i> are the two spatial covariates.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>predict.rho2hat</code> the value is a pixel image
+(object of class <code>"im"</code>). 
+For other functions, the value is <code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rho2hat.html">rho2hat</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  r2 &lt;- with(bei.extra, rho2hat(bei, elev, grad))
+  r2
+  plot(r2)
+  plot(predict(r2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

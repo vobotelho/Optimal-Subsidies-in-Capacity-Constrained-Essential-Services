@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: List Triangles in a Graph</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for edges2triangles {spatstat.geom}"><tr><td>edges2triangles {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+List Triangles in a Graph
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a list of edges between vertices,
+compile a list of all triangles formed by these edges.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+edges2triangles(iedge, jedge, nvert=max(iedge, jedge), ...,
+                check=TRUE, friendly=rep(TRUE, nvert))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>iedge,jedge</code></td>
+<td>
+
+<p>Integer vectors, of equal length, specifying the edges.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nvert</code></td>
+<td>
+
+<p>Number of vertices in the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+<p>Logical. Whether to check validity of input data.</p>
+</td></tr>
+<tr valign="top"><td><code>friendly</code></td>
+<td>
+
+<p>Optional. For advanced use. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This low level function finds all the triangles (cliques of size 3)
+in a finite graph with <code>nvert</code> vertices and with edges
+specified by <code>iedge, jedge</code>. 
+</p>
+<p>The interpretation of <code>iedge, jedge</code> is that each successive
+pair of entries specifies an edge in the graph.
+The <i>k</i>th edge joins vertex <code>iedge[k]</code> to vertex <code>jedge[k]</code>.
+Entries of <code>iedge</code> and <code>jedge</code> must be integers
+from 1 to <code>nvert</code>.
+</p>
+<p>To improve efficiency in some applications, the optional argument
+<code>friendly</code> can be used. It should be a logical vector of
+length <code>nvert</code> specifying a labelling of the vertices,
+such that two vertices <code>j,k</code> which are <em>not</em> friendly
+(<code>friendly[j] = friendly[k] = FALSE</code>)
+are <em>never</em> connected by an edge. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A 3-column matrix of integers, in which each row represents a triangle.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/edges2vees.html">edges2vees</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ i &lt;- c(1, 2, 5, 5, 1, 4, 2)
+ j &lt;- c(2, 3, 3, 1, 3, 2, 5)
+ edges2triangles(i, j)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimate of Spatially-Varying Relative Risk</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for relrisk {spatstat.explore}"><tr><td>relrisk {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Estimate of Spatially-Varying Relative Risk
+</h2>
+
+<h3>Description</h3>
+
+<p>Generic command to estimate the 
+spatially-varying probability of each type of point, or the ratios of
+such probabilities.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  relrisk(X, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Either a point pattern (class <code>"ppp"</code>)
+or a fitted point process model (class <code>"ppm"</code>)
+from which the probabilities will be estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments appropriate to the method.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In a point pattern containing several different types of points,
+we may be interested in the spatially-varying probability of each
+possible type, or the relative risks which are the
+ratios of such probabilities.
+</p>
+<p>The command <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> is generic and can be used to
+estimate relative risk in different ways.
+</p>
+<p>The function <code><a href="../../spatstat.explore/help/relrisk.ppp.html">relrisk.ppp</a></code> is the method for point pattern
+datasets. It computes <em>nonparametric</em> estimates of relative risk
+by kernel smoothing.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/relrisk.ppm.html">relrisk.ppm</a></code> is the method for fitted point
+process models (class <code>"ppm"</code>). It computes <em>parametric</em>
+estimates of relative risk, using the fitted model.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image, or a list of pixel images, or a numeric vector or
+matrix, containing the requested estimates of relative risk.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/relrisk.ppp.html">relrisk.ppp</a></code>,
+<code><a href="../../spatstat.model/help/relrisk.ppm.html">relrisk.ppm</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

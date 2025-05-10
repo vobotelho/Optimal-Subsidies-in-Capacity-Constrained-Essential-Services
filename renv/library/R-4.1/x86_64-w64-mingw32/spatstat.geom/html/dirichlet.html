@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dirichlet Tessellation of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dirichlet {spatstat.geom}"><tr><td>dirichlet {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Dirichlet Tessellation of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Computes the Dirichlet tessellation of a spatial point pattern.
+Also known as the Voronoi or Thiessen tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dirichlet(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Spatial point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In a spatial point pattern <code>X</code>, the Dirichlet tile associated
+with a particular point <code>X[i]</code> is the region of space that is
+closer to <code>X[i]</code> than to any other point in <code>X</code>. The
+Dirichlet tiles divide the two-dimensional plane into disjoint
+regions, forming a tessellation.
+</p>
+<p>The Dirichlet tessellation is also known as the Voronoi or
+Thiessen tessellation.
+</p>
+<p>This function computes the Dirichlet tessellation (within the original
+window of <code>X</code>) using the function <code><a href="../../deldir/help/deldir.html">deldir</a></code>
+in the package <span class="pkg">deldir</span>.
+</p>
+<p>To ensure that there is a one-to-one correspondence between the
+points of <code>X</code> and the tiles of <code>dirichlet(X)</code>,
+duplicated points in <code>X</code> should first be removed by
+<code>X &lt;- unique(X, rule="deldir")</code>. 
+</p>
+<p>The tiles of the tessellation will be computed as polygons
+if the original window is a rectangle or a polygon.
+Otherwise the tiles will be computed as binary masks. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/dirichletVertices.html">dirichletVertices</a></code>.
+</p>
+<p>For the Dirichlet tessellation on a linear network,
+see <code><a href="../../spatstat.linnet/help/lineardirichlet.html">lineardirichlet</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(42)
+  plot(dirichlet(X))
+  plot(X, add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

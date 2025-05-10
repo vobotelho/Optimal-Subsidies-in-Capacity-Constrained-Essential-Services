@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Function Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.fv {spatstat.explore}"><tr><td>plot.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Function Values</h2>
+
+<h3>Description</h3>
+
+<p>Plot method for the class <code>"fv"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'fv'
+plot(x, fmla, ..., subset=NULL, lty=NULL, col=NULL, lwd=NULL,
+           xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL,
+           clip.xlim=TRUE, ylim.covers=NULL,
+           legend=!add, legendpos="topleft", legendavoid=missing(legendpos),
+           legendmath=TRUE, legendargs=list(),
+           shade=fvnames(x, ".s"), shadecol="grey",
+           add=FALSE, log="",
+           mathfont=c("italic", "plain", "bold", "bolditalic"), 
+           limitsonly=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>"fv"</code>, containing the variables to be plotted
+or variables from which the plotting coordinates can be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fmla</code></td>
+<td>
+
+<p>an R language formula 
+determining which variables or expressions are plotted.
+Either a formula object, or a string that can be parsed as a
+formula.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+
+<p>(optional) subset of rows of the data frame that will be plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lty</code></td>
+<td>
+
+<p>(optional) numeric vector of values of the graphical parameter
+<code>lty</code> controlling the line style of each plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>(optional) numeric vector of values of the graphical parameter
+<code>col</code> controlling the colour of each plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lwd</code></td>
+<td>
+
+<p>(optional) numeric vector of values of the graphical parameter
+<code>lwd</code> controlling the line width of each plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+
+<p>(optional) range of x axis
+</p>
+</td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+
+<p>(optional) range of y axis
+</p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+
+<p>(optional) label for x axis
+</p>
+</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+
+<p>(optional) label for y axis
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code>plot.default</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip.xlim</code></td>
+<td>
+
+<p>Logical value specifying whether the range of the horizontal axis
+<code>xlim</code> should be automatically restricted to a subset of the
+range of the available data. See the section on
+<b>Controlling the horizontal axis limits</b> below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ylim.covers</code></td>
+<td>
+
+<p>Optional vector of <i>y</i> values that must be included in the
+<i>y</i> axis. For example <code>ylim.covers=0</code> will ensure that the
+<i>y</i> axis includes the origin.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical flag or <code>NULL</code>. If <code>legend=TRUE</code>, the algorithm
+plots a legend in the top left corner of the plot,
+explaining the meaning of the different line types and colours.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legendpos</code></td>
+<td>
+
+<p>The position of the legend. Either a character string keyword
+(see <code><a href="../../graphics/help/legend.html">legend</a></code> for keyword options)
+or a pair of coordinates in the format <code>list(x,y)</code>.
+Alternatively if <code>legendpos="float"</code>, a location will be
+selected inside the plot region, avoiding the graphics.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legendavoid</code></td>
+<td>
+
+<p>Whether to avoid collisions between the legend and the graphics.
+Logical value.
+If <code>TRUE</code>, the code will check for collisions between the
+legend box and the graphics, and will override <code>legendpos</code>
+if a collision occurs.
+If <code>FALSE</code>, the value of <code>legendpos</code> is always respected.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legendmath</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the legend will display the
+mathematical notation for each curve. If <code>FALSE</code>, the legend text
+is the identifier (column name) for each curve.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legendargs</code></td>
+<td>
+
+<p>Named list containing additional arguments to be passed to
+<code><a href="../../graphics/html/legend.html">legend</a></code> controlling the appearance of the legend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>shade</code></td>
+<td>
+
+<p>A character vector giving the names of two columns of <code>x</code>,
+or another type of index that identifies two columns.
+When the corresponding curves are plotted,
+the region between the curves will be shaded in light grey.
+The object <code>x</code> may or may not contain two columns which are designated
+as boundaries for shading; they are identified by <code>fvnames(x, ".s")</code>.
+The default is to shade between these two curves
+if they exist. To suppress this behaviour, set <code>shade=NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>shadecol</code></td>
+<td>
+
+<p>The colour to be used in the <code>shade</code> plot.
+A character string or an integer specifying a colour.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. Whether the plot should be added to an existing plot
+</p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+
+<p>A character string which contains <code>"x"</code> if the x axis is to
+be logarithmic, <code>"y"</code> if the y axis is to be logarithmic and
+<code>"xy"</code> or <code>"yx"</code> if both axes are to be logarithmic.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mathfont</code></td>
+<td>
+
+<p>Character string. The font to be used for mathematical
+expressions in the axis labels and the legend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>limitsonly</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code>, plotting is performed normally.
+If <code>TRUE</code>, no plotting is performed at all; 
+just the <i>x</i> and <i>y</i> limits of the plot are computed
+and returned. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"fv"</code>.
+</p>
+<p>An object of class <code>"fv"</code> is a convenient way of storing several different
+statistical estimates of a summary function; see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>.
+The default behaviour, executed by <code>plot(x)</code>, displays these
+different estimates as curves with different colours and line styles,
+and plots a legend explaining them.
+</p>
+<p>The use of the argument <code>fmla</code> is like <code>plot.formula</code>, but offers
+some extra functionality.
+</p>
+<p>The left and right hand sides of <code>fmla</code> are evaluated,
+and the results are plotted against each other
+(the left side on the <i>y</i> axis 
+against the right side on the <i>x</i> axis).
+</p>
+<p>The left and right hand sides of <code>fmla</code> may be
+the names of columns of the data frame <code>x</code>,
+or expressions involving these names. If a variable in <code>fmla</code>
+is not the name of a column of <code>x</code>, the algorithm will search for
+an object of this name in the environment where <code>plot.fv</code> was
+called, and then in the enclosing environment, and so on. 
+</p>
+<p>Multiple curves may be specified by a single formula
+of the form 
+<code>cbind(y1,y2,...,yn) ~ x</code>, where <code>x,y1,y2,...,yn</code> are
+expressions involving the variables in the data frame.
+Each of the variables <code>y1,y2,...,yn</code> in turn will be plotted
+against <code>x</code>. 
+See the examples.
+</p>
+<p>Convenient abbreviations which can be used in the formula
+are 
+</p>
+
+<ul>
+<li><p> the symbol <code>.</code> which represents all the
+columns in the data frame that will be plotted by default;
+</p>
+</li>
+<li><p> the symbol <code>.x</code> which represents the function argument;
+</p>
+</li>
+<li><p> the symbol <code>.y</code> which represents the recommended value
+of the function.
+</p>
+</li></ul>
+
+<p>For further information, see <code><a href="../../spatstat.explore/help/fvnames.html">fvnames</a></code>.
+</p>
+<p>The value returned by this plot function indicates the
+meaning of the line types and colours in the plot. It can be used
+to make a suitable legend for the plot if you want to do this
+by hand. See the examples.
+</p>
+<p>The argument <code>shade</code> can be used to display critical bands
+or confidence intervals. If it is not <code>NULL</code>, then it should be
+a subset index for the columns of <code>x</code>, that identifies exactly
+2 columns. When the corresponding curves are plotted, the region
+between the curves will be shaded in light grey. See the Examples.
+</p>
+<p>The default values of <code>lty</code>, <code>col</code> and <code>lwd</code> can
+be changed using <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("plot.fv")</code>.
+</p>
+<p>Use <code>type = "n"</code> to create the plot region and draw the axes
+without plotting any data.
+</p>
+<p>Use <code>limitsonly=TRUE</code> to suppress all plotting
+and just compute the <i>x</i> and <i>y</i> limits. This can be used
+to calculate common <i>x</i> and <i>y</i> scales for several plots.
+</p>
+<p>To change the kind of parenthesis enclosing the
+explanatory text about the unit of length, use
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>('units.paren')</code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>Invisible: either <code>NULL</code>, or a data frame giving the meaning of the
+different line types and colours.
+</p>
+
+
+<h3>Controlling the horizontal axis limits</h3>
+
+<p>The plot generated by <code>plot(x)</code>
+does not necessarily display all the data that is contained in the object.
+The range of values of the function argument <i>r</i>
+displayed in the plot may be narrower than the 
+range of values actually contained in the data frame.
+</p>
+<p>To override this behaviour and display all the available data,
+set <code>clip.xlim=FALSE</code>.
+</p>
+<p>Statistical literature for summary functions of spatial data
+recommends that, when the function is plotted,
+the values of the function argument on the horizontal axis
+should be restricted to a limited range of values.
+For example, Ripley recommends that the K-function <i>K(r)</i>
+should be plotted only for
+values of distance <i>r</i> between <i>0</i> and <i>b/4</i> where <i>b</i>
+is the shortest side of the enclosing rectangle of the data.
+</p>
+<p>This may be desirable so that the interesting detail is clearly visible in the
+plot. 
+It may be necessary because values outside the recommended range
+are theoretically invalid, or unreliable due to high variance or large bias.
+</p>
+<p>To support this standard practice, each object of class <code>"fv"</code>
+may include data specifying a &ldquo;recommended range&rdquo; of values of 
+the function argument. The object produced by <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+includes a recommended range following Ripley's recommendation above.
+Similarly for <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>, <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code> and many other
+commands.
+</p>
+<p>When <code>plot(x)</code> is executed, the horizontal axis is restricted
+to the recommended range of values. This recommendation can be
+overridden by setting <code>clip.xlim=FALSE</code>
+or by specifying the numerical limits <code>xlim</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K &lt;- Kest(cells)
+   # K is an object of class "fv"
+
+   plot(K, iso ~ r)                # plots iso against r
+
+   plot(K, sqrt(iso/pi) ~ r)   # plots sqrt(iso/r)  against r
+
+   plot(K, cbind(iso,theo) ~ r)   # plots iso against r  AND theo against r
+
+   plot(K, .  ~ r)            # plots all available estimates of K against r
+
+   plot(K, sqrt(./pi) ~ r)   # plots all estimates of L-function
+                             # L(r) = sqrt(K(r)/pi)
+
+   plot(K, cbind(iso,theo) ~ r, col=c(2,3))
+                                   # plots iso against r  in colour 2
+                                   # and theo against r in colour 3
+
+   plot(K, iso ~ r, subset=quote(r &lt; 0.2))
+                                   # plots iso against r for r &lt; 10
+
+   # Can't remember the names of the columns? No problem..
+   plot(K, sqrt(./pi) ~ .x)
+
+   # making a legend by hand
+   v &lt;- plot(K, . ~ r, legend=FALSE)
+   legend("topleft", legend=v$meaning, lty=v$lty, col=v$col)
+
+   # significance bands
+   KE &lt;- envelope(cells, Kest, nsim=19)
+   plot(KE, shade=c("hi", "lo"))
+
+   # how to display two functions on a common scale
+   Kr &lt;- Kest(redwood)
+   a &lt;- plot(K, limitsonly=TRUE)
+   b &lt;- plot(Kr, limitsonly=TRUE)
+   xlim &lt;- range(a$xlim, b$xlim)
+   ylim &lt;- range(a$ylim, b$ylim)
+   opa &lt;- par(mfrow=c(1,2))
+   plot(K, xlim=xlim, ylim=ylim)
+   plot(Kr, xlim=xlim, ylim=ylim)
+   par(opa)
+   # For a shortcut, try plot(anylist(K, Kr), equal.scales=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

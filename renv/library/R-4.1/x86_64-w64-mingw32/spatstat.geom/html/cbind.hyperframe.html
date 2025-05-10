@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Combine Hyperframes by Rows or by Columns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for cbind.hyperframe {spatstat.geom}"><tr><td>cbind.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Combine Hyperframes by Rows or by Columns
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for <code>cbind</code> and <code>rbind</code> for hyperframes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'hyperframe'
+cbind(...)
+## S3 method for class 'hyperframe'
+rbind(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of hyperframes (objects of class <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for <code><a href="../../base/html/cbind.html">cbind</a></code>
+and <code><a href="../../base/html/cbind.html">rbind</a></code> for hyperframes.
+</p>
+<p>Note that <em>all</em> the arguments must be hyperframes (because of
+the peculiar dispatch rules of <code><a href="../../base/html/cbind.html">cbind</a></code> and
+<code><a href="../../base/html/cbind.html">rbind</a></code>).
+</p>
+<p>To combine a hyperframe with a data frame, one should either 
+convert the data frame to a hyperframe using
+<code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code>, or explicitly invoke the
+function <code>cbind.hyperframe</code> or <code>rbind.hyperframe</code>.
+</p>
+<p>In other words: if <code>h</code> is a hyperframe and <code>d</code> is a data frame,
+the result of <code>cbind(h,d)</code> will be the same as
+<code>cbind(as.data.frame(h), d)</code>, so that all hypercolumns
+of <code>h</code> will be deleted (and a warning will be issued).
+To combine <code>h</code> with <code>d</code>
+so that all columns of <code>h</code> are retained,
+type either <code>cbind(h, as.hyperframe(d))</code> or
+<code>cbind.hyperframe(h,d)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another hyperframe.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(spatstat.random)) {
+  lambda &lt;- runif(5, min=10, max=30)
+  X &lt;- solapply(as.list(lambda), rpoispp)
+  h &lt;- hyperframe(lambda=lambda, X=X)
+  g &lt;- hyperframe(id=letters[1:5], Y=rev(X))
+  gh &lt;- cbind(h, g)
+  hh &lt;- rbind(h[1:2, ], h[3:5,])
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

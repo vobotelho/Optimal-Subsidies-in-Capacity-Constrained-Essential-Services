@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Discrete and Continuous Components of a Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for measureContinuous {spatstat.model}"><tr><td>measureContinuous {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Discrete and Continuous Components of a Measure
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a measure <code>A</code> (object of class <code>"msr"</code>)
+these functions find the discrete and continuous parts
+of <code>A</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+measureDiscrete(x)
+measureContinuous(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>measureDiscrete</code> and <code>measureContinuous</code>
+return the discrete and continuous components, respectively,
+of a measure.
+</p>
+<p>If <code>x</code> is a measure, then <code>measureDiscrete(x)</code> is a measure
+consisting only of the discrete (atomic) component of <code>x</code>,
+and <code>measureContinuous(x)</code> is a measure consisting only of the
+continuous (diffuse) component of <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another measure (object of class <code>"msr"</code>)
+on the same spatial domain.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Halmos, P.R. (1950) <em>Measure Theory</em>. Van Nostrand.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/msr.html">msr</a></code>, <code><a href="../../spatstat.model/help/with.msr.html">with.msr</a></code>, <code><a href="../../spatstat.model/help/split.msr.html">split.msr</a></code>,
+<code><a href="../../spatstat.model/help/measurePositive.html">measurePositive</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X, ~x+y)
+   rp &lt;- residuals(fit, type="pearson")
+
+   rp
+   measureDiscrete(rp)
+   measureContinuous(rp)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Select Adaptive Bandwidth for Kernel Estimation Using...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.CvL.adaptive {spatstat.explore}"><tr><td>bw.CvL.adaptive {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Select Adaptive Bandwidth for Kernel Estimation
+Using Cronie-Van Lieshout Criterion
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses the  Cronie-Van Lieshout criterion to
+select the global smoothing bandwidth
+for adaptive kernel estimation of point process intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bw.CvL.adaptive(X, ..., 
+            hrange = NULL, nh = 16, h=NULL,
+            bwPilot = bw.scott.iso(X),
+            edge = FALSE, diggle = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to
+<code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hrange</code></td>
+<td>
+
+<p>Optional numeric vector of length 2 giving the
+range of values of global bandwidth <code>h</code> to be searched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nh</code></td>
+<td>
+
+<p>Optional integer giving the number of values of
+bandwidth <code>h</code> to search.
+</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+
+<p>Optional. Vector of values of the bandwidth to be searched.
+Overrides the values of <code>nh</code> and <code>hrange</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bwPilot</code></td>
+<td>
+
+<p>Pilot bandwidth. A scalar value in the same units as the
+coordinates of <code>X</code>. The smoothing bandwidth
+for computing an initial estimate of intensity using
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>Logical value indicating whether to apply edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>diggle</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, use the Jones-Diggle improved edge correction,
+which is more accurate but slower to compute than the default
+correction.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate value of global bandwidth
+<code>h0</code> for adaptive kernel estimation of the intensity function
+for the point pattern <code>X</code>.
+</p>
+<p>In adaptive estimation, each point in the point pattern is
+subjected to a different amount of smoothing, controlled by
+data-dependent or spatially-varying bandwidths.
+The global bandwidth <code>h0</code> is a scale factor
+which is used to adjust all of the data-dependent bandwidths
+according to the Abramson (1982) square-root rule.
+</p>
+<p>This function considers each candidate value of bandwidth <i>h</i>,
+performs the smoothing steps described above, extracts the
+adaptively-estimated intensity values
+<i>lambda(X[i])</i> at each data point <i>X[i]</i>,  
+and calculates the Cronie-Van Lieshout criterion
+</p>
+<p style="text-align: center;"><i>
+    CvL(h) = sum_[i=1,...n] 1/lambda(X[i]).
+  </i></p>
+
+<p>The value of <i>h</i> which minimises the squared difference
+</p>
+<p style="text-align: center;"><i>
+    LP2(h) = (CvL(h) - |W|)^2
+  </i></p>
+
+<p>(where <code>|W|</code> is the area of the window of <code>X</code>)
+is selected as the optimal global bandwidth.
+</p>
+<p>Bandwidths <code>h</code> are physical distance values
+expressed in the same units as the coordinates of <code>X</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected global bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Marie-Colette Van Lieshout.
+Modified by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Abramson, I. (1982)
+On bandwidth variation in kernel estimates &mdash; a square root law.
+<em>Annals of Statistics</em>, <b>10</b>(4), 1217-1223.<br />
+</p>
+<p>Cronie, O and Van Lieshout, M N M (2018) A non-model-based approach to
+bandwidth selection for kernel estimators of spatial intensity functions,
+<em>Biometrika</em>, <b>105</b>, 455-462.
+</p>
+<p>Van Lieshout, M.N.M. (2021)
+Infill asymptotics for adaptive kernel estimators of spatial intensity.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>63</b> (1) 159&ndash;181.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>.
+</p>
+<p><code><a href="../../spatstat.explore/help/adaptive.density.html">adaptive.density</a></code>,
+<code><a href="../../spatstat.explore/help/densityAdaptiveKernel.ppp.html">densityAdaptiveKernel.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+<p>To select a <em>fixed</em> smoothing bandwidth
+using the Cronie-Van Lieshout criterion, use <code><a href="../../spatstat.explore/help/bw.CvL.html">bw.CvL</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  online &lt;- interactive()
+  if(online) {
+    h0 &lt;- bw.CvL.adaptive(redwood3)
+  } else {
+    ## faster computation for package checker
+    h0 &lt;- bw.CvL.adaptive(redwood3, nh=8,
+                          hrange=c(1/4, 4) * bw.diggle(redwood3))
+  }
+  plot(h0)
+  plot(as.fv(h0), CvL ~ h)
+  if(online) {
+    Z &lt;- densityAdaptiveKernel(redwood3, h0)
+    plot(Z)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

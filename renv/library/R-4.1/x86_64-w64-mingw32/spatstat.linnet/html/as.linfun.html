@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data to a Function on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.linfun {spatstat.linnet}"><tr><td>as.linfun {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Data to a Function on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Convert some kind of data to an object of class <code>"linfun"</code>
+representing a function on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.linfun(X, ...)
+
+  ## S3 method for class 'linim'
+as.linfun(X, ...)
+
+  ## S3 method for class 'lintess'
+as.linfun(X, ..., values=marks(X), navalue=NA)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Some kind of data to be converted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+
+<p>Optional. Vector of function values,
+one entry associated with each tile of the tessellation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>navalue</code></td>
+<td>
+
+<p>Optional. Function value associated with locations that
+do not belong to a tile of the tessellation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"linfun"</code> represents
+a function defined on a linear network.
+</p>
+<p>The function <code>as.linfun</code> is generic. The method <code>as.linfun.linim</code>
+converts objects of class <code>"linim"</code> (pixel images on a linear
+network) to functions on the network.
+</p>
+<p>The method <code>as.linfun.lintess</code> converts a tessellation
+on a linear network into a function with a different value
+on each tile of the tessellation.
+The function values are specified by the argument <code>values</code>.
+It should be a vector with one entry for each tile of the tessellation;
+any point lying in tile number <code>i</code> will return the value <code>v[i]</code>.
+If <code>values</code> is missing, the marks of the tessellation
+are taken as the function values. 
+If <code>values</code> is missing and the tessellation has no marks,
+or if <code>values</code> is given as <code>NULL</code>,
+then the function returns factor values identifying which tile
+contains each given point.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"linfun"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(2, simplenet)
+   Y &lt;- runiflpp(5, simplenet)
+
+   # image on network
+   D &lt;- density(Y, 0.1)
+
+   f &lt;- as.linfun(D)
+   f
+   f(X)
+
+   # tessellation on network
+   Z &lt;- lineardirichlet(Y)
+   g &lt;- as.linfun(Z)
+   g(X)
+   h &lt;- as.linfun(Z, values = runif(5))
+   h(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

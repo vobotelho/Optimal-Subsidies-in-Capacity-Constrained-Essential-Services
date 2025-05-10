@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate a Fitted Cluster Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for simulate.kppm {spatstat.model}"><tr><td>simulate.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate a Fitted Cluster Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Generates simulated realisations from a fitted cluster point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'kppm'
+simulate(object, nsim = 1, seed=NULL, ...,
+         window=NULL, covariates=NULL,
+         n.cond = NULL, w.cond = NULL,
+         verbose=TRUE, retry=10,
+         drop=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted cluster point process model. An object of class <code>"kppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated realisations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+
+<p>an object specifying whether and how to initialise
+the random number generator. Either <code>NULL</code> or an integer that will
+be used in a call to <code><a href="../../base/help/Random.html">set.seed</a></code>
+before simulating the point patterns. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to the relevant random generator.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Optional. Window (object of class <code>"owin"</code>) in which the
+model should be simulated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariates</code></td>
+<td>
+
+<p>Optional. A named list containing new values for the covariates in the
+model. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>n.cond</code></td>
+<td>
+
+<p>Optional. Integer specifying a fixed number of points.
+See the section on <em>Conditional Simulation</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>w.cond</code></td>
+<td>
+
+<p>Optional. Conditioning region. A window (object of class <code>"owin"</code>)
+specifying the region which must contain exactly <code>n.cond</code> points.
+See the section on <em>Conditional Simulation</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical. Whether to print progress reports (when <code>nsim &gt; 1</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>retry</code></td>
+<td>
+
+<p>Number of times to repeat the simulation if it fails
+(e.g. because of insufficient memory).
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code>, the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the generic function
+<code><a href="../../stats/help/simulate.html">simulate</a></code> for the class <code>"kppm"</code> of fitted
+cluster point process models.
+</p>
+<p>Simulations are performed by
+<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>,
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code>,
+<code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>
+or <code><a href="../../spatstat.random/help/rLGCP.html">rLGCP</a></code>
+depending on the model.
+</p>
+<p>Additional arguments <code>...</code> are passed to the relevant function
+performing the simulation.
+For example the argument <code>saveLambda</code> is recognised by all of the
+simulation functions.
+</p>
+<p>The return value is a list of point patterns.
+It also carries an attribute <code>"seed"</code> that
+captures the initial state of the random number generator.
+This follows the convention used in
+<code>simulate.lm</code> (see <code><a href="../../stats/help/simulate.html">simulate</a></code>).
+It can be used to force a sequence of simulations to be
+repeated exactly, as shown in the examples for <code><a href="../../stats/help/simulate.html">simulate</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of length <code>nsim</code> containing simulated point patterns
+(objects of class <code>"ppp"</code>). (For conditional simulation,
+the length of the result may be shorter than <code>nsim</code>).
+</p>
+<p>The return value also carries an attribute <code>"seed"</code> that
+captures the initial state of the random number generator.
+See Details.
+</p>
+
+
+<h3>Conditional Simulation</h3>
+
+<p>If <code>n.cond</code> is specified, it should be a single integer.
+Simulation will be conditional on the event 
+that the pattern contains exactly <code>n.cond</code> points
+(or contains exactly <code>n.cond</code> points inside
+the region <code>w.cond</code> if it is given).
+</p>
+<p>Conditional simulation uses the rejection algorithm described
+in Section 6.2 of Moller, Syversveen and Waagepetersen (1998).
+There is a maximum number of proposals which will be attempted.
+Consequently the return value may contain fewer
+than <code>nsim</code> point patterns.
+</p>
+
+
+<h3>Warning: new implementation for LGCP</h3>
+
+<p>The simulation algorithm for log-Gaussian Cox processes
+has been completely re-written
+in <span class="pkg">spatstat.random</span> version <code>3.2-0</code> to avoid depending on
+the package <span class="pkg">RandomFields</span> which is now defunct (and is sadly missed).
+</p>
+<p>It is no longer possible to replicate results
+of <code>simulate.kppm</code> for log-Gaussian Cox processes
+that were obtained using previous versions of <span class="pkg">spatstat.random</span>.
+</p>
+<p>The current code for simulating log-Gaussian Cox processes
+is a new implementation and should be considered vulnerable to new bugs. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+<p>Moller, J., Syversveen, A. and Waagepetersen, R. (1998)
+Log Gaussian Cox Processes.
+<em>Scandinavian Journal of Statistics</em> <b>25</b>, 451&ndash;482.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>,
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code>,
+<code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>,
+<code><a href="../../spatstat.random/help/rLGCP.html">rLGCP</a></code>,
+<code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>,
+<code><a href="../../stats/help/simulate.html">simulate</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(offline &lt;- !interactive()) {
+    spatstat.options(npixel=32, ndummy.min=16)
+  }
+
+  fit &lt;- kppm(redwood ~x, "Thomas")
+  simulate(fit, 2)
+
+  simulate(fit, n.cond=60)
+
+  if(offline) reset.spatstat.options()
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

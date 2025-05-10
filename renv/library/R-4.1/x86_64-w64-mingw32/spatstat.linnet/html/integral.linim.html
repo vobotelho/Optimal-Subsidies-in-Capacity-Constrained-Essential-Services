@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Integral on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for integral.linim {spatstat.linnet}"><tr><td>integral.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Integral on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the integral (total value) of a function or pixel image
+over a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linim'
+integral(f, domain=NULL, weight=NULL, ...)
+
+## S3 method for class 'linfun'
+integral(f, domain=NULL, weight=NULL, ..., delta, nd)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A pixel image on a linear network (class <code>"linim"</code>)
+or a function on a linear network (class <code>"linfun"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional window specifying the domain of integration.
+Alternatively a tessellation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+
+<p>Optional numerical weight function for the integration.
+A pixel image (object of class <code>"linim"</code> or <code>"im"</code>),
+a function (object of class <code>"linfun"</code>, <code>"funxy"</code> or a
+a <code>function(x,y)</code>) or anything acceptable to <code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+
+<p>Optional. 
+The step length (in coordinate units)
+for computing the approximate integral.
+A single positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nd</code></td>
+<td>
+
+<p>Optional. 
+Integer giving the approximate number of sample points on the network.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The integral (total value of the function over the network) is calculated.
+</p>
+<p>If <code>domain</code> is a window (class <code>"owin"</code>) then the integration
+will be restricted to this window. If <code>domain</code> is a tessellation
+(class <code>"tess"</code>) then the integral of <code>f</code> in each
+tile of <code>domain</code> will be computed.
+</p>
+<p>If <code>weight</code> is given, effectively the integral of <code>weight * f</code>
+is computed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric or complex value
+(or a vector of such values if <code>domain</code> is a tessellation).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linim.html">linim</a></code>,
+<code><a href="../../spatstat.geom/help/integral.im.html">integral.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # make some data
+  xcoord &lt;- linfun(function(x,y,seg,tp) { x }, simplenet)
+  integral(xcoord)
+  X &lt;- as.linim(xcoord)
+  integral(X)
+
+  # integrals inside each tile of a tessellation
+  A &lt;- quadrats(Frame(simplenet), 3)
+  integral(X, A)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

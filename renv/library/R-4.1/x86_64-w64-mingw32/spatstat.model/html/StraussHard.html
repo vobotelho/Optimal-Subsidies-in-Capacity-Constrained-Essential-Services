@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Strauss / Hard Core Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for StraussHard {spatstat.model}"><tr><td>StraussHard {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Strauss / Hard Core Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the &ldquo;Strauss/ hard core&rdquo; point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  StraussHard(r, hc=NA)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>The interaction radius of the Strauss interaction</p>
+</td></tr>
+<tr valign="top"><td><code>hc</code></td>
+<td>
+<p>The hard core distance. Optional.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A Strauss/hard core process with interaction radius <i>r</i>,
+hard core distance <i>h &lt; r</i>, and 
+parameters <i>beta</i> and <i>gamma</i>,
+is a pairwise interaction point process
+in which
+</p>
+
+<ul>
+<li><p> distinct points are not allowed to come closer
+than a distance <i>h</i> apart
+</p>
+</li>
+<li><p> each pair of points closer than <i>r</i> units apart
+contributes a factor <i>gamma</i> to the probability density.
+</p>
+</li></ul>
+
+<p>This is a hybrid of the Strauss process and the hard core process.
+</p>
+<p>The probability density is zero if any pair of points
+is closer than <i>h</i> units apart, and otherwise equals
+</p>
+<p style="text-align: center;"><i>
+    f(x_1,&hellip;,x_n) =
+    alpha . beta^n(x) gamma^s(x)
+  </i></p>
+
+<p>where <i>x[1],&hellip;,x[n]</i> represent the 
+points of the pattern, <i>n(x)</i> is the number of points in the
+pattern, <i>s(x)</i> is the number of distinct unordered pairs of
+points that are closer than <i>r</i> units apart,
+and <i>alpha</i> is the normalising constant.
+</p>
+<p>The interaction parameter <i>gamma</i> may take any
+positive value (unlike the case for the Strauss process).
+If <i>gamma &lt; 1</i>,
+the model describes an &ldquo;ordered&rdquo; or &ldquo;inhibitive&rdquo; pattern.
+If <i>gamma &gt; 1</i>,
+the model is &ldquo;ordered&rdquo; or &ldquo;inhibitive&rdquo; up to the distance
+<i>h</i>, but has an &ldquo;attraction&rdquo; between points lying at
+distances in the range between <i>h</i> and <i>r</i>.
+</p>
+<p>If <i>gamma = 1</i>, the process reduces to a classical
+hard core process with hard core distance <i>h</i>.
+If <i>gamma = 0</i>, the process reduces to a classical
+hard core process with hard core distance <i>r</i>.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the Strauss/hard core process
+pairwise interaction is
+yielded by the function <code>StraussHard()</code>. See the examples below.
+</p>
+<p>The canonical parameter <i>log(gamma)</i>
+is estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, not fixed in
+<code>StraussHard()</code>. 
+</p>
+<p>If the hard core distance argument <code>hc</code> is missing or <code>NA</code>,
+it will be estimated from the data when <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> is called.
+The estimated value of <code>hc</code> is the minimum nearest neighbour distance
+multiplied by <i>n/(n+1)</i>, where <i>n</i> is the
+number of data points.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the &ldquo;Strauss/hard core&rdquo;
+process with Strauss interaction radius <i>r</i>
+and hard core distance <code>hc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Ripley, B.D. (1981) 
+<em>Spatial statistics</em>.
+John Wiley and Sons.
+</p>
+<p>Strauss, D.J. (1975)
+A model for clustering.
+<em>Biometrika</em> <b>62</b>, 467&ndash;475.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   StraussHard(r=1,hc=0.02)
+   # prints a sensible description of itself
+
+   # ppm(cells ~1, StraussHard(r=0.1, hc=0.05))
+   # fit the stationary Strauss/hard core  process to `cells'
+
+   ppm(cells ~ polynom(x,y,3), StraussHard(r=0.1, hc=0.05))
+   # fit a nonstationary Strauss/hard core process
+   # with log-cubic polynomial trend
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

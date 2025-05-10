@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sufficient Dimension Reduction for a Point Pattern on a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for sdr.lpp {spatstat.linnet}"><tr><td>sdr.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Sufficient Dimension Reduction for a Point Pattern on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern on a linear network, and a set of predictors,
+find a minimal set of new predictors, each constructed as
+a linear combination of the original predictors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+sdr(X, covariates,
+            method = c("DR", "NNIR", "SAVE", "SIR", "TSE"),
+            Dim1 = 1, Dim2 = 1, predict=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariates</code></td>
+<td>
+
+<p>A list of pixel images (objects of class <code>"im"</code> or <code>"linim"</code>)
+to serve as predictor variables.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string indicating which method to use. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Dim1</code></td>
+<td>
+
+<p>Dimension of the first order Central Intensity Subspace
+(applicable when <code>method</code> is <code>"DR"</code>, <code>"NNIR"</code>,
+<code>"SAVE"</code> or <code>"TSE"</code>). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>Dim2</code></td>
+<td>
+
+<p>Dimension of the second order Central Intensity Subspace
+(applicable when <code>method="TSE"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>predict</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the new predictors
+as well.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments are ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the method for <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>
+for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+<p>Given a point pattern <i>X</i> and predictor variables
+<i>Z[1], ..., Z[p]</i>,
+Sufficient Dimension Reduction methods
+(Guan and Wang, 2010) attempt to find a minimal set
+of new predictor variables, each constructed by taking a linear combination
+of the original predictors, which explain the dependence of
+<i>X</i> on   <i>Z[1], ..., Z[p]</i>.
+The methods do not assume any particular form of dependence
+of the point pattern on the predictors.
+The predictors are assumed to
+be Gaussian random fields.
+</p>
+<p>Available methods are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>method="DR"</code> </td><td style="text-align: left;"> directional regression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="NNIR"</code> </td><td style="text-align: left;"> nearest neighbour inverse regression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="SAVE"</code> &amp; sliced average variance estimation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="SIR"</code> &amp; sliced inverse regression </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>method="TSE"</code> &amp; two-step estimation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>The result includes a matrix <code>B</code> whose columns are estimates
+of the basis vectors of the space of new predictors. That is,
+the <code>j</code>th column of <code>B</code> expresses the <code>j</code>th new
+predictor as a linear combination of the original predictors.
+</p>
+<p>If <code>predict=TRUE</code>, the new predictors are also evaluated.
+They can also be evaluated using <code><a href="../../spatstat.explore/help/sdrPredict.html">sdrPredict</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with components <code>B, M</code>
+or <code>B, M1, M2</code> where
+<code>B</code> is a matrix whose columns are estimates of the basis vectors
+for the space, and <code>M</code> or <code>M1,M2</code> are matrices containing
+estimates of the kernel.
+</p>
+<p>If <code>predict=TRUE</code>, the result also includes a component
+<code>Y</code> which is a list of pixel images giving the values of the
+new predictors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Based on a Matlab original, for two-dimensional point patterns,
+by Yongtao Guan.
+Adapted to <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, and to linear networks, by Suman Rakshit.
+</p>
+
+
+<h3>References</h3>
+
+<p>Guan, Y. and Wang, H. (2010)
+Sufficient dimension reduction for spatial point
+processes directed by Gaussian random fields.
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>72</b>, 367&ndash;387.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/sdrPredict.html">sdrPredict</a></code> to compute the new predictors from the
+coefficient matrix.
+</p>
+<p><code><a href="../../spatstat.explore/help/dimhat.html">dimhat</a></code> to estimate the subspace dimension.
+</p>
+<p><code><a href="../../spatstat.explore/help/subspaceDistance.html">subspaceDistance</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#   sdr(bei, bei.extra)
+
+   xim &lt;- as.linim(function(x,y) { x }, simplenet)
+   yim &lt;- as.linim(function(x,y) { y }, simplenet)
+   X &lt;- runiflpp(30, simplenet)
+   sdr(X, list(x=xim, y=yim))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

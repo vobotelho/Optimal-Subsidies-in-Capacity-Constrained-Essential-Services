@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Coerce Point Pattern to a Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.data.frame.ppp {spatstat.geom}"><tr><td>as.data.frame.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coerce Point Pattern to a Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the coordinates of the points in a point pattern,
+and their marks if any, and returns them in a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+as.data.frame(x, row.names = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>row.names</code></td>
+<td>
+<p>Optional character vector of row names.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code>
+for the class <code>"ppp"</code> of point patterns.
+</p>
+<p>It extracts the coordinates of the points in the point pattern, and
+returns them as columns named <code>x</code> and <code>y</code> in a data frame.
+If the points were marked, the marks are returned as a column
+named <code>marks</code> with the same type as in the point pattern dataset.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  df &lt;- as.data.frame(amacrine)
+  df[1:5,]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

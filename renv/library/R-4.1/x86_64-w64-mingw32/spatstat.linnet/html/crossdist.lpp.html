@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise distances between two point patterns on a linear...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for crossdist.lpp {spatstat.linnet}"><tr><td>crossdist.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise distances between two point patterns on a linear network</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distances between pairs of points
+taken from two different point patterns on
+the same linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+crossdist(X, Y, ..., method="C", check=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Point patterns on a linear network (objects of class <code>"lpp"</code>).
+They must lie on the <em>same</em> network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String specifying which method of calculation to use
+when the network data use the non-sparse representation.
+Values are <code>"C"</code> and <code>"interpreted"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value specifying whether to check that <code>X</code> and <code>Y</code>
+are defined on the same network. Default is <code>check=TRUE</code>.
+Setting <code>check=FALSE</code> will save time,
+but should only be used if it is certain that the
+two networks are identical.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given two point patterns on a linear network,
+this function computes the distance from each point
+in the first pattern to each point in the second pattern,
+measuring distance by the shortest path along the network.
+</p>
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>
+for the class of point patterns on a linear network
+(objects of class <code>"lpp"</code>).
+</p>
+<p>This function expects two point pattern objects <code>X</code> and <code>Y</code>
+on the <em>same</em> linear network,
+and returns the matrix whose <code>[i,j]</code> entry is the
+shortest-path distance from <code>X[i]</code> to <code>Y[j]</code>.
+</p>
+<p>If two points cannot be joined by a path,
+the distance between them is infinite (<code>Inf</code>).
+</p>
+<p>The argument <code>method</code> is not normally used. It is
+retained only for developers to check the validity of the software.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix whose <code>[i,j]</code> entry is the distance
+from the <code>i</code>-th point in <code>X</code>
+to the <code>j</code>-th point in <code>Y</code>.
+Matrix entries are nonnegative numbers or infinity (<code>Inf</code>).
+</p>
+
+
+<h3>Algorithms and accuracy</h3>
+
+<p>Distances are accurate within the numerical tolerance of the
+network, <code>summary(X)$toler</code>.
+</p>
+<p>For network data stored in the non-sparse
+representation described in <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>,
+then pairwise distances are computed using the matrix of path distances
+between vertices of the network, using <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code if
+<code>method = "interpreted"</code>, or using C code if 
+<code>method="C"</code> (the default).
+</p>
+<p>For networks stored in the sparse representation,
+the argument <code>method</code> has no effect, and the distances are
+computed using an efficient C algorithm.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.ppp.html">crossdist.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   v &lt;- split(chicago)
+   X &lt;- v$cartheft
+   Y &lt;- v$burglary
+   d &lt;- crossdist(X, Y)
+   d[1:3,1:4]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

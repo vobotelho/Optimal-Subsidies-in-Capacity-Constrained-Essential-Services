@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cartesian Coordinates for a Pixel Raster</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for raster.x {spatstat.geom}"><tr><td>raster.x {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cartesian Coordinates for a Pixel Raster</h2>
+
+<h3>Description</h3>
+
+<p>Return the <i>x</i> and <i>y</i> coordinates
+of each pixel in a pixel image or binary mask.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ raster.x(w, drop=FALSE)
+ raster.y(w, drop=FALSE)
+ raster.xy(w, drop=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>) or a 
+mask window (object of class <code>"owin"</code>
+of type <code>"mask"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical.
+If <code>TRUE</code>, then coordinates of pixels that lie outside the
+window are removed.
+If <code>FALSE</code> (the default) then the coordinates of every
+pixel in the containing rectangle are retained.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>w</code> should be either
+a pixel image (object of class <code>"im"</code>)
+or a mask window (an object of class
+<code>"owin"</code> of type <code>"mask"</code>).
+</p>
+<p>If <code>drop=FALSE</code> (the default), the 
+functions <code>raster.x</code> and <code>raster.y</code> return
+a matrix of the same dimensions as the
+pixel image or mask itself, with entries giving the <i>x</i> coordinate
+(for <code>raster.x</code>) or <i>y</i> coordinate (for <code>raster.y</code>)
+of each pixel in the pixel grid.
+</p>
+<p>If <code>drop=TRUE</code>, pixels that lie outside the
+window <code>w</code> (or outside the domain of the image <code>w</code>)
+are removed, and <code>raster.x</code> and <code>raster.y</code> 
+return numeric vectors containing the coordinates of the
+pixels that are inside the window <code>w</code>.
+</p>
+<p>The function <code>raster.xy</code> returns a list
+with components <code>x</code> and <code>y</code>
+which are numeric vectors of equal length containing the pixel coordinates.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>raster.xy</code> returns a list with components <code>x</code> and <code>y</code>
+which are numeric vectors of equal length containing the pixel coordinates.
+</p>
+<p>If <code>drop=FALSE</code>, 
+<code>raster.x</code> and <code>raster.y</code> return 
+a matrix of the same dimensions as the pixel grid in <code>w</code>,
+and giving the value of the <i>x</i> (or <i>y</i>) coordinate
+of each pixel in the raster.
+</p>
+<p>If <code>drop=TRUE</code>, 
+<code>raster.x</code> and <code>raster.y</code> return numeric vectors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../help/as.mask.html">as.mask</a></code>,
+<code><a href="../../spatstat.geom/help/pixelcentres.html">pixelcentres</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  u &lt;- owin(c(-1,1),c(-1,1)) # square of side 2
+  w &lt;- as.mask(u, eps=0.01) # 200 x 200 grid
+  X &lt;- raster.x(w)
+  Y &lt;- raster.y(w)
+  disc &lt;- owin(c(-1,1), c(-1,1), mask=(X^2 + Y^2 &lt;= 1))
+  # plot(disc)
+  # approximation to the unit disc
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linnet {spatstat.linnet}"><tr><td>linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Create a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of class <code>"linnet"</code> representing
+a network of line segments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linnet(vertices, m, edges, sparse=FALSE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>vertices</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>)
+specifying the vertices of the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>m</code></td>
+<td>
+
+<p>Adjacency matrix. A matrix or sparse matrix
+of logical values equal to <code>TRUE</code>
+when the corresponding vertices are joined by a line.
+(Specify either <code>m</code> or <code>edges</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>edges</code></td>
+<td>
+
+<p>Edge list. A two-column matrix of integers,
+specifying all pairs of vertices
+that should be joined by an edge. 
+(Specify either <code>m</code> or <code>edges</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>sparse</code></td>
+<td>
+
+<p>Optional. Logical value indicating whether to use a
+sparse matrix representation of the network. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning if the resulting
+network is not connected.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"linnet"</code> represents a network of
+straight line segments in two dimensions. The function <code>linnet</code> creates
+such an object from the minimal information: the spatial location
+of each vertex (endpoint, crossing point or meeting point of lines)
+and information about which vertices are joined by an edge.
+</p>
+<p>If <code>sparse=FALSE</code> (the default), the algorithm will compute
+and store various properties of the network, including
+the adjacency matrix <code>m</code> and a matrix giving the
+shortest-path distances between each pair of vertices in the network.
+This is more efficient for small datasets. However it can require
+large amounts of memory and can take a long time to execute.
+</p>
+<p>If <code>sparse=TRUE</code>, then the shortest-path distances will not be computed,
+and the network adjacency matrix <code>m</code> will be stored as a
+sparse matrix. This saves a lot of time and memory when creating the
+linear network.
+</p>
+<p>If the argument <code>edges</code> is given, then it will also determine
+the <em>ordering</em> of the line segments when they are stored or extracted.
+For example, <code>edges[i,]</code> corresponds to <code>as.psp(L)[i]</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"linnet"</code> representing the linear network.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.data/help/simplenet.html">simplenet</a></code> for an example of a linear network.
+</p>
+<p><code><a href="../../spatstat.linnet/help/methods.linnet.html">methods.linnet</a></code> for
+methods applicable to <code>linnet</code> objects.
+</p>
+<p>Special tools: <code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code>,
+<code><a href="../../spatstat.linnet/help/insertVertices.html">insertVertices</a></code>,
+<code><a href="../../spatstat.linnet/help/joinVertices.html">joinVertices</a></code>, 
+<code><a href="../../spatstat.linnet/help/connected.linnet.html">connected.linnet</a></code>, <code><a href="../../spatstat.linnet/help/lixellate.html">lixellate</a></code>.
+</p>
+<p><code><a href="../../spatstat.linnet/help/delaunayNetwork.html">delaunayNetwork</a></code> for the Delaunay triangulation
+as a network.
+</p>
+<p><code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/psp.html">psp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # letter 'A' specified by adjacency matrix
+  v &lt;- ppp(x=(-2):2, y=3*c(0,1,2,1,0), c(-3,3), c(-1,7))
+  m &lt;- matrix(FALSE, 5,5)
+  for(i in 1:4) m[i,i+1] &lt;- TRUE
+  m[2,4] &lt;- TRUE
+  m &lt;- m | t(m)
+  letterA &lt;- linnet(v, m)
+  plot(letterA)
+
+  # letter 'A' specified by edge list
+  edg &lt;- cbind(1:4, 2:5)
+  edg &lt;- rbind(edg, c(2,4))
+  letterA &lt;- linnet(v, edges=edg)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

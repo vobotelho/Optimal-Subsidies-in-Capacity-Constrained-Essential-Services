@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Fitted Point Process Models on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.lppm {spatstat.linnet}"><tr><td>methods.lppm {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Fitted Point Process Models on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>These are methods for the class <code>"lppm"</code> of fitted point process
+models on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lppm'
+coef(object, ...)
+
+  ## S3 method for class 'lppm'
+emend(object, ...)
+
+  ## S3 method for class 'lppm'
+extractAIC(fit, ...)
+
+  ## S3 method for class 'lppm'
+formula(x, ...)
+
+  ## S3 method for class 'lppm'
+logLik(object, ...)
+
+  ## S3 method for class 'lppm'
+deviance(object, ...)
+
+  ## S3 method for class 'lppm'
+nobs(object, ...)
+
+  ## S3 method for class 'lppm'
+print(x, ...)
+
+  ## S3 method for class 'lppm'
+summary(object, ...)
+
+  ## S3 method for class 'lppm'
+terms(x, ...)
+
+  ## S3 method for class 'lppm'
+update(object, ...)
+
+  ## S3 method for class 'lppm'
+valid(object, ...)
+
+  ## S3 method for class 'lppm'
+vcov(object, ...)
+
+  ## S3 method for class 'lppm'
+as.linnet(X, ...)
+
+  ## S3 method for class 'lppm'
+response(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object,fit,x,X</code></td>
+<td>
+
+<p>An object of class <code>"lppm"</code> representing a fitted point process
+model on a linear network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods, usually the
+method for the class <code>"ppm"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> generic commands
+<code><a href="../../stats/help/coef.html">coef</a></code>,
+<code><a href="../../stats/help/extractAIC.html">extractAIC</a></code>,
+<code><a href="../../stats/help/formula.html">formula</a></code>,
+<code><a href="../../stats/help/logLik.html">logLik</a></code>,
+<code><a href="../../stats/help/deviance.html">deviance</a></code>,
+<code><a href="../../stats/help/nobs.html">nobs</a></code>,
+<code><a href="../../base/help/print.html">print</a></code>, 
+<code><a href="../../base/help/summary.html">summary</a></code>, 
+<code><a href="../../stats/help/terms.html">terms</a></code>,
+<code><a href="../../stats/help/update.html">update</a></code> and
+<code><a href="../../stats/help/vcov.html">vcov</a></code>,
+and the <span class="pkg">spatstat</span> generic commands
+<code><a href="../../spatstat.linnet/help/as.linnet.html">as.linnet</a></code>,
+<code><a href="../../spatstat.model/help/emend.html">emend</a></code>,
+<code><a href="../../spatstat.model/help/response.html">response</a></code> and 
+<code><a href="../../spatstat.model/help/valid.html">valid</a></code>,
+for the class <code>"lppm"</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>as.linnet.lppm</code> a linear network (object of class <code>"linnet"</code>).
+For <code>emend.lppm</code> another fitted model of the same class <code>"lppm"</code>.
+For <code>response.lppm</code> a spatial point pattern on a linear network
+(object of class <code>"lpp"</code>).
+For <code>valid.lppm</code> a logical value.
+</p>
+<p>For the other methods, see the help for the default methods.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>,
+<code><a href="../../spatstat.linnet/help/plot.lppm.html">plot.lppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(15, simplenet)
+  fit &lt;- lppm(X ~ x)
+  print(fit)
+  coef(fit)
+  formula(fit)
+  terms(fit)
+  logLik(fit)
+  deviance(fit)
+  nobs(fit)
+  extractAIC(fit)
+  update(fit, ~1)
+  valid(fit)
+  vcov(fit)
+  response(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

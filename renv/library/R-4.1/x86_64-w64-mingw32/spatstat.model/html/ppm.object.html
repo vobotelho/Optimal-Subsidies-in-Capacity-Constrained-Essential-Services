@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class of Fitted Point Process Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ppm.object {spatstat.model}"><tr><td>ppm.object {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class of Fitted Point Process Models</h2>
+
+<h3>Description</h3>
+
+<p>A class <code>ppm</code> to represent a fitted stochastic model
+for a point process. The output of <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>ppm</code> represents a stochastic point process
+model that has been fitted to a point pattern dataset.
+Typically it is the output of the model fitter,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>The class <code>ppm</code> has methods for the following
+standard generic functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    generic </td><td style="text-align: left;"> method </td><td style="text-align: left;"> description </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>print</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/print.ppm.html">print.ppm</a></code>
+    </td><td style="text-align: left;"> print details </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>plot</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code>
+    </td><td style="text-align: left;"> plot fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>predict</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+    </td><td style="text-align: left;"> fitted intensity and conditional intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+    <code>fitted</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>
+    </td><td style="text-align: left;"> fitted intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>coef</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/coef.ppm.html">coef.ppm</a></code>
+    </td><td style="text-align: left;"> fitted coefficients of model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>anova</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/anova.ppm.html">anova.ppm</a></code>
+    </td><td style="text-align: left;"> Analysis of Deviance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>formula</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/formula.ppm.html">formula.ppm</a></code>
+    </td><td style="text-align: left;"> Extract model formula </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>terms</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/terms.ppm.html">terms.ppm</a></code>
+    </td><td style="text-align: left;"> Terms in the model formula </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>labels</code> </td><td style="text-align: left;"> <code>labels.ppm</code>
+    </td><td style="text-align: left;"> Names of estimable terms in the model formula </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>residuals</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>
+    </td><td style="text-align: left;"> Point process residuals </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>simulate</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>
+    </td><td style="text-align: left;"> Simulate the fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>update</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code>
+    </td><td style="text-align: left;"> Change or refit the model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>vcov</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/vcov.ppm.html">vcov.ppm</a></code>
+    </td><td style="text-align: left;"> Variance/covariance matrix of parameter estimates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>model.frame</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/model.frame.ppm.html">model.frame.ppm</a></code>
+    </td><td style="text-align: left;"> Model frame </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>model.matrix</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/model.matrix.ppm.html">model.matrix.ppm</a></code>
+    </td><td style="text-align: left;"> Design matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>logLik</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/logLik.ppm.html">logLik.ppm</a></code>
+    </td><td style="text-align: left;"> log <em>pseudo</em> likelihood </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>extractAIC</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/extractAIC.ppm.html">extractAIC.ppm</a></code>
+    </td><td style="text-align: left;"> pseudolikelihood counterpart of AIC </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>nobs</code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/nobs.ppm.html">nobs.ppm</a></code>
+    </td><td style="text-align: left;"> number of observations 
+  </td>
+</tr>
+
+</table>
+
+<p>Objects of class <code>ppm</code> can also be handled by the
+following standard functions, without requiring a special method:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    name </td><td style="text-align: left;"> description </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../stats/html/confint.html">confint</a></code> </td><td style="text-align: left;"> Confidence intervals for parameters </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../stats/html/step.html">step</a></code> </td><td style="text-align: left;"> Stepwise model selection </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../stats/html/add1.html">drop1</a></code> </td><td style="text-align: left;"> One-step model improvement </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../stats/html/add1.html">add1</a></code> </td><td style="text-align: left;">  One-step model improvement
+  </td>
+</tr>
+
+</table>
+
+<p>The class <code>ppm</code> also has methods for the following
+generic functions defined in the <span class="pkg">spatstat</span> package:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    generic </td><td style="text-align: left;"> method </td><td style="text-align: left;"> description </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/as.interact.html">as.interact</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/as.interact.ppm.html">as.interact.ppm</a></code>
+    </td><td style="text-align: left;"> Interpoint interaction structure </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/as.owin.ppm.html">as.owin.ppm</a></code>
+    </td><td style="text-align: left;"> Observation window of data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/berman.test.html">berman.test</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/berman.test.ppm.html">berman.test.ppm</a></code>
+    </td><td style="text-align: left;"> Berman's test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/envelope.ppm.html">envelope.ppm</a></code>
+    </td><td style="text-align: left;"> Simulation envelopes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/fitin.html">fitin</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/fitin.ppm.html">fitin.ppm</a></code>
+    </td><td style="text-align: left;"> Fitted interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/is.marked.html">is.marked</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/is.marked.ppm.html">is.marked.ppm</a></code>
+    </td><td style="text-align: left;"> Determine whether the model is marked </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/is.multitype.html">is.multitype</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/is.multitype.ppm.html">is.multitype.ppm</a></code>
+    </td><td style="text-align: left;"> Determine whether the model is multitype </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/is.poisson.html">is.poisson</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/is.poisson.ppm.html">is.poisson.ppm</a></code>
+    </td><td style="text-align: left;"> Determine whether the model is Poisson </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/is.stationary.html">is.stationary</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/is.stationary.ppm.html">is.stationary.ppm</a></code>
+    </td><td style="text-align: left;"> Determine whether the model is stationary </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/cdf.test.ppm.html">cdf.test.ppm</a></code>
+    </td><td style="text-align: left;"> Spatial distribution test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/quadrat.test.ppm.html">quadrat.test.ppm</a></code>
+    </td><td style="text-align: left;"> Quadrat counting test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/reach.html">reach</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/reach.ppm.html">reach.ppm</a></code>
+    </td><td style="text-align: left;"> Interaction range of model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/rmhmodel.ppm.html">rmhmodel.ppm</a></code>
+    </td><td style="text-align: left;"> Model in a form that can be simulated </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/rmh.ppm.html">rmh.ppm</a></code>
+    </td><td style="text-align: left;"> Perform simulation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code> </td><td style="text-align: left;"> <code><a href="../../spatstat.model/help/unitname.ppm.html">unitname.ppm</a></code>
+    </td><td style="text-align: left;"> Name of unit of length
+    </td>
+</tr>
+
+</table>
+
+<p>Information about the data (to which the model was fitted)
+can be extracted using <code><a href="../../spatstat.model/help/data.ppm.html">data.ppm</a></code>, <code><a href="../../spatstat.model/help/dummy.ppm.html">dummy.ppm</a></code>
+and <code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code>.
+</p>
+
+
+<h3>Internal format</h3>
+
+<p>If you really need to get at the internals,
+a <code>ppm</code> object contains at least the following entries:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>coef</code> </td><td style="text-align: left;">  the fitted regular parameters (as returned by
+                     <code>glm</code>) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>trend</code> </td><td style="text-align: left;">  the trend formula or <code>NULL</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>interaction</code> </td><td style="text-align: left;"> the point process interaction family 
+                        (an object of class <code>"interact"</code>)
+			or <code>NULL</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>Q</code> </td><td style="text-align: left;">      the quadrature scheme used </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>maxlogpl</code> </td><td style="text-align: left;"> the maximised value of log pseudolikelihood </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>correction</code> </td><td style="text-align: left;">  name of edge correction method used </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for explanation of these concepts.
+The irregular parameters (e.g. the interaction radius of the
+Strauss process) are encoded in the <code>interaction</code> entry.
+However see the Warnings.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The internal representation of <code>ppm</code> objects
+may change slightly between releases of the <span class="pkg">spatstat</span> package.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/coef.ppm.html">coef.ppm</a></code>,
+<code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>,
+<code><a href="../../spatstat.model/help/print.ppm.html">print.ppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>,
+<code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(cells ~ x, Strauss(0.1), correction="periodic")
+  fit
+  coef(fit)
+  
+    pred &lt;- predict(fit)
+  
+  pred &lt;- predict(fit, ngrid=20, type="trend")
+  if(interactive()) {
+  plot(fit)
+  }  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

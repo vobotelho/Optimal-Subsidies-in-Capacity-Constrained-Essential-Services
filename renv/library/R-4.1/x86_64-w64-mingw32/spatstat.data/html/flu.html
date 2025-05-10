@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Influenza Virus Proteins</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for flu {spatstat.data}"><tr><td>flu {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Influenza Virus Proteins
+</h2>
+
+<h3>Description</h3>
+
+<p>Replicated spatial point patterns giving the locations of two
+different virus proteins on the membranes of cells infected with
+influenza virus.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(flu)</pre>
+
+
+<h3>Format</h3>
+
+<p>A <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code> with 41 rows and four columns:
+</p>
+
+<dl>
+<dt>pattern</dt><dd>
+<p>List of spatial point patterns
+(objects of class <code>"ppp"</code>)
+with points of two types, identifying the locations of 
+two different proteins on a membrane sheet.
+Coordinates are expressed in nanometres (<em>nm</em>) and the 
+window of observation is a square of side length 3331 <em>nm</em>.
+</p>
+</dd>
+<dt>virustype</dt><dd>
+<p>Factor identifying whether the infecting virus was
+the wild type (<code>wt</code>) or mutant (<code>mut1</code>).
+</p>
+</dd>
+<dt>stain</dt><dd>
+<p>Factor identifying whether the membrane sheet was stained
+for the proteins <em>M2</em> and <em>M1</em>
+(<code>stain="M2-M1"</code>)
+or stained for the proteins <em>M2</em> and <em>HA</em>
+(<code>stain="M2-HA"</code>).
+</p>
+</dd>
+<dt>frameid</dt><dd>
+<p>Integer. Serial number of the microscope frame
+in the original experiment. Frame identifier is not unique
+across different values of <code>virustype</code> and <code>stain</code>.
+</p>
+</dd>
+</dl>
+
+<p>The row names of the hyperframe can be used as succinct labels
+in plots.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The data consist of 41 spatial point patterns, each
+giving the locations of two different virus proteins
+on the membranes of cells infected with influenza virus.
+</p>
+<p>Chen et al (2008) conducted the experiment and used spatial analysis
+to establish evidence for an interaction between the influenza virus
+proteins M1 and M2 that is important for the study of viral replication.
+</p>
+<p>Canine kidney cells were infected with human influenza, Udorn strain,
+either the wild type or a mutant which encodes a defective M2 protein.
+At twelve hours post-infection, membrane sheets were prepared
+and stained for viral proteins, using two antibodies conjugated to
+gold particles of two sizes (6 nanometre and 12 nanometre diameter)
+enabling localisation of two different proteins on each sheet.
+The 6 nm particles were stained for M2 (ion channel protein),
+while the 12 nm particles were stained either for M1 (matrix protein)
+or for HA (hemagglutinin). Membrane sheets were visualised in
+electron microscopy.
+</p>
+<p>Experimental technique and spatial analysis of the membranes
+stained for M2 and M1 is reported in Chen et al (2008).
+Analysis of the membranes stained for
+M2 and HA is reported in Rossman et al (2010).
+The M2-HA data shows a stronger association
+between the two proteins which has also been observed biochemically
+and functionally (Rossman et al, 2010).
+</p>
+<p>The dataset <code>flu</code> is a <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>
+with one row for each membrane sheet. The column named <code>pattern</code>
+contains the spatial point patterns of gold particle locations,
+with two types of points (either <code>M1</code> and <code>M2</code> or
+<code>HA</code> and <code>M2</code>). The column named <code>virustype</code>
+is a factor identifying the virus: either wild type <code>wt</code>
+or mutant <code>mut1</code>. The column named <code>stain</code> is a factor
+identifying whether the membrane was stained for
+M1 and M2 (<code>stain="M2-M1"</code>) or stained for HA and M2
+(<code>stain="M2-HA"</code>).
+The row names of the hyperframe are a succinct summary of
+the experimental conditions and can be used as labels
+in plots. See the Examples.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Data generously provided by Dr G.P. Leser and Dr R.A. Lamb.
+Please cite Chen et al (2008) in any use of these data.
+</p>
+
+
+<h3>References</h3>
+
+<p>Chen, B.J., Leser, G.P., Jackson, D. and Lamb, R.A. (2008)
+The influenza virus M2 protein cytoplasmic tail interacts with the M1 protein
+and influences virus assembly at the site of virus budding.
+<em>Journal of Virology</em> <b>82</b>, 10059&ndash;10070.
+</p>
+<p>Rossman, J.S., Jing, X.H.,  Leser, G.P. and Lamb, R.A. (2010)
+Influenza virus M2 protein mediates ESCRT-independent membrane scission
+<em>Cell</em> <b>142</b>, 902&ndash;913.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+flu
+Y &lt;- flu$pattern[10]
+Y &lt;- flu[10, 1, drop=TRUE]
+wildM1 &lt;- with(flu, virustype == "wt" &amp; stain == "M2-M1")
+plot(flu[wildM1, 1, drop=TRUE], 
+     main=c("flu data", "wild type virus, M2-M1 stain"),
+     pch=c(3,16), cex=0.4, cols=2:3)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

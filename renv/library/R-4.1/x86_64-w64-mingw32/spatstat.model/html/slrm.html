@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Logistic Regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for slrm {spatstat.model}"><tr><td>slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial Logistic Regression</h2>
+
+<h3>Description</h3>
+
+<p>Fits a spatial logistic regression model
+to a spatial point pattern. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+slrm(formula, ..., data = NULL, offset = TRUE, link = "logit",
+                   dataAtPoints=NULL, splitby=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>The model formula. See Details.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+determining the pixel resolution for the discretisation
+of the point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>Optional. A list containing data required in the formula.
+The names of entries in the list should correspond to variable
+names in the formula. The entries should be point patterns,
+pixel images or windows.
+</p>
+</td></tr>
+<tr valign="top"><td><code>offset</code></td>
+<td>
+
+<p>Logical flag indicating whether the model formula
+should be augmented by an offset equal to the logarithm of the
+pixel area.
+</p>
+</td></tr>
+<tr valign="top"><td><code>link</code></td>
+<td>
+<p>The link function for the regression model.
+A character string, specifying a link function
+for binary regression.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dataAtPoints</code></td>
+<td>
+<p>Optional.
+Exact values of the covariates at the data points.
+A data frame, with column names corresponding to
+variables in the <code>formula</code>, with one row for each
+point in the point pattern dataset.
+</p>
+</td></tr>
+<tr valign="top"><td><code>splitby</code></td>
+<td>
+
+<p>Optional. Character string identifying a window. The window will be used
+to split pixels into sub-pixels. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function fits a Spatial Logistic Regression model
+(Tukey, 1972; Agterberg, 1974) to a spatial point pattern dataset. 
+The logistic function may be replaced by another link function.
+</p>
+<p>The <code>formula</code> specifies the form of the model to be fitted,
+and the data to which it should be fitted. The <code>formula</code>
+must be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> formula with a left and right hand
+side.
+</p>
+<p>The left hand side of the <code>formula</code> is the name of the
+point pattern dataset, an object of class <code>"ppp"</code>. 
+</p>
+<p>The right hand side of the <code>formula</code> is an expression,
+in the usual <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> formula syntax, representing the functional form of
+the linear predictor for the model.
+</p>
+<p>Each variable name that appears in the formula may be 
+</p>
+
+<ul>
+<li>
+<p>one of the reserved names <code>x</code> and <code>y</code>,
+referring to the Cartesian coordinates;
+</p>
+</li>
+<li>
+<p>the name of an entry in the list <code>data</code>, if this argument is given;
+</p>
+</li>
+<li>
+<p>the name of an object in the
+parent environment, that is, in the environment where the call
+to <code>slrm</code> was issued.
+</p>
+</li></ul>
+
+<p>Each object appearing on the right hand side of the formula may be
+</p>
+
+<ul>
+<li><p> a pixel image (object of class <code>"im"</code>)
+containing the values of a covariate;
+</p>
+</li>
+<li><p> a window (object of class <code>"owin"</code>), which will be
+interpreted as a logical covariate which is <code>TRUE</code> inside the
+window and <code>FALSE</code> outside it;
+</p>
+</li>
+<li><p> a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with arguments
+<code>x,y</code>, which can be evaluated at any location to
+obtain the values of a covariate.
+</p>
+</li></ul>
+
+<p>See the Examples below.
+</p>
+<p>The fitting algorithm discretises the point pattern onto a pixel grid. The
+value in each pixel is 1 if there are any points of the point pattern
+in the pixel, and 0 if there are no points in the pixel.
+The dimensions of the pixel grid will be determined as follows:
+</p>
+
+<ul>
+<li>
+<p>The pixel grid will be determined by the extra
+arguments <code>...</code> if they are specified (for example the argument
+<code>dimyx</code> can be used to specify the number of pixels).
+</p>
+</li>
+<li>
+<p>Otherwise, if the right hand side of the <code>formula</code> includes
+the names of any pixel images containing covariate values,
+these images will determine the pixel grid for the discretisation.
+The covariate image with the finest grid (the smallest pixels) will
+be used.
+</p>
+</li>
+<li>
+<p>Otherwise, the default pixel grid size is given by
+<code>spatstat.options("npixel")</code>.
+</p>
+</li></ul>
+
+<p>The covariates are evaluated at the centre of each pixel.
+If <code>dataAtPoints</code> is given, then 
+the covariate values at the corresponding pixels
+are overwritten by the entries of <code>dataAtPoints</code>
+(and the spatial coordinates are overwritten by the exact spatial
+coordinates of the data points).
+</p>
+<p>If <code>link="logit"</code> (the default), the algorithm fits a Spatial Logistic
+Regression model. This model states that the probability
+<i>p</i> that a given pixel contains a data point, is related to the
+covariates through
+</p>
+<p style="text-align: center;"><i>log(p/(1-p)) = eta</i></p>
+
+<p>where <i>eta</i> is the linear predictor of the model
+(a linear combination of the covariates,
+whose form is specified by the <code>formula</code>).
+</p>
+<p>If <code>link="cloglog"</code> then the algorithm fits a model stating that
+</p>
+<p style="text-align: center;"><i>log(-log(1-p)) = eta</i></p>
+<p>.
+</p>
+<p>If <code>offset=TRUE</code> (the default), the model formula will be
+augmented by adding an offset term equal to the logarithm of the pixel
+area. This ensures that the fitted parameters are
+approximately independent of pixel size.
+If <code>offset=FALSE</code>, the offset is not included, and the
+traditional form of Spatial Logistic Regression is fitted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"slrm"</code> representing the fitted model.
+</p>
+<p>There are many methods for this class, including methods for
+<code>print</code>, <code>fitted</code>, <code>predict</code>,
+<code>anova</code>, <code>coef</code>, <code>logLik</code>, <code>terms</code>,
+<code>update</code>, <code>formula</code> and <code>vcov</code>.
+Automated stepwise model selection is possible using
+<code><a href="../../stats/html/step.html">step</a></code>. Confidence intervals for the parameters can be
+computed using <code><a href="../../stats/help/confint.html">confint</a></code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Agterberg, F.P. (1974)
+Automatic contouring of geological maps to detect target areas for
+mineral exploration.
+<em>Journal of the International Association for Mathematical Geology</em>
+<b>6</b>, 373&ndash;395.
+</p>
+<p>Baddeley, A., Berman, M., Fisher, N.I., Hardegen, A., Milne, R.K.,
+Schuhmacher, D., Shah, R. and Turner, R. (2010)
+Spatial logistic regression and change-of-support
+for spatial Poisson point processes.
+<em>Electronic Journal of Statistics</em>
+<b>4</b>, 1151&ndash;1201.
+<code>DOI: 10.1214/10-EJS581</code>
+</p>
+<p>Tukey, J.W. (1972)
+Discussion of paper by F.P. Agterberg and S.C. Robinson.
+<em>Bulletin of the International Statistical Institute</em>
+<b>44</b> (1) p. 596.
+Proceedings, 38th Congress, International Statistical Institute.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/anova.slrm.html">anova.slrm</a></code>,
+<code><a href="../../spatstat.model/help/coef.slrm.html">coef.slrm</a></code>,
+<code><a href="../../spatstat.model/help/fitted.slrm.html">fitted.slrm</a></code>,
+<code><a href="../../spatstat.model/help/logLik.slrm.html">logLik.slrm</a></code>,
+<code><a href="../../spatstat.model/help/plot.slrm.html">plot.slrm</a></code>,
+<code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code>,
+<code><a href="../../spatstat.model/help/vcov.slrm.html">vcov.slrm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(offline &lt;- !interactive()) op &lt;- spatstat.options(npixel=32)
+
+     X &lt;- copper$SouthPoints
+     slrm(X ~ 1)
+     slrm(X ~ x+y)
+
+     slrm(X ~ x+y, link="cloglog")
+     # specify a grid of 2-km-square pixels
+     slrm(X ~ 1, eps=2)
+
+     Y &lt;- copper$SouthLines
+     Z &lt;- distmap(Y)
+     slrm(X ~ Z)
+     slrm(X ~ Z, dataAtPoints=list(Z=nncross(X,Y,what="dist")))
+
+     mur &lt;- solapply(murchison, rescale, s=1000, unitname="km")
+     mur$dfault &lt;- distfun(mur$faults)
+     slrm(gold ~ dfault, data=mur)
+     slrm(gold ~ dfault + greenstone, data=mur)
+     slrm(gold ~ dfault, data=mur, splitby="greenstone")
+
+if(offline) spatstat.options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Linear K Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linearKinhom {spatstat.linnet}"><tr><td>linearKinhom {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Linear K Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes an estimate of the inhomogeneous linear <i>K</i> function
+for a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linearKinhom(X, lambda=NULL, r=NULL, ..., correction="Ang",
+             normalise=TRUE, normpower=1,
+	     update=TRUE, leaveoneout=TRUE, sigma=NULL, ratio=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Intensity values for the point pattern. Either a numeric vector,
+a <code>function</code>, a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>) or
+a fitted point process model (object of class <code>"ppm"</code>
+or <code>"lppm"</code>) or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Numeric vector of values of the function argument <i>r</i>.
+There is a sensible default. Users are advised not to specify
+<code>r</code> in normal usage.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Geometry correction.
+Either <code>"none"</code> or <code>"Ang"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), the denominator of the estimator is 
+data-dependent (equal to the sum of the reciprocal intensities at the data
+points, raised to <code>normpower</code>), which reduces the sampling variability.
+If <code>FALSE</code>, the denominator is the length of the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normpower</code></td>
+<td>
+
+<p>Integer (usually either 1 or 2).
+Normalisation power. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>lambda</code> is a fitted model
+(class <code>"lppm"</code> or <code>"ppm"</code>).
+If <code>update=TRUE</code> (the default),
+the model will first be refitted to the data <code>X</code>
+(using <code><a href="../../spatstat.linnet/help/update.lppm.html">update.lppm</a></code> or <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code>)
+before the fitted intensity is computed.
+If <code>update=FALSE</code>, the fitted intensity of the
+model will be computed without re-fitting it to <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value specifying whether to use a
+leave-one-out rule when calculating the intensity.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth (passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>)
+for kernel density estimation of the intensity when
+<code>lambda=NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+the estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the inhomogeneous version of the 
+linear <i>K</i> function from point pattern data on a linear network.
+</p>
+<p>The argument <code>lambda</code> should provide estimated values
+of the intensity of the point process at each point of <code>X</code>.
+</p>
+<p>If <code>lambda=NULL</code>, the intensity will be estimated by kernel
+smoothing by calling <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> with the smoothing
+bandwidth <code>sigma</code>, and with any other relevant arguments
+that might be present in <code>...</code>. A leave-one-out kernel estimate
+will be computed if <code>leaveoneout=TRUE</code>.
+</p>
+<p>If <code>lambda</code> is given, it may be a numeric vector (of length equal to
+the number of points in <code>X</code>), or a <code>function(x,y)</code> that will be
+evaluated at the points of <code>X</code> to yield numeric values, 
+or a pixel image (object of class <code>"im"</code>) or a fitted point 
+process model (object of class <code>"ppm"</code> or <code>"lppm"</code>).
+</p>
+<p>If <code>lambda</code> is a fitted point process model,
+the default behaviour is to update the model by re-fitting it to
+the data, before computing the fitted intensity.
+This can be disabled by setting <code>update=FALSE</code>.
+The intensity at data points will be computed
+by <code><a href="../../spatstat.linnet/help/fitted.lppm.html">fitted.lppm</a></code> or <code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>.
+A leave-one-out estimate will be computed if <code>leaveoneout=TRUE</code>
+and <code>update=TRUE</code>.
+</p>
+<p>If <code>correction="none"</code>, the calculations do not include
+any correction for the geometry of the linear network.
+If <code>correction="Ang"</code>, the pair counts are weighted using
+Ang's correction (Ang, 2010).
+</p>
+<p>Each estimate is initially computed as 
+</p>
+<p style="text-align: center;"><i>
+    K^inhom(r)= (1/length(L)) sum[i] sum[j] 1(d[i,j] &lt;= r) * 
+    e(x[i],x[j])/(lambda(x[i]) * lambda(x[j]))
+  </i></p>
+
+<p>where <code>L</code> is the linear network,
+<i>d[i,j]</i> is the distance between points
+<i>x[i]</i> and <i>x[j]</i>, and
+<i>e(x[i],x[j])</i> is a weight.
+If <code>correction="none"</code> then this weight is equal to 1,
+while if  <code>correction="Ang"</code> the weight is
+<i>e(x[i],x[j],r) = 1/m(x[i],d[i,j])</i>
+where <i>m(u,t)</i> is the number of locations on the network that lie
+exactly <i>t</i> units distant from location <i>u</i> by the shortest
+path.
+</p>
+<p>If <code>normalise=TRUE</code> (the default), then the estimates
+described above
+are multiplied by <i>c^normpower</i> where 
+<i>
+    c = length(L)/sum[i] (1/lambda(x[i])).
+  </i>
+This rescaling reduces the variability and bias of the estimate
+in small samples and in cases of very strong inhomogeneity.
+The default value of <code>normpower</code> is 1 (for consistency with
+previous versions of <span class="pkg">spatstat</span>)
+but the most sensible value is 2, which would correspond to rescaling
+the <code>lambda</code> values so that
+<i>
+    sum[i] (1/lambda(x[i])) = area(W).
+  </i>
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Warning</h3>
+
+<p>Older versions of <code><a href="../../spatstat.linnet/help/linearKinhom.html">linearKinhom</a></code> interpreted
+<code>lambda=NULL</code> to mean that the homogeneous function
+<code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code> should be computed. This was changed to the
+current behaviour in version <code>3.1-0</code> of <span class="pkg">spatstat.linnet</span>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010) Statistical methodology for spatial point patterns
+on a linear network. MSc thesis, University of Western Australia.
+</p>
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoislpp(5, simplenet)
+  fit &lt;- lppm(X ~x)
+  K &lt;- linearKinhom(X, lambda=fit)
+  plot(K)
+  Ke &lt;- linearKinhom(X, sigma=bw.lppl)
+  plot(Ke)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

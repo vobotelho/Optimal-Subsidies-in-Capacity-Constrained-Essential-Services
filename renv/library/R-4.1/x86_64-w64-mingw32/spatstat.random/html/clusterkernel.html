@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Cluster Offspring Kernel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clusterkernel {spatstat.random}"><tr><td>clusterkernel {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract Cluster Offspring Kernel
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a cluster point process model, this command
+returns the probability density of the cluster offspring.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+clusterkernel(model, ...)
+## S3 method for class 'character'
+clusterkernel(model, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Cluster model. Either a fitted cluster or Cox model
+(object of class <code>"kppm"</code>), or a character string
+specifying the type of cluster model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Parameter values for the model,
+when <code>model</code> is a character string.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a specification of a cluster point process model, this command
+returns a <code>function(x,y)</code> giving the two-dimensional
+probability density of the cluster offspring points assuming a cluster parent
+located at the origin.
+</p>
+<p>The function <code>clusterkernel</code> is generic,
+with methods for class <code>"character"</code> (described here)
+and <code>"kppm"</code> (described in <code><a href="../../spatstat.model/help/clusterkernel.kppm.html">clusterkernel.kppm</a></code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language with arguments <code>x,y,...</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/clusterkernel.kppm.html">clusterkernel.kppm</a></code>),
+<code><a href="../../spatstat.random/help/clusterfield.html">clusterfield</a></code>, <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- clusterkernel("Thomas", kappa=10, scale=0.5)
+  f(0.1, 0.2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

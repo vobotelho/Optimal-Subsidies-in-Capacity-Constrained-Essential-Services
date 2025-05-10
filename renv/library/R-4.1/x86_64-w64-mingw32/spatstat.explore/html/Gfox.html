@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Foxall's Distance Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Gfox {spatstat.explore}"><tr><td>Gfox {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Foxall's Distance Functions
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern <code>X</code> and a spatial object <code>Y</code>,
+compute estimates of Foxall's  <i>G</i> and <i>J</i> functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Gfox(X, Y, r=NULL, breaks=NULL, correction=c("km", "rs", "han"), W, ...)
+Jfox(X, Y, r=NULL, breaks=NULL, correction=c("km", "rs", "han"), W, ...,
+     warn.trim=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+from which distances will be measured.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>An object of class <code>"ppp"</code>, <code>"psp"</code> or <code>"owin"</code>
+to which distances will be measured. Alternatively a pixel image
+(class <code>"im"</code>) with logical values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Optional. Numeric vector. The values of the argument <i>r</i>
+at which <i>Gfox(r)</i> or <i>Jfox(r)</i>
+should be evaluated. There is a sensible default.
+First-time users are strongly advised not to specify this argument.
+See below for important conditions on <i>r</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional.
+The edge correction(s) to be used to estimate
+<i>Gfox(r)</i> or <i>Jfox(r)</i>.
+A vector of character strings selected from
+<code>"none"</code>, <code>"rs"</code>, <code>"km"</code>, <code>"cs"</code>
+and <code>"best"</code>.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional. A window (object of class <code>"owin"</code>)
+to be taken as the window of observation.
+The distribution function will be estimated from data inside <code>W</code>.
+The default is <code>W=Frame(Y)</code> when <code>Y</code> is a window,
+and <code>W=Window(Y)</code> otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments affecting the discretisation of distances.
+These arguments are ignored by <code>Gfox</code>, but
+<code>Jfox</code> passes them to <code><a href="../../spatstat.explore/help/Hest.html">Hest</a></code> to determine
+the discretisation of the spatial domain.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn.trim</code></td>
+<td>
+
+<p>Logical value indicating whether a warning should be issued
+by <code>Jfox</code> when the window of <code>X</code> had to be trimmed
+in order to be a subset of the frame of <code>Y</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a point pattern <code>X</code> and another spatial object <code>Y</code>,
+these functions compute two nonparametric measures of association
+between <code>X</code> and <code>Y</code>, introduced by Foxall
+(Foxall and Baddeley, 2002).
+</p>
+<p>Let the random variable <i>R</i> be the distance from a typical point
+of <code>X</code> to the object <code>Y</code>.
+Foxall's <i>G</i>-function is the cumulative distribution function
+of <i>R</i>:
+</p>
+<p style="text-align: center;"><i>P(R &lt;= r)</i></p>
+
+<p>Let the random variable <i>S</i> be the distance from a <em>fixed</em> point
+in space to the object <code>Y</code>. The cumulative distribution function
+of <i>S</i> is the (unconditional) spherical contact distribution
+function
+</p>
+<p style="text-align: center;"><i>H(r) = P(S &lt;= r)</i></p>
+
+<p>which is computed by <code><a href="../../spatstat.explore/help/Hest.html">Hest</a></code>.
+</p>
+<p>Foxall's <i>J</i>-function is the ratio
+</p>
+<p style="text-align: center;"><i>
+    J(r) = (1-G(r))/(1-H(r))
+  </i></p>
+
+<p>For further interpretation, see Foxall and Baddeley (2002).
+</p>
+<p>Accuracy of <code>Jfox</code> depends on the pixel resolution,
+which is controlled by the
+arguments <code>eps</code>, <code>dimyx</code> and <code>xy</code> passed to
+<code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>. For example, use <code>eps=0.1</code> to specify
+square pixels of side 0.1 units, and <code>dimyx=256</code> to specify a
+256 by 256 grid of pixels.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>)
+which can be printed, plotted, or converted to a data frame of values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Rob Foxall and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Foxall, R. and Baddeley, A. (2002)
+Nonparametric measures of association between a
+spatial point process and a random set, with
+geological applications. <em>Applied Statistics</em> <b>51</b>, 165&ndash;182.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>, 
+<code><a href="../../spatstat.explore/help/Hest.html">Hest</a></code>, 
+<code><a href="../../spatstat.explore/help/Jest.html">Jest</a></code>, 
+<code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- copper$SouthPoints
+  Y &lt;- copper$SouthLines
+  G &lt;- Gfox(X,Y)
+  J &lt;- Jfox(X,Y, correction="km")
+  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

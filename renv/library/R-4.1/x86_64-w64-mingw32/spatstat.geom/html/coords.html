@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Change Coordinates of a Spatial or Spatiotemporal...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for coords {spatstat.geom}"><tr><td>coords {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract or Change Coordinates of a Spatial or Spatiotemporal Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Given any kind of spatial or space-time point pattern,
+this function extracts the
+(space and/or time and/or local) coordinates of the points
+and returns them as a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  coords(x, ...)
+  ## S3 method for class 'ppp'
+coords(x, ...)
+  ## S3 method for class 'ppx'
+coords(x, ..., spatial = TRUE, temporal = TRUE, local=TRUE)
+  coords(x, ...) &lt;- value
+  ## S3 replacement method for class 'ppp'
+coords(x, ...) &lt;- value
+  ## S3 replacement method for class 'ppx'
+coords(x, ..., spatial = TRUE, temporal = TRUE, local=TRUE) &lt;- value
+  ## S3 method for class 'quad'
+coords(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point pattern: either a two-dimensional point pattern
+(object of class <code>"ppp"</code>), a three-dimensional point pattern
+(object of class <code>"pp3"</code>), or a 
+general multidimensional space-time point pattern 
+(object of class <code>"ppx"</code>)
+or a quadrature scheme (object of class <code>"quad"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Further arguments passed to methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>spatial,temporal,local</code></td>
+<td>
+
+<p>Logical values indicating whether to extract spatial, temporal
+and local coordinates, respectively. The default is to return all
+such coordinates. (Only relevant to <code>ppx</code> objects).
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>New values of the coordinates. A numeric vector with one entry for each
+point in <code>x</code>, or a numeric matrix or data frame with one row
+for each point in <code>x</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>coords</code> extracts the coordinates from
+a point pattern. The function <code>coords&lt;-</code> replaces the coordinates
+of the point pattern with new values.
+</p>
+<p>Both functions <code>coords</code> and <code>coords&lt;-</code> are generic, with methods for
+the classes <code>"ppp"</code>) and <code>"ppx"</code>.
+An object of class <code>"pp3"</code> also inherits from <code>"ppx"</code> and
+is handled by the method for <code>"ppx"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>coords</code> returns a <code>data.frame</code> with one row for each point,
+containing the coordinates.
+<code>coords&lt;-</code> returns the altered point pattern.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code>,
+<code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code>as.hyperframe.ppx</code>,
+<code>as.data.frame.ppx</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   df &lt;- data.frame(x=runif(4),y=runif(4),t=runif(4))
+   X &lt;- ppx(data=df, coord.type=c("s","s","t"))
+   coords(X)
+   coords(X, temporal=FALSE)
+   coords(X) &lt;- matrix(runif(12), ncol=3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

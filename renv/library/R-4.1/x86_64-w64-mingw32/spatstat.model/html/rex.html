@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Richardson Extrapolation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rex {spatstat.model}"><tr><td>rex {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Richardson Extrapolation
+</h2>
+
+<h3>Description</h3>
+
+<p>Performs Richardson Extrapolation on a sequence of
+approximate values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rex(x, r = 2, k = 1, recursive = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A numeric vector or matrix,
+whose columns are successive estimates or approximations
+to a vector of parameters.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>A number greater than 1.
+The ratio of successive step sizes.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer. The order of convergence assumed. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>recursive</code></td>
+<td>
+
+<p>Logical value indicating whether to perform one step of
+Richardson extrapolation (<code>recursive=FALSE</code>, the default)
+or repeat the extrapolation procedure until a best estimate
+is obtained (<code>recursive=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Richardson extrapolation is a general technique for improving numerical
+approximations, often used in numerical integration (Brezinski and
+Zaglia, 1991). It can also be used to improve parameter estimates
+in statistical models (Baddeley and Turner, 2014). 
+</p>
+<p>The successive columns of <code>x</code> are assumed to
+have been obtained using approximations with step sizes
+<i>a, a/r, a/r^2, ...</i>
+where <i>a</i> is the initial step size (which does not need to be
+specified).
+</p>
+<p>Estimates based on a step size <i>s</i> are assumed to have an error
+of order <i>s^k</i>.
+</p>
+<p>Thus, the default values <code>r=2</code> and <code>k=1</code> imply that the errors in
+the second column of <code>x</code> should be roughly <i>(1/r)^k = 1/2</i> as large
+as the errors in the first column, and so on.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix whose columns contain a sequence of improved estimates.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2014)
+Bias correction for parameter estimates of spatial point process models.
+<em>Journal of Statistical Computation and Simulation</em>
+<b>84</b>, 1621&ndash;1643.
+DOI: 10.1080/00949655.2012.755976
+</p>
+<p>Brezinski, C. and Zaglia, M.R. (1991)
+<em>Extrapolation Methods. Theory and Practice</em>.
+North-Holland.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/bc.html">bc</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # integrals of sin(x) and cos(x) from 0 to pi
+   # correct answers: 2, 0
+   est &lt;- function(nsteps) {
+     xx &lt;- seq(0, pi, length=nsteps)
+     ans &lt;- pi * c(mean(sin(xx)), mean(cos(xx)))
+     names(ans) &lt;- c("sin", "cos")
+     ans
+   }
+   X &lt;- cbind(est(10), est(20), est(40))
+   X
+   rex(X)
+   rex(X, recursive=TRUE)
+
+   # fitted Gibbs point process model
+   fit0 &lt;- ppm(cells ~ 1, Strauss(0.07), nd=16)
+   fit1 &lt;- update(fit0, nd=32)
+   fit2 &lt;- update(fit0, nd=64)
+   co &lt;- cbind(coef(fit0), coef(fit1), coef(fit2))
+   co 
+   rex(co, k=2, recursive=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

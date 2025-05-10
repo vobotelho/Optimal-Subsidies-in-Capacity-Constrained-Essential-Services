@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial smoothing of data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Smooth {spatstat.explore}"><tr><td>Smooth {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial smoothing of data</h2>
+
+<h3>Description</h3>
+
+<p>Generic function to perform spatial smoothing of spatial data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Smooth(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Some kind of spatial data</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to methods.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This generic function calls an appropriate method
+to perform spatial smoothing on the spatial dataset <code>X</code>.
+</p>
+<p>Methods for this function include
+</p>
+
+<ul>
+<li> <p><code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code> for point patterns
+</p>
+</li>
+<li> <p><code><a href="../../spatstat.model/help/Smooth.msr.html">Smooth.msr</a></code> for measures
+</p>
+</li>
+<li> <p><code><a href="../../spatstat.explore/help/Smooth.fv.html">Smooth.fv</a></code> for function value tables
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An object containing smoothed values of the input data,
+in an appropriate format. See the documentation for the methods.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/Smooth.im.html">Smooth.im</a></code>,
+<code><a href="../../spatstat.model/help/Smooth.msr.html">Smooth.msr</a></code>,
+<code><a href="../../spatstat.explore/help/Smooth.fv.html">Smooth.fv</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

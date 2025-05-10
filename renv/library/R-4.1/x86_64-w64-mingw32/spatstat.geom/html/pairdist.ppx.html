@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise Distances in Any Dimensions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairdist.ppx {spatstat.geom}"><tr><td>pairdist.ppx {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise Distances in Any Dimensions</h2>
+
+<h3>Description</h3>
+
+<p>Computes the matrix of distances between all pairs of points
+in a multi-dimensional point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppx'
+pairdist(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppx"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/coords.ppx.html">coords.ppx</a></code> to determine
+which coordinates should be used.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code>pairdist</code>.
+</p>
+<p>Given a multi-dimensional point pattern <code>X</code>
+(an object of class <code>"ppx"</code>),
+this function computes the Euclidean distances between all pairs of
+points in <code>X</code>, and returns the matrix of distances.
+</p>
+<p>By default, both spatial and temporal coordinates are extracted.
+To obtain the spatial distance between points in a space-time point
+pattern, set <code>temporal=FALSE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A square matrix whose <code>[i,j]</code> entry is the distance
+between the points numbered <code>i</code> and <code>j</code>.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by <code>pairdist(X, temporal=FALSE)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>pairdist(X, temporal=FALSE)</code>
+are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   df &lt;- data.frame(x=runif(4),y=runif(4),z=runif(4),w=runif(4))
+   X &lt;- ppx(data=df)
+   pairdist(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

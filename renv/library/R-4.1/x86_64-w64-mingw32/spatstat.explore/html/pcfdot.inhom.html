@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Multitype Pair Correlation Function...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pcfdot.inhom {spatstat.explore}"><tr><td>pcfdot.inhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Multitype Pair Correlation Function (Type-i-To-Any-Type)
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the inhomogeneous multitype pair correlation function
+(from type <i>i</i> to any type)
+for a multitype point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pcfdot.inhom(X, i, lambdaI = NULL, lambdadot = NULL, ...,
+               r = NULL, breaks = NULL,
+               kernel="epanechnikov", bw=NULL, adjust.bw=1, stoyan=0.15,
+               correction = c("isotropic", "Ripley", "translate"),
+               sigma = NULL, adjust.sigma = 1, varcov = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the inhomogeneous
+multitype pair correlation function
+<i>g[i.](r)</i>
+will be computed.
+It must be a multitype point pattern (a marked point pattern
+whose marks are a factor). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>The type (mark value)
+of the points in <code>X</code> from which distances are measured.
+A character string (or something that will be converted to a
+character string).
+Defaults to the first level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaI</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity function of the points of type <code>i</code>.
+Either a vector giving the intensity values
+at the points of type <code>i</code>,
+a pixel image (object of class <code>"im"</code>) giving the
+intensity values at all locations, or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdadot</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity function of the point pattern <code>X</code>.
+A numeric vector, pixel image or <code>function(x,y)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Vector of values for the argument <i>r</i> at which
+<i>g[i.](r)</i>
+should be evaluated. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>Choice of one-dimensional smoothing kernel,
+passed to <code><a href="../../stats/html/density.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Bandwidth for one-dimensional smoothing kernel,
+passed to <code><a href="../../stats/html/density.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust.bw</code></td>
+<td>
+
+<p>Numeric value. <code>bw</code> will be multiplied by this value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to the one-dimensional kernel density estimation 
+function <code><a href="../../stats/html/density.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stoyan</code></td>
+<td>
+
+<p>Bandwidth coefficient; see Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Choice of edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma,varcov</code></td>
+<td>
+
+<p>Optional arguments passed to  <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the smoothing bandwidth, when <code>lambdaI</code> and/or
+<code>lambdadot</code> is estimated by spatial kernel smoothing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust.sigma</code></td>
+<td>
+
+<p>Numeric value. <code>sigma</code> will be multiplied by this value.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The inhomogeneous multitype (type <i>i</i> to any type)
+pair correlation function
+<i>g[i.](r)</i>
+is a summary of the dependence between different types of points in a
+multitype spatial point process that does not have a uniform
+density of points.
+</p>
+<p>The best intuitive interpretation is the following: the probability
+<i>p(r)</i> of finding a point of type <i>i</i> at location <i>x</i>
+and another point of any type at location <i>y</i>,
+where <i>x</i> and <i>y</i> are separated by a distance <i>r</i>,
+is equal to
+</p>
+<p style="text-align: center;"><i>
+    p(r) = lambda[i](x) * lambda(y) * g(r) dx dy
+  </i></p>
+
+<p>where <i>lambda[i]</i> is the intensity function
+of the process of points of type <i>i</i>, and 
+where <i>lambda</i> is the intensity function of the points
+of all types.
+For a multitype Poisson point process, this probability is 
+<i>p(r) = lambda[i](x) * lambda(y)</i>
+so   <i>g[i.](r) = 1</i>.
+</p>
+<p>The command <code>pcfdot.inhom</code> estimates the inhomogeneous
+multitype pair correlation using a modified version of
+the algorithm in <code><a href="../../spatstat.explore/help/pcf.ppp.html">pcf.ppp</a></code>.
+The arguments <code>bw</code> and <code>adjust.bw</code> control the
+degree of one-dimensional smoothing of the estimate of pair correlation.
+</p>
+<p>If the arguments <code>lambdaI</code> and/or <code>lambdadot</code> are missing or
+null, they will be estimated from <code>X</code> by spatial kernel
+smoothing using a leave-one-out estimator,
+computed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+The arguments <code>sigma</code>, <code>varcov</code>
+and <code>adjust.sigma</code> control the degree of spatial smoothing.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>).
+Essentially a data frame containing the variables
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>the vector of values of the argument <i>r</i> 
+at which the inhomogeneous multitype pair correlation function
+<i>g[i.](r)</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>vector of values equal to 1,
+the theoretical value of <i>g[i.](r)</i>
+for the Poisson process
+</p>
+</td></tr>
+<tr valign="top"><td><code>trans</code></td>
+<td>
+<p>vector of values of <i>g[i.](r)</i>
+estimated by translation correction
+</p>
+</td></tr>
+<tr valign="top"><td><code>iso</code></td>
+<td>
+<p>vector of values of <i>g[i.](r)</i>
+estimated by Ripley isotropic correction
+</p>
+</td></tr>
+</table>
+<p>as required.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pcf.ppp.html">pcf.ppp</a></code>, 
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>, 
+<code><a href="../../spatstat.explore/help/pcfdot.html">pcfdot</a></code>,
+<code><a href="../../spatstat.explore/help/pcfcross.inhom.html">pcfcross.inhom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(pcfdot.inhom(amacrine, "on", stoyan=0.1), legendpos="bottom")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

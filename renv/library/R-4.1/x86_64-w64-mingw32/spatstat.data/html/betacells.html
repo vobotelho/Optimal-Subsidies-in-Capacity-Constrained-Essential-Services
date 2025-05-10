@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Beta Ganglion Cells in Cat Retina</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for betacells {spatstat.data}"><tr><td>betacells {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Beta Ganglion Cells in Cat Retina</h2>
+
+<h3>Description</h3>
+
+<p>Point pattern of cells in the retina, each cell classified as &lsquo;on&rsquo; or
+&lsquo;off&rsquo; and labelled with the cell profile area.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(betacells)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>betacells</code> is an object of class <code>"ppp"</code>
+representing the point pattern of cell locations.
+Entries include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> Cartesian <i>x</i>-coordinate of cell </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> Cartesian <i>y</i>-coordinate of cell </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> data frame of marks
+  </td>
+</tr>
+
+</table>
+
+<p>Cartesian coordinates are given in microns.
+</p>
+<p>The data frame of marks has two columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>type</code> </td><td style="text-align: left;"> factor with levels <code>off</code> and <code>on</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                </td><td style="text-align: left;"> indicating ``off'' and ``on'' cells</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>area</code> </td><td style="text-align: left;"> numeric vector giving the </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+		</td><td style="text-align: left;"> areas of cell profiles (in square microns)
+  </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format.
+</p>
+
+
+<h3>Notes</h3>
+
+<p>This is a new, corrected version of the old dataset
+<code><a href="../help/ganglia.html">ganglia</a></code>. See below.
+</p>
+<p>These data represent a pattern of beta-type ganglion cells
+in the retina of a cat recorded by W\&quot;assle et al. (1981).
+Beta cells are associated
+with the resolution of fine detail in the cat's visual system.
+They can be classified anatomically as &ldquo;on&rdquo; or &ldquo;off&rdquo;.
+</p>
+<p>Statistical independence of the arrangement of the
+&ldquo;on&rdquo;- and &ldquo;off&rdquo;-components
+would strengthen the evidence for Hering's (1878) &lsquo;opponent theory&rsquo;
+that there are two separate channels for sensing
+&ldquo;brightness&rdquo; and &ldquo;darkness&rdquo;.
+See W\&quot;assle et al (1981). There is considerable current interest
+in the arrangement of cell mosaics in the retina, see
+Rockhill et al (2000).
+</p>
+<p>The dataset is a marked point pattern giving the locations,
+types (&ldquo;on&rdquo; or &ldquo;off&rdquo;), and profile areas of beta cells observed
+in a rectangle of dimensions <i>750 x 990</i> microns.
+Coordinates are given in microns (thousandths of a millimetre)
+and areas are given in square microns.
+</p>
+<p>The original source is Figure 6 of W\&quot;assle et al (1981),
+which is a manual drawing of the beta mosaic observed
+in a microscope field-of-view of a whole mount of the retina.
+Thus, all beta cells in the retina were effectively projected onto the same
+two-dimensional plane.
+</p>
+<p>The data were scanned in 2004 by Stephen Eglen from
+Figure 6(a) of W\&quot;assle et al (1981).
+Image analysis software was used to identify the soma (cell
+body). The <i>x,y</i> location of each cell was taken to be the
+centroid of the soma. The type of each cell (&ldquo;on&rdquo; or 'off&rdquo;)
+was identified by referring to Figures 6(b) and 6(d).
+The area of each soma (in square microns) was also computed.
+</p>
+<p>Note that this is a corrected version of
+the <code><a href="../help/ganglia.html">ganglia</a></code>  
+dataset provided in earlier versions of <span class="pkg">spatstat</span>.
+The earlier data <code><a href="../help/ganglia.html">ganglia</a></code>
+were not faithful to the scale
+in the original paper and contain some scanning errors.
+</p>
+
+
+<h3>Source</h3>
+
+<p>W\&quot;assle et al (1981), Figure 6(a),
+scanned and processed by Stephen Eglen <a href="mailto:S.J.Eglen@damtp.cam.ac.uk">S.J.Eglen@damtp.cam.ac.uk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Hering, E. (1878) Zur Lehre von Lichtsinn. Vienna.
+</p>
+<p>Van Lieshout, M.N.M. and Baddeley, A.J. (1999)
+Indices of dependence between types in multivariate point patterns.
+<em>Scandinavian Journal of Statistics</em> <b>26</b>, 511&ndash;532.
+</p>
+<p>Rockhill, R.L., Euler, T. and Masland, R.H. (2000)
+Spatial order within but not between types of retinal neurons.
+<em>Proc. Nat. Acad. Sci. USA</em> <b>97</b>(5), 2303&ndash;2307.
+</p>
+<p>W\&quot;assle, H., Boycott, B. B. &amp; Illing, R.-B. (1981).
+Morphology and mosaic of on- and off-beta cells in the cat retina and
+some functional considerations.
+<em>Proc. Roy. Soc. London Ser. B</em> <b>212</b>, 177&ndash;195.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(betacells)
+  if(require(spatstat.geom)) {
+   area &lt;- marks(betacells)$area
+   plot(betacells %mark% sqrt(area/pi), markscale=1)
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

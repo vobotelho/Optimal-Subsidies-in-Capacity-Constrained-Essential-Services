@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fitted Probabilities for Spatial Logistic Regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fitted.slrm {spatstat.model}"><tr><td>fitted.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fitted Probabilities for Spatial Logistic Regression
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted Spatial Logistic Regression model,
+this function computes the fitted probabilities for each pixel,
+or the fitted probabilities at each original data point.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'slrm'
+fitted(object, ..., type="probabilities",
+                 dataonly=FALSE, leaveoneout=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>a fitted spatial logistic regression model.
+An object of class <code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string (partially) matching one of 
+<code>"probabilities"</code>, <code>"intensity"</code> or <code>"link"</code>
+determining the quantity that should be predicted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dataonly</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, then values will only be computed
+at the points of the data point pattern. If <code>FALSE</code>, then
+values will be computed at the pixels used to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value
+specifying whether to perform a leave-one-out calculation
+when <code>dataonly=TRUE</code>. If <code>leaveoneout=TRUE</code>,
+the fitted value at each data point <code>X[i]</code> is calculated
+by re-fitting the model to the data with <code>X[i]</code> removed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function
+<code><a href="../../stats/help/fitted.values.html">fitted</a></code>
+for spatial logistic regression models
+(objects of class <code>"slrm"</code>, usually obtained
+from the function <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>).
+</p>
+<p>By default, the algorithm computes
+the fitted probabilities of the presence of a random point in each
+pixel,
+and returns them as an image.
+</p>
+<p>If <code>dataonly=TRUE</code>, the algorithm computes the fitted
+presence probabilities only at the locations of the original data points.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) containing the
+fitted probability for each pixel,
+or a numeric vector containing the fitted probability at each data point.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>,
+<code><a href="../../stats/help/fitted.values.html">fitted</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoispp(42)
+  fit &lt;- slrm(X ~ x+y)
+  plot(fitted(fit))
+  fitted(fit, dataonly=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

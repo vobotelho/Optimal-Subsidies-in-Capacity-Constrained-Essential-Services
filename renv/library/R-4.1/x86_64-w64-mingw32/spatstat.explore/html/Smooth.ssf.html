@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Smooth a Spatially Sampled Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Smooth.ssf {spatstat.explore}"><tr><td>Smooth.ssf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Smooth a Spatially Sampled Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Applies kernel smoothing to a spatially sampled function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ssf'
+Smooth(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object of class <code>"ssf"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code>
+to control the smoothing.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ssf"</code> represents a real-valued or
+vector-valued function that has been evaluated or sampled at an
+irregular set of points.
+</p>
+<p>The function values will be smoothed using a Gaussian
+kernel.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image or a list of pixel images.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/ssf.html">ssf</a></code>,
+<code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   f &lt;- ssf(redwood, nndist(redwood))
+   Smooth(f, sigma=0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class of Point Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ppp.object {spatstat.geom}"><tr><td>ppp.object {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class of Point Patterns</h2>
+
+<h3>Description</h3>
+
+<p>A class <code>"ppp"</code> to represent a two-dimensional point
+pattern. Includes information about the window in which the
+pattern was observed. Optionally includes marks.
+</p>
+
+
+<h3>Details</h3>
+
+<p>This class represents
+a two-dimensional point pattern dataset. It specifies
+</p>
+
+<ul>
+<li><p> the locations of the points
+</p>
+</li>
+<li><p> the window in which the pattern was observed
+</p>
+</li>
+<li><p> optionally, &ldquo;marks&rdquo; attached to each point
+(extra information such as a type label).
+</p>
+</li></ul>
+
+<p>If <code>X</code> is an object of type <code>ppp</code>,
+it contains the following elements:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> vector of <i>x</i> coordinates of data points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> vector of <i>y</i> coordinates of data points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>n</code> </td><td style="text-align: left;"> number of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>window</code> </td><td style="text-align: left;"> window of observation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                  </td><td style="text-align: left;"> (an object of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> optional vector or data frame of marks
+  </td>
+</tr>
+
+</table>
+
+<p>Users are strongly advised not to manipulate these entries
+directly.
+</p>
+<p>Objects of class <code>"ppp"</code>
+may be created by the function
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>
+and converted from other types of data by the function
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+Note that you must always specify the window of observation;
+there is intentionally no default action of &ldquo;guessing&rdquo; the window
+dimensions from the data points alone.
+</p>
+<p>Standard point pattern datasets provided with the package
+include
+<code><a href="../../spatstat.data/help/amacrine.html">amacrine</a></code>,
+<code><a href="../../spatstat.data/help/betacells.html">betacells</a></code>,
+<code><a href="../../spatstat.data/help/bramblecanes.html">bramblecanes</a></code>,
+<code><a href="../../spatstat.data/help/cells.html">cells</a></code>,
+<code><a href="../../spatstat.data/help/demopat.html">demopat</a></code>,
+<code><a href="../../spatstat.data/help/ganglia.html">ganglia</a></code>,
+<code><a href="../../spatstat.data/help/lansing.html">lansing</a></code>,
+<code><a href="../../spatstat.data/help/longleaf.html">longleaf</a></code>,
+<code><a href="../../spatstat.data/help/nztrees.html">nztrees</a></code>,
+<code><a href="../../spatstat.data/help/redwood.html">redwood</a></code>,
+<code><a href="../../spatstat.data/help/simdat.html">simdat</a></code> and
+<code><a href="../../spatstat.data/help/swedishpines.html">swedishpines</a></code>.
+</p>
+<p>Point patterns may be scanned from your own data files by
+<code><a href="../../spatstat.geom/help/scanpp.html">scanpp</a></code> or by using <code><a href="../../utils/html/read.table.html">read.table</a></code> and
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+<p>They may be manipulated by the functions 
+<code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code> and
+<code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code>.
+</p>
+<p>Point pattern objects can be plotted just by typing <code>plot(X)</code>
+which invokes the <code>plot</code> method for point pattern objects,
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>. See <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code> for further information.
+</p>
+<p>There are also methods for <code>summary</code> and <code>print</code>
+for point patterns. Use <code>summary(X)</code> to see a useful description
+of the data.
+</p>
+<p>Patterns may be generated at random by
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>,
+<code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../../spatstat.random/help/rMaternI.html">rMaternI</a></code>,
+<code><a href="../../spatstat.random/help/rMaternII.html">rMaternII</a></code>,
+<code><a href="../../spatstat.random/help/rSSI.html">rSSI</a></code>,
+<code><a href="../../spatstat.random/help/rNeymanScott.html">rNeymanScott</a></code>,
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>,
+and
+<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>.
+</p>
+<p>Most functions which are intended to operate on a window
+(of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>)
+will, if presented with a <code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code> object instead,
+automatically extract the window information from the point pattern.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The internal representation of marks is likely to change in the
+next release of this package.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- runif(100)
+  y &lt;- runif(100)
+  X &lt;- ppp(x, y, c(0,1),c(0,1))
+  X
+  if(human &lt;- interactive()) plot(X)
+  mar &lt;- sample(1:3, 100, replace=TRUE)
+  mm &lt;- ppp(x, y, c(0,1), c(0,1), marks=mar)
+  if(human) plot(mm)
+  # points with mark equal to 2
+  ss &lt;- mm[ mm$marks == 2 , ]
+  if(human) plot(ss)
+  # left half of pattern 'mm'
+  lu &lt;- owin(c(0,0.5),c(0,1))
+  mmleft &lt;- mm[ , lu]
+  if(human) plot(mmleft)
+  if(FALSE) {
+  # input data from file
+  qq &lt;- scanpp("my.table", unit.square())
+  # interactively build a point pattern
+  plot(unit.square())
+  X &lt;- as.ppp(locator(10), unit.square())
+  plot(X)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

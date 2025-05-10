@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Saturated Pairwise Interaction Point Process Family</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairsat.family {spatstat.model}"><tr><td>pairsat.family {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Saturated Pairwise Interaction Point Process Family</h2>
+
+<h3>Description</h3>
+
+<p>An object describing the Saturated Pairwise Interaction
+family of point process models
+</p>
+
+
+<h3>Details</h3>
+
+<p><b>Advanced Use Only!</b>
+</p>
+<p>This structure would not normally be touched by
+the user. It describes the &ldquo;saturated pairwise interaction&rdquo;
+family of point process models.
+</p>
+<p>If you need to create a specific interaction model for use in 
+spatial pattern analysis, use the function <code><a href="../../spatstat.model/help/Saturated.html">Saturated</a>()</code>
+or the two existing implementations of models in this family,
+<code><a href="../../spatstat.model/help/Geyer.html">Geyer</a>()</code> and <code><a href="../../spatstat.model/help/SatPiece.html">SatPiece</a>()</code>.
+</p>
+<p>Geyer (1999) introduced the &ldquo;saturation process&rdquo;, a modification of the
+Strauss process in which the total contribution
+to the potential  from each point (from its pairwise interaction with all 
+other points) is trimmed to a maximum value <i>c</i>. 
+This model is implemented in the function <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a>()</code>.
+</p>
+<p>The present class <code>pairsat.family</code> is the 
+extension of this saturation idea to all pairwise interactions.
+Note that the resulting models are no longer pairwise interaction
+processes - they have interactions of infinite order.
+</p>
+<p><code>pairsat.family</code> is an object of class <code>"isf"</code> 
+containing a function <code>pairwise$eval</code> for
+evaluating the sufficient statistics of any saturated pairwise interaction
+point process model in which the original pair potentials 
+take an exponential family form. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"isf"</code>, see <code><a href="../../spatstat.model/help/isf.object.html">isf.object</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Geyer, C.J. (1999)
+Likelihood Inference for Spatial Point Processes.
+Chapter 3 in 
+O.E. Barndorff-Nielsen, W.S. Kendall and M.N.M. Van Lieshout (eds)
+<em>Stochastic Geometry: Likelihood and Computation</em>,
+Chapman and Hall / CRC, 
+Monographs on Statistics and Applied Probability, number 80.
+Pages 79&ndash;140.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code> to create the Geyer saturation process.
+</p>
+<p><code><a href="../../spatstat.model/help/SatPiece.html">SatPiece</a></code> to create a saturated process with
+piecewise constant pair potential.
+</p>
+<p><code><a href="../../spatstat.model/help/Saturated.html">Saturated</a></code> to create a more general saturation model.
+</p>
+<p>Other families:
+<code><a href="../../spatstat.model/help/inforder.family.html">inforder.family</a></code>,
+<code><a href="../../spatstat.model/help/ord.family.html">ord.family</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Union of Discs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for discs {spatstat.geom}"><tr><td>discs {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Union of Discs
+</h2>
+
+<h3>Description</h3>
+
+<p>Make a spatial region composed of discs
+with given centres and radii.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  discs(centres, radii = marks(centres)/2, ...,
+        separate = FALSE, mask = FALSE, trim = TRUE,
+        delta = NULL, npoly=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>centres</code></td>
+<td>
+
+<p>Point pattern giving the locations of centres for the discs.
+</p>
+</td></tr>
+<tr valign="top"><td><code>radii</code></td>
+<td>
+
+<p>Vector of radii for each disc, or a single number giving a common
+radius.
+(Notice that the default assumes that the marks of <code>X</code> are
+<em>diameters</em>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution, if <code>mask=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>separate</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the result is a list
+containing each disc as a separate entry.
+If <code>FALSE</code> (the default), the result is a window
+obtained by forming the union of the discs.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mask</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the result is a binary mask window.
+If <code>FALSE</code>, the result is a polygonal window.
+Applies only when <code>separate=FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>Logical value indicating whether to restrict the result
+to the original window of the <code>centres</code>.
+Applies only when <code>separate=FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../spatstat.geom/help/disc.html">disc</a></code> to determine the 
+tolerance for the polygonal approximation of each disc.
+Applies only when <code>mask=FALSE</code>.
+Incompatible with <code>npoly</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>npoly</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../spatstat.geom/help/disc.html">disc</a></code> to determine the 
+number of edges in the polygonal approximation of each disc.
+Applies only when <code>mask=FALSE</code>.
+Incompatible with <code>delta</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command is typically applied to a marked point pattern
+dataset <code>X</code> in which the marks represent the sizes of objects.
+The result is a spatial region representing the space occupied by
+the objects.
+</p>
+<p>If the marks of <code>X</code> represent the diameters of circular objects,
+then the result of <code>discs(X)</code>
+is a spatial region constructed by taking discs, of the specified
+diameters, centred at the points of <code>X</code>, and forming the union
+of these discs. If the marks of <code>X</code> represent the areas of
+objects, one could take <code>discs(X, sqrt(marks(X)/pi))</code>
+to produce discs of equivalent area.
+</p>
+<p>A fast algorithm is used to compute the result as a binary mask, when
+<code>mask=TRUE</code>. This option is recommended unless polygons are
+really necessary.
+</p>
+<p>If <code>mask=FALSE</code>, the discs will be constructed as polygons
+by the function <code><a href="../../spatstat.geom/help/disc.html">disc</a></code>. To avoid computational problems,
+by default, the discs will all be constructed using
+the same physical tolerance value <code>delta</code>
+passed to <code><a href="../../spatstat.geom/help/disc.html">disc</a></code>. The default is such that the smallest
+disc will be approximated by a 16-sided polygon.
+(The argument <code>npoly</code> should not normally be used, to avoid
+computational problems arising with small radii.)
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>separate=FALSE</code>, a window (object of class <code>"owin"</code>).
+</p>
+<p>If <code>separate=TRUE</code>, a list of windows.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/disc.html">disc</a></code>,
+<code><a href="../../spatstat.geom/help/union.owin.html">union.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(discs(anemones, mask=TRUE, eps=0.5))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

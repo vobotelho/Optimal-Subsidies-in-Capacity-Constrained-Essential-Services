@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Quadrat Counts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.quadratcount {spatstat.geom}"><tr><td>plot.quadratcount {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Quadrat Counts
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a table of quadrat counts for a spatial point pattern,
+plot the quadrats which were used, and display the quadrat count
+as text in the centre of each quadrat.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'quadratcount'
+plot(x, ..., add = FALSE,
+              entries=as.integer(t(x)), 
+              dx = 0, dy = 0, show.tiles = TRUE,
+              textargs = list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"quadratcount"</code>
+produced by the function <code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code>
+to plot the quadrats.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. Whether to add the graphics to an existing plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>entries</code></td>
+<td>
+
+<p>Vector of numbers to be plotted in each quadrat.
+The default is to plot the quadrat counts.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dx,dy</code></td>
+<td>
+
+<p>Horizontal and vertical displacement of text
+relative to centroid of quadrat.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.tiles</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the quadrats.
+</p>
+</td></tr>
+<tr valign="top"><td><code>textargs</code></td>
+<td>
+
+<p>List containing extra arguments
+passed to <code><a href="../../graphics/help/text.default.html">text.default</a></code>
+to control the annotation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the plot method for the objects 
+of class <code>"quadratcount"</code> that are
+produced by the function <code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>.
+Given a spatial point pattern, <code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>
+divides the observation window into disjoint tiles or quadrats,
+counts the number of points in each quadrat, and stores the
+result as a contingency table which also belongs to the
+class <code>"quadratcount"</code>.
+</p>
+<p>First the quadrats are plotted
+(provided <code>show.tiles=TRUE</code>, the default).
+This display can be controlled by passing additional arguments <code>...</code>
+to <code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code>.
+</p>
+<p>Then the quadrat counts are printed using
+<code><a href="../../graphics/help/text.default.html">text.default</a></code>. This display can be controlled
+using the arguments <code>dx,dy</code> and <code>textargs</code>.
+</p>
+<p>If <code>entries</code> is given, it should be a vector of length equal to
+the number of quadrats (the number of tiles in the tessellation
+<code>as.tess(x)</code>) containing integer or character values
+to be displayed in each quadrat, in the same sequence
+as <code>tiles(as.tess(x))</code> or <code>tilenames(as.tess(x))</code>
+or the counts in the transposed table <code>t(x)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>,
+<code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code>,
+<code><a href="../../graphics/help/text.default.html">text.default</a></code>,
+<code><a href="../../spatstat.explore/help/plot.quadrattest.html">plot.quadrattest</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(quadratcount(swedishpines, 5))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

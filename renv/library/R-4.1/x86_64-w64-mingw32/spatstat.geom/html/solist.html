@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: List of Two-Dimensional Spatial Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for solist {spatstat.geom}"><tr><td>solist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+List of Two-Dimensional Spatial Objects
+</h2>
+
+<h3>Description</h3>
+
+<p>Make a list of two-dimensional spatial objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+solist(..., check=TRUE, promote=TRUE, demote=FALSE, .NameBase)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of objects, each representing a two-dimensional
+spatial dataset.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, check that each of the
+objects is a 2D spatial object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>promote</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, test whether all objects belong to
+the <em>same</em> class, and if so, promote the list of objects
+to the appropriate class of list.
+</p>
+</td></tr>
+<tr valign="top"><td><code>demote</code></td>
+<td>
+
+<p>Logical value determining what should happen if any of the
+objects is not a 2D spatial object: if <code>demote=FALSE</code> (the
+default), a fatal error occurs; if <code>demote=TRUE</code>,
+a list of class <code>"anylist"</code> is returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>.NameBase</code></td>
+<td>
+
+<p>Optional. Character string. If the <code>...</code> arguments have no
+names, then the entries of the resulting list will be given
+names that start with <code>.NameBase</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command creates an object of class <code>"solist"</code>
+(spatial object list)
+which represents a list of two-dimensional spatial datasets.
+The datasets do not necessarily belong to the same class.
+</p>
+<p>Typically the intention is that the datasets in the list
+should be treated in the same way, for example, they should
+be plotted side-by-side. The <span class="pkg">spatstat</span> package
+provides a plotting function, <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>,
+and many other functions for this class.
+</p>
+<p>In the <span class="pkg">spatstat</span> package, various functions produce
+an object of class <code>"solist"</code>. For example, when
+a point pattern is split into several point patterns by
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>, or an image is split into several
+images by <code><a href="../../spatstat.geom/help/split.im.html">split.im</a></code>, the result is of
+class <code>"solist"</code>.
+</p>
+<p>If <code>check=TRUE</code> then the code will check whether all
+objects in <code>...</code> belong to the classes
+of two-dimensional spatial objects defined in the
+<span class="pkg">spatstat</span> package. They do not have to belong to the
+<em>same</em> class. Set <code>check=FALSE</code>
+for efficiency, but only if you are sure that all the objects are valid.
+</p>
+<p>If some of the objects in <code>...</code> are
+not two-dimensional spatial objects,
+the action taken depends on the argument <code>demote</code>.
+If <code>demote=TRUE</code>, the result will belong to the more general
+class <code>"anylist"</code> instead of <code>"solist"</code>.
+If <code>demote=FALSE</code> (the default), an error occurs.
+</p>
+<p>If <code>promote=TRUE</code> then the code will check whether all
+the objects <code>...</code> belong to the same class.
+If they are all point patterns (class <code>"ppp"</code>),
+the result will also belong to the class <code>"ppplist"</code>.
+If they are all pixel images (class <code>"im"</code>), the result
+will also belong to the class <code>"imlist"</code>.
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/as.solist.html">as.solist</a></code> to convert a list to a <code>"solist"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list, usually belonging to the class <code>"solist"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.solist.html">as.solist</a></code>,
+<code><a href="../../spatstat.geom/help/anylist.html">anylist</a></code>,
+<code><a href="../../spatstat.geom/help/solapply.html">solapply</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  solist(cells, distmap(cells), quadratcount(cells))
+  solist(cells, japanesepines, redwood, .NameBase="Pattern")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

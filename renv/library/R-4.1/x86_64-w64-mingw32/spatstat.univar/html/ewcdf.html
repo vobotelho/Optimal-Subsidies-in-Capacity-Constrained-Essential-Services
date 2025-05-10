@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Weighted Empirical Cumulative Distribution Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ewcdf {spatstat.univar}"><tr><td>ewcdf {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Weighted Empirical Cumulative Distribution Function</h2>
+
+<h3>Description</h3>
+
+<p>Compute a weighted version of the
+empirical cumulative distribution function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ewcdf(x, weights = NULL, normalise=TRUE, adjust=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Numeric vector of observations.</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Numeric vector of non-negative weights for <code>x</code>.
+Defaults to equal weight 1 for each entry of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>Logical value indicating whether the weights should be rescaled
+so that they sum to 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Numeric value. Adjustment factor.
+The weights will be multiplied by <code>adjust</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a modification of the standard function <code><a href="../../stats/help/ecdf.html">ecdf</a></code>
+allowing the observations <code>x</code> to have weights.
+</p>
+<p>The weighted e.c.d.f. (empirical cumulative distribution function)
+<code>Fn</code> is defined so that, for any real number <code>y</code>, the value of
+<code>Fn(y)</code> is equal to the total weight of all entries of
+<code>x</code> that are less than or equal to <code>y</code>. That is
+<code>Fn(y) = sum(weights[x &lt;= y])</code>.
+</p>
+<p>Thus <code>Fn</code> is a step function which jumps at the
+values of <code>x</code>. The height of the jump at a point <code>y</code>
+is the total weight of all entries in <code>x</code> 
+number of tied observations at that value.  Missing values are
+ignored.
+</p>
+<p>If <code>weights</code> is omitted, the default is equivalent to
+<code>ecdf(x)</code> except for the class membership.
+</p>
+<p>The result of <code>ewcdf</code> is a function, of class <code>"ewcdf"</code>,
+inheriting from the classes <code>"ecdf"</code> (only if <code>normalise=TRUE</code>)
+and <code>"stepfun"</code>.
+</p>
+<p>The class <code>ewcdf</code> has methods for
+<code><a href="../../base/help/print.html">print</a></code>, 
+<code><a href="../../stats/help/quantile.html">quantile</a></code>
+and <code><a href="../../base/help/mean.html">mean</a></code>.
+</p>
+<p>The inherited classes <code>ecdf</code> and <code>stepfun</code>
+have methods for <code><a href="../../base/help/plot.html">plot</a></code> and <code><a href="../../base/help/summary.html">summary</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function, of class <code>"ewcdf"</code>, inheriting from 
+<code>"ecdf"</code> (if <code>normalise=TRUE</code>) and <code>"stepfun"</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/ecdf.html">ecdf</a></code>.
+</p>
+<p><code><a href="../help/quantile.ewcdf.html">quantile.ewcdf</a></code>, <code><a href="../help/mean.ewcdf.html">mean.ewcdf</a></code>.
+</p>
+<p>Integrals with respect to the weighted cumulative distribution function
+can be computed using <code><a href="../help/stieltjes.html">stieltjes</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- rnorm(100)
+   w &lt;- runif(100)
+   plot(e &lt;- ewcdf(x,w))
+   e
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

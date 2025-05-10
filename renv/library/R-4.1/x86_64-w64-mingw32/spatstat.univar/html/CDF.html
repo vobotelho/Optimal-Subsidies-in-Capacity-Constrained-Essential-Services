@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cumulative Distribution Function From Kernel Density Estimate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for CDF {spatstat.univar}"><tr><td>CDF {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Cumulative Distribution Function From Kernel Density Estimate
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a kernel estimate of a probability density,
+compute the corresponding cumulative distribution function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+CDF(f, ...)
+
+## S3 method for class 'density'
+CDF(f, ..., warn = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Density estimate (object of class <code>"density"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning if the
+density estimate <code>f</code> had to be renormalised because it
+was computed in a restricted interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>CDF</code> is generic, with a method for class <code>"density"</code>.
+</p>
+<p>This calculates the cumulative distribution function
+whose probability density has been estimated and stored in the object
+<code>f</code>. The object <code>f</code> must belong to the class <code>"density"</code>,
+and would typically have been obtained from a call to the function
+<code><a href="../../stats/help/density.html">density</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function, which can be applied to any numeric value or vector of
+values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/density.html">density</a></code>,
+<code><a href="../../spatstat.univar/help/quantile.density.html">quantile.density</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   b &lt;- density(runif(10))
+   f &lt;- CDF(b)
+   f(0.5)
+   plot(f)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intersection, Union or Set Subtraction of Windows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intersect.owin {spatstat.geom}"><tr><td>intersect.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Intersection, Union or Set Subtraction of Windows</h2>
+
+<h3>Description</h3>
+
+<p>Yields the intersection, union or set subtraction of windows.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   intersect.owin(..., fatal=FALSE, p)
+   union.owin(..., p)
+   setminus.owin(A, B, ..., p)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+<p>Windows (objects of class <code>"owin"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Windows,
+or arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control the discretisation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+<p>Logical.
+Determines what happens if the intersection is empty.
+</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+
+<p>Optional list of parameters passed to
+<code><a href="../../polyclip/help/polyclip.html">polyclip</a></code> to control the
+accuracy of polygon geometry.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>intersect.owin</code> computes the intersection between
+the windows given in <code>...</code>, while 
+<code>union.owin</code> computes their union.
+The function <code>setminus.owin</code> computes the intersection of
+<code>A</code> with the complement of <code>B</code>.
+</p>
+<p>For <code>intersect.owin</code> and <code>union.owin</code>, 
+the arguments <code>...</code> must be either
+</p>
+
+<ul>
+<li><p> window objects of class <code>"owin"</code>,
+</p>
+</li>
+<li><p> data that can be coerced to this class by
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>),
+</p>
+</li>
+<li><p> lists of windows, of class <code>"solist"</code>,
+</p>
+</li>
+<li><p> named arguments of <code><a href="../help/as.mask.html">as.mask</a></code> to control
+the discretisation if required.
+</p>
+</li></ul>
+
+<p>For <code>setminus.owin</code>, the arguments <code>...</code>
+must be named arguments of <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+<p>If the intersection is empty, then if <code>fatal=FALSE</code>
+the result is an empty window or <code>NULL</code>,
+while if <code>fatal=TRUE</code> an error occurs.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>)
+or possibly <code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.subset.owin.html">is.subset.owin</a></code>,
+<code><a href="../../spatstat.geom/help/overlap.owin.html">overlap.owin</a></code>,
+<code><a href="../../spatstat.geom/help/is.empty.html">is.empty</a></code>,
+<code><a href="../../spatstat.geom/help/boundingbox.html">boundingbox</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# rectangles
+   u &lt;- unit.square()
+   v &lt;- owin(c(0.5,3.5), c(0.4,2.5))
+# polygon
+   letterR
+# mask
+   m &lt;- as.mask(letterR)
+
+# two rectangles
+   intersect.owin(u, v) 
+   union.owin(u,v)
+   setminus.owin(u,v)
+
+# polygon and rectangle
+   intersect.owin(letterR, v)
+   union.owin(letterR,v)
+   setminus.owin(letterR,v)
+
+# mask and rectangle
+   intersect.owin(m, v)
+   union.owin(m,v)
+   setminus.owin(m,v)
+
+# mask and polygon
+   p &lt;- rotate(v, 0.2)
+   intersect.owin(m, p)
+   union.owin(m,p)
+   setminus.owin(m,p)
+
+# two polygons
+   A &lt;- letterR
+   B &lt;- rotate(letterR, 0.2)
+   plot(boundingbox(A,B), main="intersection")
+   w &lt;- intersect.owin(A, B)
+   plot(w, add=TRUE, col="lightblue")
+   plot(A, add=TRUE)
+   plot(B, add=TRUE)
+
+   plot(boundingbox(A,B), main="union")
+   w &lt;- union.owin(A,B)
+   plot(w, add=TRUE, col="lightblue")   
+   plot(A, add=TRUE)
+   plot(B, add=TRUE)
+
+   plot(boundingbox(A,B), main="set minus")
+   w &lt;- setminus.owin(A,B)
+   plot(w, add=TRUE, col="lightblue")   
+   plot(A, add=TRUE)
+   plot(B, add=TRUE)
+
+# intersection and union of three windows
+   C &lt;- shift(B, c(0.2, 0.3))
+   plot(union.owin(A,B,C))
+   plot(intersect.owin(A,B,C))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

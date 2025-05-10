@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dispersion Test for Spatial Point Pattern Based on Quadrat...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quadrat.test.ppm {spatstat.model}"><tr><td>quadrat.test.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Dispersion Test for Spatial Point Pattern Based on
+Quadrat Counts</h2>
+
+<h3>Description</h3>
+
+<p>Performs a test of Complete Spatial Randomness
+for a given point pattern, based on quadrat counts.
+Alternatively performs a goodness-of-fit test of a fitted
+inhomogeneous Poisson model.
+By default performs chi-squared tests; can also perform
+Monte Carlo based tests.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+## S3 method for class 'ppm'
+quadrat.test(X, nx=5, ny=nx, 
+                          alternative=c("two.sided", "regular", "clustered"),
+                           method=c("Chisq", "MonteCarlo"),
+                           conditional=TRUE, CR=1, df.est=NULL,
+                           ..., 
+                           xbreaks=NULL, ybreaks=NULL, tess=NULL,
+                           nsim=1999)
+
+## S3 method for class 'slrm'
+quadrat.test(X, nx=5, ny=nx, 
+                           alternative=c("two.sided", "regular", "clustered"),
+                           method=c("Chisq", "MonteCarlo"),
+                           conditional=TRUE, CR=1, df.est=NULL,
+                           ..., 
+                           xbreaks=NULL, ybreaks=NULL, tess=NULL,
+                           nsim=1999)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+to be subjected to the goodness-of-fit test.
+Alternatively a fitted point process model (object of class
+<code>"ppm"</code> or <code>"slrm"</code>) to be tested.
+Alternatively <code>X</code> can be the result of applying
+<code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code> to a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nx,ny</code></td>
+<td>
+
+<p>Numbers of quadrats in the <i>x</i> and <i>y</i> directions.
+Incompatible with <code>xbreaks</code> and <code>ybreaks</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the alternative
+hypothesis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the test to use:
+either <code>method="Chisq"</code> for the chi-squared test (the default),
+or <code>method="MonteCarlo"</code> for a Monte Carlo test.
+</p>
+</td></tr>
+<tr valign="top"><td><code>conditional</code></td>
+<td>
+
+<p>Logical.  Should the Monte Carlo test be conducted
+conditionally upon the observed number of points of the pattern?
+Ignored if <code>method="Chisq"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>CR</code></td>
+<td>
+
+<p>Optional. Numerical value. The exponent
+for the Cressie-Read test statistic. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>df.est</code></td>
+<td>
+
+<p>Optional. Advanced use only.
+The number of fitted parameters, or the
+number of degrees of freedom lost by estimation of
+parameters. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>xbreaks</code></td>
+<td>
+
+<p>Optional. Numeric vector giving the <i>x</i> coordinates of the
+boundaries of the quadrats. Incompatible with <code>nx</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ybreaks</code></td>
+<td>
+
+<p>Optional. Numeric vector giving the <i>y</i> coordinates of the
+boundaries of the quadrats. Incompatible with <code>ny</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tess</code></td>
+<td>
+
+<p>Tessellation (object of class <code>"tess"</code> or something acceptable
+to <code><a href="../../spatstat.geom/help/as.tess.html">as.tess</a></code>) determining the
+quadrats. Incompatible with <code>nx, ny, xbreaks, ybreaks</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>The number of simulated samples to generate when
+<code>method="MonteCarlo"</code>. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions perform <i>chi^2</i> tests or Monte Carlo tests
+of goodness-of-fit for a point process model, based on quadrat counts.
+</p>
+<p>The function <code>quadrat.test</code> is generic, with methods for
+point patterns (class <code>"ppp"</code>), split point patterns
+(class <code>"splitppp"</code>), point process models
+(class <code>"ppm"</code> or <code>"slrm"</code>)
+and quadrat count tables (class <code>"quadratcount"</code>).
+</p>
+
+<ul>
+<li>
+<p>if <code>X</code> is a point pattern, we test the null hypothesis
+that the data pattern is a realisation of Complete Spatial
+Randomness (the uniform Poisson point process). Marks in the point
+pattern are ignored. (If <code>lambda</code> is given then the null
+hypothesis is the Poisson process with intensity <code>lambda</code>.)
+</p>
+</li>
+<li> 
+<p>if <code>X</code> is a split point pattern, then for each of the
+component point patterns (taken separately) we test 
+the null hypotheses of Complete Spatial Randomness.
+See <code><a href="../../spatstat.explore/help/quadrat.test.splitppp.html">quadrat.test.splitppp</a></code> for documentation.
+</p>
+</li>
+<li>
+<p>If <code>X</code> is a fitted point process model, then it should be
+a Poisson point process model. The 
+data to which this model was fitted are extracted from the model
+object, and are treated as the data point pattern for the test.
+We test the null hypothesis 
+that the data pattern is a realisation of the (inhomogeneous) Poisson point
+process specified by <code>X</code>.
+</p>
+</li></ul>
+
+<p>In all cases, the window of observation is divided
+into tiles, and the number of data points in each tile is
+counted, as described in <code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>.
+The quadrats are rectangular by default, or may be regions of arbitrary shape
+specified by the argument <code>tess</code>.
+The expected number of points in each quadrat is also calculated,
+as determined by CSR (in the first case) or by the fitted model
+(in the second case).
+Then the Pearson <i>X^2</i> statistic 
+</p>
+<p style="text-align: center;"><i>
+    X^2 = sum((observed - expected)^2/expected)
+  </i></p>
+
+<p>is computed.
+</p>
+<p>If <code>method="Chisq"</code> then a <i>chi^2</i> test of
+goodness-of-fit is performed by comparing the test statistic
+to the <i>chi^2</i> distribution
+with <i>m-k</i> degrees of freedom, where <code>m</code> is the number of
+quadrats and <i>k</i> is the number of fitted parameters
+(equal to 1 for <code>quadrat.test.ppp</code>). The default is to
+compute the <em>two-sided</em> <i>p</i>-value, so that the test will
+be declared significant if <i>X^2</i> is either very large or very
+small. One-sided <i>p</i>-values can be obtained by specifying the
+<code>alternative</code>. An important requirement of the
+<i>chi^2</i> test is that the expected counts in each quadrat
+be greater than 5.
+</p>
+<p>If <code>method="MonteCarlo"</code> then a Monte Carlo test is performed,
+obviating the need for all expected counts to be at least 5.  In the
+Monte Carlo test, <code>nsim</code> random point patterns are generated
+from the null hypothesis (either CSR or the fitted point process
+model). The Pearson <i>X^2</i> statistic is computed as above.
+The <i>p</i>-value is determined by comparing the <i>X^2</i>
+statistic for the observed point pattern, with the values obtained
+from the simulations. Again the default is to
+compute the <em>two-sided</em> <i>p</i>-value.
+</p>
+<p>If <code>conditional</code> is <code>TRUE</code> then the simulated samples are
+generated from the multinomial distribution with the number of &ldquo;trials&rdquo;
+equal to the number of observed points and the vector of probabilities
+equal to the expected counts divided by the sum of the expected counts.
+Otherwise the simulated samples are independent Poisson counts, with
+means equal to the expected counts.
+</p>
+<p>If the argument <code>CR</code> is given, then instead of the
+Pearson <i>X^2</i> statistic, the Cressie-Read (1984) power divergence
+test statistic
+</p>
+<p style="text-align: center;"><i>
+    2nI = (2/(CR * (CR+1))) * sum((X[i]/E[i])^CR - 1)
+  </i></p>
+
+<p>is computed, where <i>X[i]</i> is the <i>i</i>th observed count
+and <i>E[i]</i> is the corresponding expected count.
+The value <code>CR=1</code> gives the Pearson <i>X^2</i> statistic;
+<code>CR=0</code> gives the likelihood ratio test statistic <i>G^2</i>;
+<code>CR=-1/2</code> gives the Freeman-Tukey statistic <i>T^2</i>;
+<code>CR=-1</code> gives the modified likelihood ratio test statistic <i>GM^2</i>;
+and <code>CR=-2</code> gives Neyman's modified statistic <i>NM^2</i>.
+In all cases the asymptotic distribution of this test statistic is
+the same <i>chi^2</i> distribution as above.
+</p>
+<p>The return value is an object of class <code>"htest"</code>.
+Printing the object gives comprehensible output
+about the outcome of the test.
+</p>
+<p>The return value also belongs to
+the special class <code>"quadrat.test"</code>. Plotting the object
+will display the quadrats, annotated by their observed and expected
+counts and the Pearson residuals. See the examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"htest"</code>. See <code><a href="../../stats/help/chisq.test.html">chisq.test</a></code>
+for explanation. 
+</p>
+<p>The return value is also an object of the special class
+<code>"quadrattest"</code>, and there is a plot method for this class.
+See the examples.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cressie, N. and Read, T.R.C. (1984)
+Multinomial goodness-of-fit tests.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>46</b>, 440&ndash;464. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/quadrat.test.splitppp.html">quadrat.test.splitppp</a></code>,
+<code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>,
+<code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>,
+<code><a href="../../spatstat.random/help/quadratresample.html">quadratresample</a></code>,
+<code><a href="../../stats/html/chisq.test.html">chisq.test</a></code>,
+<code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code>.
+</p>
+<p>To test a Poisson point process model against a specific alternative,
+use <code><a href="../help/anova.ppm.html">anova.ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+  # fitted model: inhomogeneous Poisson
+  fitx &lt;- ppm(simdat ~ x)
+  quadrat.test(fitx)
+
+  # an equivalent test (results differ due to discretisation effects):
+  quadrat.test(simdat, lambda=predict(fitx), df.est=length(coef(fitx)))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

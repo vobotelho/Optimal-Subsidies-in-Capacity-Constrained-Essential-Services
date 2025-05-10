@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Replace Subset of a List of Spatial Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.solist {spatstat.geom}"><tr><td>Extract.solist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract or Replace Subset of a List of Spatial Objects</h2>
+
+<h3>Description</h3>
+
+<p>Extract or replace some entries in a list of spatial objects,
+or extract a designated sub-region in each object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'solist'
+x[i, ...]
+
+  ## S3 replacement method for class 'solist'
+x[i] &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>"solist"</code> representing a list of
+two-dimensional spatial objects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Subset index. Any valid subset index for vectors in the usual <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> sense,
+or a window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Replacement value for the subset. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for extracting and replacing subsets
+for the class <code>"solist"</code>.
+</p>
+<p>The argument <code>x</code> should be an object of class <code>"solist"</code>
+representing a list of two-dimensional spatial objects.
+See <code><a href="../../spatstat.geom/help/solist.html">solist</a></code>.
+</p>
+<p>For the subset method, the subset index <code>i</code> can be either
+a vector index (specifying some elements of the list)
+or a spatial window (specifying a spatial sub-region). 
+</p>
+<p>For the replacement method,
+<code>i</code> must be a vector index: the designated elements will be
+replaced.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of the same class as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/solist.html">solist</a></code>,
+<code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>,
+<code><a href="../../spatstat.geom/help/summary.solist.html">summary.solist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- solist(japanesepines, cells, redwood)
+   x[2:3]
+   x[square(0.5)]
+   x[1] &lt;- list(finpines)
+ </pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

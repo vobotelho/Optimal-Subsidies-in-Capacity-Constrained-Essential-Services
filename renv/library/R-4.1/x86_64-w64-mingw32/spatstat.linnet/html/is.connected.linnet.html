@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Whether a Linear Network is Connected</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.connected.linnet {spatstat.linnet}"><tr><td>is.connected.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Determine Whether a Linear Network is Connected
+</h2>
+
+<h3>Description</h3>
+
+<p>Determine whether a linear network is 
+topologically connected.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linnet'
+is.connected(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/connected.linnet.html">connected.linnet</a></code> to determine the
+connected components.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The command <code>is.connected(X)</code> returns <code>TRUE</code> if the network
+<code>X</code> consists of a single, topologically-connected piece,
+and returns <code>FALSE</code> if <code>X</code> consists of several pieces
+which are not joined together.
+</p>
+<p>The function <code><a href="../../spatstat.geom/help/is.connected.html">is.connected</a></code> is generic,
+with methods for several classes.
+This help file documents the 
+method for linear networks, <code>is.connected.linnet</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.connected.html">is.connected</a></code>,
+<code><a href="../../spatstat.geom/help/connected.html">connected</a></code>,
+<code><a href="../../spatstat.linnet/help/connected.lpp.html">connected.lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  is.connected(simplenet)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

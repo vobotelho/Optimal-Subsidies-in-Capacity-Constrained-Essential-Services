@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Point Matching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.pppmatching {spatstat.geom}"><tr><td>plot.pppmatching {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Point Matching
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot an object of class <code>"pppmatching"</code> which represents
+a matching of two planar point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'pppmatching'
+plot(x, addmatch = NULL, main = NULL, ..., adjust = 1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern matching object (class <code>"pppmatching"</code>)
+to be plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>addmatch</code></td>
+<td>
+
+<p>Optional. A matrix indicating additional pairs of points that
+should be matched. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Main title for the plot. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to other plot methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Adjustment factor for the widths of line segments.
+A positive number.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The object <code>x</code> represents a matching found between
+two point patterns <code>X</code> and <code>Y</code>. The matching may be
+incomplete. See <code><a href="../../spatstat.geom/help/pppmatching.object.html">pppmatching.object</a></code> for further
+description.
+</p>
+<p>This function plots the matching by drawing the two point patterns
+<code>X</code> and <code>Y</code> as red and blue dots respectively, and drawing
+line segments between each pair of matched points. The width of the
+line segments is proportional to the strength of matching. The
+proportionality constant can be adjusted using the argument
+<code>adjust</code>.
+</p>
+<p>Additional graphics arguments <code>...</code> control the
+plotting of the window (and are passed to <code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>)
+and the plotting of the line segments 
+(and are passed to <code><a href="../../spatstat.geom/help/plot.psp.html">plot.psp</a></code>, 
+and ultimately to the base graphics function
+<code><a href="../../graphics/help/polygon.html">polygon</a></code>).
+</p>
+<p>The argument <code>addmatch</code> is for use mainly by developers to
+study algorithms which update the matching.
+If <code>addmatch</code> is given, it should be a matrix with dimensions
+<code>npoints(X) * npoints(Y)</code>. If <code>addmatch[i,j] &gt; 0</code> then
+a light grey line segment will be drawn between <code>X[i]</code> and <code>Y[j</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Dominic Schuhmacher and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pppmatching.object.html">pppmatching.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(7)
+  Y &lt;- runifrect(7)
+  am &lt;- r2dtable(1, rep(10,7), rep(10,7))[[1]]/10
+  m2 &lt;- pppmatching(X, Y, am)
+  plot(m2, adjust=0.3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Union of Data and Dummy Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for union.quad {spatstat.geom}"><tr><td>union.quad {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Union of Data and Dummy Points</h2>
+
+<h3>Description</h3>
+
+<p>Combines the data and dummy points of a quadrature scheme
+into a single point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ union.quad(Q)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Q</code></td>
+<td>
+<p>A quadrature scheme (an object of class <code>"quad"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>Q</code> should be a quadrature scheme (an object of class
+<code>"quad"</code>, see <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code> for details).
+</p>
+<p>This function combines the data and dummy points of <code>Q</code>
+into a single point pattern. If either the data or the dummy points
+are marked, the result is a marked point pattern.
+</p>
+<p>The function <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code> will perform the same task.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Q &lt;- quadscheme(simdat, default.dummy(simdat))
+  U &lt;- union.quad(Q)
+  # plot(U)
+
+  # equivalent:
+  U &lt;- as.ppp(Q)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

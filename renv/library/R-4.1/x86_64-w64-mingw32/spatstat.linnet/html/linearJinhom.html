@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Linear J-function for Point Processes on Linear...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linearJinhom {spatstat.linnet}"><tr><td>linearJinhom {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Linear J-function for Point Processes on Linear Networks</h2>
+
+<h3>Description</h3>
+
+<p>Computes an estimate of the inhomogeneous linear <i>J</i>-function
+for a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linearJinhom(X, lambda = NULL, lmin=NULL,
+             ...,
+             r=NULL, rmax=NULL,
+             distance=c("path","euclidean"),
+             densitymethod=c("kernel", "Voronoi"),
+             sigma=bw.scott.iso,
+             f=0.2, nrep=200, ngrid=256) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Intensity values for the point pattern. Either a numeric vector,
+a <code>function</code>, a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>) or
+a fitted point process model (object of class <code>"ppm"</code>
+or <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>lmin</code></td>
+<td>
+
+<p>Optional. The minimum possible value of the intensity
+over the network. A positive numerical value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Numeric vector of values of the function argument <i>r</i>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Numeric value specifying the largest desired value of <i>r</i>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>distance</code></td>
+<td>
+
+<p>A string (partially matched) specifying the
+metric that will be used to measure distances between
+points on the network: <code>distance="path"</code> is the shortest-path
+distance, and <code>distance="euclidean"</code> is the Euclidean distance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>densitymethod</code></td>
+<td>
+
+<p>String (partially matched) specifying the method that will be used to
+estimate the intensity <code>lambda</code>, if <code>lambda</code> is not given:
+<code>densitymethod="kernel"</code> specifies kernel smoothing
+and <code>densitymethod="Voronoi"</code> specifies Voronoi estimation.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth used to estimate <code>lambda</code> by kernel smoothing,
+if <code>lambda</code> is not given and <code>densitymethod="kernel"</code>.
+Either a numeric value, or a function that can be applied to
+<code>X</code> to compute the bandwidth.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f,nrep</code></td>
+<td>
+
+<p>Arguments passed to the algorithm for estimating the intensity
+by Voronoi estimation, if <code>lambda</code> is not given
+and <code>densitymethod="Voronoi"</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to the algorithms that estimate
+the intensity, if <code>lambda</code> is not given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Integer specifying the number of sample points on the network that
+will be used to estimate the inhomogeneous empty space function
+<i>F</i>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the geometrically corrected inhomogeneous
+linear <i>J</i>-function for point processes on linear networks
+defined by Cronie et al (2020).
+</p>
+<p>The argument <code>lambda</code> is the (estimated) intensity of the
+underlying point process. It should be either a numeric vector
+(giving intensity values at the points of <code>X</code>), 
+a <code>function</code>, a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>) or
+a fitted point process model (object of class <code>"ppm"</code>
+or <code>"lppm"</code>).
+</p>
+<p>If <code>lambda</code> is not given, it will be estimated from the observed
+point pattern <code>X</code> as follows:
+</p>
+
+<ul>
+<li><p> If <code>densitymethod="kernel"</code>, the intensity will be
+estimated by kernel smoothing, using the fast estimator
+<code><a href="../help/densityQuick.lpp.html">densityQuick.lpp</a></code>
+introduced by Rakshit et al (2019). The smoothing bandwidth
+<code>sigma</code> is required. It may be specified as a numeric value,
+or as a function that can be applied to <code>X</code> to obtain a
+bandwidth value. Examples of the latter include
+<code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code>
+and 
+<code><a href="../help/bw.lppl.html">bw.lppl</a></code>.
+Additional arguments <code>...</code> will be passed to <code>sigma</code>
+and to <code><a href="../help/densityQuick.lpp.html">densityQuick.lpp</a></code>.
+</p>
+</li>
+<li><p> If <code>densitymethod = "Voronoi"</code>, the intensity will be
+estimated using the resample-smoothed Voronoi estimator
+<code><a href="../help/densityVoronoi.lpp.html">densityVoronoi.lpp</a></code>
+introduced by Moradi et al (2019). The arguments <code>f</code> and <code>nrep</code> 
+are passed to <code><a href="../help/densityVoronoi.lpp.html">densityVoronoi.lpp</a></code>
+and determine the retention probability and the number of
+replicates, respectively. Additional arguments <code>...</code> will be
+passed to <code><a href="../help/densityVoronoi.lpp.html">densityVoronoi.lpp</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Mehdi Moradi <a href="mailto:m2.moradi@yahoo.com">m2.moradi@yahoo.com</a> and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cronie, O., Moradi, M., and Mateu, J. (2020) Inhomogeneous higher-order
+summary statistics for point processes on linear
+networks. <em>Statistics and Computing</em> <b>30</b> (6) 1221&ndash;1239.
+</p>
+<p>Moradi, M., Cronie, 0., Rubak, E., Lachieze-Rey, R.,
+Mateu, J. and Baddeley, A. (2019)
+Resample-smoothing of Voronoi intensity estimators.
+<em>Statistics and Computing</em> <b>29</b> (5) 995&ndash;1010.
+</p>
+<p>Rakshit, S., Davies, T., Moradi, M., 
+McSwiggan, G., Nair, G., Mateu, J. and Baddeley, A. (2019)
+Fast kernel smoothing of point patterns on a large
+network using 2D convolution.
+<em>International Statistical Review</em> <b>87</b> (3) 531&ndash;556.
+DOI: 10.1111/insr.12327.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code>,
+<code><a href="../help/bw.lppl.html">bw.lppl</a></code>,
+<code><a href="../help/densityVoronoi.lpp.html">densityVoronoi.lpp</a></code>,
+<code><a href="../help/densityQuick.lpp.html">densityQuick.lpp</a></code>
+</p>
+<p><code><a href="../help/linearKinhom.html">linearKinhom</a></code>
+</p>
+<p><code><a href="../../spatstat.explore/help/Jinhom.html">Jinhom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    plot(linearJinhom(spiders))
+  } else {
+    bottomhalf &lt;- owin(c(0, 1125), c(0, 500))
+    plot(linearJinhom(spiders[bottomhalf]))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

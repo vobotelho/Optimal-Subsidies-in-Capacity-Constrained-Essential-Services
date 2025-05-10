@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bias Correction for Fitted Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for bc.ppm {spatstat.model}"><tr><td>bc.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Bias Correction for Fitted Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Applies a first-order bias correction to a fitted model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  bc(fit, ...)
+
+  ## S3 method for class 'ppm'
+bc(fit, ..., nfine = 256)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fit</code></td>
+<td>
+
+<p>A fitted point process model (object of class <code>"ppm"</code>)
+or a model of some other class.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments are currently ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nfine</code></td>
+<td>
+
+<p>Grid dimensions for fine grid of locations.
+An integer, or a pair of integers. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command applies the first order Newton-Raphson bias correction method of
+Baddeley and Turner (2014, sec 4.2) to a fitted model.
+The function <code>bc</code> is generic, with a method for fitted point
+process models of class <code>"ppm"</code>.
+</p>
+<p>A fine grid of locations, of dimensions <code>nfine * nfine</code> or
+<code>nfine[2] * nfine[1]</code>, is created over the original window of the
+data, and the intensity or conditional intensity of the fitted model is
+calculated on this grid. The result is used to update the fitted
+model parameters once by a Newton-Raphson update.
+</p>
+<p>This is only useful if the quadrature points used to fit the original
+model <code>fit</code> are coarser than the grid of points specified by
+<code>nfine</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector, of the same length as <code>coef(fit)</code>, giving updated
+values for the fitted model coefficients.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2014)
+Bias correction for parameter estimates of spatial point process models.
+<em>Journal of Statistical Computation and Simulation</em>
+<b>84</b>, 1621&ndash;1643.
+DOI: 10.1080/00949655.2012.755976
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/rex.html">rex</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(cells ~ x, Strauss(0.07))
+  coef(fit)
+  if(!interactive()) {
+    bc(fit, nfine=64)
+  } else {
+    bc(fit)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

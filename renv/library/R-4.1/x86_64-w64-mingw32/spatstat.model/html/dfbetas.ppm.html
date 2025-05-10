@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Parameter Influence Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dfbetas.ppm {spatstat.model}"><tr><td>dfbetas.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Parameter Influence Measure
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the deletion influence measure for each parameter
+in a fitted point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppm'
+dfbetas(model, ...,
+       drop = FALSE, iScore=NULL, iHessian=NULL, iArgs=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored, except for the arguments <code>dimyx</code> and <code>eps</code>
+which are passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the spatial resolution of the image of the density
+component.    
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. Whether to include (<code>drop=FALSE</code>) or
+exclude (<code>drop=TRUE</code>) contributions from quadrature
+points that were not used to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>iScore,iHessian</code></td>
+<td>
+
+<p>Components of the score vector and Hessian matrix for
+the irregular parameters, if required. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>iArgs</code></td>
+<td>
+
+<p>List of extra arguments for the functions <code>iScore</code>,
+<code>iHessian</code> if required.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a fitted spatial point process <code>model</code>,
+this function computes the influence measure for each parameter,
+as described in Baddeley, Chang and Song (2013)
+and Baddeley, Rubak and Turner (2019).
+</p>
+<p>This is a method for the generic function <code><a href="../../stats/help/dfbetas.html">dfbetas</a></code>.
+</p>
+<p>The influence measure for each parameter <i>&theta;</i> is a
+signed measure in two-dimensional space. It consists of a discrete
+mass on each data point (i.e. each point in the point pattern to which
+the <code>model</code> was originally fitted) and a continuous density at
+all locations. The mass at a data point represents the change in the 
+fitted value of the parameter <i>&theta;</i> that would occur
+if this data point were to be deleted.
+The density at other non-data locations represents the
+effect (on the fitted value of <i>&theta;</i>)
+of deleting these locations (and their associated covariate values)
+from the input to the fitting procedure.
+</p>
+<p>If the point process model trend has irregular parameters that were
+fitted (using <code><a href="../../spatstat.model/help/ippm.html">ippm</a></code>)
+then the influence calculation requires the first and second
+derivatives of the log trend with respect to the irregular parameters. 
+The argument <code>iScore</code> should be a list,
+with one entry for each irregular parameter,  of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions that compute the
+partial derivatives of the log trend (i.e. log intensity or
+log conditional intensity) with respect to each irregular
+parameter. The argument <code>iHessian</code> should be a list,
+with <i>p^2</i> entries where <i>p</i> is the number of irregular
+parameters, of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions that compute the second order
+partial derivatives of the
+log trend with respect to each pair of irregular parameters.  
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"msr"</code> representing a signed or vector-valued
+measure. This object can be printed and plotted. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Chang, Y.M. and Song, Y. (2013)
+Leverage and influence diagnostics for spatial point process models.
+<em>Scandinavian Journal of Statistics</em> <b>40</b>, 86&ndash;104.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2019)
+Leverage and influence diagnostics for Gibbs spatial point processes.
+<em>Spatial Statistics</em> <b>29</b>, 15&ndash;48.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code>,
+<code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppmInfluence.html">ppmInfluence</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.model/help/msr.html">msr</a></code> for information on how to use a measure.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X ~x+y)
+   
+   plot(dfbetas(fit))
+   plot(Smooth(dfbetas(fit)))
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

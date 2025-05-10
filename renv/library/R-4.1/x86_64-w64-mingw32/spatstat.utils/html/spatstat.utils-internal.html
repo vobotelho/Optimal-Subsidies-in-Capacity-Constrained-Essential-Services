@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal Functions of spatstat.utils Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.utils-internal {spatstat.utils}"><tr><td>spatstat.utils-internal {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal Functions of spatstat.utils Package</h2>
+
+<h3>Description</h3>
+
+<p>Internal utility functions of the <code>spatstat.utils</code> package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+adjustthinrange(ur,vstep,vr)
+apply23sum(x)
+as2vector(x)
+asNumericMatrix(x)
+assignDFcolumn(x, name, value, ...)
+badprobability(x, NAvalue)
+blockdiagarray(...)
+blockdiagmatrix(...)
+check.finite(x, context, xname, fatal, usergiven, warn)
+check.satisfies(cond, xname, should, context, fatal, warn)
+choptext(..., prefix, indent)
+choptextline(st, w, prefix, indent)
+complaining(whinge, fatal, value)
+distpl(p, l)               
+distppl(p, l)
+distppll(p, l, mintype, method, listit)
+distppllmin(p, l, big)
+dont.complain.about(...)
+dotexpr.to.call(expr, dot, evaluator)
+dropifsingle(x)
+dround(x)
+ensure2vector(x)
+ensure3Darray(x)
+eratosthenes(nmax, startset)
+exhibitStringList(prefix, strings)
+exceedsMaxArraySize(...)
+explain.ifnot(expr, context)
+fakecallstring(fname, parlist)
+fave.order(x)
+fillseq(x, step)
+findfirstfactor(x)
+firstfactor(x)
+flat.deparse(x)
+fontify(x, font)
+forbidNA(x, context, xname, fatal, usergiven, warn)
+getSpatstatLocatorQueue()
+getdataobjects(nama, envir, datalist, fatal)
+good.names(nama, defaults, suffices)
+graphicsPars(key)
+gsubdot(replacement, x)
+indexCartesian(nn)
+inject.expr(base, expr)
+insertinlist(x, i, y)
+is.blank(s)
+is.parseable(x)
+lty2char(i)
+makeCutLabels(breaks, dig.lab, right, include.lowest)
+make.parseable(x)
+mapstrings(x, map)
+matchNameOrPosition(expected, avail)
+matcolall(x)
+matcolany(x)
+matcolsum(x)            
+matrixsample(mat, newdim, phase, scale, na.value)
+matrowall(x)
+matrowany(x)
+matrowsum(x)
+natozero(x)
+niceround(x, m)
+NNdist2segments(xp, yp, x0, y0, x1, y1, bigvalue, wantindex)
+numalign(i, nmax, zero)
+nzpaste(..., sep, collapse)
+padtowidth(a, b, justify)
+passthrough(.Fun, ..., .Fname)
+paste.expr(x)
+pasteFormula(f)
+pasteN(...)
+prettydiscrete(x, n)
+prettyinside(x, ...)
+prolongseq(x, newrange, step)
+putSpatstatLocatorQueue(x)
+ratiotweak(a, b, overzero, zerozero)
+samefunction(f, g)
+sensiblevarname(guess, fallback, maxlen)
+short.deparse(x, maxlen)
+singlestring(s, coll)
+sortunique(x)
+startinrange(x0, dx, r)
+strsplitretain(x, split)
+substringcount(x,y)
+there.can.be.only.one(..., .NeedOne, .Fatal)
+there.is.no.try(...)
+trap.extra.arguments(..., .Context, .Fatal)
+truncline(x, nc)
+uptrimat(x)
+validposint(n, caller, fatal)
+variablesintext(x)
+warn.ignored.args(..., context)
+
+inside.triangle(x, y, xx, yy)
+overlap.trapezium(xa, ya, xb, yb, verb = FALSE)
+
+xysegXcircle(xcentres, ycentres, radii, x0, y0, x1, y1, check)
+xysegMcircle(xcentres, ycentres, radmat, x0, y0, x1, y1, check)
+xysegPcircle(xc, yc, rc, x0, y0, x1, y1, check)
+
+matchIntegerDataFrames(X,Y,sort)
+
+grokIndexVector(ind, len, nama)
+strictIndexSequence(g)
+fullIndexSequence(g)
+replacementIndex(ii, stuff)
+positiveIndex(i, nama, len)
+logicalIndex(i, nama, len)
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These internal <span class="pkg">spatstat.utils</span> functions are not usually called
+directly by the user. Their names and capabilities may change
+without warning from one version of <span class="pkg">spatstat.utils</span> to the next.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

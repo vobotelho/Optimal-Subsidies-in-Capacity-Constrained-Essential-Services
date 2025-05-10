@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Vector Translation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for shift {spatstat.geom}"><tr><td>shift {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Vector Translation</h2>
+
+<h3>Description</h3>
+
+<p>Applies a vector shift of the plane 
+to a geometrical object,
+such as a point pattern or a window. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  shift(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Any suitable dataset representing a two-dimensional
+object, such as a point pattern (object of class <code>"ppp"</code>),
+or a window (object of class <code>"owin"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments determining the shift vector.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is generic. Methods are provided for
+point patterns (<code><a href="../../spatstat.geom/help/shift.ppp.html">shift.ppp</a></code>)
+and windows (<code><a href="../../spatstat.geom/help/shift.owin.html">shift.owin</a></code>).
+</p>
+<p>The object is translated by the vector <code>vec</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of the same type, representing the
+result of applying the shift.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/shift.ppp.html">shift.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/shift.owin.html">shift.owin</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/periodify.html">periodify</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

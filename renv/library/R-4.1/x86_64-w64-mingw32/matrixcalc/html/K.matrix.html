@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for K.matrix {matrixcalc}"><tr><td>K.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> K Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns a square matrix of order p = r * c that, 
+for an r by c matrix A, transforms vec(A) to vec(A') where 
+prime denotes transpose.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+K.matrix(r, c = r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p> a positive integer row dimension </p>
+</td></tr>
+<tr valign="top"><td><code>c</code></td>
+<td>
+<p> a positive integer column dimension </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <i>r \times c</i> matrices <i>{\bf{H}}{}_{i,j}</i> constructed
+by the function <code>H.matrices</code> are combined using direct product
+to generate the commutation product with the formula  <i>{{\bf{K}}_{r,c}} = &sum;\limits_{i = 1}^r {&sum;\limits_{j = 1}^c {&le;ft( {{{\bf{H}}_{i,j}} \otimes {{{\bf{H'}}}_{i,j}}} \right)} }</i>
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>&le;ft( {r\;c} \right)</i> matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If either argument is less than 2, then the function stops and displays an appropriate error mesage.
+If either argument is not an integer, then the function stops and displays an appropriate error mesage
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1979). The commutation matrix: some properties and applications,
+<em>The Annals of Statistics</em>, 7(2), 381-394.
+</p>
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/H.matrices.html">H.matrices</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+K &lt;- K.matrix( 3, 4 )
+A &lt;- matrix( seq( 1, 12, 1 ), nrow=3, byrow=TRUE )
+vecA &lt;- vec( A )
+vecAt &lt;- vec( t( A ) )
+y &lt;- K %*% vecA
+print( y )
+print( vecAt )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update Control Parameters of Metropolis-Hastings Algorithm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for update.rmhcontrol {spatstat.random}"><tr><td>update.rmhcontrol {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update Control Parameters of Metropolis-Hastings Algorithm</h2>
+
+<h3>Description</h3>
+
+<p><code>update</code> method for class <code>"rmhcontrol"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'rmhcontrol'
+update(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Object of class <code>"rmhcontrol"</code> containing control parameters
+for a Metropolis-Hastings algorithm.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments to be updated in the new call to <code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../stats/html/update.html">update</a></code>
+for the class <code>"rmhcontrol"</code>. An object of class <code>"rmhcontrol"</code>
+describes a set of control parameters for the Metropolis-Hastings
+simulation algorithm. See <code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code>).
+</p>
+<p><code>update.rmhcontrol</code> will modify the parameters
+specified by <code>object</code> according to the new arguments given.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"rmhcontrol"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  a &lt;- rmhcontrol(expand=1)
+  update(a, expand=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

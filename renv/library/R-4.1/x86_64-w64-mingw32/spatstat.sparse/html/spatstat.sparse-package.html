@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The spatstat.sparse Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.sparse-package {spatstat.sparse}"><tr><td>spatstat.sparse-package {spatstat.sparse}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The spatstat.sparse Package</h2>
+
+<h3>Description</h3>
+
+<p>The <span class="pkg">spatstat.sparse</span> package defines three-dimensional
+sparse arrays, and supports standard operations on them.
+It also provides some utility functions for matrix calculations
+such as quadratic forms.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The <span class="pkg">spatstat.sparse</span> package
+</p>
+
+<ul>
+<li><p> defines a class of sparse three-dimensional arrays
+and supports standard operations on them
+(see Section <em>Sparse 3D Arrays</em>).
+</p>
+</li>
+<li><p> provides utility functions for matrix computations
+that are common in statistics,
+such as quadratic forms (see Section <em>Matrix Utilities</em>).
+</p>
+</li></ul>
+
+<p>The code in <span class="pkg">spatstat.sparse</span> was originally written
+for internal use within the <span class="pkg">spatstat</span> package, but has now been
+removed and organised into a separate, stand-alone package
+which can be used for other purposes.
+</p>
+
+
+<h3>Sparse 3D Arrays</h3>
+
+<p>The main purpose of <span class="pkg">spatstat.sparse</span> is to 
+define a class of sparse three-dimensional arrays.
+</p>
+<p>An array <code>A</code> is three-dimensional if it is indexed by
+three integer indices, so that <code>A[i,j,k]</code> specifies an element of
+the array. The array is called sparse if only a small fraction of the
+entries are non-zero. A sparse array can be represented economically
+by listing only the entries which are non-zero.
+</p>
+<p>The <span class="pkg">spatstat.sparse</span> package defines the class
+<code>sparse3Darray</code> of sparse three-dimensional arrays.
+These arrays can have numeric, integer, logical, or complex
+entries. 
+</p>
+<p>The package supports:
+</p>
+
+<ul>
+<li><p> creation of sparse arrays from raw data
+</p>
+</li>
+<li><p> conversion to/from other data types
+</p>
+</li>
+<li><p> array indexing, extraction of entries, assignment of new values
+</p>
+</li>
+<li><p> arithmetic and logical operations
+</p>
+</li>
+<li><p> tensor operations (generalising matrix multiplication)
+</p>
+</li>
+<li><p> permutation of array dimensions
+</p>
+</li>
+<li><p> binding of several arrays into a single array
+</p>
+</li>
+<li><p> printing of sparse arrays.
+</p>
+</li></ul>
+
+<p>The <span class="pkg">spatstat.sparse</span> package uses the <span class="pkg">Matrix</span> package to
+handle slices of three-dimensional arrays which are two-dimensional
+(sparse matrices) or one-dimensional (sparse vectors).
+</p>
+<p>The main functions are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/sparse3Darray.html">sparse3Darray</a></code> </td><td style="text-align: left;"> Create a sparse 3D array </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/as.sparse3Darray.html">as.sparse3Darray</a></code> </td><td style="text-align: left;"> Convert other data to a sparse
+    3D array </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/[.sparse3Darray.html">[.sparse3Darray</a></code> </td><td style="text-align: left;"> Subset operator </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/aperm.sparse3Darray.html">aperm.sparse3Darray</a></code> </td><td style="text-align: left;"> Permute a sparse array </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/Ops.sparse3Darray.html">Ops.sparse3Darray</a></code> </td><td style="text-align: left;"> arithmetic and logical operators </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/Complex.sparse3Darray.html">Complex.sparse3Darray</a></code> </td><td style="text-align: left;"> complex operators </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/Math.sparse3Darray.html">Math.sparse3Darray</a></code></td><td style="text-align: left;"> standard mathematical functions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/Summary.sparse3Darray.html">Summary.sparse3Darray</a></code> </td><td style="text-align: left;"> mean, maximum etc </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/tensorSparse.html">tensorSparse</a></code> </td><td style="text-align: left;"> Tensor product </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/as.array.sparse3Darray.html">as.array.sparse3Darray</a></code> </td><td style="text-align: left;"> Convert sparse array to full array </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+    
+<p>The class <code>"sparse3Darray"</code> has
+methods for <code>anyNA</code>, <code>dim</code>, <code>dim&lt;-</code>,
+<code>dimnames</code>, <code>dimnames&lt;-</code> and <code>print</code>,
+documented in <code><a href="../../spatstat.sparse/help/methods.sparse3Darray.html">methods.sparse3Darray</a></code>.
+</p>
+<p>For other undocumented functions,
+see <code><a href="../../spatstat.sparse/help/spatstat.sparse-internal.html">spatstat.sparse-internal</a></code>.
+</p>
+
+
+<h3>Matrix Utilities</h3>
+
+<p>The package also includes some utilities for matrix calculations:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/sumouter.html">sumouter</a></code> </td><td style="text-align: left;"> sum of outer products of rows of a matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/quadform.html">quadform</a></code> </td><td style="text-align: left;"> quadratic form involving rows of a matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/bilinearform.html">bilinearform</a></code> </td><td style="text-align: left;"> bilinear form involving rows of a matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/matrixsqrt.html">matrixsqrt</a></code> </td><td style="text-align: left;"> square root of a matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.sparse/help/matrixpower.html">matrixpower</a></code> </td><td style="text-align: left;"> powers of a matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+
+
+
+<h3>Licence</h3>
+
+<p>This library and its documentation are usable under the terms of the
+&ldquo;GNU General Public License&rdquo;,
+a copy of which is distributed with <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.sparse</em> version 3.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

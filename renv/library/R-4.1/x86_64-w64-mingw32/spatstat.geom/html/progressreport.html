@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Print Progress Reports</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for progressreport {spatstat.geom}"><tr><td>progressreport {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Print Progress Reports</h2>
+
+<h3>Description</h3>
+
+<p>Prints Progress Reports during a loop or iterative calculation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+progressreport(i, n,
+               every = min(100,max(1, ceiling(n/100))),
+               tick = 1,
+               nperline = NULL,
+               charsperline = getOption("width"),
+               style = spatstat.options("progress"),
+               showtime = NULL,
+               state=NULL,
+               formula = (time ~ i),
+               savehistory=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Integer. The current iteration number (from 1 to <code>n</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Integer. The (maximum) number of iterations to be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>every</code></td>
+<td>
+
+<p>Optional integer. Iteration number will be printed 
+when <code>i</code> is a multiple of <code>every</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tick</code></td>
+<td>
+
+<p>Optional integer. A tick mark or dot will be printed
+when <code>i</code> is a multiple of <code>tick</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nperline</code></td>
+<td>
+
+<p>Optional integer. Number of iterations per line of output.
+</p>
+</td></tr>
+<tr valign="top"><td><code>charsperline</code></td>
+<td>
+
+<p>Optional integer. The number of characters in a line of output.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string determining the style of display.
+Options are <code>"tty"</code> (the default), <code>"tk"</code> and <code>"txtbar"</code>.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>showtime</code></td>
+<td>
+
+<p>Optional. Logical value indicating whether to print the estimated
+time remaining. Applies only when <code>style="tty"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>state</code></td>
+<td>
+
+<p>Optional. A list containing the internal data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+
+<p>Optional. A model formula expressing the expected relationship between
+the iteration number <code>i</code> and the clock time <code>time</code>. Used for
+predicting the time remaining. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>savehistory</code></td>
+<td>
+
+<p>Optional. Logical value indicating whether to save the 
+elapsed times at which <code>progressreport</code> was called.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a convenient function for reporting progress
+during an iterative sequence of calculations
+or a suite of simulations.
+</p>
+
+<ul>
+<li> 
+<p>If <code>style="tk"</code> then <code>tcltk::tkProgressBar</code> is
+used to pop-up a new graphics window showing a progress bar.
+This requires the package <span class="pkg">tcltk</span>.
+As <code>i</code> increases from 1 to <code>n</code>, the bar will lengthen.
+The arguments <code>every, tick, nperline, showtime</code> are ignored.
+</p>
+</li>
+<li> 
+<p>If <code>style="txtbar"</code> then <code><a href="../../utils/help/txtProgressBar.html">txtProgressBar</a></code> is
+used to represent progress as a bar made of text characters in the
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> interpreter window.
+As <code>i</code> increases from 1 to <code>n</code>, the bar will lengthen.
+The arguments <code>every, tick, nperline, showtime</code> are ignored.
+</p>
+</li>
+<li> 
+<p>If <code>style="tty"</code> (the default),
+then progress reports are printed to the
+console. This only seems to work well under Linux.
+As <code>i</code> increases from 1 to <code>n</code>, 
+the output will be a sequence of dots (one dot for every <code>tick</code>
+iterations), iteration numbers (printed when iteration number is
+a multiple of <code>every</code> or is less than 4),
+and optionally the estimated time remaining
+and the estimated completion time.
+</p>
+<p>The estimated time remaining will be printed only if
+<code>style="tty"</code>, and the argument <code>state</code> is given,
+and either <code>showtime=TRUE</code>, or <code>showtime=NULL</code> and the
+iterations are slow (defined as: the estimated time remaining
+is longer than 3 minutes, or the average time per iteration is
+longer than 20 seconds).
+</p>
+<p>The estimated completion time will be printed only if the
+estimated time remaining is printed and the remaining time is
+longer than 10 minutes.
+</p>
+<p>By default, the estimated time remaining is calculated 
+by assuming that each iteration takes the same amount of time,
+and extrapolating.
+Alternatively, if the argument <code>formula</code> is given,
+then it should be a model formula, stating the expected relationship
+between the iteration number <code>i</code> and the clock time
+<code>time</code>. This model will be fitted to the history of clock times
+recorded so far, and used to predict the time remaining.
+(The default formula states that clock time is a linear function of the
+iteration number, which is equivalent to assuming that each
+iteration takes the same amount of time.)
+</p>
+</li></ul>
+
+<p>It is optional, but strongly advisable, to use the argument <code>state</code>
+to store and update the internal data for the progress reports
+(such as the cumulative time taken for computation)
+as shown in the last example below.
+This avoids conflicts with other programs that might be
+calling <code>progressreport</code> at the same time.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>state</code> was <code>NULL</code>, the result is <code>NULL</code>.
+Otherwise the result is the updated value of <code>state</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  for(i in 1:40) {
+     #
+     # code that does something...
+     # 
+     progressreport(i, 40)
+  }
+
+  # saving internal state: *recommended*
+  sta &lt;- list()
+  for(i in 1:20) {
+     # some code ...
+     sta &lt;- progressreport(i, 20, state=sta)
+  }
+
+  #' use text progress bar
+  sta &lt;- list()
+  for(i in 1:10) {
+     # some code ...
+     sta &lt;- progressreport(i, 10, state=sta, style="txtbar")
+  }
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

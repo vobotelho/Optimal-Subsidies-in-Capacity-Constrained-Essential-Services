@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lurking Variable Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lurking {spatstat.model}"><tr><td>lurking {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lurking Variable Plot</h2>
+
+<h3>Description</h3>
+
+<p>Plot spatial point process residuals against a covariate
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lurking(object, ...)
+
+## S3 method for class 'ppm'
+lurking(object, covariate,
+                    type="eem",
+                    cumulative=TRUE,
+                    ...,
+                    plot.it = TRUE,
+                    plot.sd = is.poisson(object),
+                    clipwindow=default.clipwindow(object),
+                    rv = NULL,
+                    envelope=FALSE, nsim=39, nrank=1,
+                    typename,
+                    covname,
+                    oldstyle=FALSE,
+                    check=TRUE,
+                    verbose=TRUE,
+                    nx=128,
+                    splineargs=list(spar=0.5),
+                    internal=NULL) 
+
+## S3 method for class 'ppp'
+lurking(object, covariate,
+                    type="eem",
+                    cumulative=TRUE,
+                    ...,
+                    plot.it = TRUE,
+                    plot.sd = is.poisson(object),
+                    clipwindow=default.clipwindow(object),
+                    rv = NULL,
+                    envelope=FALSE, nsim=39, nrank=1,
+                    typename,
+                    covname,
+                    oldstyle=FALSE,
+                    check=TRUE,
+                    verbose=TRUE,
+                    nx=128,
+                    splineargs=list(spar=0.5),
+                    internal=NULL) 
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model (an object of class <code>"ppm"</code>)
+for which diagnostics should be produced. This object
+is usually obtained from <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. Alternatively,
+<code>object</code> may be a point pattern (object of class
+<code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariate</code></td>
+<td>
+
+<p>The covariate against which residuals should be plotted.
+Either a numeric vector, a pixel image, or an <code>expression</code>.
+See <em>Details</em> below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String indicating the type of residuals or weights to be computed.
+Choices include <code>"eem"</code>,
+<code>"raw"</code>, <code>"inverse"</code> and <code>"pearson"</code>.
+See <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code> for all possible choices.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cumulative</code></td>
+<td>
+
+<p>Logical flag indicating whether to plot a
+cumulative sum of marks (<code>cumulative=TRUE</code>) or the derivative
+of this sum, a marginal density of the smoothed residual field
+(<code>cumulative=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/html/plot.default.html">plot.default</a></code>
+and <code><a href="../../graphics/html/lines.html">lines</a></code> to control the plot behaviour.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plot.it</code></td>
+<td>
+
+<p>Logical value indicating whether 
+plots should be shown. If <code>plot.it=FALSE</code>, only
+the computed coordinates for the plots are returned.
+See <em>Value</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plot.sd</code></td>
+<td>
+
+<p>Logical value indicating whether 
+error bounds should be added to plot.
+The default is <code>TRUE</code> for Poisson models and
+<code>FALSE</code> for non-Poisson models. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipwindow</code></td>
+<td>
+
+<p>If not <code>NULL</code> this argument indicates that residuals shall
+only be computed inside a subregion of the window containing the
+original point pattern data. Then <code>clipwindow</code> should be
+a window object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rv</code></td>
+<td>
+
+<p>Usually absent. 
+If this argument is present, the point process residuals will not be
+calculated from the fitted model <code>object</code>,
+but will instead be taken directly from <code>rv</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>envelope</code></td>
+<td>
+
+<p>Logical value indicating whether to compute simulation envelopes
+for the plot. Alternatively <code>envelope</code> may be a list of
+point patterns to use for computing the simulation envelopes,
+or an object of class <code>"envelope"</code> containing simulated point
+patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated point patterns to be generated
+to produce the simulation envelope, if <code>envelope=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrank</code></td>
+<td>
+
+<p>Integer. Rank of the envelope value amongst the <code>nsim</code> simulated
+values. A rank of 1 means that the minimum and maximum
+simulated values will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>typename</code></td>
+<td>
+
+<p>Usually absent. 
+If this argument is present, it should be a string, and will be used
+(in the axis labels of plots) to describe the type of residuals.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covname</code></td>
+<td>
+
+<p>A string name for the covariate, to be used in axis labels of plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>oldstyle</code></td>
+<td>
+
+<p>Logical flag indicating whether error bounds should be plotted
+using the approximation given in the original paper
+(<code>oldstyle=TRUE</code>),
+or using the correct asymptotic formula (<code>oldstyle=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical flag indicating whether the integrity of the data structure
+in <code>object</code> should be checked.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating
+whether to print progress reports during Monte Carlo simulation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nx</code></td>
+<td>
+
+<p>Integer. Number of covariate values to be used in the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>splineargs</code></td>
+<td>
+
+<p>A list of arguments passed to <code>smooth.spline</code>
+for the estimation of the derivatives in the case <code>cumulative=FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a &lsquo;lurking variable&rsquo; plot for a
+fitted point process model. 
+Residuals from the model represented by <code>object</code>
+are plotted against the covariate specified by <code>covariate</code>.
+This plot can be used to reveal departures from the fitted model,
+in particular, to reveal that the point pattern depends on the covariate.
+</p>
+<p>The function <code>lurking</code> is generic, with methods for
+<code>ppm</code> and <code>ppp</code> documented here, and possibly other methods.
+</p>
+<p>The argument <code>object</code> would usually be a fitted point process model
+(object of class <code>"ppm"</code>) produced by the
+model-fitting algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>). If
+<code>object</code> is a point pattern (object of class <code>"ppp"</code>) then
+the model is taken to be the uniform Poisson process (Complete
+Spatial Randomness) fitted to this point pattern.
+</p>
+<p>First the residuals from the fitted model (Baddeley et al, 2004)
+are computed at each quadrature point,
+or alternatively the &lsquo;exponential energy marks&rsquo; (Stoyan and Grabarnik,
+1991) are computed at each data point.
+The argument <code>type</code> selects the type of
+residual or weight. See <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code> for options
+and explanation.
+</p>
+<p>A lurking variable plot for point processes (Baddeley et al, 2004)
+displays either the cumulative sum of residuals/weights
+(if <code>cumulative = TRUE</code>) or a kernel-weighted average of the
+residuals/weights (if <code>cumulative = FALSE</code>) plotted against
+the covariate. The empirical plot (solid lines) is shown
+together with its expected value assuming the model is true
+(dashed lines) and optionally also the pointwise
+two-standard-deviation limits (grey shading).
+</p>
+<p>To be more precise, let <i>Z(u)</i> denote the value of the covariate
+at a spatial location <i>u</i>. 
+</p>
+
+<ul>
+<li>
+<p>If <code>cumulative=TRUE</code> then we plot <i>H(z)</i> against <i>z</i>,
+where <i>H(z)</i> is the sum of the residuals 
+over all quadrature points where the covariate takes
+a value less than or equal to <i>z</i>, or the sum of the
+exponential energy weights over all data points where the covariate
+takes a value less than or equal to <i>z</i>.
+</p>
+</li>
+<li>
+<p>If <code>cumulative=FALSE</code> then we plot <i>h(z)</i> against <i>z</i>,
+where <i>h(z)</i> is the derivative of <i>H(z)</i>,
+computed approximately by spline smoothing.
+</p>
+</li></ul>
+
+<p>For the point process residuals <i>E(H(z)) = 0</i>,
+while for the exponential energy weights
+<i>E(H(z)) = </i> area of the subset of the window 
+satisfying <i>Z(u) &le; z</i>. 
+</p>
+<p>If the empirical and theoretical curves deviate substantially
+from one another, the interpretation is that the fitted model does
+not correctly account for dependence on the covariate.
+The correct form (of the spatial trend part of the model)
+may be suggested by the shape of the plot.
+</p>
+<p>If <code>plot.sd = TRUE</code>, then superimposed on the lurking variable
+plot are the pointwise
+two-standard-deviation error limits for <i>H(x)</i> calculated for the
+inhomogeneous Poisson process. The default is <code>plot.sd = TRUE</code>
+for Poisson models and <code>plot.sd = FALSE</code> for non-Poisson
+models.
+</p>
+<p>By default, the two-standard-deviation limits are calculated
+from the exact formula for the asymptotic variance
+of the residuals under the asymptotic normal approximation,
+equation (37) of Baddeley et al (2006).
+However, for compatibility with the original paper
+of Baddeley et al (2005), if <code>oldstyle=TRUE</code>,
+the two-standard-deviation limits are calculated
+using the innovation variance, an over-estimate of the true
+variance of the residuals.
+</p>
+<p>The argument <code>covariate</code> is either a numeric vector, a pixel
+image, or an R language expression.
+If it is a numeric vector, it is assumed to contain
+the values of the covariate for each of the quadrature points
+in the fitted model. The quadrature points can be extracted by
+<code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a>(object)</code>.
+</p>
+<p>If <code>covariate</code> is a pixel image, it is assumed to contain the
+values of the covariate at each location in the window. The values of
+this image at the quadrature points will be extracted.
+</p>
+<p>Alternatively, if <code>covariate</code>
+is an <code>expression</code>, it will be evaluated in the same environment
+as the model formula used in fitting the model <code>object</code>. It must
+yield a vector of the same length as the number of quadrature points.
+The expression may contain the terms <code>x</code> and <code>y</code> representing the
+cartesian coordinates, and may also contain other variables that were
+available when the model was fitted. Certain variable names are
+reserved words; see <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>Note that lurking variable plots for the <i>x</i> and <i>y</i> coordinates
+are also generated by <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code>, amongst other
+types of diagnostic plots. This function is more general in that it
+enables the user to plot the residuals against any chosen covariate
+that may have been present.
+</p>
+<p>For advanced use, even the values of the residuals/weights
+can be altered. If the argument <code>rv</code> is present,
+the residuals will not be calculated from the fitted model
+<code>object</code> but will instead be taken directly from the object <code>rv</code>.
+If <code>type = "eem"</code> then <code>rv</code> should be similar to the
+return value of <code><a href="../../spatstat.model/help/eem.html">eem</a></code>, namely, a numeric vector
+with length equal to the number of data points in the original point
+pattern. Otherwise, <code>rv</code> should be
+similar to the return value of <code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>,
+that is, <code>rv</code> should be an object of class
+<code>"msr"</code> (see <code><a href="../../spatstat.model/help/msr.html">msr</a></code>) representing a signed measure.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The (invisible) return value is an object 
+belonging to the class <code>"lurk"</code>, for which there
+are methods for <code>plot</code> and <code>print</code>.
+</p>
+<p>This object is a list containing two dataframes
+<code>empirical</code> and <code>theoretical</code>. 
+The first dataframe <code>empirical</code> contains columns
+<code>covariate</code> and <code>value</code> giving the coordinates of the
+lurking variable plot. The second dataframe <code>theoretical</code>
+contains columns <code>covariate</code>, <code>mean</code> and <code>sd</code>
+giving the coordinates of the plot of the theoretical mean
+and standard deviation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+<p>Baddeley, A., Moller, J. and Pakes, A.G. (2006)
+Properties of residuals for spatial point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>60</b>, 627&ndash;649.
+</p>
+<p>Stoyan, D. and Grabarnik, P. (1991)
+Second-order characteristics for stochastic structures connected with
+Gibbs point processes.
+<em>Mathematische Nachrichten</em>, 151:95&ndash;100.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>,
+<code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code>,
+<code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>,
+<code><a href="../../spatstat.model/help/qqplot.ppm.html">qqplot.ppm</a></code>,
+<code><a href="../../spatstat.model/help/eem.html">eem</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  (a &lt;- lurking(nztrees, expression(x), type="raw"))
+  fit &lt;- ppm(nztrees ~x, Poisson(), nd=128)
+  (b &lt;- lurking(fit, expression(x), type="raw"))
+  lurking(fit, expression(x), type="raw", cumulative=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Stienen Diagram</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for stienen {spatstat.explore}"><tr><td>stienen {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Stienen Diagram
+</h2>
+
+<h3>Description</h3>
+
+<p>Draw the Stienen diagram of a point pattern,
+or compute the region covered by the Stienen diagram.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+stienen(X, ..., bg = "grey", border = list(bg = NULL))
+stienenSet(X, edge=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+to control the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bg</code></td>
+<td>
+
+<p>Fill colour for circles.
+</p>
+</td></tr>
+<tr valign="top"><td><code>border</code></td>
+<td>
+
+<p>Either a list of arguments passed to <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+to control the display of circles at the border of the diagram,
+or the value <code>FALSE</code>
+indicating that the border circles should not be plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>Logical value indicating whether to include the circles at the
+border of the diagram.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Stienen diagram of a point pattern (Stienen, 1982)
+is formed by drawing a circle around each point of the pattern,
+with diameter equal to the nearest-neighbour distance for that point.
+These circles do not overlap. If two points are nearest neighbours
+of each other, then the corresponding circles touch.
+</p>
+<p><code>stienenSet(X)</code> computes the union of these circles and
+returns it as a window (object of class <code>"owin"</code>).
+</p>
+<p><code>stienen(X)</code> generates a plot of the Stienen diagram of
+the point pattern <code>X</code>. By default, circles are shaded in grey
+if they lie inside the window of <code>X</code>, and are not shaded
+otherwise.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The plotting function <code>stienen</code> returns <code>NULL</code>.
+</p>
+<p>The return value of <code>stienenSet</code> is a window (object of class
+<code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.</p>
+
+
+<h3>References</h3>
+
+<p>Stienen, H. (1982)
+<em>Die Vergroeberung von Karbiden in reinen Eisen-Kohlenstoff
+Staehlen</em>.
+Dissertation, RWTH Aachen.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Y &lt;- stienenSet(cells)
+  stienen(redwood)
+  stienen(redwood, border=list(bg=NULL, lwd=2, cols="red"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

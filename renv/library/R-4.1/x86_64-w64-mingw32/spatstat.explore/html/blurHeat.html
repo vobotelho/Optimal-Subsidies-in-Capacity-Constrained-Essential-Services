@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Diffusion Blur</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for blurHeat {spatstat.explore}"><tr><td>blurHeat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Diffusion Blur
+</h2>
+
+<h3>Description</h3>
+
+<p>Blur a Pixel Image by Applying Diffusion
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+blurHeat(X, ...)
+
+## S3 method for class 'im'
+blurHeat(X, sigma, ...,
+     connect = 8, symmetric = FALSE, k= 1, show = FALSE)
+
+## S3 method for class 'im'
+SmoothHeat(X, sigma, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth. A numeric value, a pixel image or
+a <code>function(x,y)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored by <code>blurHeat.im</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>connect</code></td>
+<td>
+
+<p>Grid connectivity: either 4 or 8.
+</p>
+</td></tr>
+<tr valign="top"><td><code>symmetric</code></td>
+<td>
+
+<p>Logical value indicating whether to <em>force</em> the algorithm
+to use a symmetric random walk.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer. Calculations will be performed by repeatedly multiplying
+the current state by the <code>k</code>-step transition matrix.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show</code></td>
+<td>
+
+<p>Logical value indicating whether to plot successive iterations.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>blurHeat</code> is generic. 
+</p>
+<p>This help file documents the method <code>blurHeat.im</code> for pixel images
+(objects of class <code>"im"</code>). This is currently equivalent
+to <code>SmoothHeat.im</code>, which is also documented here.
+</p>
+<p>If <code>sigma</code> is a numeric value, then
+the classical time-dependent heat equation is solved
+up to time <code>t = sigma^2</code> starting with the initial
+condition given by the image <code>X</code>. This has the effect
+of blurring the input image <code>X</code>.
+</p>
+<p>If <code>sigma</code> is a function or a pixel image, then
+it is treated as a spatially-variable diffusion rate,
+and the corresponding heat equation is solved.
+</p>
+<p>This command can be used to calculate the expected value
+of the diffusion estimator of intensity (<code><a href="../help/densityHeat.html">densityHeat</a></code>)
+when the true intensity is known.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image on the same raster as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/densityHeat.html">densityHeat</a></code>,
+<code><a href="../help/blur.html">blur</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- as.im(function(x,y) { sin(10*x) + sin(9*y) }, letterR)
+  ZZ &lt;- blurHeat(Z, 0.2)
+  plot(solist(original=Z, blurred=ZZ), main="")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

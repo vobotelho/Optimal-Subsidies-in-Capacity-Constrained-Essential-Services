@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest neighbour</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nnwhich {spatstat.geom}"><tr><td>nnwhich {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nearest neighbour</h2>
+
+<h3>Description</h3>
+
+<p>Finds the nearest neighbour of each point in a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nnwhich(X, ...)
+  ## S3 method for class 'ppp'
+nnwhich(X, ..., k=1, by=NULL, method="C", metric=NULL)
+  ## Default S3 method:
+nnwhich(X, Y=NULL, ..., k=1, by=NULL, method="C")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Arguments specifying the locations of
+a set of points.
+For <code>nnwhich.ppp</code>, the argument <code>X</code> should be a point
+pattern (object of class <code>"ppp"</code>).
+For <code>nnwhich.default</code>, typically <code>X</code> and <code>Y</code> would be
+numeric vectors of equal length. Alternatively <code>Y</code> may be
+omitted and <code>X</code> may be
+a list with two components <code>x</code> and <code>y</code>,
+or a matrix with two columns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored by <code>nnwhich.ppp</code>
+and <code>nnwhich.default</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer, or integer vector. The algorithm will compute the distance to the
+<code>k</code>th nearest neighbour. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>by</code></td>
+<td>
+
+<p>Optional. A factor, which separates <code>X</code> into groups.
+The algorithm will find the nearest neighbour in each group.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>String specifying which method of calculation to use.
+Values are <code>"C"</code> and <code>"interpreted"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>metric</code></td>
+<td>
+
+<p>Optional. A metric (object of class <code>"metric"</code>)
+that will be used to define and compute the distances.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each point in the given point pattern, this function finds
+its nearest neighbour (the nearest other point of the pattern).
+By default it returns a vector giving, for each point,
+the index of the point's
+nearest neighbour. If <code>k</code> is specified, the algorithm finds
+each point's <code>k</code>th nearest neighbour.
+</p>
+<p>The function <code>nnwhich</code> is generic, with
+method for point patterns (objects of class <code>"ppp"</code>)
+and a default method which are described here, as well as a method for
+three-dimensional point patterns (objects of class <code>"pp3"</code>,
+described in <code><a href="../../spatstat.geom/help/nnwhich.pp3.html">nnwhich.pp3</a></code>.
+</p>
+<p>The method <code>nnwhich.ppp</code> expects a single
+point pattern argument <code>X</code>.
+The default method expects that <code>X</code> and <code>Y</code> will determine
+the coordinates of a set of points. Typically <code>X</code> and
+<code>Y</code> would be numeric vectors of equal length. Alternatively
+<code>Y</code> may be omitted and <code>X</code> may be a list with two components
+named <code>x</code> and <code>y</code>, or a matrix or data frame with two columns.
+</p>
+<p>The argument <code>k</code> may be a single integer, or an integer vector.
+If it is a vector, then the <i>k</i>th nearest neighbour distances are
+computed for each value of <i>k</i> specified in the vector.
+</p>
+<p>If the argument <code>by</code> is given, it should be a <code>factor</code>,
+of length equal to the number of points in <code>X</code>.
+This factor effectively partitions <code>X</code> into subsets,
+each subset associated with one of the levels of <code>X</code>.
+The algorithm will then find, for each point of <code>X</code>,
+the nearest neighbour <em>in each subset</em>.
+</p>
+<p>If there are no points (if <code>x</code> has length zero)
+a numeric vector of length zero is returned.
+If there is only one point (if <code>x</code> has length 1),
+then the nearest neighbour is undefined, and a value of <code>NA</code>
+is returned. In general if the number of points is less than or equal
+to <code>k</code>, then a vector of <code>NA</code>'s is returned.
+</p>
+<p>The argument <code>method</code> is not normally used. It is
+retained only for checking the validity of the software.
+If <code>method = "interpreted"</code> then the distances are
+computed using interpreted R code only. If <code>method="C"</code>
+(the default) then C code is used. 
+The C code is faster by two to three orders of magnitude
+and uses much less memory.
+</p>
+<p>To evaluate the <em>distance</em> between a point and its nearest
+neighbour, use <code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>.
+</p>
+<p>To find the nearest neighbours from one point pattern
+to another point pattern, use <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector or matrix giving, for each point,
+the index of its nearest neighbour (or <code>k</code>th nearest neighbour).
+</p>
+<p>If <code>k = 1</code> (the default), the return value is a
+numeric vector <code>v</code> giving the indices of the nearest neighbours
+(the nearest neighbout of the <code>i</code>th point is
+the <code>j</code>th point where <code>j = v[i]</code>).
+</p>
+<p>If <code>k</code> is a single integer, then the return value is a
+numeric vector giving the indices of the
+<code>k</code>th nearest neighbours.
+</p>
+<p>If <code>k</code> is a vector, then the return value is a
+matrix <code>m</code> such that <code>m[i,j]</code> is the
+index of the <code>k[j]</code>th nearest neighbour for the
+<code>i</code>th data point.
+</p>
+<p>If the argument <code>by</code> is given, then it should be a <code>factor</code>
+which separates <code>X</code> into groups (or any type of data acceptable to
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code> that determines the grouping).
+The result is a data frame
+containing the indices described above, from each point of <code>X</code>,
+to the nearest point in each subset of <code>X</code>
+defined by the factor <code>by</code>.
+</p>
+
+
+<h3>Nearest neighbours of each type</h3>
+
+<p>If <code>X</code> is a multitype point pattern 
+and <code>by=marks(X)</code>, then the algorithm will find,
+for each point of <code>X</code>, the nearest neighbour
+of each type. See the Examples. 
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>A value of <code>NA</code> is returned if there is only one point
+in the point pattern. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>
+and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(cells)
+   m &lt;- nnwhich(cells)
+   m2 &lt;- nnwhich(cells, k=2)
+
+   # plot nearest neighbour links
+   b &lt;- cells[m]
+   arrows(cells$x, cells$y, b$x, b$y, angle=15, length=0.15, col="red")
+
+   # find points which are the neighbour of their neighbour
+   self &lt;- (m[m] == seq(m))
+   # plot them
+   A &lt;- cells[self]
+   B &lt;- cells[m[self]]
+   plot(cells)
+   segments(A$x, A$y, B$x, B$y)
+
+   # nearest neighbours of each type
+   head(nnwhich(ants, by=marks(ants)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

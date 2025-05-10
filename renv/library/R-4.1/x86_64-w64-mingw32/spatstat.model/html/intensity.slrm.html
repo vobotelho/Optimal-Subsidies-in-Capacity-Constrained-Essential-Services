@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intensity of Fitted Spatial Logistic Regression Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intensity.slrm {spatstat.model}"><tr><td>intensity.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Intensity of Fitted Spatial Logistic Regression Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the intensity of a fitted spatial logistic regression model,
+treated as a point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'slrm'
+intensity(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A fitted spatial logistic regression model (object of class <code>"slrm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code> in some cases.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>
+for spatial logistic regression models (class <code>"slrm"</code>).
+</p>
+<p>The fitted spatial logistic regression model <code>X</code> is interpreted
+as a point process model. The intensity of a point process model is
+defined as the expected number of random points per unit area. The
+fitted probabilities of presence according to <code>X</code> are converted
+to intensity values.
+</p>
+<p>The result is a numerical value if <code>X</code>
+is stationary, and a pixel image if <code>X</code>
+is non-stationary. In the latter case, the resolution of the pixel
+image is controlled by the arguments <code>...</code> which are passed
+to <code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value (if the model is stationary)
+or a pixel image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Berman, M., Fisher, N.I., Hardegen, A., Milne, R.K.,
+Schuhmacher, D., Shah, R. and Turner, R. (2010)
+Spatial logistic regression and change-of-support
+for spatial Poisson point processes.
+<em>Electronic Journal of Statistics</em>
+<b>4</b>, 1151&ndash;1201.
+<code>DOI: 10.1214/10-EJS581</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>,
+<code><a href="../../spatstat.model/help/intensity.ppm.html">intensity.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fitS &lt;- slrm(swedishpines ~ 1)
+  intensity(fitS)
+  fitX &lt;- slrm(swedishpines ~ x)
+  intensity(fitX)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

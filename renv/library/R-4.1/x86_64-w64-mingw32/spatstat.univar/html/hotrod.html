@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Heat Kernel for a One-Dimensional Rod</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hotrod {spatstat.univar}"><tr><td>hotrod {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Heat Kernel for a One-Dimensional Rod
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculate values of the heat kernel on a one-dimensional rod.
+The ends of the rod may be assumed to be insulated,
+or absorbing.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hotrod(len, xsource, xquery, sigma, ends=c("insulated", "absorbing"), nmax=20)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>len</code></td>
+<td>
+
+<p>Length of the rod. A single number or numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xsource</code></td>
+<td>
+
+<p>Positions of the source points, from the left end of the rod
+(in the same distance units as <code>len</code>).
+A single number or numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xquery</code></td>
+<td>
+
+<p>Positions of the query points, from the left end of the rod
+(in the same distance units as <code>len</code>).
+A single number or numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Bandwidth for kernel. A single number or a numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ends</code></td>
+<td>
+
+<p>Character string (partially matched) specifying whether the
+ends of the rod are assumed to be insulated or absorbing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nmax</code></td>
+<td>
+
+<p>Number of terms in the infinite sum to use.
+A single integer or an integer vector.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Computes the heat kernel as an infinite sum.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Number or numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  curve(hotrod(1, 0.1, x, 0.7))
+
+  # check it's a probability density
+  f &lt;- function(x) hotrod(1, 0.1, x, 0.7)
+  integrate(f, 0, 1)
+
+  ## absorbing ends
+  curve(hotrod(1, 0.1, x, 0.7, ends="a"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pad the Border of a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for padimage {spatstat.geom}"><tr><td>padimage {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pad the Border of a Pixel Image
+</h2>
+
+<h3>Description</h3>
+
+<p>Fills the border of a pixel image with a given value or values,
+or extends a pixel image to fill a larger window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+padimage(X, value=NA, n=1, W=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Single value to be placed around the border of <code>X</code>.    
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Width of border, in pixels.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window for the resulting image.
+Incompatible with <code>n</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The image <code>X</code> will be expanded by a margin of <code>n</code>
+pixels, or extended to fill the window <code>W</code>,
+with new pixel values set to <code>value</code>.
+</p>
+<p>The argument <code>value</code> should be a single value (a vector of length
+1), normally a value of the same type as the pixel values of <code>X</code>.
+It may be <code>NA</code>. Alternatively if <code>X</code> is a
+factor-valued image, <code>value</code> can be one of the levels of
+<code>X</code>.
+</p>
+<p>If <code>n</code> is given, it may be a single number, specifying the
+width of the border in pixels. Alternatively it may be a vector
+of length 2 or 4. It will be replicated to length 4, and these numbers
+will be interpreted as the border widths for the
+(left, right, top, bottom) margins respectively.
+</p>
+<p>Alternatively if <code>W</code> is given, the image will be extended to
+the window <code>W</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"im"</code>, of the same type as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.html">im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ Z &lt;- setcov(owin())
+ plot(padimage(Z, 1, 10))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

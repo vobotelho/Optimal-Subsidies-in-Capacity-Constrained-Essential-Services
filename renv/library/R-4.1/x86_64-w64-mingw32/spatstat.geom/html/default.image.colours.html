@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Default Colours for Images in Spatstat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for default.image.colours {spatstat.geom}"><tr><td>default.image.colours {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Default Colours for Images in Spatstat 
+</h2>
+
+<h3>Description</h3>
+
+<p>Extract or change the default colours for images in <span class="pkg">spatstat</span>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+default.image.colours()
+reset.default.image.colours(col = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>A vector of colour values.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract and change the current default colours
+used for plotting colour images in the <span class="pkg">spatstat</span> family of
+packages, in particular by the functions
+<code><a href="../help/plot.im.html">plot.im</a></code>
+and <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>.
+</p>
+<p>The default colour values are a vector of
+character strings which can be interpreted as colours.
+In any particular instance of
+<code><a href="../help/plot.im.html">plot.im</a></code>
+or <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>,
+the default colours are interpolated to obtain a vector of colour
+values of the required length (usually 256, controlled by the
+argument <code>ncolours</code> to the plot command).
+</p>
+<p><code>default.image.colours()</code> returns the current default colours.
+<code>reset.default.image.colours(col)</code> sets the default colours to
+be the vector <code>col</code>.
+<code>reset.default.image.colours()</code> or
+<code>reset.default.image.colours(NULL)</code> resets the
+factory default, which is row 29 of the Kovesi uniform
+perceptual contrast table described in <code><a href="../../spatstat.data/help/Kovesi.html">Kovesi</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character vector of values which can be interpreted as colours.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/plot.im.html">plot.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ a &lt;- default.image.colours()
+ length(a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

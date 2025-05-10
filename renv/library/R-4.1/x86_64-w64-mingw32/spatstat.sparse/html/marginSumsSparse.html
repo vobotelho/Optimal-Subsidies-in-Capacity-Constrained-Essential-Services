@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Margin Sums of a Sparse Matrix or Sparse Array</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for marginSumsSparse {spatstat.sparse}"><tr><td>marginSumsSparse {spatstat.sparse}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Margin Sums of a Sparse Matrix or Sparse Array
+</h2>
+
+<h3>Description</h3>
+
+<p>For a sparse matrix or sparse array, compute the sum of array entries
+for a specified margin or margins.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+marginSumsSparse(X, MARGIN)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A matrix, an array,
+a sparse matrix (of class <code>"sparseMatrix"</code> from the
+<span class="pkg">Matrix</span> package) or a sparse three-dimensional array
+(of class <code>"sparse3Darray"</code> from the
+<span class="pkg">spatstat.sparse</span> package).
+</p>
+</td></tr>
+<tr valign="top"><td><code>MARGIN</code></td>
+<td>
+
+<p>Integer or integer vector specifying the margin or margins.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the equivalent of
+<code><a href="../../base/help/apply.html">apply</a>(X, MARGIN, sum)</code>
+for sparse matrices and arrays <code>X</code>. The argument <code>X</code> may be
+</p>
+
+<ul>
+<li><p> a matrix
+</p>
+</li>
+<li><p> an array of any number of dimensions
+</p>
+</li>
+<li><p> a sparse matrix (object inheriting class <code>"sparseMatrix"</code>
+in the <span class="pkg">Matrix</span> package)
+</p>
+</li>
+<li><p> a sparse three-dimensional array (of class
+<code>"sparse3Darray"</code> 
+from the <span class="pkg">spatstat.sparse</span> package).
+</p>
+</li></ul>
+
+<p>In the first two cases, the computation is performed by
+calling   <code><a href="../../base/help/apply.html">apply</a>(X, MARGIN, sum)</code>
+and the result is a vector, matrix or array.
+In the last two cases, the result is a single value, a sparse vector,
+a sparse matrix, or a sparse three-dimensional array.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single value, vector, matrix, array,
+sparse vector (class <code>"sparseVector"</code> in the <span class="pkg">Matrix</span>
+package), sparse matrix (class <code>"sparseMatrix"</code> in the
+<span class="pkg">Matrix</span> package), or sparse three-dimensional array
+(class <code>"sparse3Darray"</code> 
+from the <span class="pkg">spatstat.sparse</span> package).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/apply.html">apply</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  M &lt;- sparse3Darray(i=1:3, j=c(3,1,2), k=4:2,
+                     x=round(runif(3), 2), dims=rep(4, 3))
+  marginSumsSparse(M, 1:2)
+  marginSumsSparse(M, 1)
+  marginSumsSparse(M, integer(0)) # equivalent to sum(M)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.sparse</em> version 3.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linfun {spatstat.linnet}"><tr><td>linfun {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Function on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a function on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  linfun(f, L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>)
+on which <code>f</code> is defined.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This creates an object of class <code>"linfun"</code>.
+This is a simple mechanism for handling a function
+defined on a linear network, to make it easier to display
+and manipulate.
+</p>
+<p><code>f</code> should be a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+with formal arguments <code>x,y,seg,tp</code> (and optional additional
+arguments) where <code>x,y</code> are
+Cartesian coordinates of locations on the linear network,
+<code>seg, tp</code> are the local coordinates. 
+</p>
+<p>The function <code>f</code> should be vectorised: that is,
+if <code>x,y,seg,tp</code> are numeric vectors of the same length
+<code>n</code>, then <code>v &lt;- f(x,y,seg,tp)</code>
+should be a vector of length <code>n</code>.
+</p>
+<p><code>L</code> should be a linear network (object of class <code>"linnet"</code>)
+on which the function <code>f</code> is well-defined.
+</p>
+<p>The result is a function <code>g</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language which belongs to
+the special class <code>"linfun"</code>. There are several methods
+for this class including <code>print</code>, <code>plot</code>
+and <code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code>.
+</p>
+<p>This function can be called as <code>g(X)</code>
+where <code>X</code> is an <code>"lpp"</code> object,
+or called as <code>g(x,y)</code> or <code>g(x,y,seg,tp)</code> where
+<code>x,y,seg,tp</code> are coordinates. If the original function <code>f</code>
+had additional arguments, then these may be included in the call
+to <code>g</code>, and will be passed to <code>f</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>\ language.
+It also belongs to the class <code>"linfun"</code> which has methods
+for <code>plot</code>, <code>print</code> etc.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/methods.linfun.html">methods.linfun</a></code> for methods applicable to
+<code>"linfun"</code> objects.
+</p>
+<p><code><a href="../../spatstat.linnet/help/distfun.lpp.html">distfun.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/nnfun.lpp.html">nnfun.lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- function(x,y,seg,tp) { x+y }
+  g &lt;- linfun(f, simplenet)
+  plot(g)
+  X &lt;- runiflpp(3, simplenet)
+  g(X)
+  Z &lt;- as.linim(g)
+
+  f &lt;- function(x,y,seg,tp, mul=1) { mul*(x+y) }
+  g &lt;- linfun(f, simplenet)
+  plot(g)
+  plot(g, mul=10)
+  g(X, mul=10)
+  Z &lt;- as.linim(g, mul=10)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

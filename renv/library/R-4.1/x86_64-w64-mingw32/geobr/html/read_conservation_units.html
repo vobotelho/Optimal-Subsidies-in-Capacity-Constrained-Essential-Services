@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download spatial data of Brazilian environmental conservation...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read_conservation_units {geobr}"><tr><td>read_conservation_units {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download spatial data of Brazilian environmental conservation units</h2>
+
+<h3>Description</h3>
+
+<p>This data set covers the whole of Brazil and it includes the polygons of all
+conservation units present in Brazilian territory. The last update of the data
+was 09-2019. The original data comes from MMA and can be found at &quot;http://mapas.mma.gov.br/i3geo/datadownload.htm&quot;.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read_conservation_units(
+  date = 201909,
+  simplified = TRUE,
+  showProgress = TRUE,
+  cache = TRUE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>date</code></td>
+<td>
+<p>Numeric. Date of the data in YYYYMM format. Defaults to <code>201909</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>simplified</code></td>
+<td>
+<p>Logic <code>FALSE</code> or <code>TRUE</code>, indicating whether the function
+should return the data set with 'original' spatial resolution or a data set
+with 'simplified' geometry. Defaults to <code>TRUE</code>. For spatial analysis and
+statistics users should set <code>simplified = FALSE</code>. Borders have been
+simplified by removing vertices of borders using <code style="white-space: pre;">st_simplify{sf}</code> preserving
+topology with a <code>dTolerance</code> of 100.</p>
+</td></tr>
+<tr valign="top"><td><code>showProgress</code></td>
+<td>
+<p>Logical. Defaults to <code>TRUE</code> display progress bar.</p>
+</td></tr>
+<tr valign="top"><td><code>cache</code></td>
+<td>
+<p>Logical. Whether the function should read the data cached
+locally, which is faster. Defaults to <code>cache = TRUE</code>. By default,
+<code>geobr</code> stores data files in a temporary directory that exists only
+within each R session. If <code>cache = FALSE</code>, the function will download
+the data again and overwrite the local file.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An <code style="white-space: pre;">"sf" "data.frame"</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other general area functions: 
+<code><a href="../../geobr/help/read_census_tract.html">read_census_tract</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# Read conservation_units
+b &lt;- read_conservation_units(date = 201909)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

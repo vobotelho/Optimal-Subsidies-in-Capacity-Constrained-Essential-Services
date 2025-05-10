@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quadrature Scheme on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linequad {spatstat.linnet}"><tr><td>linequad {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Quadrature Scheme on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates a quadrature scheme (an object of class <code>"quad"</code>)
+on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linequad(X, Y, ..., eps = NULL, nd = 1000, random = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data points. An object of class <code>"lpp"</code> or <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>Line segments on which the points of <code>X</code> lie.
+An object of class <code>"psp"</code>.
+Required only when <code>X</code> is a <code>"ppp"</code> object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Optional. Spacing between successive dummy points along each
+segment. (This is the maximum spacing; some spacings will be shorter.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>nd</code></td>
+<td>
+
+<p>Optional. Total number of dummy points to be generated.
+(Actual number may be larger.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>random</code></td>
+<td>
+
+<p>Logical value indicating whether the sequence of dummy points
+should start at a randomly-chosen position along each segment.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command generates a quadrature scheme (object of class
+<code>"quad"</code>) from a pattern of points on a linear network.
+</p>
+<p>Normally the user does not need to call <code>linequad</code> explicitly.
+It is invoked by <span class="pkg">spatstat</span> functions when needed.
+A quadrature scheme is required by <code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>
+in order to fit point process models to point pattern data on a linear
+network. A quadrature scheme is also used by <code><a href="../../spatstat.linnet/help/rhohat.lpp.html">rhohat.lpp</a></code>
+and other functions.
+</p>
+<p>In order to create the quadrature scheme, dummy points are placed
+along each line segment of the network. The dummy points are 
+evenly-spaced with spacing <code>eps</code>. The default is
+<code>eps = totlen/nd</code> where <code>totlen</code> is the total length of
+all line segments in the network.
+</p>
+<p>Every line segment of the network will contain at least one dummy
+point. Consequently the actual number of dummy points generated
+will typically be greater than <code>nd</code>,
+especially when <code>nd</code> is small.
+If <code>eps</code> is specified, the
+number of dummy points will be greater than <code>totlen/eps</code>,
+especially when <code>eps</code> is large.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A quadrature scheme (object of class <code>"quad"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Greg McSwiggan and Suman Rakshit.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

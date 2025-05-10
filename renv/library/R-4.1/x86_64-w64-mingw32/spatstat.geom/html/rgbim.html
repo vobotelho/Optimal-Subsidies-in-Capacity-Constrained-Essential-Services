@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create Colour-Valued Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rgbim {spatstat.geom}"><tr><td>rgbim {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create Colour-Valued Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of
+class <code>"im"</code> representing a two-dimensional pixel image
+whose pixel values are colours.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rgbim(R, G, B, A, maxColorValue=255, autoscale=FALSE)
+  hsvim(H, S, V, A, autoscale=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>R,G,B</code></td>
+<td>
+
+<p>Pixel images (objects of class <code>"im"</code>) or constants
+giving the red, green, and blue components of a colour, respectively.
+</p>
+</td></tr>
+<tr valign="top"><td><code>A</code></td>
+<td>
+
+<p>Optional. Pixel image or constant value
+giving the alpha (transparency) component of a colour.
+</p>
+</td></tr>
+<tr valign="top"><td><code>maxColorValue</code></td>
+<td>
+
+<p>Maximum colour channel value for <code>R,G,B,A</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>H,S,V</code></td>
+<td>
+
+<p>Pixel images (objects of class <code>"im"</code>) or constants
+giving the hue, saturation, and value components of
+a colour, respectively.
+</p>
+</td></tr>
+<tr valign="top"><td><code>autoscale</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, input values are automatically rescaled
+to fit the permitted range. RGB values are scaled to lie between
+0 and <code>maxColorValue</code>. HSV values are scaled to lie between 0
+and 1.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions take three pixel images, with real or integer pixel values,
+and create a single pixel image whose pixel values are colours
+recognisable to <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+<p>Some of the arguments may be constant numeric values, but
+at least one of the arguments must be a pixel image.
+The image arguments should be compatible (in array dimension
+and in spatial position).
+</p>
+<p><code>rgbim</code> calls <code><a href="../../grDevices/html/rgb.html">rgb</a></code> to compute the colours,
+while <code>hsvim</code> calls <code><a href="../../grDevices/html/hsv.html">hsv</a></code>. See the help for the relevant
+function for more information about the meaning of the colour
+channels.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../grDevices/html/rgb.html">rgb</a></code>,
+<code><a href="../../grDevices/html/hsv.html">hsv</a></code>.
+</p>
+<p>See <code><a href="../help/colourtools.html">colourtools</a></code>
+for additional colour tools.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  
+  # create three images with values in [0,1]
+  X &lt;- setcov(owin())
+  X &lt;- eval.im(pmin(1,X))
+  M &lt;- Window(X)
+  Y &lt;- as.im(function(x,y){(x+1)/2}, W=M)
+  Z &lt;- as.im(function(x,y){(y+1)/2}, W=M)
+  # convert 
+  RGB &lt;- rgbim(X, Y, Z, maxColorValue=1)
+  HSV &lt;- hsvim(X, Y, Z)
+  opa &lt;- par(mfrow=c(1,2))
+  plot(RGB, valuesAreColours=TRUE)
+  plot(HSV, valuesAreColours=TRUE)
+  par(opa)
+  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

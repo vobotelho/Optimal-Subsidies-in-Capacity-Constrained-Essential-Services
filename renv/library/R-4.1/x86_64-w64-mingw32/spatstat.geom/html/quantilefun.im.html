@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantile Function for Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quantilefun.im {spatstat.geom}"><tr><td>quantilefun.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Quantile Function for Images
+</h2>
+
+<h3>Description</h3>
+
+<p>Return the inverse function of the cumulative distribution function
+of pixel values in an image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'im'
+quantilefun(x, ..., type=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Integer specifying the type of quantiles,
+as explained in <code><a href="../../stats/help/quantile.default.html">quantile.default</a></code>.
+Only types 1 and 2 are currently implemented.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Whereas the command <code><a href="../../stats/help/quantile.html">quantile</a></code> calculates
+the quantiles of a dataset corresponding to desired probabilities
+<i>p</i>, the command <code>quantilefun</code>
+returns a function which can be used to compute any quantiles of the
+dataset. 
+</p>
+<p>If <code>f &lt;- quantilefun(x)</code> then <code>f</code> is a function such that
+<code>f(p)</code> is the quantile associated with any given probability <code>p</code>.
+For example <code>f(0.5)</code> is the median of the original data, and
+<code>f(0.99)</code> is the 99th percentile of the original data.
+</p>
+<p>If <code>x</code> is a pixel image (object of class <code>"im"</code>)
+then the pixel values of <code>x</code> will be extracted
+and the quantile function of the pixel values is constructed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/quantilefun.html">quantilefun</a></code>,
+<code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>, 
+<code><a href="../../spatstat.univar/help/quantile.ewcdf.html">quantile.ewcdf</a></code>, 
+<code><a href="../../stats/help/ecdf.html">ecdf</a></code>,
+<code><a href="../../stats/help/quantile.html">quantile</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## image data: terrain elevation
+  Z &lt;- bei.extra$elev
+  if(require(spatstat.explore)) {
+    FE &lt;- spatialcdf(Z, normalise=TRUE)
+  } else {
+    FE &lt;- ecdf(Z[])
+  }
+  QE &lt;- quantilefun(FE)
+  QE(0.5) # median elevation
+  if(interactive()) plot(QE, xlim=c(0,1),
+     xlab="probability", ylab="quantile of elevation")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

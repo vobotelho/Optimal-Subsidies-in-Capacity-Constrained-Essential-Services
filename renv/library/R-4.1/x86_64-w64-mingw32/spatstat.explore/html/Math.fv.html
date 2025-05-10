@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: S3 Group Generic Methods for Function Tables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Math.fv {spatstat.explore}"><tr><td>Math.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>S3 Group Generic Methods for Function Tables</h2>
+
+<h3>Description</h3>
+
+<p>These are group generic methods for objects of class <code>"fv"</code>, which
+allows for usual mathematical functions and operators to be applied
+directly to function tables. See Details for a list of implemented functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 methods for group generics have prototypes:
+Math(x, ...)
+Ops(e1, e2)
+Complex(z)
+Summary(..., na.rm=FALSE, drop=TRUE)
+
+
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, z, e1, e2</code></td>
+<td>
+<p>objects of class <code>"fv"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to methods.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+
+<p>Logical value specifying whether missing values
+should be removed. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Below is a list of mathematical functions and operators which are
+defined for objects of class <code>"fv"</code>.
+The methods are implemented using <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>, which tries
+to harmonise the functions via <code><a href="../../spatstat.explore/help/harmonise.fv.html">harmonise.fv</a></code> if they aren't
+compatible to begin with.
+</p>
+
+<ol>
+<li><p> Group <code>"Math"</code>:
+</p>
+
+<ul>
+<li>
+<p><code>abs</code>, <code>sign</code>, <code>sqrt</code>,<br />
+<code>floor</code>, <code>ceiling</code>, <code>trunc</code>,<br />
+<code>round</code>, <code>signif</code>
+</p>
+</li>
+<li>
+<p><code>exp</code>, <code>log</code>,  <code>expm1</code>, <code>log1p</code>,<br />
+<code>cos</code>, <code>sin</code>, <code>tan</code>,<br />
+<code>cospi</code>, <code>sinpi</code>, <code>tanpi</code>,<br />
+<code>acos</code>, <code>asin</code>, <code>atan</code>
+</p>
+<p><code>cosh</code>, <code>sinh</code>, <code>tanh</code>,<br />
+<code>acosh</code>, <code>asinh</code>, <code>atanh</code>
+</p>
+</li>
+<li>
+<p><code>lgamma</code>, <code>gamma</code>, <code>digamma</code>, <code>trigamma</code>
+</p>
+</li>
+<li> <p><code>cumsum</code>, <code>cumprod</code>, <code>cummax</code>, <code>cummin</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Ops"</code>:
+</p>
+
+<ul>
+<li>
+<p><code>"+"</code>, <code>"-"</code>, <code>"*"</code>, <code>"/"</code>,
+<code>"^"</code>, <code>"%%"</code>, <code>"%/%"</code>
+</p>
+</li>
+<li> <p><code>"&amp;"</code>, <code>"|"</code>, <code>"!"</code>
+</p>
+</li>
+<li> <p><code>"=="</code>, <code>"!="</code>,
+<code>"&lt;"</code>, <code>"&lt;="</code>, <code>"&gt;="</code>, <code>"&gt;"</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Summary"</code>:
+</p>
+
+<ul>
+<li> <p><code>all</code>, <code>any</code>
+</p>
+</li>
+<li> <p><code>sum</code>, <code>prod</code>
+</p>
+</li>
+<li> <p><code>min</code>, <code>max</code>
+</p>
+</li>
+<li> <p><code>range</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Complex"</code>:
+</p>
+
+<ul>
+<li> <p><code>Arg</code>, <code>Conj</code>, <code>Im</code>, <code>Mod</code>, <code>Re</code>
+</p>
+</li></ul>
+
+</li></ol>
+
+<p>For the <code>Ops</code> group, one of the arguments is permitted to be
+a single atomic value instead of a function table.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code> for evaluating expressions involving function tables.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Convert K function to L function
+  K &lt;- Kest(cells)
+  L &lt;- sqrt(K/pi)
+  ## Manually calculate J function
+  FR &lt;- Fest(redwood)
+  GR &lt;- Gest(redwood)
+  suppressWarnings(JR &lt;- (1-GR)/(1-FR))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

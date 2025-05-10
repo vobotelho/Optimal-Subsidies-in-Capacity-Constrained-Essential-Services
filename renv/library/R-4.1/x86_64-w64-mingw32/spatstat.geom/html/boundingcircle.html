@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Smallest Enclosing Circle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for boundingcircle {spatstat.geom}"><tr><td>boundingcircle {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Smallest Enclosing Circle
+</h2>
+
+<h3>Description</h3>
+
+<p>Find the smallest circle enclosing a spatial window
+or other object. Return its radius, or the location of its centre,
+or the circle itself.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+boundingradius(x, ...)
+
+boundingcentre(x, ...)
+
+boundingcircle(x, ...)
+
+## S3 method for class 'owin'
+boundingradius(x, ...)
+
+## S3 method for class 'owin'
+boundingcentre(x, ...)
+
+## S3 method for class 'owin'
+boundingcircle(x, ...)
+
+## S3 method for class 'ppp'
+boundingradius(x, ...)
+
+## S3 method for class 'ppp'
+boundingcentre(x, ...)
+
+## S3 method for class 'ppp'
+boundingcircle(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>), or another spatial object. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine the
+pixel resolution for the calculation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>boundingcircle</code> of a spatial region <i>W</i> is the smallest circle
+that contains <i>W</i>. The <code>boundingradius</code> is the radius of this circle,
+and the <code>boundingcentre</code> is the centre of the circle.
+</p>
+<p>The functions <code>boundingcircle</code>, <code>boundingcentre</code> and
+<code>boundingradius</code> are generic. There are methods
+for objects of class <code>"owin"</code>, <code>"ppp"</code> and <code>"linnet"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>boundingradius</code> is a single numeric value.
+</p>
+<p>The result of <code>boundingcentre</code> is a point pattern containing a
+single point.
+</p>
+<p>The result of <code>boundingcircle</code> is a window representing the
+boundingcircle.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/diameter.html">diameter</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  boundingradius(letterR)
+
+  plot(grow.rectangle(Frame(letterR), 0.2), main="", type="n")
+  plot(letterR, add=TRUE, col="grey")
+  plot(boundingcircle(letterR), add=TRUE, border="green", lwd=2)
+  plot(boundingcentre(letterR), pch="+", cex=2, col="blue", add=TRUE)
+
+  X &lt;- runifrect(5)
+  plot(X)
+  plot(boundingcircle(X), add=TRUE)
+  plot(boundingcentre(X), pch="+", cex=2, col="blue", add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download geopackage to tempdir</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for download_gpkg {geobr}"><tr><td>download_gpkg {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download geopackage to tempdir</h2>
+
+<h3>Description</h3>
+
+<p>Download geopackage to tempdir
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+download_gpkg(
+  file_url = parent.frame()$file_url,
+  showProgress = parent.frame()$showProgress,
+  cache = parent.frame()$cache
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file_url</code></td>
+<td>
+<p>A string with the file_url address of a geobr dataset</p>
+</td></tr>
+<tr valign="top"><td><code>showProgress</code></td>
+<td>
+<p>Logical. Defaults to <code>TRUE</code> display progress bar.</p>
+</td></tr>
+<tr valign="top"><td><code>cache</code></td>
+<td>
+<p>Logical. Whether the function should read the data cached
+locally, which is faster. Defaults to <code>cache = TRUE</code>. By default,
+<code>geobr</code> stores data files in a temporary directory that exists only
+within each R session. If <code>cache = FALSE</code>, the function will download
+the data again and overwrite the local file.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

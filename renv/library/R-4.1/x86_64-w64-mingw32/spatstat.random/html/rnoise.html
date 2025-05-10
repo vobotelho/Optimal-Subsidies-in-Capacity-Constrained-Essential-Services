@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Pixel Noise</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rnoise {spatstat.random}"><tr><td>rnoise {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Random Pixel Noise
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a pixel image whose pixel values are random numbers
+following a specified probability distribution.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rnoise(rgen = runif, w = square(1), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rgen</code></td>
+<td>
+
+<p>Random generator for the pixel values.
+A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>Window (region or pixel raster) in which to generate the image.
+Any data acceptable to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments, matched by name,
+to be passed to <code>rgen</code> to specify the parameters of the
+probability distribution, or passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>w</code> could be a window (class <code>"owin"</code>),
+a pixel image (class <code>"im"</code>) or other data. It is 
+first converted to a binary mask by <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+using any relevant arguments in <code>...</code>.
+</p>
+<p>Then each pixel inside the window (i.e. with logical value
+<code>TRUE</code> in the mask) is assigned a random numerical value
+by calling the function <code>rgen</code>.
+</p>
+<p>The function <code>rgen</code> would typically be one of the standard
+random variable generators like <code><a href="../../stats/html/Uniform.html">runif</a></code> (uniformly
+distributed random values) or <code><a href="../../stats/html/Normal.html">rnorm</a></code> (Gaussian random
+values). Its first argument <code>n</code> is the number of values to be
+generated. Other arguments to <code>rgen</code> must be matched by name.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>,
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>,
+<code><a href="../../stats/help/Distributions.html">Distributions</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(rnoise(), main="Uniform noise")
+  plot(rnoise(rnorm, dimyx=32, mean=2, sd=1),
+       main="White noise")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

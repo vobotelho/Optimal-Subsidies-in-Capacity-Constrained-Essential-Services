@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Default Expansion Rule for Simulation of Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for default.expand {spatstat.random}"><tr><td>default.expand {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Default Expansion Rule for Simulation of Model</h2>
+
+<h3>Description</h3>
+
+<p>Defines the default expansion window or expansion rule
+for simulation of a point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  default.expand(object, m=2, epsilon=1e-6, w=Window(object))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A point process model (object of class <code>"ppm"</code>
+or <code>"rmhmodel"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>m</code></td>
+<td>
+
+<p>A single numeric value.
+The window will be expanded by a distance 
+<code>m * reach(object)</code> along each side.
+</p>
+</td></tr>
+<tr valign="top"><td><code>epsilon</code></td>
+<td>
+
+<p>Threshold argument passed to <code><a href="../help/reach.html">reach</a></code> to determine
+<code>reach(object)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>Optional. The un-expanded window in which the model is defined.
+The resulting simulated point patterns will lie in this window. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes a default value for the
+expansion rule (the argument <code>expand</code> in <code><a href="../help/rmhcontrol.html">rmhcontrol</a></code>)
+given a fitted point process model <code>object</code>.
+This default is used by
+<code><a href="../help/rmh.html">rmh</a></code>,
+<code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>,
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>, 
+<code><a href="../../spatstat.model/help/qqplot.ppm.html">qqplot.ppm</a></code>,
+and other functions.
+</p>
+<p>Suppose we wish to generate simulated realisations
+of a fitted point process model inside a window <code>w</code>.
+It is advisable to first simulate
+the pattern on a larger window, and then clip it to the original
+window <code>w</code>. This avoids edge effects in the simulation.
+It is called <em>expansion</em> of the simulation window.
+</p>
+<p>Accordingly, for the Metropolis-Hastings simulation algorithm
+<code><a href="../help/rmh.html">rmh</a></code>, the algorithm control parameters specified by
+<code><a href="../help/rmhcontrol.html">rmhcontrol</a></code> include an argument <code>expand</code> that
+determines the expansion of the simulation window.
+</p>
+<p>The function <code>default.expand</code> determines the default expansion
+rule for a fitted point process model <code>object</code>.
+</p>
+<p>If the model is Poisson, then no expansion is necessary.
+No expansion is performed by default,
+and <code>default.expand</code> returns a rule representing no expansion.
+The simulation window is the original window <code>w = Window(object)</code>.
+</p>
+<p>If the model depends on external covariates (i.e.\ covariates other than
+the Cartesian covariates <code>x</code> and <code>y</code> and the <code>marks</code>)
+then no expansion is feasible, in general, because the spatial domain
+of the covariates is not guaranteed to be large enough.
+<code>default.expand</code> returns a rule representing no expansion.
+The simulation window is the original window <code>w = Window(object)</code>.
+</p>
+<p>If the model depends on the Cartesian covariates <code>x</code> and <code>y</code>,
+it would be feasible to expand the simulation window, and this was the
+default for <span class="pkg">spatstat</span> version 1.24-1 and earlier.
+However this sometimes produces artefacts (such as an empty point pattern)
+or memory overflow, because the fitted trend, extrapolated outside the
+original window of the data, may become very large.
+In <span class="pkg">spatstat</span> version 1.24-2 and later, the
+default rule is <em>not</em> to expand if the model depends
+on <code>x</code> or <code>y</code>.
+Again <code>default.expand</code> returns a rule representing no expansion.
+</p>
+<p>Otherwise, expansion will occur.
+The original window <code>w = Window(object)</code> is expanded by
+a distance <code>m * rr</code>, where
+<code>rr</code> is the interaction range of the model, computed by
+<code><a href="../help/reach.html">reach</a></code>. If <code>w</code> is a rectangle then
+each edge of <code>w</code> is displaced outward by distance <code>m * rr</code>.
+If <code>w</code> is not a rectangle then <code>w</code> is dilated by
+distance <code>m * rr</code> using <code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window expansion rule (object of class <code>"rmhexpand"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rmhexpand.html">rmhexpand</a></code>,
+<code><a href="../help/rmhcontrol.html">rmhcontrol</a></code>,
+<code><a href="../help/rmh.html">rmh</a></code>,
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>,
+<code><a href="../../spatstat.model/help/qqplot.ppm.html">qqplot.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(spatstat.model)) {
+  fit &lt;- ppm(cells ~1, Strauss(0.07))
+  default.expand(fit)
+}
+  mod &lt;- rmhmodel(cif="strauss", par=list(beta=100, gamma=0.5, r=0.07))
+  default.expand(mod)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

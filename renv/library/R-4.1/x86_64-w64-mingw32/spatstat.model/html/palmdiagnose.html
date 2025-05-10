@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Diagnostic based on Palm Intensity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for palmdiagnose {spatstat.model}"><tr><td>palmdiagnose {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Diagnostic based on Palm Intensity
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted cluster process or Cox process model,
+calculate a diagnostic which compares nonparametric and parametric
+estimates of the Palm intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+palmdiagnose(object, ..., breaks = 30, trim = 30, rmax=Inf)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted model (object of class <code>"kppm"</code>)
+or a list of fitted models.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional.
+Additional arguments which are fitted models of class <code>"kppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Optional argument passed to <code><a href="../../base/help/cut.default.html">cut.default</a></code>
+determining the breakpoints of distance values 
+for the nonparametric estimate. Either an integer specifying the
+number of breakpoints, or a numeric vector of distance values to be
+used as the breakpoints.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>Optional. Maximum value of the translation edge correction weight.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum interpoint distance <i>r</i> that should be
+considered. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the diagnostic proposed by
+Tanaka, Ogata and Stoyan (2008, Section 2.3)
+for assessing goodness-of-fit of a Neyman-Scott cluster process model
+to a point pattern dataset.
+</p>
+<p>The fitted model <code>object</code> should be an object of class <code>"kppm"</code>
+representing a Neyman-Scott cluster process model or a Cox process
+model. In the current implementation, the model must be stationary.
+</p>
+<p>The code computes parametric and non-parametric estimates of the
+Palm intensity <i>&lambda;[0](r)</i>, loosely speaking,
+the intensity of the point process given that there is a point at the origin.
+The parametric estimate is obtained from the fitted model by
+substituting the fitted parameter estimates into
+expressions for the pair correlation and the intensity.
+</p>
+<p>The non-parametric estimate is obtained by considering all pairs of
+data points, dividing the range of interpoint distances into
+several equally-spaced bands (determined by the argument
+<code>breaks</code>), counting the number of pairs of points whose
+interpoint distances fall in each band, and numerically adjusting for
+edge effects. Tanaka, Ogata and Stoyan (2008) used the
+periodic (toroidal) edge correction; our code uses the
+translation edge correction so that the method can be applied to
+data in any window.
+</p>
+<p>The result is a function value table (object of class <code>"fv"</code>)
+containing the nonparametric and parametric estimates of the Palm
+intensity. The result also belongs to the class <code>"palmdiag"</code>
+which has a method for <code>plot</code>. The default behaviour of
+<code><a href="../../spatstat.model/help/plot.palmdiag.html">plot.palmdiag</a></code> is to plot the model fit as a curve,
+and to display the nonparametric estimates as dots; this is the plot style
+proposed by Tanaka, Ogata and Stoyan (2008). Alternative display
+styles are also supported by <code><a href="../../spatstat.model/help/plot.palmdiag.html">plot.palmdiag</a></code>.
+</p>
+<p>For computational efficiency, the argument <code>rmax</code>
+specifies the maximum value of interpoint distance <i>r</i>
+for which estimates of <i>&lambda;[0](r)</i> shall be computed.
+The default <code>rmax = Inf</code> implies
+there is no constraint on interpoint distance,
+and the resulting function object contains estimates of
+<i>&lambda;[0](r)</i> up to
+the maximum distance that would have been observable
+in the window containing the original point pattern data. 
+</p>
+<p>If there are additional arguments <code>...</code> which are fitted models
+of class <code>"kppm"</code>, or if <code>object</code> is a list of fitted models
+of class <code>"kppm"</code>, then the parametric estimates for each
+of the fitted models will be included in the resulting function object.
+If names are attached to these fitted models, the names will be used
+in the resulting function object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>) containing the
+nonparametric and parametric estimates of the Palm intensity.
+Also belongs to the class <code>"palmdiag"</code> which has a <code>plot</code> method.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Tanaka, U., Ogata, Y. and Stoyan, D. (2008)
+Parameter estimation and model selection for Neyman-Scott Point
+Processes.
+<em>Biometrical Journal</em> <b>50</b>, 1, 43&ndash;57.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/plot.palmdiag.html">plot.palmdiag</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fitK &lt;- kppm(redwood)
+   R &lt;- palmdiagnose(fitK)
+   plot(R)
+
+   fitg &lt;- kppm(redwood, statistic="pcf")
+   R2 &lt;- palmdiagnose(A=fitK, B=fitg)
+   plot(R2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

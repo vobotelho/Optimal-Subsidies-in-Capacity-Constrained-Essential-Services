@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Network Tessellation to Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.data.frame.lintess {spatstat.linnet}"><tr><td>as.data.frame.lintess {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Network Tessellation to Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Converts a tessellation on a linear network into a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lintess'
+as.data.frame(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Tessellation on a linear network (object of class <code>"lintess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Further arguments passed to
+<code><a href="../../base/help/as.data.frame.html">as.data.frame.default</a></code>
+to determine the row names and other features.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tessellation on a linear network is a partition of the
+network into non-overlapping pieces (tiles). Each tile consists of one
+or more line segments which are subsets of the line segments making up
+the network. A tile can consist of several disjoint pieces.
+</p>
+<p>This function converts the tessellation <code>x</code> to a data frame.
+Each row of the data frame specifies one sub-segment of the network,
+and allocates it to a particular tile. The data frame has the
+following columns:
+</p>
+
+<ul>
+<li><p> The <code>seg</code> column specifies which line segment of the network
+contains the sub-segment. Values of <code>seg</code> are integer indices
+for the network segments in <code>as.psp(as.linnet(x))</code>.
+</p>
+</li>
+<li><p> The <code>t0</code> and <code>t1</code> columns specify the start and end points
+of the sub-segment. They are numeric values between 0 and 1
+inclusive, where the values 0 and 1 representing the network vertices
+that are joined by this network segment.
+</p>
+</li>
+<li><p> The <code>tile</code> column specifies which tile of the tessellation
+includes this sub-segment. It is a factor whose 
+levels are the names of the tiles.
+</p>
+</li></ul>
+
+<p>The tessellation may have marks, which are attached to the <em>tiles</em>
+of the tessellation. If marks are present, the resulting data frame
+includes columns containing, for each sub-segment,
+the mark value of the corresponding tile.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with columns named <code>seg</code>, <code>t0</code>, <code>t1</code>,
+<code>tile</code>, and possibly other columns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- lineardirichlet(runiflpp(3, simplenet))
+  marks(X) &lt;- letters[1:3]
+  as.data.frame(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

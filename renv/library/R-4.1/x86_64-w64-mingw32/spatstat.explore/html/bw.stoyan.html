@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Stoyan's Rule of Thumb for Bandwidth Selection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.stoyan {spatstat.explore}"><tr><td>bw.stoyan {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Stoyan's Rule of Thumb for Bandwidth Selection
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes a rough estimate of the appropriate bandwidth
+for kernel smoothing estimators of the pair correlation function
+and other quantities.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bw.stoyan(X, co=0.15)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>co</code></td>
+<td>
+
+<p>Coefficient appearing in the rule of thumb. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Estimation of the pair correlation function and other quantities
+by smoothing methods requires a choice of the smoothing bandwidth.
+Stoyan and Stoyan (1995, equation (15.16), page 285) proposed a
+rule of thumb for choosing the smoothing bandwidth.
+</p>
+<p>For the Epanechnikov kernel, the rule of thumb is to set
+the kernel's half-width <i>h</i> to
+<i>0.15/sqrt(&lambda;)</i> where
+<i>&lambda;</i> is the estimated intensity of the point pattern,
+typically computed as the number of points of <code>X</code> divided by the
+area of the window containing <code>X</code>.
+</p>
+<p>For a general kernel, the corresponding rule is to set the
+standard deviation of the kernel to
+<i>&sigma; = 0.15/sqrt(5 * &lambda;)</i>.
+</p>
+<p>The coefficient <i>0.15</i> can be tweaked using the
+argument <code>co</code>.
+</p>
+<p>To ensure the bandwidth is finite, an empty point pattern is treated
+as if it contained 1 point.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A finite positive numerical value giving the selected bandwidth (the standard
+deviation of the smoothing kernel).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Stoyan, D. and Stoyan, H. (1995)
+Fractals, random shapes and point fields:
+methods of geometrical statistics.
+John Wiley and Sons.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>,
+<code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  bw.stoyan(shapley)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

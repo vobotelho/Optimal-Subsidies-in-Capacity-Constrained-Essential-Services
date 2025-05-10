@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Dimension of a Dataset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatdim {spatstat.geom}"><tr><td>spatdim {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial Dimension of a Dataset</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the spatial dimension of an object in the
+<span class="pkg">spatstat</span> package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>spatdim(X, intrinsic=FALSE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object belonging to any class defined in the
+<span class="pkg">spatstat</span> package.
+</p>
+</td></tr>
+<tr valign="top"><td><code>intrinsic</code></td>
+<td>
+
+<p>Logical value indicating whether to return the
+number of intrinsic dimensions. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function returns the number of spatial coordinate dimensions
+of the dataset <code>X</code>. The results for some of the more common
+types of objects are as follows:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <b>object class</b> </td><td style="text-align: left;"> <b>dimension</b> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"ppp"</code> </td><td style="text-align: left;"> 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"lpp"</code> </td><td style="text-align: left;"> 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"pp3"</code> </td><td style="text-align: left;"> 3 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"ppx"</code> </td><td style="text-align: left;"> number of <em>spatial</em> dimensions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"owin"</code> </td><td style="text-align: left;"> 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"psp"</code> </td><td style="text-align: left;"> 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"ppm"</code> </td><td style="text-align: left;"> 2
+  </td>
+</tr>
+
+</table>
+
+<p>Note that time dimensions are not counted.
+</p>
+<p>Some spatial objects are lower-dimensional subsets of the
+space in which they live. This lower number of dimensions
+is returned if <code>intrinsic=TRUE</code>. For example, a dataset
+on a linear network
+(an object <code>X</code> of class <code>"linnet", "lpp", "linim", "linfun"</code>
+or <code>"lintess"</code>) returns <code>spatdim(X) = 2</code> but
+<code>spatdim(X, intrinsic=TRUE) = 1</code>.
+</p>
+<p>If <code>X</code> is not a recognised spatial object, the result is <code>NA</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer, or <code>NA</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  spatdim(lansing)
+  A &lt;- osteo$pts[[1]]
+  spatdim(A)
+  spatdim(domain(A))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

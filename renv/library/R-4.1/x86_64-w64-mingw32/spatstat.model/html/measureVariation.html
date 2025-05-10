@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Positive and Negative Parts, and Variation, of a Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for measureVariation {spatstat.model}"><tr><td>measureVariation {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Positive and Negative Parts, and Variation, of a Measure
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a measure <code>A</code> (object of class <code>"msr"</code>)
+these functions find the positive part, negative part and variation
+of <code>A</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+measurePositive(x)
+measureNegative(x)
+measureVariation(x)
+totalVariation(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>measurePositive</code> and <code>measureNegative</code>
+return the positive and negative parts of the measure,
+and <code>measureVariation</code> returns the variation (sum of positive and
+negative parts). The function <code>totalVariation</code> returns the total
+variation norm.
+</p>
+<p>If <i>&mu;</i> is a signed measure,
+it can be represented as
+</p>
+<p style="text-align: center;"><i>&mu; = &mu;[+] - &mu;[-]</i></p>
+
+<p>where <i>&mu;[+]</i> and <i>&mu;[-]</i>
+are <em>nonnegative</em> measures called the positive and negative
+parts of <i>&mu;</i>.
+In a nutshell, the positive part of <i>&mu;</i>
+consists of all positive contributions or increments,
+and the negative part consists of all negative contributions
+multiplied by <code>-1</code>. 
+</p>
+<p>The variation <i>|&mu;|</i> is defined by 
+</p>
+<p style="text-align: center;"><i>&mu; = &mu;[+] + &mu;[-]</i></p>
+
+<p>and is also a nonnegative measure.
+</p>
+<p>The total variation norm is the integral of the variation. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>measurePositive</code>, <code>measureNegative</code>
+and <code>measureVariation</code> is another measure (object of class <code>"msr"</code>)
+on the same spatial domain.
+The result of <code>totalVariation</code> is a non-negative number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Halmos, P.R. (1950) <em>Measure Theory</em>. Van Nostrand.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/msr.html">msr</a></code>, <code><a href="../../spatstat.model/help/with.msr.html">with.msr</a></code>, <code><a href="../../spatstat.model/help/split.msr.html">split.msr</a></code>,
+<code><a href="../../spatstat.model/help/measureDiscrete.html">measureDiscrete</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X, ~x+y)
+   rp &lt;- residuals(fit, type="pearson")
+
+   measurePositive(rp)
+   measureNegative(rp)
+   measureVariation(rp)
+
+   # total variation norm
+   totalVariation(rp)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

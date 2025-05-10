@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantiles of a Density Estimate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quantile.density {spatstat.univar}"><tr><td>quantile.density {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Quantiles of a Density Estimate
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a kernel estimate of a probability density, compute quantiles.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'density'
+quantile(x, probs = seq(0, 1, 0.25), names = TRUE,
+        ..., warn = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"density"</code> computed by a method for
+<code><a href="../../stats/help/density.html">density</a></code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>probs</code></td>
+<td>
+
+<p>Numeric vector of probabilities for which the quantiles are required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>names</code></td>
+<td>
+
+<p>Logical value indicating whether to attach names (based on
+<code>probs</code>) to the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning if the
+density estimate <code>x</code> had to be renormalised because it
+was computed in a restricted interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function calculates quantiles of the probability distribution
+whose probability density has been estimated and stored in the object
+<code>x</code>. The object <code>x</code> must belong to the class <code>"density"</code>,
+and would typically have been obtained from a call to the function
+<code><a href="../../stats/help/density.html">density</a></code>.
+</p>
+<p>The probability density is first normalised so that the total
+probability is equal to 1. A warning is issued if the density
+estimate was restricted to an interval (i.e. if <code>x</code>
+was created by a call to   <code><a href="../../stats/help/density.html">density</a></code> which
+included either of the arguments <code>from</code> and <code>to</code>).
+</p>
+<p>Next, the density estimate is numerically integrated to obtain an estimate
+of the cumulative distribution function <i>F(x)</i>. Then
+for each desired probability <i>p</i>, the algorithm finds the
+corresponding quantile <i>q</i>.
+</p>
+<p>The quantile <i>q</i> corresponding to probability <i>p</i>
+satisfies <i>F(q) = p</i> up to
+the resolution of the grid of values contained in <code>x</code>.
+The quantile is computed from the right, that is,
+<i>q</i> is the smallest available value of <i>x</i> such that
+<i>F(x) &gt;= p</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector containing the quantiles.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.  
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/quantile.html">quantile</a></code>, 
+<code><a href="../../spatstat.univar/help/quantile.ewcdf.html">quantile.ewcdf</a></code>, 
+
+<code><a href="../../spatstat.univar/help/CDF.html">CDF</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   dd &lt;- density(runif(10))
+   quantile(dd)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

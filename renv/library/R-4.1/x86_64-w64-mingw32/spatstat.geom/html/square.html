@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Square Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for square {spatstat.geom}"><tr><td>square {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Square Window</h2>
+
+<h3>Description</h3>
+
+<p>Creates a square window
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ square(r=1, unitname=NULL)
+ unit.square()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Numeric. The side length of the square,
+or a vector giving the minimum and maximum coordinate values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. Name of unit of length. Either a single character string,
+or a vector of two character strings giving the
+singular and plural forms, respectively.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>r</code> is a number, <code>square(r)</code>
+is a shortcut for creating a window object
+representing the square 
+<i>[0,r] * [0,r]</i>.
+It is equivalent to the command
+<code>owin(c(0,r),c(0,r))</code>.
+</p>
+<p>If <code>r</code> is a vector of length 2, then
+<code>square(r)</code> creates the square with <code>x</code> and <code>y</code> coordinates
+ranging from <code>r[1]</code> to <code>r[2]</code>.
+</p>
+<p><code>unit.square</code> creates the unit square
+<i>[0,1] * [0,1]</i>.
+It is equivalent to
+<code>square(1)</code> or <code>square()</code> or <code>owin(c(0,1),c(0,1))</code>.
+</p>
+<p>These commands are included for convenience,
+and to improve the readability of some code.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"owin"</code> (see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>)
+specifying a window. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ W &lt;- square(10)
+ W &lt;- square(c(-1,1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Separate Multiple Columns of Marks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for unstack.lpp {spatstat.linnet}"><tr><td>unstack.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Separate Multiple Columns of Marks 
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial pattern on a network, with several columns of marks,
+take one column at a time, and return a list of spatial patterns
+each having only one column of marks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+unstack(x, ...)
+
+## S3 method for class 'lintess'
+unstack(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial point pattern
+(object of class <code>"lpp"</code>)
+or a tessellation on a linear network (object of class <code>"lintess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions defined here are methods for the generic
+<code><a href="../../utils/help/unstack.html">unstack</a></code>. The functions expect a spatial object
+<code>x</code> which has several columns of marks; they separate the columns,
+and return a list of spatial objects, each having only one column of marks.
+</p>
+<p>If <code>x</code> has several columns of marks (i.e. <code>marks(x)</code> is a
+matrix, data frame or hyperframe with several columns),
+then <code>y &lt;- unstack(x)</code> is a list of spatial objects, each of the same
+kind as <code>x</code>. The <code>j</code>th entry <code>y[[j]]</code> is equivalent to
+<code>x</code> except that it only includes
+the <code>j</code>th column of <code>marks(x)</code>.
+</p>
+<p>If <code>x</code> has no marks, or has only a single column of marks,
+the result is a list consisting of one entry, which is <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list, of class <code>"solist"</code>, whose entries are objects of the
+same type as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../utils/help/unstack.html">unstack</a></code>
+</p>
+<p><code><a href="../../spatstat.geom/help/unstack.ppp.html">unstack.ppp</a></code>,
+<code><a href="../../spatstat.model/help/unstack.msr.html">unstack.msr</a></code>.
+</p>
+<p>See also methods for the generic <code><a href="../../base/help/split.html">split</a></code> such as
+<code><a href="../../spatstat.geom/help/split.ppx.html">split.ppx</a></code> which applies to <code>"lpp"</code> objects.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(5, simplenet)
+   marks(X) &lt;- data.frame(id=1:5, code=factor(letters[1:5]))
+   unstack(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

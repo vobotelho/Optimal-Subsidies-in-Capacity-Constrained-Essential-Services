@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check Whether Point Process Model is Valid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for valid.ppm {spatstat.model}"><tr><td>valid.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Check Whether Point Process Model is Valid
+</h2>
+
+<h3>Description</h3>
+
+<p>Determines whether a fitted point process model 
+satisfies the integrability conditions for existence of the point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppm'
+valid(object, warn=TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning if the
+validity of the model cannot be checked (due to unavailability of
+the required code).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.model/help/valid.html">valid</a></code>
+for Poisson and Gibbs point process models (class <code>"ppm"</code>).
+</p>
+<p>The model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+fits Gibbs point process models to point pattern data.
+By default, <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> does not check whether the
+fitted model actually exists as a point process. This checking
+is done by <code>valid.ppm</code>.
+</p>
+<p>Unlike a regression model, which is well-defined for any values
+of the fitted regression coefficients, a Gibbs point process model
+is only well-defined if the fitted interaction parameters 
+satisfy some constraints. 
+A famous example is the Strauss process (see <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>)
+which exists only when the interaction parameter <i>gamma</i>
+is less than or equal to 1. For values <i>gamma &gt; 1</i>,
+the probability density is not integrable and the process does not
+exist (and cannot be simulated).
+</p>
+<p>By default, <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> does not enforce the constraint that
+a fitted Strauss process (for example) must satisfy
+<i>gamma &lt;= 1</i>.
+This is because a fitted parameter value of <i>gamma &gt; 1</i> 
+could be useful information for data analysis, as it indicates that
+the Strauss model is not appropriate, and suggests a clustered model should be
+fitted.
+</p>
+<p>The function <code>valid.ppm</code> checks whether the fitted model
+<code>object</code> specifies a well-defined point process. It returns
+<code>TRUE</code> if the model is well-defined.
+</p>
+<p>Another possible reason for invalid models is that the data may not
+be adequate for estimation of the model parameters. In this case,
+some of the fitted coefficients could be <code>NA</code> or infinite
+values. If this happens
+then <code>valid.ppm</code> returns <code>FALSE</code>.
+</p>
+<p>Use the function <code><a href="../../spatstat.model/help/project.ppm.html">project.ppm</a></code> to force the fitted model
+to be valid.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value, or <code>NA</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/project.ppm.html">project.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit1 &lt;- ppm(cells, ~1, Strauss(0.1))
+   valid(fit1)
+   fit2 &lt;- ppm(redwood, ~1, Strauss(0.1))
+   valid(fit2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

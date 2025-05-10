@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Alternating Gibbs Sampler for Area-Interaction Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ragsAreaInter {spatstat.random}"><tr><td>ragsAreaInter {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Alternating Gibbs Sampler for Area-Interaction Process
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a realisation of the area-interaction process
+using the alternating Gibbs sampler.
+Applies only when the interaction parameter <i>eta</i> is greater than 1.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+     ragsAreaInter(beta, eta, r, ...,
+                   win = NULL, bmax = NULL, periodic = FALSE, ncycles = 100)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>beta</code></td>
+<td>
+
+<p>First order trend. A number, a pixel image (object of class
+<code>"im"</code>), or a <code>function(x,y)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eta</code></td>
+<td>
+
+<p>Interaction parameter (canonical form) as described in
+the help for <code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>.
+A number greater than 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Disc radius in the model. A number greater than 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments for <code>beta</code> if it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Simulation window. An object of class <code>"owin"</code>.
+(Ignored if <code>beta</code> is a pixel image.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>bmax</code></td>
+<td>
+
+<p>Optional. The maximum possible value of <code>beta</code>,
+or a number larger than this. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical value indicating whether to treat opposite sides of the
+simulation window as being the same, so that points close to one
+side may interact with points close to the opposite side.
+Feasible only when the window is a rectangle.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ncycles</code></td>
+<td>
+
+<p>Number of cycles of the alternating Gibbs sampler to be performed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a simulated realisation of the
+area-interaction process (see <code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>)
+using the alternating Gibbs sampler (see <code><a href="../help/rags.html">rags</a></code>).
+</p>
+<p>It exploits a mathematical relationship between the
+(unmarked) area-interaction process and the two-type
+hard core process (Baddeley and Van Lieshout, 1995;
+Widom and Rowlinson, 1970). This relationship only holds
+when the interaction parameter <code>eta</code> is greater than 1
+so that the area-interaction process is clustered.
+</p>
+<p>The parameters <code>beta,eta</code> are the canonical parameters described
+in the help for <code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>.
+The first order trend <code>beta</code> may be a constant, a function,
+or a pixel image.
+</p>
+<p>The simulation window is determined by <code>beta</code> if it is a pixel
+image, and otherwise by the argument <code>win</code> (the default is the
+unit square).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J. and Van Lieshout, M.N.M. (1995).
+Area-interaction point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>47</b> (1995) 601&ndash;619.
+</p>
+<p>Widom, B. and Rowlinson, J.S. (1970).
+New model for the study of liquid-vapor phase transitions.
+<em>The Journal of Chemical Physics</em>
+<b>52</b> (1970) 1670&ndash;1684.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rags.html">rags</a></code>,
+<code><a href="../help/ragsMultiHard.html">ragsMultiHard</a></code>
+</p>
+<p><code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(ragsAreaInter(100, 2, 0.07, ncycles=15))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

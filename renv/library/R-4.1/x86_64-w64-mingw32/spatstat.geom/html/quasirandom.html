@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quasirandom Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quasirandom {spatstat.geom}"><tr><td>quasirandom {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Quasirandom Patterns
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates quasirandom sequences of numbers and
+quasirandom spatial patterns of points in any dimension.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+vdCorput(n, base)
+
+Halton(n, bases = c(2, 3), raw = FALSE, simplify = TRUE)
+
+Hammersley(n, bases = 2, raw = FALSE, simplify = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of points to generate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>base</code></td>
+<td>
+
+<p>A prime number giving the base of the sequence.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bases</code></td>
+<td>
+
+<p>Vector of prime numbers giving the bases of the sequences
+for each coordinate axis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>raw</code></td>
+<td>
+
+<p>Logical value indicating whether to return the coordinates
+as a matrix (<code>raw=TRUE</code>) or as a spatial point
+pattern (<code>raw=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>simplify</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code> indicating whether
+point patterns of dimension 2 or 3 should be
+returned as objects of class <code>"ppp"</code> or <code>"pp3"</code>
+respectively (<code>simplify=TRUE</code>, the default)
+or as objects of class <code>"ppx"</code> (<code>simplify=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>vdCorput</code> generates the quasirandom sequence
+of Van der Corput (1935) of length <code>n</code> with the given
+<code>base</code>. These are numbers between 0 and 1 which are in
+some sense uniformly distributed over the interval.
+</p>
+<p>The function <code>Halton</code> generates the Halton quasirandom sequence
+of points in <code>d</code>-dimensional space, where
+<code>d = length(bases)</code>. The values of the <i>i</i>-th coordinate
+of the points are generated using the van der Corput sequence with
+base equal to <code>bases[i]</code>.
+</p>
+<p>The function <code>Hammersley</code> generates the Hammersley set
+of points in <code>d+1</code>-dimensional space, where 
+<code>d = length(bases)</code>. The first <code>d</code> coordinates
+of the points are generated using the van der Corput sequence with
+base equal to <code>bases[i]</code>. The <code>d+1</code>-th coordinate
+is the sequence <code>1/n, 2/n, ..., 1</code>.
+</p>
+<p>If <code>raw=FALSE</code> (the default) then the Halton and Hammersley
+sets are interpreted as spatial point patterns of the
+appropriate dimension. They are returned as objects of
+class <code>"ppx"</code> (multidimensional point patterns)
+unless <code>simplify=TRUE</code> and <code>d=2</code> or <code>d=3</code>
+when they are returned as objects of class <code>"ppp"</code>
+or <code>"pp3"</code>.
+If <code>raw=TRUE</code>, the coordinates are returned as a matrix
+with <code>n</code> rows and <code>D</code> columns where <code>D</code> is the spatial
+dimension.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>vdCorput</code>, a numeric vector.
+</p>
+<p>For <code>Halton</code> and <code>Hammersley</code>,
+an object of class <code>"ppp"</code>, <code>"pp3"</code> or
+<code>"ppx"</code>; or if <code>raw=TRUE</code>, a numeric matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Van der Corput, J. G. (1935) Verteilungsfunktionen.
+<em>Proc. Ned. Akad. v. Wetensch.</em> <b>38</b>: 813&ndash;821.
+</p>
+<p>Kuipers, L. and Niederreiter, H. (2005)
+<em>Uniform distribution of sequences</em>,
+Dover Publications.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/rQuasi.html">rQuasi</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   vdCorput(10, 2)
+
+   plot(Halton(256, c(2,3)))
+
+   plot(Hammersley(256, 3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

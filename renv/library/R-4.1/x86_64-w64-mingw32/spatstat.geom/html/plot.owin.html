@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Spatial Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.owin {spatstat.geom}"><tr><td>plot.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Spatial Window</h2>
+
+<h3>Description</h3>
+
+<p>Plot a two-dimensional window of observation for a spatial point pattern
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'owin'
+plot(x, main, add=FALSE, ..., box, edge=0.04,
+                      type=c("w","n"), show.all=!add, 
+                      hatch=FALSE,
+                      hatchargs=list(), 
+                      invert=FALSE, do.plot=TRUE,
+                      claim.title.space=FALSE, use.polypath=TRUE,
+                      adj.main=0.5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The window to be plotted.
+An object of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+or data which can be converted into 
+this format by <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>text to be displayed as a title above the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>logical flag: if <code>TRUE</code>, draw the window in 
+the current plot; if <code>FALSE</code>, generate a new plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments controlling the appearance of the plot.
+These arguments are passed to <code><a href="../../graphics/help/polygon.html">polygon</a></code>
+if <code>x</code> is a
+polygonal or rectangular window, or passed to
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>
+if <code>x</code> is a binary mask.
+Some arguments are passed to <code><a href="../../graphics/help/plot.default.html">plot.default</a></code>.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>box</code></td>
+<td>
+
+<p>logical flag; if <code>TRUE</code>, plot the enclosing rectangular box
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>nonnegative number; the plotting region will have coordinate limits
+that are <code>1 + edge</code>
+times as large as the limits of the rectangular box
+that encloses the pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Type of plot: either <code>"w"</code> or <code>"n"</code>.
+If <code>type="w"</code> (the default), the window is plotted.
+If <code>type="n"</code> and <code>add=TRUE</code>, a new plot is initialised
+and the coordinate system is established, but nothing is drawn.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether to plot everything
+including the main title.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hatch</code></td>
+<td>
+
+<p>logical flag; if <code>TRUE</code>, the interior of the window will
+be shaded by texture, such as a grid of parallel lines.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hatchargs</code></td>
+<td>
+
+<p>List of arguments passed to <code><a href="../../spatstat.geom/help/add.texture.html">add.texture</a></code>
+to control the texture shading when <code>hatch=TRUE</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>invert</code></td>
+<td>
+
+<p>logical flag; when the window is a binary pixel mask,
+the mask colours will be inverted if <code>invert=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually perform the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>claim.title.space</code></td>
+<td>
+
+<p>Logical value indicating whether extra space for the main title
+should be allocated when declaring the plot dimensions.
+Should be set to <code>FALSE</code> under normal conditions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.polypath</code></td>
+<td>
+
+<p>Logical value indicating what graphics capabilities should be used
+to draw a polygon filled with colour when the polygon has holes.
+If <code>TRUE</code> (the default), then the polygon will be filled using
+<code><a href="../../graphics/help/polypath.html">polypath</a></code>, provided the graphics device
+supports this function. If <code>FALSE</code>, the polygon will be
+decomposed into simple closed polygons, which will be colour filled
+using <code><a href="../../graphics/help/polygon.html">polygon</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adj.main</code></td>
+<td>
+
+<p>Numeric value specifying the justification of the text in the main
+title. Possible values are <code>adj.main=0.5</code> (the default)
+specifying that the main title will be centred, <code>adj.main=0</code>
+specifying left-justified text, and <code>adj.main=1</code> specifying
+right-justified text.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>.
+The action is to plot the boundary of the window on the current plot device,
+using equal scales on the <code>x</code> and <code>y</code> axes.
+</p>
+<p>If the window <code>x</code> is of type <code>"rectangle"</code> or <code>"polygonal"</code>,
+the boundary of the window is plotted as a polygon or series of polygons.
+If <code>x</code> is of type <code>"mask"</code> 
+the discrete raster approximation of the window is displayed
+as a binary image (white inside the window, black outside).
+</p>
+<p>Graphical parameters controlling the display (e.g. setting the
+colours) may be passed directly via the <code>...</code> arguments,
+or indirectly reset using 
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>.
+</p>
+<p>If <code>add=FALSE</code> (the default), the plot is initialised
+by calling the base graphics function
+<code><a href="../../graphics/help/plot.default.html">plot.default</a></code>
+to create the plot area. By default, coordinate axes
+and axis labels are not plotted. To plot coordinate axes,
+use the argument <code>axes=TRUE</code>; 
+to plot axis labels, use the argument <code>ann=TRUE</code>
+and then specify the labels with <code>xlab</code> and <code>ylab</code>;
+see the help file for <code><a href="../../graphics/help/plot.default.html">plot.default</a></code> for
+information on these arguments, and for additional
+arguments controlling the appearance of the axes.
+See the Examples also.
+</p>
+<p>When <code>x</code> is of type <code>"rectangle"</code> or <code>"polygonal"</code>, it
+is plotted by the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code><a href="../../graphics/help/polygon.html">polygon</a></code>. To control the
+appearance (colour, fill density, line density etc) of the polygon
+plot, determine the required argument of <code><a href="../../graphics/help/polygon.html">polygon</a></code> and
+pass it through <code>...</code> For example, to paint the interior of the
+polygon in red, use the argument <code>col="red"</code>. To draw the polygon
+edges in green, use <code>border="green"</code>. To suppress the drawing of
+polygon edges, use <code>border=NA</code>.
+</p>
+<p>When <code>x</code> is of type <code>"mask"</code>, it is plotted by
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>. The appearance of the image plot
+can be controlled by passing arguments to
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>
+through <code>...</code>. The default appearance can also be changed
+by setting the parameter <code>par.binary</code> of
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>. 
+</p>
+<p>To zoom in (to view only a subset of the window at higher
+magnification), use the graphical arguments
+<code>xlim</code> and <code>ylim</code> to specify the desired rectangular field of
+view. (The actual field of view may be larger, depending on the
+graphics device).
+</p>
+
+
+<h3>Value</h3>
+
+<p>none.
+</p>
+
+
+<h3>Notes on Filled Polygons with Holes</h3>
+
+<p>The function <code><a href="../../graphics/help/polygon.html">polygon</a></code> can only handle
+polygons without holes. To plot polygons with holes in a solid colour,
+we have implemented two workarounds.
+</p>
+
+<dl>
+<dt>polypath function:</dt><dd>
+<p>The first workaround uses
+the relatively new function <code><a href="../../graphics/help/polypath.html">polypath</a></code> which
+<em>does</em> have the capability to handle polygons with holes.
+However, not all graphics devices support
+<code><a href="../../graphics/help/polypath.html">polypath</a></code>.
+The older devices <code><a href="../../grDevices/html/xfig.html">xfig</a></code> and <code><a href="../../grDevices/html/pictex.html">pictex</a></code>
+do not support <code><a href="../../graphics/help/polypath.html">polypath</a></code>.
+On a Windows system, the default graphics device
+<code><a href="../../grDevices/html/windows.html">windows</a></code> 
+supports <code><a href="../../graphics/help/polypath.html">polypath</a></code>.
+</p>
+</dd>
+<dt>polygon decomposition:</dt><dd>
+<p>The other workaround involves decomposing the polygonal window
+into pieces which do not have holes. This code is experimental
+but works in all our test cases. If this code fails, a warning
+will be issued, and the filled colours will not be plotted.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>,
+<code><a href="../../graphics/help/polygon.html">polygon</a></code>,
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # rectangular window
+   plot(Window(nztrees))
+   abline(v=148, lty=2)
+
+  # polygonal window
+  w &lt;- Window(demopat)
+  plot(w)
+  plot(w, col="red", border="green", lwd=2)
+  plot(w, hatch=TRUE, lwd=2)
+
+  # binary mask
+  we &lt;- as.mask(w)
+  plot(we)
+  op &lt;- spatstat.options(par.binary=list(col=grey(c(0.5,1))))
+  plot(we)
+  spatstat.options(op)
+
+  ## axis annotation
+  plot(letterR, axes=TRUE, ann=TRUE, xlab="Easting", ylab="Northing")
+  plot(letterR,            ann=TRUE, xlab="Declination", ylab="Right Ascension")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

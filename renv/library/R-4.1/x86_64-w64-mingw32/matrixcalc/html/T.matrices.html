@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: List of T Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for T.matrices {matrixcalc}"><tr><td>T.matrices {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> List of T Matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function constructs a list of lists.  The number of components in
+the high level list is n.  Each of the n components is also a list.
+Each sub-list has n components each of which is an order n square matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+T.matrices(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> a positive integer value for the order of the matrices </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Let <i>{{\bf{E}}_{i,j}}\;i = 1, &hellip; ,n\;;\;j = 1, &hellip; ,n</i> 
+be a representative order <i>n</i> matrix created with function <code>E.matrices</code>.
+The order <i>n</i> matrix <i>{{\bf{T}}_{i,j}}</i> is defined as follows
+<i>{{\bf{T}}_{i,j}} = &le;ft\{ {\begin{array}{cc}
+{{{\bf{E}}_{i,j}}}&amp;{i = j}\\
+{{{\bf{E}}_{i,j}} + {{\bf{E}}_{j,i}}}&amp;{i \ne j}
+\end{array}} \right.</i>
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of <i>n</i> components.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>1 </code></td>
+<td>
+<p>A list of <i>n</i> components</p>
+</td></tr>
+<tr valign="top"><td><code>2 </code></td>
+<td>
+<p>A list of <i>n</i> components</p>
+</td></tr>
+</table>
+<p>...
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>n </code></td>
+<td>
+<p>A list of <i>n</i> components</p>
+</td></tr>
+</table>
+<p>Each component <i>j</i> of sublist <i>i</i> is a matrix <i>{\bf{T}}_{i,j}</i>
+</p>
+
+
+<h3>Note</h3>
+
+<p>The argument n must be an integer value greater than or equal to 2.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1980). The elimination matrix, some lemmas and applications,
+<em>SIAM Journal on Algebraic Discrete Methods</em>, 1(4), December 1980, 422-449.
+</p>
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/E.matrices.html">E.matrices</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+T &lt;- T.matrices( 3 )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

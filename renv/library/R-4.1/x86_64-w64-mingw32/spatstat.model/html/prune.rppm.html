@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prune a Recursively Partitioned Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for prune.rppm {spatstat.model}"><tr><td>prune.rppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Prune a Recursively Partitioned Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a model which has been fitted to point pattern data
+by recursive partitioning, apply pruning to reduce the
+complexity of the partition tree.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rppm'
+prune(tree, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tree</code></td>
+<td>
+
+<p>Fitted point process model of class <code>"rppm"</code>
+produced by the function <code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../rpart/help/prune.rpart.html">prune.rpart</a></code>
+to control the pruning procedure.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../rpart/help/prune.html">prune</a></code>
+for the class <code>"rppm"</code>. An object of this class is a
+point process model, fitted to point pattern data by
+recursive partitioning, by the function <code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>.
+</p>
+<p>The recursive partition tree will be pruned using
+<code><a href="../../rpart/help/prune.rpart.html">prune.rpart</a></code>. The result is another
+object of class <code>"rppm"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"rppm"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>,
+<code><a href="../../spatstat.model/help/plot.rppm.html">plot.rppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.rppm.html">predict.rppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # Murchison gold data
+  mur &lt;- solapply(murchison, rescale, s=1000, unitname="km")
+  mur$dfault &lt;- distfun(mur$faults)
+  fit &lt;- rppm(gold ~ dfault + greenstone, data=mur)
+  fit
+  prune(fit, cp=0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

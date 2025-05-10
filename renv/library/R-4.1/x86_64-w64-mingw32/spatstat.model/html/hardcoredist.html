@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract the Hard Core Distance of a Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for hardcoredist {spatstat.model}"><tr><td>hardcoredist {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract the Hard Core Distance of a Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Extract or compute the hard core distance of a point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hardcoredist(x, ...)
+
+## S3 method for class 'fii'
+hardcoredist(x, ..., epsilon = 0)
+
+## S3 method for class 'ppm'
+hardcoredist(x, ..., epsilon = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object representing a point process model
+(class <code>"ppm"</code>)
+or the interaction structure of a point process
+(class <code>"fii"</code>) or similar.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>epsilon</code></td>
+<td>
+
+<p>Tolerance for defining the hard core.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A point process model has a hard core distance <code>h</code>
+if it is impossible for two random points to lie closer than the
+distance <code>h</code> apart.
+</p>
+<p>The function <code>hardcoredist</code> is generic, with methods for
+objects of class <code>"ppm"</code> (point process models)
+and <code>"fii"</code> (fitted point process interactions).
+It extracts or computes the hard core distance.
+</p>
+<p>If <code>epsilon</code> is specified, then the code calculates the
+largest distance at which the interaction factor is smaller than
+<code>epsilon</code>, implying that points are unlikely to occur closer
+than this distance.
+</p>
+<p>The result is zero if the model does not have a hard core distance.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric value, or for multitype point processes, a numeric matrix giving the
+hard core distances for each pair of types of points.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  m &lt;- ppm(cells~1, Hardcore())
+  hardcoredist(m)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

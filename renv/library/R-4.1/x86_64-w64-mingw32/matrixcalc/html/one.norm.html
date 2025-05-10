@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute the one norm of a matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for one.norm {matrixcalc}"><tr><td>one.norm {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Compute the one norm of a matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the <i>&le;ft\| {\bf{x}} \right\|_1 </i> norm of the matrix <i>{\mathbf{x}}</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+one.norm(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>  a numeric vector or matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Let <i>{\bf{x}}</i> be an <i>m \times n</i> matrix. 
+The formula used to compute the norm is <i>&le;ft\| {\bf{x}} \right\|_1  = \mathop {\max }\limits_{1 &le; j &le; n} &sum;\limits_{i = 1}^m {&le;ft| {x_{i,j} } \right|} </i>.
+This is merely the maximum absolute column sum of the <i>m \times n</i> maxtris.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+<p>Golub, G. H. and C. F. Van Loan (1996).  <em>Matrix Computations</em>, Third Edition, The John
+Hopkins University Press.
+</p>
+<p>Horn, R. A. and C. R. Johnson (1985). <em>Matrix Analysis</em>, Cambridge University Press.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/inf.norm.html">inf.norm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- matrix( c( 3, 5, 7, 2, 6, 4, 0, 2, 8 ), nrow=3, ncol=3, byrow=TRUE )
+one.norm( A )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

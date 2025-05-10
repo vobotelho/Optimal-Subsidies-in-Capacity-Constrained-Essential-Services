@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Type of Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.rectangle {spatstat.geom}"><tr><td>is.rectangle {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determine Type of Window</h2>
+
+<h3>Description</h3>
+
+<p>Determine whether a window is a
+rectangle, a polygonal region, or a binary mask.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  is.rectangle(w)
+  is.polygonal(w)
+  is.mask(w)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>Window to be inspected. An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These simple functions determine whether a window <code>w</code>
+(object of class <code>"owin"</code>) is
+a rectangle (<code>is.rectangle(w) = TRUE</code>), 
+a domain with polygonal boundary (<code>is.polygonal(w) = TRUE</code>),
+or 
+a binary pixel mask (<code>is.mask(w) = TRUE</code>). 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical value, equal to <code>TRUE</code> if <code>w</code> is a window
+of the specified type.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

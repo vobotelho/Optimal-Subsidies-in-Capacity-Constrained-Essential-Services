@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generic Calculation of Cumulative Distribution Function of...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for compileCDF {spatstat.explore}"><tr><td>compileCDF {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Generic Calculation of Cumulative Distribution Function of Distances
+</h2>
+
+<h3>Description</h3>
+
+<p>A low-level function which 
+calculates the estimated cumulative distribution function
+of a distance variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+compileCDF(D, B, r, ..., han.denom=NULL, check=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>D</code></td>
+<td>
+
+<p>A vector giving the distances from each data point to the target.
+</p>
+</td></tr>
+<tr valign="top"><td><code>B</code></td>
+<td>
+
+<p>A vector giving the distances from each data point to the window boundary,
+or censoring distances.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>An equally spaced, finely spaced sequence of distance values
+at which the CDF should be estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>han.denom</code></td>
+<td>
+
+<p>Denominator for the Hanisch-Chiu-Stoyan estimator.
+A single number, or a numeric vector with the same length
+as <code>r</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value specifying whether to check validity of the data,
+for example, that the vectors <code>D</code> and <code>B</code> have the same
+length, and contain non-negative numbers.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This low-level function calculates estimates of
+the cumulative distribution function
+</p>
+<p style="text-align: center;"><i>F(r) = P(D &lt;= r)</i></p>
+
+<p>of a distance variable <i>D</i>, given a vector of observed values of
+<i>D</i> and other information.
+Examples of this concept include the empty space distance function
+computed by <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code> and the nearest-neighbour distance
+distribution function <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>.
+</p>
+<p>This function <code>compileCDF</code>
+and its siblings <code><a href="../../spatstat.explore/help/compileK.html">compileK</a></code> and <code><a href="../../spatstat.explore/help/compilepcf.html">compilepcf</a></code>
+are useful for code development and for teaching,
+because they perform a common task, and do the housekeeping required to
+make an object of class <code>"fv"</code> that represents the estimated
+function. However, they are not very efficient. 
+</p>
+<p>The argument <code>D</code> should be a numeric vector of shortest distances
+measured from each &lsquo;query&rsquo; point to the &lsquo;target&rsquo; set.
+The argument <code>B</code> should be a numeric vector of shortest distances
+measured from each &lsquo;query&rsquo; point to the boundary of the window
+of observation.
+All entries of <code>D</code> and <code>B</code> should be non-negative.
+</p>
+<p><code>compileCDF</code> calculates estimates of the cumulative distribution
+function <i>F(r)</i> using the border method (reduced sample
+estimator), the Kaplan-Meier estimator and, if <code>han.denom</code> is
+given, the Hanisch-Chiu-Stoyan estimator.
+See Chapter 8 of Baddeley, Rubak and Turner (2015).
+</p>
+<p>The result is an object of class <code>"fv"</code> representing the
+estimated function.
+Additional columns (such as a column giving the theoretical
+value) must be added by the user, with the aid of
+<code><a href="../../spatstat.explore/help/bind.fv.html">bind.fv</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> representing the estimated function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/compileK.html">compileK</a></code>.
+</p>
+<p><code><a href="../../spatstat.explore/help/bind.fv.html">bind.fv</a></code> to add more columns.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Equivalent to Gest(japanesepines)
+  X &lt;- japanesepines
+  D &lt;- nndist(X)
+  B &lt;- bdist.points(X)
+  r &lt;- seq(0, 0.25, by=0.01)
+  H &lt;- eroded.areas(Window(X), r)
+  G &lt;- compileCDF(D=D, B=B, r=r, han.denom=H)
+  G &lt;- rebadge.fv(G, new.fname="G", new.ylab=quote(G(r)))
+  plot(G)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

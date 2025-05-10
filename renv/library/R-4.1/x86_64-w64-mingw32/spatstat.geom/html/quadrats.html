@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide Region into Quadrats</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quadrats {spatstat.geom}"><tr><td>quadrats {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Divide Region into Quadrats</h2>
+
+<h3>Description</h3>
+
+<p>Divides window into rectangular quadrats and 
+returns the quadrats as a tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+quadrats(X, nx = 5, ny = nx, xbreaks = NULL, ybreaks = NULL, keepempty=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>)
+or anything that can be coerced to a window using
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>, such as a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nx,ny</code></td>
+<td>
+
+<p>Numbers of quadrats in the <i>x</i> and <i>y</i> directions.
+Incompatible with <code>xbreaks</code> and <code>ybreaks</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xbreaks</code></td>
+<td>
+
+<p>Numeric vector giving the <i>x</i> coordinates of the
+boundaries of the quadrats. Incompatible with <code>nx</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ybreaks</code></td>
+<td>
+
+<p>Numeric vector giving the <i>y</i> coordinates of the
+boundaries of the quadrats. Incompatible with <code>ny</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>keepempty</code></td>
+<td>
+
+<p>Logical value indicating whether to delete or retain
+empty quadrats. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the window <code>X</code> is a rectangle, it is divided into
+an <code>nx * ny</code> grid of rectangular tiles or &lsquo;quadrats&rsquo;.
+</p>
+<p>If <code>X</code> is not a rectangle, then the bounding rectangle of
+<code>X</code> is first divided into an <code>nx * ny</code> grid of rectangular
+tiles, and these tiles are then intersected with the window <code>X</code>.
+</p>
+<p>The resulting tiles are returned as a tessellation (object of class
+<code>"tess"</code>) which can be plotted and used in other analyses.
+</p>
+<p>If <code>xbreaks</code> is given, it should be a numeric vector
+giving the <i>x</i> coordinates of the quadrat boundaries.
+If it is not given, it defaults to a
+sequence of <code>nx+1</code> values equally spaced
+over the range of <i>x</i> coordinates in the window <code>Window(X)</code>.
+</p>
+<p>Similarly if <code>ybreaks</code> is given, it should be a numeric
+vector giving the <i>y</i> coordinates of the quadrat boundaries.
+It defaults to a vector of <code>ny+1</code> values
+equally spaced over the range of <i>y</i> coordinates in the window.
+The lengths of <code>xbreaks</code> and <code>ybreaks</code> may be different.
+</p>
+<p>By default (if <code>keepempty=FALSE</code>), any rectangular tile which
+does not intersect the window <code>X</code> is
+ignored, and only the non-empty intersections are treated as quadrats,
+so the tessellation may consist of fewer than <code>nx * ny</code> tiles.
+If <code>keepempty=TRUE</code>, empty intersections are retained,
+and the tessellation always contains exactly <code>nx * ny</code> tiles,
+some of which may be empty.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>) as described under
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>For calculations using quadrats, see
+<code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>,
+<code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>,
+<code><a href="../../spatstat.random/help/quadratresample.html">quadratresample</a></code>
+</p>
+<p>For other kinds of tessellations, see 
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code>,
+<code><a href="../../spatstat.geom/help/venn.tess.html">venn.tess</a></code>,
+<code><a href="../../spatstat.geom/help/polartess.html">polartess</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>, <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>,
+<code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>, <code><a href="../../spatstat.geom/help/bufftess.html">bufftess</a></code>
+and 
+<code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ W &lt;- square(10)
+ Z &lt;- quadrats(W, 4, 5)
+ plot(Z)
+
+ plot(quadrats(letterR, 5, 7))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

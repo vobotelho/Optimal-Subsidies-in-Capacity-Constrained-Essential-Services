@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vertices of a Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for vertices {spatstat.geom}"><tr><td>vertices {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vertices of a Window</h2>
+
+<h3>Description</h3>
+
+<p>Finds the vertices of a window, or similar object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ vertices(w)
+
+ ## S3 method for class 'owin'
+vertices(w)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>A window (object of class <code>"owin"</code>) or similar object.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the vertices (&lsquo;corners&rsquo;) of a spatial window
+or other object.
+</p>
+<p>For <code>vertices.owin</code>,
+the argument <code>w</code> should be a window (an object of class
+<code>"owin"</code>, see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code> for details).
+</p>
+<p>If <code>w</code> is a rectangle, the coordinates of the
+four corner points are returned.
+</p>
+<p>If <code>w</code> is a polygonal window (consisting of one or more
+polygons), the coordinates of the vertices of all polygons are
+returned.
+</p>
+<p>If <code>w</code> is a binary mask, then a &lsquo;boundary pixel&rsquo; is defined to be
+a pixel inside the window
+which has at least one neighbour outside the window. The coordinates
+of the centres of all boundary pixels are returned.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with components <code>x</code> and <code>y</code> giving the coordinates
+of the vertices.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  vert &lt;- vertices(letterR)
+
+  plot(letterR, main="Polygonal vertices")
+  points(vert)
+  plot(letterR, main="Boundary pixels")
+  points(vertices(as.mask(letterR)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

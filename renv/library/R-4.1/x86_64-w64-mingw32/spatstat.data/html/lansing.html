@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lansing Woods Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lansing {spatstat.data}"><tr><td>lansing {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Lansing Woods Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Locations and botanical classification of trees in Lansing Woods.
+</p>
+<p>The data come from an investigation of a 924 ft x 924 ft (19.6 acre)
+plot in Lansing Woods, Clinton County, Michigan USA
+by D.J. Gerrard. The data give the locations of 2251 trees and 
+their botanical classification (into hickories, maples, red oaks,
+white oaks, black oaks and miscellaneous trees).
+The original plot size (924 x 924 feet)
+has been rescaled to the unit square.
+</p>
+<p>Note that the data contain duplicated points (two points at the
+same location). To determine which points are duplicates,
+use <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>.
+To remove the duplication, use <code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(lansing)</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code>
+representing the point pattern of tree locations.
+Entries include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> Cartesian <i>x</i>-coordinate of tree </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> Cartesian <i>y</i>-coordinate of tree </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> factor with levels indicating species of
+      each tree
+  </td>
+</tr>
+
+</table>
+
+<p>The levels of <code>marks</code> are
+<code>blackoak</code>,
+<code>hickory</code>,
+<code>maple</code>,
+<code>misc</code>,
+<code>redoak</code> and
+<code>whiteoak</code>.
+See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format of a
+point pattern object.
+</p>
+
+
+<h3>References</h3>
+
+<p>Besag, J. (1978)
+Some methods of statistical analysis for spatial data.
+<em>Bull. Internat. Statist. Inst.</em> <b>44</b>, 77&ndash;92.
+</p>
+<p>Cox, T.F. (1976)
+The robust estimation of the density of a forest
+stand using a new conditioned distance method.
+<em>Biometrika</em> <b>63</b>, 493&ndash;500.
+</p>
+<p>Cox, T.F. (1979)
+A method for mapping the dense and sparse regions of
+a forest stand.
+<em>Applied Statistics</em> <b>28</b>, 14&ndash;19.
+</p>
+<p>Cox, T.F. and Lewis, T. (1976)
+A conditioned distance ratio method for analysing spatial patterns.
+<em>Biometrika</em> <b>63</b>, 483&ndash;492.
+</p>
+<p>Diggle, P.J. (1979a)
+The detection of random heterogeneity in plant populations.
+<em>Biometrics</em> <b>33</b>, 390&ndash;394.
+</p>
+<p>Diggle, P.J. (1979b)
+Statistical methods for spatial point patterns in ecology.
+<em>Spatial and temporal analysis in ecology</em>.
+R.M. Cormack and J.K. Ord (eds.)
+Fairland: International Co-operative Publishing House.
+pages 95&ndash;150.
+</p>
+<p>Diggle, P.J. (1981)
+Some graphical methods in the analysis of spatial point patterns.
+In <em>Interpreting Multivariate Data</em>.
+V. Barnett (eds.) John Wiley and Sons. Pages 55&ndash;73.
+</p>
+<p>Diggle, P.J. (1983)
+<em>Statistical analysis of spatial point patterns</em>.
+Academic Press.
+</p>
+<p>Gerrard, D.J. (1969)
+Competition quotient: a new measure of the competition
+affecting individual forest trees.
+Research Bulletin 20, Agricultural Experiment Station,
+Michigan State University.
+</p>
+<p>Lotwick, H.W. (1981)
+<em>Spatial stochastic point processes</em>.
+PhD thesis, University of Bath, UK.
+</p>
+<p>Ord, J.K. (1978) 
+How many trees in a forest?
+<em>Mathematical Scientist</em> <b>3</b>, 23&ndash;33.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+     data(lansing)
+  if(require(spatstat.geom)) {
+     plot(lansing)
+     summary(lansing)
+     plot(split(lansing))
+     plot(split(lansing)$maple)
+     ##  rescale to feet
+     (Lan &lt;- rescale(lansing))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

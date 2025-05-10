@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mark Variogram</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for markvario {spatstat.explore}"><tr><td>markvario {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mark Variogram</h2>
+
+<h3>Description</h3>
+
+<p>Estimate the mark variogram of a marked point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+markvario(X, correction = c("isotropic", "Ripley", "translate"),
+r = NULL, method = "density", ..., normalise=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern.
+An object of class <code>"ppp"</code> or something acceptable to
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>. It must have marks which are numeric.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"isotropic"</code>, <code>"Ripley"</code> or <code>"translate"</code>.
+It specifies the edge correction(s) to be applied.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>numeric vector. The values of the argument <i>r</i>
+at which the mark variogram
+<i>gamma(r)</i>
+should be evaluated.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>A character vector indicating the user's choice of
+density estimation technique to be used. Options are
+<code>"density"</code>, 
+<code>"loess"</code>,
+<code>"sm"</code> and <code>"smrep"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to <code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code>,
+or passed to the density estimation routine
+(<code><a href="../../stats/html/density.html">density</a></code>, <code><a href="../../stats/html/loess.html">loess</a></code> or <code>sm.density</code>)
+selected by <code>method</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+<p>If <code>TRUE</code>, normalise the variogram by
+dividing it by the estimated mark variance.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The mark variogram <i>gamma(r)</i>
+of a marked point process <i>X</i>
+is a measure of the dependence between the marks of two 
+points of the process a distance <i>r</i> apart.
+It is informally defined as
+</p>
+<p style="text-align: center;"><i>
+    gamma(r) = E[(1/2) * (M1 - M2)^2 ]
+  </i></p>
+
+<p>where <i>E[ ]</i> denotes expectation and <i>M1,M2</i>
+are the marks attached to two points of the process
+a distance <i>r</i> apart.
+</p>
+<p>The mark variogram of a marked point process is analogous,
+but <b>not equivalent</b>, to the variogram of a random field
+in geostatistics. See Waelder and Stoyan (1996).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+<p>Essentially a data frame containing numeric columns 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the mark variogram <i>gamma(r)</i>
+has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value of <i>gamma(r)</i>
+when the marks attached to different points are independent;
+equal to the sample variance of the marks
+</p>
+</td></tr>
+</table>
+<p>together with a column or columns named 
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the function <i>gamma(r)</i>
+obtained by the edge corrections named.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cressie, N.A.C. (1991)
+<em>Statistics for spatial data</em>.
+John Wiley and Sons, 1991.
+</p>
+<p>Mase, S. (1996) 
+The threshold method for estimating annual rainfall.
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>48</b> (1996) 201-213.
+</p>
+<p>Waelder, O. and Stoyan, D. (1996)
+On variograms in point process statistics.
+<em>Biometrical Journal</em> <b>38</b> (1996) 895-905.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Mark correlation function <code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code> for numeric marks.
+</p>
+<p>Mark connection function <code><a href="../../spatstat.explore/help/markconnect.html">markconnect</a></code> and 
+multitype K-functions <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>, <code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code>
+for factor-valued marks.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # Longleaf Pine data
+    # marks represent tree diameter
+    # Subset of this large pattern
+    swcorner &lt;- owin(c(0,100),c(0,100))
+    sub &lt;- longleaf[ , swcorner]
+    # mark correlation function
+    mv &lt;- markvario(sub)
+    plot(mv)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

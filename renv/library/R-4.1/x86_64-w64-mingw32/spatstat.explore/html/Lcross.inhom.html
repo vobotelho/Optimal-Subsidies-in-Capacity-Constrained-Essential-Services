@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Cross Type L Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Lcross.inhom {spatstat.explore}"><tr><td>Lcross.inhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Cross Type L Function
+</h2>
+
+<h3>Description</h3>
+
+<p>For a multitype point pattern, 
+estimate the inhomogeneous version of the cross-type <i>L</i> function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Lcross.inhom(X, i, j, ..., correction)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the inhomogeneous cross type <i>L</i> function
+<i>Lij(r)</i> will be computed.
+It must be a multitype point pattern (a marked point pattern
+whose marks are a factor). See under Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>The type (mark value)
+of the points in <code>X</code> from which distances are measured.
+A character string (or something that will be converted to a
+character string).
+Defaults to the first level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+<p>The type (mark value)
+of the points in <code>X</code> to which distances are measured.
+A character string (or something that will be
+converted to a character string).
+Defaults to the second level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction,...</code></td>
+<td>
+
+<p>Other arguments passed to <code><a href="../../spatstat.explore/help/Kcross.inhom.html">Kcross.inhom</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a generalisation of the function <code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code>
+to include an adjustment for spatially inhomogeneous intensity,
+in a manner similar to the function <code><a href="../../spatstat.explore/help/Linhom.html">Linhom</a></code>.
+</p>
+<p>All the arguments are passed to <code><a href="../../spatstat.explore/help/Kcross.inhom.html">Kcross.inhom</a></code>, which 
+estimates the inhomogeneous multitype K function
+<i>Kij(r)</i> for the point pattern.
+The resulting values are then
+transformed by taking <i>L(r) = sqrt(K(r)/pi)</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+<p>Essentially a data frame containing numeric columns 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the function <i>Lij(r)</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value of  <i>Lij(r)</i>
+for a marked Poisson process, identically equal to <code>r</code>
+</p>
+</td></tr>
+</table>
+<p>together with a column or columns named 
+<code>"border"</code>, <code>"bord.modif"</code>,
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the function <i>Lij(r)</i>
+obtained by the edge corrections named.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The arguments <code>i</code> and <code>j</code> are always interpreted as
+levels of the factor <code>X$marks</code>. They are converted to character
+strings if they are not already character strings.
+The value <code>i=1</code> does <b>not</b>
+refer to the first level of the factor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Moller, J. and Waagepetersen, R.
+Statistical Inference and Simulation for Spatial Point Processes
+Chapman and Hall/CRC
+Boca Raton, 2003.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code>,
+<code><a href="../../spatstat.explore/help/Linhom.html">Linhom</a></code>,
+<code><a href="../../spatstat.explore/help/Kcross.inhom.html">Kcross.inhom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # Lansing Woods data
+    woods &lt;- lansing
+    
+    ma &lt;- split(woods)$maple
+    wh &lt;- split(woods)$whiteoak
+
+    # method (1): estimate intensities by nonparametric smoothing
+    lambdaM &lt;- density.ppp(ma, sigma=0.15, at="points")
+    lambdaW &lt;- density.ppp(wh, sigma=0.15, at="points")
+    L &lt;- Lcross.inhom(woods, "whiteoak", "maple", lambdaW, lambdaM)
+
+    # method (2): fit parametric intensity model
+    if(require("spatstat.model"))  {
+      fit &lt;- ppm(woods ~marks * polynom(x,y,2))
+      # evaluate fitted intensities at data points
+      # (these are the intensities of the sub-processes of each type)
+      inten &lt;- fitted(fit, dataonly=TRUE)
+      # split according to types of points
+      lambda &lt;- split(inten, marks(woods))
+      L &lt;- Lcross.inhom(woods, "whiteoak", "maple",
+                        lambda$whiteoak, lambda$maple)
+    }
+
+    # synthetic example: type A points have intensity 50,
+    #                    type B points have intensity 100 * x
+    lamB &lt;- as.im(function(x,y){50 + 100 * x}, owin())
+    X &lt;- superimpose(A=runifpoispp(50), B=rpoispp(lamB))
+    L &lt;- Lcross.inhom(X, "A", "B",
+        lambdaI=as.im(50, Window(X)), lambdaJ=lamB)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

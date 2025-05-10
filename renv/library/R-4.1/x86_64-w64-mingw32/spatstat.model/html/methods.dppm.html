@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Determinantal Point Process Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.dppm {spatstat.model}"><tr><td>methods.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Determinantal Point Process Models
+</h2>
+
+<h3>Description</h3>
+
+<p>These are methods for the class <code>"dppm"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'dppm'
+coef(object, ...)
+## S3 method for class 'dppm'
+formula(x, ...)
+## S3 method for class 'dppm'
+print(x, ...)
+## S3 method for class 'dppm'
+terms(x, ...)
+## S3 method for class 'dppm'
+labels(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>An object of class <code>"dppm"</code>,
+representing a fitted determinantal point process model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../stats/help/coef.html">coef</a></code>,
+<code><a href="../../stats/help/formula.html">formula</a></code>,
+<code><a href="../../base/help/print.html">print</a></code>,
+<code><a href="../../stats/help/terms.html">terms</a></code> and 
+<code><a href="../../base/help/labels.html">labels</a></code>
+for the class <code>"dppm"</code>.
+</p>
+<p>An object of class <code>"dppm"</code> represents a fitted
+determinantal point process model. It is obtained from <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+<p>The method <code>coef.dppm</code> returns the vector of
+<em>regression coefficients</em> of the fitted model.
+It does not return the interaction parameters.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See the help files for the corresponding generic functions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,  <code><a href="../../spatstat.model/help/plot.dppm.html">plot.dppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.dppm.html">predict.dppm</a></code>, <code><a href="../../spatstat.model/help/simulate.dppm.html">simulate.dppm</a></code>,
+<code><a href="../../spatstat.model/help/as.ppm.dppm.html">as.ppm.dppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- dppm(swedishpines ~ x + y, dppGauss, method="c")
+  coef(fit)
+  formula(fit)
+  tf &lt;- terms(fit)
+  labels(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

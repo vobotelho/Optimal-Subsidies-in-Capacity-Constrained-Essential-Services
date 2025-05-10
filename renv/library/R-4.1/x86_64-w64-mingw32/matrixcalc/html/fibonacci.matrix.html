@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fibonacci Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fibonacci.matrix {matrixcalc}"><tr><td>fibonacci.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Fibonacci Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function constructs the order n + 1 square Fibonacci matrix
+which is derived from a Fibonacci sequence.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fibonacci.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> a positive integer value </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Let <i>&le;ft\{ {{f_0},\;{f_1},\; &hellip; ,\;{f_n}} \right\}</i> be the
+set of <i> n + 1</i> Fibonacci numbers where <i>{f_0} = {f_1} = 1</i>
+and <i>{f_j} = {f_{j - 1}} + {f_{j - 2}},\quad 2 &le; j &le; n</i>.  The
+order <i>n + 1</i> Fibonacci matrix <i>{\bf{F}}</i> has as typical element
+<i>{F_{i,j}} = &le;ft\{ {\begin{array}{cc}
+{{f_{i - j + 1}}}&amp;{i - j + 1 &ge; 0}\\
+0&amp;{i - j + 1 &lt; 0}
+\end{array}} \right.</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n + 1</i> matrix
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument n is not a positive integer, the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Zhang, Z. and J. Wang (2006). Bernoulli matrix and its algebraic properties,
+<em>Discrete Applied Nathematics</em>, 154, 1622-1632.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+F &lt;- fibonacci.matrix( 10 )
+print( F )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

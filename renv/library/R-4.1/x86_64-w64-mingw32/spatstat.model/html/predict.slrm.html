@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Predicted or Fitted Values from Spatial Logistic Regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for predict.slrm {spatstat.model}"><tr><td>predict.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Predicted or Fitted Values from Spatial Logistic Regression
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted Spatial Logistic Regression model,
+this function computes the fitted probabilities for each pixel,
+or the fitted point process intensity, or the values of the
+linear predictor in each pixel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'slrm'
+predict(object, ..., type = "intensity",
+                        newdata=NULL, window=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>a fitted spatial logistic regression model.
+An object of class <code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code>
+determining the pixel resolution for the discretisation
+of the point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string (partially) matching one of 
+<code>"probabilities"</code>, <code>"intensity"</code> or <code>"link"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+
+<p>Optional.  List containing new covariate values for the prediction.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Optional.  New window in which to predict.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for <code><a href="../../stats/help/predict.html">predict</a></code> for spatial logistic
+regression models (objects of class <code>"slrm"</code>, usually obtained
+from the function <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>).
+</p>
+<p>The argument <code>type</code> determines which quantity is computed.
+If <code>type="intensity"</code>), the value of the point process intensity
+is computed at each pixel. If <code>type="probabilities"</code>) the 
+probability of the presence of a random point in each pixel is
+computed. If <code>type="link"</code>, the value of the linear predictor is
+computed at each pixel. 
+</p>
+<p>If <code>newdata = NULL</code> (the default), the algorithm computes
+fitted values of the model (based on the data that was originally used
+to fit the model <code>object</code>). 
+</p>
+<p>If <code>newdata</code> is given, the algorithm computes predicted values
+of the model, using the new values of the covariates provided by
+<code>newdata</code>. The argument <code>newdata</code> should be a list;
+names of entries in the list should correspond
+to variables appearing in the model formula of the <code>object</code>.
+Each list entry may be a pixel image or a single numeric
+value. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) containing the predicted
+values for each pixel.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoispp(42)
+  fit &lt;- slrm(X ~ x+y)
+  plot(predict(fit))
+
+  X &lt;- copper$SouthPoints
+  Y &lt;- copper$SouthLines
+  Z &lt;- distmap(Y)
+  fitc &lt;- slrm(X ~ Z)
+  pc &lt;- predict(fitc)
+
+  Znew &lt;- distmap(copper$Lines)[copper$SouthWindow]
+  pcnew &lt;- predict(fitc, newdata=list(Z=Znew))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

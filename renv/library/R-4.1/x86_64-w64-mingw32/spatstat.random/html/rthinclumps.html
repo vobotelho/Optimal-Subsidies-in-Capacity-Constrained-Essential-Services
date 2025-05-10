@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Thinning of Clumps</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rthinclumps {spatstat.random}"><tr><td>rthinclumps {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Thinning of Clumps</h2>
+
+<h3>Description</h3>
+
+<p>Finds the topologically-connected clumps of a spatial region
+and randomly deletes some of the clumps.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rthinclumps(W, p, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>
+or pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+
+<p>Probability of <em>retaining</em> each clump.
+A single number between 0 and 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.geom/help/connected.im.html">connected.im</a></code>
+or <code><a href="../../spatstat.geom/help/connected.owin.html">connected.owin</a></code> to determine the connected clumps.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>W</code> specifies a region of space, typically
+consisting of several clumps that are not connected to each other.
+The algorithm randomly deletes or retains each clump. The fate of
+each clump is independent of other clumps.
+</p>
+<p>If <code>W</code> is a spatial window (class <code>"owin"</code>) then
+it will be divided into clumps using 
+<code><a href="../../spatstat.geom/help/connected.owin.html">connected.owin</a></code>. Each clump will either be
+retained (with probability <code>p</code>) or deleted in its entirety
+(with probability <code>1-p</code>). 
+</p>
+<p>If <code>W</code> is a pixel image (class <code>"im"</code>) then its domain
+will be divided into clumps using <code><a href="../../spatstat.geom/help/connected.im.html">connected.im</a></code>. The default
+behaviour depends on the type of pixel values. If the pixel values are
+logical, then the spatial region will be taken to consist of all
+pixels whose value is <code>TRUE</code>. Otherwise, the spatial region is
+taken to consist of all pixels whose value is defined (i.e. not equal
+to <code>NA</code>). This behaviour can be changed using the argument
+<code>background</code> passed to <code><a href="../../spatstat.geom/help/connected.im.html">connected.im</a></code>.
+</p>
+<p>The result is a window comprising all the clumps that were retained.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Window (object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rthin.html">rthin</a></code> for thinning other kinds of objects.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  A &lt;- (distmap(cells) &lt; 0.06)
+  opa &lt;- par(mfrow=c(1,2))
+  plot(A)
+  plot(rthinclumps(A, 0.5))
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

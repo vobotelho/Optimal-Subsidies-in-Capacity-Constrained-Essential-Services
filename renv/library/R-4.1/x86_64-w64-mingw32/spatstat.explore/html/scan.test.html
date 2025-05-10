@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Scan Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for scan.test {spatstat.explore}"><tr><td>scan.test {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Spatial Scan Test
+</h2>
+
+<h3>Description</h3>
+
+<p>Performs the Spatial Scan Test for clustering
+in a spatial point pattern, or for clustering of one type of point
+in a bivariate spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+scan.test(X, r, ...,
+          method = c("poisson", "binomial"),
+          nsim = 19,
+          baseline = NULL,
+          case = 2, 
+          alternative = c("greater", "less", "two.sided"),
+          verbose = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Radius of circle to use. A single number or a numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional. Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to determine the
+spatial resolution of the computations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Either <code>"poisson"</code> or <code>"binomial"</code>
+specifying the type of likelihood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulations for computing Monte Carlo p-value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>baseline</code></td>
+<td>
+
+<p>Baseline for the Poisson intensity, if <code>method="poisson"</code>.
+A pixel image or a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>case</code></td>
+<td>
+
+<p>Which type of point should be interpreted as a case,
+if <code>method="binomial"</code>.
+Integer or character string.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>Alternative hypothesis: <code>"greater"</code> if the alternative
+postulates that the mean number of points inside the circle
+will be greater than expected under the null.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical. Whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The spatial scan test (Kulldorf, 1997) is applied
+to the point pattern <code>X</code>.
+</p>
+<p>In a nutshell,
+</p>
+
+<ul>
+<li>
+<p>If <code>method="poisson"</code> then 
+a significant result would mean that there is a circle of radius
+<code>r</code>, located somewhere in the spatial domain of the data,
+which contains a significantly higher than
+expected number of points of <code>X</code>. That is, the
+pattern <code>X</code> exhibits spatial clustering.
+</p>
+</li>
+<li> 
+<p>If <code>method="binomial"</code> then <code>X</code> must be a bivariate (two-type)
+point pattern. By default, the first type of point is interpreted as
+a control (non-event) and the second type of point as a case (event).
+A significant result would mean that there is a
+circle of radius <code>r</code> which contains a significantly higher than
+expected number of cases. That is, the cases are clustered together,
+conditional on the locations of all points.
+</p>
+</li></ul>
+
+<p>Following is a more detailed explanation.
+</p>
+
+<ul>
+<li> 
+<p>If <code>method="poisson"</code> then the scan test based on Poisson
+likelihood is performed (Kulldorf, 1997).
+The dataset <code>X</code> is treated as an unmarked point pattern.
+By default (if <code>baseline</code> is not specified) 
+the null hypothesis is complete spatial randomness CSR
+(i.e. a uniform Poisson process).
+The alternative hypothesis is a Poisson process with
+one intensity <i>beta1</i> inside some circle of radius
+<code>r</code> and another intensity <i>beta0</i> outside the
+circle.
+If <code>baseline</code> is given, then it should be a pixel image
+or a <code>function(x,y)</code>. The null hypothesis is
+an inhomogeneous Poisson process with intensity proportional
+to <code>baseline</code>. The alternative hypothesis is an inhomogeneous
+Poisson process with intensity
+<code>beta1 * baseline</code> inside some circle of radius <code>r</code>,
+and <code>beta0 * baseline</code> outside the circle.
+</p>
+</li>
+<li>
+<p>If <code>method="binomial"</code> then the scan test based on
+binomial likelihood is performed (Kulldorf, 1997).
+The dataset <code>X</code> must be a bivariate point pattern,
+i.e. a multitype point pattern with two types.
+The null hypothesis is that all permutations of the type labels are
+equally likely.
+The alternative hypothesis is that some circle of radius
+<code>r</code> has a higher proportion of points of the second type,
+than expected under the null hypothesis.
+</p>
+</li></ul>
+
+<p>The result of <code>scan.test</code> is a hypothesis test
+(object of class <code>"htest"</code>) which can be plotted to
+report the results. The component <code>p.value</code> contains the
+<i>p</i>-value.
+</p>
+<p>The result of <code>scan.test</code> can also be plotted (using the plot
+method for the class <code>"scan.test"</code>). The plot is
+a pixel image of the Likelihood Ratio Test Statistic
+(2 times the log likelihood ratio) as a function
+of the location of the centre of the circle.
+This pixel image can be extracted from the object
+using <code><a href="../../spatstat.explore/help/as.im.scan.test.html">as.im.scan.test</a></code>.
+The Likelihood Ratio Test Statistic is computed by
+<code><a href="../../spatstat.explore/help/scanLRTS.html">scanLRTS</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"htest"</code> (hypothesis test)
+which also belongs to the class <code>"scan.test"</code>.
+Printing this object gives the result of the test.
+Plotting this object displays the Likelihood Ratio Test Statistic
+as a function of the location of the centre of the circle.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Kulldorff, M. (1997)
+A spatial scan statistic.
+<em>Communications in Statistics &mdash; Theory and Methods</em>
+<b>26</b>, 1481&ndash;1496.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/plot.scan.test.html">plot.scan.test</a></code>,
+<code><a href="../../spatstat.explore/help/as.im.scan.test.html">as.im.scan.test</a></code>,
+<code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code>,
+<code><a href="../../spatstat.explore/help/scanLRTS.html">scanLRTS</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   nsim &lt;- if(interactive()) 19 else 2
+   rr &lt;- if(interactive()) seq(0.5, 1, by=0.1) else c(0.5, 1)
+   scan.test(redwood, 0.1 * rr, method="poisson", nsim=nsim)
+   scan.test(chorley, rr, method="binomial", case="larynx", nsim=nsim)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

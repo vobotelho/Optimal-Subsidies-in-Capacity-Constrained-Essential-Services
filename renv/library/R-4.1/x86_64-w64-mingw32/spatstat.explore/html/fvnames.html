@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Abbreviations for Groups of Columns in Function Value Table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fvnames {spatstat.explore}"><tr><td>fvnames {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Abbreviations for Groups of Columns in Function Value Table
+</h2>
+
+<h3>Description</h3>
+
+<p>Groups of columns in a function value table (object
+of class <code>"fv"</code>) identified by standard abbreviations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fvnames(X, a = ".")
+
+fvnames(X, a = ".") &lt;- value
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Function value table (object of class <code>"fv"</code>).
+See <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+
+<p>One of the standard abbreviations listed below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Character vector containing names of columns of <code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"fv"</code> represents a table of
+values of a function, usually a summary function for spatial data
+such as the <i>K</i>-function, for which several different statistical
+estimators may be available. The different estimates are stored
+as columns of the table.
+</p>
+<p>Auxiliary information carried in the object <code>X</code> specifies some
+columns or groups of columns of this table that should be
+used for particular purposes.
+For convenience these groups can be referred to by standard
+abbreviations which are recognised by various functions
+in the <span class="pkg">spatstat</span> package, such as <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>These abbreviations are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>".x"</code> </td><td style="text-align: left;"> the function argument </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>".y"</code> </td><td style="text-align: left;"> the recommended value of the function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"."</code>  </td><td style="text-align: left;"> all function values to be plotted by default </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                </td><td style="text-align: left;"> (in order of plotting) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>".s"</code> </td><td style="text-align: left;"> the upper and lower limits of shading </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                </td><td style="text-align: left;"> (for envelopes and confidence intervals)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>".a"</code> </td><td style="text-align: left;"> all function values (in column order)
+  </td>
+</tr>
+
+</table>
+
+<p>The command <code>fvnames(X, a)</code> expands the abbreviation <code>a</code> and returns
+a character vector containing the names of the columns.
+</p>
+<p>The assignment <code>fvnames(X, a) &lt;- value</code> changes the
+definition of the abbreviation <code>a</code> to the character string
+<code>value</code> (which should be the name of another column of <code>X</code>).
+The column names of <code>X</code> are not changed.
+</p>
+<p>Note that <code>fvnames(x, ".")</code> lists the columns of values that will
+be plotted by default, in the order that they would be plotted, not in
+order of the column position. The order in which curves are plotted
+affects the colours and line styles associated with the curves.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>fvnames</code>, a character vector.
+</p>
+<p>For <code>fvnames&lt;-</code>, the updated object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K &lt;- Kest(cells)
+   fvnames(K, ".y")
+   fvnames(K, ".y") &lt;- "trans"
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

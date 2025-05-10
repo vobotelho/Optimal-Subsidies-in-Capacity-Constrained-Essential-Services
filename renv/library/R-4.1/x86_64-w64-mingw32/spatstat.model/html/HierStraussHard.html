@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Hierarchical Strauss Hard Core Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for HierStraussHard {spatstat.model}"><tr><td>HierStraussHard {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Hierarchical Strauss Hard Core Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the hierarchical Strauss-hard core point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  HierStraussHard(iradii, hradii=NULL, types=NULL, archy=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>iradii</code></td>
+<td>
+<p>Matrix of interaction radii</p>
+</td></tr>
+<tr valign="top"><td><code>hradii</code></td>
+<td>
+<p>Optional matrix of hard core distances</p>
+</td></tr>
+<tr valign="top"><td><code>types</code></td>
+<td>
+<p>Optional; vector of all possible types (i.e. the possible levels
+of the <code>marks</code> variable in the data)</p>
+</td></tr>
+<tr valign="top"><td><code>archy</code></td>
+<td>
+<p>Optional: the hierarchical order. See Details.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a hierarchical point process model
+for a multitype point pattern
+(Hogmander and 
+Sarkka, 1999;
+Grabarnik and Sarkka, 2009).
+It is appropriate for analysing multitype point pattern data
+in which the types are ordered so that
+the points of type <i>j</i> depend on the points of type
+<i>1,2,...,j-1</i>.
+</p>
+<p>The hierarchical version of the (stationary) 
+Strauss hard core process with <i>m</i> types, with interaction radii
+<i>r[i,j]</i>, hard core distances <i>h[i,j]</i> and 
+parameters <i>beta[j]</i> and <i>gamma[i,j]</i>
+is a point process
+in which each point of type <i>j</i>
+contributes a factor <i>beta[j]</i> to the 
+probability density of the point pattern, and a pair of points
+of types <i>i</i> and <i>j</i> closer than <i>r[i,j]</i>
+units apart contributes a factor
+<i>gamma[i,j]</i> to the density
+<b>provided</b> <i>i &lt;= j</i>. If any pair of points
+of types <i>i</i> and <i>j</i> lies closer than <i>h[i,j]</i>
+units apart, the configuration of points is impossible (probability
+density zero).
+</p>
+<p>The nonstationary hierarchical Strauss hard core
+process is similar except that 
+the contribution of each individual point <i>x[i]</i>
+is a function <i>beta(x[i])</i>
+of location and type, rather than a constant beta. 
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>,
+which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the hierarchical
+Strauss hard core process pairwise interaction is
+yielded by the function <code>HierStraussHard()</code>. See the examples below.
+</p>
+<p>The argument <code>types</code> need not be specified in normal use.
+It will be determined automatically from the point pattern data set
+to which the HierStraussHard interaction is applied,
+when the user calls <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+However, the user should be confident that
+the ordering of types in the dataset corresponds to the ordering of
+rows and columns in the matrix <code>radii</code>.
+</p>
+<p>The argument <code>archy</code> can be used to specify a hierarchical
+ordering of the types. It can be either a vector of integers
+or a character vector matching the possible types.
+The default is the sequence
+<i>1,2, ..., m</i> meaning that type <i>j</i>
+depends on types <i>1,2, ..., j-1</i>.
+</p>
+<p>The matrices <code>iradii</code> and <code>hradii</code> must be square, with entries
+which are either positive numbers or zero or <code>NA</code>. 
+A value of zero or <code>NA</code> indicates that no interaction term
+should be included for this combination of types.
+</p>
+<p>Note that only the interaction radii and hard core distances are
+specified in <code>HierStraussHard</code>.  The canonical
+parameters <i>log(beta[j])</i> and
+<i>log(gamma[i,j])</i> are estimated by
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, not fixed in <code>HierStraussHard()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the hierarchical Strauss-hard core process with
+interaction radii <i>iradii[i,j]</i> and hard core distances
+<i>hradii[i,j]</i>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Grabarnik, P. and Sarkka, A. (2009)
+Modelling the spatial structure of forest stands by
+multivariate point processes with hierarchical interactions.
+<em>Ecological Modelling</em> <b>220</b>, 1232&ndash;1240.
+</p>
+<p>Hogmander, H. and 
+Sarkka, A. (1999)
+Multitype spatial point patterns with hierarchical interactions.
+<em>Biometrics</em> <b>55</b>, 1051&ndash;1058.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/MultiStraussHard.html">MultiStraussHard</a></code> for the corresponding
+symmetrical interaction.
+</p>
+<p><code><a href="../../spatstat.model/help/HierHard.html">HierHard</a></code>,
+<code><a href="../../spatstat.model/help/HierStrauss.html">HierStrauss</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   r &lt;- matrix(c(30, NA, 40, 30), nrow=2,ncol=2)
+   h &lt;- matrix(c(4, NA, 10, 15), 2, 2)
+   HierStraussHard(r, h)
+   # prints a sensible description of itself
+   ppm(ants ~1, HierStraussHard(r, h))
+   # fit the stationary hierarchical Strauss-hard core process to ants data
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

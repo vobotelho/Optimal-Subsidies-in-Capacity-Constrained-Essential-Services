@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Copy Data Files for Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for copyExampleFiles {spatstat.data}"><tr><td>copyExampleFiles {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Copy Data Files for Example 
+</h2>
+
+<h3>Description</h3>
+
+<p>This command copies several data files to
+a folder (directory) chosen by the user,
+so that they can be used for a practice example.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+copyExampleFiles(which, folder = getwd())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Character string name (partially matched)
+of one of the datasets installed in <code>spatstat</code> for which
+the original data files are provided. 
+If <code>which</code> is missing, a list of available options is printed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>folder</code></td>
+<td>
+
+<p>Character string path name of a folder (directory) in which the
+files will be placed. Defaults to the current working directory.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The original text files containing data for the selected
+dataset are copied to the chosen folder.
+</p>
+<p>This is part of an exercise described in Chapter 3 of
+Baddeley, Rubak and Turner (2015).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/vesicles.html">vesicles</a></code>,
+<code><a href="../help/finpines.html">finpines</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   copyExampleFiles()
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply a Function to a Point Pattern Broken Down by Factor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for by.ppp {spatstat.geom}"><tr><td>by.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply a Function to a Point Pattern Broken Down by Factor</h2>
+
+<h3>Description</h3>
+
+<p>Splits a point pattern into sub-patterns, and applies the function to each
+sub-pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppp'
+by(data, INDICES=marks(data), FUN, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>INDICES</code></td>
+<td>
+<p>Grouping variable. Either a factor, a pixel image with
+factor values, or a tessellation.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>Function to be applied to subsets of <code>data</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments to <code>FUN</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/by.html">by</a></code>
+for point patterns (class <code>"ppp"</code>).
+</p>
+<p>The point pattern <code>data</code> is first divided into subsets
+according to <code>INDICES</code>. Then the function <code>FUN</code>
+is applied to each subset. The results of each computation are
+returned in a list.
+</p>
+<p>The argument <code>INDICES</code> may be
+</p>
+
+<ul>
+<li>
+<p>a factor, of length equal to the number of points in <code>data</code>.
+The levels of <code>INDICES</code>
+determine the destination of each point in <code>data</code>.
+The <code>i</code>th point of <code>data</code> will be placed in the sub-pattern
+<code>split.ppp(data)$l</code> where <code>l = f[i]</code>.
+</p>
+</li>
+<li>
+<p>a pixel image (object of class <code>"im"</code>) with factor values.
+The pixel value of <code>INDICES</code>
+at each point of <code>data</code> will be used as the classifying variable.
+</p>
+</li>
+<li>
+<p>a tessellation (object of class <code>"tess"</code>).
+Each point of <code>data</code> will be classified according to
+the tile of the tessellation into which it falls.
+</p>
+</li></ul>
+
+<p>If <code>INDICES</code> is missing, then <code>data</code> must be a multitype point pattern
+(a marked point pattern whose marks vector is a factor).
+Then the effect is that the points of each type
+are separated into different point patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list (also of class <code>"anylist"</code> or <code>"solist"</code> as
+appropriate) containing the results returned
+from <code>FUN</code> for each of the subpatterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # multitype point pattern, broken down by type
+  by(amacrine, FUN=minnndist)
+  by(amacrine, FUN=function(x) { intensity(unmark(x)) })
+
+  if(require(spatstat.explore)) {
+  # how to pass additional arguments to FUN
+  by(amacrine, FUN=clarkevans, correction=c("Donnelly","cdf"))
+  }
+
+  # point pattern broken down by tessellation
+  data(swedishpines)
+  tes &lt;- quadrats(swedishpines, 4,4)
+  ## compute minimum nearest neighbour distance for points in each tile
+  B &lt;- by(swedishpines, tes, minnndist)
+
+  if(require(spatstat.explore)) {
+  B &lt;- by(swedishpines, tes, clarkevans, correction="Donnelly")
+  simplify2array(B)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

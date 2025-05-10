@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Texture Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for texturemap {spatstat.geom}"><tr><td>texturemap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Texture Map
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a map that associates data values with graphical textures.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+texturemap(inputs, textures, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>inputs</code></td>
+<td>
+
+<p>A vector containing all the data values
+that will be mapped to textures.
+</p>
+</td></tr>
+<tr valign="top"><td><code>textures</code></td>
+<td>
+
+<p>Optional. A vector of integer codes specifying the textures
+to which the <code>inputs</code> will be mapped.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other graphics parameters such as <code>col</code>, <code>lwd</code>, <code>lty</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A texture map is an association between data values and graphical
+textures. The command <code>texturemap</code> creates an object of class
+<code>"texturemap"</code> that represents a texture map.
+</p>
+<p>Once a texture map has been created, it can be applied to any
+suitable data to generate a texture plot of those data
+using <code><a href="../../spatstat.geom/help/textureplot.html">textureplot</a></code>.
+This makes it easy to ensure that
+the <em>same</em> texture map is used in two different plots.
+The texture map can also be plotted in its own right.
+</p>
+<p>The argument <code>inputs</code> should be a vector containing all the
+possible data values (such as the levels of a factor) that are to be
+mapped.
+</p>
+<p>The <code>textures</code> should be integer values between 1 and 8,
+representing the eight possible textures
+described in the help for <code><a href="../../spatstat.geom/help/add.texture.html">add.texture</a></code>.
+The default is <code>textures = 1:n</code> where
+<code>n</code> is the length of <code>inputs</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"texturemap"</code> representing the texture map.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/textureplot.html">textureplot</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   texturemap(letters[1:4], 2:5, col=1:4, lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

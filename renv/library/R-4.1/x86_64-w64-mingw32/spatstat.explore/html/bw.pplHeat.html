@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bandwidth Selection for Diffusion Smoother by Likelihood...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.pplHeat {spatstat.explore}"><tr><td>bw.pplHeat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Bandwidth Selection for Diffusion Smoother by Likelihood Cross-Validation
+</h2>
+
+<h3>Description</h3>
+
+<p>Selects an optimal bandwidth for diffusion smoothing
+by point process likelihood cross-validation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bw.pplHeat(X, ..., srange=NULL, ns=16, sigma=NULL,
+         leaveoneout=TRUE, verbose = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>srange</code></td>
+<td>
+
+<p>Numeric vector of length 2 specifying a range of bandwidths to be
+considered.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ns</code></td>
+<td>
+
+<p>Integer. Number of candidate bandwidths to be considered.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Maximum smoothing bandwidth.
+A numeric value, or a pixel image, or a <code>function(x,y)</code>.
+Alternatively a numeric vector containing a sequence of
+candidate bandwidths.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value specifying whether intensity values at data points
+should be estimated using the leave-one-out rule.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value specifying whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm selects the optimal global bandwidth for
+kernel estimation of intensity for the dataset <code>X</code>
+using diffusion smoothing <code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code>.
+</p>
+<p>If <code>sigma</code> is a numeric value, the algorithm finds the
+optimal bandwidth <code>tau &lt;= sigma</code>.
+</p>
+<p>If <code>sigma</code> is a pixel image or function, the algorithm
+finds the optimal fraction <code>0 &lt; f &lt;= 1</code> such that
+smoothing with <code>f * sigma</code> would be optimal.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numerical value giving the selected bandwidth
+(if <code>sigma</code> was a numeric value)
+or the selected fraction of the maximum bandwidth
+(if <code>sigma</code> was a pixel image or function).
+The result also belongs to the class <code>"bw.optim"</code> which can be
+plotted. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley and Tilman Davies.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/bw.CvLHeat.html">bw.CvLHeat</a></code> for an alternative method.
+</p>
+<p><code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  online &lt;- interactive()
+  if(!online) op &lt;- spatstat.options(npixel=32)
+  f &lt;- function(x,y) { dnorm(x, 2.3, 0.1) * dnorm(y, 2.0, 0.2) }
+  X &lt;- rpoint(15, f, win=letterR)
+  plot(X)
+  b &lt;- bw.pplHeat(X, sigma=0.25)
+  b
+  plot(b)
+  if(!online) spatstat.options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

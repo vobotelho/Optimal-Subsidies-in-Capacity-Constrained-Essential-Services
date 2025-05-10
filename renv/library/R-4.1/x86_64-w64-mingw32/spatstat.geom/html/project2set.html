@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find Nearest Point in a Region</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for project2set {spatstat.geom}"><tr><td>project2set {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Find Nearest Point in a Region
+</h2>
+
+<h3>Description</h3>
+
+<p>For each data point in a point pattern <code>X</code>,
+find the nearest location in a given spatial region <code>W</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  project2set(X, W, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>)
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> controlling the
+pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The window <code>W</code> is first discretised as a binary mask
+using <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+<p>For each data point <code>X[i]</code> in the point pattern <code>X</code>,
+the algorithm finds the nearest pixel in <code>W</code>.
+</p>
+<p>The result is a point pattern <code>Y</code> containing these nearest points,
+that is, <code>Y[i]</code> is the nearest point in <code>W</code> to the
+point <code>X[i]</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>) with the same
+number of points as <code>X</code> in the window <code>W</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/project2segment.html">project2segment</a></code>,
+<code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  He &lt;- heather$fine[owin(c(2.8, 7.4), c(4.0, 7.8))]
+  plot(He, main="project2set")
+  W &lt;- erosion(complement.owin(He), 0.2)
+if(require(spatstat.random)) {
+  X &lt;- runifpoint(4, W)
+} else {
+  X &lt;- ppp(c(6.1, 4.3, 5.7, 4.7), c(5.0, 6.6, 7.5, 4.9), window=W)
+}
+  points(X, col="red")
+  Y &lt;- project2set(X, He)
+  points(Y, col="green")
+  arrows(X$x, X$y, Y$x, Y$y, angle=15, length=0.2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summarise Marks in Every Neighbourhood in a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for markstat {spatstat.geom}"><tr><td>markstat {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summarise Marks in Every Neighbourhood in a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Visit each point in a point pattern, find the neighbouring points,
+and summarise their marks
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   markstat(X, fun, N=NULL, R=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A marked point pattern. 
+An object of class <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>Function to be applied to the vector of marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>N</code></td>
+<td>
+
+<p>Integer. If this argument is present,
+the neighbourhood of a point of <code>X</code> is defined to consist of the
+<code>N</code> points of <code>X</code> which are closest to it.
+</p>
+</td></tr>
+<tr valign="top"><td><code>R</code></td>
+<td>
+
+<p>Nonnegative numeric value. If this argument is present,
+the neighbourhood of a point of <code>X</code> is defined to consist of
+all points of <code>X</code> which lie within a distance <code>R</code>
+of it.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments passed to the function <code>fun</code>.
+They must be given in the form <code>name=value</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm visits each point in the point pattern <code>X</code>,
+determines which points of <code>X</code> are &ldquo;neighbours&rdquo; of the current
+point, extracts the marks of these neighbouring points,
+applies the function <code>fun</code> to the marks,
+and collects the value or values returned by <code>fun</code>.
+</p>
+<p>The definition of &ldquo;neighbours&rdquo; depends on the arguments
+<code>N</code> and <code>R</code>, exactly one of which must be given.
+</p>
+<p>If <code>N</code> is given, then the neighbours of the current
+point are the <code>N</code> points of <code>X</code> which are closest to
+the current point (including the current point itself).
+If <code>R</code> is given, then the neighbourhood of the current point
+consists of all points of <code>X</code> which lie closer than a distance <code>R</code>
+from the current point.
+</p>
+<p>Each point of <code>X</code> is visited; the neighbourhood
+of the current point is determined; the marks of these points
+are extracted as a vector <code>v</code>; then the function 
+<code>fun</code> is called as:
+</p>
+<p><code>fun(v, ...)</code>
+</p>
+<p>where <code>...</code> are the arguments passed from the call to
+<code>markstat</code>.
+</p>
+<p>The results of each call to <code>fun</code> are collected and returned
+according to the usual rules for <code><a href="../../base/html/apply.html">apply</a></code> and its
+relatives. See the section on <b>Value</b>.
+</p>
+<p>This function is just a convenient wrapper for a common use of the
+function <code><a href="../help/applynbd.html">applynbd</a></code>. For more complex tasks,
+use <code><a href="../help/applynbd.html">applynbd</a></code>. 
+To simply tabulate the marks in every <code>R</code>-neighbourhood, use
+<code><a href="../../spatstat.explore/help/marktable.html">marktable</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Similar to the result of <code><a href="../../base/html/apply.html">apply</a></code>.
+if each call to <code>fun</code> returns a single numeric value,
+the result is a vector of dimension <code>npoints(X)</code>, the number of points
+in <code>X</code>.
+If each call to <code>fun</code> returns a vector of the same length
+<code>m</code>, then the result is a matrix of dimensions <code>c(m,n)</code>;
+note the transposition of the indices, as usual for the family of
+<code>apply</code> functions.
+If the calls to <code>fun</code> return vectors of different lengths,
+the result is a list of length <code>npoints(X)</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/applynbd.html">applynbd</a></code>,
+<code><a href="../../spatstat.explore/help/marktable.html">marktable</a></code>,
+<code><a href="../help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../base/html/apply.html">apply</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  trees &lt;- longleaf
+  
+
+  # average diameter of 5 closest neighbours of each tree
+  md &lt;- markstat(trees, mean, N=5)
+
+  # range of diameters of trees within 10 metre radius
+  rd &lt;- markstat(trees, range, R=10)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

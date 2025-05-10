@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Identify Segments in a Line Segment Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for identify.psp {spatstat.geom}"><tr><td>identify.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Identify Segments in a Line Segment Pattern</h2>
+
+<h3>Description</h3>
+
+<p>If a line segment pattern is plotted in the graphics window,
+this function will find the segment which is nearest to
+the mouse position, and print its serial number.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'psp'
+identify(x, ..., labels=seq_len(nsegments(x)), n=nsegments(x), plot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+
+<p>Labels associated with the segments, to be plotted when the
+segments are identified. A character vector or numeric vector
+of length equal to the number of segments in <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Maximum number of segments to be identified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+
+<p>Logical. Whether to plot the labels when a segment is identified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/text.default.html">text.default</a></code>
+controlling the plotting of the labels.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../graphics/help/identify.html">identify</a></code>
+for line segment pattern objects.
+</p>
+<p>The line segment pattern <code>x</code> should first be plotted
+using <code><a href="../../spatstat.geom/help/plot.psp.html">plot.psp</a></code>. Then <code>identify(x)</code>
+reads the position of the graphics pointer each time the
+left mouse button is pressed.  It then finds 
+the segment in the pattern <code>x</code> that is closest to the mouse position.
+This segment's index will be returned as part of the value of the call.
+</p>
+<p>Each time a segment is identified,
+text will be displayed next to the point,
+showing its serial number (or the relevant entry of <code>labels</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Vector containing the serial numbers of the segments in the pattern
+<code>x</code> that were identified.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/help/identify.html">identify</a></code>,
+<code><a href="../../spatstat.geom/help/identify.ppp.html">identify.ppp</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

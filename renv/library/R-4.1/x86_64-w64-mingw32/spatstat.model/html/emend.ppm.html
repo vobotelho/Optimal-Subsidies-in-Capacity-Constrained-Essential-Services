@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Force Point Process Model to be Valid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for emend.ppm {spatstat.model}"><tr><td>emend.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Force Point Process Model to be Valid
+</h2>
+
+<h3>Description</h3>
+
+<p>Ensures that a fitted point process model 
+satisfies the integrability conditions for existence of the point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+project.ppm(object, ..., fatal=FALSE, trace=FALSE)
+
+## S3 method for class 'ppm'
+emend(object, ..., fatal=FALSE, trace=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating whether to generate an error
+if the model cannot be projected to a valid model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trace</code></td>
+<td>
+
+<p>Logical value indicating whether to print a trace
+of the decision process. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>emend.ppm</code> and <code>project.ppm</code> are identical:
+<code>emend.ppm</code> is a method for the generic <code><a href="../../spatstat.model/help/emend.html">emend</a></code>,
+while <code>project.ppm</code> is an older name for the same function.
+</p>
+<p>The purpose of the function is to ensure that a fitted model
+is valid.
+</p>
+<p>The model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+fits Gibbs point process models to point pattern data.
+By default, the fitted model returned by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> may not
+actually exist as a point process. 
+</p>
+<p>First, some of the fitted coefficients of the model
+may be <code>NA</code> or infinite values. 
+This usually occurs when the data are insufficient to estimate
+all the parameters. The model is said to be
+<em>unidentifiable</em> or <em>confounded</em>.
+</p>
+<p>Second, unlike a regression model, which is well-defined for any finite values
+of the fitted regression coefficients, a Gibbs point process model
+is only well-defined if the fitted interaction parameters 
+satisfy some constraints. 
+A famous example is the Strauss process (see <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>)
+which exists only when the interaction parameter <i>gamma</i>
+is less than or equal to 1. For values <i>gamma &gt; 1</i>,
+the probability density is not integrable and the process does not
+exist (and cannot be simulated).
+</p>
+<p>By default, <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> does not enforce the constraint that
+a fitted Strauss process (for example) must satisfy
+<i>gamma &lt;= 1</i>.
+This is because a fitted parameter value of <i>gamma &gt; 1</i> 
+could be useful information for data analysis, as it indicates that
+the Strauss model is not appropriate, and suggests a clustered model should be
+fitted.
+</p>
+<p>The function <code>emend.ppm</code> or <code>project.ppm</code>
+modifies the model <code>object</code>
+so that the model is valid. It 
+identifies the terms in the model <code>object</code>
+that are associated with illegal parameter values (i.e. parameter
+values which are either <code>NA</code>, infinite, or outside their permitted
+range). It considers all possible sub-models of <code>object</code>
+obtained by deleting one or more
+of these terms. It identifies which of these submodels are valid,
+and chooses the valid submodel with the largest pseudolikelihood. The result
+of <code>emend.ppm</code> or <code>project.ppm</code> is the
+true maximum pseudolikelihood fit to the data.
+</p>
+<p>For large datasets or complex models, the algorithm used in
+<code>emend.ppm</code> or 
+<code>project.ppm</code> may be time-consuming, because it takes time to
+compute all the sub-models. A faster, approximate
+algorithm can be applied by setting
+<code>spatstat.options(project.fast=TRUE)</code>. This produces a
+valid submodel, which may not be the maximum pseudolikelihood submodel.
+</p>
+<p>Use the function <code><a href="../../spatstat.model/help/valid.ppm.html">valid.ppm</a></code> to check whether a fitted model
+object specifies a well-defined point process.
+</p>
+<p>Use the expression <code>all(is.finite(coef(object)))</code> to determine
+whether all parameters are identifiable.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another point process model (object of class <code>"ppm"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/valid.ppm.html">valid.ppm</a></code>,
+<code><a href="../../spatstat.model/help/emend.html">emend</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(redwood ~1, Strauss(0.1))
+   coef(fit)
+   fit2 &lt;- emend(fit)
+   coef(fit2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

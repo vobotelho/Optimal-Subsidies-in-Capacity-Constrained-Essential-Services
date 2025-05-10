@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vectorize a matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vech {matrixcalc}"><tr><td>vech {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Vectorize a matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns a stack of the lower triangular matrix of a square matrix as a matrix with 1 column
+and n * ( n + 1 ) / 2 rows
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+vech(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A matrix with <i>\frac{1}{2}n&le;ft( {n + 1} \right)</i> rows and one column.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/is.square.matrix.html">is.square.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix( seq( 1, 16, 1 ), nrow=4, byrow=TRUE )
+print( x )
+y &lt;- vech( x )
+print( y )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

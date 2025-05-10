@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Thomas Process on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rThomaslpp {spatstat.linnet}"><tr><td>rThomaslpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Simulate Thomas Process on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern, a realisation of the
+Thomas cluster process, on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rThomaslpp(kappa, scale, mu, L, ..., nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+
+<p>Intensity of the Poisson process of cluster centres.
+A single positive number, a <code>function(x,y)</code>, or a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Standard deviation of random displacement (along the network)
+of a point from its cluster centre.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean number of points per cluster (a single positive number)
+or reference intensity for the cluster points (a function or
+a pixel image).
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>)
+on which the point pattern should be generated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.random/help/rpoisppOnLines.html">rpoisppOnLines</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated realisations to generate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>nsim=1</code>.
+If <code>drop=TRUE</code> (the default), the result is a point pattern.
+If <code>drop=FALSE</code>, the result is a list with one entry which is a
+point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates realisations of the Thomas cluster process
+on a linear network, described by Baddeley et al (2017).
+</p>
+<p>Argument <code>L</code> can be omitted, and defaults to <code>as.linnet(kappa)</code>,
+when <code>kappa</code> is a function on a linear network (class
+<code>"linfun"</code>) or a pixel image on a linear network (<code>"linim"</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern on a network (object of class <code>"lpp"</code>)
+or a list of point patterns on the network.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Nair, G., Rakshit, S. and McSwiggan, G. (2017)
+&lsquo;Stationary&rsquo; point processes are uncommon on linear networks.
+<em>STAT</em> <b>6</b> (1) 68&ndash;78.
+</p>
+<p>Baddeley, A., Nair, G., Rakshit, S., McSwiggan, G. and Davies, T.M. (2021)
+Analysing point patterns on networks &mdash; a review.
+<em>Spatial Statistics</em> <b>42</b>, 100435,
+DOI 10.1016/j.spasta.2020.100435.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(rThomaslpp(4, 0.07, 5, simplenet))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

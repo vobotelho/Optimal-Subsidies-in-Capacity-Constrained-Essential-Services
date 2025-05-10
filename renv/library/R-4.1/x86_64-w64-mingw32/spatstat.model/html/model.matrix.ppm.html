@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Design Matrix from Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for model.matrix.ppm {spatstat.model}"><tr><td>model.matrix.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Design Matrix from Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model that has been
+fitted to spatial point pattern data,
+this function extracts the design matrix of the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'ppm'
+model.matrix(object,
+                              data=model.frame(object, na.action=NULL),
+                              ..., 
+                              Q=NULL, keepNA=TRUE)
+
+   ## S3 method for class 'kppm'
+model.matrix(object,
+                              data=model.frame(object, na.action=NULL),
+                              ..., 
+                              Q=NULL, keepNA=TRUE)
+
+   ## S3 method for class 'dppm'
+model.matrix(object,
+                              data=model.frame(object, na.action=NULL),
+                              ..., 
+                              Q=NULL, keepNA=TRUE)
+
+
+   ## S3 method for class 'ippm'
+model.matrix(object,
+                              data=model.frame(object, na.action=NULL),
+                              ..., 
+                              Q=NULL, keepNA=TRUE,
+			      irregular=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model. An object of class <code>"ppm"</code>
+or <code>"kppm"</code> or <code>"dppm"</code> 
+or <code>"ippm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>A model frame, containing the data required for the Berman-Turner device.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Q</code></td>
+<td>
+
+<p>A point pattern (class <code>"ppp"</code>) or quadrature scheme
+(class <code>"quad"</code>) specifying new locations where the
+covariates should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>keepNA</code></td>
+<td>
+
+<p>Logical. Determines whether rows containing NA values will be
+deleted or retained.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments (such as <code>na.action</code>) passed to
+<code><a href="../../stats/html/model.matrix.html">model.matrix.lm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>irregular</code></td>
+<td>
+
+<p>Logical value indicating whether to include the irregular score
+components.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These commands are methods for the generic function
+<code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>.
+They extract the design matrix of a spatial point process model
+(class <code>"ppm"</code> or <code>"kppm"</code> 
+or <code>"dppm"</code>).
+</p>
+<p>More precisely, this command extracts
+the design matrix of the generalised linear model associated with
+a spatial point process model. 
+</p>
+<p>The <code>object</code> must be a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code>
+or <code>"dppm"</code>)
+fitted to spatial point pattern data.
+Such objects are produced by the model-fitting
+functions <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>, 
+and <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+<p>The methods <code>model.matrix.ppm</code>,
+<code>model.matrix.kppm</code>, 
+and <code>model.matrix.dppm</code>
+extract the model matrix for the GLM.
+</p>
+<p>The result is a matrix, with one row for every quadrature point
+in the fitting procedure, and one column for every constructed
+covariate in the design matrix.
+</p>
+<p>If there are <code>NA</code> values in the covariates,
+the argument <code>keepNA</code> determines whether to retain or delete
+the corresponding rows of the model matrix. The default
+<code>keepNA=TRUE</code> is to retain them. Note that this differs from
+the default behaviour of many other methods for <code>model.matrix</code>,
+which typically delete rows containing <code>NA</code>.
+</p>
+<p>The quadrature points themselves can be extracted using
+<code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix. Columns of the matrix are canonical covariates in the model.
+Rows of the matrix correspond to quadrature points
+in the fitting procedure (provided <code>keepNA=TRUE</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>,
+<code><a href="../../spatstat.model/help/model.images.html">model.images</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,
+<code><a href="../../spatstat.model/help/ippm.html">ippm</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code>,
+<code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(cells ~ x)
+   head(model.matrix(fit))
+   model.matrix(fit, Q=runifpoint(5))
+   kfit &lt;- kppm(redwood ~ x, "Thomas")
+   m &lt;- model.matrix(kfit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

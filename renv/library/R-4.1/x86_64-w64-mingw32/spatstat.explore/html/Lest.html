@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: L-function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Lest {spatstat.explore}"><tr><td>Lest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>L-function</h2>
+
+<h3>Description</h3>
+
+<p>Calculates an estimate of the <i>L</i>-function (Besag's
+transformation of Ripley's <i>K</i>-function)
+for a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Lest(X, ..., correction)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>The observed point pattern, 
+from which an estimate of <i>L(r)</i> will be computed.
+An object of class <code>"ppp"</code>, or data
+in any format acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction,...</code></td>
+<td>
+
+<p>Other arguments passed to <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+to control the estimation procedure.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes an estimate of the <i>L</i>-function
+for the spatial point pattern <code>X</code>.
+The <i>L</i>-function is a transformation of Ripley's <i>K</i>-function,
+</p>
+<p style="text-align: center;"><i>L(r) = sqrt(K(r)/pi)</i></p>
+
+<p>where <i>K(r)</i> is the <i>K</i>-function.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> for information
+about Ripley's <i>K</i>-function. The transformation to <i>L</i> was
+proposed by Besag (1977).
+</p>
+<p>The command <code>Lest</code> first calls
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> to compute the estimate of the <i>K</i>-function,
+and then applies the square root transformation.
+</p>
+<p>For a completely random (uniform Poisson) point pattern,
+the theoretical value of the <i>L</i>-function is <i>L(r) = r</i>.
+The square root also has the effect of stabilising
+the variance of the estimator, so that <i>L(r)</i> is more appropriate
+for use in simulation envelopes and hypothesis tests.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> for the list of arguments.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>Essentially a data frame containing columns
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the vector of values of the argument <i>r</i> 
+at which the function <i>L</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value <i>L(r) = r</i>
+for a stationary Poisson process
+</p>
+</td></tr>
+</table>
+<p>together with columns named 
+<code>"border"</code>, <code>"bord.modif"</code>,
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the function <i>L(r)</i> obtained by the edge corrections
+named.
+</p>
+
+
+<h3>Variance approximations</h3>
+
+<p>If the argument <code>var.approx=TRUE</code> is given, the return value
+includes columns <code>rip</code> and <code>ls</code> containing approximations
+to the variance of <i>Lest(r)</i> under CSR.
+These are obtained by the delta method from the variance
+approximations described in <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Besag, J. (1977) 
+Discussion of Dr Ripley's paper.
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>39</b>, 193&ndash;195.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ L &lt;- Lest(cells)
+ plot(L, main="L function for cells")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

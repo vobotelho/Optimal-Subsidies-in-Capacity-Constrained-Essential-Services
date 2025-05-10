@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Frobenius innter product of matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for frobenius.prod {matrixcalc}"><tr><td>frobenius.prod {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Frobenius innter product of matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the Fronbenius inner product of two matrices, x and y, with the same row and column dimensions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+frobenius.prod(x, y)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a numeric matrix or vector object </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> a numeric matrix or vector object </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Frobenius inner product is the element-by-element sum of 
+the Hadamard or Shur product of two numeric matrices.  Let <i>{\bf{x}}</i> and
+<i>{\bf{y}}</i> be two <i>m \times n</i> matrices.  Then Frobenious inner product
+is computed as <i>&sum;\limits_{i = 1}^m {&sum;\limits_{j = 1}^n {x_{i,j} \;y_{i,j} } } </i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The function converts vectors to matrices if necessary.
+The function stops running if x or y is not numeric and an error message is displayed.
+The function also stops running if x and y do not have the same row and column dimensions and an error mesage
+is displayed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Styan, G. P. H. (1973). Hadamard Products and Multivariate Statistical Analysis,
+<em>Linear Algebra and Its Applications</em>, Elsevier, 6, 217-240.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/hadamard.prod.html">hadamard.prod</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix( c( 1, 2, 3, 4 ), nrow=2, byrow=TRUE )
+y &lt;- matrix( c( 2, 4, 6, 8 ), nrow=2, byrow=TRUE )
+z &lt;- frobenius.prod( x, y )
+print( z )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Function Array</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.fasp {spatstat.explore}"><tr><td>plot.fasp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Function Array</h2>
+
+<h3>Description</h3>
+
+<p>Plots an array of summary functions, usually associated with a
+point pattern, stored in an object of class <code>"fasp"</code>.
+A method for <code>plot</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'fasp'
+plot(x,formule=NULL, ...,
+                        subset=NULL, title=NULL, banner=TRUE,
+                        transpose=FALSE,
+                        samex=FALSE, samey=FALSE,
+                        mar.panel=NULL,
+                        outerlabels=TRUE, cex.outerlabels=1.25,
+                        legend=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>An object of class <code>"fasp"</code> representing a
+function array.
+</p>
+</td></tr>
+<tr valign="top"><td><code>formule</code></td>
+<td>
+
+<p>A formula or list of formulae indicating what
+variables are to be plotted against what variable. Each formula is
+either an R language formula object, or a string that can be parsed
+as a formula. If <code>formule</code> is a list, its <i>k-th</i> component
+should be applicable to the <i>(i,j)-th</i>
+plot where <code>x$which[i,j]=k</code>.  If the formula is left
+as <code>NULL</code>, then <code>plot.fasp</code> attempts to use the component
+<code>default.formula</code> of <code>x</code>.  If that component is NULL
+as well, it gives up.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code> to control 
+the individual plot panels. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+
+<p>A logical vector, or a vector of indices, or an
+expression or a character string, or a <b>list</b> of such,
+indicating a subset of the data to be included in each plot.
+If <code>subset</code> is a list, its <i>k-th</i> component
+should be applicable to the <i>(i,j)-th</i> plot
+where <code>x$which[i,j]=k</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+
+<p>Overall title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>banner</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the overall title is plotted.
+If <code>FALSE</code>, the overall title is not plotted
+and no space is allocated for it.
+</p>
+</td></tr>
+<tr valign="top"><td><code>transpose</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, rows and columns will be exchanged.
+</p>
+</td></tr>
+<tr valign="top"><td><code>samex,samey</code></td>
+<td>
+
+<p>Logical values indicating whether all individual plot panels should have the
+same x axis limits and the same y axis limits, respectively.
+This makes it easier to compare the plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mar.panel</code></td>
+<td>
+
+<p>Vector of length 4 giving the value of the
+graphics parameter <code>mar</code> controlling the size of plot margins
+for each individual plot panel. See <code><a href="../../graphics/html/par.html">par</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>outerlabels</code></td>
+<td>
+<p>Logical.
+If <code>TRUE</code>, the row and column names of the array of functions
+are plotted in the margins of the array of plot panels.
+If <code>FALSE</code>, each individual plot panel is labelled by its
+row and column name.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cex.outerlabels</code></td>
+<td>
+
+<p>Character expansion factor for row and column labels of array.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical flag determining whether to plot a legend in each panel.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"fasp"</code> represents
+an array of summary functions, usually associated with a point
+pattern. See <code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code> for details.
+Such an object is created, for example, 
+by <code><a href="../help/alltypes.html">alltypes</a></code>.
+</p>
+<p>The function <code>plot.fasp</code> is
+a method for <code>plot</code>.  It calls <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code> to plot the
+individual panels.
+</p>
+<p>For information about the interpretation of the
+arguments <code>formule</code> and <code>subset</code>,
+see <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>Arguments that are often passed through <code>...</code> include
+<code>col</code> to control the colours of the different lines in a panel,
+and <code>lty</code> and <code>lwd</code> to control the line type and line width
+of the different lines in a panel. The argument <code>shade</code>
+can also be used to display confidence intervals or significance bands
+as filled grey shading. See <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>The argument <code>title</code>, if present, will determine the
+overall title of the plot. If it is absent, it defaults to <code>x$title</code>.
+Titles for the individual plot panels will be taken from
+<code>x$titles</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.</p>
+
+
+<h3>Warnings</h3>
+
+<p>(Each component of) the <code>subset</code> argument may be a
+logical vector (of the same length as the vectors of data which
+are extracted from <code>x</code>), or a vector of indices, or an
+<b>expression</b> such as <code>expression(r&lt;=0.2)</code>, or a text string,
+such as <code>"r&lt;=0.2"</code>.
+</p>
+<p>Attempting a syntax such as <code>subset = r&lt;=0.2</code> (without
+wrapping <code>r&lt;=0.2</code> either in quote marks or in <code>expression()</code>)
+will cause this function to fall over.
+</p>
+<p>Variables referred to in any formula must exist in the data frames
+stored in <code>x</code>.  What the names of these variables are will
+of course depend upon the nature of <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/alltypes.html">alltypes</a></code>,
+<code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>,
+<code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   if(interactive()) {
+   X.G &lt;- alltypes(amacrine,"G")
+   plot(X.G)
+   plot(X.G,subset="r&lt;=0.2")
+   plot(X.G,formule=asin(sqrt(cbind(km,theo))) ~ asin(sqrt(theo)))
+   plot(X.G,fo=cbind(km,theo) - theo~r, subset="theo&lt;=0.9")
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

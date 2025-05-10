@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Areas of Morphological Dilations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dilated.areas {spatstat.geom}"><tr><td>dilated.areas {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Areas of Morphological Dilations
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the areas of successive morphological dilations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  dilated.areas(X, r, W=as.owin(X), ..., constrained=TRUE, exact = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object to be dilated.
+A point pattern (object of class <code>"ppp"</code>),
+a line segment pattern (object of class <code>"psp"</code>),
+or a window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Numeric vector of radii for the dilations. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) inside which the areas
+will be computed, if <code>constrained=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> to control the
+pixel resolution, if <code>exact=FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>constrained</code></td>
+<td>
+
+<p>Logical flag indicating whether areas should be restricted
+to the window <code>W</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+
+<p>Logical flag indicating whether areas should be computed
+using analytic geometry (which is slower but more accurate).
+Currently available only when <code>X</code> is a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the areas of the dilations of <code>X</code>
+by each of the radii <code>r[i]</code>. Areas may also be computed
+inside a specified window <code>W</code>.
+</p>
+<p>The morphological dilation of a set <i>X</i> by a distance <i>r &gt; 0</i>
+is the subset 
+consisting of all points <i>x</i> such that the
+distance from <i>x</i> to <i>X</i> is less than 
+or equal to <i>r</i>.
+</p>
+<p>When <code>X</code> is a point pattern, the dilation by a distance
+<i>r</i> is the union of
+discs of radius <i>r</i> centred at the points of <code>X</code>.
+</p>
+<p>The argument <code>r</code> should be a vector of nonnegative numbers.
+</p>
+<p>If <code>exact=TRUE</code> and if <code>X</code> is a point pattern,
+then the areas are computed using analytic geometry, which is
+slower but much more accurate. Otherwise the computation is performed
+using <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>.
+</p>
+<p>To compute the dilated object itself, use <code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>,
+<code><a href="../../spatstat.geom/help/eroded.areas.html">eroded.areas</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(10)
+  a &lt;- dilated.areas(X, c(0.1,0.2), W=square(1), exact=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

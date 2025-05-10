@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reorder Levels of a Factor-Valued Image or Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for relevel.im {spatstat.geom}"><tr><td>relevel.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Reorder Levels of a Factor-Valued Image or Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>For a pixel image with factor values, or a point pattern with
+factor-valued marks, the levels of the factor are re-ordered so that
+the level <code>ref</code> is first and the others are moved down.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'im'
+relevel(x, ref, ...)
+
+  ## S3 method for class 'ppp'
+relevel(x, ref, ...)
+
+  ## S3 method for class 'ppx'
+relevel(x, ref, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>) with factor values,
+or a point pattern (object of class <code>"ppp"</code>, <code>"ppx"</code>,
+<code>"lpp"</code> or <code>"pp3"</code>) with
+factor-valued marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ref</code></td>
+<td>
+
+<p>The reference level.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic
+<code><a href="../../stats/help/relevel.html">relevel</a></code>.
+</p>
+<p>If <code>x</code> is a pixel image (object of class <code>"im"</code>) with
+factor values, or a point pattern (object of class <code>"ppp"</code>,
+<code>"ppx"</code>, <code>"lpp"</code> or <code>"pp3"</code>)
+with factor-valued marks, the levels of the factor are changed so
+that the level specified by <code>ref</code> comes first. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of the same kind as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/mergeLevels.html">mergeLevels</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  amacrine
+  relevel(amacrine, "on")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

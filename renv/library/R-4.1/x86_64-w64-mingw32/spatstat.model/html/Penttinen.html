@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Penttinen Interaction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Penttinen {spatstat.model}"><tr><td>Penttinen {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Penttinen Interaction</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the Penttinen pairwise interaction
+point process model, which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Penttinen(r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>circle radius</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Penttinen (1984, Example 2.1, page 18), citing Cormack (1979),
+described the pairwise interaction point process with interaction factor
+</p>
+<p style="text-align: center;"><i>
+    h(d) = exp(theta * A(d)) = gamma^(A(d))
+  </i></p>
+
+<p>between each pair of points separated by a distance $d$.
+Here <i>A(d)</i> is the area of intersection between two discs
+of radius <i>r</i> separated by a distance <i>d</i>, normalised so that
+<i>A(0) = 1</i>.
+</p>
+<p>The scale of interaction is controlled by the disc radius <i>r</i>:
+two points interact if they are closer than <i>2 * r</i> apart.
+The strength of interaction is controlled by the
+canonical parameter <i>theta</i>, which 
+must be less than or equal to zero, or equivalently by the
+parameter <i>gamma = exp(theta)</i>,
+which must lie between 0 and 1.
+</p>
+<p>The potential is inhibitory, i.e.\ this model is only appropriate for
+regular point patterns. 
+For <i>gamma=0</i> the model is
+a hard core process with hard core diameter <i>2 * r</i>.
+For <i>gamma=1</i> the model is a Poisson process.
+</p>
+<p>The irregular parameter
+<i>r</i> must be given in the call to
+<code>Penttinen</code>, while the
+regular parameter <i>theta</i> will be estimated.
+</p>
+<p>This model can be considered as a pairwise approximation
+to the area-interaction model <code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of a point process. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cormack, R.M. (1979)
+Spatial aspects of competition between individuals.
+Pages 151&ndash;212 in <em>Spatial and Temporal Analysis in Ecology</em>,
+eds. R.M. Cormack and J.K. Ord, International Co-operative
+Publishing House, Fairland, MD, USA. 
+</p>
+<p>Penttinen, A. (1984) 
+<em>Modelling Interaction in Spatial Point Patterns:
+Parameter Estimation by the Maximum Likelihood Method.</em>
+Jyvaskyla
+Studies in Computer Science, Economics and Statistics <b>7</b>,
+University of Jyvaskyla, Finland.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/Pairwise.html">Pairwise</a></code>,
+<code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(cells ~ 1, Penttinen(0.07))
+   fit
+   reach(fit) # interaction range is circle DIAMETER
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

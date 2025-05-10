@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Recursively Partitioned Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.rppm {spatstat.model}"><tr><td>plot.rppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Recursively Partitioned Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a model which has been fitted to point pattern data
+by recursive partitioning, plot the partition tree
+or the fitted intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rppm'
+plot(x, ..., what = c("tree", "spatial"), treeplot=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Fitted point process model of class <code>"rppm"</code>
+produced by the function <code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string (partially matched) specifying whether to plot the
+partition tree or the fitted intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../rpart/help/plot.rpart.html">plot.rpart</a></code>
+and <code><a href="../../rpart/help/text.rpart.html">text.rpart</a></code> (if <code>what="tree"</code>)
+or passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> (if <code>what="spatial"</code>)
+controlling the appearance of the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>treeplot</code></td>
+<td>
+
+<p>Optional. A function to be used to plot and label the partition tree,
+replacing the two functions  <code><a href="../../rpart/help/plot.rpart.html">plot.rpart</a></code>
+and <code><a href="../../rpart/help/text.rpart.html">text.rpart</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>what="tree"</code> (the default), the partition tree will be plotted
+using <code><a href="../../rpart/help/plot.rpart.html">plot.rpart</a></code>, and labelled using
+<code><a href="../../rpart/help/text.rpart.html">text.rpart</a></code>.
+</p>
+<p>If the argument <code>treeplot</code> is
+given, then plotting and labelling will be performed by
+<code>treeplot</code> instead. A good choice is the function
+<code>prp</code> in package <span class="pkg">rpart.plot</span>.
+</p>
+<p>If <code>what="spatial"</code>, the predicted intensity
+will be computed using <code><a href="../../spatstat.model/help/predict.rppm.html">predict.rppm</a></code>, and
+this intensity will be plotted as an image using <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>what="tree"</code>, a list containing <code>x</code> and <code>y</code>
+coordinates of the plotted nodes of the tree.
+If <code>what="spatial"</code>, the return value of <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # Murchison gold data
+    mur &lt;- solapply(murchison, rescale, s=1000, unitname="km")
+    mur$dfault &lt;- distfun(mur$faults)
+    # 
+    fit &lt;- rppm(gold ~ dfault + greenstone, data=mur)
+    #
+    opa &lt;- par(mfrow=c(1,2))
+    plot(fit)
+    plot(fit, what="spatial")
+    par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

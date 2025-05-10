@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Log Likelihood and AIC for Multiple Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for logLik.mppm {spatstat.model}"><tr><td>logLik.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Log Likelihood and AIC for Multiple Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>For a point process model that has been fitted to multiple point
+patterns, these functions extract the log likelihood and AIC,
+or analogous quantities based on the pseudolikelihood.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'mppm'
+logLik(object, ..., warn=TRUE)
+
+ ## S3 method for class 'mppm'
+AIC(object, ..., k=2, takeuchi=TRUE)
+
+ ## S3 method for class 'mppm'
+extractAIC(fit, scale = 0, k = 2, ..., takeuchi = TRUE) 
+
+ ## S3 method for class 'mppm'
+nobs(object, ...)
+
+ ## S3 method for class 'mppm'
+getCall(x, ...)
+
+ ## S3 method for class 'mppm'
+terms(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object,fit,x</code></td>
+<td>
+
+<p>Fitted point process model (fitted to multiple point
+patterns). An object of class <code>"mppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>If <code>TRUE</code>, a warning is given when the
+pseudolikelihood is returned instead of the likelihood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>Numeric value specifying the weight of the
+equivalent degrees of freedom in the AIC. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>takeuchi</code></td>
+<td>
+
+<p>Logical value specifying whether to use the Takeuchi penalty
+(<code>takeuchi=TRUE</code>) or the
+number of fitted parameters (<code>takeuchi=FALSE</code>)
+in calculating AIC.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../stats/help/logLik.html">logLik</a></code>,
+<code><a href="../../stats/help/AIC.html">AIC</a></code>,
+<code><a href="../../stats/help/extractAIC.html">extractAIC</a></code>,
+<code><a href="../../stats/help/terms.html">terms</a></code> and
+<code><a href="../../stats/help/update.html">getCall</a></code> 
+for the class <code>"mppm"</code>.
+</p>
+<p>An object of class <code>"mppm"</code> represents a fitted
+Poisson or Gibbs point process model fitted to several point patterns.
+It is obtained from the model-fitting function <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>.
+</p>
+<p>The method <code>logLik.mppm</code> extracts the 
+maximised value of the log likelihood for the fitted model
+(as approximated by quadrature using the Berman-Turner approximation).
+If <code>object</code> is not a Poisson process, the maximised log
+<em>pseudolikelihood</em> is returned, with a warning.
+</p>
+<p>The Akaike Information Criterion AIC for a fitted model is defined as
+</p>
+<p style="text-align: center;"><i>
+    AIC = -2 * log(L) + k * penalty
+  </i></p>
+
+<p>where <i>L</i> is the maximised likelihood of the fitted model,
+and <i>penalty</i> is a penalty for model complexity,
+usually equal to the effective degrees of freedom of the model.
+The method <code>extractAIC.mppm</code> returns the <em>analogous</em> quantity
+<i>AIC*</i> in which <i>L</i> is replaced by <i>L*</i>,
+the quadrature approximation
+to the likelihood (if <code>fit</code> is a Poisson model)
+or the pseudolikelihood (if <code>fit</code> is a Gibbs model).
+</p>
+<p>The <i>penalty</i> term is calculated
+as follows. If <code>takeuchi=FALSE</code> then <i>penalty</i> is
+the number of fitted parameters. If <code>takeuchi=TRUE</code> then
+<i>penalty = trace(J H^(-1))</i>
+where <i>J</i> and <i>H</i> are the estimated variance and hessian,
+respectively, of the composite score.
+These two choices are equivalent for a Poisson process.
+</p>
+<p>The method <code>nobs.mppm</code> returns the total number of points
+in the original data point patterns to which the model was fitted.
+</p>
+<p>The method <code>getCall.mppm</code> extracts the original call to
+<code><a href="../../spatstat.model/help/mppm.html">mppm</a></code> which caused the model to be fitted.
+</p>
+<p>The method <code>terms.mppm</code> extracts the covariate terms in the
+model formula as a <code>terms</code> object. Note that these terms do not
+include the interaction component of the model.
+</p>
+<p>The <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code><a href="../../stats/help/step.html">step</a></code> uses these methods.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See the help files for the corresponding generic functions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley, Ida-Maria Sintorn and Leanne Bischoff.
+Implemented by 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- mppm(Bugs ~ x, hyperframe(Bugs=waterstriders))
+  logLik(fit)
+  AIC(fit)
+  nobs(fit)
+  getCall(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Profile Likelihood</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.profilepl {spatstat.model}"><tr><td>plot.profilepl {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Profile Likelihood
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot the profile (pseudo) likelihood 
+against the irregular parameters, for a model that was fitted by
+maximum profile (pseudo)likelihood.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'profilepl'
+plot(x, ..., add = FALSE, main = NULL, tag = TRUE,
+                         coeff = NULL, xvariable = NULL,
+                         col = 1, lty = 1, lwd = 1,
+                         col.opt = "green", lty.opt = 3, lwd.opt = 1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point process model fitted by maximum profile (pseudo)likelihood.
+Object of class <code>"profilepl"</code>, obtained from <code><a href="../../spatstat.model/help/profilepl.html">profilepl</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional plot arguments passed to <code><a href="../../graphics/help/plot.default.html">plot.default</a></code>
+and <code><a href="../../graphics/help/lines.html">lines</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the plot is drawn over the existing plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Optional. Main title for the plot. A character string or character vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tag</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code> (the default), 
+when the plot contains multiple curves corresponding to different
+values of a parameter, each curve will be labelled 
+with the values of the irregular parameter.
+</p>
+</td></tr>
+<tr valign="top"><td><code>coeff</code></td>
+<td>
+
+<p>Optional. If this is given, it should be a character string matching
+the name of one of the fitted model coefficients. This coefficient
+will then be plotted on the vertical axis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xvariable</code></td>
+<td>
+
+<p>Optional. The name of the irregular parameter that should be plotted
+along the horizontal axis. The default is the first irregular
+parameter. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>col,lty,lwd</code></td>
+<td>
+
+<p>Graphical parameters (colour, line type, line width) for
+the curves on the plot. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.opt, lty.opt, lwd.opt</code></td>
+<td>
+
+<p>Graphical parameters for indicating the optimal parameter value.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code><a href="../../graphics/help/plot.html">plot</a></code> method for the
+class <code>"profilepl"</code> of fitted point process models obtained
+by maximising the profile likelihood or profile pseudolikelihood.
+</p>
+<p>The default behaviour is to plot the profile likelihood or profile
+pseudolikelihood on the vertical axis, against the value of the
+irregular parameter on the horizontal axis.
+</p>
+<p>If there are several irregular parameters, then one of them
+is plotted on the horizontal axis, and the plot consists of many different
+curves, corresponding to different values of the other parameters.
+The parameter to be plotted on the horizontal axis is specified by the
+argument <code>xvariable</code>; the default is to use the parameter that was
+listed first in the original call to <code><a href="../../spatstat.model/help/profilepl.html">profilepl</a></code>.
+</p>
+<p>If <code>coeff</code> is given, it should be the name of one of the
+fitted model coefficients <code>names(coef(as.ppm(x)))</code>. 
+The fitted value of that coefficient is plotted on the vertical axis.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/profilepl.html">profilepl</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  live &lt;- interactive()
+  nr &lt;- if(live) 20 else 3
+
+  # one irregular parameter
+  rr &lt;- data.frame(r=seq(0.05,0.15, length=nr))
+  ps &lt;- profilepl(rr, Strauss, cells)
+  plot(ps)                      # profile pseudolikelihood 
+  plot(ps, coeff="Interaction") # fitted interaction coefficient log(gamma)
+
+  # two irregular parameters
+  smax &lt;- if(live) 3 else 2
+  rs &lt;- expand.grid(r=seq(0.05,0.15, length=nr), sat=1:smax)
+  pg &lt;- profilepl(rs, Geyer, cells)
+  plot(pg) # profile pseudolikelihood against r for each value of 'sat'
+  plot(pg, coeff="Interaction")
+  plot(pg, xvariable="sat", col=ifelse(r &lt; 0.1, "red", "green"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

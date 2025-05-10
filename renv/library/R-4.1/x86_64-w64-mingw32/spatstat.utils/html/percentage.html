@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Fraction to Percentage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for percentage {spatstat.utils}"><tr><td>percentage {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Fraction to Percentage
+</h2>
+
+<h3>Description</h3>
+
+<p>This is a programmer's utility which converts a fraction to
+a percentage and encodes the percentage as a character string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+percentage(x, digits = 3)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Either a single number, or a logical vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+
+<p>Number of digits accuracy.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>x</code> is a single number, it should be a fraction between 0 and 1.
+It will be converted to a percentage and then converted to a character
+string followed by the percentage symbol.
+</p>
+<p>If <code>x</code> is a logical vector, the fraction of values which are
+<code>TRUE</code> will be computed, and used to determine the percentage.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character string.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+percentage(1/3)
+percentage(runif(20) &gt; 0.2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

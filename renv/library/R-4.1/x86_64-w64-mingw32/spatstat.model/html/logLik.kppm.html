@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Log Likelihood and AIC for Fitted Cox or Cluster Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for logLik.kppm {spatstat.model}"><tr><td>logLik.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Log Likelihood and AIC for Fitted Cox or Cluster Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the log composite likelihood, deviance, and AIC
+of a fitted Cox or cluster point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'kppm'
+logLik(object, ...)
+## S3 method for class 'kppm'
+AIC(object, ..., k=2)
+## S3 method for class 'kppm'
+extractAIC(fit, scale=0, k=2, ...)
+## S3 method for class 'kppm'
+nobs(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object,fit</code></td>
+<td>
+<p>Fitted point process model.
+An object of class <code>"kppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>Numeric value specifying the weight of the
+equivalent degrees of freedom in the AIC. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../stats/html/logLik.html">logLik</a></code>,
+<code><a href="../../stats/html/extractAIC.html">extractAIC</a></code>  and
+<code><a href="../../stats/html/nobs.html">nobs</a></code>
+for the class <code>"kppm"</code>.
+</p>
+<p>An object of class <code>"kppm"</code> represents a fitted
+Cox or cluster point process model.
+It is obtained from the model-fitting function <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+</p>
+<p>These methods apply only when the model was fitted
+by maximising a composite likelihood:
+either the Palm likelihood (Tanaka et al, 2008)
+or the second order composite likelihood (Guan, 2006),
+by calling <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code> with the argument <code>method="palm"</code>
+or <code>method="clik2"</code> respectively. 
+</p>
+<p>The method <code>logLik.kppm</code> computes the 
+maximised value of the log composite likelihood
+for the fitted model <code>object</code>.
+</p>
+<p>The methods <code>AIC.kppm</code> and <code>extractAIC.kppm</code> compute the
+Akaike Information Criterion AIC for the fitted model
+based on the composite likelihood
+</p>
+<p style="text-align: center;"><i>
+    AIC = -2 * log(CL) + k * edf
+  </i></p>
+
+<p>where <i>CL</i> is the maximised composite likelihood of the fitted model,
+and <i>edf</i> is the effective degrees of freedom
+of the model. 
+</p>
+<p>The method <code>nobs.kppm</code> returns the number of points
+in the original data point pattern to which the model was fitted.
+</p>
+<p>The <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code><a href="../../stats/html/step.html">step</a></code> uses these methods.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>logLik</code> returns a numerical value, belonging to the class
+<code>"logLik"</code>, with an attribute <code>"df"</code> giving the degrees of
+freedom.
+</p>
+<p><code>AIC</code> returns a numerical value.
+</p>
+<p><code>extractAIC</code> returns a numeric vector of length 2
+containing the degrees of freedom and the AIC value.
+</p>
+<p><code>nobs</code> returns an integer value.
+</p>
+
+
+<h3>Model comparison</h3>
+
+<p>The values of log-likelihood and AIC returned by these functions
+are based on the <em>composite likelihood</em> of the cluster process or Cox
+process model. They are available only when the model was fitted
+using <code>method="palm"</code> or <code>method="clik2"</code>.
+</p>
+<p>For model comparison and model selection,
+it is valid to compare the <code>logLik</code> values,
+or to compare the <code>AIC</code> values, but only when
+all the models are of class <code>"kppm"</code>
+and were fitted using the same <code>method</code>.
+</p>
+<p>For <code>method="palm"</code> some theoretical justification was provided by
+Tanaka et al (2008).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Guan, Y. (2006) 
+A composite likelihood approach in fitting spatial point process
+models.
+<em>Journal of the American Statistical Association</em>
+<b>101</b>, 1502&ndash;1512.
+</p>
+<p>Tanaka, U. and Ogata, Y. and Stoyan, D. (2008) 
+Parameter estimation and model selection for
+Neyman-Scott point processes.
+<em>Biometrical Journal</em> <b>50</b>, 43&ndash;57.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>, 
+<code><a href="../../spatstat.model/help/logLik.ppm.html">logLik.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- kppm(redwood ~ x, "Thomas", method="palm")
+  nobs(fit)
+  logLik(fit)
+  extractAIC(fit)
+  AIC(fit)
+  step(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

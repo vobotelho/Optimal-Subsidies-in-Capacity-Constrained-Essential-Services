@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intersection of Tessellations on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intersect.lintess {spatstat.linnet}"><tr><td>intersect.lintess {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Intersection of Tessellations on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Yields the intersection (common refinement) of two tessellations
+on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+intersect.lintess(X, Y)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Tessellations (objects of class <code>"lintess"</code>)
+on the same linear network, or data that define such tessellations.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>X</code> and <code>Y</code> should be tessellations on a linear network
+(objects of class <code>"lintess"</code>) and should be defined on the
+same network. The algorithm finds the common refinement of the
+two tessellations. Each tile in the resulting tessellation
+is the intersection of a tile of <code>X</code> with a tile of <code>Y</code>.
+</p>
+<p>Alternatively, one of the arguments <code>X</code> or <code>Y</code> 
+can be a two-dimensional tessellation (object of class
+<code>"tess"</code>) while the other argument is a network or a tessellation
+on a network. The two-dimensional tessellation will be intersected
+with the network to produce a tessellation on the network, then
+intersected with the other tessellation on the network.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another tessellation (object of class <code>"lintess"</code>)
+on the same linear network as <code>X</code> and <code>Y</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>,
+<code><a href="../../spatstat.linnet/help/divide.linnet.html">divide.linnet</a></code>,
+<code><a href="../../spatstat.linnet/help/chop.linnet.html">chop.linnet</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- divide.linnet(runiflpp(4, simplenet))
+  Y &lt;- divide.linnet(runiflpp(3, simplenet))
+  opa &lt;- par(mfrow=c(1,3))
+  plot(X)
+  plot(Y)
+  plot(intersect.lintess(X,Y))
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

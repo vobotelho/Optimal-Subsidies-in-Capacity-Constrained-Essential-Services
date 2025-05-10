@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Smoothing of Observations using Diffusion Estimate of...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SmoothHeat.ppp {spatstat.explore}"><tr><td>SmoothHeat.ppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial Smoothing of Observations using Diffusion Estimate of Density</h2>
+
+<h3>Description</h3>
+
+<p>Performs spatial smoothing of numeric values observed
+at a set of irregular locations, using the diffusion estimate
+of the density.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+SmoothHeat(X, sigma, ..., weights=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>)
+with numeric marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth. A single number giving the equivalent
+standard deviation of the smoother.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/densityHeat.html">densityHeat</a></code>
+controlling the estimation of each marginal intensity,
+or passed to <code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>
+controlling the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>Optional numeric vector of weights associated with each
+data point.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the analogue of the Nadaraya-Watson smoother, using the
+diffusion smoothing estimation procedure (Baddeley et al, 2022).
+The numerator and denominator of the Nadaraya-Watson smoother are
+calculated using <code><a href="../help/densityHeat.ppp.html">densityHeat.ppp</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Pixel image (object of class <code>"im"</code>) giving the smoothed
+mark value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a> and Suman Rakshit.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Davies, T., Rakshit, S., Nair, G. and McSwiggan, G. (2022)
+Diffusion smoothing for spatial point patterns.
+<em>Statistical Science</em> <b>37</b>, 123&ndash;142.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code> for the usual kernel-based
+smoother (the Nadaraya-Watson smoother)
+and <code><a href="../help/densityHeat.html">densityHeat</a></code> for the diffusion estimate of density.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(SmoothHeat(longleaf, 10))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

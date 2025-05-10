@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update an Interpoint Interaction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for update.interact {spatstat.model}"><tr><td>update.interact {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Update an Interpoint Interaction
+</h2>
+
+<h3>Description</h3>
+
+<p>This command updates the <code>object</code> using the
+arguments given.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'interact'
+update(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Interpoint interaction (object of class <code>"interact"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional or replacement values of parameters of <code>object</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../stats/help/update.html">update</a></code>
+for the class <code>"interact"</code> of interpoint interactions.
+It updates the <code>object</code> using the parameters given in the
+extra arguments <code>...</code>.
+</p>
+<p>The extra arguments must be given in
+the form <code>name=value</code> and must be recognisable to
+the interaction object. They override any parameters
+of the same name in <code>object</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"interact"</code>, equivalent to <code>object</code>
+except for changes in parameter values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Str &lt;- Strauss(r=1)
+  Str
+  update(Str, r=2)
+
+  M &lt;- MultiStrauss(radii=matrix(1,2,2))
+  update(M, types=c("on", "off"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

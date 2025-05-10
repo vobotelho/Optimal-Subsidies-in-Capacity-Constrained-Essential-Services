@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Look up municipality codes and names</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lookup_muni {geobr}"><tr><td>lookup_muni {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Look up municipality codes and names</h2>
+
+<h3>Description</h3>
+
+<p>Input a municipality <strong>name</strong> <em>or</em> <strong>code</strong> and get the names
+and codes of the municipality's corresponding state, meso, micro, intermediate,
+and immediate regions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lookup_muni(name_muni = NULL, code_muni = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name_muni</code></td>
+<td>
+<p>The municipality name to be looked up.</p>
+</td></tr>
+<tr valign="top"><td><code>code_muni</code></td>
+<td>
+<p>The municipality code to be looked up.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Only available from 2010 Census data so far
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>data.frame</code> with 13 columns identifying the geographies information
+of that municipality.
+</p>
+<p>A <code>data.frame</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other support functions: 
+<code><a href="../../geobr/help/list_geobr.html">list_geobr</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# Get lookup table for municipality Rio de Janeiro
+mun &lt;- lookup_muni(name_muni = "Rio de Janeiro")
+
+# Or you can get a lookup table for the same municipality searching for its code
+mun &lt;- lookup_muni(code_muni = 3304557)
+
+# Get lookup table for all municipalities
+mun_all &lt;- lookup_muni(name_muni = "all")
+
+# Or:
+mun_all &lt;- lookup_muni(code_muni = "all")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pool Several Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pool.fv {spatstat.explore}"><tr><td>pool.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pool Several Functions</h2>
+
+<h3>Description</h3>
+
+<p>Combine several summary functions into a single function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+pool(..., weights=NULL, relabel=TRUE, variance=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Objects of class <code>"fv"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional numeric vector of weights for the functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>relabel</code></td>
+<td>
+
+<p>Logical value indicating whether the columns of the resulting function
+should be labelled to show that they were obtained by pooling.
+</p>
+</td></tr>
+<tr valign="top"><td><code>variance</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the sample variance
+and related terms.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.explore/help/pool.html">pool</a></code> is generic. This is the method for the
+class <code>"fv"</code> of summary functions. It is used to
+combine several estimates of the same function into a single function.
+</p>
+<p>Each of the arguments <code>...</code> must be an object of class
+<code>"fv"</code>. They must be compatible,
+in that they are estimates of the same function,
+and were computed using the same options.
+</p>
+<p>The sample mean and sample variance of the corresponding
+estimates will be computed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pool.html">pool</a></code>,
+<code><a href="../../spatstat.explore/help/pool.anylist.html">pool.anylist</a></code>,
+<code><a href="../../spatstat.explore/help/pool.rat.html">pool.rat</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K &lt;- lapply(waterstriders, Kest, correction="iso")
+   Kall &lt;- pool(K[[1]], K[[2]], K[[3]])
+   Kall &lt;- pool(as.anylist(K))
+   plot(Kall, cbind(pooliso, pooltheo) ~ r,
+              shade=c("loiso", "hiiso"),
+              main="Pooled K function of waterstriders")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

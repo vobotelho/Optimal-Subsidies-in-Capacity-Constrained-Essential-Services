@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Distribution Test for Point Pattern or Point Process...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for cdf.test.ppm {spatstat.model}"><tr><td>cdf.test.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial Distribution Test for Point Pattern or Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Performs a test of goodness-of-fit of a point process model.
+The observed and predicted distributions
+of the values of a spatial covariate are compared using either the
+Kolmogorov-Smirnov test,
+Cramer-von Mises test
+or Anderson-Darling test.
+For non-Poisson models, a Monte Carlo test is used.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+## S3 method for class 'ppm'
+cdf.test(model, covariate,  test=c("ks", "cvm", "ad"), ...,
+          interpolate=TRUE, jitter=TRUE, nsim=99, verbose=TRUE)
+
+## S3 method for class 'slrm'
+cdf.test(model, covariate,  test=c("ks", "cvm", "ad"), ...,
+          modelname=NULL, covname=NULL)
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted point process model (object of class <code>"ppm"</code> or <code>"lppm"</code>)
+or fitted spatial logistic regression (object of class <code>"slrm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariate</code></td>
+<td>
+
+<p>The spatial covariate on which the test will be based.
+A function, a pixel image (object of class <code>"im"</code>),
+a list of pixel images, or one of the characters
+<code>"x"</code> or <code>"y"</code> indicating the Cartesian coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>test</code></td>
+<td>
+
+<p>Character string identifying the test to be performed:
+<code>"ks"</code> for Kolmogorov-Smirnov test,
+<code>"cvm"</code> for Cramer-von Mises test
+or <code>"ad"</code> for Anderson-Darling test.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../stats/help/ks.test.html">ks.test</a></code>
+(from the <span class="pkg">stats</span> package) or 
+<code><a href="../../goftest/help/cvm.test.html">cvm.test</a></code> or
+<code><a href="../../goftest/help/ad.test.html">ad.test</a></code> (from the <span class="pkg">goftest</span> package)
+to control the test;
+and arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>interpolate</code></td>
+<td>
+
+<p>Logical flag indicating whether to interpolate pixel images.
+If <code>interpolate=TRUE</code>, the value of the covariate
+at each point of <code>X</code> will be approximated by interpolating
+the nearby pixel values.
+If <code>interpolate=FALSE</code>, the nearest pixel value will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>jitter</code></td>
+<td>
+
+<p>Logical flag. If <code>jitter=TRUE</code>, values of the covariate
+will be slightly perturbed at random, to avoid tied values in the test.
+</p>
+</td></tr>
+<tr valign="top"><td><code>modelname,covname</code></td>
+<td>
+
+<p>Character strings giving alternative names for <code>model</code>
+and <code>covariate</code> to be used in labelling plot axes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated realisations from the <code>model</code> to be used
+for the Monte Carlo test, when <code>model</code> is not a Poisson process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports when
+performing a Monte Carlo test.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions perform a goodness-of-fit test of a Poisson or Gibbs point
+process model fitted to point pattern data. The observed distribution
+of the values of a spatial covariate at the data points,
+and the predicted distribution of the same values under the model,
+are compared using the Kolmogorov-Smirnov test,
+the Cramer-von Mises test
+or the Anderson-Darling test. For Gibbs models, a Monte Carlo test is
+performed using these test statistics.
+</p>
+<p>The function <code>cdf.test</code> is generic, with methods for
+point patterns (<code>"ppp"</code> or <code>"lpp"</code>),
+point process models (<code>"ppm"</code> or <code>"lppm"</code>)
+and spatial logistic regression models (<code>"slrm"</code>).
+</p>
+
+<ul>
+<li> 
+<p>If <code>X</code> is a point pattern dataset (object of class
+<code>"ppp"</code>), then <code>cdf.test(X, ...)</code>
+performs a goodness-of-fit test of the
+uniform Poisson point process (Complete Spatial Randomness, CSR)
+for this dataset.
+For a multitype point pattern, the uniform intensity
+is assumed to depend on the type of point (sometimes called
+Complete Spatial Randomness and Independence, CSRI).
+</p>
+</li>
+<li>
+<p>If <code>model</code> is a fitted point process model
+(object of class <code>"ppm"</code> or <code>"lppm"</code>)
+then <code>cdf.test(model, ...)</code> performs
+a test of goodness-of-fit for this fitted model. 
+</p>
+</li>
+<li>
+<p>If <code>model</code> is a fitted spatial logistic regression
+(object of class <code>"slrm"</code>) then <code>cdf.test(model, ...)</code> performs
+a test of goodness-of-fit for this fitted model. 
+</p>
+</li></ul>
+
+<p>The test is performed by comparing the observed distribution
+of the values of a spatial covariate at the data points,
+and the predicted distribution of the same covariate under the model,
+using a classical goodness-of-fit test.
+Thus, you must nominate
+a spatial covariate for this test.
+</p>
+<p>If <code>X</code> is a point pattern that does not have marks,
+the argument <code>covariate</code> should be either a <code>function(x,y)</code>
+or a pixel image (object of class <code>"im"</code> containing the values
+of a spatial function, or one of the characters <code>"x"</code> or
+<code>"y"</code> indicating the Cartesian coordinates.
+If <code>covariate</code> is an image, it should have numeric values,
+and its domain should cover the observation window of the
+<code>model</code>. If <code>covariate</code> is a function, it should expect
+two arguments <code>x</code> and <code>y</code> which are vectors of coordinates,
+and it should return a numeric vector of the same length
+as <code>x</code> and <code>y</code>.
+</p>
+<p>If <code>X</code> is a multitype point pattern, the argument <code>covariate</code>
+can be either a <code>function(x,y,marks)</code>,
+or a pixel image, or a list of pixel images corresponding to
+each possible mark value, or one of the characters <code>"x"</code> or
+<code>"y"</code> indicating the Cartesian coordinates. 
+</p>
+<p>First the original data point pattern is extracted from <code>model</code>.
+The values of the <code>covariate</code> at these data points are
+collected. 
+</p>
+<p>The predicted distribution of the values of the <code>covariate</code>
+under the fitted <code>model</code> is computed as follows.
+The values of the <code>covariate</code> at all locations in the
+observation window are evaluated,
+weighted according to the point process intensity of the fitted model,
+and compiled into a cumulative distribution function <i>F</i> using
+<code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>.
+</p>
+<p>The probability integral transformation is then applied:
+the values of the <code>covariate</code> at the original data points
+are transformed by the predicted cumulative distribution function
+<i>F</i> into numbers between 0 and 1. If the model is correct,
+these numbers are i.i.d. uniform random numbers. The
+A goodness-of-fit test of the uniform distribution is applied
+to these numbers using <code>stats::<a href="../../stats/help/ks.test.html">ks.test</a></code>,
+<code>goftest::<a href="../../goftest/help/cvm.test.html">cvm.test</a></code> or
+<code>goftest::<a href="../../goftest/help/ad.test.html">ad.test</a></code>.
+</p>
+<p>This test was apparently first described (in the context of
+spatial data, and using Kolmogorov-Smirnov) by Berman (1986).
+See also Baddeley et al (2005).
+</p>
+<p>If <code>model</code> is not a Poisson process, then
+a Monte Carlo test is performed, by generating <code>nsim</code>
+point patterns which are simulated realisations of the <code>model</code>,
+re-fitting the model to each simulated point pattern, 
+and calculating the test statistic for each fitted model.
+The Monte Carlo <i>p</i> value is determined by comparing
+the simulated values of the test statistic 
+with the value for the original data.
+</p>
+<p>The return value is an object of class <code>"htest"</code> containing the
+results of the hypothesis test. The print method for this class
+gives an informative summary of the test outcome.
+</p>
+<p>The return value also belongs to the class <code>"cdftest"</code>
+for which there is a plot method <code><a href="../../spatstat.explore/help/plot.cdftest.html">plot.cdftest</a></code>.
+The plot method displays the empirical cumulative distribution
+function of the covariate at the data points, and the predicted
+cumulative distribution function of the covariate under the model,
+plotted against the value of the covariate.
+</p>
+<p>The argument <code>jitter</code> controls whether covariate values are
+randomly perturbed, in order to avoid ties.
+If the original data contains any ties in the covariate (i.e. points
+with equal values of the covariate), and if <code>jitter=FALSE</code>, then 
+the Kolmogorov-Smirnov test implemented in <code><a href="../../stats/help/ks.test.html">ks.test</a></code>
+will issue a warning that it cannot calculate the exact <i>p</i>-value.
+To avoid this, if <code>jitter=TRUE</code> each value of the covariate will
+be perturbed by adding a small random value. The perturbations are
+normally distributed with standard deviation equal to one hundredth of
+the range of values of the covariate. This prevents ties, 
+and the <i>p</i>-value is still correct. There is
+a very slight loss of power.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"htest"</code> containing the results of the
+test. See <code><a href="../../stats/help/ks.test.html">ks.test</a></code> for details. The return value can be
+printed to give an informative summary of the test.
+</p>
+<p>The value also belongs to the class <code>"cdftest"</code> for which there is
+a plot method.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>The outcome of the test involves a small amount of random variability,
+because (by default) the coordinates are randomly perturbed to
+avoid tied values. Hence, if <code>cdf.test</code> is executed twice, the
+<i>p</i>-values will not be exactly the same. To avoid this behaviour,
+set <code>jitter=FALSE</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R.,
+Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+<p>Berman, M. (1986)
+Testing for spatial association between a point process
+and another stochastic process.
+<em>Applied Statistics</em> <b>35</b>, 54&ndash;62.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/plot.cdftest.html">plot.cdftest</a></code>,
+<code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>,
+<code><a href="../../spatstat.explore/help/berman.test.html">berman.test</a></code>,
+<code><a href="../../stats/help/ks.test.html">ks.test</a></code>,
+<code><a href="../../goftest/help/cvm.test.html">cvm.test</a></code>,
+<code><a href="../../goftest/help/ad.test.html">ad.test</a></code>,
+<code><a href="../help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   op &lt;- options(useFancyQuotes=FALSE)
+
+
+   # fit inhomogeneous Poisson model and test
+   model &lt;- ppm(nztrees ~x)
+   cdf.test(model, "x")
+
+   if(interactive()) {
+     # synthetic data: nonuniform Poisson process
+     X &lt;- rpoispp(function(x,y) { 100 * exp(x) }, win=square(1))
+
+     # fit uniform Poisson process
+     fit0 &lt;- ppm(X ~1)
+     # fit correct nonuniform Poisson process
+     fit1 &lt;- ppm(X ~x)
+
+     # test wrong model
+     cdf.test(fit0, "x")
+     # test right model
+     cdf.test(fit1, "x")
+   }
+
+   # multitype point pattern
+   yimage &lt;- as.im(function(x,y){y}, W=Window(amacrine))
+   cdf.test(ppm(amacrine ~marks+y), yimage)
+
+   options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

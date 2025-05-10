@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Probability that a Point Has Any Siblings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for panysib {spatstat.model}"><tr><td>panysib {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Probability that a Point Has Any Siblings
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a cluster process model, calculate the probability
+that a point of the process has any siblings.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+panysib(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted cluster process model (object of class <code>"kppm"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In a Poisson cluster process, two points are called <em>siblings</em>
+if they belong to the same cluster, that is, if they had the same
+parent point. This function computes the probability that a 
+given random point has <code>any</code> siblings.
+</p>
+<p>If <code>object</code> is a stationary point process, the result is a single
+number, which is the probability that a typical point of the process
+has any siblings.
+If this number is small,
+then the process is approximately a homogeneous Poisson process
+(complete spatial randomness). The converse is not true (Baddeley et al, 2022).
+</p>
+<p>Otherwise, the result is a pixel image, in which the value at any
+location <code>u</code> is the conditional probability,
+given there is a point of the
+process at <code>u</code>, that this point has any siblings.
+If the pixel values are all small,
+then the process is approximately an inhomogeneous Poisson process.
+</p>
+<p>This concept was proposed by Baddeley et al (2022).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number (if <code>object</code> is a stationary point process)
+or a pixel image (otherwise).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Davies, T.M., Hazelton, M.L., Rakshit, S. and Turner, R. 
+(2022)
+Fundamental problems in fitting spatial cluster process models.
+<em>Spatial Statistics</em> <b>52</b>, 100709.
+DOI: <code>10.1016/j.spasta.2022.100709</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/psib.html">psib</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- kppm(redwood ~ polynom(x,y,2))
+  plot(panysib(fit))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nonparametric Estimate of Spatially-Varying Relative Risk on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for relrisk.lpp {spatstat.linnet}"><tr><td>relrisk.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nonparametric Estimate of Spatially-Varying Relative Risk on a Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a multitype point pattern on a linear network,
+this function estimates the
+spatially-varying probability of each type of point, or the ratios of
+such probabilities, using kernel smoothing.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+relrisk(X, sigma, ..., 
+           at = c("pixels", "points"),
+           relative=FALSE,
+           adjust=1, 
+           casecontrol=TRUE, control=1, case,
+           finespacing=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A multitype point pattern (object of class <code>"lpp"</code>
+which has factor valued marks).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>The numeric value of the smoothing bandwidth
+(the standard deviation of Gaussian smoothing kernel)
+passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+Alternatively <code>sigma</code> may be a function which can be used
+to select the bandwidth. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> to control the
+pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>Character string specifying whether to compute the probability values
+at a grid of pixel locations (<code>at="pixels"</code>) or
+only at the points of <code>X</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>relative</code></td>
+<td>
+
+<p>Logical.
+If <code>FALSE</code> (the default) the algorithm
+computes the probabilities of each type of point.
+If <code>TRUE</code>, it computes the    
+<em>relative risk</em>, the ratio of probabilities
+of each type relative to the probability of a control.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Optional. Adjustment factor for the bandwidth <code>sigma</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>casecontrol</code></td>
+<td>
+
+<p>Logical. Whether to treat a bivariate point pattern
+as consisting of cases and controls, and return only the
+probability or relative risk of a case.
+Ignored if there are more than 2 types of points.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+<p>Integer, or character string, identifying which mark value
+corresponds to a control. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>case</code></td>
+<td>
+
+<p>Integer, or character string, identifying which mark value
+corresponds to a case (rather than a control)
+in a bivariate point pattern.
+This is an alternative to the argument <code>control</code>
+in a bivariate point pattern. 
+Ignored if there are more than 2 types of points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>finespacing</code></td>
+<td>
+
+<p>Logical value specifying whether to use a finer spatial
+resolution (with longer computation time but higher accuracy).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The command <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> is generic and can be used to
+estimate relative risk in different ways.
+</p>
+<p>This function <code>relrisk.lpp</code> is the method for point patterns
+on a linear network (objects of class <code>"lpp"</code>).
+It computes <em>nonparametric</em> estimates of relative risk
+by kernel smoothing.
+</p>
+<p>If <code>X</code>  is a bivariate point pattern
+(a multitype point pattern consisting of two types of points)
+then by default,
+the points of the first type (the first level of <code>marks(X)</code>)
+are treated as controls or non-events, and points of the second type
+are treated as cases or events. Then by default this command computes
+the spatially-varying <em>probability</em> of a case,
+i.e. the probability <i>p(u)</i>
+that a point at location <i>u</i> on the network
+will be a case. If <code>relative=TRUE</code>, it computes the
+spatially-varying <em>relative risk</em> of a case relative to a
+control, <i>r(u) = p(u)/(1- p(u))</i>.
+</p>
+<p>If <code>X</code> is a multitype point pattern with <i>m &gt; 2</i> types,
+or if <code>X</code> is a bivariate point pattern
+and <code>casecontrol=FALSE</code>,
+then by default this command computes, for each type <i>j</i>,
+a nonparametric estimate of
+the spatially-varying <em>probability</em> of an event of type <i>j</i>.
+This is the probability <i>p[j](u)</i>
+that a point at location <i>u</i> on the network
+will belong to type <i>j</i>.
+If <code>relative=TRUE</code>, the command computes the
+<em>relative risk</em> of an event of type <i>j</i>
+relative to a control,
+<i>r[j](u) = p[j](u)/p[k](u)</i>,
+where events of type <i>k</i> are treated as controls.
+The argument <code>control</code> determines which type <i>k</i>
+is treated as a control.
+</p>
+<p>If <code>at = "pixels"</code> the calculation is performed for
+every location <i>u</i> on a fine pixel grid over the network, and the result
+is a pixel image on the network representing the function <i>p(u)</i>,
+or a list of pixel images representing the functions 
+<i>p[j](u)</i> or <i>r[j](u)</i>
+for <i>j = 1,...,m</i>.
+An infinite value of relative risk (arising because the
+probability of a control is zero) will be returned as <code>NA</code>.
+</p>
+<p>If <code>at = "points"</code> the calculation is performed
+only at the data points <i>x[i]</i>. By default
+the result is a vector of values
+<i>p(x[i])</i> giving the estimated probability of a case
+at each data point, or a matrix of values 
+<i>p[j](x[i])</i> giving the estimated probability of
+each possible type <i>j</i> at each data point.
+If <code>relative=TRUE</code> then the relative risks
+<i>r(x[i])</i> or <i>r[j](x[i])</i> are
+returned.
+An infinite value of relative risk (arising because the
+probability of a control is zero) will be returned as <code>Inf</code>.
+</p>
+<p>Estimation is performed by a Nadaraja-Watson type kernel
+smoother (McSwiggan et al., 2019).
+</p>
+<p>The smoothing bandwidth <code>sigma</code>
+should be a single numeric value, giving the standard
+deviation of the isotropic Gaussian kernel.
+If <code>adjust</code> is given, the smoothing bandwidth will be
+<code>adjust * sigma</code> before the computation of relative risk.
+</p>
+<p>Alternatively, <code>sigma</code> may be a function that can be applied
+to the point pattern <code>X</code> to select a bandwidth; the function
+must return a single numerical value; examples include the
+functions <code><a href="../../spatstat.linnet/help/bw.relrisk.lpp.html">bw.relrisk.lpp</a></code> and <code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code>.
+</p>
+<p>Accuracy depends on the spatial resolution of the density
+computations. If the arguments <code>dx</code> and <code>dt</code> are present,
+they are passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> to determine the
+spatial resolution. Otherwise, the spatial resolution is determined
+by a default rule that depends on <code>finespacing</code> and <code>sigma</code>.
+If <code>finespacing=FALSE</code> (the default), the spatial resolution is
+equal to the default resolution for pixel images.
+If <code>finespacing=TRUE</code>, the spatial resolution is much finer
+and is determined by a rule which guarantees higher accuracy,
+but takes a longer time.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>X</code> consists of only two types of points,
+and if <code>casecontrol=TRUE</code>,
+the result is a pixel image on the network (if <code>at="pixels"</code>)
+or a vector (if <code>at="points"</code>).
+The pixel values or vector values
+are the probabilities of a case if <code>relative=FALSE</code>,
+or the relative risk of a case (probability of a case divided by the
+probability of a control) if <code>relative=TRUE</code>.
+</p>
+<p>If <code>X</code> consists of more than two types of points,
+or if <code>casecontrol=FALSE</code>, the result is:
+</p>
+
+<ul>
+<li><p> (if <code>at="pixels"</code>)
+a list of pixel images on the network,
+with one image for each possible type of point.
+The result also belongs to the class <code>"solist"</code> so that it can
+be printed and plotted.
+</p>
+</li>
+<li>
+<p>(if <code>at="points"</code>)
+a matrix of probabilities, with rows corresponding to
+data points <i>x[i]</i>, and columns corresponding
+to types <i>j</i>.
+</p>
+</li></ul>
+
+<p>The pixel values or matrix entries
+are the probabilities of each type of point if <code>relative=FALSE</code>,
+or the relative risk of each type (probability of each type divided by the
+probability of a control) if <code>relative=TRUE</code>.
+</p>
+<p>If <code>relative=FALSE</code>, the resulting values always lie between 0
+and 1. If <code>relative=TRUE</code>, the results are either non-negative
+numbers, or the values <code>Inf</code> or <code>NA</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>McSwiggan, G., Baddeley, A. and Nair, G. (2019)
+Estimation of relative risk for events on a linear network.
+<em>Statistics and Computing</em> <b>30</b> (2) 469&ndash;484.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   ## case-control data: 2 types of points
+   set.seed(2020)
+   X &lt;- superimpose(A=runiflpp(20, simplenet),
+                    B=runifpointOnLines(20, as.psp(simplenet)[5]))
+   plot(X)
+   plot(relrisk(X, 0.15))
+   plot(relrisk(X, 0.15, case="B"))
+   head(relrisk(X, 0.15, at="points"))
+   ## cross-validated bandwidth selection
+   plot(relrisk(X, bw.relrisk.lpp, hmax=0.3, allow.infinite=FALSE))
+
+   ## more than 2 types
+   if(interactive()) {
+     U &lt;- chicago
+     sig &lt;- 170
+   } else {
+     U &lt;- do.call(superimpose,
+                  split(chicago)[c("theft", "cartheft", "burglary")])
+     sig &lt;- 40
+   }
+   plot(relrisk(U, sig))
+   head(relrisk(U, sig, at="points"))
+   plot(relrisk(U, sig, relative=TRUE, control="theft"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

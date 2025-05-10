@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Area of a Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for area.owin {spatstat.geom}"><tr><td>area.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Area of a Window</h2>
+
+<h3>Description</h3>
+
+<p>Computes the area of a window 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ area(w)
+
+ ## S3 method for class 'owin'
+area(w)
+
+ ## Default S3 method:
+area(w)
+
+ ## S3 method for class 'owin'
+volume(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>A window, whose area will be computed.
+This should be an object of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+or can be given in any format acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Object of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the window <code>w</code> is of type <code>"rectangle"</code> or <code>"polygonal"</code>,
+the area of this rectangular window is computed by analytic geometry.
+If <code>w</code> is of type <code>"mask"</code> 
+the area of the discrete raster approximation of the window is
+computed by summing the binary image values and adjusting for
+pixel size.
+</p>
+<p>The function <code>volume.owin</code> is identical to <code>area.owin</code>
+except for the argument name. It is a method for the generic function
+<code>volume</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numerical value giving the area of the window. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/perimeter.html">perimeter</a></code>,
+<code><a href="../../spatstat.geom/help/diameter.owin.html">diameter.owin</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  w &lt;- unit.square()
+  area(w)
+       # returns 1.00000
+
+  k &lt;- 6
+  theta &lt;- 2 * pi * (0:(k-1))/k
+  co &lt;- cos(theta)
+  si &lt;- sin(theta)
+  mas &lt;- owin(c(-1,1), c(-1,1), poly=list(x=co, y=si))
+  area(mas)
+      # returns approx area of k-gon
+  
+  mas &lt;- as.mask(square(2), eps=0.01)
+  X &lt;- raster.x(mas)
+  Y &lt;- raster.y(mas)
+  mas$m &lt;- ((X - 1)^2 + (Y - 1)^2 &lt;= 1)
+  area(mas)
+       # returns 3.14 approx     
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

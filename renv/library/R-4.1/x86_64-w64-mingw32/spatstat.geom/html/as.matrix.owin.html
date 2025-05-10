@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Pixel Image to Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.matrix.owin {spatstat.geom}"><tr><td>as.matrix.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Pixel Image to Matrix</h2>
+
+<h3>Description</h3>
+
+<p>Converts a pixel image to a matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'owin'
+as.matrix(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A window (object of class <code>"owin"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to control the
+pixel resolution.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>as.matrix.owin</code> converts a window to a
+logical matrux.
+</p>
+<p>It first converts the window <code>x</code> into a binary pixel mask
+using <code><a href="../help/as.mask.html">as.mask</a></code>. It then extracts the pixel entries
+as a logical matrix.
+</p>
+<p>The resulting matrix has entries that are
+<code>TRUE</code> if the corresponding pixel is inside the window,
+and <code>FALSE</code> if it is outside.
+</p>
+<p>The function <code>as.matrix</code> is generic. The function
+<code>as.matrix.owin</code>
+is the method for windows (objects of class <code>"owin"</code>).
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code> to convert a window to a pixel image.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.matrix.im.html">as.matrix.im</a></code>,
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  m &lt;- as.matrix(letterR)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

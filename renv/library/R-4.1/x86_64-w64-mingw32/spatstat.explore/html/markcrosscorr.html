@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mark Cross-Correlation Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for markcrosscorr {spatstat.explore}"><tr><td>markcrosscorr {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Mark Cross-Correlation Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial point pattern with several columns of marks,
+this function computes the mark correlation function between
+each pair of columns of marks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  markcrosscorr(X, r = NULL,
+                correction = c("isotropic", "Ripley", "translate"),
+                method = "density", ..., normalise = TRUE, Xname = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern.
+An object of class <code>"ppp"</code> or something acceptable to
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Optional. Numeric vector. The values of the argument <i>r</i>
+at which the mark correlation function 
+<i>k[f](r)</i> should be evaluated.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"isotropic"</code>, <code>"Ripley"</code>, <code>"translate"</code>,
+<code>"translation"</code>, <code>"none"</code> or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>A character vector indicating the user's choice of
+density estimation technique to be used. Options are
+<code>"density"</code>, 
+<code>"loess"</code>,
+<code>"sm"</code> and <code>"smrep"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to the density estimation routine
+(<code><a href="../../stats/html/density.html">density</a></code>, <code><a href="../../stats/html/loess.html">loess</a></code> or <code>sm.density</code>)
+selected by <code>method</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>If <code>normalise=FALSE</code>,
+compute only the numerator of the expression for the
+mark correlation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Xname</code></td>
+<td>
+
+<p>Optional character string name for the dataset <code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>First, all columns of marks are converted to numerical values.
+A factor with <i>m</i> possible levels is converted to
+<i>m</i> columns of dummy (indicator) values.
+</p>
+<p>Next, each pair of columns is considered, and the mark
+cross-correlation is defined as
+</p>
+<p style="text-align: center;"><i>
+    k[mm](r) = E[0u](M(i,0) * M(j,u))/E(Mi * Mj)
+  </i></p>
+
+<p>where <i>E[0u]</i> denotes the conditional expectation
+given that there are points of the process at the locations
+<i>0</i> and <i>u</i> separated by a distance <i>r</i>.
+On the numerator,
+<i>M(i,0)</i> and <i>M(j,u)</i>
+are the marks attached to locations <i>0</i> and <i>u</i> respectively
+in the <i>i</i>th and <i>j</i>th columns of marks respectively.
+On the denominator, <i>Mi</i> and <i>Mj</i> are
+independent random values drawn from the
+<i>i</i>th and <i>j</i>th columns of marks, respectively,
+and <i>E</i> is the usual expectation.
+</p>
+<p>Note that <i>k[mm](r)</i> is not a &ldquo;correlation&rdquo;
+in the usual statistical sense. It can take any 
+nonnegative real value. The value 1 suggests &ldquo;lack of correlation&rdquo;:
+if the marks attached to the points of <code>X</code> are independent
+and identically distributed, then
+<i>k[mm](r) =  1</i>.
+</p>
+<p>The argument <code>X</code> must be a point pattern (object of class
+<code>"ppp"</code>) or any data that are acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+It must be a marked point pattern.
+</p>
+<p>The cross-correlations are estimated in the same manner as
+for <code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function array (object of class <code>"fasp"</code>) containing
+the mark cross-correlation functions for each possible pair
+of columns of marks.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # The dataset 'betacells' has two columns of marks:
+  #       'type' (factor)
+  #       'area' (numeric)
+  if(interactive()) plot(betacells)
+  plot(markcrosscorr(betacells))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

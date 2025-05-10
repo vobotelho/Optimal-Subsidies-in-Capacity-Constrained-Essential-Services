@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sibling Probability of Cluster Point Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for psib {spatstat.model}"><tr><td>psib {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Sibling Probability of Cluster Point Process
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the sibling probability of a cluster point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  psib(object)
+
+  ## S3 method for class 'kppm'
+psib(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted cluster point process model
+(object of class <code>"kppm"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In a Poisson cluster process, two points are called <em>siblings</em>
+if they belong to the same cluster, that is, if they had the same
+parent point. If two points of the process are
+separated by a distance <i>r</i>, the probability that
+they are siblings is <i>p(r) = 1 - 1/g(r)</i> where <i>g</i> is the
+pair correlation function of the process.
+</p>
+<p>The value <i>p(0) = 1 - 1/g(0)</i> is the probability that,
+if two points of the process are situated very close to each other,
+they came from the same cluster. This probability
+is an index of the strength of clustering, with high values
+suggesting strong clustering.
+</p>
+<p>This concept was proposed in Baddeley, Rubak and Turner (2015, page 479)
+and Baddeley (2017). It was shown in Baddeley et al (2022) that
+the sibling probability is directly related to the strength of clustering.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. (2017)
+Local composite likelihood for spatial point processes.
+<em>Spatial Statistics</em> <b>22</b>, 261&ndash;295.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+<p>Baddeley, A., Davies, T.M., Hazelton, M.L., Rakshit, S. and Turner, R. 
+(2022)
+Fundamental problems in fitting spatial cluster process models.
+<em>Spatial Statistics</em> <b>52</b>, 100709.
+DOI: <code>10.1016/j.spasta.2022.100709</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>, <code><a href="../../spatstat.model/help/panysib.html">panysib</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- kppm(redwood ~1, "Thomas")
+  psib(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

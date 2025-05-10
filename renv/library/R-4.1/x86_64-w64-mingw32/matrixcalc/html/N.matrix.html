@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Construct N Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for N.matrix {matrixcalc}"><tr><td>N.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Construct N Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the order n square matrix that is the sum of
+an implicit commutation matrix and the order n identity matrix
+quantity divided by two
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+N.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> A positive integer matrix order </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Let <i>{\bf{K}_n}</i> be the order <i>n</i> implicit commutation matrix (i.e., <i>{{\bf{K}}_{n,n}}</i> ).
+and <i>{{\bf{I}}_n}</i> the order <i>n</i> identity matrix.  The formula for the matrix is <i>{\bf{N}} = \frac{1}{2}&le;ft( {{{\bf{K}}_n} + {{\bf{I}}_n}} \right)</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n</i> matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument is not an integer, the function displays an error message and stops.
+If the argument is less than two, the function displays an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1980). The elimination matrix, some lemmas and applications,
+<em>SIAM Journal on Algebraic Discrete Methods</em>, 1(4), December 1980, 422-449.
+</p>
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/K.matrix.html">K.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+N &lt;- N.matrix( 3 )
+print( N )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

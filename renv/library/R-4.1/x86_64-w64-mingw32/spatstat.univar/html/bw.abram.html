@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Abramson's Adaptive Bandwidths</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.abram {spatstat.univar}"><tr><td>bw.abram {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Abramson's Adaptive Bandwidths
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes adaptive smoothing bandwidths
+according to the inverse-square-root rule of Abramson (1982).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bw.abram(X, h0, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data to be smoothed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>h0</code></td>
+<td>
+
+<p>Global smoothing bandwidth. A numeric value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes adaptive smoothing bandwidths for a dataset,
+using the methods of Abramson (1982) and Hall and Marron (1988).
+</p>
+<p>The function <code>bw.abram</code> is generic.
+There is a default method <code><a href="../../spatstat.univar/help/bw.abram.default.html">bw.abram.default</a></code>.
+The <span class="pkg">spatstat</span> package family includes methods for spatial objects.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See the documentation for the particular method.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Abramson, I. (1982)
+On bandwidth variation in kernel estimates &mdash; a square root law.
+<em>Annals of Statistics</em>, <b>10</b>(4), 1217-1223. 
+</p>
+<p>Hall, P. and Marron, J.S. (1988)
+Variable window width kernel density estimates of probability
+densities.
+<em>Probability Theory and Related Fields</em>, <b>80</b>, 37-49. 
+</p>
+<p>Silverman, B.W. (1986)
+<em>Density Estimation for Statistics and Data Analysis</em>.
+Chapman and Hall, New York.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/bw.abram.default.html">bw.abram.default</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

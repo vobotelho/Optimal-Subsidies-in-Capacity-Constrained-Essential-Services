@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Tessellation Using Polar Coordinates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for polartess {spatstat.geom}"><tr><td>polartess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Tessellation Using Polar Coordinates
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a tessellation with tiles defined by polar coordinates
+(radius and angle).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+polartess(W, ..., nradial = NULL, nangular = NULL,
+          radii = NULL, angles = NULL,
+          origin = NULL, sep = "x")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>)
+or anything that can be coerced to a window using
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>, such as a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nradial</code></td>
+<td>
+
+<p>Number of <em>tiles</em> in the radial direction.
+A single integer.
+Ignored if <code>radii</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nangular</code></td>
+<td>
+
+<p>Number of <em>tiles</em> in the angular coordinate.
+A single integer.
+Ignored if <code>angles</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>radii</code></td>
+<td>
+
+<p>The numeric values of the radii, defining the tiles in the radial
+direction. A numeric vector, of length at least 2, containing
+nonnegative numbers in increasing order. The value <code>Inf</code> is permitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>angles</code></td>
+<td>
+
+<p>The numeric values of the angles defining the tiles in the
+angular coordinate. A numeric vector, of length at least 2,
+in increasing order, containing angles in radians.
+</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+<p>Location to be used as the origin of the polar coordinates.
+Either a numeric vector of length 2 giving the spatial location
+of the origin, or one of the strings
+<code>"centroid"</code>, <code>"midpoint"</code>,
+<code>"left"</code>, <code>"right"</code>, <code>"top"</code>, <code>"bottom"</code>,
+<code>"topleft"</code>, <code>"bottomleft"</code>, <code>"topright"</code> or
+<code>"bottomright"</code> indicating the location in the window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../spatstat.geom/help/intersect.tess.html">intersect.tess</a></code>
+specifying the character string to be used as a separator
+when forming the names of the tiles.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tessellation will be formed from tiles defined by
+intervals in the polar coordinates <i>r</i> (radial distance
+from the origin) or <i>&theta;</i> (angle from the horizontal axis)
+or both. These tiles look like the cells on a dartboard.
+</p>
+<p>If the argument <code>radii</code> is given, tiles will be demarcated
+by circles centred at the origin, with the specified radii.
+If <code>radii</code> is absent but <code>nradial</code> is given,
+then <code>radii</code> will default to a sequence
+of <code>nradial+1</code> radii equally spaced from zero to the maximum
+possible radius. If neither <code>radii</code> nor <code>nradial</code> are given,
+the tessellation will not include circular arc boundaries.
+</p>
+<p>If the argument <code>angles</code> is given, tiles will be demarcated
+by lines emanating from the origin at the specified angles.
+The angular values can be any real numbers; they will be interpreted
+as angles in radians modulo <code>2*pi</code>,
+but they must be an increasing sequence of numbers.
+If <code>angles</code> is absent but <code>nangular</code> is given,
+then <code>angles</code> will default to a sequence
+of <code>nangular+1</code> angles equally spaced from 0 to <code>2*pi</code>.
+If neither <code>angles</code> nor <code>nangular</code> are given,
+the tessellation will not include linear boundaries.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intersect.tess.html">intersect.tess</a></code>
+</p>
+<p>To construct other kinds of tessellations, see
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>, <code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code>,
+<code><a href="../../spatstat.geom/help/venn.tess.html">venn.tess</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>, <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>,
+<code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>,
+<code><a href="../../spatstat.geom/help/bufftess.html">bufftess</a></code>
+and <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Y &lt;- c(2.8, 1.5)
+  plot(polartess(letterR, nangular=6, radii=(0:4)/2, origin=Y),
+       do.col=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

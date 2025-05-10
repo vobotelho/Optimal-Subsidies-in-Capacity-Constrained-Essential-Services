@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculate Pseudo-R-Squared for Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pseudoR2 {spatstat.model}"><tr><td>pseudoR2 {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Calculate Pseudo-R-Squared for Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted point process model, calculate 
+the pseudo-R-squared value, which measures the 
+fraction of variation in the data that is explained
+by the model.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  pseudoR2(object, ...)
+
+  ## S3 method for class 'ppm'
+pseudoR2(object, ..., keepoffset=TRUE)
+
+  ## S3 method for class 'slrm'
+pseudoR2(object, ..., keepoffset=TRUE)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted point process model.
+An object of class <code>"ppm"</code> or <code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>keepoffset</code></td>
+<td>
+
+<p>Logical value indicating whether to retain offset terms in the model
+when computing the deviance difference. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to 
+<code><a href="../../spatstat.model/help/deviance.ppm.html">deviance.ppm</a></code> or <code><a href="../../spatstat.model/help/deviance.slrm.html">deviance.slrm</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>pseudoR2</code> is generic, with methods
+for fitted point process models
+of class <code>"ppm"</code> and <code>"slrm"</code>.
+</p>
+<p>This function computes McFadden's pseudo-Rsquared
+</p>
+<p style="text-align: center;"><i>
+    R^2 = 1 - D/D0
+  </i></p>
+
+<p>where <i>D</i> is the deviance of the fitted model <code>object</code>,
+and <i>D0</i> is the deviance of the null model.
+Deviance is defined as twice the negative log-likelihood
+or log-pseudolikelihood.
+</p>
+<p>The null model is usually obtained by re-fitting the model
+using the trend formula <code>~1</code>.
+However if the original model formula included <code>offset</code> terms,
+and if <code>keepoffset=TRUE</code> (the default),
+then the null model formula consists of these offset terms. This
+ensures that the <code>pseudoR2</code> value is non-negative.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/deviance.ppm.html">deviance.ppm</a></code>, 
+<code><a href="../../spatstat.model/help/deviance.slrm.html">deviance.slrm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(swedishpines ~ x+y)
+  pseudoR2(fit)
+
+  xcoord &lt;- as.im(function(x,y) x, Window(swedishpines))
+  fut &lt;- ppm(swedishpines ~ offset(xcoord/200) + y)
+  pseudoR2(fut)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

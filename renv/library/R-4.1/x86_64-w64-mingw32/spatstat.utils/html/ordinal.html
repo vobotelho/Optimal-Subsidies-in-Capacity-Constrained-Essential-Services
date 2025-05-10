@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ordinal Numbers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ordinal {spatstat.utils}"><tr><td>ordinal {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Ordinal Numbers
+</h2>
+
+<h3>Description</h3>
+
+<p>Returns the appropriate abbreviation in English for an ordinal number
+(for example <code>ordinal(5)</code> is <code>"5th"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ordinal(k)
+ordinalsuffix(k)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>An integer or vector of integers.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>ordinal(k)</code> returns a character string representing the
+<code>k</code>th ordinal number. <code>ordinalsuffix(k)</code> determines the
+appropriate suffix.
+</p>
+<p>The suffix can be either <code>"st"</code> (abbreviating
+<em>first</em>), <code>"nd"</code> (abbreviating <em>second</em>),
+<code>"rd"</code> (abbreviating <em>third</em>) or
+<code>"th"</code> (for all other ordinal numbers <code>fourth</code>,
+<code>fifth</code>, etc).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character string or character vector of the same length as <code>k</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/articlebeforenumber.html">articlebeforenumber</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ordinal(1:7)
+  cat(paste("Happy", ordinal(21), "Birthday"), fill=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

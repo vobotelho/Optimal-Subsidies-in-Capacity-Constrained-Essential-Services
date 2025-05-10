@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Matrix Raised to a Power</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for matrix.power {matrixcalc}"><tr><td>matrix.power {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Matrix Raised to a Power </h2>
+
+<h3>Description</h3>
+
+<p>This function computes the k-th power of order n square matrix x
+If k is zero, the order n identity matrix is returned.  argument k
+must be an integer.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+matrix.power(x, k)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a numeric square matrix </p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p> a numeric exponent </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The matrix power is computed by successive matrix multiplications.  If the
+exponent is zero, the order n identity matrix is returned.  If the exponent
+is negative, the inverse of the matrix is raised to the given power.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n</i> matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- matrix( c ( 1, 2, 2, 1 ), nrow=2, byrow=TRUE)
+matrix.power( A, -2 )
+matrix.power( A, -1 )
+matrix.power( A, 0 )
+matrix.power( A, 1 )
+matrix.power( A, 2 )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

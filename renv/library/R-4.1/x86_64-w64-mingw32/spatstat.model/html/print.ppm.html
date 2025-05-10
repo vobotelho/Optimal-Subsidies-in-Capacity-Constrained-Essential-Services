@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Print a Fitted Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for print.ppm {spatstat.model}"><tr><td>print.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Print a Fitted Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Default <code>print</code> method for a fitted point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppm'
+print(x,...,
+     what=c("all", "model", "trend", "interaction", "se", "errors"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A fitted point process model, typically obtained from
+the model-fittingg algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+An object of class <code>"ppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character vector (partially-matched) indicating what information
+should be printed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>print</code> method for the class <code>"ppm"</code>.
+It prints information about the fitted model in a sensible format.
+</p>
+<p>The argument <code>what</code> makes it possible to print only some
+of the information.
+</p>
+<p>If <code>what</code> is missing, then by default,
+standard errors for the estimated coefficients of the model
+will be printed only if the model is a Poisson point process.
+To print the standard errors for a non-Poisson model,
+call <code>print.ppm</code> with the argument <code>what</code> given explicitly,
+or reset the default rule by typing
+<code>spatstat.options(print.ppm.SE="always")</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>none.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code> for details of the class <code>"ppm"</code>.
+</p>
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for generating these objects.
+</p>
+<p><code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ 
+   m &lt;- ppm(cells ~1, Strauss(0.05))
+   m
+  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

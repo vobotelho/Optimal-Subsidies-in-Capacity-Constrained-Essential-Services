@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise distances</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for crossdist {spatstat.geom}"><tr><td>crossdist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise distances</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distances between pairs of &lsquo;things&rsquo;
+taken from two different datasets.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  crossdist(X, Y, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Two objects of the same class.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments depending on the method.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given two datasets <code>X</code> and <code>Y</code>
+(representing either two point patterns or
+two line segment patterns)
+<code>crossdist</code> computes the Euclidean distance from each thing
+in the first dataset to each thing in the second dataset,
+and returns a matrix containing these distances.
+</p>
+<p>The function <code>crossdist</code> is generic, with
+methods for point patterns (objects of class <code>"ppp"</code>),
+line segment patterns (objects of class <code>"psp"</code>),
+and a default method. See the documentation for
+<code><a href="../../spatstat.geom/help/crossdist.ppp.html">crossdist.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.psp.html">crossdist.psp</a></code> or
+<code><a href="../../spatstat.geom/help/crossdist.default.html">crossdist.default</a></code> for further details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix whose <code>[i,j]</code> entry is the distance
+from the <code>i</code>-th thing in the first dataset
+to the <code>j</code>-th thing in the second dataset.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/crossdist.ppp.html">crossdist.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.psp.html">crossdist.psp</a></code>,
+<code><a href="../../spatstat.geom/help/crossdist.default.html">crossdist.default</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

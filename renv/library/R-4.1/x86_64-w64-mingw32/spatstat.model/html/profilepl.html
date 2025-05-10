@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit Models by Profile Maximum Pseudolikelihood or AIC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for profilepl {spatstat.model}"><tr><td>profilepl {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit Models by Profile Maximum Pseudolikelihood or AIC</h2>
+
+<h3>Description</h3>
+
+<p>Fits point process models by maximising the profile likelihood,
+profile pseudolikelihood, profile composite likelihood or AIC.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+profilepl(s, f, ..., aic=FALSE, rbord=NULL, verbose = TRUE, fast=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>Data frame containing values of the irregular parameters
+over which the criterion will be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Function (such as <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>)
+that generates an interpoint interaction object, given
+values of the irregular parameters.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Data passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>aic</code></td>
+<td>
+
+<p>Logical value indicating whether to find the parameter values
+which minimise the AIC (<code>aic=TRUE</code>) or maximise the
+profile likelihood (<code>aic=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>rbord</code></td>
+<td>
+
+<p>Radius for border correction (same for all models).
+If omitted, this will be computed from the interactions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fast</code></td>
+<td>
+
+<p>Logical value indicating whether to use a faster, less accurate
+model-fitting technique when computing the profile pseudolikelihood.
+See Section on Speed and Accuracy.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> fits point process
+models to point pattern data. However, 
+only the &lsquo;regular&rsquo; parameters of the model can be fitted by
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. The model may also depend on &lsquo;irregular&rsquo;
+parameters that must be fixed in any call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>This function <code>profilepl</code> is a wrapper which finds the values of the
+irregular parameters that give the best fit.
+If <code>aic=FALSE</code> (the default),
+the best fit is the model which maximises the
+likelihood (if the models are Poisson processes) or maximises
+the pseudolikelihood or logistic likelihood. 
+If <code>aic=TRUE</code> then the best fit is the model which
+minimises the Akaike Information Criterion <code><a href="../../spatstat.model/help/AIC.ppm.html">AIC.ppm</a></code>.
+</p>
+<p>The argument <code>s</code> must be a data frame whose columns contain
+values of the irregular parameters over which the maximisation is
+to be performed.
+</p>
+<p>An irregular parameter may affect either the interpoint interaction
+or the spatial trend. 
+</p>
+
+<dl>
+<dt>interaction parameters:</dt><dd>
+<p>in a call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, the argument <code>interaction</code>
+determines the interaction between points. It is usually
+a call to a function such as <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>. The
+arguments of this call are irregular parameters.
+For example, the interaction radius parameter <i>r</i> of the Strauss
+process, determined by the argument <code>r</code>
+to the function <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>, is an irregular parameter.
+</p>
+</dd>
+<dt>trend parameters:</dt><dd>
+<p>in a call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, the spatial trend may depend on
+covariates, which are supplied by the argument <code>covariates</code>.
+These covariates may be functions written by the user,
+of the form <code>function(x,y,...)</code>, and the extra arguments
+<code>...</code> are irregular parameters.
+</p>
+</dd>
+</dl>
+
+<p>The argument <code>f</code> determines the interaction
+for each model to be fitted. It would typically be one of the functions
+<code><a href="../../spatstat.model/help/Poisson.html">Poisson</a></code>,
+<code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>,
+<code><a href="../../spatstat.model/help/BadGey.html">BadGey</a></code>,
+<code><a href="../../spatstat.model/help/DiggleGatesStibbard.html">DiggleGatesStibbard</a></code>,
+<code><a href="../../spatstat.model/help/DiggleGratton.html">DiggleGratton</a></code>,
+<code><a href="../../spatstat.model/help/Fiksel.html">Fiksel</a></code>,
+<code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>,
+<code><a href="../../spatstat.model/help/Hardcore.html">Hardcore</a></code>,
+<code><a href="../../spatstat.model/help/LennardJones.html">LennardJones</a></code>,
+<code><a href="../../spatstat.model/help/OrdThresh.html">OrdThresh</a></code>, 
+<code><a href="../../spatstat.model/help/Softcore.html">Softcore</a></code>,
+<code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code> or
+<code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>.
+Alternatively it could be a function written by the user.
+</p>
+<p>Columns of <code>s</code> which match the names of arguments of <code>f</code>
+will be interpreted as interaction parameters. Other columns will be
+interpreted as trend parameters.
+</p>
+<p>The data frame <code>s</code> must provide values for each argument of
+<code>f</code>, except for the optional arguments, which are those arguments of
+<code>f</code> that have the default value <code>NA</code>.  
+</p>
+<p>To find the best fit,
+each row of <code>s</code> will be taken in turn. Interaction parameters in this
+row will be passed to <code>f</code>, resulting in an interaction object. 
+Then <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> will be applied to the data <code>...</code>
+using this interaction. Any trend parameters will be passed to
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> through the argument <code>covfunargs</code>.
+This results in a fitted point process model.
+The value of the log pseudolikelihood or AIC from this model is stored.
+After all rows of <code>s</code> have been processed in this way, the
+row giving the maximum value of log pseudolikelihood will be found.
+</p>
+<p>The object returned by <code>profilepl</code> contains the profile
+pseudolikelihood (or profile AIC) function,
+the best fitting model, and other data.
+It can be plotted (yielding a
+plot of the log pseudolikelihood or AIC values against the irregular
+parameters) or printed (yielding information about the best fitting
+values of the irregular parameters). 
+</p>
+<p>In general, <code>f</code> may be any function that will return
+an interaction object (object of class <code>"interact"</code>)
+that can be used in a call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. Each argument of
+<code>f</code> must be a single value. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"profilepl"</code>. There are methods
+for <code><a href="../../graphics/help/plot.html">plot</a></code>,
+<code><a href="../../base/help/print.html">print</a></code>,
+<code><a href="../../base/help/summary.html">summary</a></code>,
+<code><a href="../../stats/help/simulate.html">simulate</a></code>,
+<code><a href="../../spatstat.model/help/as.ppm.html">as.ppm</a></code>,
+<code><a href="../../spatstat.model/help/fitin.html">fitin</a></code>
+and 
+<code><a href="../../spatstat.model/help/parameters.html">parameters</a></code> for objects of this class.
+</p>
+<p>The components of the object include
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>fit</code></td>
+<td>
+<p>Best-fitting model</p>
+</td></tr>
+<tr valign="top"><td><code>param</code></td>
+<td>
+<p>The data frame <code>s</code></p>
+</td></tr>
+<tr valign="top"><td><code>iopt</code></td>
+<td>
+<p>Row index of the best-fitting parameters in <code>s</code></p>
+</td></tr>
+</table>
+<p>To extract the best fitting model you can also use <code><a href="../../spatstat.model/help/as.ppm.html">as.ppm</a></code>.
+</p>
+
+
+<h3>Speed and Accuracy</h3>
+
+<p>Computation of the profile pseudolikelihood can be time-consuming.
+We recommend starting with a small experiment in which
+<code>s</code> contains only a few rows of values. This will indicate 
+roughly the optimal values of the parameters.
+Then a full calculation using more finely
+spaced values can identify the exact optimal values.
+</p>
+<p>It is normal that the procedure appears to slow down at the end.
+During the computation of the profile pseudolikelihood,
+the model-fitting procedure is accelerated by omitting some
+calculations that are not needed for computing the pseudolikelihood.
+When the optimal parameter values have been identified, they are used to
+fit the final model in its entirety. Fitting the final model
+can take longer than computing the profile pseudolikelihood.
+</p>
+<p>If <code>fast=TRUE</code> (the default), then additional shortcuts are taken
+in order to accelerate the computation of the profile
+log pseudolikelihood. These shortcuts mean that the values of the profile
+log pseudolikelihood in the result (<code>$prof</code>)
+may not be equal to the values that would be obtained if the model was
+fitted normally. Currently this happens only for the area interaction
+<code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>. It may be wise to do a small experiment with
+<code>fast=TRUE</code> and then a definitive calculation with <code>fast=FALSE</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/plot.profilepl.html">plot.profilepl</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # one irregular parameter
+    rr &lt;- data.frame(r=seq(0.05,0.15, by=0.01))
+    
+    ps &lt;- profilepl(rr, Strauss, cells)
+    ps
+    plot(ps)
+
+    # two irregular parameters
+    rs &lt;- expand.grid(r=seq(0.05,0.15, by=0.01),sat=1:3)
+    
+    pg &lt;- profilepl(rs, Geyer, cells)
+    pg
+    as.ppm(pg)
+
+    ## more information 
+    summary(pg)
+
+    
+    # multitype pattern with a common interaction radius
+    RR &lt;- data.frame(R=seq(0.03,0.05,by=0.01))
+    MS &lt;- function(R) { MultiStrauss(radii=diag(c(R,R))) }
+    pm &lt;- profilepl(RR, MS, amacrine ~marks)
+    
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

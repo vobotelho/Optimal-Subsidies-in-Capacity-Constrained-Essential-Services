@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimate window from points alone</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ripras {spatstat.geom}"><tr><td>ripras {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Estimate window from points alone</h2>
+
+<h3>Description</h3>
+
+<p>Given an observed pattern of points,
+computes the Ripley-Rasson estimate of 
+the spatial domain from which they came.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ripras(x, y=NULL, shape="convex", f)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>vector of <code>x</code> coordinates of observed points,
+or a 2-column matrix giving <code>x,y</code> coordinates,
+or a list with components <code>x,y</code> giving coordinates
+(such as a point pattern object of class <code>"ppp"</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>(optional) vector of <code>y</code> coordinates of observed points,
+if <code>x</code> is a vector.</p>
+</td></tr>
+<tr valign="top"><td><code>shape</code></td>
+<td>
+<p>String indicating the type of window to be estimated:
+either <code>"convex"</code> or <code>"rectangle"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>(optional) scaling factor. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given an observed pattern of points with coordinates 
+given by <code>x</code> and <code>y</code>, this function computes 
+an estimate due to Ripley and Rasson (1977) of the
+spatial domain from which the points came. 
+</p>
+<p>The points are
+assumed to have been generated independently and uniformly
+distributed inside an unknown domain <i>D</i>.
+</p>
+<p>If <code>shape="convex"</code> (the default), the domain <i>D</i> is assumed
+to be a convex set. The maximum
+likelihood estimate of <i>D</i> is the convex hull of the 
+points (computed by <code><a href="../../spatstat.geom/help/convexhull.xy.html">convexhull.xy</a></code>).
+Analogously to the problems of estimating the endpoint
+of a uniform distribution, the MLE is not optimal.
+Ripley and Rasson's estimator is a rescaled copy of the convex hull,
+centred at the centroid of the convex hull.
+The scaling factor is 
+<i>1/&radic;{1 - \frac m n}</i>
+where <i>n</i> is the number of data points and 
+<i>m</i> the number of vertices of the convex hull.
+The scaling factor may be overridden using the argument <code>f</code>.
+</p>
+<p>If <code>shape="rectangle"</code>, the domain <i>D</i> is assumed
+to be a rectangle with sides parallel to the coordinate axes. The maximum
+likelihood estimate of <i>D</i> is the bounding box of the points
+(computed by <code><a href="../../spatstat.geom/help/bounding.box.xy.html">bounding.box.xy</a></code>). The Ripley-Rasson
+estimator is a rescaled copy of the bounding box,
+with scaling factor <i>(n+1)/(n-1)</i>
+where <i>n</i> is the number of data points,
+centred at the centroid of the bounding box.
+The scaling factor may be overridden using the argument <code>f</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (an object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ripley, B.D. and Rasson, J.-P. (1977)
+Finding the edge of a Poisson forest.
+<em>Journal of Applied Probability</em>,
+<b>14</b>, 483 &ndash; 491.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/bounding.box.xy.html">bounding.box.xy</a></code>,
+<code><a href="../../spatstat.geom/help/convexhull.xy.html">convexhull.xy</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- runif(30)
+  y &lt;- runif(30)
+  w &lt;- ripras(x,y)
+  plot(owin(), main="ripras(x,y)")
+  plot(w, add=TRUE)
+  points(x,y)
+
+  X &lt;- runifrect(15)
+  plot(X, main="ripras(X)")
+  plot(ripras(X), add=TRUE)
+
+  # two points insufficient
+  ripras(c(0,1),c(0,0))
+  # triangle
+  ripras(c(0,1,0.5), c(0,0,1))
+  # three collinear points
+  ripras(c(0,0,0), c(0,1,2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

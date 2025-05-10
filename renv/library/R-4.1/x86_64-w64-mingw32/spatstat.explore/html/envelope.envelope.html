@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Recompute Envelopes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for envelope.envelope {spatstat.explore}"><tr><td>envelope.envelope {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Recompute Envelopes
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a simulation envelope (object of class <code>"envelope"</code>),
+compute another envelope from the same simulation data
+using different parameters.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'envelope'
+envelope(Y, fun = NULL, ...,
+                            transform=NULL, global=FALSE, VARIANCE=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>A simulation envelope (object of class <code>"envelope"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>Optional. Summary function to be applied to the simulated point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...,transform,global,VARIANCE</code></td>
+<td>
+
+<p>Parameters controlling the type of envelope that is re-computed. 
+See <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function can be used to re-compute a simulation envelope
+from previously simulated data, using different parameter settings
+for the envelope: for example, a different
+significance level, or a global envelope instead of a pointwise
+envelope.
+</p>
+<p>The function <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> is generic. This is the method for
+the class <code>"envelope"</code>. 
+</p>
+<p>The argument <code>Y</code> should be a simulation envelope (object of
+class <code>"envelope"</code>) produced by any of the methods for
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>. Additionally, <code>Y</code> must contain either
+</p>
+
+<ul>
+<li><p> the simulated point patterns that were used to create
+the original envelope (so <code>Y</code> should have been created by calling
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> with <code>savepatterns=TRUE</code>);
+</p>
+</li>
+<li><p> the summary functions of the simulated point patterns
+that were used to create
+the original envelope (so <code>Y</code> should have been created by calling
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> with <code>savefuns=TRUE</code>).
+</p>
+</li></ul>
+
+<p>If the argument <code>fun</code> is given, it should be a summary function
+that can be applied to the simulated point patterns that were
+used to create <code>Y</code>. The envelope of
+the summary function <code>fun</code> for these point patterns
+will be computed using the parameters specified in <code>...</code>.
+</p>
+<p>If <code>fun</code> is not given, then:
+</p>
+
+<ul>
+<li>
+<p>If <code>Y</code> contains the summary functions that were used to
+compute the original envelope, then the new envelope will be
+computed from these original summary functions.
+</p>
+</li>
+<li>
+<p>Otherwise, if <code>Y</code> contains the simulated point patterns.
+then the <i>K</i> function <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> will be applied to
+each of these simulated point patterns, and the new envelope will
+be based on the <i>K</i> functions.
+</p>
+</li></ul>
+
+<p>The new envelope 
+will be computed using the parameters specified in <code>...</code>.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> for a full list of envelope parameters.
+Frequently-used parameters include <code>nrank</code> and <code>nsim</code> (to change the
+number of simulations used and the significance level of the
+envelope), <code>global</code> (to change from pointwise to global
+envelopes) and <code>VARIANCE</code> (to compute the envelopes from the sample
+moments instead of the ranks).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An envelope (object of class <code>"envelope"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  E &lt;- envelope(cells, Kest, nsim=19, savefuns=TRUE, savepatterns=TRUE)
+  E2 &lt;- envelope(E, nrank=2)
+  Eg &lt;- envelope(E, global=TRUE)
+  EG &lt;- envelope(E, Gest)
+  EL &lt;- envelope(E, transform=expression(sqrt(./pi)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

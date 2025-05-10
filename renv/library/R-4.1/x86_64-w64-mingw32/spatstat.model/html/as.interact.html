@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Interaction Structure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.interact {spatstat.model}"><tr><td>as.interact {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Interaction Structure</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the interpoint interaction structure from
+a point pattern model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+as.interact(object)
+## S3 method for class 'fii'
+as.interact(object)
+## S3 method for class 'interact'
+as.interact(object)
+## S3 method for class 'ppm'
+as.interact(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>A fitted point process model (object of class
+<code>"ppm"</code>) or an interpoint interaction structure
+(object of class <code>"interact"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>as.interact</code> extracts 
+the interpoint interaction structure from a suitable object.
+</p>
+<p>An object of class <code>"interact"</code> describes an interpoint
+interaction structure, before it has been fitted to point pattern
+data. The irregular parameters of the interaction (such as the
+interaction range) are fixed, but the regular parameters
+(such as interaction strength) are undetermined.
+Objects of this class are created by the functions
+<code><a href="../../spatstat.model/help/Poisson.html">Poisson</a></code>, <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code> and so on.
+The main use of such objects is in a call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>The function <code>as.interact</code> is generic, with methods for the classes
+<code>"ppm"</code>, <code>"fii"</code> and <code>"interact"</code>. 
+The result is an object of class <code>"interact"</code> which can be printed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code> representing the 
+interpoint interaction. This object can be printed and plotted.
+</p>
+
+
+<h3>Note on parameters</h3>
+
+<p>This function does <b>not</b> extract the fitted coefficients
+of the interaction. To extract the fitted interaction including
+the fitted coefficients, use <code><a href="../../spatstat.model/help/fitin.html">fitin</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/fitin.html">fitin</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   model &lt;- ppm(cells ~1, Strauss(0.07))
+   f &lt;- as.interact(model)
+   f
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

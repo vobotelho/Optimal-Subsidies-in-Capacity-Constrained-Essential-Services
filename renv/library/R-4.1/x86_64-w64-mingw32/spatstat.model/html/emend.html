@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Force Model to be Valid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for emend {spatstat.model}"><tr><td>emend {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Force Model to be Valid
+</h2>
+
+<h3>Description</h3>
+
+<p>Check whether a model is valid, and if not,
+find the nearest model which is valid.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+emend(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A statistical model, belonging to some class.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to methods.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>emend</code> is generic,
+and has methods for several classes of statistical models
+in the <span class="pkg">spatstat</span> package (mostly point process models).
+Its purpose is to check whether a given model is valid
+(for example, that none of the model parameters are <code>NA</code>)
+and, if not, to find the nearest model which is valid.
+</p>
+<p>See the methods for more information.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another model of the same kind.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/emend.ppm.html">emend.ppm</a></code>,
+<code><a href="../../spatstat.model/help/valid.html">valid</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pool Data from Several Function Arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pool.fasp {spatstat.explore}"><tr><td>pool.fasp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pool Data from Several Function Arrays
+</h2>
+
+<h3>Description</h3>
+
+<p>Pool the simulation data from several function arrays
+(objects of class <code>"fasp"</code>)
+and compute a new function array.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fasp'
+pool(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Objects of class <code>"fasp"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.explore/help/pool.html">pool</a></code> is generic. This is the method for the
+class <code>"fasp"</code> of function arrays. It is used to
+combine the simulation data from several arrays of simulation envelopes
+and to compute a new array of envelopes based on the combined data.
+</p>
+<p>Each of the arguments <code>...</code> must be a function array
+(object of class <code>"fasp"</code>) containing simulation envelopes.
+This is typically created by running the command
+<code><a href="../../spatstat.explore/help/alltypes.html">alltypes</a></code> with the arguments
+<code>envelope=TRUE</code> and <code>savefuns=TRUE</code>.
+This ensures that each object is an array of simulation envelopes,
+and that each envelope contains the simulated data
+(summary function values) that were used to construct the envelope.
+</p>
+<p>The simulated data are extracted from each object and combined.
+A new array of envelopes is computed from the combined set of simulations.
+</p>
+<p>Warnings or errors will be issued if the objects <code>...</code>
+appear to be incompatible. However, the code is not smart enough to
+decide whether it is sensible to pool the data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fasp"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fasp.html">fasp</a></code>,
+<code><a href="../../spatstat.explore/help/alltypes.html">alltypes</a></code>,
+<code><a href="../../spatstat.explore/help/pool.envelope.html">pool.envelope</a></code>,
+<code><a href="../../spatstat.explore/help/pool.html">pool</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A1 &lt;- alltypes(amacrine,"K",nsim=9,envelope=TRUE,savefuns=TRUE)
+   A2 &lt;- alltypes(amacrine,"K",nsim=10,envelope=TRUE,savefuns=TRUE)
+   pool(A1, A2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

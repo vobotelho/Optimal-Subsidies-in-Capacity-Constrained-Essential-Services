@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest Neighbour Orientation Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nnorient {spatstat.explore}"><tr><td>nnorient {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nearest Neighbour Orientation Distribution
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distribution of the orientation of the vectors
+from each point to its nearest neighbour.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nnorient(X, ..., cumulative = FALSE, correction, k = 1,
+                     unit = c("degree", "radian"),
+                     domain = NULL, ratio = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/circdensity.html">circdensity</a></code> to control
+the kernel smoothing, if <code>cumulative=FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cumulative</code></td>
+<td>
+
+<p>Logical value specifying whether to estimate the probability density
+(<code>cumulative=FALSE</code>, the default) or the cumulative
+distribution function (<code>cumulative=TRUE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Character vector specifying edge correction or corrections.
+Options are <code>"none"</code>, <code>"bord.modif"</code>, 
+<code>"good"</code> and <code>"best"</code>.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer. The <i>k</i>th nearest neighbour will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unit</code></td>
+<td>
+
+<p>Unit in which the angles should be expressed.
+Either <code>"degree"</code> or <code>"radian"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional window. The first point <i>x[i]</i> of each pair of points
+will be constrained to lie in <code>domain</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm considers each point in the pattern <code>X</code>
+and finds its nearest neighbour (or <i>k</i>th nearest neighour).
+The <em>direction</em> of the arrow joining the data point to its neighbour
+is measured, as an angle in degrees or radians,
+anticlockwise from the <i>x</i> axis.
+</p>
+<p>If <code>cumulative=FALSE</code> (the default),
+a kernel estimate of the probability density of the angles
+is calculated using <code><a href="../../spatstat.explore/help/circdensity.html">circdensity</a></code>.
+This is the function <i>theta(phi)</i> defined 
+in Illian et al (2008), equation (4.5.3), page 253.
+</p>
+<p>If <code>cumulative=TRUE</code>, then the cumulative distribution
+function of these angles is calculated.
+</p>
+<p>In either case the result can be plotted as a rose diagram by 
+<code><a href="../../spatstat.explore/help/rose.html">rose</a></code>, or as a function plot by <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>The algorithm gives each observed direction a weight,
+determined by an edge correction, to adjust for the fact that some
+interpoint distances are more likely to be observed than others.
+The choice of edge correction or corrections is determined by the argument
+<code>correction</code>.
+</p>
+<p>It is also possible to calculate an estimate of the probability
+density from the cumulative distribution function,
+by numerical differentiation. 
+Use <code><a href="../../spatstat.explore/help/deriv.fv.html">deriv.fv</a></code> with the argument <code>Dperiodic=TRUE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>)
+containing the estimates of the probability density or the
+cumulative distribution function of angles,
+in degrees (if <code>unit="degree"</code>)
+or radians (if <code>unit="radian"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Illian, J., Penttinen, A., Stoyan, H. and Stoyan, D. (2008)
+<em>Statistical Analysis and Modelling of Spatial Point Patterns.</em>
+Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pairorient.html">pairorient</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  rose(nnorient(redwood, adjust=0.6), col="grey")
+  plot(CDF &lt;- nnorient(redwood, cumulative=TRUE))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

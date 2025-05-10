@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cross Validated Bandwidth Selection for Pair Correlation...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.pcf {spatstat.explore}"><tr><td>bw.pcf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Cross Validated Bandwidth Selection for Pair Correlation Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses composite likelihood or generalized least squares 
+cross-validation to select a smoothing bandwidth
+for the kernel estimation of pair correlation function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  bw.pcf(X, rmax=NULL, lambda=NULL, divisor="r", 
+         kernel="epanechnikov", nr=10000, bias.correct=TRUE, 
+         cv.method=c("compLik", "leastSQ"), simple=TRUE, srange=NULL,
+	 ..., verbose=FALSE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Numeric. Maximum value of the spatial lag distance <i>r</i> 
+for which <i>g(r)</i> should be evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity function.
+A vector giving the intensity values
+at the points of the pattern <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>divisor</code></td>
+<td>
+
+<p>Choice of divisor in the estimation formula:
+either <code>"r"</code> (the default) or <code>"d"</code>. 
+See <code>pcf.ppp</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>Choice of smoothing kernel, passed to <code>density</code>; 
+see <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> and <code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nr</code></td>
+<td>
+
+<p>Integer. Number of subintervals for discretization of 
+[0, rmax] to use in computing numerical integrals.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bias.correct</code></td>
+<td>
+
+<p>Logical. Whether to use bias corrected version of the kernel 
+estimate. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cv.method</code></td>
+<td>
+
+<p>Choice of cross validation method: either
+<code>"compLik"</code> or <code>"leastSQ"</code> (partially matched).
+</p>
+</td></tr>
+<tr valign="top"><td><code>simple</code></td>
+<td>
+
+<p>Logical. Whether to use simple removal of spatial lag 
+distances. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>srange</code></td>
+<td>
+
+<p>Optional. Numeric vector of length 2 giving the range of
+bandwidth values that should be searched to find the optimum
+bandwidth.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments, passed to <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> or 
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports
+during the optimization procedure.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, issue a warning if the optimum value of
+the cross-validation criterion occurs at one of the ends of the
+search interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate bandwidth <code>bw</code>
+for the kernel estimator of the pair correlation function 
+of a point process intensity computed by <code><a href="../../spatstat.explore/help/pcf.ppp.html">pcf.ppp</a></code> 
+(homogeneous case) or <code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code> 
+(inhomogeneous case).
+</p>
+<p>With <code>cv.method="leastSQ"</code>, the bandwidth 
+<i>h</i> is chosen to minimise an unbiased 
+estimate of the integrated mean-square error criterion 
+<i>M(h)</i> defined in equation (4) in Guan (2007a).
+The code implements the fast algorithm of Jalilian and Waagepetersen
+(2018).
+</p>
+<p>With <code>cv.method="compLik"</code>, the bandwidth 
+<i>h</i> is chosen to maximise a likelihood 
+cross-validation criterion <i>CV(h)</i> defined in 
+equation (6) of Guan (2007b).
+</p>
+<p style="text-align: center;"><i>
+    M(b) = \int_{0}^{rmax} \hat{g}^2(r;b) r dr - &sum;_{u,v}
+  </i></p>
+
+<p>The result is a numerical value giving the selected bandwidth.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Definition of bandwidth</h3>
+
+<p>The bandwidth <code>bw</code> returned by <code>bw.pcf</code>
+is the standard deviation of the smoothing kernel,
+following the standard convention in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+As mentioned in the documentation for
+<code><a href="../../stats/html/density.html">density.default</a></code> and <code><a href="../../spatstat.explore/help/pcf.ppp.html">pcf.ppp</a></code>, 
+this differs from other definitions of bandwidth that can be
+found in the literature. The scale parameter
+<code>h</code>, which is called the bandwidth in some literature,
+is defined differently.
+For example for the Epanechnikov kernel, <code>h</code> is the half-width
+of the kernel, and <code>bw=h/sqrt(5)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Rasmus Waagepetersen and Abdollah Jalilian. 
+Adapted for <span class="pkg">spatstat</span> by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Guan, Y. (2007a). 
+A composite likelihood cross-validation approach in selecting 
+bandwidth for the estimation of the pair correlation function. 
+<em>Scandinavian Journal of Statistics</em>, 
+<b>34</b>(2), 336&ndash;346.
+</p>
+<p>Guan, Y. (2007b). 
+A least-squares cross-validation bandwidth selection approach 
+in pair correlation function estimations. 
+<em>Statistics &amp; Probability Letters</em>, 
+<b>77</b>(18), 1722&ndash;1729.
+</p>
+<p>Jalilian, A. and Waagepetersen, R. (2018)
+Fast bandwidth selection for estimation of the pair correlation
+function.
+<em>Journal of Statistical Computation and Simulation</em>,
+<b>88</b>(10), 2001&ndash;2011.
+<a href="https://www.tandfonline.com/doi/full/10.1080/00949655.2018.1428606">https://www.tandfonline.com/doi/full/10.1080/00949655.2018.1428606</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pcf.ppp.html">pcf.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>,
+<code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  b &lt;- bw.pcf(redwood)
+  plot(pcf(redwood, bw=b))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: plot a Spatial Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.ppp {spatstat.geom}"><tr><td>plot.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>plot a Spatial Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Plot a two-dimensional spatial point pattern
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppp'
+plot(x, main, ..., clipwin=NULL,
+                    chars=NULL, cols=NULL,
+                    use.marks=TRUE, which.marks=NULL,
+                    add=FALSE, type=c("p","n"),
+                    legend=TRUE,
+                    leg.side=c("left", "bottom", "top", "right"),
+                    leg.args=list(),
+                    symap=NULL, maxsize=NULL, meansize=NULL, markscale=NULL,
+                    minsize=NULL, zerosize=NULL,
+                    zap=0.01,
+                    show.window=show.all, show.all=!add, do.plot=TRUE,
+                    multiplot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The spatial point pattern to be plotted.
+An object of class <code>"ppp"</code>,
+or data which can be converted into 
+this format by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>text to be displayed as a title above the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments that will be passed to the plotting functions
+<code><a href="../../graphics/html/plot.default.html">plot.default</a></code>, <code><a href="../../graphics/html/points.html">points</a></code> and/or
+<code><a href="../../graphics/html/symbols.html">symbols</a></code>. Not all arguments will be recognised.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipwin</code></td>
+<td>
+
+<p>Optional. A window (object of class <code>"owin"</code>).
+Only this subset of the image will be displayed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>chars</code></td>
+<td>
+
+<p>the plotting character(s) used to plot points.
+Either a single character, an integer,
+or a vector of single characters or integers.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+
+<p>the colour(s) used to plot points.
+Either an integer index from 1 to 8 (indexing the standard colour
+palette), a character string giving the name of a colour,
+or a string giving the hexadecimal representation of a colour,
+or a vector of such integers or strings.
+See the section on <em>Colour Specification</em> in the help for <code><a href="../../graphics/help/par.html">par</a></code>.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.marks</code></td>
+<td>
+
+<p>logical flag; if <code>TRUE</code>, plot points using a different
+plotting symbol for each mark;
+if <code>FALSE</code>, only the locations of the points will be plotted,
+using <code><a href="../../graphics/html/points.html">points</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which.marks</code></td>
+<td>
+
+<p>Index determining which column of marks to use,
+if the marks of <code>x</code> are a data frame.
+A character or integer vector identifying one or more
+columns of marks. 
+If <code>add=FALSE</code> then
+the default is to plot all columns of marks, in a series of separate
+plots.
+If <code>add=TRUE</code> then only one column of marks can be plotted,
+and the default is <code>which.marks=1</code>
+indicating the first column of marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>logical flag; if <code>TRUE</code>,
+just the points are plotted, over the existing plot.
+A new plot is not created, and
+the window is not plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Type of plot: either <code>"p"</code> or <code>"n"</code>.
+If <code>type="p"</code> (the default), both the points and the observation window
+are plotted. If <code>type="n"</code>, only the window is plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical value indicating whether to add a legend showing the mapping
+between mark values and graphical symbols (for a marked point pattern).
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.side</code></td>
+<td>
+
+<p>Position of legend relative to main plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.args</code></td>
+<td>
+
+<p>List of additional arguments passed to <code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code>
+or <code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code> to control the legend.
+In addition to arguments documented under
+<code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code>, and graphical arguments recognised
+by <code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>, the list may also include the argument
+<code>sep</code> giving the separation between the main plot and the
+legend, or <code>sep.frac</code> giving the separation as a fraction
+of the largest dimension (maximum of width and height) of the main
+plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>symap</code></td>
+<td>
+
+<p>The graphical symbol map to be applied to the marks.
+An object of class <code>"symbolmap"</code>; see
+<code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>maxsize</code></td>
+<td>
+
+<p><em>Maximum</em> physical size of the circles/squares plotted
+when <code>x</code> is a marked point pattern with 
+numerical marks.
+Incompatible with <code>meansize</code> and <code>markscale</code>.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>meansize</code></td>
+<td>
+
+<p><em>Average</em> physical size of the circles/squares plotted
+when <code>x</code> is a marked point pattern with 
+numerical marks.
+Incompatible with <code>maxsize</code> and <code>markscale</code>.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>markscale</code></td>
+<td>
+
+<p>physical scale factor determining the sizes of the
+circles/squares plotted when <code>x</code> is a marked point pattern with 
+numerical marks. Mark value will be multiplied by <code>markscale</code>
+to determine physical size.
+Incompatible with <code>maxsize</code> and <code>meansize</code>.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>minsize</code></td>
+<td>
+
+<p><em>Minimum</em> physical size of the circles/squares plotted
+when <code>x</code> is a marked point pattern with 
+numerical marks.
+Incompatible with <code>zerosize</code>.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zerosize</code></td>
+<td>
+
+<p>Physical size of the circle/square representing a mark value of zero,
+when <code>x</code> is a marked point pattern with numerical marks.
+Incompatible with <code>minsize</code>.
+Defaults to zero.
+Ignored if <code>symap</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zap</code></td>
+<td>
+
+<p>Fraction between 0 and 1.
+When <code>x</code> is a marked point pattern with numerical marks,
+<code>zap</code> is the smallest mark value
+(expressed as a fraction of the maximum possible mark) that will
+be plotted. 
+Any points which have marks smaller in absolute value
+than <code>zap * max(abs(marks(x)))</code> will not be plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.window</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the observation
+window of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether to plot everything
+including the main title and the observation window of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value determining whether to actually perform the plotting.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiplot</code></td>
+<td>
+
+<p>Logical value giving permission to display multiple plots.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for 
+point pattern datasets (of class <code>"ppp"</code>, see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>).
+</p>
+<p>First the observation window <code>Window(x)</code> is plotted
+(if <code>show.window=TRUE</code>).
+Then the points themselves are plotted,
+in a fashion that depends on their marks,
+as follows.
+</p>
+
+<dl>
+<dt>unmarked point pattern:</dt><dd>
+<p>If the point pattern does not have marks, or if <code>use.marks = FALSE</code>,
+then the locations of all points will be plotted 
+using a single plot character
+</p>
+</dd>
+<dt>multitype point pattern:</dt><dd>
+<p>If <code>marks(x)</code> is a factor, then 
+each level of the factor is 
+represented by a different plot character.
+</p>
+</dd>
+<dt>continuous marks:</dt><dd>
+<p>If <code>marks(x)</code> is a numeric vector,
+the marks are rescaled to the unit interval and
+each point is represented by a circle 
+with <em>diameter</em> proportional to the rescaled mark
+(if the value is positive) or a square with <em>side length</em>
+proportional to the absolute value of the rescaled mark
+(if the value is negative).
+</p>
+</dd>
+<dt>other kinds of marks:</dt><dd>
+<p>If <code>marks(x)</code> is neither numeric nor a factor,
+then each possible mark will be represented by a
+different plotting character. The default is to
+represent the <i>i</i>th smallest mark value by
+<code>points(..., pch=i)</code>.
+</p>
+</dd>
+</dl>
+
+<p>If there are several columns of marks, and if <code>which.marks</code> is
+missing or <code>NULL</code>, then
+</p>
+
+<ul>
+<li> 
+<p>if <code>add=FALSE</code> and <code>multiplot=TRUE</code>
+the default is to plot all columns of marks, in a series of separate
+plots, placed side-by-side. The plotting is coordinated by
+<code><a href="../../spatstat.geom/help/plot.listof.html">plot.listof</a></code>, which calls <code>plot.ppp</code> to make each of
+the individual plots.
+</p>
+</li>
+<li>
+<p>Otherwise, only one column of marks can be plotted,
+and the default is <code>which.marks=1</code>
+indicating the first column of marks.
+</p>
+</li></ul>
+
+<p>Plotting of the window <code>Window(x)</code> is performed by
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>. This plot may be modified 
+through the <code>...</code> arguments. In particular the
+extra argument <code>border</code> determines
+the colour of the window, if the window is not a binary mask.
+</p>
+<p>Plotting of the points themselves is performed
+by the function <code><a href="../../graphics/html/points.html">points</a></code>, except for the case of
+continuous marks, where it is performed by <code><a href="../../graphics/html/symbols.html">symbols</a></code>.
+Their plotting behaviour may be modified through the <code>...</code>
+arguments.
+</p>
+<p>If the argument <code>symap</code> is given, then it determines the
+graphical display of the points. It should be a symbol map
+(object of class <code>"symbolmap"</code>) created by the function
+<code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>.
+</p>
+<p>If <code>symap</code> is not given, then the
+following arguments can be used to specify how the points are plotted:
+</p>
+
+<ul>
+<li>
+<p>The argument <code>chars</code> determines the plotting character
+or characters used to display the points (in all cases except
+for the case of continuous marks). For an unmarked point pattern,
+this should be a single integer or character determining a
+plotting character (see <code>par("pch")</code>).
+For a multitype point pattern, <code>chars</code> should be a vector
+of integers or characters, of the same length
+as <code>levels(marks(x))</code>, and then the <i>i</i>th level or type 
+will be plotted using character <code>chars[i]</code>.
+</p>
+</li>
+<li>
+<p>If <code>chars</code> is absent, but there is an extra argument
+<code>pch</code>, then this will determine the plotting character for
+all points.
+</p>
+</li>
+<li>
+<p>The argument <code>cols</code> determines the colour or colours used to
+display the points. For an unmarked point pattern,
+<code>cols</code> should be a character string
+determining a colour. For a multitype point pattern, <code>cols</code>
+should be a character vector, of the same length
+as <code>levels(marks(x))</code>: that is, there is one colour for each
+possible mark value. The <i>i</i>th level or type will
+be plotted using colour <code>cols[i]</code>. For a point pattern with
+continuous marks, <code>cols</code> can be either a character string
+or a character vector specifying colour values: the range of mark
+values will be mapped to the specified colours.
+</p>
+</li>
+<li>
+<p>If <code>cols</code> is absent, the colours used to plot the
+points may be determined by the extra argument <code>fg</code>
+(for multitype point patterns) or the extra argument <code>col</code>
+(for all other cases). Note that specifying <code>col</code> will also
+apply this colour to the window itself.
+</p>
+</li>
+<li>
+<p>The default colour for the points is a semi-transparent grey,
+if this is supported by the plot device. This behaviour can be
+suppressed (so that the default colour is non-transparent)
+by setting <code>spatstat.options(transparent=FALSE)</code>.
+</p>
+</li>
+<li> 
+<p>The arguments <code>maxsize</code>, <code>meansize</code> and <code>markscale</code> 
+are incompatible with each other (and incompatible with
+<code>symap</code>).
+The arguments <code>minsize</code> and <code>zerosize</code> are incompatible
+with each other (and incompatible with <code>symap</code>).
+Together, these arguments control the physical size of the circles and
+squares which represent the marks in a point pattern with continuous
+marks. The size of a circle is defined as its <em>diameter</em>;
+the size of a square is its side length.
+If <code>markscale</code> is given, then a mark value of <code>m</code>
+is plotted as a circle of diameter <code>m * markscale + zerosize</code>
+(if <code>m</code> is positive) or a square of side
+<code>abs(m) * markscale + zerosize</code>
+(if <code>m</code> is negative). If <code>maxsize</code> is given, then the
+largest mark in absolute value, <code>mmax=max(abs(marks(x)))</code>,
+will be scaled to have physical size <code>maxsize</code>.
+If <code>meansize</code> is given, then the
+average absolute mark value, <code>mmean=mean(abs(marks(x)))</code>,
+will be scaled to have physical size <code>meansize</code>.
+If <code>minsize</code> is given, then the
+minimum mark value, <code>mmean=mean(abs(marks(x)))</code>,
+will be scaled to have physical size <code>minsize</code>.
+</p>
+</li>
+<li>
+<p>The user can set the default values of these plotting parameters
+using <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("par.points")</code>.
+</p>
+</li></ul>
+
+<p>To zoom in (to view only a subset of the point pattern at higher
+magnification), use the graphical arguments
+<code>xlim</code> and <code>ylim</code> to specify the rectangular field of view.
+</p>
+<p>The value returned by this plot function is an object of
+class <code>"symbolmap"</code> representing the mapping from mark values
+to graphical symbols. See <code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>.
+It can be used to make a suitable legend,
+or to ensure that two plots use the same graphics map.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisible) object of class <code>"symbolmap"</code>
+giving the correspondence between 
+mark values and plotting characters.
+</p>
+
+
+<h3>Layout of the plot</h3>
+
+
+<ul>
+<li>
+<p><b>Placement of main title:</b>
+The left-right placement of the main title is controlled by the
+argument <code>adj.main</code> passed to <code><a href="../help/plot.owin.html">plot.owin</a></code>.
+To remove the main title, set <code>main=""</code>.
+</p>
+</li>
+<li>
+<p><b>Removing White Space Around The Plot:</b>
+A frequently-asked question is: How do I remove the white space around
+the plot? Currently <code>plot.ppp</code> uses the base graphics system of
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, so the space around the plot is controlled by parameters 
+to <code><a href="../../graphics/html/par.html">par</a></code>. To reduce the white space, change the
+parameter <code>mar</code>. Typically, <code>par(mar=rep(0.5, 4))</code> is
+adequate, if there are no annotations or titles outside the window.
+</p>
+</li>
+<li> <p><b>Drawing coordinate axes and axis labels:</b>
+Coordinate axes and axis labels are not drawn, by default.
+To draw coordinate axes, set <code>axes=TRUE</code>.
+To draw axis labels, set <code>ann=TRUE</code> and give values to the
+arguments <code>xlab</code> and <code>ylab</code>. See the Examples.
+Only the default style of axis is supported;
+for more control over the placement and style of axes,
+use the graphics commands
+<code><a href="../../graphics/help/axis.html">axis</a></code> and <code><a href="../../graphics/help/mtext.html">mtext</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>The Symbol Map</h3>
+
+<p>The behaviour of <code>plot.ppp</code> is different from the
+behaviour of the base <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> graphics functions
+<code><a href="../../graphics/help/points.html">points</a></code> and <code><a href="../../graphics/help/symbols.html">symbols</a></code>.
+</p>
+<p>In the base graphics functions <code><a href="../../graphics/help/points.html">points</a></code> and <code><a href="../../graphics/help/symbols.html">symbols</a></code>,
+arguments such as <code>col</code>, <code>pch</code> and <code>cex</code>
+can be vectors which specify the <em>representation of each successive point</em>.
+For example <code>col[3]</code> would specify the colour of the third point
+in the sequence of points.  If there are 100 points then
+<code>col</code> should be a vector of length 100.
+</p>
+<p>In the <span class="pkg">spatstat</span> function <code>plot.ppp</code>,
+arguments such as <code>col</code>, <code>pch</code> and <code>cex</code> specify
+the <em>mapping from point characteristics to graphical parameters</em>
+(called the symbol map).
+For example <code>col[3]</code> specifies the colour of the third <b>type of point</b> in a
+pattern of points of different types. If there are 4 types of points
+then <code>col</code> should be a vector of length 4.
+</p>
+<p>To modify a symbol map, for example to change the colours used
+without changing anything else, use <code><a href="../../spatstat.geom/help/update.symbolmap.html">update.symbolmap</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../graphics/html/plot.default.html">plot</a></code>,
+<code><a href="../../graphics/html/par.html">par</a></code>,
+<code><a href="../../graphics/html/points.html">points</a></code>,
+<code><a href="../../spatstat.geom/help/text.ppp.html">text.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>,
+<code><a href="../../graphics/html/symbols.html">symbols</a></code>.
+</p>
+<p>See also the command <code>iplot</code> in the <span class="pkg">spatstat.gui</span> package.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(cells)
+
+   plot(cells, pch=16)
+
+   # make the plotting symbols larger (for publication at reduced scale)
+   plot(cells, cex=2)
+
+   # set it in spatstat.options
+   oldopt &lt;- spatstat.options(par.points=list(cex=2))
+   plot(cells)
+   spatstat.options(oldopt)
+
+   # multitype 
+   plot(lansing)
+
+   # marked by a real number
+   plot(longleaf)
+
+   # just plot the points
+   plot(longleaf, use.marks=FALSE)
+   plot(unmark(longleaf)) # equivalent
+
+   # point pattern with multiple marks
+   plot(finpines)
+   plot(finpines, which.marks="height")
+
+   # controlling COLOURS of points
+   plot(cells, cols="blue")
+   plot(lansing, cols=c("black", "yellow", "green", 
+                        "blue","red","pink"))
+   plot(longleaf, fg="blue")
+
+   # make window purple
+   plot(lansing, border="purple")
+   # make everything purple
+   plot(lansing, border="purple", cols="purple", col.main="purple",
+                 leg.args=list(col.axis="purple"))
+ 
+   # controlling PLOT CHARACTERS for multitype pattern
+   plot(lansing, chars = 11:16)
+   plot(lansing, chars = c("o","h","m",".","o","o"))
+
+   ## multitype pattern mapped to symbols
+   plot(amacrine, shape=c("circles", "squares"), size=0.04)
+   plot(amacrine, shape="arrows", direction=c(0,90), size=0.07)
+
+   ## plot trees as trees!
+   plot(lansing, shape="arrows", direction=90, cols=1:6)
+
+   # controlling MARK SCALE for pattern with numeric marks
+   plot(longleaf, markscale=0.1)
+   plot(longleaf, maxsize=5)
+   plot(longleaf, meansize=2)
+   plot(longleaf, minsize=2)
+
+   # draw circles of diameter equal to nearest neighbour distance
+   plot(cells %mark% nndist(cells), markscale=1, legend=FALSE)
+
+   # inspecting the symbol map
+   v &lt;- plot(amacrine)
+   v
+
+   ## variable colours ('cols' not 'col')
+   plot(longleaf, cols=function(x) ifelse(x &lt; 30, "red", "black"))
+
+   ## re-using the same mark scale
+   a &lt;- plot(longleaf)
+   juveniles &lt;- longleaf[marks(longleaf) &lt; 30]
+   plot(juveniles, symap=a)
+
+   ## numerical marks mapped to symbols of fixed size with variable colour
+   ra &lt;- range(marks(longleaf))
+   colmap &lt;- colourmap(terrain.colors(20), range=ra)
+   ## filled plot characters are the codes 21-25
+   ## fill colour is indicated by 'bg'
+   ## outline colour is 'fg'
+   sy &lt;- symbolmap(pch=21, bg=colmap, fg=colmap, range=ra)
+   plot(longleaf, symap=sy)
+
+   ## or more compactly..
+   plot(longleaf, bg=terrain.colors(20), pch=21, cex=1)
+
+   ## plot only the colour map (since the symbols have fixed size and shape)
+   plot(longleaf, symap=sy, leg.args=list(colour.only=TRUE))
+
+   ## clipping
+   plot(humberside)
+   B &lt;- owin(c(4810, 5190), c(4180, 4430))
+   plot(B, add=TRUE, border="red")
+   plot(humberside, clipwin=B, main="Humberside (clipped)")
+
+   ## coordinate axes and labels
+   plot(humberside, axes=TRUE)
+   plot(humberside,            ann=TRUE, xlab="Easting", ylab="Northing")
+   plot(humberside, axes=TRUE, ann=TRUE, xlab="Easting", ylab="Northing")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Trees in Waka national park</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for waka {spatstat.data}"><tr><td>waka {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Trees in Waka national park
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset is a spatial point pattern of trees 
+recorded at Waka National Park, Gabon.
+See Balinga et al (2006).
+</p>
+<p>The dataset <code>waka</code> is a point pattern
+(object of class <code>"ppp"</code>) containing the spatial coordinates
+of each tree, marked by the tree diameter at breast height
+<code>dbh</code>.
+The survey region is a 100 by 100 metre squawre.
+Coordinates are given in metres, while the <code>dbh</code> is in centimetres.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(waka)</pre>
+
+
+<h3>Source</h3>
+
+<p>Nicolas Picard
+</p>
+
+
+<h3>References</h3>
+
+<p>Balinga, M., Sunderland, T., Walters, G.,
+Issembe', Y.,
+Asaha, S. and Fombod, E. (2006)
+<em>A vegetation assessment of the Waka national park, Gabon.</em>
+Herbier National du Gabon, LBG, MBG, WCS, FRP and
+Simthsonian Institution, Libreville, Gabon. CARPE Report, 154 pp.
+<a href="http://carpe.umd.edu/">http://carpe.umd.edu/</a>
+</p>
+<p>Picard, N., Bar-Hen, A., Mortier, F. and Chadoeuf, J. (2009)
+The multi-scale marked area-interaction point process: a model for
+the spatial pattern of trees.
+<em>Scandinavian Journal of Statistics</em> <b>36</b> 23&ndash;41
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(waka)
+  if(require(spatstat.geom)) {
+plot(waka, markscale=0.01)
+title(sub="Tree diameters to scale")
+plot(waka, markscale=0.04)
+title(sub="Tree diameters 4x scale")
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

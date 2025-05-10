@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Spatial Distribution Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.cdftest {spatstat.explore}"><tr><td>plot.cdftest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Spatial Distribution Test</h2>
+
+<h3>Description</h3>
+
+<p>Plot the result of a spatial distribution test
+computed by <code>cdf.test</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'cdftest'
+plot(x, ...,
+                   style=c("cdf", "PP", "QQ"),
+                   lwd=par("lwd"), col=par("col"), lty=par("lty"),
+                   lwd0=lwd, col0=2, lty0=2,
+                   do.legend)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object to be plotted. An object of class <code>"cdftest"</code>
+produced by a method for <code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments that will be passed to the plotting function
+<code><a href="../../graphics/html/plot.default.html">plot.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Style of plot. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col,lwd,lty</code></td>
+<td>
+
+<p>The width, colour and type of lines used to plot the
+empirical curve (the empirical distribution, or PP plot or QQ plot).
+</p>
+</td></tr>
+<tr valign="top"><td><code>col0,lwd0,lty0</code></td>
+<td>
+
+<p>The width, colour and type of lines used to plot the
+reference curve (the predicted distribution, or the diagonal).
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.legend</code></td>
+<td>
+
+<p>Logical value indicating whether to add an
+explanatory legend. Applies only when <code>style="cdf"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"cdftest"</code>.
+An object of this class represents the outcome of
+a spatial distribution test, computed by <code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code>,
+and based on either the Kolmogorov-Smirnov,
+Cramer-von Mises
+or Anderson-Darling test.
+</p>
+<p>If <code>style="cdf"</code> (the default), 
+the plot displays the two cumulative distribution functions
+that are compared by the test: namely the empirical cumulative distribution
+function of the covariate at the data points, and the predicted
+cumulative distribution function of the covariate under the model,
+both plotted against the value of the covariate. The
+Kolmogorov-Smirnov test statistic (for example)
+is the maximum vertical separation
+between the two curves.
+</p>
+<p>If <code>style="PP"</code> then the P-P plot is drawn. The
+<i>x</i> coordinates of the plot are cumulative
+probabilities for the covariate under the model.
+The <i>y</i> coordinates are cumulative probabilities
+for the covariate at the data points. The diagonal line
+<i>y=x</i> is also drawn for reference. The Kolmogorov-Smirnov
+test statistic is the maximum vertical separation
+between the P-P plot and the diagonal reference line.
+</p>
+<p>If <code>style="QQ"</code> then the Q-Q plot is drawn. The
+<i>x</i> coordinates of the plot are quantiles
+of the covariate under the model.
+The <i>y</i> coordinates are quantiles of the 
+covariate at the data points. The diagonal line
+<i>y=x</i> is also drawn for reference. The Kolmogorov-Smirnov
+test statistic cannot be read off the Q-Q plot.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   op &lt;- options(useFancyQuotes=FALSE)
+
+   plot(cdf.test(cells, "x"))
+
+   if(require("spatstat.model")) {   
+     # synthetic data: nonuniform Poisson process
+     X &lt;- rpoispp(function(x,y) { 100 * exp(x) }, win=square(1))
+
+     # fit uniform Poisson process
+     fit0 &lt;- ppm(X ~1)
+
+     # test covariate = x coordinate
+     xcoord &lt;- function(x,y) { x }
+
+     # test wrong model
+     k &lt;- cdf.test(fit0, xcoord)
+
+     # plot result of test
+     plot(k, lwd0=3)
+
+     plot(k, style="PP")
+
+     plot(k, style="QQ")
+   }
+
+   options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

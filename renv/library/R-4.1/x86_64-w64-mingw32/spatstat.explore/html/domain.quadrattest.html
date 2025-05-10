@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract the Domain of any Spatial Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for domain.quadrattest {spatstat.explore}"><tr><td>domain.quadrattest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract the Domain of any Spatial Object
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial object such as a point pattern, in any number of dimensions,
+this function extracts the spatial domain in which the object is defined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+
+ ## S3 method for class 'quadrattest'
+domain(X, ...)
+
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial object such as a point pattern (in any number
+of dimensions), line segment pattern or pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments. They are ignored by all the methods listed here.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.geom/help/domain.html">domain</a></code> is generic.
+</p>
+<p>For a spatial object <code>X</code> in any number of dimensions, 
+<code>domain(X)</code> extracts the spatial domain in which <code>X</code> is
+defined.
+</p>
+<p>For a two-dimensional object <code>X</code>, typically <code>domain(X)</code>
+is the same as <code>Window(X)</code>.
+</p>
+<p>Exceptions occur for methods related to linear networks.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A spatial object representing the domain of <code>X</code>.
+Typically a window (object of class <code>"owin"</code>),
+a three-dimensional box (<code>"box3"</code>), a multidimensional
+box (<code>"boxx"</code>) or a linear network (<code>"linnet"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/domain.html">domain</a></code>,
+<code><a href="../../spatstat.geom/help/domain.quadratcount.html">domain.quadratcount</a></code>,
+<code><a href="../../spatstat.model/help/domain.ppm.html">domain.ppm</a></code>,
+<code><a href="../../spatstat.random/help/domain.rmhmodel.html">domain.rmhmodel</a></code>,
+<code><a href="../../spatstat.linnet/help/domain.lpp.html">domain.lpp</a></code>.
+<code><a href="../../spatstat.geom/help/Window.html">Window</a></code>,
+<code><a href="../../spatstat.geom/help/Frame.html">Frame</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  domain(quadrat.test(redwood, 2, 2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

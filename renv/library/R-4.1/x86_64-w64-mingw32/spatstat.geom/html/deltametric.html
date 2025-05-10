@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Delta Metric</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for deltametric {spatstat.geom}"><tr><td>deltametric {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Delta Metric
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the discrepancy between two sets <i>A</i> and <i>B</i>
+according to Baddeley's delta-metric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+deltametric(A, B, p = 2, c = Inf, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+
+<p>The two sets which will be compared.
+Windows (objects of class <code>"owin"</code>),
+point patterns (objects of class <code>"ppp"</code>)
+or line segment patterns (objects of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+
+<p>Index of the <i>L^p</i> metric.
+Either a positive numeric value, or <code>Inf</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>c</code></td>
+<td>
+
+<p>Distance threshold. 
+Either a positive numeric value, or <code>Inf</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine the
+pixel resolution of the distance maps computed by <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Baddeley (1992a, 1992b) defined a distance
+between two sets <i>A</i> and <i>B</i> contained in a space <i>W</i> by 
+</p>
+<p style="text-align: center;"><i>
+    &Delta;(A,B) = [ (1/|W|) * integral of |min(c, d(x,A))-min(c, d(x,B))|^p dx ]^(1/p)
+  </i></p>
+
+<p>where <i>c &ge; 0</i> is a distance threshold parameter,
+<i>0 &lt; p &le; Inf</i> is the exponent parameter,
+and <i>d(x,A)</i> denotes the 
+shortest distance from a point <i>x</i> to the set <i>A</i>.
+Also <code>|W|</code> denotes the area or volume of the containing space <i>W</i>.
+</p>
+<p>This is defined so that it is a <em>metric</em>, i.e.
+</p>
+
+<ul>
+<li> <p><i>&Delta;(A,B)=0</i> if and only if <i>A=B</i>
+</p>
+</li>
+<li> <p><i>&Delta;(A,B)=&Delta;(B,A)</i>
+</p>
+</li>
+<li> <p><i>&Delta;(A,C) &le;
+      &Delta;(A,B) + &Delta;(B,C)</i>
+</p>
+</li></ul>
+
+<p>It is topologically equivalent to the Hausdorff metric
+(Baddeley, 1992a) but has better stability properties
+in practical applications (Baddeley, 1992b).
+</p>
+<p>If <i>p=Inf</i> and <i>c=Inf</i> the Delta metric
+is equal to the Hausdorff metric.
+</p>
+<p>The algorithm uses <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> to compute the distance maps
+<i>d(x,A)</i> and <i>d(x,B)</i>, then approximates the integral
+numerically.
+The accuracy of the computation depends on the pixel resolution
+which is controlled through the extra arguments <code>...</code> passed
+to <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J. (1992a)
+Errors in binary images and an <i>L^p</i> version of the Hausdorff metric.
+<em>Nieuw Archief voor Wiskunde</em> <b>10</b>, 157&ndash;183.
+</p>
+<p>Baddeley, A.J. (1992b)
+An error metric for binary images.
+In W. Foerstner and S. Ruwiedel (eds)
+<em>Robust Computer Vision</em>. Karlsruhe: Wichmann.
+Pages 59&ndash;78.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(20)
+  Y &lt;- runifrect(10)
+  deltametric(X, Y, p=1,c=0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

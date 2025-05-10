@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Function Class</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for funxy {spatstat.geom}"><tr><td>funxy {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Spatial Function Class
+</h2>
+
+<h3>Description</h3>
+
+<p>A simple class of functions of spatial location
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  funxy(f, W)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language
+with arguments <code>x,y</code> (at least)
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) inside which the
+function is well-defined.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command creates an object of class <code>"funxy"</code>.
+This is a simple mechanism for handling a function
+of spatial location <i>f(x,y)</i> to make it easier to display
+and manipulate.
+</p>
+<p><code>f</code> should be a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+The first two arguments of <code>f</code> must be named <code>x</code> and <code>y</code>
+respectively.
+</p>
+<p><code>W</code> should be a window (object of class <code>"owin"</code>) inside which the
+function <code>f</code> is well-defined.
+</p>
+<p>The function <code>f</code> should be vectorised: that is,
+if <code>x</code> and <code>y</code> are numeric vectors of the same length
+<code>n</code>, then <code>v &lt;- f(x,y)</code> should be a vector of length
+<code>n</code>.
+</p>
+<p>The resulting function <code>g &lt;- funxy(f, W)</code> has the same formal
+arguments as <code>f</code> and can be called in the same way,
+<code>v &lt;- g(x,y)</code> where <code>x</code> and <code>y</code> are numeric vectors.
+However it can also be called as <code>v &lt;- g(X)</code>, where <code>X</code> is a point pattern
+(object of class <code>"ppp"</code> or <code>"lpp"</code>)
+or a quadrature scheme (class <code>"quad"</code>);
+the function will be evaluated at the points of <code>X</code>.
+</p>
+<p>The result also has a <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>, inherited from <code>W</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> with the same arguments as <code>f</code>,
+which also belongs to the class <code>"funxy"</code>.
+This class has methods for
+<code>print</code>, <code>plot</code>, <code>contour</code> and <code>persp</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.funxy.html">plot.funxy</a></code>,
+<code><a href="../../spatstat.geom/help/summary.funxy.html">summary.funxy</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   f &lt;- function(x,y) { x^2 + y^2 - 1} 
+   g &lt;- funxy(f, square(2))
+   g
+   ## evaluate function at any x, y coordinates
+   g(0.2, 0.3)
+   ## evaluate function at the points of a point pattern
+   g(cells[1:4])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

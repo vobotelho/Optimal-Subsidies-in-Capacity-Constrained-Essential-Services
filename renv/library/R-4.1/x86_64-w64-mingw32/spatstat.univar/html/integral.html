@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Integral of a Function or Spatial Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for integral {spatstat.univar}"><tr><td>integral {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Integral of a Function or Spatial Object
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the integral of a function or spatial object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+integral(f, domain=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A function, or a spatial object that can be treated as a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional. Data specifying the domain of integration.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>integral</code> is generic.
+It calculates the integral of a function, or
+the integral of a spatial object that can be treated as a function.
+It has methods
+for one-dimensional functions (<code>"density"</code>, <code>"fv"</code>)
+and for spatial objects
+(<code>"im"</code>, <code>"msr"</code>, <code>"linim"</code>, <code>"linfun"</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric or complex value, or a vector of such values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+
+
+<p><code><a href="../../spatstat.univar/help/integral.density.html">integral.density</a></code>.
+</p>
+<p><code>integral.im</code> in package <code>spatstat.geom</code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

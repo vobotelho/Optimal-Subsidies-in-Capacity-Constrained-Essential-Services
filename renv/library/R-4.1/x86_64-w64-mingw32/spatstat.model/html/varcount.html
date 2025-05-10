@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Predicted Variance of the Number of Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for varcount {spatstat.model}"><tr><td>varcount {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Predicted Variance of the Number of Points 
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted point process model, calculate the predicted variance
+of the number of points in a nominated set <code>B</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+varcount(model, B=Window(model), ..., dimyx = NULL, relative=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>B</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code> specifying the region in
+which the points are counted.
+Alternatively a pixel image (object of class <code>"im"</code>)
+or a function of spatial coordinates specifying a numerical weight
+for each random point.
+The default is the window of the original point pattern data to which
+the model was fitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code>B</code> when it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dimyx</code></td>
+<td>
+
+<p>Spatial resolution for the calculations.
+Argument passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>relative</code></td>
+<td>
+
+<p>Logical value specifying whether to divide the variance
+by the mean value.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>varcount</code> calculates the variance of the number of points
+falling in a specified window <code>B</code> according to the <code>model</code>.
+It can also calculate the variance of a sum of weights attached
+to each random point.
+</p>
+<p>If <code>relative=FALSE</code> (the default), the result is the variance.
+If <code>relative=TRUE</code>, the result is the variance divided by the
+mean, which is the overdispersion index (equal to 1 if the number of
+points has a Poisson distribution).
+</p>
+<p>The <code>model</code> should be a fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>).
+</p>
+
+<ul>
+<li>
+<p>If <code>B</code> is a window, <code>varcount</code> calculates the variance
+of the number of points falling in <code>B</code>, according to the
+fitted <code>model</code>.
+</p>
+<p>If the <code>model</code> depends on spatial covariates other than the
+Cartesian coordinates, then <code>B</code> should be a subset of the
+domain in which these covariates are defined. 
+
+</p>
+</li>
+<li>
+<p>If <code>B</code> is a pixel image,
+<code>varcount</code> calculates the variance of
+<i>T = sum[i] B(x[i])</i>,
+the sum of the values of <code>B</code> over all random points
+falling in the domain of the image.
+</p>
+<p>If the <code>model</code> depends on spatial covariates other than the
+Cartesian coordinates, then the domain of the pixel image,
+<code>as.owin(B)</code>, should be a subset of the domain in which these
+covariates are defined. 
+
+</p>
+</li>
+<li>
+<p>If <code>B</code> is a <code>function(x,y)</code> or <code>function(x,y,...)</code>
+then <code>varcount</code> calculates the variance of
+<i>T = sum[i] B(x[i])</i>,
+the sum of the values of <code>B</code> over all random points
+falling inside the window <code>W=as.owin(model)</code>, the window
+in which the original data were observed.
+
+</p>
+</li></ul>
+
+<p>The variance calculation involves the intensity and the
+pair correlation function of the model.
+The calculation is exact (up to discretisation error)
+for models of class <code>"kppm"</code> and <code>"dppm"</code>,
+and for Poisson point process models of class <code>"ppm"</code>.
+For Gibbs point process models of class <code>"ppm"</code> the
+calculation depends on the Poisson-saddlepoint approximations
+to the intensity and pair correlation function, which are rough
+approximations. The approximation is not yet implemented
+for some Gibbs models.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.kppm.html">predict.kppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.dppm.html">predict.dppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fitT &lt;- kppm(redwood ~ 1, "Thomas")
+   B &lt;- owin(c(0, 0.5), c(-0.5, 0))
+   varcount(fitT, B)
+
+   fitS &lt;- ppm(swedishpines ~ 1, Strauss(9))
+   BS &lt;- square(50)
+   varcount(fitS, BS)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data to Three-Dimensional Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.box3 {spatstat.geom}"><tr><td>as.box3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Data to Three-Dimensional Box
+</h2>
+
+<h3>Description</h3>
+
+<p>Interprets data as the dimensions of a three-dimensional box.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+as.box3(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Data that can be interpreted as giving the dimensions of a
+three-dimensional box. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function converts data in various formats to
+an object of class <code>"box3"</code> representing a three-dimensional
+box (see <code><a href="../../spatstat.geom/help/box3.html">box3</a></code>). The arguments <code>...</code> may be
+</p>
+
+<ul>
+<li><p> an object of class <code>"box3"</code>
+</p>
+</li>
+<li><p> arguments acceptable to <code>box3</code>
+</p>
+</li>
+<li><p> a numeric vector of length 6, interpreted as
+<code>c(xrange[1],xrange[2],yrange[1],yrange[2],zrange[1],zrange[2])</code>
+</p>
+</li>
+<li><p> an object of class <code>"pp3"</code> representing a
+three-dimensional point pattern contained in a box.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"box3"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/box3.html">box3</a></code>, 
+<code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    X &lt;- c(0,10,0,10,0,5)
+    as.box3(X)
+    X &lt;- pp3(runif(42),runif(42),runif(42), box3(c(0,1)))
+    as.box3(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

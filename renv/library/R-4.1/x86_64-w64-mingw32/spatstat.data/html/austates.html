@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Australian States and Mainland Territories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for austates {spatstat.data}"><tr><td>austates {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Australian States and Mainland Territories
+</h2>
+
+<h3>Description</h3>
+
+<p>The states and large mainland territories of Australia are
+represented as polygonal regions forming a tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(austates)</pre>
+
+
+<h3>Format</h3>
+
+<p>Object of class <code>"tess"</code>.
+</p>
+
+
+<h3>Details</h3>
+
+<p>Western Australia, South Australia, Queensland,
+New South Wales, Victoria and Tasmania (which are states of Australia)
+and the Northern Territory (which is a &lsquo;territory&rsquo; of Australia)
+are represented as polygonal regions.
+</p>
+<p>Offshore territories, and smaller mainland territories, are not shown.
+</p>
+<p>The dataset <code>austates</code> is a tessellation object (class <code>"tess"</code>)
+whose tiles are the states and territories.
+</p>
+<p>The coordinates are latitude and
+longitude in degrees, so the space is effectively a Mercator
+projection of the earth.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Obtained from the <span class="pkg">oz</span> package and reformatted.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  data(austates)
+  if(require(spatstat.geom)) {
+  plot(austates)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

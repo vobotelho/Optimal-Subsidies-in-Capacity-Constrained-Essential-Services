@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create Point Pattern on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lpp {spatstat.linnet}"><tr><td>lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Create Point Pattern on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of class <code>"lpp"</code> that represents
+a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lpp(X, L, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Locations of the points. A matrix or data frame of coordinates,
+or a point pattern object (of class
+<code>"ppp"</code>) or other data acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command creates an object of class <code>"lpp"</code> that represents
+a point pattern on a linear network.
+</p>
+<p>Normally <code>X</code> is a point pattern. The points of <code>X</code> should lie
+on the lines of <code>L</code>.
+</p>
+<p>Alternatively <code>X</code> may be a matrix or data frame containing at
+least two columns.
+</p>
+
+<ul>
+<li><p> Usually
+the first two columns of <code>X</code> will be interpreted
+as spatial coordinates, and any remaining columns as marks.
+</p>
+</li>
+<li> 
+<p>An exception occurs if <code>X</code> is a data frame with columns named
+<code>x</code>, <code>y</code>, <code>seg</code> and <code>tp</code>. Then
+<code>x</code> and <code>y</code> will be interpreted as spatial
+coordinates, and <code>seg</code> and <code>tp</code> as local
+coordinates, with <code>seg</code> indicating which line segment of
+<code>L</code> the point lies on, and <code>tp</code> indicating how far along
+the segment the point lies (normalised to 1). Any remaining columns
+will be interpreted as marks.
+</p>
+</li>
+<li> 
+<p>Another exception occurs if <code>X</code> is a data frame with columns named
+<code>seg</code> and <code>tp</code>. Then
+<code>seg</code> and <code>tp</code> will be interpreted as local
+coordinates, as above, and the spatial coordinates
+<code>x,y</code> will be computed from them.
+Any remaining columns will be interpreted as marks.
+</p>
+</li></ul>
+
+<p>If <code>X</code> is missing or <code>NULL</code>, the result is an empty
+point pattern (i.e. containing no points).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"lpp"</code>. 
+Also inherits the class <code>"ppx"</code>.
+</p>
+
+
+<h3>Note on changed format</h3>
+
+<p>The internal format of <code>"lpp"</code> objects was changed in
+<span class="pkg">spatstat</span> version <code>1.28-0</code>.
+Objects in the old format are still handled correctly,
+but computations are faster in the new format.
+To convert an object <code>X</code> from the old format to the new format,
+use <code>X &lt;- lpp(as.ppp(X), as.linnet(X))</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Installed datasets which are <code>"lpp"</code> objects:
+<code><a href="../../spatstat.data/help/chicago.html">chicago</a></code>,
+<code><a href="../../spatstat.data/help/dendrite.html">dendrite</a></code>,
+<code><a href="../../spatstat.data/help/spiders.html">spiders</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.linnet/help/as.lpp.html">as.lpp</a></code> for converting data to an <code>lpp</code> object.
+</p>
+<p>See <code><a href="../../spatstat.linnet/help/methods.lpp.html">methods.lpp</a></code> and
+<code><a href="../../spatstat.geom/help/methods.ppx.html">methods.ppx</a></code> for other methods applicable
+to <code>lpp</code> objects.
+</p>
+<p>Calculations on an <code>lpp</code> object:
+<code><a href="../../spatstat.linnet/help/intensity.lpp.html">intensity.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/distfun.lpp.html">distfun.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/nndist.lpp.html">nndist.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/nnwhich.lpp.html">nnwhich.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/nncross.lpp.html">nncross.lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/nnfun.lpp.html">nnfun.lpp</a></code>.
+</p>
+<p>Summary functions: 
+<code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code>,
+<code><a href="../../spatstat.linnet/help/linearKinhom.html">linearKinhom</a></code>,
+<code><a href="../../spatstat.linnet/help/linearpcf.html">linearpcf</a></code>,
+<code><a href="../../spatstat.linnet/help/linearKdot.html">linearKdot</a></code>,
+<code><a href="../../spatstat.linnet/help/linearKcross.html">linearKcross</a></code>,
+<code><a href="../../spatstat.linnet/help/linearmarkconnect.html">linearmarkconnect</a></code>, etc.
+</p>
+<p>Random point patterns on a linear network can be generated by
+<code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code> or <code><a href="../../spatstat.linnet/help/runiflpp.html">runiflpp</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code> for linear networks.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # letter 'A' 
+  v &lt;- ppp(x=(-2):2, y=3*c(0,1,2,1,0), c(-3,3), c(-1,7))
+  edg &lt;- cbind(1:4, 2:5)
+  edg &lt;- rbind(edg, c(2,4))
+  letterA &lt;- linnet(v, edges=edg)
+
+  # points on letter A
+  xx &lt;- list(x=c(-1.5,0,0.5,1.5), y=c(1.5,3,4.5,1.5))
+  X &lt;- lpp(xx, letterA)
+
+  plot(X)
+  X
+  summary(X)
+
+  # empty pattern
+  lpp(L=letterA)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

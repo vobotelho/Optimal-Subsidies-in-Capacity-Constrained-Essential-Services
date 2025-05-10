@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Simple Sequential Inhibition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rSSI {spatstat.random}"><tr><td>rSSI {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate Simple Sequential Inhibition</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern, a realisation of the
+Simple Sequential Inhibition (SSI) process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rSSI(r, n=Inf, win = square(1), giveup = 1000, x.init=NULL, ...,
+      f=NULL, fmax=NULL, nsim=1, drop=TRUE, verbose=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Inhibition distance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Maximum number of points allowed. 
+If <code>n</code> is finite, stop when the <em>total</em> number of points
+in the point pattern reaches <code>n</code>.
+If <code>n</code> is infinite (the default), stop only when
+it is apparently impossible to add any more points.
+See <b>Details</b>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Window in which to simulate the pattern.
+An object of class <code>"owin"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+The default window is the unit square, unless 
+<code>x.init</code> is specified, when the default window 
+is the window of <code>x.init</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>giveup</code></td>
+<td>
+
+<p>Number of rejected proposals after which the algorithm should terminate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x.init</code></td>
+<td>
+
+<p>Optional. Initial configuration of points. A point pattern
+(object of class <code>"ppp"</code>).  The pattern returned by
+<code>rSSI</code> consists of this pattern together with the points
+added via simple sequential inhibition.  See <b>Details</b>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>f,fmax</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code>
+to specify a non-uniform probability density for the random points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value specifying whether to print progress reports
+when <code>nsim &gt; 1</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm generates one or more realisations of the Simple Sequential
+Inhibition point process inside the window <code>win</code>.
+</p>
+<p>Starting with an empty window (or with the point pattern
+<code>x.init</code> if specified), the algorithm adds points
+one-by-one. Each new point is generated uniformly in the window
+and independently of preceding points. If the new point lies
+closer than <code>r</code> units from an existing point, then it is
+rejected and another random point is generated.
+The algorithm terminates when either
+</p>
+
+<dl>
+<dt>(a)</dt><dd>
+<p>the desired number <code>n</code> of points is reached, or
+</p>
+</dd>
+<dt>(b)</dt><dd>
+<p>the current point configuration
+has not changed for <code>giveup</code> iterations,
+suggesting that it is no longer possible to add new points.
+</p>
+</dd>
+</dl>
+
+<p>If <code>n</code> is infinite (the default) then the algorithm terminates
+only when (b) occurs. The result is sometimes called a
+<em>Random Sequential Packing</em>.
+</p>
+<p>Note that argument <code>n</code> specifies the maximum permitted
+<b>total</b> number of points in the pattern returned by
+<code>rSSI()</code>. If <code>x.init</code> is not <code>NULL</code> then
+the number of points that are <em>added</em>
+is at most <code>n - npoints(x.init)</code> if <code>n</code> is finite.
+</p>
+<p>Thus if <code>x.init</code> is not <code>NULL</code> then argument <code>n</code>
+must be at least as large as <code>npoints(x.init)</code>, otherwise
+an error is given.  If <code>n==npoints(x.init)</code> then a warning
+is given and the call to <code>rSSI()</code> has no real effect;
+<code>x.init</code> is returned.
+</p>
+<p>There is no requirement that the points of <code>x.init</code> be at
+a distance at least <code>r</code> from each other.  All of the <em>added</em>
+points will be at a distance at least <code>r</code> from each other
+and from any point of <code>x.init</code>.
+</p>
+<p>The points will be generated inside the window <code>win</code>
+and the result will be a point pattern in the same window.
+</p>
+<p>The default window is the unit square, <code>win = square(1)</code>,
+unless <code>x.init</code> is specified, when the default
+is <code>win=Window(x.init)</code>, the window of <code>x.init</code>.
+</p>
+<p>If both <code>win</code> and <code>x.init</code> are specified, and if the
+two windows are different, then a warning will be issued.
+Any points of <code>x.init</code> lying outside <code>win</code> will be removed,
+with a warning.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>)
+if <code>nsim=1</code>, or a list of point patterns if <code>nsim &gt; 1</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../../spatstat.random/help/rMaternI.html">rMaternI</a></code>,
+<code><a href="../../spatstat.random/help/rMaternII.html">rMaternII</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ Vinf &lt;- rSSI(0.07)
+
+ V100 &lt;- rSSI(0.07, 100)
+
+ X &lt;- runifpoint(100)
+ Y &lt;- rSSI(0.03,142,x.init=X) # Y consists of X together with
+                              # 42 added points.
+ plot(Y, main="rSSI")
+ plot(X,add=TRUE,chars=20,cols="red")
+
+ ## inhomogeneous
+ Z &lt;- rSSI(0.07, 50, f=function(x,y){x})
+ plot(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

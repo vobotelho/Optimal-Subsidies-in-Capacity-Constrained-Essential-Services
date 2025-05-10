@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: People in Gordon Square</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gordon {spatstat.data}"><tr><td>gordon {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+People in Gordon Square
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset records the location of
+people sitting on a grass patch in Gordon Square, London,
+at 3pm on a sunny afternoon.
+</p>
+<p>The dataset <code>gordon</code> is a point pattern
+(object of class <code>"ppp"</code>) containing the spatial coordinates
+of each person.
+</p>
+<p>The grass patch is an irregular polygon with two holes.
+</p>
+<p>Coordinates are given in metres.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(gordon)</pre>
+
+
+<h3>Source</h3>
+
+<p>Andrew Bevan, University College London.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Mateu, J. and Bevan, A. (2013)
+Hybrids of Gibbs point process models and their implementation.
+<em>Journal of Statistical Software</em> <b>55</b>:11, 1&ndash;43.
+<code>DOI: 10.18637/jss.v055.i11</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(gordon)
+  if(require(spatstat.geom)) {
+plot(gordon)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

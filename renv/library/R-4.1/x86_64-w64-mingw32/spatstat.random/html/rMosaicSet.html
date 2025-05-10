@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mosaic Random Set</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rMosaicSet {spatstat.random}"><tr><td>rMosaicSet {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mosaic Random Set</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random set by taking a random selection of 
+tiles of a given tessellation.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rMosaicSet(X, p=0.5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+
+<p>Probability of including a given tile.
+A number strictly between 0 and 1.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a tessellation <code>X</code>, this function 
+randomly selects some of the tiles of <code>X</code>,
+including each tile with probability <i>p</i> independently of
+the other tiles. The selected tiles are then combined to form a
+set in the plane. 
+</p>
+<p>One application of this is Switzer's (1965) example of a random set
+which has a Markov property. It is constructed by generating <code>X</code>
+according to a Poisson line tessellation (see <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a></p>
+
+
+<h3>References</h3>
+
+<p>Switzer, P.
+A random set process in the plane with a Markovian property.
+<em>Annals of Mathematical Statistics</em> <b>36</b> (1965) 1859&ndash;1863.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>,
+<code><a href="../../spatstat.random/help/rMosaicField.html">rMosaicField</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    if(interactive()) {
+     lambda &lt;- 3
+     n &lt;- 30
+   } else {
+     lambda &lt;- 1
+     n &lt;- 5
+   }
+  # Switzer's random set
+   X &lt;- rpoislinetess(lambda)
+   plot(rMosaicSet(X, 0.5), col="green", border=NA)
+
+   # another example
+   Y &lt;- dirichlet(runifpoint(n))
+   plot(rMosaicSet(Y, 0.4))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

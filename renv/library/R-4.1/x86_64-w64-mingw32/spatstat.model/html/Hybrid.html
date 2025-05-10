@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hybrid Interaction Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Hybrid {spatstat.model}"><tr><td>Hybrid {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Hybrid Interaction Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of a hybrid point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Hybrid(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Two or more interactions (objects of class <code>"interact"</code>)
+or objects which can be converted to interactions.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A <em>hybrid</em> (Baddeley, Turner, Mateu and Bevan, 2013)
+is a point process model created by combining two or more
+point process models, or an interpoint interaction created by combining
+two or more interpoint interactions.
+</p>
+<p>The <em>hybrid</em> of two point processes, with probability densities
+<i>f(x)</i> and <i>g(x)</i> respectively,
+is the point process with probability density 
+</p>
+<p style="text-align: center;"><i>h(x) = c * f(x) * g(x)</i></p>
+
+<p>where <i>c</i> is a normalising constant.
+</p>
+<p>Equivalently, the hybrid of two point processes with conditional intensities
+<i>lambda(u,x)</i> and <i>kappa(u,x)</i>
+is the point process with conditional intensity
+</p>
+<p style="text-align: center;"><i>
+    phi(u,x) = lambda(u,x) * kappa(u,x).
+  </i></p>
+
+<p>The hybrid of <i>m &gt; 3</i> point processes is defined in a similar way.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of a hybrid interaction is
+yielded by the function <code>Hybrid()</code>. 
+</p>
+<p>The arguments <code>...</code> will be interpreted as interpoint interactions
+(objects of class <code>"interact"</code>) and the result will be the hybrid
+of these interactions. Each argument must either be an
+interpoint interaction (object of class <code>"interact"</code>),
+or a point process model (object of class <code>"ppm"</code>) from which the
+interpoint interaction will be extracted.
+</p>
+<p>The arguments <code>...</code> may also be given in the form
+<code>name=value</code>. This is purely cosmetic: it can be used to attach
+simple mnemonic names to the component interactions, and makes the
+printed output from <code><a href="../../spatstat.model/help/print.ppm.html">print.ppm</a></code> neater.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing an interpoint interaction structure.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Mateu, J. and Bevan, A. (2013)
+Hybrids of Gibbs point process models and their implementation.
+<em>Journal of Statistical Software</em> <b>55</b>:11, 1&ndash;43.
+<code>DOI: 10.18637/jss.v055.i11</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Hybrid(Strauss(0.1), Geyer(0.2, 3))
+
+  Hybrid(Ha=Hardcore(0.05), St=Strauss(0.1), Ge=Geyer(0.2, 3))
+
+  fit &lt;- ppm(redwood, ~1, Hybrid(A=Strauss(0.02), B=Geyer(0.1, 2)))
+  fit
+
+  ctr &lt;- rmhcontrol(nrep=5e4, expand=1)
+  plot(simulate(fit, control=ctr))
+
+  # hybrid components can be models (including hybrid models)
+  Hybrid(fit, S=Softcore(0.5))
+
+  # plot.fii only works if every component is a pairwise interaction
+  fit2 &lt;- ppm(swedishpines, ~1, Hybrid(DG=DiggleGratton(2,10), S=Strauss(5)))
+  plot(fitin(fit2))
+  plot(fitin(fit2), separate=TRUE, mar.panel=rep(4,4))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

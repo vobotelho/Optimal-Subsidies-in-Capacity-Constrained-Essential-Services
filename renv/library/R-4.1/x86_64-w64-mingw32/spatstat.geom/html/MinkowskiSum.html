@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Minkowski Sum of Windows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for MinkowskiSum {spatstat.geom}"><tr><td>MinkowskiSum {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Minkowski Sum of Windows</h2>
+
+<h3>Description</h3>
+
+<p>Compute the Minkowski sum of two spatial windows.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+MinkowskiSum(A, B)
+
+A %(+)% B
+
+dilationAny(A, B)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+
+<p>Windows (objects of class <code>"owin"</code>),
+point patterns (objects of class <code>"ppp"</code>)
+or line segment patterns (objects of class <code>"psp"</code>)
+in any combination.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The operator <code>A %(+)% B</code> and function <code>MinkowskiSum(A,B)</code>
+are synonymous: they both compute the
+Minkowski sum of the windows <code>A</code> and <code>B</code>.
+The function <code>dilationAny</code> computes the Minkowski dilation
+<code>A %(+)% reflect(B)</code>.
+</p>
+<p>The Minkowski sum 
+of two spatial regions <i>A</i> and <i>B</i>
+is another region, formed by taking all possible pairs of points,
+one in <i>A</i> and one in <i>B</i>, and adding them as vectors.
+The Minkowski Sum <i>A %(+)% B</i>
+is the set of all points <i>a+b</i> where <i>a</i> is in <i>A</i>
+and <i>b</i> is in <i>B</i>.
+A few common facts about the Minkowski sum are:
+</p>
+
+<ul>
+<li>
+<p>The sum is symmetric:
+<i>A %(+)% B = B %(+)% A</i>.
+</p>
+</li>
+<li>
+<p>If <i>B</i> is a single point, then <i>A %(+)% B</i>
+is a shifted copy of <i>A</i>.
+</p>
+</li>
+<li>
+<p>If <i>A</i> is a square of side length <i>a</i>,
+and <i>B</i> is a square of side length <i>b</i>,
+with sides that are parallel to the coordinate axes,
+then <i>A %(+)% B</i> is a square of side length <i>a+b</i>.
+</p>
+</li>
+<li>
+<p>If <i>A</i> and <i>B</i> are discs of radius <i>r</i> and <i>s</i>
+respectively, then <i>A %(+)% B</i> is a disc
+of redius <i>r+s</i>.
+</p>
+</li>
+<li>
+<p>If <i>B</i> is a disc of radius <i>r</i> centred at the origin,
+then <i>A %(+)% B</i> is equivalent to the
+<em>morphological dilation</em> of <i>A</i> by distance <i>r</i>.
+See <code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>.
+</p>
+</li></ul>
+
+<p>The Minkowski dilation is the closely-related region
+<i>A %(+)% (-B)</i>
+where <i>(-B)</i> is the reflection of <i>B</i> through the origin.
+The Minkowski dilation is the set of all vectors <i>z</i>
+such that, if <i>B</i> is shifted by <i>z</i>, the resulting set
+<i>B+z</i> has nonempty intersection with <i>A</i>.
+</p>
+<p>The algorithm currently computes the result as a polygonal
+window using the <span class="pkg">polyclip</span> library. 
+It will be quite slow if applied to binary mask windows.
+</p>
+<p>The arguments <code>A</code> and <code>B</code> can also be point patterns or line
+segment patterns. These are interpreted as spatial regions, the
+Minkowski sum is computed, and the result is returned as an object of
+the most appropriate type. The Minkowski sum of two point patterns is
+another point pattern. The Minkowski sum of a point pattern and a line
+segment pattern is another line segment pattern.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>) except that
+if <code>A</code> is a point pattern, then the result is an object of the same
+type as <code>B</code> (and vice versa).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>,
+<code><a href="../../spatstat.geom/help/erosionAny.html">erosionAny</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  B &lt;- square(0.2)
+  RplusB &lt;- letterR %(+)% B
+
+  opa &lt;- par(mfrow=c(1,2))
+  FR &lt;- grow.rectangle(Frame(letterR), 0.3)
+  plot(FR, main="")
+  plot(letterR, add=TRUE, lwd=2, hatch=TRUE, hatchargs=list(texture=5))
+  plot(shift(B, vec=c(3.675, 3)),
+       add=TRUE, border="red", lwd=2)
+  plot(FR, main="")
+  plot(letterR, add=TRUE, lwd=2, hatch=TRUE, hatchargs=list(texture=5))
+  plot(RplusB, add=TRUE, border="blue", lwd=2,
+         hatch=TRUE, hatchargs=list(col="blue"))
+  par(opa)
+
+  plot(cells %(+)% square(0.1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

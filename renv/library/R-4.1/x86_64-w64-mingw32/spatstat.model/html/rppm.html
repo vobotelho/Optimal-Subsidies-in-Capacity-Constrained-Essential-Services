@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Recursively Partitioned Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rppm {spatstat.model}"><tr><td>rppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Recursively Partitioned Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Fits a recursive partition model to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rppm(..., rpargs=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+specifying the point pattern data and the explanatory covariates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rpargs</code></td>
+<td>
+
+<p>Optional list of arguments passed to <code><a href="../../rpart/help/rpart.html">rpart</a></code>
+controlling the recursive partitioning procedure.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function attempts to find a simple rule for predicting
+low and high intensity regions of points in a point pattern,
+using explanatory covariates.
+</p>
+<p>The arguments <code>...</code> specify the point pattern data
+and explanatory covariates in the same way as they would be
+in the function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+</p>
+<p>The recursive partitioning algorithm <code><a href="../../rpart/help/rpart.html">rpart</a></code>
+is then used to find a partitioning rule.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"rppm"</code>. There are methods
+for <code>print</code>, <code>plot</code>, <code>fitted</code>, <code>predict</code> and
+<code>prune</code> for this class.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Breiman, L., Friedman, J. H., Olshen, R. A., and Stone, C. J. (1984)
+<em>Classification and Regression Trees</em>. Wadsworth.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/plot.rppm.html">plot.rppm</a></code>, 
+<code><a href="../../spatstat.model/help/predict.rppm.html">predict.rppm</a></code>, 
+<code><a href="../../spatstat.model/help/update.rppm.html">update.rppm</a></code>, 
+<code><a href="../../spatstat.model/help/prune.rppm.html">prune.rppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # New Zealand trees data: trees planted along border
+    # Use covariates 'x', 'y'
+    nzfit &lt;- rppm(nztrees ~ x + y)
+    nzfit
+    prune(nzfit, cp=0.035)
+    # Murchison gold data: numeric and logical covariates
+    mur &lt;- solapply(murchison, rescale, s=1000, unitname="km")
+    mur$dfault &lt;- distfun(mur$faults)
+    # 
+    mfit &lt;- rppm(gold ~ dfault + greenstone, data=mur)
+    mfit
+    # Gorillas data: factor covariates
+    #          (symbol '.' indicates 'all variables')
+    gfit &lt;- rppm(unmark(gorillas) ~ . , data=gorillas.extra)
+    gfit
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

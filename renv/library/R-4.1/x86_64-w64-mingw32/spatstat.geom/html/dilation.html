@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Morphological Dilation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dilation {spatstat.geom}"><tr><td>dilation {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Morphological Dilation</h2>
+
+<h3>Description</h3>
+
+<p>Perform morphological dilation of a window, a line segment pattern
+or a point pattern
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ dilation(w, r, ...)
+ ## S3 method for class 'owin'
+dilation(w, r, ..., polygonal=NULL, tight=TRUE)
+ ## S3 method for class 'ppp'
+dilation(w, r, ..., polygonal=TRUE, tight=TRUE)
+ ## S3 method for class 'psp'
+dilation(w, r, ..., polygonal=TRUE, tight=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>
+or a line segment pattern (object of class <code>"psp"</code>)
+or a point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>positive number: the radius of dilation.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the pixel resolution, if the pixel approximation is
+used; or passed to <code><a href="../../spatstat.geom/help/disc.html">disc</a></code> if the polygonal approximation
+is used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>polygonal</code></td>
+<td>
+
+<p>Logical flag indicating whether to compute a polygonal
+approximation to the dilation (<code>polygonal=TRUE</code>) or
+a pixel grid approximation (<code>polygonal=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>tight</code></td>
+<td>
+
+<p>Logical flag indicating whether the bounding frame of the window
+should be taken as the smallest rectangle enclosing the dilated region
+(<code>tight=TRUE</code>), or should be the
+dilation of the bounding frame of <code>w</code> (<code>tight=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The morphological dilation of a set <i>W</i> by a distance <i>r &gt; 0</i>
+is the set consisting of all points lying at most <i>r</i> units
+away from <i>W</i>. Effectively, dilation adds a margin of width
+<i>r</i> onto the set <i>W</i>.
+</p>
+<p>If <code>polygonal=TRUE</code> then a polygonal approximation
+to the dilation is computed.
+If <code>polygonal=FALSE</code> then a pixel approximation
+to the dilation is computed from the distance map of <code>w</code>.
+The arguments <code>"\dots"</code> are passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control the pixel resolution.
+</p>
+<p>When <code>w</code> is a window, the default (when <code>polygonal=NULL</code>)
+is to compute a polygonal approximation if
+<code>w</code> is a rectangle or polygonal window, and to compute a
+pixel approximation if <code>w</code> is a window of type <code>"mask"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>r &gt; 0</code>, an object of class <code>"owin"</code> representing the
+dilated region. If <code>r=0</code>, the result is identical to <code>w</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code> for the opposite operation.
+</p>
+<p><code><a href="../../spatstat.geom/help/dilationAny.html">dilationAny</a></code> for morphological dilation using any shape.
+</p>
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(dilation(redwood, 0.05))
+  points(redwood)
+
+  plot(dilation(letterR, 0.2))
+  plot(letterR, add=TRUE, lwd=2, border="red")
+
+  X &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  plot(dilation(X, 0.1))
+  plot(X, add=TRUE, col="red")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Confidence Interval for Threshold of Numerical Predictor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for thresholdCI {spatstat.explore}"><tr><td>thresholdCI {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Confidence Interval for Threshold of Numerical Predictor
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and a spatial covariate that has some predictive
+value for the point pattern,
+compute a confidence interval for the optimal value of the threshold
+that should be used to convert the covariate to a binary predictor.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+thresholdCI(X, Z, confidence = 0.95, nsim = 1000, parametric = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Spatial covariate with numerical values.
+Either a pixel image (object of class <code>"im"</code>),
+a distance function (object of class <code>"distfun"</code>)
+or a <code>function(x,y)</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+</td></tr>
+<tr valign="top"><td><code>confidence</code></td>
+<td>
+
+<p>Confidence level. A number between 0 and 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of bootstrap simulations to perform.
+</p>
+</td></tr>
+<tr valign="top"><td><code>parametric</code></td>
+<td>
+
+<p>Logical value specifying whether to use the parametric bootstrap.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The spatial covariate <code>Z</code> is assumed to have some utility as a
+predictor of the point pattern <code>X</code>.
+</p>
+<p>This code computes a bootstrap confidence interval
+for the best threshold value <i>z</i> for converting the
+numerical predictor to a binary predictor, for use in
+techniques such as Weights of Evidence.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix containing upper and lower limits for the
+threshold <code>z</code> and the corresponding upper and lower limits for
+the fraction of area of the study region.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Brown, W., Milne, R.K., Nair, G.,
+Rakshit, S., Lawrence, T., Phatak, A. and Fu, S.C. (2021)
+Optimal thresholding of predictors in mineral prospectivity analysis.
+<em>Natural Resources Research</em> <b>30</b> 923&ndash;969.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/thresholdSelect.html">thresholdSelect</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  gold &lt;- rescale(murchison$gold, 1000, "km")
+  faults &lt;- rescale(murchison$faults, 1000, "km")
+  distfault &lt;- distfun(faults)
+  Nsim &lt;- if(interactive()) 250 else 25
+  thresholdCI(gold, distfault, nsim=Nsim)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

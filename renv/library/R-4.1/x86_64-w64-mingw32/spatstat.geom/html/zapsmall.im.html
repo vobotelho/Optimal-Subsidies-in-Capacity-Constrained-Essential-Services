@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rounding of Pixel Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for zapsmall.im {spatstat.geom}"><tr><td>zapsmall.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rounding of Pixel Values</h2>
+
+<h3>Description</h3>
+
+<p>Modifies a pixel image, identifying those pixels that have values 
+very close to zero, and replacing the value by zero.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  zapsmall.im(x, digits)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Pixel image (object of class <code>"im"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../base/html/zapsmall.html">zapsmall</a></code>
+indicating the precision to be used.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../base/html/zapsmall.html">zapsmall</a></code> is applied to each pixel value
+of the image <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another pixel image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/zapsmall.html">zapsmall</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- as.im(function(x,y) { exp(-40*(x+y)) }, square(1), dimyx=32)
+  zapsmall.im(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Variable Bandwidths Proportional to a Power of the Data Value</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.pow {spatstat.univar}"><tr><td>bw.pow {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Variable Bandwidths Proportional to a Power of the Data Value
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes variable smoothing bandwidths intended to be proportional to
+the observed data values, raised to a given power.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ bw.pow(X, h0, POW = 0.75, trim = 5, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data for which bandwidths should be calculated. A numeric vector
+of positive values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>h0</code></td>
+<td>
+
+<p>A scalar value giving the global smoothing bandwidth
+in the same units as <code>X</code>. The default is
+<code><a href="../../stats/help/bw.nrd0.html">bw.nrd0</a>(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>POW</code></td>
+<td>
+
+<p>Numeric value. The exponent of the power transformation to
+be applied to <code>X</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>A trimming value required to curb excessively large bandwidths.
+See Details. The default is sensible in most cases.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes adaptive smoothing bandwidths
+for the data values in <code>X</code>.
+Larger data values are assigned larger bandwidths.
+</p>
+<p>Bandwidths are proportional to <code>X^POW</code>.
+The bandwidth at location <i>u</i> is
+</p>
+<p style="text-align: center;"><i>
+    h(u) = h0 * min(u^POW/&gamma;, trim)
+  </i></p>
+
+<p>where <i>&gamma;</i> is the geometric mean of the values
+<i>u^POW</i>.
+This allows the global bandwidth <code>h0</code> to be considered on
+the same scale as a corresponding fixed bandwidth.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector of the same length as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a>. Adapted by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/bw.abram.html">bw.abram</a></code>,
+<code><a href="../../stats/help/bw.nrd0.html">bw.nrd0</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  xx &lt;- sort(rexp(10))
+  bb &lt;- bw.pow(xx)
+  signif(rbind(xx, bb), 3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

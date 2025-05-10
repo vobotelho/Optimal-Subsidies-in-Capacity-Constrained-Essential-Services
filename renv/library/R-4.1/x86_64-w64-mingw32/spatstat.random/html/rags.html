@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Alternating Gibbs Sampler for Multitype Point Processes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rags {spatstat.random}"><tr><td>rags {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Alternating Gibbs Sampler for Multitype Point Processes
+</h2>
+
+<h3>Description</h3>
+
+<p>Simulate a realisation of a point process model using the
+alternating Gibbs sampler.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rags(model, ..., ncycles = 100)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Data specifying some kind of point process model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to other code.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ncycles</code></td>
+<td>
+
+<p>Number of cycles of the alternating Gibbs sampler that should be
+performed. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Alternating Gibbs Sampler for a multitype point process
+is an iterative simulation procedure. Each step of the sampler
+updates the pattern of points of a particular type <code>i</code>,
+by drawing a realisation from the conditional distribution of
+points of type <code>i</code> given the points of all other types.
+Successive steps of the sampler update the points of type 1, then
+type 2, type 3, and so on. 
+</p>
+<p>This is an experimental implementation which currently works only
+for multitype hard core processes (see <code><a href="../../spatstat.model/help/MultiHard.html">MultiHard</a></code>)
+in which there is no interaction between points of the same type. 
+</p>
+<p>The argument <code>model</code> should be an object describing a point
+process model. At the moment, the only permitted format for
+<code>model</code> is of the form <code>list(beta, hradii)</code> where
+<code>beta</code> gives the first order trend and <code>hradii</code> is the
+matrix of interaction radii. See <code><a href="../help/ragsMultiHard.html">ragsMultiHard</a></code> for
+full details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/ragsMultiHard.html">ragsMultiHard</a></code>,
+<code><a href="../help/ragsAreaInter.html">ragsAreaInter</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  mo &lt;- list(beta=c(30, 20),
+             hradii = 0.05 * matrix(c(0,1,1,0), 2, 2))
+  rags(mo, ncycles=10)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

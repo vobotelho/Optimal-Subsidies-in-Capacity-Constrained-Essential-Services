@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether a Window is Convex</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.convex {spatstat.geom}"><tr><td>is.convex {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test Whether a Window is Convex</h2>
+
+<h3>Description</h3>
+
+<p>Determines whether a window is convex.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  is.convex(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>x</code> is a rectangle, the result is TRUE.
+</p>
+<p>If <code>x</code> is polygonal, the result is TRUE if <code>x</code> consists of a
+single polygon and this polygon is equal to the minimal convex hull
+of its vertices computed by <code><a href="../../grDevices/help/chull.html">chull</a></code>. 
+</p>
+<p>If <code>x</code> is a mask, the algorithm first extracts all boundary
+pixels of <code>x</code> using <code><a href="../../spatstat.geom/help/vertices.html">vertices</a></code>. Then it computes
+the (polygonal) convex hull <i>K</i> of the boundary pixels.
+The result is TRUE if every boundary pixel lies within 
+one pixel diameter of an edge of <i>K</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical value, equal to <code>TRUE</code> if <code>x</code> is convex.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/convexhull.xy.html">convexhull.xy</a></code>,
+<code><a href="../../spatstat.geom/help/vertices.html">vertices</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

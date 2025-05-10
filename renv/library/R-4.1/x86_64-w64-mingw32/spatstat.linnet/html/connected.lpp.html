@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Connected Components of a Point Pattern on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for connected.lpp {spatstat.linnet}"><tr><td>connected.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Connected Components of a Point Pattern on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Finds the topologically-connected components of a point pattern on a
+linear network, when all pairs of points closer than a threshold distance
+are joined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+connected(X, R=Inf, ..., dismantle=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>R</code></td>
+<td>
+
+<p>Threshold distance. Pairs of points will be joined together
+if they are closer than <code>R</code> units apart, measured
+by the shortest path in the network.
+The default <code>R=Inf</code> implies that points
+will be joined together if they are mutually connected by any
+path in the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dismantle</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), the network itself will be
+divided into its path-connected components using
+<code><a href="../../spatstat.linnet/help/connected.linnet.html">connected.linnet</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>connected</code> is generic. This is the method for
+point patterns on a linear network (objects of class <code>"lpp"</code>).
+It divides the point pattern <code>X</code> into one or more groups of points.
+</p>
+<p>If <code>R=Inf</code> (the default), then <code>X</code> is divided into groups
+such that any pair of points in the same group
+can be joined by a path in the network.
+</p>
+<p>If <code>R</code> is a finite number, then two points of <code>X</code> are
+declared to be <em>R-close</em> if they lie closer than
+<code>R</code> units apart, measured by the length of the shortest path in the
+network. Two points are <em>R-connected</em> if they 
+can be reached by a series of steps between R-close pairs of
+points of <code>X</code>. Then <code>X</code> is divided into groups such that
+any pair of points in the same group is R-connected.
+</p>
+<p>If <code>dismantle=TRUE</code> (the default) the algorithm first checks
+whether the network is connected (i.e. whether any pair of vertices
+can be joined by a path in the network), and if not, the network is
+decomposed into its connected components.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (of class <code>"lpp"</code>) with marks indicating the
+grouping, or a list of such point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   ## behaviour like connected.ppp
+   U &lt;- runiflpp(20, simplenet)
+   plot(connected(U, 0.15, dismantle=FALSE))
+
+   ## behaviour like connected.owin
+   ## remove some edges from a network to make it disconnected
+   plot(simplenet, col="grey", main="", lty=2)
+   A &lt;- thinNetwork(simplenet, retainedges=-c(3,5))
+   plot(A, add=TRUE, lwd=2)
+   X &lt;- runiflpp(10, A)
+   ## find the connected components
+   cX &lt;- connected(X)
+   plot(cX[[1]], add=TRUE, col="blue", lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Gorilla Nesting Sites</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gorillas {spatstat.data}"><tr><td>gorillas {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Gorilla Nesting Sites
+</h2>
+
+<h3>Description</h3>
+
+<p>Locations of nesting sites of gorillas, and associated covariates,
+in a National Park in Cameroon.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(gorillas)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>gorillas</code> is a marked point pattern (object
+of class <code>"ppp"</code>) representing nest site locations.
+</p>
+<p><code>gorillas.extra</code> is a named list of 7 pixel images (objects of
+class <code>"im"</code>) containing spatial covariates.
+It also belongs to the class <code>"listof"</code>.
+</p>
+<p>All spatial coordinates are in metres.
+The coordinate reference system is <code>WGS_84_UTM_Zone_32N</code>.
+</p>
+
+
+<h3>Details</h3>
+
+<p>These data come from a study of gorillas in the Kagwene Gorilla Sanctuary,
+Cameroon, by the Wildlife Conservation Society
+Takamanda-Mone Landscape Project (WCS-TMLP). A detailed description
+and analysis of the data is reported in Funwi-Gabga and Mateu (2012).
+</p>
+<p>The dataset <code>gorillas</code> is a marked point pattern
+(object of class <code>"ppp"</code>)
+giving the spatial locations of 647 nesting sites of gorilla groups
+observed in the sanctuary over time.
+Locations are given as UTM (Zone 32N) coordinates in metres.
+The observation window is the boundary of the sanctuary, represented
+as a polygon. Marks attached to the points are:
+</p>
+
+<dl>
+<dt>group</dt><dd><p>Identifier of the gorilla group
+that constructed the nest site:
+a categorical variable with values <code>major</code> or <code>minor</code>.
+</p>
+</dd>
+<dt>season</dt><dd><p>Season in which data were collected:
+categorical, either <code>rainy</code> or <code>dry</code>.
+</p>
+</dd>
+<dt>date</dt><dd>
+<p>Day of observation. A value of class <code>"Date"</code>.
+</p>
+</dd>
+</dl>
+
+<p>Note that the data contain duplicated points (two points at the
+same location). To determine which points are duplicates,
+use <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>.
+To remove the duplication, use <code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code>.
+</p>
+<p>The accompanying dataset <code>gorillas.extra</code> contains
+spatial covariate information. It is a named list containing
+seven pixel images (objects of class <code>"im"</code>) giving the values of
+seven covariates over the study region. It also belongs
+to the class <code>"listof"</code> so that it can be plotted.
+The component images are:
+</p>
+
+<dl>
+<dt>aspect</dt><dd>
+<p>Compass direction of the terrain slope.
+Categorical, with levels
+<code>N</code>, 
+<code>NE</code>, 
+<code>E</code>, 
+<code>SE</code>, 
+<code>S</code>, 
+<code>SW</code>, 
+<code>W</code> and 
+<code>NW</code>.
+</p>
+</dd>
+<dt>elevation</dt><dd>
+<p>Digital elevation of terrain, in metres.
+</p>
+</dd>
+<dt>heat</dt><dd>
+<p>Heat Load Index at each point on the surface (Beer's aspect),
+discretised. Categorical with values <code>Warmest</code>
+(Beer's aspect between 0 and 0.999),
+<code>Moderate</code> (Beer's aspect between 1 and 1.999),
+<code>Coolest</code> (Beer's aspect equals 2).
+</p>
+</dd>
+<dt>slopeangle</dt><dd>
+<p>Terrain slope, in degrees.
+</p>
+</dd>
+<dt>slopetype</dt><dd>
+<p>Type of slope.
+Categorical, with values
+<code>Valley</code>, <code>Toe</code> (toe slope), <code>Flat</code>,
+<code>Midslope</code>, <code>Upper</code> and <code>Ridge</code>.
+</p>
+</dd>
+<dt>vegetation</dt><dd>
+<p>Vegetation or cover type.
+Categorical, with values
+<code>Disturbed</code> (highly disturbed forest), <code>Colonising</code>
+(colonising forest), <code>Grassland</code> (savannah),
+<code>Primary</code> (primary forest), <code>Secondary</code> (secondary forest), and
+<code>Transition</code> (transitional vegetation).
+</p>
+</dd>
+<dt>waterdist</dt><dd>
+<p>Euclidean distance from nearest water body, in metres.
+</p>
+</dd>
+</dl>
+
+<p>For further information see Funwi-Gabga and Mateu (2012).
+</p>
+
+
+<h3>Raw Data</h3>
+
+<p>For demonstration and training purposes,
+the raw data file for the <code>vegetation</code> covariate is
+also provided in the <span class="pkg">spatstat.data</span> package installation,
+as the file <code>vegetation.asc</code> in the folder <code>rawdata/gorillas</code>.
+Use <code><a href="../../base/help/system.file.html">system.file</a></code> to obtain the file path:
+<code>system.file("rawdata/gorillas/vegetation.asc", package="spatstat.data")</code>.
+This is a text file in the simple ASCII file format of the geospatial
+library <code>GDAL</code>. The file can be read by the function
+<code>readGDAL</code> in the <span class="pkg">rgdal</span> package, or alternatively
+read directly using <code><a href="../../base/help/scan.html">scan</a></code>.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Field data collector: Wildlife Conservation Society Takamanda-Mone
+Landscape Project (WCS-TMLP).
+<em>Please acknowledge WCS-TMLP in any use of these data.</em>
+</p>
+<p>Data kindly provided by 
+Funwi-Gabga Neba, Data Coordinator of A.P.E.S.
+Database Project, Department of Primatology,
+Max Planck Institute for Evolutionary Anthropology, Leipzig, Germany.
+</p>
+<p>The collaboration of Prof Jorge Mateu, Universitat Jaume I, Castellon, Spain
+is gratefully acknowledged.
+</p>
+
+
+<h3>References</h3>
+
+<p>Funwi-Gabga, N. (2008)
+<em>A pastoralist survey and fire impact assessment
+in the Kagwene Gorilla Sanctuary, Cameroon</em>. M.Sc. thesis,
+Geology and Environmental Science, University of Buea, Cameroon.
+</p>
+<p>Funwi-Gabga, N. and Mateu, J. (2012)
+Understanding the nesting spatial behaviour of gorillas
+in the Kagwene Sanctuary, Cameroon.
+<em>Stochastic Environmental Research and Risk Assessment</em>
+<b>26</b> (6), 793&ndash;811.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+  summary(gorillas)
+  plot(gorillas)
+  plot(gorillas.extra)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

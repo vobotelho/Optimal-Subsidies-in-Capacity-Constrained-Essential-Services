@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for tess {spatstat.geom}"><tr><td>tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of class <code>"tess"</code> representing a tessellation
+of a spatial region.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  tess(..., xgrid = NULL, ygrid = NULL, tiles = NULL, image = NULL,
+            window=NULL, marks=NULL, keepempty=FALSE, unitname=NULL, check=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>xgrid,ygrid</code></td>
+<td>
+<p>Cartesian coordinates of vertical and
+horizontal lines determining a grid of rectangles.
+Incompatible with other arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tiles</code></td>
+<td>
+<p>List of tiles in the tessellation.
+A list, each of whose elements is a window
+(object of class <code>"owin"</code>). Incompatible with other arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>image</code></td>
+<td>
+
+<p>Pixel image
+(object of class <code>"im"</code>)
+which specifies the tessellation.
+Incompatible with other arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Optional.
+The spatial region which is tessellated (i.e. the union of all the tiles).
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>marks</code></td>
+<td>
+
+<p>Optional vector, data frame or hyperframe
+of marks associated with the tiles.
+</p>
+</td></tr>
+<tr valign="top"><td><code>keepempty</code></td>
+<td>
+
+<p>Logical flag indicating whether empty tiles should be retained
+or deleted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. Name of unit of length. Either a single character string,
+or a vector of two character strings giving the
+singular and plural forms, respectively.
+If this argument is missing or <code>NULL</code>,
+information about the unitname will be
+extracted from the other arguments.
+If this argument is given, it overrides any other information
+about the unitname.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value indicating whether to check the validity of the
+input data. It is strongly recommended to use the default
+value <code>check=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tessellation is a collection of disjoint spatial regions
+(called <em>tiles</em>) that fit together to form a larger spatial
+region. This command creates an object of class <code>"tess"</code> that
+represents a tessellation.
+</p>
+<p>Three types of tessellation are supported:
+</p>
+
+<dl>
+<dt>rectangular:</dt><dd>
+<p>tiles are rectangles, with sides parallel to the <code>x</code> and
+<code>y</code> axes. They may or may not have equal size and shape.
+The arguments <code>xgrid</code> and <code>ygrid</code> determine
+the positions of the vertical and horizontal grid lines,
+respectively. (See <code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code> for another way to do this.)
+</p>
+</dd>
+<dt>tile list:</dt><dd>
+<p>tiles are arbitrary spatial regions.
+The argument <code>tiles</code> is a list of these tiles,
+which are objects of class <code>"owin"</code>.
+</p>
+</dd>
+<dt>pixel image:</dt><dd>
+<p>Tiles are subsets of a fine grid of pixels.
+The argument <code>image</code> is a pixel image (object of class
+<code>"im"</code>) with factor values. Each level of the factor
+represents a different tile of the tessellation. The pixels that
+have a particular value of the factor constitute a tile. 
+</p>
+</dd>
+</dl>
+
+<p>The optional argument <code>window</code> specifies the spatial region
+formed by the union of all the tiles. In other words it specifies the
+spatial region that is divided into tiles by the tessellation.
+If this argument is missing or <code>NULL</code>, it will be determined by
+computing the set union of all the tiles. This is a time-consuming
+computation. For efficiency it is advisable to specify the window.
+Note that the validity of the window will not be checked.
+</p>
+<p>Empty tiles may occur, either because one of the entries in the list
+<code>tiles</code> is an empty window, or because one of the levels of the
+factor-valued pixel image <code>image</code> does not occur in the pixel data.
+When <code>keepempty=TRUE</code>, empty tiles are permitted. 
+When <code>keepempty=FALSE</code> (the default), tiles are not allowed to be
+empty, and any empty tiles will be removed from the tessellation.
+</p>
+<p>There are methods for <code>print</code>, <code>plot</code>, <code>[</code> and <code>[&lt;-</code>
+for tessellations. Use <code><a href="../../spatstat.geom/help/tiles.html">tiles</a></code> to extract the list of
+tiles in a tessellation, <code><a href="../../spatstat.geom/help/tilenames.html">tilenames</a></code> to extract the names
+of the tiles, and <code><a href="../../spatstat.geom/help/tile.areas.html">tile.areas</a></code> to compute their
+areas.
+</p>
+<p>The tiles may have marks, which can be extracted by
+<code><a href="../../spatstat.geom/help/marks.tess.html">marks.tess</a></code> and changed by <code><a href="../../spatstat.geom/help/marks+3C-.tess.html">marks&lt;-.tess</a></code>.
+</p>
+<p>Tessellations can be used to classify the points of
+a point pattern, in <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>, <code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> and
+<code><a href="../../spatstat.geom/help/by.ppp.html">by.ppp</a></code>.
+</p>
+<p>To construct particular tessellations, see
+<code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>, <code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code>, 
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>, <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>,
+<code><a href="../../spatstat.geom/help/venn.tess.html">venn.tess</a></code>,
+<code><a href="../../spatstat.geom/help/polartess.html">polartess</a></code>,
+<code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>,
+<code><a href="../../spatstat.geom/help/bufftess.html">bufftess</a></code>
+and <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"tess"</code> representing the tessellation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/marks.tess.html">marks.tess</a></code>,
+<code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.tess.html">[.tess</a></code>,
+<code><a href="../../spatstat.geom/help/as.tess.html">as.tess</a></code>,
+<code><a href="../../spatstat.geom/help/tiles.html">tiles</a></code>,
+<code><a href="../../spatstat.geom/help/intersect.tess.html">intersect.tess</a></code>,
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/by.ppp.html">by.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/bdist.tiles.html">bdist.tiles</a></code>,
+<code><a href="../../spatstat.geom/help/tile.areas.html">tile.areas</a></code>,
+<code><a href="../../spatstat.geom/help/as.function.tess.html">as.function.tess</a></code>.
+</p>
+<p>To construct particular tessellations, see
+<code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>, <code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code>,
+<code><a href="../../spatstat.geom/help/venn.tess.html">venn.tess</a></code>,
+<code><a href="../../spatstat.geom/help/polartess.html">polartess</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>, <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>, <code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>
+and <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>.
+</p>
+<p>To divide space into pieces containing equal
+amounts of stuff, use <code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>.
+</p>
+<p>To convert a tessellation to a function, for use as a spatial covariate
+(associating a numerical value with each tile of the tessellation) use
+<code><a href="../../spatstat.geom/help/as.function.tess.html">as.function.tess</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  A &lt;- tess(xgrid=0:4,ygrid=0:4)
+  A
+  plot(A)
+  B &lt;- A[c(1, 2, 5, 7, 9)]
+  B
+  v &lt;- as.im(function(x,y){factor(round(5 * (x^2 + y^2)))}, W=owin())
+  levels(v) &lt;- letters[seq(length(levels(v)))]
+  E &lt;- tess(image=v)
+  plot(E)
+  G &lt;- tess(image=v, marks=toupper(levels(v)), unitname="km")
+  G
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

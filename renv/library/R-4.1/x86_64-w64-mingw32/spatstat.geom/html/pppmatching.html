@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Point Matching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pppmatching {spatstat.geom}"><tr><td>pppmatching {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a Point Matching</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of class <code>"pppmatching"</code> representing
+a matching of two planar point patterns (objects of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  pppmatching(X, Y, am, type = NULL, cutoff = NULL, q = NULL,
+    mdist = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+<p>Two point patterns (objects of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>am</code></td>
+<td>
+
+<p>An <code>npoints(X)</code> by <code>npoints(Y)</code> matrix with entries <i>&gt;= 0</i> 
+that specifies which points are matched and with what weight;
+alternatively, an object that can be coerced to this form
+by <code>as.matrix</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>A character string giving the type of the matching.
+One of <code>"spa"</code>, <code>"ace"</code> or <code>"mat"</code>, or <code>NULL</code>
+for a generic or unknown matching.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cutoff, q</code></td>
+<td>
+
+<p>Numerical values specifying the cutoff value <i>&gt; 0</i> for interpoint distances and
+the order <i>q in [0,Inf]</i> of the average that is applied to them.
+<code>NULL</code> if not applicable or unknown.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mdist</code></td>
+<td>
+
+<p>Numerical value for the distance to be associated with the matching.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>am</code> is interpreted as a &quot;generalized adjacency matrix&quot;:
+if the <code>[i,j]</code>-th entry is positive, then the <code>i</code>-th point
+of <code>X</code> and the <code>j</code>-th point of <code>Y</code> are matched and the
+value of the entry gives the corresponding weight of the match. For
+an unweighted matching all the weights should be set to <i>1</i>.
+</p>
+<p>The remaining arguments are optional and allow to save
+additional information about the matching. See the help files for
+<code><a href="../../spatstat.geom/help/pppdist.html">pppdist</a></code> and <code><a href="../../spatstat.geom/help/matchingdist.html">matchingdist</a></code> for details on
+the meaning of these parameters.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Dominic Schuhmacher <a href="mailto:dominic.schuhmacher@mathematik.uni-goettingen.de">dominic.schuhmacher@mathematik.uni-goettingen.de</a>, URL <code>http://dominic.schuhmacher.name/</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pppmatching.object.html">pppmatching.object</a></code>
+<code><a href="../../spatstat.geom/help/matchingdist.html">matchingdist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # a random unweighted complete matching
+  X &lt;- runifrect(10)
+  Y &lt;- runifrect(10)
+  am &lt;- r2dtable(1, rep(1,10), rep(1,10))[[1]]
+        # generates a random permutation matrix
+  m &lt;- pppmatching(X, Y, am)
+  summary(m)
+  m$matrix
+  plot(m)
+
+  # a random weighted complete matching
+  X &lt;- runifrect(7)
+  Y &lt;- runifrect(7)
+  am &lt;- r2dtable(1, rep(10,7), rep(10,7))[[1]]/10
+        # generates a random doubly stochastic matrix
+  m2 &lt;- pppmatching(X, Y, am)
+  summary(m2)
+  m2$matrix
+  plot(m2)
+  m3 &lt;- pppmatching(X, Y, am, "ace")
+  m4 &lt;- pppmatching(X, Y, am, "mat")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

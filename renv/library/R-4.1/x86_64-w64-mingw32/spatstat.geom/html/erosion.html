@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Morphological Erosion by a Disc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for erosion {spatstat.geom}"><tr><td>erosion {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Morphological Erosion by a Disc</h2>
+
+<h3>Description</h3>
+
+<p>Perform morphological erosion of a window, a line segment pattern
+or a point pattern by a disc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ erosion(w, r, ...)
+ ## S3 method for class 'owin'
+erosion(w, r, shrink.frame=TRUE, ...,
+   strict=FALSE, polygonal=NULL)
+ ## S3 method for class 'ppp'
+erosion(w, r,...)
+ ## S3 method for class 'psp'
+erosion(w, r,...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>
+or a line segment pattern (object of class <code>"psp"</code>)
+or a point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>positive number: the radius of erosion.</p>
+</td></tr>
+<tr valign="top"><td><code>shrink.frame</code></td>
+<td>
+<p>logical: if <code>TRUE</code>, erode the bounding
+rectangle as well.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the pixel resolution, if pixel approximation is used.</p>
+</td></tr>
+<tr valign="top"><td><code>strict</code></td>
+<td>
+<p>Logical flag determining the fate of boundary pixels,
+if pixel approximation is used. See details.</p>
+</td></tr>
+<tr valign="top"><td><code>polygonal</code></td>
+<td>
+
+<p>Logical flag indicating whether to compute a polygonal
+approximation to the erosion (<code>polygonal=TRUE</code>) or
+a pixel grid approximation (<code>polygonal=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The morphological erosion of a set <i>W</i> by a distance <i>r &gt; 0</i>
+is the subset 
+consisting of all points <i>x in W</i> such that the
+distance from <i>x</i> to the boundary of <i>W</i> is greater than
+or equal to <i>r</i>. In other words it is the result of trimming
+a margin of width <i>r</i> off the set <i>W</i>.
+</p>
+<p>If <code>polygonal=TRUE</code> then a polygonal approximation
+to the erosion is computed.
+If <code>polygonal=FALSE</code> then a pixel approximation
+to the erosion is computed from the distance map of <code>w</code>.
+The arguments <code>"\dots"</code> are passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control the pixel resolution.
+The erosion consists of all pixels whose distance
+from the boundary of <code>w</code> is strictly greater than <code>r</code> (if
+<code>strict=TRUE</code>) or is greater than or equal to <code>r</code> (if
+<code>strict=FALSE</code>).
+</p>
+<p>When <code>w</code> is a window, the default (when <code>polygonal=NULL</code>)
+is to compute a polygonal approximation if
+<code>w</code> is a rectangle or polygonal window, and to compute a
+pixel approximation if <code>w</code> is a window of type <code>"mask"</code>.
+</p>
+<p>If <code>shrink.frame</code> is false, the resulting window is given the
+same outer, bounding rectangle as the original window <code>w</code>.
+If <code>shrink.frame</code> is true, the original bounding rectangle
+is also eroded by the same distance <code>r</code>.
+</p>
+<p>To simply compute the area of the eroded window,
+use <code><a href="../../spatstat.geom/help/eroded.areas.html">eroded.areas</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>r &gt; 0</code>, an object of class <code>"owin"</code> representing the
+eroded region (or <code>NULL</code> if this region is empty).
+If <code>r=0</code>, the result is identical to <code>w</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code> for the opposite operation.
+</p>
+<p><code><a href="../../spatstat.geom/help/erosionAny.html">erosionAny</a></code> for morphological erosion using any shape.
+</p>
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/eroded.areas.html">eroded.areas</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(letterR, main="erosion(letterR, 0.2)")
+  plot(erosion(letterR, 0.2), add=TRUE, col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

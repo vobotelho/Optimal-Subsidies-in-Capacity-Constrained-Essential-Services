@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Decompose Window into Triangles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for triangulate.owin {spatstat.geom}"><tr><td>triangulate.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Decompose Window into Triangles
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial window, this function decomposes the window
+into disjoint triangles. 
+The result is a tessellation of the window
+in which each tile is a triangle.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+triangulate.owin(W)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>Window (object of class <code>"owin"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The window <code>W</code> will be decomposed into disjoint triangles.
+The result is a tessellation of <code>W</code> in which each tile is a
+triangle. All triangle vertices lie on the boundary
+of the original polygon.
+</p>
+<p>The window is first converted to a polygonal window using
+<code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code>. The vertices of the polygonal window
+are extracted, and the Delaunay triangulation of these vertices
+is computed using <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>. Each Delaunay triangle
+is intersected with the window: if the result is not a triangle, 
+the triangulation procedure is applied recursively to this smaller polygon. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Tessellation (object of class <code>"tess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>,
+<code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(triangulate.owin(letterR))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reduced Second Moment Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kmeasure {spatstat.explore}"><tr><td>Kmeasure {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Reduced Second Moment Measure</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the reduced second moment measure <i>Kappa</i> 
+from a point pattern in a window of arbitrary shape.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Kmeasure(X, sigma, edge=TRUE, ..., varcov=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of <i>Kappa</i> will be computed.
+An object of class <code>"ppp"</code>, or data
+in any format acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Standard deviation <i>sigma</i> of the Gaussian
+smoothing kernel. Incompatible with <code>varcov</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>Logical value indicating whether an edge correction
+should be applied.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> controlling
+the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>varcov</code></td>
+<td>
+
+<p>Variance-covariance matrix of the Gaussian smoothing kernel.
+Incompatible with <code>sigma</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a point pattern dataset, 
+this command computes an estimate of the reduced second moment
+measure <i>Kappa</i> of the point process.
+The result is a pixel image whose pixel values are estimates of
+the density of the reduced second moment measure. 
+</p>
+<p>The reduced second moment measure <i>Kappa</i>
+can be regarded as a generalisation of the more familiar
+<i>K</i>-function.
+An estimate of <i>Kappa</i> derived from a spatial point
+pattern dataset can be useful in exploratory data analysis.
+Its advantage over the <i>K</i>-function is that it is also sensitive
+to anisotropy and directional effects. 
+</p>
+<p>In a nutshell, the command <code>Kmeasure</code> computes a smoothed version
+of the <em>Fry plot</em>. 
+As explained under <code><a href="../../spatstat.explore/help/fryplot.html">fryplot</a></code>, the Fry plot is a scatterplot of the
+vectors joining all pairs of points in the pattern.
+The reduced second moment measure is (essentially) defined as
+the average of the Fry plot over different realisations of the point
+process. The command <code>Kmeasure</code> effectively smooths the Fry plot
+of a dataset to obtain an estimate of the reduced second moment measure.
+</p>
+<p>In formal terms, the reduced second moment measure <i>Kappa</i>
+of a stationary point process <i>X</i> is a measure defined on the
+two-dimensional plane such that,
+for a &lsquo;typical&rsquo; point <i>x</i> of the process, 
+the expected number of other points <i>y</i> of the process
+such that the vector <i>y - x</i> lies in a region <i>A</i>,
+equals <i>lambda * Kappa(A)</i>.
+Here <i>lambda</i>
+is the intensity of the process,
+i.e. the expected number of points of <i>X</i> per unit area.
+</p>
+<p>The <i>K</i>-function is a special case. The function value <i>K(t)</i> is
+the value of the reduced second moment measure
+for the disc of radius <i>t</i> centred at the origin; that is,
+<i>K(t) = Kappa(b(0,t))</i>.
+</p>
+<p>The command <code>Kmeasure</code> computes an estimate of <i>Kappa</i>
+from a point pattern dataset <code>X</code>,
+which is assumed to be a realisation of a stationary point process,
+observed inside a known, bounded window. Marks are ignored.
+</p>
+<p>The algorithm approximates the point pattern and its window by binary pixel
+images, introduces a Gaussian smoothing kernel
+and uses the Fast Fourier Transform <code><a href="../../stats/html/fft.html">fft</a></code>
+to form a density estimate of <i>Kappa</i>. The calculation
+corresponds to the edge correction known as the &ldquo;translation
+correction&rdquo;.
+</p>
+<p>The Gaussian smoothing kernel may be specified by either of the
+arguments <code>sigma</code> or <code>varcov</code>. If <code>sigma</code> is a single
+number, this specifies an isotropic Gaussian kernel
+with standard deviation <code>sigma</code> on each coordinate axis.
+If <code>sigma</code> is a vector of two numbers, this specifies a Gaussian
+kernel with standard deviation <code>sigma[1]</code> on the <i>x</i> axis,
+standard deviation <code>sigma[2]</code> on the <i>y</i> axis, and zero
+correlation between the <i>x</i> and <i>y</i> axes. If <code>varcov</code> is
+given, this specifies the variance-covariance matrix of the
+Gaussian kernel. There do not seem to be any well-established rules
+for selecting the smoothing kernel in this context.
+</p>
+<p>The density estimate of <i>Kappa</i>
+is returned in the form of a real-valued pixel image.
+Pixel values are estimates of the normalised
+second moment density at the centre of the pixel.
+(The uniform Poisson process would have values identically equal to
+<i>1</i>.)
+The image <code>x</code> and <code>y</code>
+coordinates are on the same scale as vector displacements in the
+original point pattern window. The point <code>x=0, y=0</code> corresponds
+to the &lsquo;typical point&rsquo;.
+A peak in the image near <code>(0,0)</code> suggests clustering;
+a dip in the image near <code>(0,0)</code> suggests inhibition;
+peaks or dips at other positions suggest possible periodicity.
+</p>
+<p>If desired, the value of <i>Kappa(A)</i> for a region
+<i>A</i> can be estimated by computing the integral of the pixel image
+over the domain <i>A</i>, i.e.\ summing the pixel values and
+multiplying by pixel area, using <code><a href="../../spatstat.geom/help/integral.im.html">integral.im</a></code>.
+One possible application is to compute anisotropic counterparts of the
+<i>K</i>-function (in which the disc of radius <i>t</i> is replaced
+by another shape). See Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A real-valued pixel image (an object of class <code>"im"</code>,
+see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>) whose pixel values are estimates
+of the density of the reduced second moment measure
+at each location.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>Some writers use the term <em>reduced second moment measure</em>
+when they mean the <i>K</i>-function. This has caused
+confusion. 
+</p>
+<p>As originally defined, the
+reduced second moment measure is a measure, obtained by modifying
+the second moment measure, while the <i>K</i>-function is a function
+obtained by evaluating this measure for discs of increasing radius.
+In <span class="pkg">spatstat</span>, the <i>K</i>-function is computed by
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> and the reduced second moment measure is computed
+by <code>Kmeasure</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Stoyan, D, Kendall, W.S. and Mecke, J. (1995)
+<em>Stochastic geometry and its applications</em>.
+2nd edition. Springer Verlag.
+</p>
+<p>Stoyan, D. and Stoyan, H. (1994)
+Fractals, random shapes and point fields:
+methods of geometrical statistics.
+John Wiley and Sons.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/fryplot.html">fryplot</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>,
+<code><a href="../../spatstat.geom/help/integral.im.html">integral.im</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ plot(Kmeasure(cells, 0.05))
+ # shows pronounced dip around origin consistent with strong inhibition
+ plot(Kmeasure(redwood, 0.03), col=grey(seq(1,0,length=32)))
+ # shows peaks at several places, reflecting clustering and ?periodicity
+ M &lt;- Kmeasure(cells, 0.05)
+ # evaluate measure on a sector
+ W &lt;- Window(M)
+ ang &lt;- as.im(atan2, W)
+ rad &lt;- as.im(function(x,y){sqrt(x^2+y^2)}, W)
+ sector &lt;- solutionset(ang &gt; 0 &amp; ang &lt; 1 &amp; rad &lt; 0.6)
+ integral.im(M[sector, drop=FALSE])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

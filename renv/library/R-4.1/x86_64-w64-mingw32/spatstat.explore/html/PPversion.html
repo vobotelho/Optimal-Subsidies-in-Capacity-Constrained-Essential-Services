@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Transform a Function into its P-P or Q-Q Version</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for PPversion {spatstat.explore}"><tr><td>PPversion {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Transform a Function into its P-P or Q-Q Version
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a function object <code>f</code> containing both the estimated
+and theoretical versions of a summary function, these operations
+combine the estimated and theoretical functions into a new function.
+When plotted, the new function gives either the P-P plot or Q-Q plot
+of the original <code>f</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+PPversion(f, theo = "theo", columns = ".")
+
+QQversion(f, theo = "theo", columns = ".")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>The function to be transformed. An object of class <code>"fv"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+
+<p>The name of the column of <code>f</code> that should be treated as the
+theoretical value of the function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>columns</code></td>
+<td>
+
+<p>Character vector, specifying the columns of <code>f</code>
+to which the transformation will be applied.
+Either a vector of names of columns of <code>f</code>,
+or one of the abbreviations recognised by <code><a href="../../spatstat.explore/help/fvnames.html">fvnames</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>f</code> should be an object of class <code>"fv"</code>,
+containing both empirical estimates <i>fhat(r)</i>
+and a theoretical value <i>f0(r)</i> for a summary function.
+</p>
+<p>The <em>P&ndash;P version</em> of <code>f</code> is the function
+<i>g(x) = fhat(f0^(-1)(x))</i>
+where <i>f0^(-1)</i> is the inverse function of
+<i>f0</i>.
+A plot of <i>g(x)</i> against <i>x</i> 
+is equivalent to a plot of <i>fhat(r)</i> against
+<i>f0(r)</i> for all <i>r</i>.
+If <code>f</code> is a cumulative distribution function (such as the
+result of <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code> or <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>) then
+this is a P&ndash;P plot, a plot of the observed versus theoretical
+probabilities for the distribution.
+The diagonal line <i>y=x</i>
+corresponds to perfect agreement between observed and theoretical
+distribution.
+</p>
+<p>The <em>Q&ndash;Q version</em> of <code>f</code> is the function
+<i>f0^(-1)(fhat(x))</i>.
+If <code>f</code> is a cumulative distribution function,
+a plot of <i>h(x)</i> against <i>x</i>
+is a Q&ndash;Q plot, a plot of the observed versus theoretical
+quantiles of the distribution.
+The diagonal line <i>y=x</i>
+corresponds to perfect agreement between observed and theoretical
+distribution.
+Another straight line corresponds to the situation where the
+observed variable is a linear transformation of the theoretical variable.
+For a point pattern <code>X</code>, the Q&ndash;Q version of <code>Kest(X)</code> is
+essentially equivalent to <code>Lest(X)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tom Lawrence
+and Adrian Baddeley.
+</p>
+<p>Implemented by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  opa &lt;- par(mar=0.1+c(5,5,4,2))
+  G &lt;- Gest(redwoodfull)
+  plot(PPversion(G))
+  plot(QQversion(G))
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

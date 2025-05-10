@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Spatial Object to Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pixellate {spatstat.geom}"><tr><td>pixellate {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Spatial Object to Pixel Image
+</h2>
+
+<h3>Description</h3>
+
+<p>Convert a spatial object to 
+a pixel image by measuring the amount of stuff
+in each pixel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pixellate(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Spatial object to be converted.
+A point pattern (object of class <code>"ppp"</code>),
+a window (object of class <code>"owin"</code>),
+a line segment pattern (object of class <code>"psp"</code>),
+or some other suitable data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>pixellate</code> converts a geometrical object <code>x</code> into
+a pixel image, by measuring the <em>amount</em> of <code>x</code> that is
+inside each pixel.
+</p>
+<p>If <code>x</code> is a point pattern, <code>pixellate(x)</code> counts the
+number of points of <code>x</code> falling in each pixel.
+If <code>x</code> is a window, <code>pixellate(x)</code> measures the area
+of intersection of each pixel with the window.
+</p>
+<p>The function <code>pixellate</code> is generic, with methods for
+point patterns (<code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>),
+windows (<code><a href="../../spatstat.geom/help/pixellate.owin.html">pixellate.owin</a></code>),
+and 
+line segment patterns (<code><a href="../../spatstat.geom/help/pixellate.psp.html">pixellate.psp</a></code>),
+See the separate documentation for these methods.
+</p>
+<p>The related function <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+also converts <code>x</code> into a pixel image,
+but typically measures only the presence or absence of
+<code>x</code> inside each pixel.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/pixellate.owin.html">pixellate.owin</a></code>,
+<code><a href="../../spatstat.geom/help/pixellate.psp.html">pixellate.psp</a></code>,
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

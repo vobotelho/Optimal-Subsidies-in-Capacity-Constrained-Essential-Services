@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Point Pattern to Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pixellate.ppp {spatstat.geom}"><tr><td>pixellate.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Point Pattern to Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Converts a point pattern to a pixel image. The value in each pixel
+is the number of points falling in that pixel, and is typically
+either 0 or 1.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+pixellate(x, W=NULL, ..., weights = NULL,
+                        padzero=FALSE, fractional=FALSE, preserve=FALSE,
+                        DivideByPixelArea=FALSE, savemap=FALSE)
+
+## S3 method for class 'ppp'
+as.im(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,X</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>Optional window mask (object of class <code>"owin"</code>) determining
+the pixel raster.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>Optional vector of weights associated with the points.</p>
+</td></tr>
+<tr valign="top"><td><code>padzero</code></td>
+<td>
+
+<p>Logical value indicating whether to set pixel values
+to zero outside the window. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>fractional,preserve</code></td>
+<td>
+
+<p>Logical values determining the type of discretisation.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>DivideByPixelArea</code></td>
+<td>
+
+<p>Logical value, indicating whether the resulting pixel values
+should be divided by the pixel area.
+</p>
+</td></tr>
+<tr valign="top"><td><code>savemap</code></td>
+<td>
+
+<p>Logical value, indicating whether to save information
+about the discretised coordinates of the points of <code>x</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>pixellate.ppp</code> and <code>as.im.ppp</code>
+convert a spatial point pattern <code>x</code> into a pixel
+image, by counting the number of points (or the total weight of
+points) falling in each pixel. 
+</p>
+<p>Calling <code>as.im.ppp</code> is equivalent to
+calling <code>pixellate.ppp</code> with its default arguments.
+Note that <code>pixellate.ppp</code> is more general than <code>as.im.ppp</code>
+(it has additional arguments for greater flexibility).
+</p>
+<p>The functions <code>as.im.ppp</code> and <code>pixellate.ppp</code>
+are methods for the generic functions <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+and <code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code> respectively,
+for the class of point patterns.
+</p>
+<p>The pixel raster (in which points are counted) is determined
+by the argument <code>W</code> if it is present (for <code>pixellate.ppp</code> only).
+In this case <code>W</code> should be a binary mask (a window object of
+class <code>"owin"</code> with type <code>"mask"</code>).
+Otherwise the pixel raster is determined by
+extracting the window containing <code>x</code> and converting it to a
+binary pixel mask using <code><a href="../help/as.mask.html">as.mask</a></code>. The arguments
+<code>...</code> are passed to <code><a href="../help/as.mask.html">as.mask</a></code> to
+control the pixel resolution.
+</p>
+<p>If <code>weights</code> is <code>NULL</code>, then for each pixel
+in the mask, the algorithm counts how many points in <code>x</code> fall
+in the pixel. This count is usually either 0 (for a pixel with no data
+points in it) or 1 (for a pixel containing one data point) but may be
+greater than 1. The result is an image with these counts as its pixel values.
+</p>
+<p>If <code>weights</code> is given, it should be a numeric vector of the same
+length as the number of points in <code>x</code>. For each pixel, the
+algorithm finds the total weight associated with points in <code>x</code> that fall
+in the given pixel. The result is an image with these total weights
+as its pixel values.
+</p>
+<p>By default (if <code>zeropad=FALSE</code>) the resulting pixel image has the same
+spatial domain as the window of the point pattern <code>x</code>. If
+<code>zeropad=TRUE</code> then the resulting pixel image has a rectangular
+domain; pixels outside the original window are assigned the value zero.
+</p>
+<p>The discretisation procedure is controlled by the arguments
+<code>fractional</code> and <code>preserve</code>.
+</p>
+
+<ul>
+<li> 
+<p>The argument <code>fractional</code> specifies how data points are mapped to
+pixels. If <code>fractional=FALSE</code> (the default),
+each data point is allocated to the nearest pixel centre.
+If <code>fractional=TRUE</code>, each data point is allocated
+with fractional weight to four pixel centres
+(the corners of a rectangle containing the data
+point).
+</p>
+</li>
+<li>
+<p>The argument <code>preserve</code> specifies what to do with pixels
+lying near the boundary of the window, if the window is not a rectangle.
+If <code>preserve=FALSE</code> (the default), any contributions
+that are attributed to pixel centres lying outside the window
+are reset to zero. If <code>preserve=TRUE</code>, any such contributions
+are shifted to the nearest pixel lying inside the window, so that
+the total mass is preserved.
+</p>
+</li></ul>
+
+<p>If <code>savemap=TRUE</code> then the result has an attribute
+<code>"map"</code> which is a 2-column matrix containing the row and column
+indices of the discretised positions of the points of <code>x</code>
+in the pixel grid.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>, <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>,
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>, <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(pixellate(humberside))
+  plot(pixellate(humberside, fractional=TRUE))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

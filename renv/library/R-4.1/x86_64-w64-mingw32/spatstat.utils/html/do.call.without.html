@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Call a Function, Omitting Certain Arguments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for do.call.without {spatstat.utils}"><tr><td>do.call.without {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Call a Function, Omitting Certain Arguments
+</h2>
+
+<h3>Description</h3>
+
+<p>Call a specified function, omitting some arguments which are
+inappropriate to the function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  do.call.without(fun, ..., avoid, envir=parent.frame())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>The function to be called. A function name, a
+character string giving the name of the function,
+or an expression that yields a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>avoid</code></td>
+<td>
+
+<p>Vector of character strings, giving the names of arguments that should
+<em>not</em> be passed to <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+
+<p>An environment within which to evaluate the call,
+if any entries of <code>arglist</code> are quoted expressions.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a simple mechanism for preventing some arguments from being 
+passed in a function call. The arguments <code>...</code> are collected in
+a list. A argument is omitted if its name exactly matches
+one of the strings in <code>avoid</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return value of <code>fun</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/do.call.matched.html">do.call.matched</a></code> for a more complicated and flexible call.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  do.call.without(paste, 1, 2, z=3, w=4, avoid="z")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

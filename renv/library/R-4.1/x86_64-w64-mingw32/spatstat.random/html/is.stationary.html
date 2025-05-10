@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Recognise Stationary and Poisson Point Process Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for is.stationary {spatstat.random}"><tr><td>is.stationary {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Recognise Stationary and Poisson Point Process Models
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model (either a model that has been fitted to
+data, or a model specified by its parameters), 
+determine whether the model is a stationary point process,
+and whether it is a Poisson point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.stationary(x)
+## S3 method for class 'rmhmodel'
+is.stationary(x)
+
+is.poisson(x)
+## S3 method for class 'rmhmodel'
+is.poisson(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A fitted spatial point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code>,
+<code>"lppm"</code>, <code>"dppm"</code> or <code>"slrm"</code>)
+or a specification of a Gibbs point process model
+(object of class <code>"rmhmodel"</code>)
+or a similar object.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>x</code> represents a fitted spatial point process model
+or a similar object.
+</p>
+<p><code>is.stationary(x)</code> returns <code>TRUE</code> if <code>x</code> represents
+a stationary point process, and <code>FALSE</code> if not.
+</p>
+<p><code>is.poisson(x)</code> returns <code>TRUE</code> if <code>x</code> represents
+a Poisson point process, and <code>FALSE</code> if not.
+</p>
+<p>The functions <code>is.stationary</code> and <code>is.poisson</code> are generic,
+with methods for the classes <code>"ppm"</code> (Gibbs point process models),
+<code>"kppm"</code> (cluster or Cox point process models),
+<code>"slrm"</code> (spatial logistic regression models) and
+<code>"rmhmodel"</code> (model specifications for the
+Metropolis-Hastings algorithm).
+Additionally <code>is.stationary</code> has a method for
+classes <code>"detpointprocfamily"</code> and <code>"dppm"</code>
+(both determinantal point processes) and
+<code>is.poisson</code> has a method for 
+class <code>"interact"</code> (interaction structures for Gibbs models). 
+</p>
+<p><code>is.poisson.kppm</code> will return <code>FALSE</code>, unless
+the model <code>x</code> is degenerate:
+either <code>x</code> has zero intensity so that its realisations are empty
+with probability 1, or it is a log-Gaussian Cox process
+where the log intensity has zero variance.
+</p>
+<p><code>is.poisson.slrm</code> will always return <code>TRUE</code>,
+by convention.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.marked.html">is.marked</a></code> to determine whether a model is a marked
+point process. 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  m &lt;- rmhmodel(cif='strauss', par=list(beta=10, gamma=0.1, r=1))
+  is.stationary(m)
+  is.poisson(m)
+  is.poisson(rmhmodel(cif='strauss', par=list(beta=10, gamma=1, r=1)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

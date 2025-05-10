@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scatterplot Matrix for Pixel Images on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairs.linim {spatstat.linnet}"><tr><td>pairs.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Scatterplot Matrix for Pixel Images on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Produces a scatterplot matrix of the pixel values
+in two or more pixel images on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linim'
+pairs(..., plot=TRUE, eps=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, each of which is either
+a pixel image on a linear network (object of class <code>"linim"</code>),
+a pixel image (object of class <code>"im"</code>),
+or a named argument to be passed to <code><a href="../../graphics/html/pairs.html">pairs.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the scatterplot matrix is plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Optional. Spacing between sample points on the network.
+A positive number.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../graphics/html/pairs.html">pairs</a></code>
+for the class of pixel images on a linear network.
+</p>
+<p>It produces a square array of plot panels, in which each panel shows
+a scatterplot of the pixel values of one image against the
+corresponding pixel values of another image.
+</p>
+<p>At least two of the arguments <code>...</code> should be a pixel image
+on a linear network (object of class <code>"linim"</code>).
+They should be defined on the <b>same</b> linear network,
+but may have different pixel resolutions.
+</p>
+<p>First the pixel values of each image are extracted at a
+set of sample points equally-spaced across the network.
+Then <code><a href="../../graphics/html/pairs.html">pairs.default</a></code> is called to 
+plot the scatterplot matrix.
+</p>
+<p>Any arguments in <code>...</code> which are not pixel images will be
+passed to <code><a href="../../graphics/html/pairs.html">pairs.default</a></code> to control the plot.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Invisible. A <code>data.frame</code> containing the
+corresponding pixel values for each image.
+The return value also belongs to the class <code>plotpairsim</code> which has
+a plot method, so that it can be re-plotted.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/pairs.html">pairs.default</a></code>,
+<code><a href="../../spatstat.explore/help/pairs.im.html">pairs.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- lppm(chicago ~ marks * (x+y))
+  lam &lt;- predict(fit)
+  do.call(pairs, lam)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

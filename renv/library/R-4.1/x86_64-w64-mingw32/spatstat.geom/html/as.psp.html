@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data To Class psp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.psp {spatstat.geom}"><tr><td>as.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data To Class psp</h2>
+
+<h3>Description</h3>
+
+<p>Tries to coerce any reasonable kind of data object to a line segment pattern
+(an object of class <code>"psp"</code>)
+for use by the <span class="pkg">spatstat</span> package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.psp(x, ..., from=NULL, to=NULL)
+
+  ## S3 method for class 'psp'
+as.psp(x, ..., check=FALSE, fatal=TRUE)
+
+  ## S3 method for class 'data.frame'
+as.psp(x, ..., window=NULL, marks=NULL,
+      check=spatstat.options("checksegments"), fatal=TRUE)
+
+  ## S3 method for class 'matrix'
+as.psp(x, ..., window=NULL, marks=NULL,
+       check=spatstat.options("checksegments"), fatal=TRUE)
+
+  ## Default S3 method:
+as.psp(x, ..., window=NULL, marks=NULL,
+       check=spatstat.options("checksegments"), fatal=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Data which will be converted into a line segment pattern</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+<p>Data which define a window for the pattern.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>marks</code></td>
+<td>
+<p>(Optional) vector or data frame of marks for the pattern</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value indicating whether to check the validity of the data,
+e.g. to check that the line segments lie inside the window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+<p>Logical value. See Details.</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+<p>Point patterns (object of class <code>"ppp"</code>)
+containing the first and second endpoints (respectively) of each
+segment. Incompatible with <code>x</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Converts the dataset <code>x</code> to a line segment pattern
+(an object of class <code>"psp"</code>; see <code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code> for
+an overview).
+</p>
+<p>This function is normally used to convert an existing line segment pattern
+dataset, stored in another format, to the <code>"psp"</code> format.
+To create a new point pattern from raw data such as <i>x,y</i>
+coordinates, it is normally easier to use the creator function
+<code><a href="../../spatstat.geom/help/psp.html">psp</a></code>.
+</p>
+<p>The dataset <code>x</code> may be:
+</p>
+
+<ul>
+<li>
+<p>an object of class <code>"psp"</code>  
+</p>
+</li>
+<li>
+<p>a data frame with at least 4 columns
+</p>
+</li>
+<li><p> a structure (list) with elements named  <code>x0, y0,
+    x1, y1</code> or elements named <code>xmid, ymid, length, angle</code>
+and possibly a fifth element named <code>marks</code>
+</p>
+</li></ul>
+
+<p>If <code>x</code> is a data frame the interpretation of its columns is
+as follows:
+</p>
+
+<ul>
+<li>
+<p>If there are columns named <code>x0, y0, x1, y1</code> then these
+will be interpreted as the coordinates of the endpoints of
+the segments and used to form the <code>ends</code> component of
+the <code>psp</code> object to be returned.
+</p>
+</li>
+<li>
+<p>If there are columns named <code>xmid, ymid, length, angle</code>
+then these will be interpreted as the coordinates of the segment
+midpoints, the lengths of the segments, and the orientations
+of the segments in radians and used to form the <code>ends</code>
+component of the <code>psp</code> object to be returned.
+</p>
+</li>
+<li>
+<p>If there is a column named <code>marks</code> then this will
+be interpreted as the marks of the pattern provided that
+the argument <code>marks</code> of this function is <code>NULL</code>.
+If argument <code>marks</code> is not <code>NULL</code> then the value
+of this argument is taken to be the marks of the pattern and
+the column named <code>marks</code> is ignored (with a warning).
+In either case the column named marks is deleted and omitted
+from further consideration.
+</p>
+</li>
+<li>
+<p>If there is no column named <code>marks</code> and if the <code>marks</code>
+argument of this function is <code>NULL</code>, and if after
+interpreting 4 columns of <code>x</code> as determining the <code>ends</code>
+component of the <code>psp</code> object to be returned, there remain
+other columns of <code>x</code>, then these remaining columns will be
+taken to form a data frame of marks for the <code>psp</code> object
+to be returned.
+</p>
+</li></ul>
+
+<p>If <code>x</code> is a structure (list) with elements named <code>x0,
+  y0, x1, y1, marks</code> or <code>xmid, ymid, length, angle, marks</code>,
+then the element named <code>marks</code> will be interpreted as the
+marks of the pattern provide that the argument <code>marks</code> of
+this function is <code>NULL</code>.  If this argument is non-<code>NULL</code>
+then it is interpreted as the marks of the pattern and the element
+<code>marks</code> of <code>x</code> is ignored &mdash; with a warning.
+</p>
+<p>Alternatively, you may specify two point patterns
+<code>from</code> and <code>to</code> containing the first and second endpoints
+of the line segments.
+</p>
+<p>The argument <code>window</code> is converted to a window object
+by the function <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+<p>The argument <code>fatal</code> indicates what to do when
+the data cannot be converted to a line segment pattern.
+If <code>fatal=TRUE</code>, a fatal error
+will be generated; if <code>fatal=FALSE</code>, the
+value <code>NULL</code> is returned.
+</p>
+<p>The function <code>as.psp</code> is generic, with methods for the
+classes <code>"psp"</code>, <code>"data.frame"</code>, <code>"matrix"</code>
+and a default method.
+</p>
+<p>Point pattern datasets can also be created by the function
+<code><a href="../../spatstat.geom/help/psp.html">psp</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"psp"</code> (see <code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>)
+describing the line segment pattern and its window of observation.
+The value <code>NULL</code> may also be returned; see Details.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>If only a proper subset of the names <code>x0,y0,x1,y1</code> or
+<code>xmid,ymid,length,angle</code> appear amongst the names of the
+columns of <code>x</code> where <code>x</code> is a data frame, then these
+special names are ignored.
+</p>
+<p>For example if the names of the columns were
+<code>xmid,ymid,length,degrees</code>, then these columns would be
+interpreted as if the represented <code>x0,y0,x1,y1</code> in that order.
+</p>
+<p>Whether it gets used or not, column named <code>marks</code> is
+<em>always</em> removed from <code>x</code> before any attempt to form the
+<code>ends</code> component of the <code>psp</code> object that is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.html">psp</a></code>,
+<code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.geom/help/edges.html">edges</a></code> for extracting the edges of a polygonal window
+as a <code>"psp"</code> object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   mat &lt;- matrix(runif(40), ncol=4)
+   mx &lt;- data.frame(v1=sample(1:4,10,TRUE),
+                    v2=factor(sample(letters[1:4],10,TRUE),levels=letters[1:4]))
+   a &lt;- as.psp(mat, window=owin(),marks=mx)
+   mat &lt;- cbind(as.data.frame(mat),mx)
+   b &lt;- as.psp(mat, window=owin()) # a and b are identical.
+   stuff &lt;- list(xmid=runif(10),
+                 ymid=runif(10),
+                 length=rep(0.1, 10),
+                 angle=runif(10, 0, 2 * pi))
+   a &lt;- as.psp(stuff, window=owin())
+   b &lt;- as.psp(from=runifrect(10), to=runifrect(10))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

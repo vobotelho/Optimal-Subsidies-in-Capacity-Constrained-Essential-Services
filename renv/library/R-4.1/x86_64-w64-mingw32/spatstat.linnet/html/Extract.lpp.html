@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Subset of Point Pattern on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.lpp {spatstat.linnet}"><tr><td>Extract.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Subset of Point Pattern on Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+x[i, j, drop=FALSE, ..., snip=TRUE]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Subset index. A valid subset index in the usual <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> sense,
+indicating which points should be retained.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+
+<p>Spatial window
+(object of class <code>"owin"</code>) delineating the region that should
+be retained.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating whether to remove unused levels
+of the marks, if the marks are a factor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>snip</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), segments of the network
+which cross the boundary of the window <code>j</code> will be cut by the boundary.
+If <code>FALSE</code>, these segments will be deleted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function extracts a designated subset of a point pattern
+on a linear network.
+</p>
+<p>The function <code>[.lpp</code> is a method for <code><a href="../../base/html/Extract.html">[</a></code> for the
+class <code>"lpp"</code>. It extracts a designated subset of a point pattern.
+The argument <code>i</code> should be a subset index in the usual <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> sense:
+either a numeric vector
+of positive indices (identifying the points to be retained),
+a numeric vector of negative indices (identifying the points
+to be deleted) or a logical vector of length equal to the number of
+points in the point pattern <code>x</code>. In the latter case, 
+the points <code>(x$x[i], x$y[i])</code> for which 
+<code>subset[i]=TRUE</code> will be retained, and the others
+will be deleted.
+</p>
+<p>The argument <code>j</code>, if present, should be a spatial window.
+The pattern inside the region will be retained.
+<em>Line segments that cross the boundary of the window
+are deleted</em> in the current implementation.
+</p>
+<p>The argument <code>drop</code> determines whether to remove
+unused levels of a factor, if the point pattern is multitype
+(i.e. the marks are a factor) or if the marks are a data frame or hyperframe
+in which some of the columns are factors.
+</p>
+<p>The argument <code>snip</code> specifies what to do with segments of
+the network which cross the boundary of the window <code>j</code>. 
+If <code>snip=FALSE</code>, such segments are simply deleted.  
+If <code>snip=TRUE</code> (the default), such segments are cut into pieces by the
+boundary of <code>j</code>, and those pieces which lie inside the window
+<code>ji</code> are included in the resulting network. 
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/unmark.html">unmark</a></code> to remove all the marks in a marked point
+pattern, and <code><a href="../../spatstat.linnet/help/subset.lpp.html">subset.lpp</a></code> to remove only some columns of marks. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern on a linear network (of class <code>"lpp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/subset.lpp.html">subset.lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # Chicago crimes data - remove cases of assault
+  chicago[marks(chicago) != "assault"]
+  # equivalent to subset(chicago, select=-assault)
+
+  # spatial window subset
+  B &lt;- owin(c(350, 700), c(600, 1000))
+  plot(chicago)
+  plot(B, add=TRUE, lty=2, border="red", lwd=3)
+  op &lt;- par(mfrow=c(1,2), mar=0.6+c(0,0,1,0))
+  plot(B, main="chicago[B, snip=FALSE]", lty=3, border="red")
+  plot(chicago[, B, snip=FALSE], add=TRUE)
+  plot(B, main="chicago[B, snip=TRUE]", lty=3, border="red")
+  plot(chicago[, B, snip=TRUE], add=TRUE)
+  par(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Tessellation on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.lintess {spatstat.linnet}"><tr><td>plot.lintess {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Tessellation on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot a tessellation or division of a linear network into tiles.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lintess'
+plot(x, ...,
+        main, add = FALSE,
+        style = c("colour", "width", "image"),
+        col = NULL, values=marks(x),
+        ribbon=TRUE, ribargs=list(), multiplot=TRUE, do.plot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Tessellation on a linear network
+(object of class <code>"lintess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/segments.html">segments</a></code> (if
+<code>style="segments"</code>)
+or to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> (if <code>style="image"</code>)
+to control the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Optional main title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether the plot is to be added to an
+existing plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the type of plot.
+If <code>style="colour"</code> (the default), tiles are plotted
+using <code><a href="../../graphics/help/segments.html">segments</a></code> using colours to distinguish
+the different tiles or values. If <code>style="width"</code>,
+tiles are plotted using <code><a href="../../graphics/help/segments.html">segments</a></code>
+using different segment widths to distinguish
+the different tiles or values. If <code>style="image"</code>, the
+tessellation is converted to a pixel image and plotted by
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>Vector of colours, or colour map, determining the colours used
+to plot the different tiles of the tessellation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+
+<p>Values associated with each tile of the tessellation,
+used to determine the colours or widths.
+A vector with one entry for each tile, or a data frame
+with one row for each tile.
+The default is <code>marks(x)</code>, or if that is null, then
+<code>tilenames(x)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribbon</code></td>
+<td>
+
+<p>Logical value specifying whether to print an explanatory legend
+for the colour map or width map.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribargs</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.colourmap.html">plot.colourmap</a></code> controlling the
+display of the colour map legend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiplot</code></td>
+<td>
+
+<p>Logical value determining what should happen if <code>marks(x)</code>
+has more than one column. If <code>multiplot=TRUE</code> (the default),
+several plot panels will be generated, one panel for each column
+of marks. If <code>multiplot=FALSE</code>, the first column of marks will
+be selected.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value specifying whether to actually generate the plot
+(<code>do.plot=TRUE</code>, the default) or just to compute the colour map
+and return it (<code>do.plot=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tessellation on a linear network <code>L</code> is a partition of the
+network into non-overlapping pieces (tiles). Each tile consists of one
+or more line segments which are subsets of the line segments making up
+the network. A tile can consist of several disjoint pieces.
+</p>
+<p>This function plots the tessellation on the current device.
+It is a method for the generic <code>plot</code>.
+</p>
+<p>If <code>style="colour"</code>, each tile is plotted using
+<code><a href="../../graphics/help/segments.html">segments</a></code>, drawing segments of different colours. 
+</p>
+<p>If <code>style="width"</code>, each tile is plotted using
+<code><a href="../../graphics/help/segments.html">segments</a></code>, drawing segments of different widths.
+</p>
+<p>If <code>style="image"</code>, the tessellation is converted to a pixel
+image, and plotted as a colour image using <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+<p>The colours or widths are determined by the <code>values</code>
+associated with each tile of the tessellation. If <code>values</code> is
+missing, the default is to use the marks of the tessellation, or if
+there are no marks, the names of the tiles.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisible) colour map.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(7, simplenet)
+   Z &lt;- divide.linnet(X)
+   plot(Z, main="tessellation on network")
+   points(as.ppp(X))
+   plot(Z, main="tessellation on network",
+           values=1:nobjects(Z), style="w")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

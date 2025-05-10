@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map Using Rectangular Distance Metric</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rectdistmap {spatstat.geom}"><tr><td>rectdistmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Distance Map Using Rectangular Distance Metric
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distance map of a spatial region
+based on the rectangular distance metric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rectdistmap(X, asp = 1, npasses=1, verbose=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>asp</code></td>
+<td>
+
+<p>Aspect ratio for the metric.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>npasses</code></td>
+<td>
+
+<p>Experimental. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print trace information.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the distance map of the
+spatial region <code>X</code> using the rectangular distance metric
+with aspect ratio <code>asp</code>. This metric is defined so that
+the set of all points lying at most 1 unit away from the origin
+(according to the metric) form a rectangle of width 1
+and height <code>asp</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  V &lt;- letterR
+  Frame(V) &lt;- grow.rectangle(Frame(V), 0.5)
+  plot(rectdistmap(V))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

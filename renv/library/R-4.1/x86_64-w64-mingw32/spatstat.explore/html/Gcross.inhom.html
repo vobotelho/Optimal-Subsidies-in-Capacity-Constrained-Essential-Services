@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Multitype G Cross Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Gcross.inhom {spatstat.explore}"><tr><td>Gcross.inhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Multitype G Cross Function
+</h2>
+
+<h3>Description</h3>
+
+<p>For a multitype point pattern, 
+estimate the inhomogeneous version of the cross <i>G</i> function,
+which is the distribution of the distance
+from a point of type <i>i</i>
+to the nearest point of type <i>j</i>,
+adjusted for spatially varying intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   Gcross.inhom(X, i, j,
+              lambda = NULL, lambdaI = NULL, lambdaJ = NULL,
+              lambdamin = NULL,
+              ...,
+              r = NULL,
+              ReferenceMeasureMarkSetI = NULL,
+              ratio = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the inhomogeneous cross type <i>G</i> function
+<i>Gij(r)</i> will be computed.
+It must be a multitype point pattern (a marked point pattern
+whose marks are a factor). See under Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>The type (mark value)
+of the points in <code>X</code> from which distances are measured.
+A character string (or something that will be converted to a
+character string).
+Defaults to the first level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+<p>The type (mark value)
+of the points in <code>X</code> to which distances are measured.
+A character string (or something that will be converted to a
+character string).
+Defaults to the second level of <code>marks(X)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity of the point process.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the points in <code>X</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaI</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity of the sub-process of
+points of type <code>i</code>.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the type <code>i</code> points in <code>X</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaJ</code></td>
+<td>
+
+<p>Optional.
+Values of the the estimated intensity of the sub-process of
+points of type <code>j</code>.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the type <code>j</code> points in <code>X</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdamin</code></td>
+<td>
+
+<p>Optional. The minimum possible value of the intensity
+over the spatial domain. A positive numerical value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to control
+the pixel resolution for the computation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>vector of values for the argument <i>r</i> at which
+the inhomogeneous <i>G</i> function
+should be evaluated. Not normally given by the user;
+there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ReferenceMeasureMarkSetI</code></td>
+<td>
+
+<p>Optional. The total measure of the mark set. A positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical value indicating whether to save ratio information.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a generalisation of the function <code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>
+to include an adjustment for spatially inhomogeneous intensity,
+in a manner similar to the function <code><a href="../../spatstat.explore/help/Ginhom.html">Ginhom</a></code>.
+</p>
+<p>The argument <code>lambdaI</code> supplies the values
+of the intensity of the sub-process of points of type <code>i</code>.
+It may be either
+</p>
+
+<dl>
+<dt>a pixel image</dt><dd><p>(object of class <code>"im"</code>) which
+gives the values of the type <code>i</code> intensity
+at all locations in the window containing <code>X</code>;
+</p>
+</dd>
+<dt>a numeric vector</dt><dd><p>containing the values of the
+type <code>i</code> intensity evaluated only
+at the data points of type <code>i</code>. The length of this vector
+must equal the number of type <code>i</code> points in <code>X</code>.
+</p>
+</dd>
+<dt>a function</dt><dd>
+<p>of the form <code>function(x,y)</code>
+which can be evaluated to give values of the intensity at
+any locations.
+</p>
+</dd>
+<dt>a fitted point process model</dt><dd>
+<p>(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>)
+whose fitted <em>trend</em> can be used as the fitted intensity.
+(If <code>update=TRUE</code> the model will first be refitted to the
+data <code>X</code> before the trend is computed.)
+</p>
+</dd>
+<dt>omitted:</dt><dd>
+<p>if <code>lambdaI</code> is omitted then it will be estimated
+using a leave-one-out kernel smoother. 
+</p>
+</dd>
+</dl>
+
+<p>If <code>lambdaI</code> is omitted, then it will be estimated using
+a &lsquo;leave-one-out&rsquo; kernel smoother.
+</p>
+<p>Similarly the argument <code>lambdaJ</code> should contain
+estimated values of the intensity of the points of type <i>j</i>.
+It may be either a pixel image, a numeric vector of length equal
+to the number of points in <code>X</code>, a function, or omitted.
+</p>
+<p>The argument <code>r</code> is the vector of values for the
+distance <i>r</i> at which <i>Gij(r)</i> should be evaluated. 
+The values of <i>r</i> must be increasing nonnegative numbers
+and the maximum <i>r</i> value must not exceed the radius of the
+largest disc contained in the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>)
+containing estimates of the inhomogeneous cross type <i>G</i> function.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The argument <code>i</code> is interpreted as
+a level of the factor <code>X$marks</code>. It is converted to a character
+string if it is not already a character string.
+The value <code>i=1</code> does <b>not</b>
+refer to the first level of the factor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cronie, O. and Van Lieshout, M.N.M. (2015)
+Summary statistics for inhomogeneous marked point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+DOI: 10.1007/s10463-015-0515-z
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>,
+<code><a href="../../spatstat.explore/help/Ginhom.html">Ginhom</a></code>,
+<code><a href="../../spatstat.explore/help/Gcross.inhom.html">Gcross.inhom</a></code>,
+<code><a href="../../spatstat.explore/help/Gmulti.inhom.html">Gmulti.inhom</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rescale(amacrine)
+  if(interactive() &amp;&amp; require(spatstat.model)) {
+    ## how to do it normally
+    mod &lt;- ppm(X ~ marks * x)
+    lam &lt;- fitted(mod, dataonly=TRUE)
+    lmin &lt;- min(predict(mod)[["off"]]) * 0.9
+  } else {
+    ## for package testing 
+    lam &lt;- intensity(X)[as.integer(marks(X))]
+    lmin &lt;- intensity(X)[2] * 0.9
+  }
+  GC &lt;- Gcross.inhom(X, "on", "off", lambda=lam, lambdamin=lmin)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

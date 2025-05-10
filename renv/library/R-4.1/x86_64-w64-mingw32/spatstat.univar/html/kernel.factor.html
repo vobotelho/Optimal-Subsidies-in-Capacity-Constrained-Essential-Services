@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scale factor for density kernel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kernel.factor {spatstat.univar}"><tr><td>kernel.factor {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Scale factor for density kernel</h2>
+
+<h3>Description</h3>
+
+<p>Returns a scale factor for the kernels used in density estimation
+for numerical data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  kernel.factor(kernel = "gaussian")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>String name of the kernel.
+Options are
+<code>"gaussian"</code>, <code>"rectangular"</code>,
+<code>"triangular"</code>,
+<code>"epanechnikov"</code>,
+<code>"biweight"</code>,
+<code>"cosine"</code> and <code>"optcosine"</code>.
+(Partial matching is used).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Kernel estimation of a probability density in one dimension
+is performed by <code><a href="../../stats/help/density.default.html">density.default</a></code>
+using a kernel function selected from the list above.
+</p>
+<p>This function computes a scale constant for the kernel.
+For the Gaussian kernel, this constant is equal to 1.
+Otherwise, the constant <i>c</i> is such that the kernel
+with standard deviation <i>1</i> is supported on the interval
+<i>[-c,c]</i>. 
+</p>
+<p>For more information about these kernels,
+see <code><a href="../../stats/help/density.default.html">density.default</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Martin Hazelton <a href="mailto:Martin.Hazelton@otago.ac.nz">Martin.Hazelton@otago.ac.nz</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/density.default.html">density.default</a></code>,
+<code><a href="../../spatstat.univar/help/dkernel.html">dkernel</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.moment.html">kernel.moment</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.squint.html">kernel.squint</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   kernel.factor("rect")
+   # bandwidth for Epanechnikov kernel with half-width h=1
+   h &lt;- 1
+   bw &lt;- h/kernel.factor("epa")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

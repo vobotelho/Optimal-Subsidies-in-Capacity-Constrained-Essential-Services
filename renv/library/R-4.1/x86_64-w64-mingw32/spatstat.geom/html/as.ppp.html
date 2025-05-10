@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data To Class ppp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.ppp {spatstat.geom}"><tr><td>as.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data To Class ppp</h2>
+
+<h3>Description</h3>
+
+<p>Tries to coerce any reasonable kind of data to a spatial point pattern
+(an object of class <code>"ppp"</code>)
+for use by the <span class="pkg">spatstat</span> package).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.ppp(X, ..., fatal=TRUE)
+
+  ## S3 method for class 'ppp'
+as.ppp(X, ..., fatal=TRUE)
+
+  ## S3 method for class 'psp'
+as.ppp(X, ..., fatal=TRUE)
+
+  ## S3 method for class 'quad'
+as.ppp(X, ..., fatal=TRUE)
+
+  ## S3 method for class 'matrix'
+as.ppp(X, W=NULL, ..., fatal=TRUE)
+
+  ## S3 method for class 'data.frame'
+as.ppp(X, W=NULL, ..., fatal=TRUE)
+
+  ## Default S3 method:
+as.ppp(X, W=NULL, ..., fatal=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Data which will be converted into a point pattern</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Data which define a window for the pattern,
+when <code>X</code> does not contain a window.
+(Ignored if <code>X</code> contains window information.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value specifying what to do if the
+data cannot be converted.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Converts the dataset <code>X</code> to a point pattern
+(an object of class <code>"ppp"</code>; see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for
+an overview).
+</p>
+<p>This function is normally used to convert an existing point pattern
+dataset, stored in another format, to the <code>"ppp"</code> format.
+To create a new point pattern from raw data such as <i>x,y</i>
+coordinates, it is normally easier to use the creator function
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>.
+</p>
+<p>The function <code>as.ppp</code> is generic, with methods for the
+classes <code>"ppp"</code>, <code>"psp"</code>, <code>"quad"</code>, <code>"matrix"</code>,
+<code>"data.frame"</code> and a default method.
+</p>
+<p>The dataset <code>X</code> may be:
+</p>
+
+<ul>
+<li>
+<p>an object of class <code>"ppp"</code>  
+</p>
+</li>
+<li>
+<p>an object of class <code>"psp"</code>
+</p>
+</li>
+<li>
+<p>a point pattern object created by the <span class="pkg">spatial</span> library
+</p>
+</li>
+<li>
+<p>an object of class <code>"quad"</code> representing a quadrature scheme
+(see <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>)
+</p>
+</li>
+<li>
+<p>a matrix or data frame with at least two columns
+</p>
+</li>
+<li>
+<p>a structure with entries <code>x</code>, <code>y</code> which are numeric vectors
+of equal length
+</p>
+</li>
+<li>
+<p>a numeric vector of length 2, interpreted as the coordinates
+of a single point.
+</p>
+</li></ul>
+
+<p>In the last three cases, we need the second argument <code>W</code>
+which is converted to a window object
+by the function <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+In the first four cases, <code>W</code> will be ignored.
+</p>
+<p>If <code>X</code> is a line segment pattern (an object of class <code>psp</code>)
+the point pattern returned consists of the endpoints of the segments.
+If <code>X</code> is marked then the point pattern returned will also be
+marked, the mark associated with a point being the mark of the segment
+of which that point was an endpoint.
+</p>
+<p>If <code>X</code> is a matrix or data frame, the first and second columns will
+be interpreted as the <i>x</i> and <i>y</i> coordinates respectively.
+Any additional columns will be interpreted as marks.
+</p>
+<p>The argument <code>fatal</code> indicates what to do when 
+<code>W</code> is missing and <code>X</code> contains no
+information about the window. If <code>fatal=TRUE</code>, a fatal error
+will be generated; if <code>fatal=FALSE</code>, the
+value <code>NULL</code> is returned.
+</p>
+<p>In the <span class="pkg">spatial</span> library, a point pattern is represented
+in either of the following formats:
+</p>
+
+<ul>
+<li>
+<p>(in <span class="pkg">spatial</span> versions 1 to 6)
+a structure with entries <code>x</code>, <code>y</code>
+<code>xl</code>, <code>xu</code>, <code>yl</code>, <code>yu</code>
+</p>
+</li>
+<li>
+<p>(in <span class="pkg">spatial</span> version 7)
+a structure with entries
+<code>x</code>, <code>y</code> and <code>area</code>,
+where <code>area</code> is a structure with entries
+<code>xl</code>, <code>xu</code>, <code>yl</code>, <code>yu</code>
+</p>
+</li></ul>
+
+<p>where <code>x</code> and <code>y</code> are vectors of equal length
+giving the point coordinates, and <code>xl</code>, <code>xu</code>, <code>yl</code>,
+<code>yu</code> are numbers giving the dimensions of a rectangular window.
+</p>
+<p>Point pattern datasets can also be created by the function
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>.
+</p>
+<p>Methods for <code>as.ppp</code> exist for some other classes of data;
+they are listed by <code>methods(as.ppp)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"ppp"</code> (see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>)
+describing the point pattern and its window of observation.
+The value <code>NULL</code> may also be returned; see Details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>, <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>, <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>.
+</p>
+<p>Methods for <code>as.ppp</code> exist for some other classes of data;
+they are listed by <code>methods(as.ppp)</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ xy &lt;- matrix(runif(40), ncol=2)
+ pp &lt;- as.ppp(xy, c(0,1,0,1))
+
+ # Venables-Ripley format
+ # check for 'spatial' package
+ spatialpath &lt;- system.file(package="spatial")
+ if(nchar(spatialpath) &gt; 0) {
+   require(spatial)
+   towns &lt;- ppinit("towns.dat")
+   pp &lt;- as.ppp(towns) # converted to our format
+   detach(package:spatial)
+ }
+
+ xyzt &lt;- matrix(runif(40), ncol=4)
+ Z &lt;- as.ppp(xyzt, square(1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K-function or Pair Correlation Function of a Determinantal...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Kmodel.dppm {spatstat.model}"><tr><td>Kmodel.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+K-function or Pair Correlation Function of a
+Determinantal Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Returns the theoretical <i>K</i>-function
+or theoretical pair correlation function of a determinantal point
+process model as a function of one argument <i>r</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'dppm'
+Kmodel(model, ...)
+
+   ## S3 method for class 'dppm'
+pcfmodel(model, ...)
+
+   ## S3 method for class 'detpointprocfamily'
+Kmodel(model, ...)
+
+   ## S3 method for class 'detpointprocfamily'
+pcfmodel(model, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>Model of class <code>"detpointprocfamily"</code> or <code>"dppm"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored (not quite true &ndash; there is some undocumented internal use)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with one numeric argument <code>r</code>,
+that can be used to evaluate the theoretical <i>K</i>-function or
+pair correlation function of the model at distances <code>r</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  model &lt;- dppMatern(lambda=100, alpha=.01, nu=1, d=2)
+  KMatern &lt;- Kmodel(model)
+  pcfMatern &lt;- pcfmodel(model)
+  plot(KMatern, xlim = c(0,0.05))
+  plot(pcfMatern, xlim = c(0,0.05))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

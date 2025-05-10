@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Marks of a Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for marks.linnet {spatstat.linnet}"><tr><td>marks.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Marks of a Network</h2>
+
+<h3>Description</h3>
+
+<p>Extract or change the marks attached to
+vertices or segments of a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linnet'
+marks(x, of=c("segments", "vertices"), ...)           
+
+## S3 replacement method for class 'linnet'
+marks(x, of=c("segments", "vertices"), ...) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>of</code></td>
+<td>
+
+<p>Character string (partially matched)
+specifying whether the marks are attached
+to the vertices of the network (<code>of="vertices"</code>)
+or to the line segments of the network (<code>of="segments"</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Vector or data frame of mark values,
+or <code>NULL</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract or change the marks
+attached to the network <code>x</code>.
+They are methods for the generic functions
+<code><a href="../../spatstat.geom/help/marks.html">marks</a></code> and 
+<code><a href="../../spatstat.geom/help/marks+3C-.html">marks&lt;-</a></code>
+for the class <code>"linnet"</code> of linear networks.
+</p>
+<p>A linear network may include a set of marks attached to the line segments,
+and a separate set of marks attached to the vertices.
+Each set of marks can be a vector, a factor, or a data frame.
+</p>
+<p>The expression <code>marks(x, of)</code> extracts the marks from <code>x</code>.
+The assignment <code>marks(x, of) &lt;- value</code> assigns new marks to the
+dataset <code>x</code>, and updates the dataset <code>x</code> in the current
+environment. 
+The argument <code>of</code> specifies whether we are referring to
+the segments or the vertices.
+</p>
+<p>For the assignment <code>marks(x, "segments") &lt;- value</code>, the <code>value</code>
+should be a vector or factor of length equal to the number of
+segments in <code>x</code>, or a data frame with as many rows
+as there are segments in <code>x</code>. 
+If <code>value</code> is a single value,
+or a data frame with one row, then it will be replicated
+so that the same marks will be attached to each segment.
+Similarly for <code>marks(x, "vertices") &lt;- value</code> the number of
+marks must match the number of vertices.
+</p>
+<p>To remove marks, use <code>marks(x, of) &lt;- NULL</code>.
+</p>
+<p>To extract the vertices (including their marks) as a point pattern,
+use <code>vertices(x)</code>. To extract the segments (including their
+marks) as a line segment pattern, use <code>as.psp(x)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>marks(x)</code>, the result is a vector, factor or data frame,
+containing the mark values attached to the vertices or the
+segments of <code>x</code>.
+If there are no marks, the result is <code>NULL</code>.
+</p>
+<p>For <code>marks(x) &lt;- value</code>, the result is the updated network
+<code>x</code> (with the side-effect that the dataset <code>x</code> is updated in
+the current environment).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>,
+<code><a href="../../spatstat.geom/help/marks.html">marks</a></code>,
+<code><a href="../../spatstat.geom/help/marks+3C-.html">marks&lt;-</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  L &lt;- simplenet
+  marks(L, "vertices") &lt;- letters[1:nvertices(L)]
+  marks(L, "segments") &lt;- runif(nsegments(L))
+  L
+  marks(L, "v")
+  marks(L, "s")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Which Side of Infinite Line a Point Falls On</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for whichhalfplane {spatstat.geom}"><tr><td>whichhalfplane {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Test Which Side of Infinite Line a Point Falls On
+</h2>
+
+<h3>Description</h3>
+
+<p>Given an infinite line
+and a spatial point location,
+determine which side of the line the point falls on.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+whichhalfplane(L, x, y = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Object of class <code>"infline"</code> specifying one or more
+infinite straight lines in two dimensions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Arguments acceptable to <code><a href="../../grDevices/help/xy.coords.html">xy.coords</a></code>
+specifying the locations of the points.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An infinite line <i>L</i> divides the two-dimensional plane into
+two half-planes. This function returns a matrix <code>M</code> of logical values
+in which <code>M[i,j] = TRUE</code> if the <code>j</code>th spatial point
+lies below or to the left of the <code>i</code>th line.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/infline.html">infline</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  L &lt;- infline(p=runif(3), theta=runif(3, max=2*pi))
+  X &lt;- runifrect(4)
+  whichhalfplane(L, X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

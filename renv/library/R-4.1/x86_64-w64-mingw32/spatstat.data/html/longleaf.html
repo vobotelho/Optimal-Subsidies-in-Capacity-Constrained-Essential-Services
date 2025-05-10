@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Longleaf Pines Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for longleaf {spatstat.data}"><tr><td>longleaf {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Longleaf Pines Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Locations and sizes of Longleaf pine trees.
+A marked point pattern.
+</p>
+<p>The data record the locations and diameters of 
+584 Longleaf pine (<em>Pinus palustris</em>) trees 
+in a 200 x 200 metre region in southern Georgia (USA).
+They were collected and analysed by Platt, Evans and Rathbun (1988).
+</p>
+<p>This is a marked point pattern; the mark associated with a tree is its
+diameter at breast height (<code>dbh</code>), a convenient measure of its size. 
+Several analyses have considered only the &ldquo;adult&rdquo; trees which
+are conventionally defined as those trees with <code>dbh</code>
+greater than or equal to 30 cm.
+</p>
+<p>The pattern is regarded as spatially inhomogeneous.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(longleaf)</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code>
+representing the point pattern of tree locations.
+Entries include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>x</code> </td><td style="text-align: left;"> Cartesian <i>x</i>-coordinate of tree in metres</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>y</code> </td><td style="text-align: left;"> Cartesian <i>y</i>-coordinate of tree in metres</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> diameter at breast height, in centimetres.
+  </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format of a
+point pattern object.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Platt, Evans and Rathbun (1988)</p>
+
+
+<h3>References</h3>
+
+<p>Platt, W. J., Evans, G. W. and Rathbun, S. L. (1988)
+The population dynamics of a long-lived Conifer (Pinus palustris).
+<em>The American Naturalist</em> <b>131</b>, 491&ndash;525.
+</p>
+<p>Rathbun, S. L. and Cressie, N. (1994)
+A space-time survival point process for a longleaf
+pine forest in southern Georgia.
+<em>Journal of the American Statistical Association</em> <b>89</b>, 1164&ndash;1173.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    data(longleaf)
+  if(require(spatstat.geom)) {
+    plot(longleaf)
+    plot(cut(longleaf, breaks=c(0,30,Inf), labels=c("Sapling","Adult")))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

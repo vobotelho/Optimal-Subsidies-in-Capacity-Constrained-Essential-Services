@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Boundary-corrected Kernel Density Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dkernelBC {spatstat.univar}"><tr><td>dkernelBC {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Boundary-corrected Kernel Density Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the boundary-corrected version of a smoothing kernel density
+function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dkernelBC(x, mean, sd = 1, kernel = "gaussian",
+       zerocor = c("none", "weighted", "convolution",
+                    "reflection", "bdrykern"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Numeric. Values of the function argument, at which the
+function should be evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mean</code></td>
+<td>
+
+<p>Numeric. The mean of the uncorrected kernel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sd</code></td>
+<td>
+
+<p>Numeric value. The standard deviation of the uncorrected kernel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>Character string giving the name of the kernel
+as recognised by <code><a href="../help/match.kernel.html">match.kernel</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zerocor</code></td>
+<td>
+
+<p>String (partially matched) specifying a correction for the boundary effect
+bias at <i>r=0</i> when estimating a density on the positive
+half line. Possible values are
+<code>"none"</code>, <code>"weighted"</code>, <code>"convolution"</code>, <code>"reflection"</code>,
+and <code>"bdrykern"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The kernel density function identified by <code>kernel</code>
+with standard deviation <code>sd</code> and mean <code>mean</code>
+will be computed, and truncated onto the positive half-line.
+The boundary correction specified by <code>zerocor</code> will then
+be applied. The result is the vector of corrected density values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric value or numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/densityBC.html">densityBC</a></code> to compute a density estimate using
+the boundary-corrected kernel.
+</p>
+<p><code><a href="../help/dkernel.html">dkernel</a></code> to compute the un-corrected
+kernel density function, and <code><a href="../../stats/help/density.default.html">density.default</a></code> to compute
+an uncorrected density estimate.
+</p>
+<p><code><a href="../help/match.kernel.html">match.kernel</a></code> for the list of
+recognised names of kernels.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  curve(dkernelBC(x, mean=1, zerocor="none"), to=5)
+  curve(dkernelBC(x, mean=1, zerocor="weighted"), to=5)
+  curve(dkernelBC(x, mean=1, zerocor="reflection"), to=5)
+  curve(dkernelBC(x, mean=1, zerocor="convolution"), to=5)
+  curve(dkernelBC(x, mean=1, zerocor="bdrykern"), to=5)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

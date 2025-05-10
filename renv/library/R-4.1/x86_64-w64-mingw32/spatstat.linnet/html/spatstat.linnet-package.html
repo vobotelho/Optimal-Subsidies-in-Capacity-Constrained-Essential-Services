@@ -1,0 +1,1315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The spatstat.linnet Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatstat.linnet-package {spatstat.linnet}"><tr><td>spatstat.linnet-package {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The spatstat.linnet Package</h2>
+
+<h3>Description</h3>
+
+<p>The <span class="pkg">spatstat.linnet</span> package
+belongs to the <span class="pkg">spatstat</span> family of packages.
+It contains the functionality
+for analysing spatial data on a linear network.
+</p>
+
+
+<h3>Details</h3>
+
+<p><span class="pkg">spatstat</span> is
+a family of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> packages
+for the statistical analysis of spatial data.
+Its main focus is the analysis of
+spatial patterns of points in two-dimensional space.
+</p>
+<p>The original <span class="pkg">spatstat</span> package
+has now been split into several
+sub-packages.
+</p>
+<p>This sub-package <span class="pkg">spatstat.linnet</span> contains the
+user-level functions from <span class="pkg">spatstat</span> 
+that are concerned with spatial data on a linear network.
+</p>
+
+
+<h3>Structure of the spatstat family</h3>
+
+  
+<p>The orginal <span class="pkg">spatstat</span> package grew to be very large.
+It has now been divided into several <b>sub-packages</b>:
+</p>
+
+<ul>
+<li> <p><span class="pkg">spatstat.utils</span> containing basic utilities
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.sparse</span> containing linear algebra utilities
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.data</span> containing datasets
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.univar</span> containing functions for estimating
+probability distributions of random variables
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.geom</span> containing geometrical objects
+and geometrical operations
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.explore</span> containing the main functionality
+for exploratory and non-parametric analysis of spatial data
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.model</span> containing the main functionality
+for statistical modelling and inference for spatial data
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.linnet</span> containing functions for
+spatial data on a linear network
+</p>
+</li>
+<li> <p><span class="pkg">spatstat</span>, which simply loads the other sub-packages
+listed above, and provides documentation.
+</p>
+</li></ul>
+
+<p>When you install <span class="pkg">spatstat</span>, these sub-packages are also
+installed. Then if you load the <span class="pkg">spatstat</span> package by typing
+<code>library(spatstat)</code>, the other sub-packages listed above will
+automatically be loaded or imported.
+For an overview of all the functions available in these sub-packages,
+see the help file for <span class="pkg">spatstat</span> in the <span class="pkg">spatstat</span> package,
+</p>
+<p>Additionally there are several <b>extension packages:</b>
+</p>
+
+<ul>
+<li> <p><span class="pkg">spatstat.gui</span> for interactive graphics
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.local</span> for local likelihood
+(including geographically weighted regression)
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.Knet</span> for additional, computationally efficient code
+for linear networks
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.sphere</span> (under development) for spatial data
+on a sphere, including spatial data on the earth's surface
+</p>
+</li></ul>
+
+<p>The extension packages must be installed separately
+and loaded explicitly if needed. They also have separate documentation.
+</p>
+
+
+<h3>Overview of <span class="pkg">spatstat.linnet</span></h3>
+
+<p>A linear network is a subset of the two-dimensional plane
+composed of straight line segments. It could represent a road network, for
+example. Our code requires that, if two segments intersect each other,
+then the intersection is a single point, and the intersection point is
+treated as a vertex of the network.
+</p>
+<p>The <span class="pkg">spatstat.linnet</span> package supports spatial data analysis on
+a linear network. The primary aim is to analyse spatial patterns of
+points on a network. The points could represent road accidents on a
+road network, for example.
+</p>
+<p>The <span class="pkg">spatstat.linnet</span> package provides code for handling
+</p>
+
+<ul>
+<li> <p><code>linear networks</code>
+</p>
+</li>
+<li> <p><code>point patterns on a linear network</code>
+</p>
+</li>
+<li> <p><code>pixel images on a linear network</code> (where the network is
+divided into small segments and a numerical value is assigned to each segment)
+</p>
+</li>
+<li> <p><code>functions on a linear network</code> (i.e. functions that are
+defined at every location along the network)
+</p>
+</li>
+<li> <p><code>tessellations of a linear network</code> (where the network is
+subdivided into disjoint subsets with different labels)
+</p>
+</li>
+<li> <p><code>point process models on a linear network</code>
+</p>
+</li></ul>
+
+<p>Here is a list of the main functionality
+provided in <span class="pkg">spatstat.linnet</span>.
+</p>
+<p><b>Linear networks</b>
+</p>
+<p>An object of class <code>"linnet"</code> represents a linear network.
+Examples of such objects include the dataset
+<code><a href="../../spatstat.data/help/simplenet.html">simplenet</a></code> provided in the package.
+</p>
+<p>Linear network objects can be created by the following functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code> </td><td style="text-align: left;"> create a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/as.linnet.html">as.linnet</a></code> </td><td style="text-align: left;"> convert other data to a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/delaunayNetwork.html">delaunayNetwork</a></code> </td><td style="text-align: left;"> network of Delaunay triangulation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/dirichletNetwork.html">dirichletNetwork</a></code> </td><td style="text-align: left;"> network of Dirichlet edges </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>Utilities for manipulating networks include:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/+5B.linnet.html">[.linnet</a></code></td><td style="text-align: left;">  extract subset of linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/clickjoin.html">clickjoin</a></code> </td><td style="text-align: left;"> interactively join vertices in network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">         <code><a href="../../spatstat.linnet/help/joinVertices.html">joinVertices</a></code> </td><td style="text-align: left;"> join existing vertices in a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/insertVertices.html">insertVertices</a></code> </td><td style="text-align: left;"> insert new vertices at positions
+    along network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/addVertices.html">addVertices</a></code> </td><td style="text-align: left;"> add new vertices, extending a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code> </td><td style="text-align: left;"> remove vertices or lines from a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/repairNetwork.html">repairNetwork</a></code> </td><td style="text-align: left;"> repair internal format </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/vertices.linnet.html">vertices.linnet</a></code> </td><td style="text-align: left;"> extract the vertices of network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/terminalvertices.html">terminalvertices</a></code> </td><td style="text-align: left;"> find terminal vertices of
+    network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/affine.linnet.html">affine.linnet</a></code> </td><td style="text-align: left;"> apply affine transformation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/shift.linnet.html">shift.linnet</a></code> </td><td style="text-align: left;"> apply vector translation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/rotate.linnet.html">rotate.linnet</a></code> </td><td style="text-align: left;"> apply rotation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/rescale.linnet.html">rescale.linnet</a></code> </td><td style="text-align: left;"> rescale the unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/scalardilate.linnet.html">scalardilate.linnet</a></code> </td><td style="text-align: left;"> physically rescale the
+    network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/diameter.linnet.html">diameter.linnet</a></code> </td><td style="text-align: left;"> diameter of linear  network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/is.connected.linnet.html">is.connected.linnet</a></code> </td><td style="text-align: left;">  determine whether network
+    is connected </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/lineardisc.html">lineardisc</a></code> </td><td style="text-align: left;"> compute disc of given radius in
+    network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/marks.linnet.html">marks.linnet</a></code> </td><td style="text-align: left;"> extract marks of a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/marks+3C-.linnet.html">marks&lt;-.linnet</a></code> </td><td style="text-align: left;"> assign marks to a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/plot.linnet.html">plot.linnet</a></code> </td><td style="text-align: left;"> plot a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/as.owin.linnet.html">as.owin.linnet</a></code> </td><td style="text-align: left;"> extract window containing network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/as.psp.linnet.html">as.psp.linnet</a></code> </td><td style="text-align: left;"> extract line segments comprising
+    network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nsegments.linnet.html">nsegments.linnet</a></code> </td><td style="text-align: left;"> number of segments in network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nvertices.linnet.html">nvertices.linnet</a></code> </td><td style="text-align: left;"> number of vertices in network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/pixellate.linnet.html">pixellate.linnet</a></code> </td><td style="text-align: left;"> convert network to 2D pixel
+    image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/print.linnet.html">print.linnet</a></code> </td><td style="text-align: left;"> print basic information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/summary.linnet.html">summary.linnet</a></code> </td><td style="text-align: left;"> print summary information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/unitname.linnet.html">unitname.linnet</a></code> </td><td style="text-align: left;"> extract name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/unitname+3C-.linnet.html">unitname&lt;-.linnet</a></code> </td><td style="text-align: left;"> assign name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/vertexdegree.html">vertexdegree</a></code> </td><td style="text-align: left;"> number of segments meeting
+    each vertex </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/volume.linnet.html">volume.linnet</a></code> </td><td style="text-align: left;"> total length of network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/Window.linnet.html">Window.linnet</a></code> </td><td style="text-align: left;"> extract window containing network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/density.linnet.html">density.linnet</a></code> </td><td style="text-align: left;"> smoothed 2D spatial density of lines </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>A network is called a tree if it has no closed loops.
+The following functions support the creation and manipulation of
+trees:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/begins.html">begins</a></code></td><td style="text-align: left;"> check start of character string</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/branchlabelfun.html">branchlabelfun</a></code></td><td style="text-align: left;"> tree branch membership labelling
+    function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/deletebranch.html">deletebranch</a></code></td><td style="text-align: left;"> delete a branch of a tree </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/extractbranch.html">extractbranch</a></code></td><td style="text-align: left;"> extract a branch of a tree </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/treebranchlabels.html">treebranchlabels</a></code></td><td style="text-align: left;"> label vertices of a tree by
+    branch membership </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/treeprune.html">treeprune</a></code></td><td style="text-align: left;"> prune tree to given level</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p><b>Point patterns on a linear network</b>
+</p>
+<p>An object of class <code>"lpp"</code> represents a 
+point pattern on a linear network (for example,
+road accidents on a road network). 
+</p>
+<p>Examples of such objects include the following datasets
+provided in the <span class="pkg">spatstat.data</span> package:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/chicago.html">chicago</a></code> </td><td style="text-align: left;"> Chicago crime data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/dendrite.html">dendrite</a></code> </td><td style="text-align: left;"> Dendritic spines data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/spiders.html">spiders</a></code> </td><td style="text-align: left;"> Spider webs on mortar lines of brick wall 
+    </td>
+</tr>
+
+</table>
+
+<p>There is also a dataset provided in the extension package
+<span class="pkg">spatstat.Knet</span>:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>wacrashes</code> </td><td style="text-align: left;"> Road accidents in Western Australia
+    </td>
+</tr>
+
+</table>
+
+<p>Point patterns on a network can be created by the following
+functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code> </td><td style="text-align: left;"> create a point pattern on a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.lpp.html">as.lpp</a></code> </td><td style="text-align: left;"> convert other data to point pattern on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/clicklpp.html">clicklpp</a></code></td><td style="text-align: left;"> interactively add points on a linear
+      Network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/crossing.linnet.html">crossing.linnet</a></code></td><td style="text-align: left;"> crossing points between network and other lines
+    </td>
+</tr>
+
+</table>
+
+<p>Point patterns on a network can be generated randomly
+using the following functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code> </td><td style="text-align: left;"> Poisson points on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/runiflpp.html">runiflpp</a></code> </td><td style="text-align: left;"> uniform random points on a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rlpp.html">rlpp</a></code></td><td style="text-align: left;"> random points on a linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rSwitzerlpp.html">rSwitzerlpp</a></code></td><td style="text-align: left;"> simulate Switzer-type point process on linear
+      network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rThomaslpp.html">rThomaslpp</a></code></td><td style="text-align: left;"> simulate Thomas process on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rcelllpp.html">rcelllpp</a></code></td><td style="text-align: left;">  simulate cell process on linear
+      network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rjitter.lpp.html">rjitter.lpp</a></code></td><td style="text-align: left;"> randomly perturb a point pattern on
+      a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p>Functions for manipulating a point pattern on a network include
+the following. An object of class <code>"lpp"</code> also belongs to the
+class <code>"ppx"</code>, for which additional support is available.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.ppp.lpp.html">as.ppp.lpp</a></code> </td><td style="text-align: left;"> convert to 2D point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.psp.lpp.html">as.psp.lpp</a></code> </td><td style="text-align: left;"> extract line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/marks.ppx.html">marks.ppx</a></code> </td><td style="text-align: left;"> extract marks associated with points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/marks+3C-.ppx.html">marks&lt;-.ppx</a></code> </td><td style="text-align: left;"> assign marks to points on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/nsegments.lpp.html">nsegments.lpp</a></code> </td><td style="text-align: left;"> count number of segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/print.lpp.html">print.lpp</a></code> </td><td style="text-align: left;"> print basic information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/summary.lpp.html">summary.lpp</a></code> </td><td style="text-align: left;"> print summary information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/unitname.lpp.html">unitname.lpp</a></code> </td><td style="text-align: left;"> extract name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/unitname+3C-.lpp.html">unitname&lt;-.lpp</a></code> </td><td style="text-align: left;"> assign name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/unmark.lpp.html">unmark.lpp</a></code> </td><td style="text-align: left;"> remove marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/subset.lpp.html">subset.lpp</a></code> </td><td style="text-align: left;"> subset of points satisfying a
+      condition </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/+5B.lpp.html">[.lpp</a></code> </td><td style="text-align: left;"> extract subset of point pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/Window.lpp.html">Window.lpp</a></code> </td><td style="text-align: left;"> extract window containing network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.owin.lpp.html">as.owin.lpp</a></code> </td><td style="text-align: left;"> extract window containing network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/affine.lpp.html">affine.lpp</a></code> </td><td style="text-align: left;"> apply affine transformation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/shift.lpp.html">shift.lpp</a></code> </td><td style="text-align: left;"> apply vector translation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rotate.lpp.html">rotate.lpp</a></code> </td><td style="text-align: left;"> apply rotation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rescale.lpp.html">rescale.lpp</a></code> </td><td style="text-align: left;"> rescale the unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/scalardilate.lpp.html">scalardilate.lpp</a></code> </td><td style="text-align: left;"> physically rescale the
+      network and points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/connected.lpp.html">connected.lpp</a></code></td><td style="text-align: left;"> find connected components of point
+      pattern on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/cut.lpp.html">cut.lpp</a></code></td><td style="text-align: left;"> classify points in a Point Pattern on a
+      Network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/distfun.lpp.html">distfun.lpp</a></code></td><td style="text-align: left;"> distance map (function) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/distmap.lpp.html">distmap.lpp</a></code></td><td style="text-align: left;"> distance map (image) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/domain.lpp.html">domain.lpp</a></code></td><td style="text-align: left;">  extract the linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/identify.lpp.html">identify.lpp</a></code></td><td style="text-align: left;"> interactively identify points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/is.multitype.lpp.html">is.multitype.lpp</a></code></td><td style="text-align: left;"> recognize whether point pattern is
+      multitype</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/nncross.lpp.html">nncross.lpp</a></code></td><td style="text-align: left;"> nearest neighbours</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/nndist.lpp.html">nndist.lpp</a></code></td><td style="text-align: left;">  nearest neighbour distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/nnfromvertex.html">nnfromvertex</a></code></td><td style="text-align: left;"> nearest data point from each vertex</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/nnfun.lpp.html">nnfun.lpp</a></code></td><td style="text-align: left;">  nearest neighbour map </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/nnwhich.lpp.html">nnwhich.lpp</a></code></td><td style="text-align: left;">  identify nearest neighbours </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/pairdist.lpp.html">pairdist.lpp</a></code></td><td style="text-align: left;"> pairwise shortest-path distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/plot.lpp.html">plot.lpp</a></code></td><td style="text-align: left;"> plot point pattern on linear Network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/points.lpp.html">points.lpp</a></code></td><td style="text-align: left;"> draw points on existing plot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/superimpose.lpp.html">superimpose.lpp</a></code></td><td style="text-align: left;">  superimpose several point
+      patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/text.lpp.html">text.lpp</a></code> </td><td style="text-align: left;"> add text labels  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/unstack.lpp.html">unstack.lpp</a></code></td><td style="text-align: left;"> separate multiple columns of marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p><b>Pixel images on a network</b>
+</p>
+<p>An object of class <code>"linim"</code> represents a pixel image
+on a linear network. Effectively, the network is divided into small
+segments (lixels) and each small segment is assigned a value,
+which could be numeric, factor, logical or complex values.
+</p>
+<p>Pixel images on a network can be created using the following
+functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/linim.html">linim</a></code></td><td style="text-align: left;"> create pixel image on linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code></td><td style="text-align: left;"> convert other data to pixel image on network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p>Functions for manipulating a pixel image on a network include:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/+5B.linim.html">[.linim</a></code> </td><td style="text-align: left;"> extract subset of pixel image on linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/+5B+3C-.linim.html">[&lt;-.linim</a></code> </td><td style="text-align: left;"> reset values in subset of image on linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/Math.linim.html">Math.linim</a></code></td><td style="text-align: left;"> S3 group generic methods for images on a linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/eval.linim.html">eval.linim</a></code></td><td style="text-align: left;"> evaluate expression involving pixel images on
+      linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.linnet.linim.html">as.linnet.linim</a></code> </td><td style="text-align: left;"> extract linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/integral.linim.html">integral.linim</a></code></td><td style="text-align: left;"> integral of pixel image on a linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/mean.linim.html">mean.linim</a></code> </td><td style="text-align: left;"> mean of pixel values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/median.linim.html">median.linim</a></code> </td><td style="text-align: left;"> median of pixel values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/quantile.linim.html">quantile.linim</a></code> </td><td style="text-align: left;"> quantiles of pixel values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.data.frame.linim.html">as.data.frame.linim</a></code> </td><td style="text-align: left;"> convert to data frame </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/print.linim.html">print.linim</a></code> </td><td style="text-align: left;"> print basic information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/summary.linim.html">summary.linim</a></code> </td><td style="text-align: left;"> print summary information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/affine.linim.html">affine.linim</a></code> </td><td style="text-align: left;"> apply affine transformation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/scalardilate.linim.html">scalardilate.linim</a></code> </td><td style="text-align: left;"> apply scalar dilation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/shift.linim.html">shift.linim</a></code> </td><td style="text-align: left;"> apply vector translation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/pairs.linim.html">pairs.linim</a></code> </td><td style="text-align: left;"> scatterplot matrix for images </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/persp.linim.html">persp.linim</a></code></td><td style="text-align: left;"> perspective view of pixel image on network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code></td><td style="text-align: left;"> plot pixel image on linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p><b>Functions on a linear network</b>
+</p>
+<p>An object of class <code>"linfun"</code> represents a function defined
+at any location along the network. Objects of this class are created
+by the following functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code></td><td style="text-align: left;"> create function on a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.linfun.html">as.linfun</a></code></td><td style="text-align: left;"> convert other data to function on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p>The following supporting code is available:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/print.linfun.html">print.linfun</a></code> </td><td style="text-align: left;"> print basic information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/summary.linfun.html">summary.linfun</a></code> </td><td style="text-align: left;"> print summary information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/plot.linfun.html">plot.linfun</a></code> </td><td style="text-align: left;"> plot function on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/persp.linfun.html">persp.linfun</a></code></td><td style="text-align: left;"> perspective view of function on network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.data.frame.linfun.html">as.data.frame.linfun</a></code> </td><td style="text-align: left;"> convert to data frame </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.owin.linfun.html">as.owin.linfun</a></code> </td><td style="text-align: left;"> extract window containing
+      network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.function.linfun.html">as.function.linfun</a></code> </td><td style="text-align: left;"> convert to ordinary <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>
+      function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p><b>Tessellations of a linear network</b>
+</p>
+<p>An object of class <code>"lintess"</code> represents a tessellation of the
+network, that is, a subdivision of the network into disjoint subsets
+called &lsquo;tiles&rsquo;. Objects of this class are created
+by the following functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code></td><td style="text-align: left;"> create tessellation of network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/chop.linnet.html">chop.linnet</a></code> </td><td style="text-align: left;"> divide a linear network into tiles using
+      infinite lines </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/divide.linnet.html">divide.linnet</a></code></td><td style="text-align: left;">  divide linear network at cut
+      points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/lineardirichlet.html">lineardirichlet</a></code></td><td style="text-align: left;"> Dirichlet tessellation on a linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p>The following functions are provided for manipulating a tessellation
+on a network:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.data.frame.lintess.html">as.data.frame.lintess</a></code></td><td style="text-align: left;"> convert to data frame </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/intersect.lintess.html">intersect.lintess</a></code></td><td style="text-align: left;"> intersection of two
+      tessellations on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/lineartileindex.html">lineartileindex</a></code></td><td style="text-align: left;"> determine which tile contains each
+      given point on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/marks.lintess.html">marks.lintess</a></code></td><td style="text-align: left;"> extract marks of each tile </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/marks+3C-.lintess.html">marks&lt;-.lintess</a></code></td><td style="text-align: left;"> assign marks to each tile </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/plot.lintess.html">plot.lintess</a></code></td><td style="text-align: left;"> plot tessellation on network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/tile.lengths.html">tile.lengths</a></code></td><td style="text-align: left;"> compute lengths of tiles </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/tilenames.lintess.html">tilenames.lintess</a></code></td><td style="text-align: left;">  names of tiles </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/as.linfun.lintess.html">as.linfun.lintess</a></code></td><td style="text-align: left;"> convert tessellation to a
+      function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p><b>Smoothing a point pattern on a linear network:</b>
+</p>
+<p>Given a point pattern dataset on a linear network, it is often
+desired to estimate the spatially-varying density or intensity
+of points along the network. For example if the points represent
+road accidents, then we may wish to estimate the spatially-varying
+density of accidents per unit length (over a given period of time).
+</p>
+<p>Related tasks include estimation of relative risk, and smoothing of
+of values observed at the data points.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code></td><td style="text-align: left;"> kernel estimate of intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/densityEqualSplit.html">densityEqualSplit</a></code></td><td style="text-align: left;"> kernel estimate of intensity
+    using equal-split algorithm </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/densityHeat.lpp.html">densityHeat.lpp</a></code></td><td style="text-align: left;"> kernel estimate of intensity using heat equation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/densityQuick.lpp.html">densityQuick.lpp</a></code></td><td style="text-align: left;"> kernel estimate of intensity using a 2D kernel</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/densityVoronoi.lpp.html">densityVoronoi.lpp</a></code></td><td style="text-align: left;"> intensity estimate using
+    Voronoi-Dirichlet Tessellation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/densityfun.lpp.html">densityfun.lpp</a></code></td><td style="text-align: left;"> kernel estimate of intensity as a
+    function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/bw.lppl.html">bw.lppl</a></code></td><td style="text-align: left;"> Bandwidth selection for kernel estimate of
+    intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/bw.voronoi.html">bw.voronoi</a></code></td><td style="text-align: left;"> bandwidth selection for Voronoi estimator </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/relrisk.lpp.html">relrisk.lpp</a></code></td><td style="text-align: left;"> kernel estimate of relative risk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/bw.relrisk.lpp.html">bw.relrisk.lpp</a></code></td><td style="text-align: left;">  Bandwidth selection for relative
+    risk </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/Smooth.lpp.html">Smooth.lpp</a></code></td><td style="text-align: left;"> spatial smoothing of observations at
+    points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+
+  </td>
+</tr>
+
+</table>
+
+<p><b>Exploration of dependence on a covariate:</b>
+</p>
+<p>Another task is to investigate how the spatially-varying intensity
+of points depends on an explanatory variable (covariate). The
+covariate may be given as a pixel image on the network
+(class <code>"linim"</code>) or
+as a function on the network (class <code>"linfun"</code>).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/rhohat.lpp.html">rhohat.lpp</a></code></td><td style="text-align: left;"> nonparametric estimate of intensity as function
+    of a covariate</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/roc.lpp.html">roc.lpp</a></code></td><td style="text-align: left;"> Receiver Operating Characteristic for data on a
+    network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/auc.lpp.html">auc.lpp</a></code></td><td style="text-align: left;">  Area Under ROC Curve for data on a network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/cdf.test.lpp.html">cdf.test.lpp</a></code></td><td style="text-align: left;"> spatial distribution test for points on a
+    linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/berman.test.lpp.html">berman.test.lpp</a></code></td><td style="text-align: left;"> Berman's tests for point pattern
+    on a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/sdr.lpp.html">sdr.lpp</a></code></td><td style="text-align: left;"> Sufficient Dimension Reduction for a point
+    pattern on a linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a point pattern on a linear network:</b>
+</p>
+<p>These are for point patterns on a linear network (class <code>lpp</code>).
+For unmarked patterns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code> </td><td style="text-align: left;">
+    <i>K</i> function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKinhom.html">linearKinhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous <i>K</i> function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcf.html">linearpcf</a></code> </td><td style="text-align: left;">
+    pair correlation function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfinhom.html">linearpcfinhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous pair correlation on linear network</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearJinhom.html">linearJinhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous <i>J</i> function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKEuclid.html">linearKEuclid</a></code> </td><td style="text-align: left;">
+    <i>K</i> function on linear network using Euclidean distance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKEuclidInhom.html">linearKEuclidInhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous <i>K</i> function on linear network using Euclidean distance</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfEuclid.html">linearpcfEuclid</a></code> </td><td style="text-align: left;">
+    pair correlation function on linear network using Euclidean distance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfEuclidInhom.html">linearpcfEuclidInhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous pair correlation on linear network using Euclidean
+    distance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>For multitype patterns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKcross.html">linearKcross</a></code> </td><td style="text-align: left;">
+    <i>K</i> function between two types of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKdot.html">linearKdot</a></code> </td><td style="text-align: left;">
+    <i>K</i> function from one type to any type </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKcross.inhom.html">linearKcross.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearKcross.html">linearKcross</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKdot.inhom.html">linearKdot.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearKdot.html">linearKdot</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearmarkconnect.html">linearmarkconnect</a></code> </td><td style="text-align: left;">
+    Mark connection function  on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearmarkequal.html">linearmarkequal</a></code> </td><td style="text-align: left;">
+    Mark equality function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfcross.html">linearpcfcross</a></code> </td><td style="text-align: left;">
+    Pair correlation between two types of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfdot.html">linearpcfdot</a></code> </td><td style="text-align: left;">
+    Pair correlation from one type to any type </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfcross.inhom.html">linearpcfcross.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearpcfcross.html">linearpcfcross</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfdot.inhom.html">linearpcfdot.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearpcfdot.html">linearpcfdot</a></code> 
+  </td>
+</tr>
+
+</table>
+
+<p>Related facilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/pairdist.lpp.html">pairdist.lpp</a></code> </td><td style="text-align: left;"> distances between pairs  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/crossdist.lpp.html">crossdist.lpp</a></code> </td><td style="text-align: left;"> distances between pairs </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nndist.lpp.html">nndist.lpp</a></code> </td><td style="text-align: left;"> nearest neighbour distances  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nncross.lpp.html">nncross.lpp</a></code> </td><td style="text-align: left;"> nearest neighbour distances  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nnwhich.lpp.html">nnwhich.lpp</a></code> </td><td style="text-align: left;"> find nearest neighbours  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nnfun.lpp.html">nnfun.lpp</a></code> </td><td style="text-align: left;"> find nearest data point  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> </td><td style="text-align: left;"> kernel smoothing estimator of intensity  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/distfun.lpp.html">distfun.lpp</a></code> </td><td style="text-align: left;"> distance transform  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/envelope.lpp.html">envelope.lpp</a></code> </td><td style="text-align: left;"> simulation envelopes  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code> </td><td style="text-align: left;"> simulate Poisson points on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/runiflpp.html">runiflpp</a></code> </td><td style="text-align: left;"> simulate random points on a linear network 
+  </td>
+</tr>
+
+</table>
+
+<p>It is also possible to fit point process models to <code>lpp</code> objects.
+</p>
+<p><b>Point process models on a linear network:</b>
+</p>
+<p>An object of class <code>"lpp"</code> represents a pattern of points on
+a linear network. Point process models can also be fitted to these
+objects. Currently only Poisson models can be fitted.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code> </td><td style="text-align: left;"> point process model on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/anova.lppm.html">anova.lppm</a></code> </td><td style="text-align: left;"> analysis of deviance for </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;"> point process model on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/envelope.lppm.html">envelope.lppm</a></code> </td><td style="text-align: left;"> simulation envelopes for </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;"> point process model on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/fitted.lppm.html">fitted.lppm</a></code> </td><td style="text-align: left;"> fitted intensity values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/predict.lppm.html">predict.lppm</a></code> </td><td style="text-align: left;"> model prediction on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/data.lppm.html">data.lppm</a></code> </td><td style="text-align: left;"> extract original data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/berman.test.lppm.html">berman.test.lppm</a></code> </td><td style="text-align: left;"> Berman's tests of
+    goodness-of-fit </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/is.marked.lppm.html">is.marked.lppm</a></code></td><td style="text-align: left;"> Recognise whether model is marked</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/is.multitype.lppm.html">is.multitype.lppm</a></code></td><td style="text-align: left;"> Recognise whether model is multitype</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/is.stationary.lppm.html">is.stationary.lppm</a></code></td><td style="text-align: left;"> Recognise whether model is
+    stationary </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/model.frame.lppm.html">model.frame.lppm</a></code></td><td style="text-align: left;"> Extract the variables in model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/model.images.lppm.html">model.images.lppm</a></code></td><td style="text-align: left;"> Compute images of constructed covariates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/model.matrix.lppm.html">model.matrix.lppm</a></code></td><td style="text-align: left;"> Extract design matrix </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/plot.lppm.html">plot.lppm</a></code></td><td style="text-align: left;"> Plot fitted point process model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/pseudoR2.lppm.html">pseudoR2.lppm</a></code></td><td style="text-align: left;"> Calculate Pseudo-R-Squared for model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/simulate.lppm.html">simulate.lppm</a></code></td><td style="text-align: left;"> simulate fitted point process model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Licence</h3>
+
+<p>This library and its documentation are usable under the terms of the &quot;GNU 
+General Public License&quot;, a copy of which is distributed with the package.
+</p>
+
+
+<h3>Acknowledgements</h3>
+
+<p>Ottmar Cronie,
+Tilman Davies,
+Greg McSwiggan and
+Suman Rakshit
+made substantial contributions of code.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

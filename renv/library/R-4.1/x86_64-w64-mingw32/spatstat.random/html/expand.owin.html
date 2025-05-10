@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Expansion Rule</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for expand.owin {spatstat.random}"><tr><td>expand.owin {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Expansion Rule</h2>
+
+<h3>Description</h3>
+
+<p>Applies an expansion rule to a window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ expand.owin(W, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>A window.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code> to
+determine an expansion rule.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>W</code> should be a window (an object of class
+<code>"owin"</code>).
+</p>
+<p>This command applies the expansion rule specified by the
+arguments <code>...</code> to the window <code>W</code>, yielding another
+window.
+</p>
+<p>The arguments <code>...</code> are passed to <code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code>
+to determine the expansion rule.
+</p>
+<p>For other transformations of the scale, location and orientation
+of a window, see <code><a href="../../spatstat.geom/help/shift.html">shift</a></code>, <code><a href="../../spatstat.geom/help/affine.html">affine</a></code>
+and <code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rmhexpand.html">rmhexpand</a></code> about expansion rules.
+</p>
+<p><code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code> for other types of manipulation.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   expand.owin(square(1), 9)
+   expand.owin(square(1), distance=0.5)
+   expand.owin(letterR, length=2)
+   expand.owin(letterR, distance=0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

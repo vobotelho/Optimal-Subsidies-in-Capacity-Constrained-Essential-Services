@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Estimation of Intensity on a Network using a 2D Kernel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for densityQuick.lpp {spatstat.linnet}"><tr><td>densityQuick.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Kernel Estimation of Intensity on a Network using a 2D Kernel
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the intensity of a point process on a linear network
+using a two-dimensional smoothing kernel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+densityQuick.lpp(x, sigma=NULL, ...,
+         kernel="gaussian",
+         at = c("pixels", "points"),
+         what = c("estimate", "se", "var"),
+         leaveoneout = TRUE,
+         diggle = FALSE,
+         edge2D = FALSE,
+         weights = NULL,
+         positive = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth. A single numeric value,
+in the same units as the coordinates of <code>x</code>.
+Alternatively <code>sigma</code> may be a function which selects a
+bandwidth when applied to <code>x</code>,
+for example, <code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code> or <code><a href="../../spatstat.linnet/help/bw.lppl.html">bw.lppl</a></code>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to determine the pixel resolution, or arguments passed to
+<code>sigma</code> if it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>String (partially matched) specifying the smoothing kernel.
+Current options are <code>"gaussian"</code>, <code>"epanechnikov"</code>,
+<code>"quartic"</code> or <code>"disc"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>String (partially matched)
+specifying whether to compute the intensity values
+at a fine grid of locations on the network
+(<code>at="pixels"</code>, the default) or
+only at the points of <code>x</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>String (partially matched)
+specifying whether to calculate the intensity estimate,
+or its estimated standard error, or its estimated variance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value indicating whether to compute a leave-one-out
+estimator. Applicable only when <code>at="points"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>diggle</code></td>
+<td>
+
+<p>Logical value specifying whether to use the &lsquo;Diggle&rsquo;
+correction. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge2D</code></td>
+<td>
+
+<p>Logical value specifying whether to apply the usual
+two-dimensional edge correction procedure to the numerator and
+denominator of the estimate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional weights to be attached to the points.
+A numeric vector, an <code>expression</code>, or a pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>positive</code></td>
+<td>
+
+<p>Logical value indicating whether to force the resulting values to be
+positive. Default is <code>FALSE</code> for the sake of speed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Kernel smoothing is applied to the points of <code>x</code>
+using a two-dimensional Gaussian kernel, as described in Rakshit et al (2019).
+The result is a pixel image on the linear network (class
+<code>"linim"</code>) which can be plotted.
+</p>
+<p>Other techniques for kernel smoothing on a network are implemented in
+<code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>. The main advantages of using a
+two-dimensional kernel are very fast computation and
+insensitivity to changes in the network geometry. The main
+disadvantage is that it ignores the connectivity of the network.
+See Rakshit et al (2019) for further explanation.
+</p>
+<p>The argument <code>sigma</code> specifies the smoothing bandwidth.
+If <code>sigma</code> is missing or <code>NULL</code>,
+the default is one-eighth of the length of the shortest side
+of the bounding box of <code>x</code>.
+If <code>sigma</code> is a function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, it is assumed
+to be a bandwidth selection rule, and it will be applied to <code>x</code>
+to compute the bandwidth value.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>at="pixels"</code> (the default),
+a pixel image on the linear network (object of class <code>"linim"</code>).
+</p>
+<p>If <code>at="points"</code>, a numeric vector with one entry for each point
+of <code>x</code>.
+</p>
+
+
+<h3>Infinite bandwidth</h3>
+
+<p>If <code>sigma=Inf</code>, the resulting density estimate is 
+constant over all locations,
+and is equal to the average density of points per unit length.
+(If the network is not connected, then this rule
+is applied separately to each connected component of the network).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley, Suman Rakshit and Tilman Davies
+</p>
+
+
+<h3>References</h3>
+
+<p>Rakshit, S., Davies, T., Moradi, M., 
+McSwiggan, G., Nair, G., Mateu, J. and Baddeley, A. (2019)
+Fast kernel smoothing of point patterns on a large
+network using 2D convolution.
+<em>International Statistical Review</em> <b>87</b> (3) 531&ndash;556.
+DOI: 10.1111/insr.12327.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>, the main function for density estimation
+on a network.
+</p>
+<p><code><a href="../../spatstat.explore/help/bw.scott.html">bw.scott</a></code>, <code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code>,
+<code><a href="../../spatstat.linnet/help/bw.lppl.html">bw.lppl</a></code>for bandwidth selection.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- unmark(chicago)
+   plot(densityQuick.lpp(X, 500))
+   plot(densityQuick.lpp(X, 500, diggle=TRUE))
+   plot(densityQuick.lpp(X, bw.scott.iso))
+   plot(densityQuick.lpp(X, 500, what="se"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

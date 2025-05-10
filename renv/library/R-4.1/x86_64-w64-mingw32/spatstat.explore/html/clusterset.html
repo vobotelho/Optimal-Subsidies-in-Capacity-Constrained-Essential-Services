@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Allard-Fraley Estimator of Cluster Feature</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clusterset {spatstat.explore}"><tr><td>clusterset {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Allard-Fraley Estimator of Cluster Feature
+</h2>
+
+<h3>Description</h3>
+
+<p>Detect high-density features in a spatial point pattern
+using the (unrestricted) Allard-Fraley estimator.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  clusterset(X, what=c("marks", "domain"),
+            ..., verbose=TRUE,
+            fast=FALSE,
+            exact=!fast)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A dimensional spatial point pattern (object of class
+<code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string or character vector
+specifying the type of result. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fast</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code> (the default), the Dirichlet tile areas
+will be computed exactly using polygonal geometry, so that the
+optimal choice of tiles will be computed exactly.
+If <code>TRUE</code>, the Dirichlet tile areas
+will be approximated using pixel counting, so the optimal
+choice will be approximate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the Allard-Fraley estimator
+of the domain will be computed exactly using polygonal geometry.
+If <code>FALSE</code>, the Allard-Fraley estimator of the domain
+will be approximated by a binary pixel mask.
+The default is initially set to <code>FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to control the
+pixel resolution if <code>exact=FALSE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Allard and Fraley (1997) developed a technique for recognising
+features of high density in a spatial point pattern in the presence of
+random clutter.
+</p>
+<p>This algorithm computes the <em>unrestricted</em> Allard-Fraley estimator.
+The Dirichlet (Voronoi) tessellation of the point pattern <code>X</code> is
+computed. The smallest <code>m</code> Dirichlet cells are selected,
+where the number <code>m</code> is determined by a maximum likelihood
+criterion.
+</p>
+
+<ul>
+<li> 
+<p>If <code>fast=FALSE</code> (the default), the areas of the tiles
+of the Dirichlet tessellation will be computed exactly
+using polygonal geometry. This ensures that the optimal selection of
+tiles is computed exactly.
+</p>
+</li>
+<li>
+<p>If <code>fast=TRUE</code>, the Dirichlet tile areas
+will be approximated by counting pixels.
+This is faster, and is usually correct (depending on the pixel
+resolution, which is controlled by the arguments <code>...</code>).
+</p>
+</li></ul>
+
+<p>The type of result depends on the character vector <code>what</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>what="marks"</code> the result is the point pattern <code>X</code>
+with a vector of marks labelling each point with a value <code>yes</code> or
+<code>no</code> depending on whether the corresponding Dirichlet cell is
+selected by the Allard-Fraley estimator. In other words each point of
+<code>X</code> is labelled as either a cluster point or a non-cluster point.
+</p>
+</li>
+<li> 
+<p>If <code>what="domain"</code>, the result is the Allard-Fraley estimator
+of the cluster feature set, which is the union of all the
+selected Dirichlet cells, represented as a window (object of class
+<code>"owin"</code>).
+</p>
+</li>
+<li>
+<p>If <code>what=c("marks", "domain")</code> the result is a list
+containing both of the results described above.
+</p>
+</li></ul>
+
+<p>Computation of the Allard-Fraley set estimator depends on
+the argument <code>exact</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>exact=TRUE</code> (the default), the Allard-Fraley set estimator
+will be computed exactly using polygonal geometry.
+The result is a polygonal window.
+</p>
+</li>
+<li>
+<p>If <code>exact=FALSE</code>, the Allard-Fraley set estimator
+will be approximated by a binary pixel mask.
+This is faster than the exact computation.
+The result is a binary mask.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>If <code>what="marks"</code>, a multitype point pattern (object of class
+<code>"ppp"</code>).
+</p>
+<p>If  <code>what="domain"</code>, a window (object of class
+<code>"owin"</code>).
+</p>
+<p>If  <code>what=c("marks", "domain")</code> (the default),
+a list consisting of a multitype point pattern and a window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Allard, D. and Fraley, C. (1997) 
+Nonparametric maximum likelihood estimation of features in
+spatial point processes using Voronoi tessellation.
+<em>Journal of the American Statistical Association</em>
+<b>92</b>, 1485&ndash;1493.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/nnclean.html">nnclean</a></code>, 
+<code><a href="../../spatstat.explore/help/sharpen.html">sharpen</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  opa &lt;- par(mfrow=c(1,2))
+  W &lt;- grow.rectangle(as.rectangle(letterR), 1)
+  X &lt;- superimpose(runifpoint(300, letterR),
+                   runifpoint(50, W), W=W)
+  plot(W, main="clusterset(X, 'm')")
+  plot(clusterset(X, "marks", fast=TRUE), add=TRUE, chars=c(1, 3), cols=1:2)
+  plot(letterR, add=TRUE)
+  plot(W, main="clusterset(X, 'd')")
+  plot(clusterset(X, "domain", exact=FALSE), add=TRUE)
+  plot(letterR, add=TRUE)
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

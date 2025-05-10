@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interpret Fitted Model for Metropolis-Hastings Simulation.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rmhmodel.ppm {spatstat.model}"><tr><td>rmhmodel.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interpret Fitted Model for Metropolis-Hastings Simulation.</h2>
+
+<h3>Description</h3>
+
+<p>Converts a fitted point process model
+into a format that can be used to simulate the model
+by the Metropolis-Hastings algorithm. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppm'
+rmhmodel(model, w, ..., verbose=TRUE, project=TRUE,
+                         control=rmhcontrol(),
+                         new.coef=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>Optional. Window in which the simulations should be generated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical flag indicating whether to print progress reports
+while the model is being converted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>project</code></td>
+<td>
+<p>Logical flag indicating what to do if the fitted model
+does not correspond to a valid point process. See Details.</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+<p>Parameters determining the iterative behaviour of the simulation
+algorithm. Passed to <code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>new.coef</code></td>
+<td>
+
+<p>New values for the canonical parameters of the model.
+A numeric vector of the same length as <code>coef(model)</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The generic function <code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code> takes a
+description of a point process model in some format, and
+converts it into an object of class <code>"rmhmodel"</code>
+so that simulations of the model can be generated using
+the Metropolis-Hastings algorithm <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>. 
+</p>
+<p>This function <code>rmhmodel.ppm</code> is the method for
+the class <code>"ppm"</code> of fitted point process models.
+</p>
+<p>The argument <code>model</code> should be a fitted point process model
+(object of class <code>"ppm"</code>) typically obtained from the
+model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+This will be converted into an object of class <code>"rmhmodel"</code>.
+</p>
+<p>The optional argument <code>w</code> specifies the window
+in which the pattern is to be generated.  If specified, it must be in
+a form which can be coerced to an object of class <code>owin</code>
+by <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+<p>Not all fitted point process models
+obtained from <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> can be simulated.
+We have not yet implemented simulation code for
+the <code><a href="../../spatstat.model/help/LennardJones.html">LennardJones</a></code> and <code><a href="../../spatstat.model/help/OrdThresh.html">OrdThresh</a></code>
+models.
+</p>
+<p>It is also possible that a fitted point process model
+obtained from <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>  may not correspond to a valid
+point process. For example a fitted model with the <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>
+interpoint interaction may have any value of the interaction parameter
+<i>gamma</i>; however the Strauss 
+process is not well-defined for 
+<i>gamma &gt; 1</i> (Kelly and Ripley, 1976).
+</p>
+<p>The argument <code>project</code> determines what to do in such cases.
+If <code>project=FALSE</code>, a fatal error will occur.
+If <code>project=TRUE</code>, the fitted model parameters will be
+adjusted to the nearest values which do correspond to a valid
+point process. For example a Strauss process with <i>gamma &gt; 1</i> will be projected to a Strauss process with
+<i>gamma = 1</i>, equivalent to a Poisson process.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"rmhmodel"</code>, which is essentially
+a list of parameter values for the model.
+</p>
+<p>There is a <code>print</code> method for this class, which prints
+a sensible description of the model chosen.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P. J. (2003) <em>Statistical Analysis of Spatial Point
+Patterns</em> (2nd ed.) Arnold, London.
+</p>
+<p>Diggle, P.J. and Gratton, R.J. (1984)
+Monte Carlo methods of inference for implicit statistical models.
+<em>Journal of the Royal Statistical Society, series B</em>
+<b>46</b>, 193 &ndash; 212.
+</p>
+<p>Geyer, C.J. (1999)
+Likelihood Inference for Spatial Point
+Processes. Chapter 3 in  O.E. Barndorff-Nielsen, W.S. Kendall and
+M.N.M. Van Lieshout (eds) <em>Stochastic Geometry: Likelihood and
+Computation</em>, Chapman and Hall / CRC,  Monographs on Statistics and
+Applied Probability, number 80. Pages 79&ndash;140.
+</p>
+<p>Kelly, F.P. and Ripley, B.D. (1976)
+On Strauss's model for clustering.
+<em>Biometrika</em> <b>63</b>, 357&ndash;360.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code>,
+<code><a href="../../spatstat.random/help/rmhmodel.list.html">rmhmodel.list</a></code>,
+<code><a href="../../spatstat.random/help/rmhmodel.default.html">rmhmodel.default</a></code>,
+<code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>,
+<code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code>,
+<code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../help/AreaInter.html">AreaInter</a></code>, <code><a href="../help/BadGey.html">BadGey</a></code>, <code><a href="../help/DiggleGatesStibbard.html">DiggleGatesStibbard</a></code>, <code><a href="../help/DiggleGratton.html">DiggleGratton</a></code>, <code><a href="../help/Fiksel.html">Fiksel</a></code>, <code><a href="../help/Geyer.html">Geyer</a></code>, <code><a href="../help/Hardcore.html">Hardcore</a></code>, <code><a href="../help/Hybrid.html">Hybrid</a></code>, <code><a href="../help/LennardJones.html">LennardJones</a></code>, <code><a href="../help/MultiStrauss.html">MultiStrauss</a></code>, <code><a href="../help/MultiStraussHard.html">MultiStraussHard</a></code>, <code><a href="../help/PairPiece.html">PairPiece</a></code>, <code><a href="../help/Penttinen.html">Penttinen</a></code>, <code><a href="../help/Poisson.html">Poisson</a></code>, <code><a href="../help/Softcore.html">Softcore</a></code>, <code><a href="../help/Strauss.html">Strauss</a></code>, <code><a href="../help/StraussHard.html">StraussHard</a></code> and <code><a href="../help/Triplets.html">Triplets</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit1 &lt;- ppm(cells ~1, Strauss(0.07))
+  mod1 &lt;- rmhmodel(fit1)
+
+  fit2 &lt;- ppm(cells ~x, Geyer(0.07, 2))
+  mod2 &lt;- rmhmodel(fit2)
+
+  fit3 &lt;- ppm(cells ~x, Hardcore(0.07))
+  mod3 &lt;- rmhmodel(fit3)
+
+  # Then rmh(mod1), etc
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

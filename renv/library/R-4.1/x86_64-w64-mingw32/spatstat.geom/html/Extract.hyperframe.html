@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Replace Subset of Hyperframe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.hyperframe {spatstat.geom}"><tr><td>Extract.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract or Replace Subset of Hyperframe</h2>
+
+<h3>Description</h3>
+
+<p>Extract or replace a subset of a hyperframe.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'hyperframe'
+x[i, j, drop, strip=drop, ...]
+  ## S3 replacement method for class 'hyperframe'
+x[i, j] &lt;- value
+  ## S3 method for class 'hyperframe'
+x$name
+  ## S3 replacement method for class 'hyperframe'
+x$name &lt;- value
+  ## S3 method for class 'hyperframe'
+x[[...]]
+  ## S3 replacement method for class 'hyperframe'
+x[[i, j]] &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A hyperframe (object of class <code>"hyperframe"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i,j</code></td>
+<td>
+
+<p>Row and column indices.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop,strip</code></td>
+<td>
+
+<p>Logical values indicating what to do when the
+hyperframe has only one row or column.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Indices specifying elements to extract by <code>[[.hyperframe</code>.
+Ignored by <code>[.hyperframe</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+
+<p>Name of a column of the hyperframe.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Replacement value for the subset. A hyperframe
+or (if the subset is a single column) a list or an atomic vector.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract a designated subset of a hyperframe,
+or replace the designated subset with another hyperframe.
+</p>
+<p>The function <code>[.hyperframe</code> is a method for the subset operator
+<code><a href="../../base/html/Extract.html">[</a></code> for the
+class <code>"hyperframe"</code>. It extracts the subset of <code>x</code>
+specified by the row index <code>i</code> and column index <code>j</code>.
+</p>
+<p>The argument <code>drop</code> determines whether the array structure
+will be discarded if possible. The argument <code>strip</code> determines
+whether the list structure in a row or column or cell will be discarded if
+possible.
+If <code>drop=FALSE</code> (the default), the return value is always
+a hyperframe or data frame.
+If <code>drop=TRUE</code>, and if the selected subset has only one row,
+or only one column, or both, then
+</p>
+
+<ul>
+<li>
+<p>if <code>strip=FALSE</code>, the result is a
+list, with one entry for each array cell that was selected.
+
+</p>
+</li>
+<li>
+<p>if <code>strip=TRUE</code>,
+</p>
+
+<ul>
+<li><p> if the subset has one row containing several columns,
+the result is a list or (if possible) an atomic vector;
+</p>
+</li>
+<li><p> if the subset has one column containing several rows,
+the result is a list or (if possible) an atomic vector;
+</p>
+</li>
+<li><p> if the subset has exactly one row and exactly one column,
+the result is the object (or atomic value)
+contained in this row and column.
+</p>
+</li></ul>
+
+
+</li></ul>
+
+<p>The function <code>[&lt;-.hyperframe</code> is a method for the
+subset replacement operator <code><a href="../../base/html/Extract.html">[&lt;-</a></code> for the
+class <code>"hyperframe"</code>. It replaces the designated
+subset with the hyperframe <code>value</code>.
+The subset of <code>x</code> to be replaced is designated by
+the arguments <code>i</code> and <code>j</code> as above.
+The replacement <code>value</code> should be a hyperframe with the
+appropriate dimensions, or (if the specified subset is a single
+column) a list of the appropriate length.
+</p>
+<p>The function <code>$.hyperframe</code> is a method for <code><a href="../../base/html/Extract.html">$</a></code>
+for hyperframes. It extracts the relevant column of the hyperframe.
+The result is always a list (i.e. equivalent to using
+<code>[.hyperframe</code> with <code>strip=FALSE</code>).
+</p>
+<p>The function <code>$&lt;-.hyperframe</code> is a method for <code><a href="../../base/html/Extract.html">$&lt;-</a></code>
+for hyperframes. It replaces the relevant column of the hyperframe.
+The replacement value should be a list of the appropriate length.
+</p>
+<p>The functions <code>[[.hyperframe</code> and <code>[[&lt;-.hyperframe</code>
+are methods for <code><a href="../../base/html/Extract.html">[[</a></code> and <code>[[&lt;-.hyperframe</code>
+for hyperframes. They are analogous to <code><a href="../../base/html/Extract.data.frame.html">[[.data.frame</a></code>
+and <code>[[&lt;-.data.frame</code> in that they can be used in different ways:
+</p>
+
+<ul>
+<li><p> when <code>[[.hyperframe</code> or <code>[[&lt;-.hyperframe</code>
+are used with a single index,
+as in <code>x[[n]]</code> or <code>x[[n]] &lt;- value</code>,
+they index the hyperframe as if it were a list,
+extracting or replacing a column of the hyperframe.
+</p>
+</li>
+<li><p> when <code>[[.hyperframe</code> or <code>[[&lt;-.hyperframe</code>
+are used with two indices,
+as in <code>x[[i,j]]</code> or <code>x[[i,j]] &lt;- value</code>,
+they index the hyperframe as if it were a
+matrix, and can only be used to extract or replace one element. 
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A hyperframe (of class <code>"hyperframe"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  h &lt;- hyperframe(X=list(square(1), square(2)), Y=list(sin, cos))
+  h
+  h[1, ]
+  h[1, ,drop=TRUE]
+  h[ , 1]
+  h[ , 1, drop=TRUE]
+  h[1,1]
+  h[1,1,drop=TRUE]
+  h[1,1,drop=TRUE,strip=FALSE]
+  h[1,1] &lt;- list(square(3))
+  # extract column
+  h$X
+  # replace existing column
+  h$Y &lt;- list(cells, cells)
+  # add new column
+  h$Z &lt;- list(tan, exp)
+  #
+  h[["Y"]]
+  h[[2,1]]
+  h[[2,1]] &lt;- square(3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

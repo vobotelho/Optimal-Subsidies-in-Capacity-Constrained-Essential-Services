@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Make Predictions From a Recursively Partitioned Point Process...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for predict.rppm {spatstat.model}"><tr><td>predict.rppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Make Predictions From a Recursively Partitioned Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a model which has been fitted to point pattern data
+by recursive partitioning, compute the predicted intensity
+of the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rppm'
+predict(object, ...)
+
+## S3 method for class 'rppm'
+fitted(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted point process model of class <code>"rppm"</code>
+produced by the function <code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+to specify the locations where prediction is required.
+(Ignored by <code>fitted.rppm</code>)
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic functions
+<code><a href="../../stats/help/fitted.html">fitted</a></code> and <code><a href="../../stats/help/predict.html">predict</a></code>.
+They compute the fitted intensity of a point process model.
+The argument <code>object</code> should be a fitted point process model
+of class <code>"rppm"</code> produced by the function <code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>.
+</p>
+<p>The <code>fitted</code> method computes the fitted intensity at the original data
+points, yielding a numeric vector with one entry for each data point.
+</p>
+<p>The <code>predict</code> method computes the fitted intensity at
+any locations. By default, predictions are
+calculated at a regular grid of spatial locations, and the result
+is a pixel image giving the predicted intensity values at these
+locations.
+</p>
+<p>Alternatively, predictions can be performed at other
+locations, or a finer grid of locations, or only at certain specified
+locations, using additional arguments <code>...</code>
+which will be interpreted by <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>.
+Common arguments are <code>ngrid</code> to increase the grid resolution,
+<code>window</code> to specify the prediction region, and <code>locations</code>
+to specify the exact locations of predictions.
+See <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code> for details of these arguments.
+</p>
+<p>Predictions are computed by evaluating the explanatory covariates at
+each desired location, and applying the recursive partitioning rule
+to each set of covariate values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>fitted.rppm</code> is a numeric vector.
+</p>
+<p>The result of <code>predict.rppm</code> is a pixel image, a list of pixel images,
+or a numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>,
+<code><a href="../../spatstat.model/help/plot.rppm.html">plot.rppm</a></code>  
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    fit &lt;- rppm(unmark(gorillas) ~ vegetation, data=gorillas.extra)
+    plot(predict(fit))
+    lambdaX &lt;- fitted(fit)
+    lambdaX[1:5]
+    # Mondriaan pictures
+    plot(predict(rppm(redwoodfull ~ x + y)))
+    points(redwoodfull)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

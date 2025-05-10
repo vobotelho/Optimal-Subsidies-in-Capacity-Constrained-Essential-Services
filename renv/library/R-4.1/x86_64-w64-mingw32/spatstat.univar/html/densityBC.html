@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Density Estimation with Optional Boundary Correction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityBC {spatstat.univar}"><tr><td>densityBC {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Kernel Density Estimation with Optional Boundary Correction</h2>
+
+<h3>Description</h3>
+
+<p>A simple implementation of fixed-bandwidth kernel density
+estimation on the real line, or the positive real half-line,
+including optional corrections for a boundary at zero. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  densityBC(x, kernel = "epanechnikov", bw=NULL,
+      ...,
+      h=NULL,
+      adjust = 1,
+      weights = rep(1, length(x))/length(x), from, to = max(x), n = 256,
+      zerocor = c("none", "weighted", "convolution", "reflection",
+                  "bdrykern", "JonesFoster"),
+      fast=FALSE,
+      internal=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Numeric vector.</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+<p>String specifying kernel.
+Options are
+<code>"gaussian"</code>, <code>"rectangular"</code>,
+<code>"triangular"</code>,
+<code>"epanechnikov"</code>,
+<code>"biweight"</code>,
+<code>"cosine"</code> and <code>"optcosine"</code>.
+(Partial matching is used).
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw,h</code></td>
+<td>
+
+<p>Alternative specifications of the scale factor for the kernel.
+The bandwidth <code>bw</code> is the standard deviation of the
+kernel (this agrees with the argument <code>bw</code> in
+<code><a href="../../stats/help/density.default.html">density.default</a></code>.
+The rescale factor <code>h</code> is the factor by which
+the &lsquo;standard form&rsquo; of the kernel is rescaled. For the Epanechnikov
+kernel, <code>h = bw * sqrt(5)</code> is the
+half-width of the support, while for the Gaussian kernel,
+<code>h = bw</code> is the standard deviation.
+Either <code>bw</code> or <code>h</code> should be given,
+and should be a single numeric value,
+or a character string indicating a bandwidth selection rule
+as described in <code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Numeric value used to rescale the bandwidth <code>bw</code> and halfwidth
+<code>h</code>. The bandwidth used is <code>adjust * bw</code>. This makes it
+easy to specify values like &lsquo;half the default&rsquo; bandwidth.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Numeric vector of weights associated with <code>x</code>.
+The weights are not required to sum to 1, and will not be normalised
+to sum to 1. The weights may include negative values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+
+<p>Lower and upper limits of interval on which density should be
+computed.
+The default value of <code>from</code> is <code>from=min(x)</code> if
+<code>zerocor="none"</code>, and <code>from=0</code> otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of <i>r</i> values for which density should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zerocor</code></td>
+<td>
+
+<p>String (partially matched) specifying a correction for the boundary effect
+bias at <i>r=0</i> when estimating a density on the positive
+half line. Possible values are
+<code>"none"</code>, <code>"weighted"</code>, <code>"convolution"</code>, <code>"reflection"</code>
+and <code>"bdrykern"</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>fast</code></td>
+<td>
+
+<p>Logical value specifying whether to perform the calculation rapidly
+using the Fast Fourier Transform (<code>fast=TRUE</code>)
+or to use slower, exact code (<code>fast=FALSE</code>, the default).
+Option <code>zerocor="bdrykern"</code> is not available when <code>fast=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments are ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>zerocor</code> is absent or given as <code>"none"</code>,
+this function computes the fixed bandwidth kernel estimator of the
+probability density on the real line. 
+</p>
+<p>If <code>zerocor</code> is given, it is assumed that the density
+is confined to the positive half-line, and a boundary correction is
+applied:
+</p>
+
+<dl>
+<dt>weighted</dt><dd><p>The contribution from each point <i>x[i]</i>
+is weighted by the factor <i>1/m(x[i])</i>
+where <i>m(x) = 1 - F(-x)</i> is the total mass of the kernel centred on
+<i>x</i> that lies in the positive half-line, and <i>F(x)</i> is the
+cumulative distribution function of the kernel</p>
+</dd>
+<dt>convolution</dt><dd><p>The estimate of the density <i>f(r)</i> is
+weighted by the factor <i>1/m(r)</i> where <i>m(r) = 1 - F(-r)</i>
+is given above.
+</p>
+</dd>
+<dt>reflection</dt><dd>
+<p>if the kernel centred at data point <i>x[i]</i>
+has a tail that lies on the negative half-line, this tail is
+reflected onto the positive half-line.
+</p>
+</dd>
+<dt>bdrykern</dt><dd><p>The density estimate is computed using the
+Boundary Kernel associated with the chosen kernel
+(Wand and Jones, 1995, page 47).
+That is, when estimating the density <i>f(r)</i> for values of
+<i>r</i> close to zero (defined as <i>r &lt; h</i> for all kernels
+except the Gaussian), the kernel contribution
+<i>k[h](r - x[i])</i> is multiplied by a
+term that is a linear function of <i>r - x[i]</i>.
+</p>
+</dd>
+<dt>JonesFoster</dt><dd>
+<p>The modification of the Boundary Kernel estimate
+proposed by Jones and Foster (1996), equal to
+<i>
+	f#(r) exp(f*(r)/f#(r) - 1)
+      </i>
+where <i>f#(r)</i> is the convolution estimator
+and <i>f*(r)</i> is the boundary kernel estimator.
+</p>
+</dd>
+</dl>
+
+<p>If <code>fast=TRUE</code>, the calculations are performed rapidly using 
+<code><a href="../../stats/help/density.default.html">density.default</a></code> which employs the Fast Fourier
+Transform. If <code>fast=FALSE</code> (the default), the calculations are
+performed exactly using slower C code. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"density"</code> as described in the help file
+for <code><a href="../../stats/help/density.default.html">density.default</a></code>. It contains at least the entries
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>x </code></td>
+<td>
+<p>Vector of <i>x</i> values</p>
+</td></tr>
+<tr valign="top"><td><code>y </code></td>
+<td>
+<p>Vector of density values <i>y= f(x)</i></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Martin Hazelton <a href="mailto:Martin.Hazelton@otago.ac.nz">Martin.Hazelton@otago.ac.nz</a>.</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Chang, Y-M., Davies, T.M. and Hazelton, M. (2024) In preparation.
+</p>
+<p>Jones, M.C. and Foster, P.J. (1996)
+A simple nonnegative boundary correction method for kernel density
+estimation.
+<em>Statistica Sinica</em>, <b>6</b> (4) 1005&ndash;1013.
+</p>
+<p>Wand, M.P. and Jones, M.C. (1995)
+<em>Kernel Smoothing</em>.
+Chapman and Hall.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  sim.dat &lt;- rexp(500)
+  fhatN &lt;- densityBC(sim.dat, "biweight", h=0.4)
+  fhatB &lt;- densityBC(sim.dat, "biweight", h=0.4, zerocor="bdrykern")
+  plot(fhatN, ylim=c(0,1.1), main="density estimates")
+  lines(fhatB, col=2)
+  curve(dexp(x), add=TRUE, from=0, col=3)
+  legend(2, 0.8,
+     legend=c("fixed bandwidth", "boundary kernel", "true density"),
+     col=1:3, lty=rep(1,3))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

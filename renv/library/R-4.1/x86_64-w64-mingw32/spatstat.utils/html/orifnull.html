@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Specify a Default Value</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for orifnull {spatstat.utils}"><tr><td>orifnull {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Specify a Default Value</h2>
+
+<h3>Description</h3>
+
+<p>Specify a value together with a default to be used when the first value is null.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+a %orifnull% b
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>a</code></td>
+<td>
+
+<p>Any kind of object or expression to be evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>b</code></td>
+<td>
+
+<p>Default value to be used when <code>a</code> is <code>NULL</code>.
+Any kind of object or expression to be evaluated.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The operator <code>%orifnull%</code> is designed to improve the
+readability of code.
+</p>
+<p><code>a %orifnull% b</code> is equivalent to <code>if(is.null(a)) a else b</code>.
+</p>
+<p>That is, <code>a %orifnull% b</code> is equal to 
+<code>a</code> provided <code>a</code> is not null, and otherwise
+the result is equal to <code>b</code>.  
+</p>
+<p>Expressions are evaluated only when necessary. 
+If <code>a</code> is a language expression, it is first evaluated. Then if
+<code>is.null(a)</code> is <code>FALSE</code>, the result is <code>a</code>. Otherwise,
+<code>b</code> is evaluated, and the result is <code>b</code>.
+Note that <code>b</code> is not evaluated unless <code>a</code> is <code>NULL</code>.
+</p>
+<p>The operator <code>%orifnull%</code> has higher precedence than the arithmetic
+operators <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> but lower precedence than <code>^</code>.
+</p>
+<p>The operator is associative, and can be used repeatedly in an
+expression, so that a default value may have its own default. 
+See the Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result is <code>a</code> if <code>a</code> is not <code>NULL</code>,
+and otherwise the result is <code>b</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- 7
+   y &lt;- 42
+   z &lt;- w &lt;- NULL
+   x %orifnull% y
+   z %orifnull% y
+   z %orifnull% x %orifnull% y
+   z %orifnull% w %orifnull% y
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

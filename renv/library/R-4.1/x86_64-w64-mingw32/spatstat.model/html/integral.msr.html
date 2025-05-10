@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Integral of a Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for integral.msr {spatstat.model}"><tr><td>integral.msr {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Integral of a Measure
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the integral (total value) of a measure over its domain.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'msr'
+integral(f, domain=NULL, weight=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A signed measure or vector-valued measure (object of class
+<code>"msr"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional window specifying the domain of integration.
+Alternatively a tessellation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+
+<p>Optional. A pixel image (object of class <code>"im"</code>)
+or a <code>function(x,y)</code> giving a numerical weight
+to be applied to the integration.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The integral (total value) of the measure over its domain is
+calculated.
+</p>
+<p>If <code>domain</code> is a window (class <code>"owin"</code>) then the integration
+will be restricted to this window. If <code>domain</code> is a tessellation
+(class <code>"tess"</code>) then the integral of <code>f</code> in each
+tile of <code>domain</code> will be computed.
+</p>
+<p>For a multitype measure <code>m</code>, use <code><a href="../../spatstat.model/help/split.msr.html">split.msr</a></code>
+to separate the contributions for each type of point,
+as shown in the Examples.
+</p>
+<p>If <code>weight</code> is given, it should be a pixel image or a function of
+coordinates <i>x</i> and <i>y</i> returning numerical values.
+Then each increment of the measure
+will be multiplied by the corresponding value of <code>weight</code>.
+Effectively, <code>weight</code> becomes the integrand, and 
+the result is the integral of <code>weight</code> with respect to the
+measure <code>f</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value, vector, or matrix.
+</p>
+<p><code>integral(f)</code> returns a numeric value (for a signed measure)
+or a vector of values (for a vector-valued measure).
+</p>
+<p>If <code>domain</code> is a tessellation then <code>integral(f, domain)</code>
+returns a numeric vector with one entry for each tile
+(if <code>f</code> is a signed measure)
+or a numeric matrix with one row for each tile
+(if <code>f</code> is a vector-valued measure).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/msr.html">msr</a></code>,
+<code><a href="../../grDevices/html/plotmath.html">integral</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(cells ~ x)
+   rr &lt;- residuals(fit)
+   integral(rr)
+
+   # vector-valued measure
+   rs &lt;- residuals(fit, type="score")
+   integral(rs)
+
+   # multitype
+   fitA &lt;- ppm(amacrine ~ x)
+   rrA &lt;- residuals(fitA)
+   sapply(split(rrA), integral)
+
+   # multitype and vector-valued
+   rsA &lt;- residuals(fitA, type="score")
+   sapply(split(rsA), integral)
+
+   ## integral over a subregion
+   integral(rr, domain=square(0.5))
+   ## integrals over the tiles of a tessellation
+   integral(rr, domain=quadrats(cells, 2))
+
+   ## weighted integral
+   integral(rr, weight=function(x,y){y})
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

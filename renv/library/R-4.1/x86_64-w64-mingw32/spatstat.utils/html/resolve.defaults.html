@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Values of Variables Using Several Default Rules</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for resolve.defaults {spatstat.utils}"><tr><td>resolve.defaults {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Determine Values of Variables Using Several Default Rules
+</h2>
+
+<h3>Description</h3>
+
+<p>Determine the values of variables by applying
+several different default rules in a given order.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   resolve.defaults(..., .MatchNull = TRUE, .StripNull = FALSE)
+
+   resolve.1.default(.A, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Several lists of <code>name=value</code> pairs.
+</p>
+</td></tr>
+<tr valign="top"><td><code>.MatchNull</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code> (the default), an entry of the form
+<code>name=NULL</code> will be treated as assigning the value
+<code>NULL</code> to the variable <code>name</code>. If <code>FALSE</code>,
+such entries will be ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>.StripNull</code></td>
+<td>
+
+<p>Logical value indicating whether 
+entries of the form <code>name=NULL</code> should be removed
+from the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>.A</code></td>
+<td>
+
+<p>Either a character string giving the name of the variable
+to be extracted, or a list consisting of one <code>name=value</code> pair
+giving the variable name and its fallback default value.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions determine the values of variables by applying a series
+of default rules, in the order specified.
+</p>
+<p>Each of the arguments <code>...</code> should be a list of
+<code>name=value</code> pairs giving a value
+for a variable <code>name</code>. Each list could represent a
+set of arguments given by the user, or a 
+rule assigning default values to some variables.
+Lists that appear earlier in the sequence of arguments <code>...</code>
+take precedence.
+</p>
+<p>The arguments <code>...</code> will be concatenated into a single list.
+The earliest occurrence of each <code>name</code> is then used to
+determine the final value of the variable <code>name</code>.
+</p>
+<p>The function <code>resolve.defaults</code> returns a list of
+<code>name=value</code> pairs for all variables encountered.
+It is commonly used to decide the values of
+arguments to be passed to another function
+using <code><a href="../../base/help/do.call.html">do.call</a></code>.
+</p>
+<p>The function <code>resolve.1.default</code> returns the value
+of the specified variable as determined by <code>resolve.defaults</code>.
+It is commonly used inside a function to determine the value
+of an argument.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>resolve.defaults</code> is
+a list of <code>name=value</code> pairs.
+</p>
+<p>The result of <code>resolve.1.default</code> can be any kind of value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/do.call.html">do.call</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  user &lt;- list(day="Friday")
+  ruleA &lt;- list(month="Jan", gravity=NULL)
+  ruleB &lt;- list(day="Tuesday", month="May", gravity=42)
+  resolve.defaults(user, ruleA, ruleB)
+  resolve.defaults(user, ruleA, ruleB, .StripNull=TRUE)
+  resolve.defaults(user, ruleA, ruleB, .MatchNull=FALSE)
+
+  resolve.1.default("month", user, ruleA, ruleB)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Berman's Tests for Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for berman.test.ppm {spatstat.model}"><tr><td>berman.test.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Berman's Tests for Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Tests the goodness-of-fit of a Poisson point process model
+using methods of Berman (1986).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+## S3 method for class 'ppm'
+berman.test(model, covariate,
+                         which = c("Z1", "Z2"),
+               alternative = c("two.sided", "less", "greater"), ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted point process model (object of class <code>"ppm"</code> or
+<code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariate</code></td>
+<td>
+
+<p>The spatial covariate on which the test will be based.
+An image (object of class <code>"im"</code>)
+or a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Character string specifying the choice of test.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>Character string specifying the alternative hypothesis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments controlling the pixel resolution
+(arguments <code>dimyx</code>, <code>eps</code> and <code>rule.eps</code>
+passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>)
+or other undocumented features.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions perform a goodness-of-fit test of a Poisson point
+process model fitted to point pattern data. The observed distribution
+of the values of a spatial covariate at the data points,
+and the predicted distribution of the same values under the model,
+are compared using either of two test statistics
+<i>Z[1]</i> and <i>Z[2]</i> proposed by Berman (1986).
+The <i>Z[1]</i> test is also known as the
+Lawson-Waller test.
+</p>
+<p>The function <code>berman.test</code> is generic, with methods for
+point patterns (<code>"ppp"</code> or <code>"lpp"</code>)
+and point process models (<code>"ppm"</code> or <code>"lppm"</code>).
+</p>
+
+<ul>
+<li> 
+<p>If <code>X</code> is a point pattern dataset (object of class
+<code>"ppp"</code> or <code>"lpp"</code>), then
+<code>berman.test(X, ...)</code> performs a goodness-of-fit test of the
+uniform Poisson point process (Complete Spatial Randomness, CSR)
+for this dataset.
+</p>
+</li>
+<li>
+<p>If <code>model</code> is a fitted point process model
+(object of class <code>"ppm"</code> or <code>"lppm"</code>)
+then <code>berman.test(model, ...)</code> performs
+a test of goodness-of-fit for this fitted model. In this case,
+<code>model</code> should be a Poisson point process.
+</p>
+</li></ul>
+
+<p>The test is performed by comparing the observed distribution
+of the values of a spatial covariate at the data points,
+and the predicted distribution of the same covariate under the model.
+Thus, you must nominate a spatial covariate for this test.
+</p>
+<p>The argument <code>covariate</code> should be either a <code>function(x,y)</code>
+or a pixel image (object of class <code>"im"</code> containing the values
+of a spatial function.
+If <code>covariate</code> is an image, it should have numeric values,
+and its domain should cover the observation window of the
+<code>model</code>. If <code>covariate</code> is a function, it should expect
+two arguments <code>x</code> and <code>y</code> which are vectors of coordinates,
+and it should return a numeric vector of the same length
+as <code>x</code> and <code>y</code>.  
+</p>
+<p>First the original data point pattern is extracted from <code>model</code>.
+The values of the <code>covariate</code> at these data points are
+collected.
+</p>
+<p>Next the values of the <code>covariate</code> at all locations in the
+observation window are evaluated. The point process intensity
+of the fitted model is also evaluated at all locations in the window.
+</p>
+
+<ul>
+<li><p> If <code>which="Z1"</code>,
+the test statistic <i>Z[1]</i> is computed as follows.
+The sum <i>S</i> of the covariate values at all data
+points is evaluated. The predicted mean <i>&mu;</i> and variance
+<i>&sigma;^2</i> of <i>S</i> are computed
+from the values of the covariate at all locations in the window.
+Then we compute <i>Z[1]=(S-&mu;)/&sigma;</i>.
+Closely-related tests were proposed independently 
+by Waller et al (1993) and Lawson (1993)
+so this test is often termed the 
+Lawson-Waller test in epidemiological literature.
+</p>
+</li>
+<li><p> If <code>which="Z2"</code>,
+the test statistic <i>Z[2]</i> is computed as follows.
+The values of the <code>covariate</code> at all locations in the
+observation window, weighted by the point process intensity,
+are compiled into a cumulative distribution function <i>F</i>.
+The probability integral transformation is then applied:
+the values of the <code>covariate</code> at the original data points
+are transformed by the predicted cumulative distribution function
+<i>F</i> into numbers between 0 and 1. If the model is correct,
+these numbers are i.i.d. uniform random numbers.
+The standardised sample mean of these numbers is the
+statistic <i>Z[2]</i>. 
+</p>
+</li></ul>
+
+<p>In both cases the null distribution of the test statistic
+is the standard normal distribution, approximately.
+</p>
+<p>The return value is an object of class <code>"htest"</code> containing the
+results of the hypothesis test. The print method for this class
+gives an informative summary of the test outcome.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"htest"</code> (hypothesis test)
+and also of class <code>"bermantest"</code>,
+containing the results of the test. The return value can be
+plotted (by <code><a href="../../spatstat.explore/help/plot.bermantest.html">plot.bermantest</a></code>) or printed
+to give an informative summary of the test.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>The meaning of a one-sided test must be carefully scrutinised: see
+the printed output.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Berman, M. (1986)
+Testing for spatial association between a point process
+and another stochastic process.
+<em>Applied Statistics</em> <b>35</b>, 54&ndash;62.
+</p>
+<p>Lawson, A.B. (1993)
+On the analysis of mortality events around a
+prespecified fixed point.
+<em>Journal of the Royal Statistical Society, Series A</em>
+<b>156</b> (3) 363&ndash;377.
+</p>
+<p>Waller, L., Turnbull, B., Clark, L.C. and Nasca, P. (1992)
+Chronic Disease Surveillance and testing of
+clustering of disease and exposure: Application to
+leukaemia incidence and TCE-contaminated dumpsites
+in upstate New York.
+<em>Environmetrics</em> <b>3</b>, 281&ndash;300.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code>,
+<code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>,
+<code><a href="../help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # Berman's data
+   X &lt;- copper$SouthPoints
+   L &lt;- copper$SouthLines
+   D &lt;- distmap(L, eps=1)
+   # test of fitted model
+   fit &lt;- ppm(X ~ x+y)
+   berman.test(fit, D)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

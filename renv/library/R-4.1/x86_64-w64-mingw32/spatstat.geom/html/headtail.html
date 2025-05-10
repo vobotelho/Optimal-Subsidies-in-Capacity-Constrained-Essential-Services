@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: First or Last Part of a Spatial Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for headtail {spatstat.geom}"><tr><td>headtail {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+First or Last Part of a Spatial Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Returns the first few elements (<code>head</code>) or the last few
+elements (<code>tail</code>) of a spatial pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppp'
+head(x, n = 6L, ...)
+
+  ## S3 method for class 'ppx'
+head(x, n = 6L, ...)
+
+  ## S3 method for class 'psp'
+head(x, n = 6L, ...)
+
+  ## S3 method for class 'tess'
+head(x, n = 6L, ...)
+
+  ## S3 method for class 'ppp'
+tail(x, n = 6L, ...)
+
+  ## S3 method for class 'ppx'
+tail(x, n = 6L, ...)
+
+  ## S3 method for class 'psp'
+tail(x, n = 6L, ...)
+
+  ## S3 method for class 'tess'
+tail(x, n = 6L, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial pattern of geometrical figures,
+such as a spatial pattern of points
+(an object of class <code>"ppp"</code>, <code>"pp3"</code>, <code>"ppx"</code> or
+<code>"lpp"</code>) or a spatial pattern of line segments
+(an object of class <code>"psp"</code>) or a tessellation
+(object of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Integer. The number of elements of the pattern that should be extracted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions <code><a href="../../utils/help/head.html">head</a></code>
+and <code><a href="../../utils/help/tail.html">tail</a></code>. They extract the first or last
+<code>n</code> elements from <code>x</code> and return them as an object of the
+same kind as <code>x</code>.
+</p>
+<p>To inspect the spatial coordinates themselves, use
+<code><a href="../../utils/help/View.html">View</a>(x)</code>
+or <code>head(as.data.frame(x))</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of the same class as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../utils/help/View.html">View</a></code>, <code><a href="../../utils/help/edit.html">edit</a></code>.
+</p>
+<p>Conversion to data frame:
+<code><a href="../../spatstat.geom/help/as.data.frame.ppp.html">as.data.frame.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/as.data.frame.ppx.html">as.data.frame.ppx</a></code>,
+<code><a href="../../spatstat.geom/help/as.data.frame.psp.html">as.data.frame.psp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  head(cells)
+  tail(edges(letterR), 5)
+  head(dirichlet(cells), 4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

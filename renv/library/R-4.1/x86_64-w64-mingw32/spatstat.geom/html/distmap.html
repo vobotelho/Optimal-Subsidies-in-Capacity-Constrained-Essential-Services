@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for distmap {spatstat.geom}"><tr><td>distmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Distance Map 
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the distance map of an object, and return it as a pixel image.
+Generic.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  distmap(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Any suitable dataset representing a two-dimensional
+object, such as a point pattern (object of class <code>"ppp"</code>),
+a window (object of class <code>"owin"</code>) or a
+line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The &ldquo;distance map&rdquo; of a set of points <i>A</i> is the function
+<i>f</i> whose value <code>f(x)</code> is defined for any two-dimensional
+location <i>x</i> as the shortest distance from <i>x</i> to <i>A</i>.
+</p>
+<p>This function computes the distance map of the set <code>X</code>
+and returns the distance map as a pixel image.
+</p>
+<p>This is generic. Methods are provided for
+point patterns (<code><a href="../../spatstat.geom/help/distmap.ppp.html">distmap.ppp</a></code>),
+line segment patterns  (<code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code>)
+and windows (<code><a href="../../spatstat.geom/help/distmap.owin.html">distmap.owin</a></code>) as well as other classes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) whose grey scale values
+are the values of the distance map.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The pixel values in the image <code>distmap(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite expression
+such as &lsquo;2 microns&rsquo;,
+then the values in <code>distmap(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distmap.ppp.html">distmap.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code>,
+<code><a href="../../spatstat.geom/help/distmap.owin.html">distmap.owin</a></code>,
+<code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  U &lt;- distmap(cells)
+  V &lt;- distmap(letterR)
+  if(interactive()) {
+  plot(U)
+  plot(V)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

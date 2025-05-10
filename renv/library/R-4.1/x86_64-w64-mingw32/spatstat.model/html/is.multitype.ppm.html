@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether A Point Process Model is Multitype</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.multitype.ppm {spatstat.model}"><tr><td>is.multitype.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test Whether A Point Process Model is Multitype</h2>
+
+<h3>Description</h3>
+
+<p>Tests whether a fitted point process model involves &ldquo;marks&rdquo;
+attached to the points that classify the points into several types.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppm'
+is.multitype(X, ...) 
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>)
+usually obtained from <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>&ldquo;Marks&rdquo; are observations attached to each point of a point pattern.
+For example the <code><a href="../../spatstat.data/help/longleaf.html">longleaf</a></code> dataset
+contains the locations of trees, each tree being marked by its diameter;
+the <code><a href="../../spatstat.data/help/amacrine.html">amacrine</a></code> dataset gives the locations of cells
+of two types (on/off) and the type of cell may be regarded as a mark attached
+to the location of the cell.
+</p>
+<p>The argument <code>X</code> is a fitted point process model
+(an object of class <code>"ppm"</code>) typically obtained
+by fitting a model to point pattern data using <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>This function returns <code>TRUE</code> if the <em>original data</em>
+(to which the model <code>X</code> was fitted) were a multitype point pattern.
+</p>
+<p>Note that this is not the same as testing whether the
+model involves terms that depend on the marks (i.e. whether the
+fitted model ignores the marks in the data).
+Currently we have not implemented a test for this.
+</p>
+<p>If this function returns <code>TRUE</code>, the implications are
+(for example) that
+any simulation of this model will require simulation of random marks
+as well as random point locations.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical value, equal to <code>TRUE</code> if
+<code>X</code> is a model that was fitted to a multitype point pattern dataset.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.multitype.html">is.multitype</a></code>,
+<code><a href="../../spatstat.geom/help/is.multitype.ppp.html">is.multitype.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- lansing
+   # Multitype point pattern --- trees marked by species
+
+   
+
+  fit1 &lt;- ppm(X, ~ marks, Poisson())
+  is.multitype(fit1)
+  # TRUE
+
+  fit2 &lt;- ppm(X, ~ 1, Poisson())
+  is.multitype(fit2)
+  # TRUE
+
+  # Unmarked point pattern
+  fit3 &lt;- ppm(cells, ~ 1, Poisson())
+  is.multitype(fit3)
+  # FALSE
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

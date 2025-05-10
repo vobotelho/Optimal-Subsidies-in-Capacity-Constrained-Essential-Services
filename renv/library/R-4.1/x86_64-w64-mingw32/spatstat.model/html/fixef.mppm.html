@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Fixed Effects from Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fixef.mppm {spatstat.model}"><tr><td>fixef.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract Fixed Effects from Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a list of point patterns,
+extract the fixed effects of the model.
+A method for <code>fixef</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'mppm'
+fixef(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted point process model (an object of class <code>"mppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../nlme/help/fixef.html">fixef</a></code>.
+</p>
+<p>The argument <code>object</code> must be a fitted point process model
+(object of class <code>"mppm"</code>) produced by the 
+fitting algorithm <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>). This represents a
+point process model that has been fitted
+to a list of several point pattern datasets. See <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>
+for information.
+</p>
+<p>This function extracts the coefficients of the fixed effects
+of the model.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector of coefficients.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley, Ida-Maria Sintorn and Leanne Bischoff.
+Implemented in <span class="pkg">spatstat</span> by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/coef.mppm.html">coef.mppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ H &lt;- hyperframe(Y = waterstriders)
+ # Tweak data to exaggerate differences
+ H$Y[[1]] &lt;- rthin(H$Y[[1]], 0.3)
+ m1 &lt;- mppm(Y ~ id,  data=H, Strauss(7))
+ fixef(m1)
+ m2 &lt;- mppm(Y ~ 1,  random=~1|id, data=H, Strauss(7))
+ fixef(m2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

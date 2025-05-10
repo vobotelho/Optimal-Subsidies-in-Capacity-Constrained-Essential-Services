@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Window to Binary Mask under Constraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for owin2mask {spatstat.geom}"><tr><td>owin2mask {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Window to Binary Mask under Constraints 
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts a window (object of class <code>"owin"</code>)
+to a binary pixel mask, with options to require
+that the inside, outside, and/or boundary of the window
+should be completely covered.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+owin2mask(W,
+         op = c("sample", "notsample",
+                "cover", "inside",
+                "uncover", "outside",
+                "boundary",
+                "majority", "minority"),
+         ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>op</code></td>
+<td>
+
+<p>Character string (partially matched) specifying how <code>W</code>
+should be converted to a binary pixel mask.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is similar to, but more flexible than, <code><a href="../help/as.mask.html">as.mask</a></code>.
+It converts the interior, exterior, or boundary of the window <code>W</code>
+to a binary pixel mask.
+</p>
+
+<ul>
+<li>
+<p>If <code>op="sample"</code> (the default), the mask consists of all pixels
+whose <b>centres</b> lie inside the window <code>W</code>.
+This is the same as using <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+</li>
+<li> 
+<p>If <code>op="notsample"</code>, the mask consists of all pixels
+whose <em>centres lie outside</em> the window <code>W</code>.
+This is the same as using <code><a href="../help/as.mask.html">as.mask</a></code> followed by
+<code><a href="../../spatstat.geom/help/complement.owin.html">complement.owin</a></code>.
+</p>
+</li>
+<li> 
+<p>If <code>op="cover"</code>, the mask consists of all pixels
+which overlap the window <code>W</code>, wholly or partially. 
+</p>
+</li>
+<li> 
+<p>If <code>op="inside"</code>, the mask consists of all pixels which
+lie entirely inside the window <code>W</code>.
+</p>
+</li>
+<li> 
+<p>If <code>op="uncover"</code>, the mask consists of all pixels which
+overlap the outside of the window <code>W</code>, wholly or partially.
+</p>
+</li>
+<li> 
+<p>If <code>op="outside"</code>, the mask consists of all pixels which
+lie entirely outside the window <code>W</code>.
+</p>
+</li>
+<li> 
+<p>If <code>op="boundary"</code>, the mask consists of all pixels which
+overlap the boundary of the window <code>W</code>.
+</p>
+</li>
+<li> 
+<p>If <code>op="majority"</code>, the mask consists of all pixels in which
+at least half of the pixel area is covered by the window <code>W</code>.
+</p>
+</li>
+<li> 
+<p>If <code>op="minority"</code>, the mask consists of all pixels in which
+less than half of the pixel area is covered by the window <code>W</code>.
+</p>
+</li></ul>
+
+<p>These operations are complementary pairs as follows:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>"notsample"</code> </td><td style="text-align: left;"> is the complement of </td><td style="text-align: left;"> <code>"sample"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"uncover"</code> </td><td style="text-align: left;"> is the complement of </td><td style="text-align: left;"> <code>"inside"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"outside"</code> </td><td style="text-align: left;"> is the complement of </td><td style="text-align: left;"> <code>"cover"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"minority"</code> </td><td style="text-align: left;"> is the complement of </td><td style="text-align: left;"> <code>"majority"</code>
+  </td>
+</tr>
+
+</table>
+
+<p>They also satisfy the following set relations:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>"inside"</code> </td><td style="text-align: left;"> is a subset of </td><td style="text-align: left;"> <code>"cover"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"outside"</code> </td><td style="text-align: left;"> is a subset of </td><td style="text-align: left;"> <code>"uncover"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"boundary"</code> </td><td style="text-align: left;"> is a subset of </td><td style="text-align: left;"> <code>"cover"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"boundary"</code> </td><td style="text-align: left;"> is a subset of </td><td style="text-align: left;"> <code>"uncover"</code>
+  </td>
+</tr>
+
+</table>
+
+<p>The results of <code>"inside"</code>, <code>"boundary"</code> and <code>"outside"</code>
+are disjoint and their union is the entire frame.
+</p>
+<p>Theoretically <code>"sample"</code> should be a subset of <code>"cover"</code>,
+<code>"notsample"</code> should be a subset of <code>"uncover"</code>,
+<code>"inside"</code> should be a subset of <code>"majority"</code>
+and <code>"outside"</code> should be a subset of <code>"minority"</code>,
+but these could be false due to numerical error in computational geometry.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A mask (object of class <code>"owin"</code> of type <code>"mask"</code>
+representing a binary pixel mask).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/as.mask.html">as.mask</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- Window(chorley)
+  opa &lt;- par(mfrow=c(2,5))
+  plot(as.mask(W, dimyx=10), col="grey", main="sample")
+  plot(W, add=TRUE, lwd=3, border="red")  
+  plot(owin2mask(W, "ma", dimyx=10), col="grey", main="majority")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(owin2mask(W, "i", dimyx=10), col="grey", main="inside")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(owin2mask(W, "c", dimyx=10), col="grey", main="cover")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(owin2mask(W, "b", dimyx=10), col="grey", main="boundary")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(as.mask(complement.owin(W), dimyx=10), col="grey",
+       main="notsample")
+  plot(W, add=TRUE, lwd=3, border="red")  
+  plot(owin2mask(W, "mi", dimyx=10), col="grey", main="minority")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(owin2mask(W, "o", dimyx=10), col="grey", main="outside")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(owin2mask(W, "u", dimyx=10), col="grey", main="uncover")
+  plot(W, add=TRUE, lwd=3, border="red")
+  plot(owin2mask(W, "b", dimyx=10), col="grey", main="boundary")
+  plot(W, add=TRUE, lwd=3, border="red")
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

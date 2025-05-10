@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a plotppm Object Created by plot.ppm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.plotppm {spatstat.model}"><tr><td>plot.plotppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a plotppm Object Created by plot.ppm</h2>
+
+<h3>Description</h3>
+
+<p>The function plot.ppm produces objects which specify plots
+of fitted point process models.  The function plot.plotppm
+carries out the actual plotting of these objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'plotppm'
+plot(x, data = NULL, trend = TRUE, cif = TRUE,
+             se = TRUE, pause = interactive(),
+             how = c("persp", "image", "contour"),
+             ..., pppargs)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>plotppm</code> produced by
+<code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a>()</code>
+</p>
+</td></tr></table>
+<p>.
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>The point pattern (an object of class <code>ppp</code>)
+to which the point process model was fitted (by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend</code></td>
+<td>
+
+<p>Logical scalar; should the trend component of
+the fitted model be plotted?
+</p>
+</td></tr>
+<tr valign="top"><td><code>cif</code></td>
+<td>
+
+<p>Logical scalar; should the complete conditional
+intensity of the fitted model be plotted?
+</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+
+<p>Logical scalar; should the estimated standard error
+of the fitted intensity be plotted?
+</p>
+</td></tr>
+<tr valign="top"><td><code>pause</code></td>
+<td>
+
+<p>Logical scalar indicating whether to pause with a prompt 
+after each plot. Set <code>pause=FALSE</code> if plotting to a file.
+</p>
+</td></tr>
+<tr valign="top"><td><code>how</code></td>
+<td>
+
+<p>Character string or character vector indicating the style or styles of
+plots to be performed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments to the plotting functions
+<code><a href="../../graphics/html/persp.html">persp</a></code>, <code><a href="../../graphics/html/image.html">image</a></code> and <code><a href="../../graphics/html/contour.html">contour</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pppargs</code></td>
+<td>
+
+<p>List of extra arguments passed to <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+when displaying the original point pattern data.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If argument <code>data</code> is supplied then the point pattern will
+be superimposed on the image and contour plots.
+</p>
+<p>Sometimes a fitted model does not have a trend component, or the
+trend component may constitute all of the conditional intensity (if
+the model is Poisson).  In such cases the object <code>x</code> will not
+contain a trend component, or will contain only a trend component.
+This will also be the case if one of the arguments <code>trend</code>
+and <code>cif</code> was set equal to <code>FALSE</code> in the call to
+<code>plot.ppm()</code> which produced <code>x</code>.  If this is so then
+only the item which is present will be plotted.  Explicitly setting
+<code>trend=TRUE</code>, or <code>cif=TRUE</code>, respectively, will then give
+an error.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>Arguments which are passed to <code>persp</code>, <code>image</code>, and
+<code>contour</code> via the ... argument get passed to any of the
+other functions listed in the <code>how</code> argument, and won't be
+recognized by them.  This leads to a lot of annoying but harmless
+warning messages.  Arguments to <code>persp</code> may be supplied via
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>()</code> which alleviates the warning
+messages in this instance.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a>()</code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ if(interactive()) {
+ m &lt;- ppm(cells ~ 1, Strauss(0.05))
+ mpic &lt;- plot(m)
+ # Perspective plot only, with altered parameters:
+  plot(mpic,how="persp", theta=-30,phi=40,d=4)
+ # All plots, with altered parameters for perspective plot:
+ op &lt;- spatstat.options(par.persp=list(theta=-30,phi=40,d=4))
+ plot(mpic)
+ # Revert
+ spatstat.options(op)
+ }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

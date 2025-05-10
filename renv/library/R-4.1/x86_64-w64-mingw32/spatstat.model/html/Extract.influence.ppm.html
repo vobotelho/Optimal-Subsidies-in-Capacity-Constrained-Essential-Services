@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Subset of Influence Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.influence.ppm {spatstat.model}"><tr><td>Extract.influence.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Subset of Influence Object</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of an influence object, 
+or extract the influence values at specified locations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'influence.ppm'
+x[i, ...]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A influence object (of class <code>"influence.ppm"</code>)
+computed by <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Subset index (passed to <code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code>).
+Either a spatial window (object of class <code>"owin"</code>)
+or an integer index.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"influence.ppm"</code> contains the values of the
+likelihood influence for a point process model, computed by
+<code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>. This is effectively a marked point
+pattern obtained by marking each of the original data points
+with its likelihood influence.
+</p>
+<p>This function extracts a designated subset of the influence values,
+either as another influence object, or as a vector of numeric values.
+</p>
+<p>The function <code>[.influence.ppm</code> is a method for <code><a href="../../base/html/Extract.html">[</a></code> for the
+class <code>"influence.ppm"</code>. The argument <code>i</code> should be
+an index applicable to a point pattern. It may be either
+a spatial window (object of class <code>"owin"</code>)
+or a sequence index.
+The result will be another influence object
+(of class <code>influence.ppm</code>).
+</p>
+<p>To extract the influence values as a numeric vector,
+use <code>marks(as.ppp(x))</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"influence.ppm"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(cells, ~x)
+   infl &lt;- influence(fit)
+   b &lt;- owin(c(0.1, 0.3), c(0.2, 0.4))
+   infl[b]
+   infl[1:5]
+   marks(as.ppp(infl))[1:3]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

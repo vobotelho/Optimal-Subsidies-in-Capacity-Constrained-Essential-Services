@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Morisita Index Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for miplot {spatstat.explore}"><tr><td>miplot {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Morisita Index Plot</h2>
+
+<h3>Description</h3>
+
+<p>Displays the Morisita Index Plot of a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+miplot(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>) or something
+acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Optional arguments to control the appearance of the plot.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Morisita (1959) defined an index of spatial aggregation for a spatial
+point pattern based on quadrat counts. The spatial domain of the point
+pattern is first divided into <i>Q</i> subsets (quadrats) of equal size and
+shape. The numbers of points falling in each quadrat are counted.
+Then the Morisita Index is computed as
+</p>
+<p style="text-align: center;"><i>
+    MI = Q * sum(n[i] (n[i]-1))/(N(N-1))
+  </i></p>
+
+<p>where <i>n[i]</i> is the number of points falling in the <i>i</i>-th
+quadrat, and <i>N</i> is the total number of points.
+If the pattern is completely random, <code>MI</code> should be approximately
+equal to 1. Values of <code>MI</code> greater than 1 suggest clustering.
+</p>
+<p>The <em>Morisita Index plot</em> is a plot of the Morisita Index
+<code>MI</code> against the linear dimension of the quadrats. 
+The point pattern dataset is divided into <i>2 * 2</i>
+quadrats, then <i>3 * 3</i> quadrats, etc, and the
+Morisita Index is computed each time. This plot is an attempt to
+discern different scales of dependence in the point pattern data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>M. Morisita (1959) Measuring of the dispersion of individuals and
+analysis of the distributional patterns.
+Memoir of the Faculty of Science, Kyushu University, Series E: Biology. 
+<b>2</b>: 215&ndash;235. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ miplot(longleaf)
+ opa &lt;- par(mfrow=c(2,3))
+ plot(cells)
+ plot(japanesepines)
+ plot(redwood)
+ miplot(cells)
+ miplot(japanesepines)
+ miplot(redwood)
+ par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

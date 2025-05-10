@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download spatial data of historically comparable...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read_comparable_areas {geobr}"><tr><td>read_comparable_areas {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download spatial data of historically comparable municipalities</h2>
+
+<h3>Description</h3>
+
+<p>This function downloads the shape file of minimum comparable area of
+municipalities, known in Portuguese as 'Areas minimas comparaveis (AMCs)'.
+The data is available for any combination of census years between 1872-2010.
+These data sets are generated based on the Stata code originally developed by
+Ehrl (2017) doi: <a href="https://doi.org/10.1590/0101-416147182phe">10.1590/0101-416147182phe</a>, and translated into <code>R</code> by the
+<code>geobr</code> team.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read_comparable_areas(
+  start_year = 1970,
+  end_year = 2010,
+  simplified = TRUE,
+  showProgress = TRUE,
+  cache = TRUE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>start_year</code></td>
+<td>
+<p>Numeric. Start year to the period in the YYYY format.
+Defaults TO <code>1970</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>end_year</code></td>
+<td>
+<p>Numeric. End year to the period in the YYYY format. Defaults
+to <code>2010</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>simplified</code></td>
+<td>
+<p>Logic <code>FALSE</code> or <code>TRUE</code>, indicating whether the function
+should return the data set with 'original' spatial resolution or a data set
+with 'simplified' geometry. Defaults to <code>TRUE</code>. For spatial analysis and
+statistics users should set <code>simplified = FALSE</code>. Borders have been
+simplified by removing vertices of borders using <code style="white-space: pre;">st_simplify{sf}</code> preserving
+topology with a <code>dTolerance</code> of 100.</p>
+</td></tr>
+<tr valign="top"><td><code>showProgress</code></td>
+<td>
+<p>Logical. Defaults to <code>TRUE</code> display progress bar.</p>
+</td></tr>
+<tr valign="top"><td><code>cache</code></td>
+<td>
+<p>Logical. Whether the function should read the data cached
+locally, which is faster. Defaults to <code>cache = TRUE</code>. By default,
+<code>geobr</code> stores data files in a temporary directory that exists only
+within each R session. If <code>cache = FALSE</code>, the function will download
+the data again and overwrite the local file.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These data sets are generated based on the original Stata code developed by
+Philipp Ehrl. If you use these data, please cite:
+</p>
+
+<ul>
+<li><p> Ehrl, P. (2017). Minimum comparable areas for the period 1872-2010: an
+aggregation of Brazilian municipalities. Estudos Econômicos (São Paulo),
+47(1), 215-229. https://doi.org/10.1590/0101-416147182phe
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An <code style="white-space: pre;">"sf" "data.frame"</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other area functions: 
+<code><a href="../../geobr/help/read_amazon.html">read_amazon</a>()</code>,
+<code><a href="../../geobr/help/read_biomes.html">read_biomes</a>()</code>,
+<code><a href="../../geobr/help/read_capitals.html">read_capitals</a>()</code>,
+<code><a href="../../geobr/help/read_country.html">read_country</a>()</code>,
+<code><a href="../../geobr/help/read_disaster_risk_area.html">read_disaster_risk_area</a>()</code>,
+<code><a href="../../geobr/help/read_health_facilities.html">read_health_facilities</a>()</code>,
+<code><a href="../../geobr/help/read_health_region.html">read_health_region</a>()</code>,
+<code><a href="../../geobr/help/read_immediate_region.html">read_immediate_region</a>()</code>,
+<code><a href="../../geobr/help/read_indigenous_land.html">read_indigenous_land</a>()</code>,
+<code><a href="../../geobr/help/read_intermediate_region.html">read_intermediate_region</a>()</code>,
+<code><a href="../../geobr/help/read_meso_region.html">read_meso_region</a>()</code>,
+<code><a href="../../geobr/help/read_metro_area.html">read_metro_area</a>()</code>,
+<code><a href="../../geobr/help/read_micro_region.html">read_micro_region</a>()</code>,
+<code><a href="../../geobr/help/read_municipal_seat.html">read_municipal_seat</a>()</code>,
+<code><a href="../../geobr/help/read_municipality.html">read_municipality</a>()</code>,
+<code><a href="../../geobr/help/read_neighborhood.html">read_neighborhood</a>()</code>,
+<code><a href="../../geobr/help/read_pop_arrangements.html">read_pop_arrangements</a>()</code>,
+<code><a href="../../geobr/help/read_region.html">read_region</a>()</code>,
+<code><a href="../../geobr/help/read_schools.html">read_schools</a>()</code>,
+<code><a href="../../geobr/help/read_semiarid.html">read_semiarid</a>()</code>,
+<code><a href="../../geobr/help/read_state.html">read_state</a>()</code>,
+<code><a href="../../geobr/help/read_statistical_grid.html">read_statistical_grid</a>()</code>,
+<code><a href="../../geobr/help/read_urban_area.html">read_urban_area</a>()</code>,
+<code><a href="../../geobr/help/read_urban_concentrations.html">read_urban_concentrations</a>()</code>,
+<code><a href="../../geobr/help/read_weighting_area.html">read_weighting_area</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+  amc &lt;- read_comparable_areas(start_year=1970, end_year=2010)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

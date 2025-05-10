@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Cluster Process using Brix-Kendall Algorithm or...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rclusterBKBC {spatstat.random}"><tr><td>rclusterBKBC {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Simulate Cluster Process using Brix-Kendall Algorithm or Modifications
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates simulated realisations of a stationary Neyman-Scott
+cluster point process, using the Brix-Kendall (2002) algorithm or various
+modifications proposed by Baddeley and Chang (2023).
+For advanced research use.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rclusterBKBC(clusters="Thomas",
+   kappa, mu, scale,
+   ...,
+   W = unit.square(),
+   nsim = 1, drop = TRUE,
+   best = FALSE,
+   external = c("BK", "superBK", "border"),
+   internal = c("dominating", "naive"),
+   inflate = 1,
+   psmall = 1e-04,
+   use.inverse=TRUE,
+   use.special=TRUE,
+   integralmethod=c("quadrature", "trapezoid"),
+   verbose = TRUE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>clusters</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the cluster process.
+Current options include <code>"Thomas"</code>, <code>"MatClust"</code>,
+<code>"Cauchy"</code> and <code>"VarGamma"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+
+<p>Intensity of the parent process. A nonnegative number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean number of offspring per parent. A nonnegative number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Cluster scale. Interpretation depends on the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments controlling the shape of the cluster kernel, if any.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window in which the simulation should be generated.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>The number of simulated point patterns to be generated. A positive integer.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>best</code></td>
+<td>
+
+<p>Logical value. If <code>best=TRUE</code>, the code will choose the fastest
+algorithm. If <code>best=FALSE</code> (the default), the algorithm will be
+specified by the other arguments <code>external</code> and
+<code>internal</code>.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>external</code></td>
+<td>
+
+<p>Algorithm to be used to generate parent points which lie outside the
+bounding window. See Details. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+
+<p>Algorithm to be used to generate parent points which lie inside the
+bounding window. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>inflate</code></td>
+<td>
+
+<p>Numerical value determining the position of the bounding window.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>psmall</code></td>
+<td>
+
+<p>Threshold of small probability for use in the algorithm.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.inverse</code></td>
+<td>
+
+<p>Logical value specifying whether to compute the inverse function
+analytically, if possible (<code>use.inverse=TRUE</code>, the default)
+or by numerical root-finding (<code>use.inverse=FALSE</code>).
+This is mainly for checking validity of code.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.special</code></td>
+<td>
+
+<p>Logical value specifying whether to use efficient special code
+(if available) to generate the simulations (<code>use.special=TRUE</code>,
+the default) or to use generic code (<code>use.special=FALSE</code>).
+This is mainly for checking validity of code.
+</p>
+</td></tr>
+<tr valign="top"><td><code>integralmethod</code></td>
+<td>
+
+<p>Character string (partially matched)
+specifying how to perform numerical computation of integrals
+when required. This argument is passed to
+<code><a href="../../spatstat.univar/help/indefinteg.html">indefinteg</a></code>.
+The default <code>integralmethod="quadrature"</code> is accurate but
+can be slow. 
+Faster, but possibly less accurate, integration can be performed
+by setting <code>integralmethod="trapezoid"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value specifying whether to print detailed information about
+the simulation algorithm during execution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value specifying whether to issue a warning
+if the number of random proposal points is very large.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is intended for advanced research use.
+It implements the algorithm of Brix and Kendall (2002)
+for generating simulated realisations of a stationary Neyman-Scott
+process, and various modifications of this algorithm proposed
+in Baddeley and Chang (2023).
+It is an alternative to <code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>.
+</p>
+<p>The function supports the following models:
+</p>
+
+<ul>
+<li> <p><code>clusters="Thomas"</code>: the (modified) Thomas cluster process
+which can also be simulated by
+<code><a href="../help/rThomas.html">rThomas</a></code>.  
+</p>
+</li>
+<li> <p><code>clusters="MatClust"</code>: the Matern cluster process
+which can also be simulated by
+<code><a href="../help/rMatClust.html">rMatClust</a></code>.  
+</p>
+</li>
+<li> <p><code>clusters="Cauchy"</code>: the Cauchy cluster process
+which can also be simulated by
+<code><a href="../help/rCauchy.html">rCauchy</a></code>.  
+</p>
+</li>
+<li> <p><code>clusters="VarGamma"</code>: the variance-gamma cluster process
+which can also be simulated by
+<code><a href="../help/rVarGamma.html">rVarGamma</a></code>.  
+</p>
+</li>
+<li> 
+<p>any other Poisson cluster process models that may be recognised by 
+<code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>. 
+</p>
+</li></ul>
+
+<p>By default, the code executes the original Brix-Kendall algorithm
+described in Sections 2.3 and 3.1 of Brix and Kendall (2002).
+</p>
+<p>Modifications of this algorithm, proposed in Baddeley and Chang
+(2023), can be selected using the
+arguments <code>external</code> and <code>internal</code>, or <code>best</code>.
+</p>
+<p>If <code>best=TRUE</code>, the code will choose the algorithm
+that would run fastest with the given parameters.
+If <code>best=FALSE</code> (the default), the choice of algorithm
+is determined by the arguments <code>external</code> and <code>internal</code>.
+</p>
+<p>First the window <code>W</code> is enclosed in a disc <code>D</code>
+and Monte Carlo proposal densities are defined with reference to <code>D</code>
+as described in Brix and Kendall (2002).
+Then <code>D</code> is inflated by the scale factor <code>inflate</code>
+to produce a larger disc <code>E</code> (by default <code>inflate=1</code>
+implying <code>E=D</code>). 
+Then the parent points of the clusters are generated, possibly
+using different mechanisms inside and outside <code>E</code>.
+</p>
+<p>The argument <code>external</code> determines the algorithm for generating
+parent points outside <code>E</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>external="BK"</code> (the default), proposed parents outside
+<code>E</code> will be generated from a dominating point process as described in
+Section 3.1 of Brix and Kendall (2002). These points will be thinned
+to obtain the correct intensity of parent points.
+For each accepted parent, offspring points are generated inside <code>D</code>,
+subject to the condition that the parent has at least one offspring inside <code>D</code>.
+Offspring points are subsequently clipped to the true window <code>W</code>.
+</p>
+</li>
+<li> 
+<p>If <code>external="superBK"</code>, proposed parents will initially be generated
+from a process that dominates the dominating point process
+as described in Baddeley and Chang (2023).
+These proposals will then be thinned to obtain the correct intensity
+of the dominating process, then thinned again to obtain the correct
+intensity of parent points. This procedure reduces computation time
+when <code>scale</code> is large.
+For each accepted parent, offspring points are generated inside <code>D</code>,
+subject to the condition that the parent has at least one offspring inside <code>D</code>.
+Offspring points are subsequently clipped to the true window <code>W</code>.
+</p>
+</li>
+<li>
+<p>If <code>external="border"</code> then proposed parents will be generated
+with uniform intensity in a border region
+surrounding the disc <code>D</code>.
+For each proposed parent, offspring points are generated in the
+entire plane according to the cluster offspring distribution, without
+any restriction.
+Offspring points are subsequently clipped to the true window <code>W</code>.
+This is the technique currently used in
+<code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>.
+</p>
+</li></ul>
+
+<p>The argument <code>internal</code> determines the algorithm for generating
+proposed parent points inside <code>E</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>internal="dominating"</code>, parent points in <code>E</code> are generated
+according to the dominating point process described in 
+Sections 2.3 and 3.1 of Brix and Kendall (2002), and then thinned
+to obtain the correct intensity of parent points. 
+For each accepted parent, offspring points are generated inside <code>D</code>,
+subject to the condition that the parent has at least one offspring inside <code>D</code>.
+Offspring points are subsequently clipped to the true window <code>W</code>.
+</p>
+</li>
+<li>
+<p>If <code>internal="naive"</code>, parent points in <code>E</code> are generated with
+uniform intensity inside <code>E</code> and are not thinned.
+For each proposed parent, offspring points are generated in the
+entire plane according to the cluster offspring distribution, without
+any restriction.
+Offspring points are subsequently clipped to the true window
+<code>W</code>.
+This is the technique currently used in <code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>.
+</p>
+</li></ul>
+
+<p>If <code>warn=TRUE</code>, then a warning will be issued if
+the number of random proposal points (proposed parents and proposed
+offspring) is very large.
+The threshold is <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("huge.npoints")</code>.
+This warning has no consequences,
+but it helps to trap a number of common problems.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern, or a list of point patterns.
+</p>
+<p>If <code>nsim=1</code> and <code>drop=TRUE</code>, the result is 
+a point pattern (an object of class <code>"ppp"</code>).
+</p>
+<p>Otherwise, the result is a list of <code>nsim</code> point patterns,
+and also belongs to the class <code>"solist"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Ya-Mei Chang <a href="mailto:yamei628@gmail.com">yamei628@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Chang, Y.-M. (2023) Robust algorithms for simulating cluster point processes. <em>Journal of Statistical Computation and Simulation</em>. In Press. DOI <code>10.1080/00949655.2023.2166045</code>.
+</p>
+<p>Brix, A. and Kendall, W.S. (2002)
+Simulation of cluster point processes without edge effects.
+<em>Advances in Applied Probability</em> <b>34</b>, 267&ndash;280.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>,
+<code><a href="../help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../help/rThomas.html">rThomas</a></code>,
+<code><a href="../help/rCauchy.html">rCauchy</a></code>,
+<code><a href="../help/rVarGamma.html">rVarGamma</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Y &lt;- rclusterBKBC("Thomas", 10,5,0.2)
+  Y
+  Z &lt;- rclusterBKBC("VarGamma", 10,5,0.2,
+          nu=-1/4,
+          internal="naive", external="super",
+          verbose=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

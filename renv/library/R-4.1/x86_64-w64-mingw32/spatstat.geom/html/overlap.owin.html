@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Area of Overlap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for overlap.owin {spatstat.geom}"><tr><td>overlap.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Area of Overlap
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the area of the overlap (intersection) of
+two windows.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+overlap.owin(A, B)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+
+<p>Windows (objects of class <code>"owin"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the area of the overlap between the two
+windows <code>A</code> and <code>B</code>.
+</p>
+<p>If one of the windows is a binary mask, then both windows
+are converted to masks on the same grid, and the area is
+computed by counting pixels. Otherwise, the area is computed
+analytically (using the discrete Stokes theorem).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intersect.owin.html">intersect.owin</a></code>, 
+<code><a href="../../spatstat.geom/help/area.owin.html">area.owin</a></code>,
+<code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  A &lt;- square(1)
+  B &lt;- shift(A, c(0.3, 0.2))
+  overlap.owin(A, B)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

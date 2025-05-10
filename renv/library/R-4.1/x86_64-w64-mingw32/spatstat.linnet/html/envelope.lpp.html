@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Envelope for Point Patterns on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for envelope.lpp {spatstat.linnet}"><tr><td>envelope.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Envelope for Point Patterns on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Enables envelopes to be computed for point patterns on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+envelope(Y, fun=linearK, nsim=99, nrank=1, ..., 
+  funargs=list(), funYargs=funargs,
+  simulate=NULL, fix.n=FALSE, fix.marks=FALSE, verbose=TRUE, 
+  transform=NULL,global=FALSE,ginterval=NULL,use.theory=NULL,
+  alternative=c("two.sided", "less", "greater"),
+  scale=NULL, clamp=FALSE,
+  savefuns=FALSE, savepatterns=FALSE,
+  nsim2=nsim, VARIANCE=FALSE, nSD=2, Yname=NULL,
+  maxnerr=nsim, rejectNA=FALSE, silent=FALSE,
+  do.pwrong=FALSE, envir.simul=NULL)
+
+
+  ## S3 method for class 'lppm'
+envelope(Y, fun=linearK, nsim=99, nrank=1, ..., 
+  funargs=list(), funYargs=funargs,
+  simulate=NULL, fix.n=FALSE, fix.marks=FALSE, verbose=TRUE, 
+  transform=NULL,global=FALSE,ginterval=NULL,use.theory=NULL,
+  alternative=c("two.sided", "less", "greater"), 
+  scale=NULL, clamp=FALSE,
+  savefuns=FALSE, savepatterns=FALSE,
+  nsim2=nsim, VARIANCE=FALSE, nSD=2, Yname=NULL,
+  maxnerr=nsim, rejectNA=FALSE, silent=FALSE,
+  do.pwrong=FALSE, envir.simul=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>)
+or a fitted point process model on a linear network
+(object of class <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>Function that is to be computed for each simulated pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulations to perform.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrank</code></td>
+<td>
+
+<p>Integer. Rank of the envelope value amongst the <code>nsim</code> simulated
+values. A rank of 1 means that the minimum and maximum
+simulated values will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>funargs</code></td>
+<td>
+
+<p>A list, containing extra arguments to be passed to <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>funYargs</code></td>
+<td>
+
+<p>Optional. A list, containing extra arguments to be passed to
+<code>fun</code> when applied to the original data <code>Y</code> only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>simulate</code></td>
+<td>
+
+<p>Optional. Specifies how to generate the simulated point patterns.
+If <code>simulate</code> is an expression in the R language, then this
+expression will be evaluated <code>nsim</code> times,
+to obtain <code>nsim</code> point patterns which are taken as the
+simulated patterns from which the envelopes are computed.
+If <code>simulate</code> is a function, then this function will be
+repeatedly applied to the data pattern <code>Y</code> to obtain
+<code>nsim</code> simulated patterns.
+If <code>simulate</code> is a list of point patterns, then the entries
+in this list will be treated as the simulated patterns from which
+the envelopes are computed.
+Alternatively <code>simulate</code> may be an object produced by the
+<code>envelope</code> command: see Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fix.n</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, simulated patterns will have the
+same number of points as the original data pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fix.marks</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, simulated patterns will have the
+same number of points <em>and</em> the same marks as the
+original data pattern. In a multitype point pattern this means that
+the simulated patterns will have the same number of points
+<em>of each type</em> as the original data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical flag indicating whether to print progress reports
+during the simulations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>transform</code></td>
+<td>
+
+<p>Optional. A transformation to be applied to the
+function values, before the envelopes are computed.
+An expression object (see Details).
+</p>
+</td></tr>
+<tr valign="top"><td><code>global</code></td>
+<td>
+
+<p>Logical flag indicating whether envelopes should be pointwise
+(<code>global=FALSE</code>) or simultaneous (<code>global=TRUE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>ginterval</code></td>
+<td>
+
+<p>Optional.
+A vector of length 2 specifying
+the interval of <i>r</i> values for the simultaneous critical
+envelopes. Only relevant if <code>global=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.theory</code></td>
+<td>
+
+<p>Logical value indicating whether to use the theoretical value,
+computed by <code>fun</code>, as the reference value for simultaneous
+envelopes. Applicable only when <code>global=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>Character string determining whether the envelope corresponds
+to a two-sided test (<code>side="two.sided"</code>, the default)
+or a one-sided test with a lower critical boundary
+(<code>side="less"</code>) or a one-sided test
+with an upper critical boundary (<code>side="greater"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Optional. Scaling function for global envelopes.
+A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language which determines the
+relative scale of deviations, as a function of
+distance <i>r</i>, when computing the global envelopes.
+Applicable only when <code>global=TRUE</code>.
+Summary function values for distance <code>r</code>
+will be <em>divided</em> by <code>scale(r)</code> before the
+maximum deviation is computed. The resulting global envelopes
+will have width proportional to <code>scale(r)</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>clamp</code></td>
+<td>
+
+<p>Logical value indicating how to compute envelopes when
+<code>alternative="less"</code> or <code>alternative="greater"</code>.
+Deviations of the observed
+summary function from the theoretical summary function are initially
+evaluated as signed real numbers, with large positive values indicating
+consistency with the alternative hypothesis.
+If <code>clamp=FALSE</code> (the default), these values are not changed.
+If <code>clamp=TRUE</code>, any negative values are replaced by zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>savefuns</code></td>
+<td>
+
+<p>Logical flag indicating whether to save all the simulated
+function values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>savepatterns</code></td>
+<td>
+
+<p>Logical flag indicating whether to save all the simulated
+point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim2</code></td>
+<td>
+
+<p>Number of extra simulated point patterns to be generated
+if it is necessary to use simulation to estimate the theoretical
+mean of the summary function. Only relevant when <code>global=TRUE</code>
+and the simulations are not based on CSR.
+</p>
+</td></tr>
+<tr valign="top"><td><code>VARIANCE</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, critical envelopes will be calculated
+as sample mean plus or minus <code>nSD</code> times sample standard
+deviation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nSD</code></td>
+<td>
+
+<p>Number of estimated standard deviations used to determine
+the critical envelopes, if <code>VARIANCE=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Yname</code></td>
+<td>
+
+<p>Character string that should be used as the name of the 
+data point pattern <code>Y</code> when printing or plotting the results.
+</p>
+</td></tr>
+<tr valign="top"><td><code>maxnerr</code></td>
+<td>
+
+<p>Maximum number of rejected patterns.
+If <code>fun</code> yields a fatal error when applied to a simulated point
+pattern (for example, because the pattern is empty and <code>fun</code>
+requires at least one point), the pattern will be rejected
+and a new random point pattern will be generated. If this happens
+more than <code>maxnerr</code> times, the algorithm will give up.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rejectNA</code></td>
+<td>
+
+<p>Logical value specifying whether to reject a simulated pattern
+if the resulting values of <code>fun</code> are all equal to <code>NA</code>,
+<code>NaN</code> or infinite. If <code>FALSE</code> (the default), then
+simulated patterns are rejected only when <code>fun</code> gives a
+fatal error. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+
+<p>Logical value specifying whether to print a report each time
+a simulated pattern is rejected.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.pwrong</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the algorithm will also estimate
+the true significance level of the &ldquo;wrong&rdquo; test (the test that
+declares the summary function for the data to be significant
+if it lies outside the <em>pointwise</em> critical boundary at any
+point). This estimate is printed when the result is printed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir.simul</code></td>
+<td>
+
+<p>Environment in which to evaluate the expression <code>simulate</code>,
+if not the current environment.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic
+function <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> 
+applicable to point patterns on a linear network.
+</p>
+<p>The argument <code>Y</code> can be either a point pattern on a linear
+network, or a fitted point process model on a linear network. 
+The function <code>fun</code> will be evaluated for the data
+and also for <code>nsim</code> simulated point
+patterns on the same linear network.
+The upper and lower
+envelopes of these evaluated functions will be computed
+as described in <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+<p>The type of simulation is determined as follows.
+</p>
+
+<ul>
+<li> 
+<p>if <code>Y</code> is a point pattern (object of class <code>"lpp"</code>)
+and <code>simulate</code> is missing or <code>NULL</code>,
+then random point patterns will be generated according to
+a Poisson point process on the linear network on which <code>Y</code>
+is defined, with intensity estimated from <code>Y</code>.
+</p>
+</li>
+<li>
+<p>if <code>Y</code> is a fitted point process model (object of class
+<code>"lppm"</code>) and <code>simulate</code> is missing or <code>NULL</code>,
+then random point patterns will be generated by simulating
+from the fitted model.
+</p>
+</li>
+<li>
+<p>If <code>simulate</code> is present, it specifies the
+type of simulation as explained below.
+</p>
+</li>
+<li>
+<p>If <code>simulate</code> is an expression (typically including a call
+to a random generator), then the expression will be repeatedly
+evaluated, and should yield random point patterns on the same
+linear network as <code>Y</code>.
+</p>
+</li>
+<li>
+<p>If <code>simulate</code> is a function (typically including a call
+to a random generator), then the function will be repeatedly
+applied to the original point pattern <code>Y</code>, and
+should yield random point patterns on the same
+linear network as <code>Y</code>.
+</p>
+</li>
+<li>
+<p>If <code>simulate</code> is a list of point patterns,
+then these will be taken as the simulated point patterns.
+They should be on the same linear network as <code>Y</code>.
+</p>
+</li></ul>
+
+<p>The function <code>fun</code> should accept as its first argument
+a point pattern on a linear network (object of class <code>"lpp"</code>)
+and should have another argument called <code>r</code> or a <code>...</code>
+argument. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>)
+with additional information,
+as described in <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010)
+<em>Statistical methodology for events on a network</em>.
+Master's thesis, School of Mathematics and Statistics, University of
+Western Australia.
+</p>
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+<p>Okabe, A. and Yamada, I. (2001) The K-function method on a network and
+its computational implementation. <em>Geographical Analysis</em>
+<b>33</b>, 271-290.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>,
+<code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   if(interactive()) {
+     ns &lt;- 39
+     np &lt;- 40
+   } else { ns &lt;- np &lt;- 3 }
+   X &lt;- runiflpp(np, simplenet)
+
+   # uniform Poisson: random numbers of points
+   envelope(X, nsim=ns)
+
+   # uniform Poisson: conditional on observed number of points
+   envelope(X, fix.n=TRUE, nsim=ns)
+
+   # nonuniform Poisson
+   fit &lt;- lppm(X ~x)
+   envelope(fit, nsim=ns)
+
+   #multitype
+   marks(X) &lt;- sample(letters[1:2], np, replace=TRUE)
+   envelope(X, nsim=ns)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

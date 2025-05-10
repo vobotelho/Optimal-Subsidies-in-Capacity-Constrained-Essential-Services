@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: List Recent Significant Changes to a Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for latest.changes {spatstat}"><tr><td>latest.changes {spatstat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+List Recent Significant Changes to a Function
+</h2>
+
+<h3>Description</h3>
+
+<p>List all the changes to a particular function in a package,
+starting from a certain date or version of the package.
+The default is to list changes in the latest
+version of the <span class="pkg">spatstat</span> family of packages.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  latest.changes(x,
+          sinceversion = NULL, sincedate = NULL,
+          package = spatstat.family(), show = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Character string giving the name
+of the function of interest, or a search pattern to be matched.
+A character vector is permitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sinceversion</code></td>
+<td>
+
+<p>Earliest version of <code>package</code>
+for which changes should be listed.
+A character string.
+Default is the most recent version.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sincedate</code></td>
+<td>
+
+<p>Earliest release date of <code>package</code>
+for which changes should be listed.
+A character string or a date-time object.
+Default is the date of the most recent version.
+</p>
+</td></tr>
+<tr valign="top"><td><code>package</code></td>
+<td>
+
+<p>The name of the package (or packages) for which changes are to be listed.
+A character string or character vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show</code></td>
+<td>
+
+<p>Logical value indicating whether to display the table of changes
+on the terminal.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Details of changes are extracted from the NEWS file
+of the specified <code>package</code> under the heading
+&lsquo;Significant User-Visible Changes&rsquo;.
+All entries for which the first line matches <code>x</code> are selected.
+The table of changes
+is displayed (if <code>show=TRUE</code>) and returned invisibly.
+</p>
+<p>The argument <code>sinceversion</code> should be a character string
+like <code>"1.2-3"</code>. The default is the version string of the most
+recent version.
+</p>
+<p>The argument <code>sincedate</code> should be a 
+character string like <code>"2015-05-27"</code>, or a date-time object.
+The default is the date of the most recent version.
+</p>
+<p>If <code>sinceversion="all"</code> or <code>sincedate="all"</code>
+then all recorded changes will be listed. 
+</p>
+<p>The special options <code>sinceversion="book"</code> and <code>sincedate="book"</code>
+are interpreted to mean <code>sincedate="2015-06-05"</code>,
+which gives all changes reported after publication of
+the book by Baddeley, Rubak and Turner (2015).
+</p>
+<p>By default, changes in the <em>extension</em> packages
+<span class="pkg">spatstat.local</span>, <span class="pkg">spatstat.Knet</span>, <span class="pkg">spatstat.gui</span>
+are <em>not</em> reported. To include these changes as well,
+set <code>package=spatstat.family(TRUE,TRUE)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) a data frame, belonging to the class <code>"changetable"</code>,
+which has a <code>print</code> method.
+</p>
+
+
+<h3>Pattern matching</h3>
+
+<p>The first argument <code>x</code> is interpreted as a pattern to be matched
+using <code><a href="../../base/help/grepl.html">grepl</a></code>.
+</p>
+<p>For example if <code>x = "ppp"</code>, then this will match any news items
+that are about <code>ppp</code>, but will also match any news items
+about <code>plot.ppp</code>, <code>print.ppp</code>, <code>ppplist</code>,
+<code>pppmatch</code>, <code>[.ppp</code> and so on.
+</p>
+<p>The pattern <code>x = "^ppp"</code> will match only those strings
+which begin with <code>"ppp"</code>, such as <code>ppp</code>, <code>ppplist</code>,
+<code>pppmatch</code>. The symbol <code>^</code> means the start of the string.
+</p>
+<p>The pattern <code>x = "^ppp$"</code> will match only the string
+<code>"ppp"</code>. The symbol <code>$</code> means the end of the string.
+</p>
+<p>The pattern <code>x = "\.ppp$"</code> will match only those strings which
+end with <code>".ppp"</code>, such as <code>plot.ppp</code>, <code>print.ppp</code>,
+<code>[.ppp</code>. The symbol <code>.</code> has a special meaning, but here we
+want  the character <code>"."</code>,
+so we use <code>\</code> to escape the special
+meaning, so that <code>\.</code> means the character <code>"."</code>,
+and <code>"\.ppp$"</code> means any string ending in <code>".ppp"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat/help/bugfixes.html">bugfixes</a></code>,
+<code><a href="../../spatstat/help/latest.news.html">latest.news</a></code>,
+<code><a href="../../utils/help/news.html">news</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   latest.changes("plot.symbolmap")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat</em> version 3.3-1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

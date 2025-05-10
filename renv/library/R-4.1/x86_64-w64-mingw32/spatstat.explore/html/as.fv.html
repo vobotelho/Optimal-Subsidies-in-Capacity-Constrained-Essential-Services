@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data To Class fv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for as.fv {spatstat.explore}"><tr><td>as.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data To Class fv</h2>
+
+<h3>Description</h3>
+
+<p>Converts data into a function table (an object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.fv(x)
+
+  ## S3 method for class 'fv'
+as.fv(x)
+
+  ## S3 method for class 'data.frame'
+as.fv(x)
+
+  ## S3 method for class 'matrix'
+as.fv(x)
+
+  ## S3 method for class 'fasp'
+as.fv(x)
+
+  ## S3 method for class 'bw.optim'
+as.fv(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Data which will be converted into a function table</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command converts data <code>x</code>, that
+could be interpreted as the values of a function,
+into a function value table (object of the class <code>"fv"</code>
+as described in <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>). This object can then
+be plotted easily using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>The dataset <code>x</code> may be any of the following:
+</p>
+
+<ul>
+<li>
+<p>an object of class <code>"fv"</code>;
+</p>
+</li>
+<li>
+<p>a matrix or data frame with at least two columns;
+</p>
+</li>
+<li>
+<p>an object of class <code>"fasp"</code>, representing an array of
+<code>"fv"</code> objects.
+</p>
+</li>
+<li>
+<p>an object of class <code>"minconfit"</code>, giving the results
+of a minimum contrast fit by
+the command <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+The 
+</p>
+</li>
+<li>
+<p>an object of class <code>"kppm"</code>, representing a fitted
+Cox or cluster point process model, obtained from the
+model-fitting command <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>;
+</p>
+</li>
+<li>
+<p>an object of class <code>"dppm"</code>, representing a fitted
+determinantal point process model, obtained from the
+model-fitting command <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>;
+</p>
+</li>
+<li>
+<p>an object of class <code>"bw.optim"</code>, representing an optimal
+choice of smoothing bandwidth by a cross-validation method, obtained
+from commands like <code><a href="../help/bw.diggle.html">bw.diggle</a></code>.
+</p>
+</li></ul>
+
+<p>The function <code>as.fv</code> is generic, with methods for each of the
+classes listed above. The behaviour is as follows:
+</p>
+
+<ul>
+<li>
+<p>If <code>x</code> is an object of class <code>"fv"</code>, it is
+returned unchanged.
+</p>
+</li>
+<li>
+<p>If <code>x</code> is a matrix or data frame, 
+the first column is interpreted
+as the function argument, and subsequent columns are interpreted as
+values of the function computed by different methods.
+</p>
+</li>
+<li>
+<p>If <code>x</code> is an object of class <code>"fasp"</code>
+representing an array of <code>"fv"</code> objects, 
+these are combined into a single <code>"fv"</code> object.
+</p>
+</li>
+<li>
+<p>If <code>x</code> is an object of class <code>"minconfit"</code>,
+or an object of class <code>"kppm"</code> or <code>"dppm"</code>,
+the result is a function table containing the
+observed summary function and the best fit summary function.
+</p>
+</li>
+<li>
+<p>If <code>x</code> is an object of class <code>"bw.optim"</code>,
+the result is a function table of the optimisation criterion
+as a function of the smoothing bandwidth.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  r &lt;- seq(0, 1, length=101)
+  x &lt;- data.frame(r=r, y=r^2)
+  as.fv(x)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rescale Data to Lie Between Specified Limits</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for scaletointerval {spatstat.geom}"><tr><td>scaletointerval {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rescale Data to Lie Between Specified Limits</h2>
+
+<h3>Description</h3>
+
+<p>Rescales a dataset so that the values range exactly between the
+specified limits.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  scaletointerval(x, from=0, to=1, xrange=range(x))
+  ## Default S3 method:
+scaletointerval(x, from=0, to=1, xrange=range(x))
+  ## S3 method for class 'im'
+scaletointerval(x, from=0, to=1, xrange=range(x))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Data to be rescaled.</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+<p>Lower and upper endpoints of the interval
+to which the values of <code>x</code> should be rescaled.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xrange</code></td>
+<td>
+
+<p>Optional range of values of <code>x</code> that should be mapped
+to the new interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions rescale a dataset <code>x</code>
+so that its values range exactly between the limits
+<code>from</code> and <code>to</code>.
+</p>
+<p>The method for pixel images (objects of class <code>"im"</code>)
+applies this scaling to the pixel values of <code>x</code>.
+</p>
+<p>Rescaling cannot be performed if the values in <code>x</code> are not
+interpretable as numeric, or if the values in <code>x</code> are all equal.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of the same type as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/scale.html">scale</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- as.im(function(x,y) {x+y+3}, unit.square())
+  summary(X)
+  Y &lt;- scaletointerval(X)
+  summary(Y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Panel Plots using Colour Image or Contour Lines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for panel.contour {spatstat.model}"><tr><td>panel.contour {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Panel Plots using Colour Image or Contour Lines
+</h2>
+
+<h3>Description</h3>
+
+<p>These functions can be passed to <code><a href="../../graphics/help/pairs.html">pairs</a></code> or
+<code><a href="../../graphics/help/coplot.html">coplot</a></code>
+to determine what kind of plotting is done in each panel
+of a multi-panel graphical display. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+panel.contour(x, y, ..., sigma = NULL)
+
+panel.image(x, y, ..., sigma = NULL)
+
+panel.histogram(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Coordinates of points in a scatterplot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra graphics arguments, passed to <code><a href="../../spatstat.geom/help/contour.im.html">contour.im</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> or <code><a href="../../graphics/help/rect.html">rect</a></code>, respectively,
+to control the appearance of the panel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Bandwidth of kernel smoother, on a scale where
+<i>x</i> and <i>y</i> range between 0 and 1.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions can serve as one of the arguments <code>panel</code>,
+<code>lower.panel</code>, <code>upper.panel</code>, <code>diag.panel</code>
+passed to graphics commands like
+<code><a href="../../graphics/help/pairs.html">pairs</a></code> or <code><a href="../../graphics/help/coplot.html">coplot</a></code>,
+to determine what kind of plotting is done in each panel
+of a multi-panel graphical display. In particular they work
+with <code><a href="../../spatstat.explore/help/pairs.im.html">pairs.im</a></code>.
+</p>
+<p>The functions <code>panel.contour</code> and <code>panel.contour</code>
+are suitable for the off-diagonal plots which involve
+two datasets <code>x</code> and <code>y</code>.
+They first rescale <code>x</code> and <code>y</code> to the unit square,
+then apply kernel smoothing with bandwidth <code>sigma</code>
+using <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+Then <code>panel.contour</code> draws a contour plot
+while <code>panel.image</code> draws a colour image.
+</p>
+<p>The function <code>panel.histogram</code> is suitable for the
+diagonal plots which involve a single dataset <code>x</code>.
+It displays a histogram of the data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pairs.im.html">pairs.im</a></code>,
+<code><a href="../../graphics/html/pairs.html">pairs.default</a></code>,
+<code><a href="../../graphics/html/panel.smooth.html">panel.smooth</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  pairs(bei.extra,
+        panel      = panel.contour,
+        diag.panel = panel.histogram)
+  with(bei.extra,
+        pairs(grad, elev, 
+              panel      = panel.image,
+              diag.panel = panel.histogram))
+  pairs(marks(finpines), panel=panel.contour, diag.panel=panel.histogram)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

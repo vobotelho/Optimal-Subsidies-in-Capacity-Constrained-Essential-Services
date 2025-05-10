@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reset Values in Subset of Image on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Replace.linim {spatstat.linnet}"><tr><td>Replace.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Reset Values in Subset of Image on Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Reset the values in a subset of a pixel image on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 replacement method for class 'linim'
+x[i, j] &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A pixel image on a linear network.
+An object of class <code>"linim"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Object defining the subregion or subset to be replaced.
+Either a spatial window (an object of class <code>"owin"</code>), or a
+pixel image with logical values, or a point pattern (an object
+of class <code>"ppp"</code>), or any type of index that applies to a
+matrix, or something that can be converted to a point pattern
+by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code> (using the window of <code>x</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+
+<p>An integer or logical vector serving as the column index
+if matrix indexing is being used.  Ignored if <code>i</code> is
+appropriate to some sort of replacement <em>other than</em>
+matrix indexing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Vector, matrix, factor or pixel image
+containing the replacement values.
+Short vectors will be recycled.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function changes some of the pixel values in a
+pixel image. The image <code>x</code> must be an object of class
+<code>"linim"</code> representing a pixel image on a linear network.
+</p>
+<p>The pixel values are replaced according to the rules
+described in the help for <code><a href="../../spatstat.geom/help/+5B+3C-.im.html">[&lt;-.im</a></code>.
+Then the auxiliary data are updated.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The image <code>x</code> with the values replaced.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/+5B+3C-.im.html">[&lt;-.im</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # make a function
+  Y &lt;- as.linim(distfun(runiflpp(5, simplenet)))
+  # replace some values
+  B &lt;- square(c(0.25, 0.55))
+  Y[B] &lt;- 2
+  plot(Y, main="")
+  plot(B, add=TRUE, lty=3)
+  X &lt;- runiflpp(4, simplenet)
+  Y[X] &lt;- 5
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

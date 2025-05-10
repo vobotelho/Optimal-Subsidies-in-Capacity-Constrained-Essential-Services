@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summary of a Split Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for summary.splitppp {spatstat.geom}"><tr><td>summary.splitppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summary of a Split Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Prints a useful summary of a split point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'splitppp'
+summary(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Split point pattern (object of class <code>"splitppp"</code>, effectively a
+list of point patterns, usually created by <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/summary.html">summary</a></code>.
+</p>
+<p>An object of the class <code>"splitppp"</code> is effectively a list
+of point patterns (objects of class <code>"ppp"</code>) representing
+different sub-patterns of an original point pattern.
+</p>
+<p>This function extracts a useful summary of each of the sub-patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/summary.html">summary</a></code>,
+<code><a href="../../base/html/split.html">split</a></code>,
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  summary(split(amacrine))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

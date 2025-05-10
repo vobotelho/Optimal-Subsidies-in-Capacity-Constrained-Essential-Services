@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert a Tessellation to a Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.function.tess {spatstat.geom}"><tr><td>as.function.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert a Tessellation to a Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Convert a tessellation into a function of the <i>x</i> and <i>y</i> coordinates.
+The default function values are factor levels specifying which tile of the
+tessellation contains the point <i>(x,y)</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'tess'
+as.function(x,...,values=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+
+<p>Optional. A vector giving the values of the function for each tile
+of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command converts a tessellation
+(object of class <code>"tess"</code>) to a <code>function(x,y)</code>
+where the arguments <code>x</code> and <code>y</code> are (vectors of) spatial
+coordinates. The corresponding function values are factor levels
+identifying which tile of the tessellation contains each point.
+Values are <code>NA</code> if the corresponding point lies outside the
+tessellation.
+</p>
+<p>If the argument <code>values</code> is given, then it determines the value
+of the function in each tile of <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, also belonging to the
+class <code>"funxy"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/tileindex.html">tileindex</a></code> for the low-level calculation of tile index.
+</p>
+<p><code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> and <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code> to
+divide up the points of a point pattern according to
+a tessellation.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(7)
+  V &lt;- dirichlet(X)
+  f &lt;- as.function(V)
+  f(0.1, 0.4)
+  plot(f)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

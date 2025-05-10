@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Marked K-Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kmulti.inhom {spatstat.explore}"><tr><td>Kmulti.inhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Marked K-Function
+</h2>
+
+<h3>Description</h3>
+
+<p>For a marked point pattern, 
+estimate the inhomogeneous version of the multitype <i>K</i> function
+which counts the expected number of points of subset <i>J</i>
+within a given distance from a typical point in subset <code>I</code>,
+adjusted for spatially varying intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Kmulti.inhom(X, I, J, lambdaI=NULL, lambdaJ=NULL,
+          ...,
+          r=NULL, breaks=NULL,
+          correction=c("border", "isotropic", "Ripley", "translate"),
+          lambdaIJ=NULL,
+          sigma=NULL, varcov=NULL,
+          lambdaX=NULL, update=TRUE, leaveoneout=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the inhomogeneous multitype <i>K</i> function
+<i>KIJ(r)</i> will be computed.
+It must be a marked point pattern.
+See under Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>I</code></td>
+<td>
+<p>Subset index specifying the points of <code>X</code>
+from which distances are measured. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>J</code></td>
+<td>
+<p>Subset index specifying the points in <code>X</code> to which
+distances are measured. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaI</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity of the sub-process <code>X[I]</code>.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the points in <code>X[I]</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaJ</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity of the sub-process <code>X[J]</code>.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the points in <code>X[J]</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Optional. Numeric vector. The values of the argument <i>r</i>
+at which the multitype <i>K</i> function
+<i>KIJ(r)</i> should be evaluated.
+There is a sensible default.
+First-time users are strongly advised not to specify this argument.
+See below for important conditions on <i>r</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"border"</code>, <code>"bord.modif"</code>,
+<code>"isotropic"</code>, <code>"Ripley"</code>, <code>"translate"</code>,
+<code>"none"</code> or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaIJ</code></td>
+<td>
+
+<p>Optional. A matrix containing estimates of
+the product of the intensities <code>lambdaI</code> and <code>lambdaJ</code>
+for each pair of points, the first point belonging to subset
+<code>I</code> and the second point to subset <code>J</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma,varcov</code></td>
+<td>
+
+<p>Optional arguments passed to  <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the smoothing bandwidth, when <code>lambda</code> is
+estimated by kernel smoothing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaX</code></td>
+<td>
+
+<p>Optional. Values of the intensity for all points of <code>X</code>.
+Either a pixel image (object of class <code>"im"</code>),
+a numeric vector containing the intensity values
+at each of the points in <code>X</code>,
+a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code> or <code>"dppm"</code>),
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+If present, this argument overrides both <code>lambdaI</code> and
+<code>lambdaJ</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+<p>Logical value indicating what to do when
+<code>lambdaI</code>, <code>lambdaJ</code> or <code>lambdaX</code>
+is a fitted point process model
+(class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>).
+If <code>update=TRUE</code> (the default),
+the model will first be refitted to the data <code>X</code>
+(using <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code> or <code><a href="../../spatstat.model/help/update.kppm.html">update.kppm</a></code>)
+before the fitted intensity is computed.
+If <code>update=FALSE</code>, the fitted intensity of the
+model will be computed without re-fitting it to <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value (passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> or
+<code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>) specifying whether to use a
+leave-one-out rule when calculating the intensity.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>Kmulti.inhom</code>
+is the counterpart, for spatially-inhomogeneous marked point patterns,
+of the multitype <i>K</i> function <code><a href="../../spatstat.explore/help/Kmulti.html">Kmulti</a></code>.
+</p>
+<p>Suppose <i>X</i> is a marked point process, with marks of any kind.
+Suppose <i>X[I]</i>, <i>X[J]</i> are two sub-processes, possibly
+overlapping. Typically <i>X[I]</i> would consist of those points
+of <i>X</i> whose marks lie in a specified range of mark values,
+and similarly for <i>X[J]</i>. Suppose that
+<i>lambdaI(u)</i>, <i>lambdaJ(u)</i> are the
+spatially-varying intensity functions of <i>X[I]</i> and
+<i>X[J]</i> respectively. Consider all the pairs of points
+<i>(u,v)</i> in the point process <i>X</i> such that the first point
+<i>u</i> belongs to <i>X[I]</i>, the second point <i>v</i>
+belongs to <i>X[J]</i>, and the distance between <i>u</i> and <i>v</i>
+is less than a specified distance <i>r</i>. Give this pair <i>(u,v)</i>
+the numerical weight
+<i>1/(lambdaI(u) lambdaJ(u))</i>.
+Calculate the sum of these weights over all pairs of points as
+described. This sum (after appropriate edge-correction and
+normalisation) is the estimated inhomogeneous multitype <i>K</i> function.
+</p>
+<p>The argument <code>X</code> must be a point pattern (object of class
+<code>"ppp"</code>) or any data that are acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+<p>The arguments <code>I</code> and <code>J</code> specify two subsets of the
+point pattern. They may be any type of subset indices, for example,
+logical vectors of length equal to <code>npoints(X)</code>,
+or integer vectors with entries in the range 1 to
+<code>npoints(X)</code>, or negative integer vectors.
+</p>
+<p>Alternatively, <code>I</code> and <code>J</code> may be <b>functions</b>
+that will be applied to the point pattern <code>X</code> to obtain
+index vectors. If <code>I</code> is a function, then evaluating
+<code>I(X)</code> should yield a valid subset index. This option
+is useful when generating simulation envelopes using
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+<p>The argument <code>lambdaI</code> supplies the values
+of the intensity of the sub-process identified by index <code>I</code>.
+It may be either
+</p>
+
+<dl>
+<dt>a pixel image</dt><dd><p>(object of class <code>"im"</code>) which
+gives the values of the intensity of <code>X[I]</code>
+at all locations in the window containing <code>X</code>;
+</p>
+</dd>
+<dt>a numeric vector</dt><dd><p>containing the values of the
+intensity of <code>X[I]</code> evaluated only
+at the data points of <code>X[I]</code>. The length of this vector
+must equal the number of points in <code>X[I]</code>.
+</p>
+</dd>
+<dt>a function</dt><dd>
+<p>of the form <code>function(x,y)</code>
+which can be evaluated to give values of the intensity at
+any locations.
+</p>
+</dd>
+<dt>a fitted point process model</dt><dd>
+<p>(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>)
+whose fitted <em>trend</em> can be used as the fitted intensity.
+(If <code>update=TRUE</code> the model will first be refitted to the
+data <code>X</code> before the trend is computed.)
+</p>
+</dd>
+<dt>omitted:</dt><dd>
+<p>if <code>lambdaI</code> is omitted then it will be estimated
+using a leave-one-out kernel smoother. 
+</p>
+</dd>
+</dl>
+
+<p>If <code>lambdaI</code> is omitted, then it will be estimated using
+a &lsquo;leave-one-out&rsquo; kernel smoother, as described in Baddeley,
+Moller 
+and Waagepetersen (2000).  The estimate of <code>lambdaI</code> for a given
+point is computed by removing the point from the
+point pattern, applying kernel smoothing to the remaining points using
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>, and evaluating the smoothed intensity
+at the point in question. The smoothing kernel bandwidth is controlled
+by the arguments <code>sigma</code> and <code>varcov</code>, which are passed to
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> along with any extra arguments.
+</p>
+<p>Similarly <code>lambdaJ</code> supplies the values
+of the intensity of the sub-process identified by index <code>J</code>.
+</p>
+<p>Alternatively if the argument <code>lambdaX</code> is given, then it specifies
+the intensity values for all points of <code>X</code>, and the
+arguments <code>lambdaI</code>, <code>lambdaJ</code> will be ignored.
+</p>
+<p>The argument <code>r</code> is the vector of values for the
+distance <i>r</i> at which <i>KIJ(r)</i> should be evaluated. 
+It is also used to determine the breakpoints
+(in the sense of <code><a href="../../graphics/help/hist.html">hist</a></code>)
+for the computation of histograms of distances.
+</p>
+<p>First-time users would be strongly advised not to specify <code>r</code>.
+However, if it is specified, <code>r</code> must satisfy <code>r[1] = 0</code>, 
+and <code>max(r)</code> must be larger than the radius of the largest disc 
+contained in the window. 
+</p>
+<p>Biases due to edge effects are
+treated in the same manner as in <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code>.
+The edge corrections implemented here are
+</p>
+
+<dl>
+<dt>border</dt><dd><p>the border method or
+&ldquo;reduced sample&rdquo; estimator (see Ripley, 1988). This is
+the least efficient (statistically) and the fastest to compute.
+It can be computed for a window of arbitrary shape.
+</p>
+</dd>
+<dt>isotropic/Ripley</dt><dd><p>Ripley's isotropic correction
+(see Ripley, 1988; Ohser, 1983).
+This is currently implemented only for rectangular windows.
+</p>
+</dd>
+<dt>translate</dt><dd><p>Translation correction (Ohser, 1983).
+Implemented for all window geometries.
+</p>
+</dd>
+</dl>
+
+<p>The pair correlation function <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> can also be applied to the
+result of <code>Kmulti.inhom</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+<p>Essentially a data frame containing numeric columns 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the function <i>KIJ(r)</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value of  <i>KIJ(r)</i>
+for a marked Poisson process, namely <i>pi * r^2</i>
+</p>
+</td></tr>
+</table>
+<p>together with a column or columns named 
+<code>"border"</code>, <code>"bord.modif"</code>,
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the function <i>KIJ(r)</i>
+obtained by the edge corrections named.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Moller, J. and Waagepetersen, R. (2000)
+Non- and semiparametric estimation of interaction in
+inhomogeneous point patterns.
+<em>Statistica Neerlandica</em> <b>54</b>, 329&ndash;350.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kmulti.html">Kmulti</a></code>,
+<code><a href="../../spatstat.explore/help/Kdot.inhom.html">Kdot.inhom</a></code>,
+<code><a href="../../spatstat.explore/help/Kcross.inhom.html">Kcross.inhom</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # Finnish Pines data: marked by diameter and height
+    plot(finpines, which.marks="height")
+    II &lt;- (marks(finpines)$height &lt;= 2)
+    JJ &lt;- (marks(finpines)$height &gt; 3)
+    K &lt;- Kmulti.inhom(finpines, II, JJ)
+    plot(K)
+    # functions determining subsets
+    f1 &lt;- function(X) { marks(X)$height &lt;= 2 }
+    f2 &lt;- function(X) { marks(X)$height &gt; 3 }
+    K &lt;- Kmulti.inhom(finpines, f1, f2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

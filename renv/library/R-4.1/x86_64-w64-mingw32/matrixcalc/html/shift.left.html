@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Shift a matrix n columns to the left</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for shift.left {matrixcalc}"><tr><td>shift.left {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Shift a matrix n columns to the left </h2>
+
+<h3>Description</h3>
+
+<p>This function returns a matrix that has been shifted n columns to the left
+filling the subsqeuent columns with the given fill value
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+shift.left(A, cols = 1, fill = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A</code></td>
+<td>
+<p> a matrix </p>
+</td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+<p> integer number of columns to be shifted to the left </p>
+</td></tr>
+<tr valign="top"><td><code>fill</code></td>
+<td>
+<p> the fill value which as as a default zero </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument A is not a numeric matrix, then the function presents an error message and stops.
+If the argument cols is not a positive integer, then the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- matrix( seq( 1, 12, 1 ), nrow=3, byrow=TRUE )
+shift.left( A, 1 )
+shift.left( A, 2 )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

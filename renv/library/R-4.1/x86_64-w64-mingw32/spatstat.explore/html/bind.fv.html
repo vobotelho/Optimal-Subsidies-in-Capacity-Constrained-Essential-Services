@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Combine Function Value Tables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bind.fv {spatstat.explore}"><tr><td>bind.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Combine Function Value Tables
+</h2>
+
+<h3>Description</h3>
+
+<p>Advanced Use Only.
+Combine objects of class <code>"fv"</code>,
+or glue extra columns of data onto an existing <code>"fv"</code> object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+cbind(...)
+
+bind.fv(x, y, labl = NULL, desc = NULL, preferred = NULL, clip=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, which are objects of class <code>"fv"</code>,
+or other data. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>"fv"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>Either an object of class <code>"fv"</code>, a data frame,
+or a function. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labl</code></td>
+<td>
+
+<p>Plot labels (see <code><a href="../../spatstat.explore/help/fv.html">fv</a></code>) for columns of <code>y</code>.
+A character vector. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>desc</code></td>
+<td>
+
+<p>Descriptions (see <code><a href="../../spatstat.explore/help/fv.html">fv</a></code>)
+for columns of <code>y</code>. A character vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>preferred</code></td>
+<td>
+
+<p>Character string specifying the column which is to be the
+new recommended value of the function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip</code></td>
+<td>
+
+<p>Logical value indicating whether each object must have exactly the
+same domain, that is, the same sequence of values of the function argument
+(<code>clip=FALSE</code>, the default) or whether objects with different
+domains are permissible and will be restricted
+to a common domain (<code>clip=TRUE</code>).
+</p>
+</td></tr>  
+</table>
+
+
+<h3>Details</h3>
+
+<p>This documentation is provided
+for experienced programmers who want to modify the internal
+behaviour of <span class="pkg">spatstat</span>.
+</p>
+<p>The function <code>cbind.fv</code> is a method for the generic
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code><a href="../../base/html/cbind.html">cbind</a></code>. It combines any number of
+objects of class <code>"fv"</code> into a single object of
+class <code>"fv"</code>. The objects must be compatible, in the sense
+that they have identical values of the function argument.
+</p>
+<p>The function <code>bind.fv</code> is a lower level
+utility which glues additional columns onto an
+existing object <code>x</code> of class <code>"fv"</code>.
+It has three modes of use:
+</p>
+
+<ul>
+<li> 
+<p>If the additional dataset <code>y</code> is an object of class <code>"fv"</code>, then
+<code>x</code> and <code>y</code> must be compatible as described above.
+Then the columns of <code>y</code> that contain function values
+will be appended to the object <code>x</code>.
+</p>
+</li>
+<li> 
+<p>Alternatively if <code>y</code> is a data frame, then <code>y</code> must have the
+same number of rows as <code>x</code>. All columns of <code>y</code> will be
+appended to <code>x</code>.
+</p>
+</li>
+<li>
+<p>Alternatively if <code>y</code> is a function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, then
+this function will be evaluated at the argument values stored
+in the object <code>x</code>, and these function values will be appended
+as a new column to <code>x</code>.
+</p>
+</li></ul>
+
+<p>The arguments <code>labl</code> and <code>desc</code> provide
+plot labels and description strings (as described in <code><a href="../../spatstat.explore/help/fv.html">fv</a></code>)
+for the <em>new</em> columns. If <code>y</code> is an object of class
+<code>"fv"</code> then <code>labl</code> and <code>desc</code> are optional, and
+default to the relevant entries in the object <code>y</code>. 
+If <code>y</code> is a data frame then
+<code>labl</code> and <code>desc</code> should be provided, but there is a
+default.
+</p>
+<p>For additional flexibility, <code>cbind.fv</code> also accepts arguments
+which are data frames or functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.html">fv</a></code> for creating objects of class <code>"fv"</code> from raw data.
+</p>
+<p><code><a href="../../spatstat.explore/help/collapse.fv.html">collapse.fv</a></code> for combining several <code>"fv"</code> objects
+with similar columns.
+</p>
+<p><code><a href="../../spatstat.explore/help/with.fv.html">with.fv</a></code> for evaluating expressions.
+</p>
+<p><code><a href="../../spatstat.explore/help/fvnames.html">fvnames</a></code> for extracting and assigning the column names
+of standard components of <code>"fv"</code> objects.
+</p>
+<p><em>Undocumented</em> functions for modifying an <code>"fv"</code> object
+include <code>tweak.fv.entry</code> and <code>rebadge.fv</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K1 &lt;- Kest(cells, correction="border")
+   K2 &lt;- Kest(cells, correction="iso")
+
+   # remove column 'theo' to avoid duplication
+   K2 &lt;- K2[, names(K2) != "theo"]
+
+   cbind(K1, K2)
+
+   bind.fv(K1, K2, preferred="iso")
+
+   # constrain border estimate to be monotonically increasing
+   bm &lt;- cumsum(c(0, pmax(0, diff(K1$border))))
+   bind.fv(K1, data.frame(bmono=bm),
+               "%s[bmo](r)",
+               "monotone border-corrected estimate of %s",
+               "bmono")
+
+   # add a column of values defined by a function
+   cbind(K1, upper=function(r) { pi * r^2 + 0.1 })
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

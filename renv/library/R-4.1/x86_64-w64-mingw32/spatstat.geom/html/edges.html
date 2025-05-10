@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Boundary Edges of a Window.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for edges {spatstat.geom}"><tr><td>edges {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract Boundary Edges of a Window.
+</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the boundary edges of a window
+and returns them as a line segment pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  edges(x, ..., window = NULL, check = FALSE) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>), or
+data acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>, specifying the window
+whose boundary is to be extracted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Window to contain the resulting line segments.
+Defaults to <code>as.rectangle(x)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical. Whether to check the validity of the resulting
+segment pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The boundary edges of the window <code>x</code> will be extracted as a line
+segment pattern.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/perimeter.html">perimeter</a></code> for calculating the total length of the boundary.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  edges(square(1))
+  edges(letterR)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

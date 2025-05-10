@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Linear K Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for linearK {spatstat.linnet}"><tr><td>linearK {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Linear K Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes an estimate of the linear <i>K</i> function
+for a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+linearK(X, r=NULL, ..., correction="Ang", ratio=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Numeric vector of values of the function argument <i>r</i>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Geometry correction.
+Either <code>"none"</code> or <code>"Ang"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+the estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the
+linear <i>K</i> function from point pattern data on a linear network.
+</p>
+<p>If <code>correction="none"</code>, the calculations do not include
+any correction for the geometry of the linear network. The result is the
+network <i>K</i> function as defined by Okabe and Yamada (2001).
+</p>
+<p>If <code>correction="Ang"</code>, the pair counts are weighted using
+Ang's correction (Ang, 2010; Ang et al, 2012). 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010) Statistical methodology for spatial point patterns
+on a linear network. MSc thesis, University of Western Australia.
+</p>
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+<p>Okabe, A. and Yamada, I. (2001) The K-function method on a network and
+its computational implementation. <em>Geographical Analysis</em>
+<b>33</b>, 271-290.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/compileK.html">compileK</a></code>,
+<code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoislpp(5, simplenet)
+  linearK(X)
+  linearK(X, correction="none")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dppm {spatstat.model}"><tr><td>dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Fit a determinantal point process model to a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  dppm(formula, family, data=NULL,
+       ...,
+       startpar = NULL,
+       method = c("mincon", "clik2", "palm", "adapcl"),
+       weightfun = NULL,
+       control =  list(),
+       algorithm,
+       statistic = "K",
+       statargs = list(),
+       rmax = NULL,
+       epsilon = 0.01,
+       covfunargs = NULL,
+       use.gam = FALSE,
+       nd = NULL, eps = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+
+<p>A <code>formula</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language
+specifying the data (on the left side) and the
+form of the model to be fitted (on the right side).
+For a stationary model it suffices to provide a point pattern
+without a formula. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>family</code></td>
+<td>
+
+<p>Information specifying the family of point processes
+to be used in the model.
+Typically one of the family functions
+<code><a href="../../spatstat.model/help/dppGauss.html">dppGauss</a></code>, <code><a href="../../spatstat.model/help/dppMatern.html">dppMatern</a></code>,
+<code><a href="../../spatstat.model/help/dppCauchy.html">dppCauchy</a></code>, <code><a href="../../spatstat.model/help/dppBessel.html">dppBessel</a></code>
+or <code><a href="../../spatstat.model/help/dppPowerExp.html">dppPowerExp</a></code>.
+Alternatively a character string giving the name
+of a family function, or the result of calling one of the
+family functions. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>The values of spatial covariates (other than the Cartesian
+coordinates) required by the model.
+A named list of pixel images, functions, windows,
+tessellations or numeric constants.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>startpar</code></td>
+<td>
+
+<p>Named vector of starting parameter values for the optimization.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>The fitting method. Either
+<code>"mincon"</code> for minimum contrast,
+<code>"clik2"</code> for second order composite likelihood,
+<code>"adapcl"</code> for adaptive second order composite likelihood,
+or <code>"palm"</code> for Palm likelihood.
+Partially matched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weightfun</code></td>
+<td>
+
+<p>Optional weighting function <i>w</i>
+in the composite likelihoods or Palm likelihood.
+A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+<p>List of control parameters passed to the optimization function
+<code><a href="../../stats/help/optim.html">optim</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>algorithm</code></td>
+<td>
+
+<p>Character string determining the mathematical algorithm
+to be used to solve the fitting problem.
+If <code>method="mincon", "clik2"</code> or <code>"palm"</code> this argument
+is passed to the generic optimization function
+<code><a href="../../stats/help/optim.html">optim</a></code> (renamed as the argument <code>method</code>)
+with default <code>"Nelder-Mead"</code>.
+If <code>method="adapcl"</code>) the argument is passed to the
+equation solver <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>,
+with default <code>"Bryden"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+
+<p>Name of the summary statistic to be used
+for minimum contrast estimation: either <code>"K"</code> or <code>"pcf"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>statargs</code></td>
+<td>
+
+<p>Optional list of arguments to be used when calculating
+the <code>statistic</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Maximum value of interpoint distance
+to use in the composite likelihood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>epsilon</code></td>
+<td>
+
+<p>Tuning parameter for the adaptive composite likelihood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covfunargs,use.gam,nd,eps</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> when fitting the intensity.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function fits a determinantal point process model to a
+point pattern dataset as described in Lavancier et al. (2015).
+</p>
+<p>The model to be fitted is specified by the arguments
+<code>formula</code> and <code>family</code>.
+</p>
+<p>The argument <code>formula</code> should normally be a <code>formula</code> in the
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language. The left hand side of the formula
+specifies the point pattern dataset to which the model should be fitted.
+This should be a single argument which may be a point pattern
+(object of class <code>"ppp"</code>) or a quadrature scheme
+(object of class <code>"quad"</code>). The right hand side of the formula is called
+the <code>trend</code> and specifies the form of the
+<em>logarithm of the intensity</em> of the process.
+Alternatively the argument <code>formula</code> may be a point pattern or quadrature
+scheme, and the trend formula is taken to be <code>~1</code>.
+</p>
+<p>The argument <code>family</code> specifies the family of point processes
+to be used in the model.
+It is typically one of the family functions
+<code><a href="../../spatstat.model/help/dppGauss.html">dppGauss</a></code>, <code><a href="../../spatstat.model/help/dppMatern.html">dppMatern</a></code>,
+<code><a href="../../spatstat.model/help/dppCauchy.html">dppCauchy</a></code>, <code><a href="../../spatstat.model/help/dppBessel.html">dppBessel</a></code>
+or <code><a href="../../spatstat.model/help/dppPowerExp.html">dppPowerExp</a></code>. 
+Alternatively it may be a character string giving the name
+of a family function, or the result of calling one of the
+family functions. A family function belongs to class
+<code>"detpointprocfamilyfun"</code>. The result of calling a family
+function is a point process family, which belongs to class
+<code>"detpointprocfamily"</code>.   
+</p>
+<p>The algorithm first estimates the intensity function
+of the point process using <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+If the trend formula is <code>~1</code>
+(the default if a point pattern or quadrature
+scheme is given rather than a <code>"formula"</code>)
+then the model is <em>homogeneous</em>. The algorithm begins by
+estimating the intensity as the number of points divided by
+the area of the window.
+Otherwise, the model is <em>inhomogeneous</em>.
+The algorithm begins by fitting a Poisson process with log intensity
+of the form specified by the formula <code>trend</code>.
+(See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for further explanation).
+</p>
+<p>The interaction parameters of the model are then fitted
+either by minimum contrast estimation,
+or by a composite likelihood method (maximum
+composite likelihood, maximum Palm likelihood, or by solving the adaptive 
+composite likelihood estimating equation).
+</p>
+
+<dl>
+<dt>Minimum contrast:</dt><dd>
+<p>If <code>method = "mincon"</code> (the default) interaction parameters of
+the model will be fitted
+by minimum contrast estimation, that is, by matching the theoretical
+<i>K</i>-function of the model to the empirical <i>K</i>-function
+of the data, as explained in <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>For a homogeneous model (<code> trend = ~1 </code>)
+the empirical <i>K</i>-function of the data is computed
+using <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+and the interaction parameters of the model are estimated by
+the method of minimum contrast.
+</p>
+<p>For an inhomogeneous model,
+the inhomogeneous <i>K</i> function is estimated
+by <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code> using the fitted intensity.
+Then the interaction parameters of the model
+are estimated by the method of minimum contrast using the
+inhomogeneous <i>K</i> function. This two-step estimation
+procedure is heavily inspired by Waagepetersen (2007).
+</p>
+<p>If <code>statistic="pcf"</code> then instead of using the
+<i>K</i>-function, the algorithm will use
+the pair correlation function <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> for homogeneous
+models and the inhomogeneous pair correlation function
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code> for inhomogeneous models.
+In this case, the smoothing parameters of the pair correlation
+can be controlled using the argument <code>statargs</code>,
+as shown in the Examples.
+</p>
+<p>Additional arguments <code>...</code> will be passed to
+<code><a href="../../spatstat.model/help/clusterfit.html">clusterfit</a></code> to control the minimum contrast fitting
+algorithm.
+</p>
+</dd>
+<dt>Composite likelihood:</dt><dd>
+<p>If <code>method = "clik2"</code> the interaction parameters of the
+model will be fitted by maximising the second-order composite likelihood
+(Guan, 2006). The log composite likelihood is
+</p>
+<p style="text-align: center;"><i>
+	&sum;[i,j] w(d[i,j]) log(&rho;(d[i,j]; &theta;))
+	- (&sum;[i,j] w(d[i,j]))
+	log(integral[D,D] w(||u-v||) &rho;(||u-v||; &theta;) du dv)
+      </i></p>
+
+<p>where the sums are taken over all pairs of data points
+<i>x[i], x[j]</i> separated by a distance
+<i>d[i,j] = ||x[i] - x[j]||</i>
+less than <code>rmax</code>,
+and the double integral is taken over all pairs of locations
+<i>u,v</i> in the spatial window of the data.
+Here <i>&rho;(d;&theta;)</i> is the
+pair correlation function of the model with
+interaction parameters <i>&theta;</i>.
+</p>
+<p>The function <i>w</i> in the composite likelihood
+is a weighting function and may be chosen arbitrarily.
+It is specified by the argument <code>weightfun</code>.
+If this is missing or <code>NULL</code> then the default is
+a threshold weight function,
+<i>w(d) = 1(d &le; R)</i>, where <i>R</i> is <code>rmax/2</code>.
+</p>
+</dd>
+<dt>Palm likelihood:</dt><dd>
+<p>If <code>method = "palm"</code> the interaction parameters of the
+model will be fitted by maximising the Palm loglikelihood
+(Tanaka et al, 2008)
+</p>
+<p style="text-align: center;"><i>
+	&sum;[i,j] w(x[i], x[j]) log(&lambda;[P](x[j] | x[i]; &theta;)
+	- integral[D] w(x[i], u) &lambda;[P](u | x[i]; &theta;) du
+      </i></p>
+
+<p>with the same notation as above. Here
+<i>&lambda;[P](u|v;&theta;)</i> is the Palm intensity of
+the model at location <i>u</i> given there is a point at <i>v</i>.
+</p>
+</dd>
+<dt>Adaptive Composite likelihood:</dt><dd>
+<p>If <code>method = "cladap"</code> the clustering parameters of the
+model will be fitted by solving the adaptive second order 
+composite likelihood estimating equation (Lavancier et al, 2021).
+The estimating function is
+</p>
+<p style="text-align: center;"><i>
+	&sum;[u,v] w(epsilon |g(0; theta)-1|/(g(||u-v||; theta)-1)) 
+	g'(||u-v||; theta) / g(||u-v||; theta) - integral[D,D] 
+	w(epsilon |g(0; theta)-1|/(g(||u-v||; theta)-1))
+	g'(||u-v||; theta) rho(u) rho(v) du dv
+      </i></p>
+
+<p>where the sum is taken over all distinct pairs of points.
+Here <i>g(d; theta)</i> is the
+pair correlation function  with
+parameters <i>theta</i>.
+The partial derivative with respect to <i>theta</i> 
+is <i>g'(d; theta)</i>, and <i>rho(u)</i> denotes
+the fitted intensity function of the model.
+</p>
+<p>The tuning parameter <i>epsilon</i> is 
+independent of the data. It can be specified by the
+argument <code>epsilon</code> and has default value <i>0.01</i>.
+</p>
+<p>The function <i>w</i> in the estimating function
+is a weighting function of bounded support <i>[-1,1]</i>.
+It is specified by the argument <code>weightfun</code>.
+If this is missing or <code>NULL</code> then the default is
+<i>w(d) = 1(||d|| &le; 1)
+	exp(1/(d^2-1))
+      </i>.
+The estimating equation is solved using the
+nonlinear equation solver <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>
+from the package <span class="pkg">nleqslv</span>. The package <span class="pkg">nleqslv</span>
+must be installed in order to use this option.
+</p>
+</dd>
+</dl>
+
+<p>It is also possible to fix any parameters desired before the
+optimisation by specifying them as <code>name=value</code>
+in the call to the family function. See Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"dppm"</code> representing the fitted model.
+There are methods for printing, plotting, predicting and simulating
+objects of this class.
+</p>
+
+
+<h3>Optimization algorithm</h3>
+
+<p>The following details allow greater control over the fitting
+procedure.
+</p>
+<p>For the first three fitting methods
+(<code>method="mincon", "clik2"</code> and <code>"palm"</code>), 
+the optimisation is performed by the generic
+optimisation algorithm <code><a href="../../stats/help/optim.html">optim</a></code>.
+The behaviour of this algorithm can be modified using the
+arguments <code>control</code> and <code>algorithm</code>.
+Useful control arguments include
+<code>trace</code>, <code>maxit</code> and <code>abstol</code>
+(documented in the help for <code><a href="../../stats/help/optim.html">optim</a></code>).
+</p>
+<p>For <code>method="adapcl"</code>, the estimating equation is solved
+using the nonlinear equation solver <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>
+from the package <span class="pkg">nleqslv</span>. 
+Arguments available for controlling the solver are
+documented in the help for   
+<code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>; they include <code>control</code>, 
+<code>globStrat</code>, <code>startparm</code> for the initial estimates and 
+<code>algorithm</code> for the method. 
+The package <span class="pkg">nleqslv</span> must be installed in order to use this option.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+Adaptive composite likelihood method contributed by Chiara Fend
+and modified by Adrian Baddeley.
+</p>
+
+
+<h3>References</h3>
+
+<p>Guan, Y. (2006)
+A composite likelihood approach in fitting spatial point process
+models.
+<em>Journal of the American Statistical Association</em>
+<b>101</b>, 1502&ndash;1512.
+</p>
+<p>Lavancier, F., Moller, J. and Rubak, E. (2015)
+Determinantal point process models and statistical inference.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>77</b>, 853&ndash;977.
+</p>
+<p>Lavancier, F., Poinas, A., and Waagepetersen, R. (2021)
+Adaptive estimating function inference for nonstationary
+determinantal point processes.
+<em>Scandinavian Journal of Statistics</em>, <b>48</b> (1), 87&ndash;107.
+</p>
+<p>Tanaka, U., Ogata, Y. and Stoyan, D. (2008)
+Parameter estimation and model selection for
+Neyman-Scott point processes.
+<em>Biometrical Journal</em> <b>50</b>, 43&ndash;57.
+</p>
+<p>Waagepetersen, R. (2007)
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b>, 252&ndash;258.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>methods for <code>dppm</code> objects:
+<code><a href="../../spatstat.model/help/plot.dppm.html">plot.dppm</a></code>,
+<code><a href="../../spatstat.model/help/fitted.dppm.html">fitted.dppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.dppm.html">predict.dppm</a></code>,
+<code><a href="../../spatstat.model/help/simulate.dppm.html">simulate.dppm</a></code>,
+<code><a href="../../spatstat.model/help/methods.dppm.html">methods.dppm</a></code>,
+<code><a href="../../spatstat.model/help/as.ppm.dppm.html">as.ppm.dppm</a></code>,
+<code><a href="../../spatstat.model/help/Kmodel.dppm.html">Kmodel.dppm</a></code>,
+<code><a href="../../spatstat.model/help/pcfmodel.dppm.html">pcfmodel.dppm</a></code>.
+</p>
+<p>Minimum contrast fitting algorithm:
+higher level interface <code><a href="../../spatstat.model/help/clusterfit.html">clusterfit</a></code>;
+low-level algorithm <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>Deterimantal point process models:
+<code><a href="../../spatstat.model/help/dppGauss.html">dppGauss</a></code>,
+<code><a href="../../spatstat.model/help/dppMatern.html">dppMatern</a></code>,
+<code><a href="../../spatstat.model/help/dppCauchy.html">dppCauchy</a></code>,
+<code><a href="../../spatstat.model/help/dppBessel.html">dppBessel</a></code>,
+<code><a href="../../spatstat.model/help/dppPowerExp.html">dppPowerExp</a></code>,
+</p>
+<p>Summary statistics:
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>,
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>.
+</p>
+<p>See also <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  jpines &lt;- residualspaper$Fig1
+  
+
+  dppm(jpines ~ 1, dppGauss)
+
+  dppm(jpines ~ 1, dppGauss, method="c")
+  dppm(jpines ~ 1, dppGauss, method="p")
+  dppm(jpines ~ 1, dppGauss, method="a")
+
+  if(interactive()) {
+     # Fixing the intensity at lambda=2 rather than the Poisson MLE 2.04:
+     dppm(jpines ~ 1, dppGauss(lambda=2))
+
+     # The following is quite slow (using K-function)
+     dppm(jpines ~ x, dppMatern)
+  }
+
+   # much faster using pair correlation function
+  dppm(jpines ~ x, dppMatern, statistic="pcf", statargs=list(stoyan=0.2))
+
+  # Fixing the Matern shape parameter at nu=2 rather than estimating it:
+  dppm(jpines ~ x, dppMatern(nu=2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

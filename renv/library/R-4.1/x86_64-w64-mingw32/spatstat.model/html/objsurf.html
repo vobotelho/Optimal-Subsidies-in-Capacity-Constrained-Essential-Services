@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Objective Function Surface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for objsurf {spatstat.model}"><tr><td>objsurf {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Objective Function Surface
+</h2>
+
+<h3>Description</h3>
+
+<p>For a model that was fitted by optimisation,
+compute the values of the objective function in a neighbourhood
+of the optimal value.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+objsurf(x, ...)
+
+## S3 method for class 'dppm'
+objsurf(x, ..., ngrid = 32, xlim=NULL, ylim=NULL,
+                               enclose=FALSE,
+                               ratio = 1.5, verbose = TRUE)
+
+## S3 method for class 'kppm'
+objsurf(x, ..., ngrid = 32, xlim=NULL, ylim=NULL,
+                               enclose=FALSE,
+                               ratio = 1.5, verbose = TRUE)
+
+## S3 method for class 'minconfit'
+objsurf(x, ..., ngrid = 32, xlim=NULL, ylim=NULL,
+                               ratio = 1.5, verbose = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Some kind of model that was fitted
+by finding the optimal value of an objective function. 
+An object of class <code>"dppm"</code>, <code>"kppm"</code> or <code>"minconfit"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments are usually ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Number of grid points to evaluate along each axis.
+Either a single integer, or a pair of integers.
+For example <code>ngrid=32</code> would mean a <code>32 * 32</code> grid.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xlim,ylim</code></td>
+<td>
+
+<p>Optional. Numeric vectors of length 2, specifying the
+limits for the two parameters to be considered.
+</p>
+</td></tr>
+<tr valign="top"><td><code>enclose</code></td>
+<td>
+
+<p>Logical value specifying whether the default values of
+<code>xlim</code> and <code>ylim</code> should enclose the history of all
+function evaluations. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Number greater than 1 determining the default ranges of parameter
+values. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The object <code>x</code> should be some kind of model that was fitted
+by maximising or minimising the value of an objective function.
+The objective function will be evaluated on a grid of
+values of the model parameters. 
+</p>
+<p>Currently the following types of objects are accepted:
+</p>
+
+<ul>
+<li>
+<p>an object of class <code>"dppm"</code> representing a
+determinantal point process.
+See <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+</li>
+<li>
+<p>an object of class <code>"kppm"</code> representing a
+cluster point process or Cox point process. 
+See <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+</p>
+</li>
+<li>
+<p>an object of class <code>"minconfit"</code> representing a
+minimum-contrast fit between a summary function and its
+theoretical counterpart. 
+See <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+</li></ul>
+
+<p>The result is an object of class <code>"objsurf"</code> which can be
+printed and plotted: see <code><a href="../../spatstat.model/help/methods.objsurf.html">methods.objsurf</a></code>.
+</p>
+<p>The range of parameter values to be considered is determined by
+<code>xlim</code> and <code>ylim</code>. 
+The default values of <code>xlim</code> and <code>ylim</code> are
+chosen as follows.
+</p>
+
+<ul>
+<li><p> if <code>enclose=FALSE</code> (the default), 
+the default values of <code>xlim</code> and <code>ylim</code> are
+the ranges from <code>opt/ratio</code> to <code>opt * ratio</code>
+where <code>opt</code> is the optimal parameter value on the surface.
+</p>
+</li>
+<li> 
+<p>If <code>enclose=TRUE</code>, 
+and if <code>x</code> contains a trajectory
+(history of function evaluations),
+then <code>xlim</code> and <code>ylim</code> will be the ranges
+of parameter values examined in the trajectory.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"objsurf"</code> which can be
+printed and plotted.
+Essentially a list containing entries <code>x</code>, <code>y</code>, <code>z</code>
+giving the parameter values and objective function values.
+</p>
+<p>There are methods for <code>plot</code>, <code>print</code>, <code>summary</code>,
+<code>image</code>, <code>contour</code> and <code>persp</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/methods.objsurf.html">methods.objsurf</a></code>,
+<code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>, 
+<code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- kppm(redwood ~ 1, "Thomas")
+   os &lt;- objsurf(fit)
+
+   if(interactive()) {
+     plot(os)
+     contour(os, add=TRUE)
+     persp(os)
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

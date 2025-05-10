@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Make Objects Compatible</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for harmonise {spatstat.geom}"><tr><td>harmonise {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Make Objects Compatible</h2>
+
+<h3>Description</h3>
+
+<p>Converts several objects of the same class to a common format
+so that they can be combined or compared.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+harmonise(...)
+harmonize(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of objects of the same class.
+</p>
+</td></tr> 
+</table>
+
+
+<h3>Details</h3>
+
+<p>This generic command takes any number of objects of the same
+class, and <em>attempts</em> to make them compatible in the sense
+of <code><a href="../../spatstat.geom/help/compatible.html">compatible</a></code> so that they can be combined or compared.
+</p>
+<p>There are methods for the classes <code>"fv"</code>
+(<code><a href="../../spatstat.explore/help/harmonise.fv.html">harmonise.fv</a></code>)
+and <code>"im"</code> (<code><a href="../../spatstat.geom/help/harmonise.im.html">harmonise.im</a></code>).
+</p>
+<p>All arguments <code>...</code> must be objects of the same class.
+The result will be a list, of length equal to the number of
+arguments <code>...</code>, containing new versions of each of these
+objects, converted to a common format.
+If the arguments were named (<code>name=value</code>) then the return value
+also carries these names.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list, of length equal to the number of arguments <code>...</code>,
+whose entries are objects of the same class.
+If the arguments were named (<code>name=value</code>) then the return value
+also carries these names.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/compatible.html">compatible</a></code>,
+<code><a href="../../spatstat.explore/help/harmonise.fv.html">harmonise.fv</a></code>,
+<code><a href="../../spatstat.geom/help/harmonise.im.html">harmonise.im</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

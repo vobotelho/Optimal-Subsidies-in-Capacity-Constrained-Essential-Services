@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantile Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quantilefun {spatstat.univar}"><tr><td>quantilefun {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Quantile Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Return the inverse function of a cumulative distribution function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  quantilefun(x, ...)
+
+  ## S3 method for class 'ecdf'
+quantilefun(x, ..., type=1)
+
+  ## S3 method for class 'ewcdf'
+quantilefun(x, ..., type=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Data for which the quantile function should be calculated.
+Either an object containing data (such as a pixel image)
+or an object representing a cumulative distribution function
+(of class <code>"ecdf"</code> or <code>"ewcdf"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Integer specifying the type of quantiles,
+as explained in <code><a href="../../stats/help/quantile.default.html">quantile.default</a></code>.
+Only types 1, 2 and 4 are currently implemented.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Whereas the command <code><a href="../../stats/help/quantile.html">quantile</a></code> calculates
+the quantiles of a dataset corresponding to desired probabilities
+<i>p</i>, the command <code>quantilefun</code>
+returns a function which can be used to compute any quantiles of the
+dataset. 
+</p>
+<p>If <code>f &lt;- quantilefun(x)</code> then <code>f</code> is a function such that
+<code>f(p)</code> is the quantile associated with any given probability <code>p</code>.
+For example <code>f(0.5)</code> is the median of the original data, and
+<code>f(0.99)</code> is the 99th percentile of the original data.
+</p>
+<p>If <code>x</code> is a pixel image (object of class <code>"im"</code>)
+then the pixel values of <code>x</code> will be extracted
+and the quantile function of the pixel values is constructed.
+</p>
+<p>If <code>x</code> is an object representing a cumulative distribution
+function (object of class <code>"ecdf"</code> or <code>"ewcdf"</code>) then the
+quantile function of the original data is constructed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>, 
+<code><a href="../../spatstat.univar/help/quantile.ewcdf.html">quantile.ewcdf</a></code>, 
+<code><a href="../../stats/help/ecdf.html">ecdf</a></code>,
+<code><a href="../../stats/help/quantile.html">quantile</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## numeric data
+  z &lt;- rnorm(50)
+  FZ &lt;- ecdf(z)
+  QZ &lt;- quantilefun(FZ)
+  QZ(0.5) # median value of z
+  if(interactive()) plot(QZ,xlim=c(0,1),xlab="probability",ylab="quantile of z")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

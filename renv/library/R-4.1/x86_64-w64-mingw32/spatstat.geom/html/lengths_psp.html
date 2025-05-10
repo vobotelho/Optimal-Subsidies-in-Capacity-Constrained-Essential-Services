@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lengths of Line Segments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lengths_psp {spatstat.geom}"><tr><td>lengths_psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lengths of Line Segments</h2>
+
+<h3>Description</h3>
+
+<p>Computes the length of each line segment
+in a line segment pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  lengths_psp(x, squared=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>squared</code></td>
+<td>
+
+<p>Logical value indicating whether to return
+the squared lengths (<code>squared=TRUE</code>)
+or the lengths themselves (<code>squared=FALSE</code>, the default).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The length of each line segment is computed
+and the lengths are returned as a numeric vector.
+</p>
+<p>Using squared lengths may be more efficient for some purposes,
+for example, to find the length of the shortest segment,
+<code>sqrt(min(lengths.psp(x, squared=TRUE)))</code>
+is faster than <code>min(lengths.psp(x))</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector.
+</p>
+
+
+<h3>Change of name</h3>
+
+<p>The name of this function has changed from <code>lengths.psp</code>
+to <code>lengths_psp</code>, because the old name <code>lengths.psp</code>
+could be misinterpreted as a method for <code><a href="../../base/help/lengths.html">lengths</a></code>.
+</p>
+<p>The older function name <code>lengths.psp</code> is retained temporarily,
+for consistency with older code and documentation.
+</p>
+<p>In future versions of <span class="pkg">spatstat</span>, the 
+function name <code>lengths.psp</code> will be removed.
+The newer function name <code>lengths_psp</code> should be used.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/marks.psp.html">marks.psp</a></code>,
+<code><a href="../../spatstat.geom/help/summary.psp.html">summary.psp</a></code>,
+<code><a href="../../spatstat.geom/help/midpoints.psp.html">midpoints.psp</a></code>,
+<code><a href="../../spatstat.geom/help/angles.psp.html">angles.psp</a></code>,
+<code><a href="../../spatstat.geom/help/endpoints.psp.html">endpoints.psp</a></code>,
+<code><a href="../../spatstat.geom/help/extrapolate.psp.html">extrapolate.psp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  a &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  b &lt;- lengths_psp(a)   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Pixel Array Between Different Conventions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for transmat {spatstat.geom}"><tr><td>transmat {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Pixel Array Between Different Conventions
+</h2>
+
+<h3>Description</h3>
+
+<p>This function provides a simple way to convert arrays of pixel data
+between different display conventions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+transmat(m, from, to)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>m</code></td>
+<td>
+
+<p>A matrix.
+</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+
+<p>Specifications of the spatial arrangement of the pixels.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Pixel images are handled by many different software packages.
+In virtually all of these, the pixel values are stored in a matrix,
+and are accessed using the row and column indices of the matrix.
+However, different pieces of software use different conventions for
+mapping the matrix indices <i>[i,j]</i> to the spatial coordinates
+<i>(x,y)</i>.
+</p>
+
+<ul>
+<li>
+<p>In the <em>Cartesian</em> convention, the first matrix index <i>i</i>
+is associated with the first Cartesian coordinate <i>x</i>, 
+and <i>j</i> is associated with <i>y</i>. This convention is used in
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>.
+</p>
+</li>
+<li>
+<p>In the <em>European reading order</em> convention, a matrix is displayed
+in the spatial coordinate system as it would be printed in a page of text:
+<i>i</i> is effectively associated with the negative <i>y</i> coordinate, 
+and <i>j</i> is associated with <i>x</i>. This convention is used in some
+image file formats.
+</p>
+</li>
+<li>
+<p>In the <code>spatstat</code> convention, <i>i</i>
+is associated with the increasing <i>y</i> coordinate, 
+and <i>j</i> is associated with <i>x</i>. This is also used in some
+image file formats.
+</p>
+</li></ul>
+
+<p>To convert between these conventions, use the function
+<code>transmat</code>. If a matrix <code>m</code> contains pixel image data
+that is correctly displayed by software that uses the Cartesian convention,
+and we wish to convert it to the European reading convention, we can type
+<code>mm &lt;- transmat(m, from="Cartesian", to="European")</code>.
+The transformed matrix <code>mm</code> will then be correctly displayed by
+software that uses the European convention. 
+</p>
+<p>Each of the arguments <code>from</code> and <code>to</code> can be one of the names
+<code>"Cartesian"</code>, <code>"European"</code> or <code>"spatstat"</code> (partially matched)
+or it can be a list specifying another convention. For example
+<code>to=list(x="-i", y="-j")!</code> specifies that rows of the output matrix 
+are expected to be displayed as vertical columns in the plot, 
+starting at the right side of the plot, as in the traditional 
+Chinese, Japanese and Korean writing order.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another matrix obtained by rearranging the entries of <code>m</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  opa &lt;- par(mfrow=c(1,2))
+  # image in spatstat format
+  Z &lt;- bei.extra$elev
+  plot(Z, main="plot.im", ribbon=FALSE)
+  m &lt;- as.matrix(Z)
+  # convert matrix to format suitable for display by image.default
+  Y &lt;- transmat(m, from="spatstat", to="Cartesian")
+  image(Y, asp=0.5, main="image.default", axes=FALSE)
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

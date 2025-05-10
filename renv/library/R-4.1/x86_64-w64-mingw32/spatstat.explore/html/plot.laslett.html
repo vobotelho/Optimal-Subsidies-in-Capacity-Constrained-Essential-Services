@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Laslett Transform</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.laslett {spatstat.explore}"><tr><td>plot.laslett {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Laslett Transform
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot the result of Laslett's Transform.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'laslett'
+plot(x, ...,
+          Xpars = list(box = TRUE, col = "grey"),
+          pointpars = list(pch = 3, cols = "blue"),
+          rectpars = list(lty = 3, border = "green"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"laslett"</code> produced by <code><a href="../../spatstat.explore/help/laslett.html">laslett</a></code>
+representing the result of Laslett's transform.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional plot arguments passed to <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Xpars</code></td>
+<td>
+
+<p>A list of plot arguments passed to <code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>
+or <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> to display the original region <code>X</code>
+before transformation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pointpars</code></td>
+<td>
+
+<p>A list of plot arguments passed to <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+to display the tangent points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rectpars</code></td>
+<td>
+
+<p>A list of plot arguments passed to <code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>
+to display the maximal rectangle.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"laslett"</code>.
+</p>
+<p>The function <code><a href="../../spatstat.explore/help/laslett.html">laslett</a></code> applies Laslett's Transform
+to a spatial region <code>X</code> and returns an object of class
+<code>"laslett"</code> representing the result of the transformation.
+The result is plotted by this method.
+</p>
+<p>The plot function <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code> is used to align
+the before-and-after pictures. See <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code> for
+further options to control the plot.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Kassel Hingee and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/laslett.html">laslett</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  b &lt;- laslett(heather$coarse, plotit=FALSE)
+  plot(b, main="Heather Data")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

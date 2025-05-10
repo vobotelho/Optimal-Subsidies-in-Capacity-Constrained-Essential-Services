@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pseudoscore Diagnostic For Fitted Model against Saturation...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for psstG {spatstat.model}"><tr><td>psstG {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pseudoscore Diagnostic For Fitted Model against Saturation Alternative
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a point pattern dataset,
+this function computes the pseudoscore  diagnostic 
+of goodness-of-fit for the model, against moderately
+clustered or moderately inhibited alternatives of saturation type.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+psstG(object, r = NULL, breaks = NULL, ...,
+      model=NULL,
+      trend = ~1, interaction = Poisson(), rbord = reach(interaction),
+      truecoef = NULL, hi.res = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Object to be analysed.
+Either a fitted point process model (object of class <code>"ppm"</code>)
+or a point pattern (object of class <code>"ppp"</code>)
+or quadrature scheme (object of class <code>"quad"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. 
+Vector of values of the argument <i>r</i> at which the
+diagnostic should be computed.
+This argument is usually not specified. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Optional alternative to <code>r</code> for advanced use. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Optional. A fitted point process model (object of
+class <code>"ppm"</code>) to be re-fitted to the data
+using <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code>, if <code>object</code> is a point pattern.
+Overrides the arguments <code>trend,interaction,rbord,ppmcorrection</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend,interaction,rbord</code></td>
+<td>
+
+<p>Optional. Arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+to fit a point process model to the data,
+if <code>object</code> is a point pattern.
+See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>truecoef</code></td>
+<td>
+
+<p>Optional. Numeric vector. If present, this will be treated as 
+if it were the true coefficient vector of the point process model,
+in calculating the diagnostic. Incompatible with <code>hi.res</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hi.res</code></td>
+<td>
+
+<p>Optional. List of parameters passed to <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>.
+If this argument is present, the model will be
+re-fitted at high resolution as specified by these parameters.
+The coefficients
+of the resulting fitted model will be taken as the true coefficients.
+Then the diagnostic will be computed for the default
+quadrature scheme, but using the high resolution coefficients.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function
+computes the pseudoscore test statistic
+which can be used as a diagnostic for goodness-of-fit of a fitted
+point process model.
+</p>
+<p>Consider a point process model fitted to <i>x</i>, with
+conditional intensity
+<i>lambda(u,x)</i> at location <i>u</i>.
+For the purpose of testing goodness-of-fit, we regard the fitted model
+as the null hypothesis.
+The alternative hypothesis is a family of
+hybrid models obtained by combining 
+the fitted model with the Geyer saturation process
+(see <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>) with saturation parameter 1.
+The family of alternatives includes
+models that are more regular than the fitted model,
+and others that are more clustered than the fitted model.
+</p>
+<p>For any point pattern <i>x</i>, and any <i>r &gt; 0</i>, let
+<i>S(x,r)</i> be the number of points in <i>x</i> whose nearest
+neighbour (the nearest other point in <i>x</i>)
+is closer than <i>r</i> units. Then the pseudoscore for the null model is
+</p>
+<p style="text-align: center;"><i>
+    V(r) = sum( Delta S(x[i], x, r)) - integral( Delta S(u,x, r) lambda(u,x) du)
+  </i></p>
+
+<p>where the <i>Delta</i> operator is
+</p>
+<p style="text-align: center;"><i>
+    Delta S(u,x, r) = S(x union u, r) - S(x setminus u, r)
+  </i></p>
+
+<p>the difference between the values of <i>S</i> for the
+point pattern with and without the point <i>u</i>.
+</p>
+<p>According to the Georgii-Nguyen-Zessin formula, <i>V(r)</i> should have
+mean zero if the model is correct (ignoring the fact that the
+parameters of the model have been estimated). Hence <i>V(r)</i> can be
+used as a diagnostic for goodness-of-fit.
+</p>
+<p>The diagnostic <i>V(r)</i> is also called 
+the <b>pseudoresidual</b> of <i>S</i>. On the right
+hand side of the equation for <i>V(r)</i> given above,
+the sum over points of <i>x</i> is called the
+<b>pseudosum</b> and the integral is called the <b>pseudocompensator</b>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>),
+essentially a data frame of function values.
+</p>
+<p>Columns in this data frame include <code>dat</code> for the pseudosum,
+<code>com</code> for the compensator and <code>res</code> for the
+pseudoresidual.
+</p>
+<p>There is a plot method for this class. See
+<code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Jesper Moller.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Moller, J. (2011)
+Score, pseudo-score and residual
+diagnostics for spatial point process models.
+<em>Statistical Science</em> <b>26</b>, 613&ndash;646.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Alternative functions:
+<code><a href="../../spatstat.model/help/psstA.html">psstA</a></code>,
+<code><a href="../../spatstat.model/help/psst.html">psst</a></code>,
+<code><a href="../../spatstat.model/help/Kres.html">Kres</a></code>,
+<code><a href="../../spatstat.model/help/Gres.html">Gres</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   if(live &lt;- interactive()) {
+     X &lt;- rStrauss(200,0.1,0.05)
+   } else {
+     pso &lt;- spatstat.options(ndummy.min=16,npixel=32)
+     X &lt;- cells
+   }
+
+   plot(psstG(X))
+   plot(psstG(X, interaction=Strauss(0.05)))
+
+   if(!live) spatstat.options(pso)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pascal matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pascal.matrix {matrixcalc}"><tr><td>pascal.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Pascal matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns an n by n Pascal matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pascal.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> Order of the matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In mathematics, particularly matrix theory and combinatorics, the Pascal matrix is a lower triangular matrix
+with binomial coefficients in the rows.  It is easily obtained by performing an LU decomposition on 
+the symmetric Pascal matrix of the same order and returning the lower triangular matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n</i> matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument n is not a positive integer, the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Aceto, L. and D. Trigiante, (2001). Matrices of Pascal and Other Greats, <em>American
+Mathematical Monthly</em>, March 2001, 232-245.
+</p>
+<p>Call, G. S. and D. J. Velleman, (1993). Pascal's matrices, <em>American Mathematical Monthly</em>,
+April 1993, 100, 372-376.
+</p>
+<p>Edelman, A. and G. Strang, (2004). Pascal Matrices, <em>American Mathematical Monthly</em>,
+111(3), 361-385.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/lu.decomposition.html">lu.decomposition</a></code>,
+<code><a href="../../matrixcalc/help/symmetric.pascal.matrix.html">symmetric.pascal.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+P &lt;- pascal.matrix( 4 )
+print( P )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

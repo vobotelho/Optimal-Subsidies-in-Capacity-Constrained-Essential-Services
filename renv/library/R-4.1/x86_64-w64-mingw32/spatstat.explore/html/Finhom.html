@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous Empty Space Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Finhom {spatstat.explore}"><tr><td>Finhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Inhomogeneous Empty Space Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the inhomogeneous empty space function of
+a non-stationary point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Finhom(X, lambda = NULL, lmin = NULL, ...,
+        sigma = NULL, varcov = NULL,
+        r = NULL, breaks = NULL, ratio = FALSE,
+        update = TRUE, warn.bias=TRUE, savelambda=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>The observed data point pattern,
+from which an estimate of the inhomogeneous <i>F</i> function
+will be computed.
+An object of class <code>"ppp"</code>
+or in a format recognised by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity function.
+Either a vector giving the intensity values
+at the points of the pattern <code>X</code>,
+a pixel image (object of class <code>"im"</code>) giving the
+intensity values at all locations, a fitted point process model
+(object of class <code>"ppm"</code>) or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lmin</code></td>
+<td>
+
+<p>Optional. The minimum possible value of the intensity
+over the spatial domain. A positive numerical value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma,varcov</code></td>
+<td>
+
+<p>Optional arguments passed to  <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the smoothing bandwidth, when <code>lambda</code> is
+estimated by kernel smoothing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to control
+the pixel resolution, or passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the smoothing bandwidth.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>vector of values for the argument <i>r</i> at which
+the inhomogeneous <i>K</i> function
+should be evaluated. Not normally given by the user;
+there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+the estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+<p>Logical. If <code>lambda</code> is a fitted model
+(class <code>"ppm"</code> or <code>"kppm"</code>)
+and <code>update=TRUE</code> (the default),
+the model will first be refitted to the data <code>X</code>
+(using <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code> or <code><a href="../../spatstat.model/help/update.kppm.html">update.kppm</a></code>)
+before the fitted intensity is computed.
+If <code>update=FALSE</code>, the fitted intensity of the
+model will be computed without fitting it to <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn.bias</code></td>
+<td>
+
+<p>Logical value specifying whether to issue a warning
+when the inhomogeneity correction factor takes extreme values,
+which can often lead to biased results. This usually occurs
+when insufficient smoothing is used to estimate the intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>savelambda</code></td>
+<td>
+
+<p>Logical value specifying whether to save the values of
+<code>lmin</code> and <code>lambda</code> as attributes of the result.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes estimates of the 
+inhomogeneous <i>F</i>-function (van Lieshout, 2010)
+of a point pattern. It is the counterpart, for inhomogeneous
+spatial point patterns, of the empty space function <i>F</i> 
+for homogeneous point patterns computed by <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>.
+</p>
+<p>The argument <code>X</code> should be a point pattern
+(object of class <code>"ppp"</code>).
+</p>
+<p>The inhomogeneous <i>F</i> function is computed
+using the border correction, equation (6) in Van Lieshout (2010).
+</p>
+<p>The argument <code>lambda</code> should supply the
+(estimated) values of the intensity function <i>lambda</i>
+of the point process. It may be either
+</p>
+
+<dl>
+<dt>a numeric vector</dt><dd>
+<p>containing the values
+of the intensity function at the points of the pattern <code>X</code>.
+</p>
+</dd>
+<dt>a pixel image</dt><dd>
+<p>(object of class <code>"im"</code>)
+assumed to contain the values of the intensity function
+at all locations in the window. 
+</p>
+</dd>
+<dt>a fitted point process model</dt><dd>
+<p>(object of class <code>"ppm"</code> or <code>"kppm"</code>)
+whose fitted <em>trend</em> can be used as the fitted intensity.
+(If <code>update=TRUE</code> the model will first be refitted to the
+data <code>X</code> before the trend is computed.)
+</p>
+</dd>
+<dt>a function</dt><dd>
+<p>which can be evaluated to give values of the intensity at
+any locations.
+</p>
+</dd>
+<dt>omitted:</dt><dd>
+<p>if <code>lambda</code> is omitted, then it will be estimated using
+a &lsquo;leave-one-out&rsquo; kernel smoother.
+</p>
+</dd>
+</dl>
+
+<p>If <code>lambda</code> is a numeric vector, then its length should
+be equal to the number of points in the pattern <code>X</code>.
+The value <code>lambda[i]</code> is assumed to be the 
+the (estimated) value of the intensity
+<i>lambda(x[i])</i> for
+the point <i>x[i]</i> of the pattern <i>X</i>.
+Each value must be a positive number; <code>NA</code>'s are not allowed.
+</p>
+<p>If <code>lambda</code> is a pixel image, the domain of the image should
+cover the entire window of the point pattern. If it does not (which
+may occur near the boundary because of discretisation error),
+then the missing pixel values 
+will be obtained by applying a Gaussian blur to <code>lambda</code> using
+<code><a href="../../spatstat.explore/help/blur.html">blur</a></code>, then looking up the values of this blurred image
+for the missing locations. 
+(A warning will be issued in this case.)
+</p>
+<p>If <code>lambda</code> is a function, then it will be evaluated in the
+form <code>lambda(x,y)</code> where <code>x</code> and <code>y</code> are vectors
+of coordinates of the points of <code>X</code>. It should return a numeric
+vector with length equal to the number of points in <code>X</code>.
+</p>
+<p>If <code>lambda</code> is omitted, then it will be estimated using
+a &lsquo;leave-one-out&rsquo; kernel smoother.  The estimate <code>lambda[i]</code> for the
+point <code>X[i]</code> is computed by removing <code>X[i]</code> from the
+point pattern, applying kernel smoothing to the remaining points using
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>, and evaluating the smoothed intensity
+at the point <code>X[i]</code>. The smoothing kernel bandwidth is controlled
+by the arguments <code>sigma</code> and <code>varcov</code>, which are passed to
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> along with any extra arguments.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Original code by Marie-Colette van Lieshout.
+C implementation and R adaptation
+by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Van Lieshout, M.N.M. and Baddeley, A.J. (1996)
+A nonparametric measure of spatial interaction in point patterns.
+<em>Statistica Neerlandica</em> <b>50</b>, 344&ndash;361.
+</p>
+<p>Van Lieshout, M.N.M. (2010)
+A J-function for inhomogeneous point processes.
+<em>Statistica Neerlandica</em> <b>65</b>, 183&ndash;201.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Ginhom.html">Ginhom</a></code>,
+<code><a href="../../spatstat.explore/help/Jinhom.html">Jinhom</a></code>,
+<code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  online &lt;- interactive()
+  if(online) {
+    plot(Finhom(swedishpines, sigma=10))
+    plot(Finhom(swedishpines, sigma=bw.diggle, adjust=2))
+  } else {
+    ## use a coarse grid for faster computation and package testing
+    plot(Finhom(swedishpines, sigma=10, dimyx=32))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

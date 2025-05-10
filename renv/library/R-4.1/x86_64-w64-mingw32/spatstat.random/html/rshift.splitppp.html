@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Randomly Shift a List of Point Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rshift.splitppp {spatstat.random}"><tr><td>rshift.splitppp {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Randomly Shift a List of Point Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Randomly shifts each point pattern in a list of point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'splitppp'
+rshift(X, ..., which=seq_along(X), nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>An object of class <code>"splitppp"</code>.
+Basically a list of point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Parameters controlling the generation of the
+random shift vector and the handling of edge effects.
+See <code><a href="../../spatstat.random/help/rshift.ppp.html">rshift.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Optional. Identifies which patterns will be shifted,
+while other patterns are not shifted.
+Any valid subset index for <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a split point pattern object, rather than a list 
+containing the split point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This operation applies a random shift to each of the
+point patterns in the list <code>X</code>.
+</p>
+<p>The function <code><a href="../../spatstat.random/help/rshift.html">rshift</a></code> is generic.
+This function <code>rshift.splitppp</code>
+is the method for objects of class <code>"splitppp"</code>, which are
+essentially lists of point patterns, created by the function
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>.
+</p>
+<p>By default, every pattern in the list <code>X</code> will be shifted.
+The argument <code>which</code> indicates that only some of the patterns
+should be shifted, while other groups should be left unchanged.
+<code>which</code> can be any valid subset index for <code>X</code>.
+</p>
+<p>Each point pattern in the list <code>X</code>
+(or each pattern in <code>X[which]</code>)
+is shifted by a random displacement vector.
+The shifting is performed by <code><a href="../../spatstat.random/help/rshift.ppp.html">rshift.ppp</a></code>.
+</p>
+<p>See the help page for <code><a href="../../spatstat.random/help/rshift.ppp.html">rshift.ppp</a></code>
+for details of the other arguments.
+</p>
+<p>If <code>nsim &gt; 1</code>, then the simulation procedure is
+performed <code>nsim</code> times; the result is a list of 
+split point patterns. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"splitppp"</code>,
+or a list of such objects.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rshift.html">rshift</a></code>,
+<code><a href="../../spatstat.random/help/rshift.ppp.html">rshift.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Y &lt;- split(amacrine)
+
+   # random toroidal shift
+   # shift "on" and "off" points separately
+   X &lt;- rshift(Y)
+
+   # shift "on" points and leave "off" points fixed
+   X &lt;- rshift(Y, which="on")
+
+   # maximum displacement distance 0.1 units
+   X &lt;- rshift(Y, radius=0.1)
+
+   # shift with erosion
+   X &lt;- rshift(Y, radius=0.1, edge="erode")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

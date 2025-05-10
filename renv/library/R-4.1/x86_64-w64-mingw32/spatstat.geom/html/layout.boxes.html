@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate a Row or Column Arrangement of Rectangles.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for layout.boxes {spatstat.geom}"><tr><td>layout.boxes {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Generate a Row or Column Arrangement of Rectangles.
+</h2>
+
+<h3>Description</h3>
+
+<p>A simple utility to generate a row or column of boxes (rectangles)
+for use in point-and-click panels.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+layout.boxes(B, n, horizontal = FALSE, aspect = 0.5, usefrac = 0.9)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>B</code></td>
+<td>
+
+<p>Bounding rectangle for the boxes.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Integer. The number of boxes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>horizontal</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, arrange the boxes in a horizontal row.
+If <code>FALSE</code> (the default), arrange them in a vertical column.
+</p>
+</td></tr>
+<tr valign="top"><td><code>aspect</code></td>
+<td>
+
+<p>A single finite positive number, giving the
+aspect ratio (height divided by width) of each box,
+or <code>NA</code> or <code>Inf</code>,
+indicating that the aspect ratio is unconstrained.
+</p>
+</td></tr>
+<tr valign="top"><td><code>usefrac</code></td>
+<td>
+
+<p>Number between 0 and 1. The 
+fraction of height or width of <code>B</code> that should be
+occupied by boxes.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This simple utility generates a list of boxes (rectangles)
+inside the bounding box <code>B</code> arranged in a regular
+row or column. It is useful for generating the
+positions of the panel buttons in the function
+<code><a href="../../spatstat.geom/help/simplepanel.html">simplepanel</a></code>.
+</p>
+<p>The argument <code>aspect</code> specifies the ratio of height to width
+(height divided by width). 
+If <code>aspect</code> is a finite numerical value, then the boxes will
+have the given aspect ratio.
+If <code>aspect</code> is <code>Inf</code> or
+<code>NA</code>, aspect ratio is unconstrained; the boxes will have the
+maximum possible width and height.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of rectangles (objects of class <code>"owin"</code> which are rectangles).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/simplepanel.html">simplepanel</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  B &lt;- owin(c(0,10),c(0,1))
+  boxes &lt;- layout.boxes(B, 5, horizontal=TRUE)
+  plot(B, main="", col="blue")
+  niets &lt;- lapply(boxes, plot, add=TRUE, col="grey")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

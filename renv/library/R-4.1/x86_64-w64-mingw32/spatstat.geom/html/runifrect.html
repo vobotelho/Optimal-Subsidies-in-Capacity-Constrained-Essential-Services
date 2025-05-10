@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate N Uniform Random Points in a Rectangle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for runifrect {spatstat.geom}"><tr><td>runifrect {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate N Uniform Random Points in a Rectangle</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern,
+containing <i>n</i> independent uniform random points,
+inside a specified rectangle.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+runifrect(n, win = owin(c(0, 1), c(0, 1)), nsim = 1, drop = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Rectangular window in which to simulate the pattern.
+An object of class <code>"owin"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+which must specify a rectangle.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a slightly faster version of
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>
+for the special case where the window is a rectangle.
+</p>
+<p>The function generates <code>n</code> independent random points,
+uniformly distributed in the window <code>win</code>,
+by assigning uniform random values to the cartesian coordinates.
+</p>
+<p>For normal usage we recommend <code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>
+because it is more flexible.
+However, <code>runifrect</code> is slightly faster (when the window is a rectangle),
+and may be preferable in very computationally-demanding tasks.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>)
+if <code>nsim=1</code> and <code>drop=TRUE</code>,
+otherwise a list of point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>,
+<code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # 42 random points in the unit square
+ pp &lt;- runifrect(42)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

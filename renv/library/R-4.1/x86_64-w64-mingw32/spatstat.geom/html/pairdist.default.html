@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise distances</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pairdist.default {spatstat.geom}"><tr><td>pairdist.default {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise distances</h2>
+
+<h3>Description</h3>
+
+<p>Computes the matrix of distances between all pairs of points
+in a set of points in two dimensional space
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## Default S3 method:
+pairdist(X, Y=NULL, ..., period=NULL, method="C", squared=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Arguments specifying the coordinates of a set of points.
+Typically <code>X</code> and <code>Y</code> would be
+numeric vectors of equal length.
+Alternatively <code>Y</code> may be omitted and <code>X</code> may be
+a list with two components <code>x</code> and <code>y</code>,
+or a matrix with two columns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>period</code></td>
+<td>
+
+<p>Optional. Dimensions for periodic edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String specifying which method of calculation to use.
+Values are <code>"C"</code> and <code>"interpreted"</code>.
+Usually not specified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>squared</code></td>
+<td>
+
+<p>Logical. If <code>squared=TRUE</code>, the squared distances are
+returned instead (this computation is faster).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given the coordinates of a set of points in two dimensional space,
+this function computes the Euclidean distances between all pairs of
+points, and returns the matrix of distances.
+It is a method for the generic function <code>pairdist</code>.
+</p>
+<p>Note: If only pairwise distances within some threshold value are
+needed the low-level function <code><a href="../../spatstat.geom/help/closepairs.html">closepairs</a></code> may be much
+faster to use.
+</p>
+<p>The arguments <code>X</code> and <code>Y</code> must determine
+the coordinates of a set of points. Typically <code>X</code> and
+<code>Y</code> would be numeric vectors of equal length. Alternatively
+<code>Y</code> may be omitted and <code>X</code> may be a list with two components
+named <code>x</code> and <code>y</code>, or a matrix or data frame with two columns.
+</p>
+<p>For typical input the result is numerically equivalent to
+(but computationally faster than) <code>as.matrix(dist(x))</code> where
+<code>x = cbind(X, Y)</code>, but that command is useful for calculating 
+all pairwise distances between points in <i>k</i>-dimensional space
+when <code>x</code> has <i>k</i> columns.
+</p>
+<p>Alternatively if <code>period</code> is given,
+then the distances will be computed in the &lsquo;periodic&rsquo;
+sense (also known as &lsquo;torus&rsquo; distance).
+The points will be treated as if they are in a rectangle
+of width <code>period[1]</code> and height <code>period[2]</code>.
+Opposite edges of the rectangle are regarded as equivalent.
+</p>
+<p>If <code>squared=TRUE</code> then the <em>squared</em> Euclidean distances
+<i>d^2</i> are returned, instead of the Euclidean distances <i>d</i>.
+The squared distances are faster to calculate, and are sufficient for
+many purposes (such as finding the nearest neighbour of a point).
+</p>
+<p>The argument <code>method</code> is not normally used. It is
+retained only for checking the validity of the software.
+If <code>method = "interpreted"</code> then the distances are
+computed using interpreted R code only. If <code>method="C"</code>
+(the default) then C code is used. The C code is somewhat faster.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A square matrix whose <code>[i,j]</code> entry is the distance
+between the points numbered <code>i</code> and <code>j</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>
+and 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.geom/help/closepairs.html">closepairs</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- runif(100)
+   y &lt;- runif(100)
+   d &lt;- pairdist(x, y)
+   d &lt;- pairdist(cbind(x,y))
+   d &lt;- pairdist(x, y, period=c(1,1))
+   d &lt;- pairdist(x, y, squared=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

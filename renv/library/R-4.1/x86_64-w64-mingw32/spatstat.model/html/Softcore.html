@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Soft Core Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Softcore {spatstat.model}"><tr><td>Softcore {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Soft Core Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the Soft Core point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Softcore(kappa, sigma0=NA)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+<p>The exponent <i>kappa</i> of the Soft Core
+interaction</p>
+</td></tr>
+<tr valign="top"><td><code>sigma0</code></td>
+<td>
+
+<p>Optional. Initial estimate of the parameter <i>sigma</i>.
+A positive number.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The (stationary)
+Soft Core point process with parameters <i>beta</i> and
+<i>sigma</i> and exponent <i>kappa</i>
+is the pairwise interaction point process in which 
+each point contributes a factor <i>beta</i> to the 
+probability density of the point pattern, and each pair of points
+contributes a factor
+</p>
+<p style="text-align: center;"><i>
+    exp( - (sigma/d)^(2/kappa) )
+  </i></p>
+
+<p>to the density, where <i>d</i> is the distance between the two points.
+See the Examples for a plot of this interaction curve.
+</p>
+<p>Thus the process has probability density
+</p>
+<p style="text-align: center;"><i>
+    f(x_1,&hellip;,x_n) =
+    alpha . beta^n(x) exp( - sum (sigma/||x[i]-x[j]||)^(2/kappa))
+  </i></p>
+
+<p>where <i>x[1],&hellip;,x[n]</i> represent the 
+points of the pattern, <i>n(x)</i> is the number of points in the
+pattern, <i>alpha</i> is the normalising constant,
+and the sum on the right hand side is
+over all unordered pairs of points of the pattern. 
+</p>
+<p>This model describes an &ldquo;ordered&rdquo; or &ldquo;inhibitive&rdquo; process,
+with the strength of inhibition decreasing smoothly with distance.
+The interaction is controlled by the parameters <i>sigma</i>
+and <i>kappa</i>.
+</p>
+
+<ul>
+<li>
+<p>The <em>spatial scale</em> of interaction is controlled by the
+parameter <i>sigma</i>, which is a positive real number
+interpreted as a distance, expressed in the same units of distance as
+the spatial data. The parameter <i>sigma</i> is the distance at which the
+pair potential reaches the threshold value 0.37.
+</p>
+</li>
+<li>
+<p>The <em>shape</em> of the interaction function
+is controlled by the exponent
+<i>kappa</i> which is a dimensionless number
+in the range <i>(0,1)</i>, with larger values corresponding to
+a flatter shape (or a more gradual decay rate).
+The process is well-defined only for <i>kappa</i> in
+<i>(0,1)</i>.
+The limit of the model as <i>kappa -&gt; 0</i> is the
+hard core process with hard core distance <i>h=sigma</i>.
+</p>
+</li>
+<li>
+<p>The &ldquo;strength&rdquo; of the interaction is determined by both of the
+parameters <i>sigma</i> and <i>kappa</i>.
+The larger the value of <i>kappa</i>, the wider the range of
+distances over which the interaction has an effect.
+If <i>sigma</i> is very small, the interaction is very weak
+for all practical purposes (theoretically if <i>sigma = 0</i>
+the model reduces to the Poisson point process).
+</p>
+</li></ul>
+
+<p>The nonstationary Soft Core process is similar except that 
+the contribution of each individual point <i>x[i]</i>
+is a function <i>beta(x[i])</i>
+of location, rather than a constant beta. 
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the Soft Core process pairwise interaction is
+yielded by the function <code>Softcore()</code>. See the examples below.
+</p>
+<p>The main argument is the exponent  <code>kappa</code>.
+When <code>kappa</code> is fixed, the model becomes an exponential family
+with canonical parameters <i>log(beta)</i>
+and </p>
+<p style="text-align: center;"><i>
+    log(gamma) = (2/kappa) log(sigma)
+  </i></p>
+
+<p>The canonical parameters are estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, not fixed in
+<code>Softcore()</code>. 
+</p>
+<p>The optional argument <code>sigma0</code> can be used to improve
+numerical stability. If <code>sigma0</code> is given, it should be a positive
+number, and it should be a rough estimate of the
+parameter <i>sigma</i>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the Soft Core process with exponent <i>kappa</i>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Ogata, Y, and Tanemura, M. (1981).
+Estimation of interaction potentials of spatial point patterns
+through the maximum likelihood procedure.
+<em>Annals of the Institute of Statistical Mathematics</em>, B
+<b>33</b>, 315&ndash;338.
+</p>
+<p>Ogata, Y, and Tanemura, M. (1984).
+Likelihood analysis of spatial point patterns.
+<em>Journal of the Royal Statistical Society, series B</em>
+<b>46</b>, 496&ndash;518.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # fit the stationary Soft Core process to `cells' 
+   fit5 &lt;- ppm(cells ~1, Softcore(kappa=0.5), correction="isotropic")
+
+   # study shape of interaction and explore effect of parameters
+   fit2 &lt;- update(fit5, Softcore(kappa=0.2))
+   fit8 &lt;- update(fit5, Softcore(kappa=0.8))
+   plot(fitin(fit2), xlim=c(0, 0.4),
+        main="Pair potential (sigma = 0.1)", 
+        xlab=expression(d), ylab=expression(h(d)), legend=FALSE)
+   plot(fitin(fit5), add=TRUE, col=4)
+   plot(fitin(fit8), add=TRUE, col=3)
+   legend("bottomright", col=c(1,4,3), lty=1,
+          legend=expression(kappa==0.2, kappa==0.5, kappa==0.8))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cover Region with Discs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for covering {spatstat.geom}"><tr><td>covering {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cover Region with Discs</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial region, this function finds an efficient
+covering of the region using discs of a chosen radius.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ covering(W, r, ..., giveup=1000)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>positive number: the radius of the covering discs.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the pixel resolution for the calculations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>giveup</code></td>
+<td>
+
+<p>Maximum number of attempts to place additional discs.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function finds an efficient covering of the
+window <code>W</code> using discs of the given radius <code>r</code>.
+The result is a point pattern giving the centres of the discs.
+</p>
+<p>The algorithm tries to use as few discs as possible,
+but is not guaranteed to find the minimal number of discs.
+It begins by placing a hexagonal grid of points inside <code>W</code>,
+then adds further points until every location inside <code>W</code> lies
+no more than <code>r</code> units away from one of the points.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+giving the centres of the discs.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  rr &lt;- 0.5
+  X &lt;- covering(letterR, rr)
+  plot(grow.rectangle(Frame(X), rr), type="n", main="")
+  plot(X, pch=16, add=TRUE, col="red")
+  plot(letterR, add=TRUE, lwd=3)
+  plot(X %mark% (2*rr), add=TRUE, markscale=1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

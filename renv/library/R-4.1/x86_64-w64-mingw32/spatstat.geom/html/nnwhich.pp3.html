@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest neighbours in three dimensions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nnwhich.pp3 {spatstat.geom}"><tr><td>nnwhich.pp3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nearest neighbours in three dimensions</h2>
+
+<h3>Description</h3>
+
+<p>Finds the nearest neighbour of each point in a three-dimensional
+point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'pp3'
+nnwhich(X, ..., k=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Three-dimensional point pattern 
+(object of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer, or integer vector. The algorithm will compute the distance to the
+<code>k</code>th nearest neighbour. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each point in the given three-dimensional
+point pattern, this function finds
+its nearest neighbour (the nearest other point of the pattern).
+By default it returns a vector giving, for each point,
+the index of the point's
+nearest neighbour. If <code>k</code> is specified, the algorithm finds
+each point's <code>k</code>th nearest neighbour.
+</p>
+<p>The function <code>nnwhich</code> is generic. This is the method
+for the class <code>"pp3"</code>.
+</p>
+<p>If there are no points in the pattern,
+a numeric vector of length zero is returned.
+If there is only one point,
+then the nearest neighbour is undefined, and a value of <code>NA</code>
+is returned. In general if the number of points is less than or equal
+to <code>k</code>, then a vector of <code>NA</code>'s is returned.
+</p>
+<p>To evaluate the <em>distance</em> between a point and its nearest
+neighbour, use <code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>.
+</p>
+<p>To find the nearest neighbours from one point pattern
+to another point pattern, use <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector or matrix giving, for each point,
+the index of its nearest neighbour (or <code>k</code>th nearest neighbour).
+</p>
+<p>If <code>k = 1</code> (the default), the return value is a
+numeric vector <code>v</code> giving the indices of the nearest neighbours
+(the nearest neighbout of the <code>i</code>th point is
+the <code>j</code>th point where <code>j = v[i]</code>).
+</p>
+<p>If <code>k</code> is a single integer, then the return value is a
+numeric vector giving the indices of the
+<code>k</code>th nearest neighbours.
+</p>
+<p>If <code>k</code> is a vector, then the return value is a
+matrix <code>m</code> such that <code>m[i,j]</code> is the
+index of the <code>k[j]</code>th nearest neighbour for the
+<code>i</code>th data point.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>A value of <code>NA</code> is returned if there is only one point
+in the point pattern. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+based on two-dimensional code by
+Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nnwhich.html">nnwhich</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(spatstat.random)) {
+   X &lt;- runifpoint3(30)
+} else {
+   X &lt;- osteo$pts[[1]]
+}
+   m &lt;- nnwhich(X)
+   m2 &lt;- nnwhich(X, k=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

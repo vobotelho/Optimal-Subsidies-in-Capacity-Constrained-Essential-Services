@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Infinite Straight Lines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for infline {spatstat.geom}"><tr><td>infline {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Infinite Straight Lines</h2>
+
+<h3>Description</h3>
+
+<p>Define the coordinates of one or more straight lines in the plane
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+infline(a = NULL, b = NULL, h = NULL, v = NULL, p = NULL, theta = NULL)
+
+## S3 method for class 'infline'
+print(x, ...)
+
+## S3 method for class 'infline'
+plot(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>a,b</code></td>
+<td>
+<p>Numeric vectors of equal length giving the
+intercepts <i>a</i> and slopes <i>b</i> of the lines.
+Incompatible with <code>h,v,p,theta</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>Numeric vector giving the positions of horizontal lines when
+they cross the <i>y</i> axis.
+Incompatible with <code>a,b,v,p,theta</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>v</code></td>
+<td>
+<p>Numeric vector giving the positions of vertical lines when
+they cross the <i>x</i> axis.
+Incompatible with <code>a,b,h,p,theta</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>p,theta</code></td>
+<td>
+<p>Numeric vectors of equal length
+giving the polar coordinates of the line.
+Incompatible with <code>a,b,h,v</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>An object of class <code>"infline"</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../base/help/print.html">print</a></code>
+for printing or <code><a href="../../graphics/help/abline.html">abline</a></code> for plotting
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The class <code>infline</code> is a convenient way to handle
+infinite straight lines in the plane.
+</p>
+<p>The position of a line can be specified in several ways:
+</p>
+
+<ul>
+<li>
+<p>its intercept <i>a</i> and slope <i>b</i> 
+in the equation <i>y = a + b * x</i>
+can be used unless the line is vertical.
+</p>
+</li>
+<li>
+<p>for vertical lines we can use the
+position <i>v</i> where the line crosses the <i>y</i> axis
+</p>
+</li>
+<li>
+<p>for horizontal lines we can use the
+position <i>h</i> where the line crosses the <i>x</i> axis
+</p>
+</li>
+<li>
+<p>the polar coordinates <i>p</i> and <i>theta</i>
+can be used for any line. The line equation is
+</p>
+<p style="text-align: center;"><i>
+      x * cos(theta) + y * sin(theta) = p
+    </i></p>
+
+</li></ul>
+
+<p>The command <code>infline</code> will accept line coordinates in any
+of these formats. The arguments <code>a,b,h,v</code> have the same interpretation
+as they do in the line-plotting function
+<code><a href="../../graphics/help/abline.html">abline</a></code>.
+</p>
+<p>The command <code>infline</code> converts between different coordinate
+systems (e.g. from <code>a,b</code> to <code>p,theta</code>) and returns an
+object of class <code>"infline"</code>
+that contains a representation of the lines in
+each appropriate coordinate system. This object can be printed
+and plotted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value of <code>infline</code> is an object of class <code>"infline"</code>
+which is basically a data frame with columns <code>a,b,h,v,p,theta</code>.
+Each row of the data frame represents one line. 
+Entries may be <code>NA</code> if a coordinate is not applicable to
+a particular line. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/rotate.infline.html">rotate.infline</a></code>,
+<code><a href="../../spatstat.geom/help/clip.infline.html">clip.infline</a></code>,
+<code><a href="../../spatstat.geom/help/chop.tess.html">chop.tess</a></code>,
+<code><a href="../../spatstat.geom/help/whichhalfplane.html">whichhalfplane</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  infline(a=10:13,b=1)
+  infline(p=1:3, theta=pi/4)
+  plot(c(-1,1),c(-1,1),type="n",xlab="",ylab="", asp=1)
+  plot(infline(p=0.4, theta=seq(0,pi,length=20)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

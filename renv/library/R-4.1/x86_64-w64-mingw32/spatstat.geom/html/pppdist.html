@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Between Two Point Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pppdist {spatstat.geom}"><tr><td>pppdist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distance Between Two Point Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Given two point patterns, find the distance between them based on
+optimal point matching.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  pppdist(X, Y, type = "spa", cutoff = 1, q = 1, matching = TRUE,
+    ccode = TRUE, auction = TRUE, precision = NULL, approximation = 10,
+    show.rprimal = FALSE, timelag = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+<p>Two point patterns (objects of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>A character string giving the type of distance to be computed.
+One of <code>"spa"</code> (default), <code>"ace"</code> or <code>"mat"</code>, indicating
+whether the algorithm should find the optimal matching based on
+&ldquo;subpattern assignment&rdquo;,
+&ldquo;assignment only if cardinalities are equal&rdquo;
+or &ldquo;mass transfer&rdquo;. See Details. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>cutoff</code></td>
+<td>
+
+<p>The value <i>&gt; 0</i> at which interpoint distances are cut off.
+</p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+
+<p>The order of the average that is applied to the interpoint distances.
+May be <code>Inf</code>, in which case the maximum of the interpoint
+distances is taken.
+</p>
+</td></tr>
+<tr valign="top"><td><code>matching</code></td>
+<td>
+
+<p>Logical. Whether to return the optimal matching or only the
+associated distance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ccode</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code>, <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code is used which allows for higher
+precision, but is much slower.
+</p>
+</td></tr>
+<tr valign="top"><td><code>auction</code></td>
+<td>
+
+<p>Logical. By default a version of Bertsekas' auction algorithm
+is used to compute an optimal point matching if <code>type</code> is
+either <code>"spa"</code> or <code>"ace"</code>.
+If <code>auction</code> is <code>FALSE</code> (or <code>type</code> is <code>"mat"</code>)
+a specialized primal-dual algorithm is used instead.
+This was the standard in earlier versions
+of <span class="pkg">spatstat</span>, but is several orders of magnitudes slower. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>precision</code></td>
+<td>
+
+<p>Index controlling accuracy of algorithm. The <code>q</code>-th powers of
+interpoint distances will be rounded to the nearest multiple of
+<code>10^(-precision)</code>. There is a sensible default which depends
+on <code>ccode</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>approximation</code></td>
+<td>
+
+<p>If <code>q = Inf</code>, compute distance based on the optimal matching for the
+corresponding distance of order <code>approximation</code>. Can be
+<code>Inf</code>, but this makes computations extremely slow.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.rprimal</code></td>
+<td>
+
+<p>Logical. Whether to plot the progress of the primal-dual
+algorithm. If <code>TRUE</code>, slow primal-dual <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code is used,
+regardless of the arguments <code>ccode</code> and <code>auction</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>timelag</code></td>
+<td>
+
+<p>Time lag, in seconds, between successive displays of the
+iterative solution of the restricted primal problem.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Computes the distance between point patterns <code>X</code> and <code>Y</code> based
+on finding the matching between them which minimizes the average of
+the distances between matched points
+(if <code>q=1</code>), the maximum distance between matched points
+(if <code>q=Inf</code>), and in general the <code>q</code>-th order average
+(i.e. the <code>1/q</code>th power of the sum of
+the <code>q</code>th powers) of the distances between matched points.
+Distances between matched points are Euclidean distances cut off at
+the value of <code>cutoff</code>.
+</p>
+<p>The parameter <code>type</code> controls the behaviour of the algorithm if
+the cardinalities of the point patterns are different. For the type
+<code>"spa"</code> (subpattern assignment) the subpattern of the point pattern
+with the larger cardinality <i>n</i> that is closest to the point pattern
+with the smaller cardinality <i>m</i> is determined; then the <code>q</code>-th order
+average is taken over <i>n</i> values: the <i>m</i> distances of matched points
+and <i>n-m</i> &quot;penalty distances&quot; of value <code>cutoff</code> for
+the unmatched points. For the type <code>"ace"</code> (assignment only if 
+cardinalities equal) the matching is empty and the distance returned is equal
+to <code>cutoff</code> if the cardinalities differ. For the
+type <code>"mat"</code> (mass transfer) each point pattern is assumed
+to have total mass <i>m</i> (= the smaller cardinality) distributed evenly
+among its points; the algorithm finds then the &quot;mass transfer plan&quot; that
+minimizes the <code>q</code>-th order weighted average of the distances, where 
+the weights are given by the transferred mass divided by <i>m</i>. The
+result is a fractional matching (each match of two points has a weight
+in <i>(0,1]</i>) with the minimized quantity as the associated distance.
+</p>
+<p>The central problem to be solved is the assignment problem (for types
+<code>"spa"</code> and <code>"ace"</code>) or the more general transport problem
+(for type <code>"mat"</code>). Both are well-known problems in discrete
+optimization, see e.g. Luenberger (2003). 
+</p>
+<p>For the assignment problem <code>pppdist</code> uses by default the
+forward/backward version of Bertsekas' auction algorithm with
+automated epsilon scaling; see Bertsekas (1992). The implemented
+version gives good overall performance and can handle point patterns
+with several thousand points. 
+</p>
+<p>For the transport problem a specialized primal-dual algorithm is
+employed; see Luenberger (2003), Section 5.9. The C implementation
+used by default can handle patterns with a few hundreds of points, but
+should not be used with thousands of points. By setting
+<code>show.rprimal = TRUE</code>, some insight in the working of the
+algorithm can be gained. 
+</p>
+<p>For a broader selection of optimal transport algorithms that are not
+restricted to spatial point patterns and allow for additional fine
+tuning, we recommend the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> package <span class="pkg">transport</span>. 
+</p>
+<p>For moderate and large values of <code>q</code> there can be numerical
+issues based on the fact that the <code>q</code>-th powers of distances are
+taken and some positive values enter the optimization algorithm as
+zeroes because they are too small in comparison with the larger
+values. In this case the number of zeroes introduced is given in a
+warning message, and it is possible then that the matching obtained is
+not optimal and the associated distance is only a strict upper bound
+of the true distance. As a general guideline (which can be very wrong
+in special situations) a small number of zeroes (up to about 50% of
+the smaller point pattern cardinality <i>m</i>) usually still results
+in the right matching, and the number can even be quite a bit higher
+and usually still provides a highly accurate upper bound for the
+distance. These numerical problems can be reduced by enforcing (much
+slower) <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code via the argument <code>ccode = FALSE</code>. 
+</p>
+<p>For <code>q = Inf</code> there is no fast algorithm available, which is why
+approximation is normally used: for finding the optimal matching,
+<code>q</code> is set to the value of <code>approximation</code>. The
+resulting distance is still given as the maximum rather than the
+<code>q</code>-th order average in the corresponding distance computation.
+If <code>approximation = Inf</code>, approximation is suppressed and a very
+inefficient exhaustive search for the best matching is performed.
+</p>
+<p>The value of <code>precision</code> should normally not be supplied by the
+user. If <code>ccode = TRUE</code>, this value is preset to the highest
+exponent of 10 that the C code still can handle (usually <i>9</i>). If
+<code>ccode = FALSE</code>, the value is preset according to <code>q</code>
+(usually <i>15</i> if <code>q</code> is small), which can sometimes be
+changed to obtain less severe warning messages. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Normally an object of class <code>pppmatching</code> that contains detailed
+information about the parameters used and the resulting distance.
+See <code><a href="../../spatstat.geom/help/pppmatching.object.html">pppmatching.object</a></code> for details.
+If <code>matching = FALSE</code>, only the numerical value of the distance
+is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Dominic Schuhmacher <a href="mailto:dominic.schuhmacher@mathematik.uni-goettingen.de">dominic.schuhmacher@mathematik.uni-goettingen.de</a>, URL <code>http://dominic.schuhmacher.name/</code>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Bertsekas, D.P. (1992).
+Auction algorithms for network flow problems: a tutorial introduction.
+Computational Optimization and Applications 1, 7-66.
+</p>
+<p>Luenberger, D.G. (2003). <em>Linear and nonlinear programming.</em>
+Second edition. Kluwer.
+</p>
+<p>Schuhmacher, D. (2014).
+<em>transport: optimal transport in various forms.</em>
+R package version 0.6-2 (or later)
+</p>
+<p>Schuhmacher, D. and Xia, A. (2008).
+A new metric between distributions of point processes.
+<em>Advances in Applied Probability</em> <b>40</b>, 651&ndash;672
+</p>
+<p>Schuhmacher, D., Vo, B.-T. and Vo, B.-N. (2008).
+A consistent metric for performance evaluation of multi-object
+filters.
+<em>IEEE Transactions on Signal Processing</em> <b>56</b>, 3447&ndash;3457.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pppmatching.object.html">pppmatching.object</a></code>, <code><a href="../../spatstat.geom/help/matchingdist.html">matchingdist</a></code>,
+<code><a href="../../spatstat.geom/help/plot.pppmatching.html">plot.pppmatching</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# equal cardinalities
+set.seed(140627)
+X &lt;- runifrect(500)
+Y &lt;- runifrect(500)
+m &lt;- pppdist(X, Y)
+m
+if(interactive()) {
+plot(m)}
+  
+# differing cardinalities
+X &lt;- runifrect(14)
+Y &lt;- runifrect(10)
+m1 &lt;- pppdist(X, Y, type="spa")
+m2 &lt;- pppdist(X, Y, type="ace")
+m3 &lt;- pppdist(X, Y, type="mat", auction=FALSE)
+summary(m1)
+summary(m2)
+summary(m3)
+if(interactive()) {
+m1$matrix
+m2$matrix
+m3$matrix}
+
+# q = Inf
+X &lt;- runifrect(10)
+Y &lt;- runifrect(10)
+mx1 &lt;- pppdist(X, Y, q=Inf, matching=FALSE)
+mx2 &lt;- pppdist(X, Y, q=Inf, matching=FALSE, ccode=FALSE, approximation=50)
+mx3 &lt;- pppdist(X, Y, q=Inf, matching=FALSE, approximation=Inf)
+all.equal(mx1,mx2,mx3)
+# sometimes TRUE
+all.equal(mx2,mx3)
+# very often TRUE
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

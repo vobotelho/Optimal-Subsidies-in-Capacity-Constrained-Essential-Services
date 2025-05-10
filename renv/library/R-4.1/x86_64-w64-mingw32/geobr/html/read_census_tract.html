@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download spatial data of census tracts of the Brazilian...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read_census_tract {geobr}"><tr><td>read_census_tract {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download spatial data of census tracts of the Brazilian Population Census</h2>
+
+<h3>Description</h3>
+
+<p>Download spatial data of census tracts of the Brazilian Population Census
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read_census_tract(
+  code_tract,
+  year = 2010,
+  zone = "urban",
+  simplified = TRUE,
+  showProgress = TRUE,
+  cache = TRUE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>code_tract</code></td>
+<td>
+<p>The 7-digit code of a Municipality. If the two-digit code
+or a two-letter uppercase abbreviation of a state is passed, (e.g. 33
+or &quot;RJ&quot;) the function will load all census tracts of that state. If
+<code>code_tract="all"</code>, the function downloads all census tracts of the
+country.</p>
+</td></tr>
+<tr valign="top"><td><code>year</code></td>
+<td>
+<p>Numeric. Year of the data in YYYY format. Defaults to <code>2010</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>zone</code></td>
+<td>
+<p>For census tracts before 2010, 'urban' and 'rural' census tracts
+are separate data sets.</p>
+</td></tr>
+<tr valign="top"><td><code>simplified</code></td>
+<td>
+<p>Logic <code>FALSE</code> or <code>TRUE</code>, indicating whether the function
+should return the data set with 'original' spatial resolution or a data set
+with 'simplified' geometry. Defaults to <code>TRUE</code>. For spatial analysis and
+statistics users should set <code>simplified = FALSE</code>. Borders have been
+simplified by removing vertices of borders using <code style="white-space: pre;">st_simplify{sf}</code> preserving
+topology with a <code>dTolerance</code> of 100.</p>
+</td></tr>
+<tr valign="top"><td><code>showProgress</code></td>
+<td>
+<p>Logical. Defaults to <code>TRUE</code> display progress bar.</p>
+</td></tr>
+<tr valign="top"><td><code>cache</code></td>
+<td>
+<p>Logical. Whether the function should read the data cached
+locally, which is faster. Defaults to <code>cache = TRUE</code>. By default,
+<code>geobr</code> stores data files in a temporary directory that exists only
+within each R session. If <code>cache = FALSE</code>, the function will download
+the data again and overwrite the local file.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An <code style="white-space: pre;">"sf" "data.frame"</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other general area functions: 
+<code><a href="../../geobr/help/read_conservation_units.html">read_conservation_units</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# Read rural census tracts for years before 2007
+  c &lt;- read_census_tract(code_tract=5201108, year=2000, zone="rural")
+
+# Read all census tracts of a state at a given year
+  c &lt;- read_census_tract(code_tract=53, year=2010) # or
+  c &lt;- read_census_tract(code_tract="DF", year=2010)
+  plot(c)
+
+# Read all census tracts of a municipality at a given year
+  c &lt;- read_census_tract(code_tract=5201108, year=2010)
+  plot(c)
+
+# Read all census tracts of the country at a given year
+  c &lt;- read_census_tract(code_tract="all", year=2010)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

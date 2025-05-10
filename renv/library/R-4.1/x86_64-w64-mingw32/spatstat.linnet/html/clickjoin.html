@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interactively join vertices on a plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for clickjoin {spatstat.linnet}"><tr><td>clickjoin {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Interactively join vertices on a plot
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern representing a set of vertices,
+this command gives a point-and-click interface
+allowing the user to join pairs of selected vertices by edges.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  clickjoin(X, ..., add = TRUE, m = NULL, join = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern of vertices. An object of class <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/html/segments.html">segments</a></code> to control
+the plotting of the new edges.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. Whether the point pattern <code>X</code> should be added to the
+existing plot (<code>add=TRUE</code>) or a new plot should be created
+(<code>add=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>m</code></td>
+<td>
+
+<p>Optional. Logical matrix specifying an initial
+set of edges. There is an edge between vertices <code>i</code> and
+<code>j</code> if <code>m[i,j] = TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>join</code></td>
+<td>
+
+<p>Optional. If <code>TRUE</code>, then each user click will join a pair of
+vertices. If <code>FALSE</code>, then each user click will delete an
+existing edge. This is only relevant if <code>m</code> is supplied.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function makes it easier for the user to create a
+linear network or a planar graph, given a set of vertices.
+</p>
+<p>The function first displays the point pattern <code>X</code>,
+then repeatedly prompts the user to click on a pair of points in <code>X</code>.
+Each selected pair of points will be joined
+by an edge. The function returns a
+logical matrix which has entries equal to <code>TRUE</code> for each
+pair of vertices joined by an edge.
+</p>
+<p>The selection of points is performed
+using <code><a href="../../spatstat.geom/help/identify.ppp.html">identify.ppp</a></code> which typically expects the user to
+click the left mouse button.  This point-and-click interaction
+continues until the user terminates it, 
+by pressing the middle mouse button,
+or pressing the right mouse button and selecting <code>stop</code>.
+</p>
+<p>The return value can be used in <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>
+to create a linear network.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical matrix <code>m</code> with value <code>m[i,j] = TRUE</code> for every
+pair of vertices <code>X[i]</code> and <code>X[j]</code> that should be joined by
+an edge.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>,
+<code><a href="../../spatstat.geom/help/clickppp.html">clickppp</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

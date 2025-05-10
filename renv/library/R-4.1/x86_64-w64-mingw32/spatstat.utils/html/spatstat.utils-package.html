@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The spatstat.utils Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.utils-package {spatstat.utils}"><tr><td>spatstat.utils-package {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The spatstat.utils Package</h2>
+
+<h3>Description</h3>
+
+<p>The <span class="pkg">spatstat.utils</span> package contains low-level utilities,
+written for the <span class="pkg">spatstat</span> package, which may be useful in
+other packages as well.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The functions in <span class="pkg">spatstat.utils</span> were originally written
+as internal, undocumented, utility functions in the <span class="pkg">spatstat</span> package.
+</p>
+<p>Many of these functions could be useful to other programmers,
+so we have made them available in a separate package
+<span class="pkg">spatstat.utils</span> and provided documentation.
+</p>
+<p>The functionality contained in <span class="pkg">spatstat.utils</span> includes:
+</p>
+
+<dl>
+<dt>Factorisation of integers</dt><dd>
+<p>Find prime numbers (<code><a href="../../spatstat.utils/help/primesbelow.html">primesbelow</a></code>),
+factorise a composite number into its prime factors
+(<code><a href="../../spatstat.utils/help/primefactors.html">primefactors</a></code>),
+determine whether a number is prime (<code><a href="../../spatstat.utils/help/is.prime.html">is.prime</a></code>)
+or whether two numbers are relatively prime 
+(<code><a href="../../spatstat.utils/help/relatively.prime.html">relatively.prime</a></code>),
+and find the least common multiple
+or greatest common divisor of two numbers
+(<code><a href="../../spatstat.utils/help/least.common.multiple.html">least.common.multiple</a></code>,
+<code><a href="../../spatstat.utils/help/greatest.common.divisor.html">greatest.common.divisor</a></code>).
+</p>
+</dd>
+<dt>Faster versions of basic <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> tools</dt><dd>
+<p>Faster versions of some basic <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> tools and idioms are provided.
+These are only faster in particular cases, but if you know that
+your data have a particular form, the acceleration can be substantial.
+See <code><a href="../../spatstat.utils/help/ifelseAB.html">ifelseAB</a></code>, <code><a href="../../spatstat.utils/help/fave.order.html">fave.order</a></code>,
+<code><a href="../../spatstat.utils/help/revcumsum.html">revcumsum</a></code>, <code><a href="../../spatstat.utils/help/tapplysum.html">tapplysum</a></code>.
+</p>
+</dd>
+<dt>Grammar</dt><dd>
+<p>Use the correct word in English to refer to
+an ordinal number (<code><a href="../../spatstat.utils/help/ordinal.html">ordinal</a></code>,
+<code><a href="../../spatstat.utils/help/ordinalsuffix.html">ordinalsuffix</a></code>)
+and the correct indefinite article
+(<code><a href="../../spatstat.utils/help/articlebeforenumber.html">articlebeforenumber</a></code>).
+</p>
+</dd>
+<dt>Tools for generating printed output</dt><dd>
+<p>The function <code><a href="../../spatstat.utils/help/splat.html">splat</a></code> is a replacement for
+<code>cat(paste(...))</code> which ensures that output stays
+inside the declared text margin (<code><a href="../../base/html/options.html">getOption</a>("width")</code>)
+and can also perform automatic indentation.
+There are useful functions to add or remove parentheses
+(<code><a href="../../spatstat.utils/help/paren.html">paren</a></code>, <code><a href="../../spatstat.utils/help/unparen.html">unparen</a></code>) and
+to make comma-separated lists (<code><a href="../../spatstat.utils/help/commasep.html">commasep</a></code>).
+</p>
+</dd>
+<dt>Handling intervals (ranges) of real numbers</dt><dd>
+<p>Simple functions handle an interval (range) of numerical
+values: <code><a href="../../spatstat.utils/help/check.range.html">check.range</a></code>,
+<code><a href="../../spatstat.utils/help/intersect.ranges.html">intersect.ranges</a></code>, 
+<code><a href="../../spatstat.utils/help/inside.range.html">inside.range</a></code>, 
+<code><a href="../../spatstat.utils/help/check.in.range.html">check.in.range</a></code>,
+<code><a href="../../spatstat.utils/help/prange.html">prange</a></code>.
+</p>
+</dd>
+<dt>Handling a formula</dt><dd>
+<p>Tools for handling a formula in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language include
+<code><a href="../../spatstat.utils/help/lhs.of.formula.html">lhs.of.formula</a></code>,
+<code><a href="../../spatstat.utils/help/rhs.of.formula.html">rhs.of.formula</a></code>,
+<code><a href="../../spatstat.utils/help/variablesinformula.html">variablesinformula</a></code>,
+<code><a href="../../spatstat.utils/help/termsinformula.html">termsinformula</a></code>,
+<code><a href="../../spatstat.utils/help/offsetsinformula.html">offsetsinformula</a></code>,
+<code><a href="../../spatstat.utils/help/can.be.formula.html">can.be.formula</a></code> and
+<code><a href="../../spatstat.utils/help/identical.formulae.html">identical.formulae</a></code>.
+</p>
+</dd>
+<dt>Polynomials</dt><dd>
+<p>There are tools for creating and manipulating symbolic expressions
+for polynomials, as they might appear in a formula
+(<code><a href="../../spatstat.utils/help/sympoly.html">sympoly</a></code>,
+<code><a href="../../spatstat.utils/help/expand.polynom.html">expand.polynom</a></code>).
+</p>
+</dd>
+<dt>Validating arguments</dt><dd>
+<p>There are many tools for validating an argument and
+generating a comprehensible error or warning message
+if the argument is not valid:
+<code><a href="../../spatstat.utils/help/check.1.integer.html">check.1.integer</a></code>,
+<code><a href="../../spatstat.utils/help/check.nvector.html">check.nvector</a></code>,
+<code><a href="../../spatstat.utils/help/check.named.vector.html">check.named.vector</a></code>.
+</p>
+</dd>
+<dt>Passing arguments</dt><dd>
+<p>There are many tools for calling a function while passing
+only some of the arguments in a supplied list of arguments:
+<code><a href="../../spatstat.utils/help/do.call.matched.html">do.call.matched</a></code>, <code><a href="../../spatstat.utils/help/do.call.without.html">do.call.without</a></code>,
+<code><a href="../../spatstat.utils/help/resolve.defaults.html">resolve.defaults</a></code>.
+</p>
+</dd>
+<dt>Traced optimization</dt><dd>
+<p><code><a href="../../spatstat.utils/help/optimizeWithTrace.html">optimizeWithTrace</a></code> is a simple wrapper for
+the one-dimensional optimization routine
+<code><a href="../../stats/help/optimize.html">optimize</a></code>. It stores the values of the
+function argument each time it is called, stores the resulting
+function values, and returns them along with the optimal value.
+</p>
+</dd>
+<dt>Workarounds</dt><dd>
+<p>There are workarounds for known bugs or undesirable features in
+other software.
+<code><a href="../../spatstat.utils/help/spatstatLocator.html">spatstatLocator</a></code> is a replacement for
+<code><a href="../../graphics/help/locator.html">locator</a></code> which works around a bug in the
+<code>RStudio</code> graphics interface.
+<code><a href="../../spatstat.utils/help/cat.factor.html">cat.factor</a></code> concatenates several factors,
+merging the levels, to produce a new factor.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Licence</h3>
+
+<p>This library and its documentation are usable under the terms of the
+&ldquo;GNU General Public License&rdquo;,
+a copy of which is distributed with <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

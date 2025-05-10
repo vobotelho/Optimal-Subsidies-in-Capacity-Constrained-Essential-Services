@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Leverage Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.leverage.ppm {spatstat.model}"><tr><td>methods.leverage.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Methods for Leverage Objects</h2>
+
+<h3>Description</h3>
+
+<p>Methods for the class <code>"leverage.ppm"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'leverage.ppm'
+as.im(X, ..., what=c("smooth", "nearest"))
+
+ ## S3 method for class 'leverage.ppm'
+as.owin(W, ..., fatal=TRUE)
+
+ ## S3 method for class 'leverage.ppm'
+domain(X, ...)
+
+ ## S3 method for class 'leverage.ppm'
+integral(f, domain, ...)
+
+ ## S3 method for class 'leverage.ppm'
+mean(x, ...)
+
+ ## S3 method for class 'leverage.ppm'
+Smooth(X, ...)
+
+ ## S3 method for class 'leverage.ppm'
+Window(X, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,x,W,f</code></td>
+<td>
+<p>An object of class <code>"leverage.ppm"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional. Domain of integration: a window (class <code>"owin"</code>)
+or a tessellation (class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating what to do if the data cannot be
+converted to a window. If <code>fatal=TRUE</code> (the default)
+an error occurs. If <code>fatal=FALSE</code> a value of <code>NULL</code>
+is returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string (partially matched) specifying which image data
+should be extracted. See <code><a href="../../spatstat.model/help/plot.leverage.ppm.html">plot.leverage.ppm</a></code> for
+explanation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the class <code>"leverage.ppm"</code>.
+An object of this class
+represents the leverage measure of a fitted point process model
+(see <code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code>).
+</p>
+<p>For <code>as.im</code>, <code>domain</code> and <code>Window</code>,
+additional arguments (<code>...</code>) are ignored.
+For <code>as.owin</code>, <code>integral</code>, <code>mean</code> and <code>Smooth</code>, 
+additional arguments are passed to the method for class <code>"im"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>) for
+<code>as.owin</code>, <code>domain</code> and <code>Window</code>.
+A numeric value or numeric vector for <code>integral</code>.
+A pixel image, or list of pixel images, for <code>as.im</code> and <code>Smooth</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code>, <code><a href="../../spatstat.model/help/plot.leverage.ppm.html">plot.leverage.ppm</a></code>,
+<code><a href="../../spatstat.model/help/+5B.leverage.ppm.html">[.leverage.ppm</a></code>, <code><a href="../../spatstat.model/help/as.function.leverage.ppm.html">as.function.leverage.ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ fit &lt;- ppm(cells ~ x)
+ a &lt;- leverage(fit)
+ integral(a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

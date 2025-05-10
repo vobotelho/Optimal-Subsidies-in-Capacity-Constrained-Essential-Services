@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Explode a Point Pattern by Displacing Duplicated Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rexplode {spatstat.geom}"><tr><td>rexplode {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Explode a Point Pattern by Displacing Duplicated Points
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern which contains duplicated points,
+separate the duplicated points from each other by
+slightly perturbing their positions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rexplode(X, ...)
+
+## S3 method for class 'ppp'
+rexplode(X, radius, ..., nsim = 1, drop = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+
+<p>Scale of perturbations. A positive numerical value.
+The displacement vectors will be uniformly
+distributed in a circle of this radius.
+There is a sensible default.
+Alternatively, <code>radius</code> may be a numeric vector of length
+equal to the number of points in <code>X</code>, giving a different
+displacement radius for each data point.
+Radii will be restricted to be less than or equal to the distance
+to the boundary of the window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Duplicated points in the point pattern <code>X</code> are identified.
+Each group of duplicated points is then &lsquo;exploded&rsquo; by
+randomly displacing the point locations to form a circular arrangement
+around the original position.
+</p>
+<p>This function is an alternative to <code><a href="../../spatstat.geom/help/rjitter.ppp.html">rjitter.ppp</a></code>.
+Whereas <code><a href="../../spatstat.geom/help/rjitter.ppp.html">rjitter.ppp</a></code>
+applies independent random displacements to each data point,
+<code>rexplode.ppp</code> applies displacements only to the points
+that are duplicated, and the displacements are mutually dependent
+within each group of duplicates, to ensure that the displaced points
+are visually separated from each other.
+</p>
+<p>First the code ensures that the displacement radius for each
+data point is less than or equal to the distance to the boundary
+of the window. Then each group of duplicated points (or data points
+with the same location but possibly different mark values) is
+taken in turn. The first element of the group is randomly displaced
+by a vector uniformly distributed in a circle of radius <code>radius</code>.
+The remaining elements of the group are then positioned around the
+original location, at the same distance from the orginal location,
+with equal angular spacing from the first point.
+The result is that each group of duplicated points becomes
+a circular pattern centred around the original location.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>)
+or a list of point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/rjitter.ppp.html">rjitter.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   ## create a pattern containing duplicated points
+   X &lt;- runifrect(5) %mark% letters[1:5]
+   X &lt;- X[rep(1:5, 1 + rpois(5, 2))]
+   ## explode it
+   Y &lt;- rexplode(X, 0.05)
+   ## display
+   if(interactive()) {
+       plot(solist(X=X, 'explode(X)'=Y),
+       main="", cols=2:6, cex=1.25, leg.side="bottom")
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intensity Estimate of Point Pattern on Linear Network Using...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for densityVoronoi.lpp {spatstat.linnet}"><tr><td>densityVoronoi.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Intensity Estimate of Point Pattern on Linear Network Using Voronoi-Dirichlet Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Computes an adaptive estimate of the intensity function of a point
+pattern on a linear network, using the Dirichlet-Voronoi tessellation
+on the network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+densityVoronoi(X, f = 1, ..., nrep = 1, verbose = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Fraction (between 0 and 1 inclusive) of the data points that will be
+used to build a tessellation for the intensity estimate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/linim.html">linim</a></code> determining the
+pixel resolution of the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+
+<p>Number of independent repetitions of the randomised
+procedure.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print
+progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is an alternative to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>. It
+computes an estimate of the intensity function of a point pattern
+dataset on a linear network.
+The result is a pixel image on the network, giving the estimated intensity.
+</p>
+<p>This function is a method for the generic <code><a href="../../spatstat.explore/help/densityVoronoi.html">densityVoronoi</a></code>
+for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+<p>If <code>f=1</code> (the default), the Voronoi estimate (Barr and Schoenberg, 2010)
+is computed: the point pattern <code>X</code> is used to construct
+a Voronoi/Dirichlet tessellation on the network
+(see <code><a href="../../spatstat.linnet/help/lineardirichlet.html">lineardirichlet</a></code>);
+the lengths of the Dirichlet tiles are computed; the estimated intensity
+in each tile is the reciprocal of the tile length.
+The result is a pixel image
+of intensity estimates which are constant on each tile of the tessellation.
+</p>
+<p>If <code>f=0</code>, the intensity estimate at every location is
+equal to the average intensity (number of points divided by
+network length). The result is a pixel image
+of intensity estimates which are constant.
+</p>
+<p>If <code>f</code> is strictly between 0 and 1,
+the smoothed Voronoi estimate (Moradi et al, 2019) is computed.
+The dataset <code>X</code> is randomly
+thinned by deleting or retaining each point independently, with
+probability <code>f</code> of retaining a point.
+The thinned pattern
+is used to construct a Dirichlet tessellation and form the
+Voronoi estimate, which is then
+adjusted by a factor <code>1/f</code>.
+This procedure is repeated <code>nrep</code> times and the results are
+averaged to obtain the smoothed Voronoi estimate.
+</p>
+<p>The value <code>f</code> can be chosen automatically by bandwidth
+selection using <code><a href="../../spatstat.linnet/help/bw.voronoi.html">bw.voronoi</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Pixel image on a linear network (object of class <code>"linim"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Mehdi Moradi <a href="mailto:m2.moradi@yahoo.com">m2.moradi@yahoo.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Moradi, M., Cronie, 0., Rubak, E., Lachieze-Rey, R.,
+Mateu, J. and Baddeley, A. (2019)
+Resample-smoothing of Voronoi intensity estimators.
+<em>Statistics and Computing</em> <b>29</b> (5) 995&ndash;1010.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/densityVoronoi.html">densityVoronoi</a></code> is the generic, with a method for
+class <code>"ppp"</code>.
+</p>
+<p><code><a href="../../spatstat.linnet/help/lineardirichlet.html">lineardirichlet</a></code> computes the Dirichlet-Voronoi
+tessellation on a network.
+</p>
+<p><code><a href="../../spatstat.linnet/help/bw.voronoi.html">bw.voronoi</a></code> performs bandwidth selection of the fraction <code>f</code>.
+</p>
+<p>See also <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   nr &lt;- if(interactive()) 100 else 3
+   plot(densityVoronoi(spiders, 0.1, nrep=nr))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

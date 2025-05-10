@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Subset of Hyperframe Satisfying A Condition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for subset.hyperframe {spatstat.geom}"><tr><td>subset.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Subset of Hyperframe Satisfying A Condition
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a hyperframe, return the subset specified by
+imposing a condition on each row, and optionally by choosing
+only some of the columns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'hyperframe'
+subset(x, subset, select, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A hyperframe pattern (object of class <code>"hyperframe"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+
+<p>Logical expression indicating which points are to be kept.
+The expression may involve the names of columns of <code>x</code>
+and will be evaluated by <code><a href="../../spatstat.geom/help/with.hyperframe.html">with.hyperframe</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>select</code></td>
+<td>
+
+<p>Expression indicating which columns of marks should be kept.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/+5B.hyperframe.html">[.hyperframe</a></code>
+such as <code>drop</code> and <code>strip</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/subset.html">subset</a></code>.
+It extracts the subset of rows of <code>x</code>
+that satisfy the logical expression
+<code>subset</code>, and retains only the columns of <code>x</code> that are
+specified by the expression <code>select</code>. The result is always a
+hyperframe.
+</p>
+<p>The argument <code>subset</code> determines the subset of rows that
+will be extracted. It should be a logical expression.
+It may involve the names of columns of <code>x</code>.
+The default is to keep all points.
+</p>
+<p>The argument <code>select</code> determines which columns of <code>x</code>
+will be retained.
+It should be an expression involving the names of columns
+(which will be interpreted as integers representing the positions of
+these columns). For example if there are columns named
+<code>A</code> to <code>Z</code>, then <code>select=D:F</code> is a valid expression
+and means that columns <code>D</code>, <code>E</code> and <code>F</code> will be
+retained. Similarly <code>select=-(A:C)</code> is valid and means that columns
+<code>A</code> to <code>C</code> will be deleted.  
+The default is to retain all columns.
+</p>
+<p>Setting <code>subset=FALSE</code> will remove all the rows.
+Setting <code>select=FALSE</code> will remove all the columns.
+</p>
+<p>The result is always a hyperframe.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A hyperframe.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/subset.html">subset</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.hyperframe.html">[.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ a &lt;- subset(flu, virustype=="wt")
+
+ aa &lt;- subset(flu, minnndist(pattern) &gt; 10)
+
+ aaa &lt;- subset(flu, virustype=="wt", select = -pattern)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

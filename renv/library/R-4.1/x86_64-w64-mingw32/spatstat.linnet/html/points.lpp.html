@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Draw Points on Existing Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for points.lpp {spatstat.linnet}"><tr><td>points.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Draw Points on Existing Plot
+</h2>
+
+<h3>Description</h3>
+
+<p>For a point pattern on a linear network, this function draws the
+coordinates of the points only, on the existing plot display.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+points(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../graphics/help/points.default.html">points.default</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function
+<code><a href="../../graphics/help/points.html">points</a></code>
+for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+<p>If <code>x</code> is a point pattern on a linear network, then
+<code>points(x)</code> plots the spatial coordinates of the points only,
+on the existing plot display, 
+without plotting the underlying network.
+It is an error to call this function if a plot has not yet been
+initialised.
+</p>
+<p>The spatial coordinates are extracted and passed to
+<code><a href="../../graphics/help/points.default.html">points.default</a></code> along with any extra arguments.
+Arguments controlling the colours and the plot symbols are interpreted
+by <code><a href="../../graphics/help/points.default.html">points.default</a></code>. For example, if the
+argument <code>col</code> is a vector, then the <code>i</code>th point is drawn
+in the colour <code>col[i]</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Difference from plot method</h3>
+
+<p>The more usual way to plot the points is using <code><a href="../../spatstat.linnet/help/plot.lpp.html">plot.lpp</a></code>.
+For example <code>plot(x)</code> would plot both the points and the
+underlying network, while <code>plot(x, add=TRUE)</code> would plot only the
+points. The interpretation of arguments controlling the colours and
+plot symbols is different here: they determine a symbol map, as explained
+in the help for <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/plot.lpp.html">plot.lpp</a></code>, <code><a href="../../graphics/help/points.default.html">points.default</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ plot(Frame(spiders), main="Spiders on a Brick Wall")
+ points(spiders)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

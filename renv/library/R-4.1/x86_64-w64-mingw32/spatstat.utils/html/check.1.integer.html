@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check Argument Type and Length</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for check.1.integer {spatstat.utils}"><tr><td>check.1.integer {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Check Argument Type and Length
+</h2>
+
+<h3>Description</h3>
+
+<p>These utility functions check whether a given argument is a single value
+of the required type.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+check.1.real(x, context = "", fatal = TRUE, warn=TRUE)
+check.1.integer(x, context = "", fatal = TRUE, warn=TRUE)
+check.1.string(x, context = "", fatal = TRUE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The argument to be checked.
+</p>
+</td></tr>
+<tr valign="top"><td><code>context</code></td>
+<td>
+
+<p>Optional string describing the context in which the argument
+is checked.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating whether a fatal error should occur when
+<code>x</code> is not of the required type. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning message
+if <code>x</code> is not of the required type. 
+</p>
+</td></tr>    
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions check whether the argument <code>x</code> is a single
+atomic value of type <code>numeric</code>, <code>integer</code> or
+<code>character</code>.
+</p>
+<p>If <code>x</code> does have the required length and type, the result
+of the function is the logical value <code>TRUE</code>.
+</p>
+<p>Otherwise, if <code>fatal=TRUE</code> (the default) an error occurs,
+while if <code>fatal=FALSE</code> a warning is issued (if <code>warn=TRUE</code>)
+and the function returns the value <code>FALSE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value (or an error may occur).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/check.named.vector.html">check.named.vector</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- pi
+  check.1.real(x)
+  check.1.integer(pi, fatal=FALSE, context="In your dreams,")
+  check.1.string(x, fatal=FALSE)
+  check.1.integer(x, fatal=FALSE, warn=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

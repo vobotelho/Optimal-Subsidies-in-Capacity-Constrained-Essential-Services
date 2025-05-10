@@ -1,0 +1,20 @@
+Package: tensor
+Version: 1.5
+Date: 04.05.12
+Title: Tensor product of arrays
+Author: Jonathan Rougier <j.c.rougier@bristol.ac.uk>
+Maintainer: Jonathan Rougier <j.c.rougier@bristol.ac.uk>
+Description: The tensor product of two arrays is notionally an outer product of the arrays collapsed in specific extents by summing along the appropriate diagonals.
+License: GPL (>= 2)
+Packaged: 2012-05-04 11:44:41 UTC; mazjcr
+Repository: RSPM
+Date/Publication: 2012-05-05 06:18:31
+Encoding: UTF-8
+Built: R 4.1.0; ; 2024-01-23 01:50:48 UTC; windows
+RemoteType: standard
+RemotePkgRef: tensor
+RemoteRef: tensor
+RemoteRepos: https://packagemanager.posit.co/cran/latest
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 1.5

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fill Plot With Texture</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for add.texture {spatstat.geom}"><tr><td>add.texture {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fill Plot With Texture
+</h2>
+
+<h3>Description</h3>
+
+<p>Draws a simple texture inside a region on the plot.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+add.texture(W, texture = 4, spacing = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) inside which the
+texture should be drawn.
+</p>
+</td></tr>
+<tr valign="top"><td><code>texture</code></td>
+<td>
+
+<p>Integer from 1 to 8 identifying the type of texture. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>spacing</code></td>
+<td>
+
+<p>Spacing between elements of the texture, in units of the
+current plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Further arguments controlling the plot colour, line width etc.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The chosen texture, confined to the window <code>W</code>,
+will be added to the current plot.
+The available textures are:
+</p>
+
+<dl>
+<dt>texture=1:</dt><dd>
+<p>Small crosses arranged in a square grid.
+</p>
+</dd>
+<dt>texture=2:</dt><dd>
+<p>Parallel vertical lines.
+</p>
+</dd>
+<dt>texture=3:</dt><dd>
+<p>Parallel horizontal lines.
+</p>
+</dd>
+<dt>texture=4:</dt><dd> 
+<p>Parallel diagonal lines at 45 degrees from the horizontal.
+</p>
+</dd>
+<dt>texture=5:</dt><dd>
+<p>Parallel diagonal lines at 135 degrees from the horizontal.
+</p>
+</dd>
+<dt>texture=6:</dt><dd>
+<p>Grid of horizontal and vertical lines.
+</p>
+</dd>
+<dt>texture=7:</dt><dd>
+<p>Grid of diagonal lines at 45 and 135 degrees from the horizontal.
+</p>
+</dd>
+<dt>texture=8:</dt><dd>
+<p>Grid of hexagons.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>, 
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>,
+<code><a href="../../spatstat.geom/help/textureplot.html">textureplot</a></code>,
+<code><a href="../../spatstat.geom/help/texturemap.html">texturemap</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- Window(chorley)
+  plot(W, main="")
+  add.texture(W, 7)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Waterstriders data.  Three independent replications of a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for waterstriders {spatstat.data}"><tr><td>waterstriders {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Waterstriders data.
+Three independent replications of a point pattern
+formed by insects.
+</h2>
+
+<h3>Description</h3>
+
+<p>The territorial behaviour of an insect group
+called waterstriders was studied in 
+a series of laboratory experiments by Dr Matti Nummelin
+(University of Helskini). The data were analysed in
+the pioneering PhD thesis of Antti Penttinen (1984).
+</p>
+<p>The dataset <code>waterstriders</code> is 
+a list of three point patterns. Each point pattern gives
+the locations of larvae of the waterstrider
+<em>Limnoporus (Gerris) rufoscutellatus</em> (larval stage V)
+in a homogeneous area about 48 cm square. The point 
+patterns can be assumed to be independent.
+</p>
+<p>It is known that this species of waterstriders
+exhibits territorialism at older larvae stages and at the
+adult stage. Therefore, if any deviation from Complete Spatial
+Randomness exists in these three point patterns, it is expected
+to be towards inhibition.
+</p>
+<p>The data were obtained from photographs which were scanned manually.
+The waterstriders are in a pool which is larger than the picture.
+A guard area (width about 2.5 cm) has been deleted because 
+it is a source of inhomogeneity to interactions.
+</p>
+<p>Penttinen (1984, chapter 5) fitted a pairwise interaction model with
+a Strauss/hardcore interaction (see <code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>)
+with hard core radius 1.5 cm and interaction radius 4.5 cm.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(waterstriders)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>waterstriders</code> is a list of three point patterns
+(objects of class <code>"ppp"</code>). It also has class <code>"listof"</code>
+so that it can be plotted and printed directly. The point pattern
+coordinates are in centimetres.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Data were collected by Dr. Matti Nummelin (University of
+Helsinki, Finland).
+Data kindly provided by Prof. Antti Penttinen,
+University of Jyv\&quot;askyl\&quot;a, Finland.
+</p>
+
+
+<h3>References</h3>
+
+<p>Penttinen, A. (1984) 
+Modelling interaction in spatial point patterns:
+parameter estimation by the maximum likelihood method.
+<em>Jyv\&quot;askyl\&quot;a Studies in Computer Science, Economics and
+Statistics</em> <b>7</b>, University of Jyv\&quot;askyl\&quot;a, Finland.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

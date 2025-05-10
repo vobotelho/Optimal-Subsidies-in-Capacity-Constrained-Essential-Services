@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Estimate of Intensity as a Spatial Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityfun.ppp {spatstat.explore}"><tr><td>densityfun.ppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Kernel Estimate of Intensity as a Spatial Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute a kernel estimate of intensity for a point pattern,
+and return the result as a function of spatial location.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+densityfun(X, ...)
+
+## S3 method for class 'ppp'
+densityfun(X, sigma = NULL, ...,
+                        weights = NULL, edge = TRUE, diggle = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth, or bandwidth selection function,
+passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional vector of weights associated with the points of <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge,diggle</code></td>
+<td>
+
+<p>Logical arguments controlling the edge correction.
+Arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The commands <code>densityfun</code> and <code><a href="../../stats/html/density.html">density</a></code>
+both perform kernel estimation of the intensity of a point pattern.
+The difference is that <code><a href="../../stats/html/density.html">density</a></code> returns a pixel image,
+containing the estimated intensity values at a grid of locations, while
+<code>densityfun</code> returns a <code>function(x,y)</code> which can be used
+to compute the intensity estimate at <em>any</em> spatial locations
+with coordinates <code>x,y</code>.
+For purposes such as model-fitting it is more accurate to
+use <code>densityfun</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> with arguments <code>x,y,drop</code>.
+The function also belongs to the class <code>"densityfun"</code> which has
+methods for <code>print</code> and <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+It also belongs to the class <code>"funxy"</code> which has methods
+for <code>plot</code>, <code>contour</code> and <code>persp</code>.
+</p>
+
+
+<h3>Using the result of <code>densityfun</code></h3>
+
+<p>If <code>f &lt;- densityfun(X)</code>, where <code>X</code> is a two-dimensional
+point pattern, the resulting object <code>f</code>
+is a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+<p>By calling this function,
+the user can evaluate the estimated intensity at any desired spatial
+locations. 
+</p>
+<p>Additionally <code>f</code> belongs to other
+classes which allow it to be printed and plotted easily.
+</p>
+<p>The function <code>f</code> has arguments <code>x,y,drop</code>.
+</p>
+
+<ul>
+<li><p> The arguments <code>x,y</code> of <code>f</code>
+specify the query locations. They can be numeric vectors
+of coordinates. Alternatively <code>x</code> can be a point pattern
+(or data acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>) and <code>y</code> is omitted.
+The result of <code>f(x,y)</code> is a numeric vector giving the values of
+the intensity.
+</p>
+</li>
+<li> 
+<p>The argument <code>drop</code> of <code>f</code> specifies how to handle query locations
+which are outside the window of the original data.
+If <code>drop=TRUE</code> (the default), such locations are ignored.
+If <code>drop=FALSE</code>, a value of <code>NA</code> is returned
+for each such location.
+</p>
+</li></ul>
+
+<p>Note that the smoothing parameters, such as the bandwidth
+<code>sigma</code>, are assigned when <code>densityfun</code> is executed.
+Smoothing parameters are fixed inside the function <code>f</code>
+and cannot be changed by arguments of <code>f</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/density.html">density</a></code>.
+</p>
+<p>To interpolate values observed at the points, use <code><a href="../../spatstat.explore/help/Smoothfun.html">Smoothfun</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- densityfun(swedishpines)
+  f
+  f(42, 60)
+  X &lt;- runifpoint(2, Window(swedishpines))
+  f(X)
+  plot(f)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

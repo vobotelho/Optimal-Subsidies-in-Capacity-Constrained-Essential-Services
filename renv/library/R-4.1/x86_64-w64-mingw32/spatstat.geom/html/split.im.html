@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide Image Into Sub-images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for split.im {spatstat.geom}"><tr><td>split.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Divide Image Into Sub-images</h2>
+
+<h3>Description</h3>
+
+<p>Divides a pixel image into several sub-images according to the
+value of a factor, or according to the tiles of a tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'im'
+split(x, f, ..., drop = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Pixel image (object of class <code>"im"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Splitting criterion. Either a tessellation (object of class
+<code>"tess"</code>) or a pixel image with factor values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+<p>Logical value determining whether each subset should
+be returned as a pixel images (<code>drop=FALSE</code>) or 
+as a one-dimensional vector of pixel values (<code>drop=TRUE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/split.html">split</a></code>
+for the class of pixel images. The image <code>x</code> will be divided
+into subsets determined by the data <code>f</code>. The result is a list
+of these subsets.
+</p>
+<p>The splitting criterion may be either
+</p>
+
+<ul>
+<li><p> a tessellation (object of class <code>"tess"</code>). Each tile of
+the tessellation delineates a subset of the spatial domain.
+</p>
+</li>
+<li><p> a pixel image (object of class <code>"im"</code>) with factor
+values. The levels of the factor determine subsets of the spatial
+domain.
+</p>
+</li></ul>
+
+<p>If <code>drop=FALSE</code> (the default), the result is a list of pixel
+images, each one a subset of the pixel image <code>x</code>,
+obtained by restricting the pixel domain to one of the subsets.
+If <code>drop=TRUE</code>, then the pixel values are returned as
+numeric vectors. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>drop=FALSE</code>, a list of pixel images (objects of class
+<code>"im"</code>). It is also of class <code>"solist"</code> so that it can be
+plotted immediately.
+</p>
+<p>If <code>drop=TRUE</code>, a list of numeric vectors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/by.im.html">by.im</a></code>,
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- square(1)
+  X &lt;- as.im(function(x,y){sqrt(x^2+y^2)}, W)
+  Y &lt;- dirichlet(runifrect(12, W))
+  plot(split(X,Y))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

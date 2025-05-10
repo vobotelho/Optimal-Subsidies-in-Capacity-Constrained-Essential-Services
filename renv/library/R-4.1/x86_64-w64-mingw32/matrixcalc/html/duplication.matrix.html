@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Duplication matrix for n by n matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for duplication.matrix {matrixcalc}"><tr><td>duplication.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Duplication matrix for n by n matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function returns a matrix with n * n rows and n * ( n + 1 ) / 2 columns
+that transforms vech(A) to vec(A) where A is a symmetric n by n matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+duplication.matrix(n=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> Row and column dimension </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a wrapper function for the function <code>D.matrix</code>.
+Let <i>{\bf{T}}_{i,j}</i> be an <i>n \times n</i> matrix with 1 in its <i>&le;ft( {i,j} \right)</i> element <i>1 &le; i,j &le; n</i>.
+and zeroes elsewhere. These matrices are constructed by the function <code>T.matrices</code>.  The formula for the
+transpose of matrix <i>\bf{D}</i> is <i>{\bf{D'}} = &sum;\limits_{j = 1}^n {&sum;\limits_{i = j}^n {{{\bf{u}}_{i,j}}\;{{&le;ft( {vec\;{{\bf{T}}_{i,j}}} \right)}^\prime }} } </i>
+where <i>{{{\bf{u}}_{i,j}}}</i> is the column vector in the order <i>\frac{1}{2}n&le;ft( {n + 1} \right)</i> identity
+matrix for column <i>k = &le;ft( {j - 1} \right)n + i - \frac{1}{2}j&le;ft( {j - 1} \right)</i>.  The function
+<code>u.vectors</code> generates these vectors.
+</p>
+
+
+<h3>Value</h3>
+
+<p>It returns an <i>{n^2}\; \times \;\frac{1}{2}n&le;ft( {n + 1} \right)</i> matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a>, Kurt Hornik <a href="mailto:Kurt.Hornik@wu-wien.ac.at">Kurt.Hornik@wu-wien.ac.at</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1980). The elimination matrix, some lemmas and applications,
+<em>SIAM Journal on Algebraic Discrete Methods</em>, 1(4), December 1980, 422-449.
+</p>
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/D.matrix.html">D.matrix</a></code>,
+<code><a href="../../matrixcalc/help/vec.html">vec</a></code>,
+<code><a href="../../matrixcalc/help/vech.html">vech</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+D &lt;- duplication.matrix( 3 )
+A &lt;- matrix( c( 1, 2, 3,
+                2, 3, 4,
+                3, 4, 5), nrow=3, byrow=TRUE )
+vecA &lt;- vec( A )
+vechA&lt;- vech( A )
+y &lt;- D %*% vechA
+print( y )
+print( vecA )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

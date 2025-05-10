@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rotate a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rotate.ppp {spatstat.geom}"><tr><td>rotate.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rotate a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Rotates a point pattern
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppp'
+rotate(X, angle=pi/2, ..., centre=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+<p>Angle of rotation.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/rotate.owin.html">rotate.owin</a></code> affecting
+the handling of the observation window, if it is a binary pixel mask.
+</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+
+<p>Centre of rotation.
+Either a vector of length 2, or a character string
+(partially matched to <code>"centroid"</code>, <code>"midpoint"</code>
+or <code>"bottomleft"</code>).
+The default is the coordinate origin <code>c(0,0)</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The points of the pattern, and the window of observation, 
+are rotated about the origin by the angle specified.
+Angles are measured in
+radians, anticlockwise. The default is to rotate the pattern 90 degrees
+anticlockwise. If the points carry marks, these are preserved.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"ppp"</code> representing the
+rotated point pattern.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.owin.html">rotate.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rotate(cells, pi/3)
+  # plot(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

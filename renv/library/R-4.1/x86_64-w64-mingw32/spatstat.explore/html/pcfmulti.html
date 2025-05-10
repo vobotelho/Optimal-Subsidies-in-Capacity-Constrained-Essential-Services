@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Marked pair correlation function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pcfmulti {spatstat.explore}"><tr><td>pcfmulti {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Marked pair correlation function
+</h2>
+
+<h3>Description</h3>
+
+<p>For a marked point pattern, 
+estimate the multitype pair correlation function
+using kernel methods.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   pcfmulti(X, I, J, ..., r = NULL,
+            kernel = "epanechnikov", bw = NULL, stoyan = 0.15,
+            correction = c("translate", "Ripley"),
+            divisor = c("r", "d"),
+            Iname = "points satisfying condition I",
+            Jname = "points satisfying condition J",
+            ratio = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of the cross-type pair correlation function
+<i>g[i,j](r)</i> will be computed.
+It must be a multitype point pattern (a marked point pattern
+whose marks are a factor). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>I</code></td>
+<td>
+<p>Subset index specifying the points of <code>X</code>
+from which distances are measured. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>J</code></td>
+<td>
+<p>Subset index specifying the points in <code>X</code> to which
+distances are measured. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Vector of values for the argument <i>r</i> at which <i>g(r)</i> 
+should be evaluated. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>Choice of smoothing kernel,
+passed to <code><a href="../../stats/html/density.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Bandwidth for smoothing kernel, 
+passed to <code><a href="../../stats/html/density.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stoyan</code></td>
+<td>
+
+<p>Coefficient for default bandwidth rule.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Choice of edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>divisor</code></td>
+<td>
+
+<p>Choice of divisor in the estimation formula:
+either <code>"r"</code> (the default) or <code>"d"</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>Iname,Jname</code></td>
+<td>
+
+<p>Optional. Character strings describing the members of
+the subsets <code>I</code> and <code>J</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a generalisation of <code><a href="../../spatstat.explore/help/pcfcross.html">pcfcross</a></code>
+to arbitrary collections of points.
+</p>
+<p>The algorithm measures the distance from each data point
+in subset <code>I</code> to each data point in subset <code>J</code>,
+excluding identical pairs of points. The distances are
+kernel-smoothed and renormalised to form a pair correlation
+function.
+</p>
+
+<ul>
+<li>
+<p>If <code>divisor="r"</code> (the default), then the multitype
+counterpart of the standard
+kernel estimator (Stoyan and Stoyan, 1994, pages 284&ndash;285)
+is used. By default, the recommendations of Stoyan and Stoyan (1994)
+are followed exactly. 
+</p>
+</li>
+<li>
+<p>If <code>divisor="d"</code> then a modified estimator is used:
+the contribution from
+an interpoint distance <i>d[ij]</i> to the
+estimate of <i>g(r)</i> is divided by <i>d[ij]</i>
+instead of dividing by <i>r</i>. This usually improves the
+bias of the estimator when <i>r</i> is close to zero.
+</p>
+</li></ul>
+
+<p>There is also a choice of spatial edge corrections
+(which are needed to avoid bias due to edge effects
+associated with the boundary of the spatial window):
+<code>correction="translate"</code> is the Ohser-Stoyan translation
+correction, and <code>correction="isotropic"</code> or <code>"Ripley"</code>
+is Ripley's isotropic correction.  
+</p>
+<p>The arguments <code>I</code> and <code>J</code> specify two subsets of the
+point pattern <code>X</code>. They may be any type of subset indices, for example,
+logical vectors of length equal to <code>npoints(X)</code>,
+or integer vectors with entries in the range 1 to
+<code>npoints(X)</code>, or negative integer vectors.
+</p>
+<p>Alternatively, <code>I</code> and <code>J</code> may be <b>functions</b>
+that will be applied to the point pattern <code>X</code> to obtain
+index vectors. If <code>I</code> is a function, then evaluating
+<code>I(X)</code> should yield a valid subset index. This option
+is useful when generating simulation envelopes using
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+<p>The choice of smoothing kernel is controlled by the 
+argument <code>kernel</code> which is passed to <code><a href="../../stats/html/density.html">density</a></code>.
+The default is the Epanechnikov kernel.
+</p>
+<p>The bandwidth of the smoothing kernel can be controlled by the
+argument <code>bw</code>. Its precise interpretation
+is explained in the documentation for <code><a href="../../stats/html/density.html">density.default</a></code>.
+For the Epanechnikov kernel with support <i>[-h,h]</i>,
+the argument <code>bw</code> is equivalent to <i>h/sqrt(5)</i>.
+</p>
+<p>If <code>bw</code> is not specified, the default bandwidth
+is determined by Stoyan's rule of thumb (Stoyan and Stoyan, 1994, page
+285) applied to the points of type <code>j</code>. That is,
+<i>h = c/sqrt(lambda)</i>,
+where <i>lambda</i> is the (estimated) intensity of the
+point process of type <code>j</code>,
+and <i>c</i> is a constant in the range from 0.1 to 0.2.
+The argument <code>stoyan</code> determines the value of <i>c</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/pcfcross.html">pcfcross</a></code>, 
+<code><a href="../../spatstat.explore/help/pcfdot.html">pcfdot</a></code>, 
+<code><a href="../../spatstat.explore/help/pcf.ppp.html">pcf.ppp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  adult &lt;- (marks(longleaf) &gt;= 30)
+  juvenile &lt;- !adult
+  p &lt;- pcfmulti(longleaf, adult, juvenile)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

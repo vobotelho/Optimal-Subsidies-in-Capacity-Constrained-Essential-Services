@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pool Data from Several Ratio Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pool.rat {spatstat.explore}"><tr><td>pool.rat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pool Data from Several Ratio Objects
+</h2>
+
+<h3>Description</h3>
+
+<p>Pool the data from several ratio objects
+(objects of class <code>"rat"</code>)
+and compute a pooled estimate.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rat'
+pool(..., weights=NULL, relabel=TRUE, variance=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Objects of class <code>"rat"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Numeric vector of weights.
+</p>
+</td></tr>
+<tr valign="top"><td><code>relabel</code></td>
+<td>
+
+<p>Logical value indicating whether the result 
+should be relabelled to show that it was obtained by pooling.
+</p>
+</td></tr>
+<tr valign="top"><td><code>variance</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the sample variance
+and related terms.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.explore/help/pool.html">pool</a></code> is generic. This is the method for the
+class <code>"rat"</code> of ratio objects. It is used to
+combine several estimates of the same quantity
+when each estimate is a ratio. 
+</p>
+<p>Each of the arguments <code>...</code> must be an object of class
+<code>"rat"</code> representing a ratio object (basically a
+numerator and a denominator; see <code><a href="../../spatstat.explore/help/rat.html">rat</a></code>).
+We assume that these ratios are all estimates of the same quantity.
+</p>
+<p>If the objects are called <i>R[1], &hellip;, R[n]</i>
+and if <i>R[i]</i> has numerator <i>Y[i]</i> and
+denominator <i>X[i]</i>, so that notionally
+<i>R[i] = Y[i]/X[i]</i>, then the pooled estimate is the
+ratio-of-sums estimator
+</p>
+<p style="text-align: center;"><i>
+    R = (Y[1]+&hellip;+Y[n])/(X[1]+&hellip;+X[n]).
+  </i></p>
+
+<p>The standard error of <i>R</i> is computed using the delta method
+as described in Baddeley <em>et al.</em> (1993)
+or Cochran (1977, pp 154, 161).
+</p>
+<p>If the argument <code>weights</code> is given, it should be a numeric vector
+of length equal to the number of objects to be pooled. 
+The pooled estimator is the ratio-of-sums estimator
+</p>
+<p style="text-align: center;"><i>
+    R = (w[1] * Y[1]+&hellip;+ w[n] * Y[n])/(w[1] * X[1]+&hellip;+w[n] * X[n])
+  </i></p>
+
+<p>where <i>w[i]</i> is the <code>i</code>th weight.
+</p>
+<p>This calculation is implemented only for certain classes of objects
+where the arithmetic can be performed.
+</p>
+<p>This calculation is currently implemented only for objects which
+also belong to the class <code>"fv"</code> (function value tables).
+For example, if <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> is called with argument
+<code>ratio=TRUE</code>, the result is a suitable object (belonging to the classes
+<code>"rat"</code> and <code>"fv"</code>).
+</p>
+<p>Warnings or errors will be issued if the ratio objects <code>...</code>
+appear to be incompatible. However, the code is not smart enough to
+decide whether it is sensible to pool the data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of the same class as the input.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J, Moyeed, R.A., Howard, C.V. and Boyde, A. (1993)
+Analysis of a three-dimensional point pattern with replication.
+<em>Applied Statistics</em> <b>42</b>, 641&ndash;668.
+</p>
+<p>Cochran, W.G. (1977) 
+<em>Sampling techniques</em>, 3rd edition.
+New York: John Wiley and Sons.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rat.html">rat</a></code>,
+<code><a href="../../spatstat.explore/help/pool.html">pool</a></code>,
+<code><a href="../../spatstat.explore/help/pool.fv.html">pool.fv</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   K1 &lt;- Kest(runifpoint(42), ratio=TRUE, correction="iso")   
+   K2 &lt;- Kest(runifpoint(42), ratio=TRUE, correction="iso")   
+   K3 &lt;- Kest(runifpoint(42), ratio=TRUE, correction="iso")
+   K &lt;- pool(K1, K2, K3)
+   plot(K, pooliso ~ r, shade=c("hiiso", "loiso"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

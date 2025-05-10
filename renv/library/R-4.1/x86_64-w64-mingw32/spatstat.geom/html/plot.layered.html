@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Layered Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.layered {spatstat.geom}"><tr><td>plot.layered {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Layered Plot
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates a layered plot.
+The plot method for objects of class <code>"layered"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'layered'
+plot(x, ..., which = NULL, plotargs = NULL,
+                         add=FALSE, show.all=!add, main=NULL,
+                         do.plot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of class <code>"layered"</code>
+created by the function <code><a href="../../spatstat.geom/help/layered.html">layered</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments to be passed to the <code>plot</code> method
+for <em>every</em> layer.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Subset index specifying which layers should be plotted. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>plotargs</code></td>
+<td>
+
+<p>Arguments to be passed to the  <code>plot</code> methods
+for individual layers. A list of lists of arguments of the
+form <code>name=value</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>Logical value indicating whether to add the graphics
+to an existing plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether the <em>first</em> layer should be
+displayed in full (including the main title, bounding window,
+coordinate axes, colour ribbon, and so on). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main title for the plot</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+<p>Logical value indicating whether to actually do the plotting.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Layering is a simple mechanism for controlling
+a high-level plot that is composed of
+several successive plots, for example, a background and a foreground
+plot. The layering mechanism makes it easier to plot,
+to switch on or off the plotting of each individual layer,
+to control the plotting arguments that are passed to each layer,
+and to zoom in on a subregion.
+</p>
+<p>The layers of data to be plotted should first be converted
+into a single object of class <code>"layered"</code> using the
+function <code><a href="../../spatstat.geom/help/layered.html">layered</a></code>. Then the layers can be plotted using
+the method <code>plot.layered</code>.
+</p>
+<p>To zoom in on a subregion,
+apply the subset operator <code><a href="../../spatstat.geom/help/+5B.layered.html">[.layered</a></code> to <code>x</code>
+before plotting.
+</p>
+<p>Graphics parameters for each layer are determined by (in order of precedence)
+<code>...</code>, <code>plotargs</code>, and <code><a href="../../spatstat.geom/help/layerplotargs.html">layerplotargs</a>(x)</code>.
+</p>
+<p>The graphics parameters may also include the special argument
+<code>.plot</code> specifying (the name of) a function which will be used to
+perform the plotting instead of the generic <code>plot</code>.
+</p>
+<p>The argument <code>show.all</code> is recognised by many plot methods
+in <span class="pkg">spatstat</span>. It determines whether a plot is drawn
+with all its additional components such as the main title, bounding window,
+coordinate axes, colour ribbons and legends. The default is
+<code>TRUE</code> for new plots and <code>FALSE</code> for added plots.
+</p>
+<p>In <code>plot.layered</code>, the argument <code>show.all</code> applies only to the
+<b>first</b> layer. The subsequent layers are plotted
+with <code>show.all=FALSE</code>. 
+</p>
+<p>To override this, that is, if you really want to draw all
+the components of <b>all</b> layers of <code>x</code>,
+insert the argument <code>show.all=TRUE</code> in each
+entry of <code>plotargs</code> or <code><a href="../../spatstat.geom/help/layerplotargs.html">layerplotargs</a>(x)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) a list containing the return values from
+the plot commands for each layer. This list has
+an attribute <code>"bbox"</code> giving a bounding box for the entire plot.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/layered.html">layered</a></code>,
+<code><a href="../../spatstat.geom/help/layerplotargs.html">layerplotargs</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.layered.html">[.layered</a></code>,
+<code><a href="../../graphics/html/plot.default.html">plot</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   D &lt;- distmap(cells)
+   L &lt;- layered(D, cells)
+   plot(L)
+   plot(L, which = 2)
+   plot(L, plotargs=list(list(ribbon=FALSE), list(pch=3, cols="white")))
+   # plot a subregion
+   plot(L[, square(0.5)])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

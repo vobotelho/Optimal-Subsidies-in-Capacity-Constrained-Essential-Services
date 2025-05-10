@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantiles of Weighted Empirical Cumulative Distribution...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quantile.ewcdf {spatstat.univar}"><tr><td>quantile.ewcdf {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Quantiles of Weighted Empirical Cumulative Distribution Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute quantiles of a weighted empirical cumulative distribution function.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ewcdf'
+quantile(x, probs = seq(0, 1, 0.25),
+                 names = TRUE, ...,
+                 normalise = TRUE, type=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A weighted empirical cumulative distribution function
+(object of class <code>"ewcdf"</code>, produced by <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>)
+for which the quantiles are desired.
+</p>
+</td></tr>
+<tr valign="top"><td><code>probs</code></td>
+<td>
+
+<p>probabilities for which the quantiles are desired.
+A numeric vector of values between 0 and 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>names</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the resulting vector of quantiles is
+annotated with names corresponding to <code>probs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>Logical value indicating whether <code>x</code> should first be normalised
+so that it ranges between 0 and 1. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Integer specifying the type of quantile to be calculated,
+as explained in <code><a href="../../stats/help/quantile.default.html">quantile.default</a></code>.
+Only types 1, 2 and 4 are currently implemented.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic <code><a href="../../stats/help/quantile.html">quantile</a></code>
+function for the class <code>ewcdf</code> of empirical weighted cumulative
+distribution functions.
+</p>
+<p>The quantile for a probability <code>p</code> is computed
+as the right-continuous inverse of the cumulative
+distribution function <code>x</code> (assuming <code>type=1</code>, the default).
+</p>
+<p>If <code>normalise=TRUE</code> (the default),
+the weighted cumulative function <code>x</code> is first normalised to
+have total mass <code>1</code> so that it can be interpreted as a
+cumulative probability distribution function. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector of quantiles, of the same length as <code>probs</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+and Kevin Ummel.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>, 
+<code><a href="../../stats/help/quantile.html">quantile</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  z &lt;- rnorm(50)
+  w &lt;- runif(50)
+  Fun &lt;- ewcdf(z, w)
+  quantile(Fun, c(0.95,0.99))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

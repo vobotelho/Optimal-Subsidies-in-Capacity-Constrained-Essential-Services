@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sufficient Statistic of Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for suffstat {spatstat.model}"><tr><td>suffstat {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sufficient Statistic of Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>The canonical sufficient statistic of a 
+point process model is evaluated for a given point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  suffstat(model, X=data.ppm(model))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>A fitted point process model (object of class
+<code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The canonical sufficient statistic
+of <code>model</code> is evaluated for the point pattern <code>X</code>.
+This computation is useful for various Monte Carlo methods.
+</p>
+<p>Here <code>model</code> should be a point process model (object of class
+<code>"ppm"</code>, see <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>), typically obtained
+from the model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. The argument
+<code>X</code> should be a point pattern (object of class <code>"ppp"</code>).
+</p>
+<p>Every point process model fitted by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> has
+a probability density of the form
+</p>
+<p style="text-align: center;"><i>f(x) = Z(theta) exp(theta * S(x))</i></p>
+
+<p>where <i>x</i> denotes a typical realisation (i.e. a point pattern),
+<i>theta</i> is the vector of model coefficients,
+<i>Z(theta)</i> is a normalising constant,
+and <i>S(x)</i> is a function of the realisation <i>x</i>, called the
+&ldquo;canonical sufficient statistic&rdquo; of the model.
+</p>
+<p>For example, the stationary Poisson process has canonical sufficient
+statistic <i>S(x)=n(x)</i>, the number of points in <i>x</i>.
+The stationary Strauss process with interaction range <i>r</i>
+(and fitted with no edge correction) has canonical sufficient statistic
+<i>S(x)=(n(x),s(x))</i> where <i>s(x)</i> is the number of pairs
+of points in <i>x</i> which are closer than a distance <i>r</i>
+to each other. 
+</p>
+<p><code>suffstat(model, X)</code> returns the value of <i>S(x)</i>, where <i>S</i> is
+the canonical sufficient statistic associated with <code>model</code>,
+evaluated when <i>x</i> is the given point pattern <code>X</code>.
+The result is a numeric vector, with entries which correspond to the
+entries of the coefficient vector <code>coef(model)</code>.
+</p>
+<p>The sufficient statistic <i>S</i>
+does not depend on the fitted coefficients
+of the model. However it does depend on the irregular parameters
+which are fixed in the original call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, for
+example, the interaction range <code>r</code> of the Strauss process.
+</p>
+<p>The sufficient statistic also depends on the edge correction that
+was used to fit the model. For example in a Strauss process,
+</p>
+
+<ul>
+<li>
+<p>If the model is fitted with <code>correction="none"</code>, the sufficient
+statistic is <i>S(x) = (n(x), s(x))</i> where <i>n(x)</i> is the
+number of points and <i>s(x)</i> is the number of pairs of points
+which are closer than <i>r</i> units apart.
+</p>
+</li>
+<li>
+<p>If the model is fitted with <code>correction="periodic"</code>, the sufficient
+statistic is the same as above, except that distances are measured
+in the periodic sense. 
+</p>
+</li>
+<li>
+<p>If the model is fitted with
+<code>correction="translate"</code>, then <i>n(x)</i> is unchanged
+but <i>s(x)</i> is replaced by a weighted sum (the sum of the translation
+correction weights for all pairs of points which are closer than
+<i>r</i> units apart).
+</p>
+</li>
+<li>
+<p>If the model is fitted with
+<code>correction="border"</code> (the default), then points lying less than
+<i>r</i> units from the boundary of the observation window are
+treated as fixed. Thus <i>n(x)</i> is
+replaced by the number <i>n[r](x)</i>
+of points lying at least <i>r</i> units from
+the boundary of the observation window, and <i>s(x)</i> is replaced by
+the number <i>s[r](x)</i> of pairs of points, which are closer
+than <i>r</i> units apart, and at least one of which lies
+more than <i>r</i> units from the boundary of the observation window.
+</p>
+</li></ul>
+
+<p>Non-finite values of the sufficient statistic (<code>NA</code> or
+<code>-Inf</code>) may be returned if the point pattern <code>X</code> is
+not a possible realisation of the model (i.e. if <code>X</code> has zero
+probability of occurring under <code>model</code> for all values of
+the canonical coefficients <i>theta</i>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector of sufficient statistics. The entries
+correspond to the model coefficients <code>coef(model)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    fitS &lt;- ppm(swedishpines~1, Strauss(7))
+    suffstat(fitS)
+    X &lt;- rpoispp(intensity(swedishpines), win=Window(swedishpines))
+    suffstat(fitS, X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

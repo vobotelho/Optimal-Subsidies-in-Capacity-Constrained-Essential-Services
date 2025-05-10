@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Resample a Point Pattern by Resampling Quadrats</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quadratresample {spatstat.random}"><tr><td>quadratresample {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Resample a Point Pattern by Resampling Quadrats</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern dataset, create a resampled point pattern
+by dividing the window into rectangular quadrats and randomly
+resampling the list of quadrats. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+quadratresample(X, nx, ny=nx, ...,
+                replace = FALSE, nsamples = 1,
+                verbose = (nsamples &gt; 1))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern dataset (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>nx,ny</code></td>
+<td>
+
+<p>Numbers of quadrats in the <i>x</i> and <i>y</i> directions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>replace</code></td>
+<td>
+
+<p>Logical value. Specifies whether quadrats should be sampled
+with or without replacement.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsamples</code></td>
+<td>
+<p>Number of randomised point patterns to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Logical value indicating whether to print progress reports.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command implements a very simple bootstrap resampling procedure
+for spatial point patterns <code>X</code>.
+</p>
+<p>The dataset <code>X</code> must be a point pattern (object of class
+<code>"ppp"</code>) and its observation window must be a rectangle.
+</p>
+<p>The window is first divided into <code>N = nx * ny</code> rectangular tiles
+(quadrats) of equal size and shape. 
+To generate one resampled point pattern, a random sample of
+<code>N</code> quadrats is selected from the list of <code>N</code> quadrats,
+with replacement (if <code>replace=TRUE</code>) or without replacement
+(if <code>replace=FALSE</code>). The <i>i</i>th quadrat in the original
+dataset is then replaced by the <i>i</i>th sampled quadrat, after the
+latter is shifted so that it
+occupies the correct spatial position. The quadrats are then
+reconstituted into a point pattern inside the same window as <code>X</code>.
+</p>
+<p>If <code>replace=FALSE</code>, this procedure effectively involves a random
+permutation of the quadrats. The resulting resampled point pattern has
+the same number of points as <code>X</code>.
+If <code>replace=TRUE</code>, the number of points in the resampled point
+pattern is random.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (if <code>nsamples = 1</code>) or a 
+list of point patterns (if <code>nsamples &gt; 1</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>,
+<code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/varblock.html">varblock</a></code> to estimate the variance of
+a summary statistic by block resampling.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  quadratresample(bei, 6, 3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

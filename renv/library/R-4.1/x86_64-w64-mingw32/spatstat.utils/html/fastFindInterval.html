@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find Intervals Containing Given Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fastFindInterval {spatstat.utils}"><tr><td>fastFindInterval {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Find Intervals Containing Given Data
+</h2>
+
+<h3>Description</h3>
+
+<p>A faster alternative to <code>findInterval</code>
+for intervals which are equally-spaced.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fastFindInterval(x, b, labels = FALSE, reltol = 0.001, dig.lab = 3L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Data. Numeric vector of values that are to be classified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>b</code></td>
+<td>
+
+<p>Breakpoints. Numeric vector of increasing values that are the
+endpoints of the intervals.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+
+<p>Logical value specifying whether to return a factor,
+whose levels are the string labels of the intervals.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reltol</code></td>
+<td>
+
+<p>Relative tolerance. A positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dig.lab</code></td>
+<td>
+
+<p>Integer. Maximum number of digits to use in the labels
+for the intervals, when <code>labels=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is an alternative to
+<code><a href="../../base/help/findInterval.html">findInterval</a>(x, b, rightmost.closed=TRUE)</code>
+which seems to be faster when <code>b</code> is equally spaced
+and the length of <code>x</code> is large.
+</p>
+<p>If <code>labels=FALSE</code> (the default), the result is an integer vector
+giving, for each value <code>x[i]</code>, the index <code>j</code> of the interval that
+contains <code>x[i]</code>, such that <code>b[j] &lt;= x[i] &lt; b[j + 1]</code>.
+</p>
+<p>If <code>labels=TRUE</code>, the result is a factor, and the levels are
+synthetic labels for the intervals, similar to those produced by
+<code><a href="../../base/help/findInterval.html">findInterval</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Integer vector, or factor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/findInterval.html">findInterval</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- runif(10)
+  b &lt;- seq(0, 1, by=0.2)
+  fastFindInterval(x, b, labels=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

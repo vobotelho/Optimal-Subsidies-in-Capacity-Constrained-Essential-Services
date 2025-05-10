@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Contact Distribution Function using Rectangular Structuring...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rectcontact {spatstat.explore}"><tr><td>rectcontact {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Contact Distribution Function using Rectangular Structuring Element
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes an estimate of the contact distribution function
+of a set, using a rectangular structuring element.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rectcontact(X, ..., asp = 1, npasses=4,
+            eps = NULL, r = NULL, breaks = NULL, correction = c("rs", "km"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Logical-valued image. The <code>TRUE</code> values in the image
+determine the spatial region whose contact distribution function
+should be estimated. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>asp</code></td>
+<td>
+
+<p>Aspect ratio for the rectangular metric. A single positive number.
+See <code><a href="../../spatstat.geom/help/rectdistmap.html">rectdistmap</a></code> for explanation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>npasses</code></td>
+<td>
+
+<p>Number of passes to perform in the distance algorithm. A positive integer.
+See <code><a href="../../spatstat.geom/help/rectdistmap.html">rectdistmap</a></code> for explanation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Pixel size, if the image should be converted to a finer grid.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional vector of distance values. Do Not Use This.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Do Not Use This.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Character vector specifying the edge correction.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>To be written.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Hest.html">Hest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## make an image which is TRUE/FALSE inside/outside the letter R
+  V &lt;- letterR
+  Frame(V) &lt;- grow.rectangle(Frame(V), 0.5)
+  Z &lt;- as.im(V, value=TRUE, na.replace=FALSE)
+  ## analyse
+  plot(rectcontact(Z))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

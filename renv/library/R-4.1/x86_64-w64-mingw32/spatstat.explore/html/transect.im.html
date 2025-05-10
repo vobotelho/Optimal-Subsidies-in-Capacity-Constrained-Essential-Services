@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pixel Values Along a Transect</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for transect.im {spatstat.explore}"><tr><td>transect.im {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Pixel Values Along a Transect
+</h2>
+
+<h3>Description</h3>
+
+<p>Extract the pixel values of a pixel image at each point along
+a linear transect.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+transect.im(X, ..., from="bottomleft", to="topright",
+            nsample=512, click=FALSE, add=FALSE, curve=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+
+<p>Optional. Start point and end point of the transect.
+Pairs of <i>(x,y)</i> coordinates
+in a format acceptable to <code><a href="../../grDevices/html/xy.coords.html">xy.coords</a></code>,
+or keywords <code>"bottom"</code>, <code>"left"</code>, <code>"top"</code>,
+<code>"right"</code>, <code>"bottomleft"</code> etc.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsample</code></td>
+<td>
+
+<p>Integer. Number of sample locations along the transect.
+</p>
+</td></tr>
+<tr valign="top"><td><code>click</code></td>
+<td>
+
+<p>Optional.
+Logical value.
+If <code>TRUE</code>, the linear transect is determined interactively
+by the user, who clicks two points on the current plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. If <code>click=TRUE</code>, this argument determines
+whether to perform interactive tasks on the current plot (<code>add=TRUE</code>)
+or to start by plotting <code>X</code> (<code>add=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>curve</code></td>
+<td>
+
+<p>Optional. A specification of a curved transect. See the section
+on Curved Transect.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The pixel values of the image <code>X</code> along a line segment 
+will be extracted. The result is a function table (<code>"fv"</code> object)
+which can be plotted directly.
+</p>
+<p>If <code>click=TRUE</code>, then the user is prompted to click two points on
+the plot of <code>X</code>. These endpoints define the transect.
+</p>
+<p>Otherwise, the transect is defined by the endpoints
+<code>from</code> and <code>to</code>. The default is a diagonal transect from
+bottom left to top right of the frame.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> which can be plotted.
+</p>
+
+
+<h3>Curved Transect</h3>
+
+<p>If <code>curve</code> is given, then the transect will be a curve.
+The argument <code>curve</code> should be a list with the following
+arguments:
+</p>
+
+<dl>
+<dt>f</dt><dd><p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language with one argument <code>t</code>.</p>
+</dd>
+<dt>tlim</dt><dd><p>A numeric vector of length 2 giving the range of values
+of the argument <code>t</code>.</p>
+</dd>
+<dt>tname</dt><dd><p>(Optional) a character string giving the symbolic name
+of the function argument <code>t</code>; defaults to <code>"t"</code>.</p>
+</dd>
+<dt>tdescrip</dt><dd><p>(Optional) a character string giving a short
+description of the function argument <code>t</code>; defaults to
+<code>"curve parameter"</code>.</p>
+</dd>
+</dl>
+
+<p>The function <code>f</code> must return a 2-column matrix or data frame
+specifying the spatial coordinates <code>(x,y)</code> of locations along the
+curve, determined by the values of the input argument <code>t</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.html">im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- bei.extra$elev
+  plot(transect.im(Z))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

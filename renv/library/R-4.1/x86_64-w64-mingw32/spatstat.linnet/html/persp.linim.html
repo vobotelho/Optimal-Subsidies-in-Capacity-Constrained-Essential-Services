@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perspective View of Pixel Image on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for persp.linim {spatstat.linnet}"><tr><td>persp.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Perspective View of Pixel Image on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a pixel image on a linear network, generate a perspective view.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'linim'
+persp(x, ..., main,
+                       grid = TRUE, ngrid = 10,
+                       col.grid = "grey", col.base = "white",
+                       neg.args=list(), warncross=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Pixel image on a linear network (object of class <code>"linim"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/persp.default.html">persp.default</a></code>
+to control the perspective view, or passed to 
+<code><a href="../../graphics/help/segments.html">segments</a></code> or <code><a href="../../graphics/help/polygon.html">polygon</a></code>
+to control the appearance of the vertical panes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Main title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>grid</code></td>
+<td>
+
+<p>Logical value indicating whether to draw a rectangular grid
+at height zero, to assist the perception of perspective.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Number of grid lines to draw, if <code>grid=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.grid</code></td>
+<td>
+
+<p>Colour of grid lines, if <code>grid=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.base</code></td>
+<td>
+
+<p>Colour of base plane, if <code>grid=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>neg.args</code></td>
+<td>
+
+<p>Optional list of arguments passed to <code><a href="../../graphics/help/polygon.html">polygon</a></code>
+when displaying negative values of the function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warncross</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning if
+two segments of the network cross each other (which causes
+difficulty for the algorithm).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The pixel values are interpreted as the spatially-varying height of a
+vertical surface erected on each segment of the linear network. These
+surfaces are drawn in perspective view.
+</p>
+<p>This style of plot is often attributed to Okabe and Sugihara (2012).
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) the perspective transformation matrix,
+as described in the help for <code><a href="../../graphics/help/persp.default.html">persp.default</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Greg McSwiggan.
+</p>
+
+
+<h3>References</h3>
+
+<p>Okabe, A. and Sugihara, K. (2012)
+<em>Spatial Analysis Along Networks</em>. John Wiley and Sons, New York.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/persp.linfun.html">persp.linfun</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    Z &lt;- density(chicago, 100)
+  } else {
+    X &lt;- runiflpp(10, simplenet)
+    Z &lt;- density(X, 0.1)
+  }
+  persp(Z, theta=30, phi=20)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

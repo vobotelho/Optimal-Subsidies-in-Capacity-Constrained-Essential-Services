@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Count Close Pairs of Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for closepaircounts {spatstat.model}"><tr><td>closepaircounts {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Count Close Pairs of Points
+</h2>
+
+<h3>Description</h3>
+
+<p>Low-level functions to count the number of close pairs of points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+closepaircounts(X, r)
+
+crosspaircounts(X, Y, r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Point patterns (objects of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Maximum distance between pairs of points to be counted as close pairs.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are the efficient low-level functions used by <span class="pkg">spatstat</span>
+to count close pairs of points in a point pattern
+or between two point patterns. 
+</p>
+<p><code>closepaircounts(X,r)</code> counts the number of neighbours for
+each point in the pattern <code>X</code>. That is, for each point
+<code>X[i]</code>, it counts the number of other points <code>X[j]</code>
+with <code>j != i</code> such that <code>d(X[i],X[j]) &lt;= r</code> where
+<code>d</code> denotes Euclidean distance. The result is an integer vector
+<code>v</code> such that <code>v[i]</code> is the number of neighbours of
+<code>X[i]</code>.
+</p>
+<p><code>crosspaircounts(X,Y,r)</code> counts, for each point 
+in the pattern <code>X</code>, the number of neighbours in the pattern
+<code>Y</code>. That is, for each point
+<code>X[i]</code>, it counts the number of points <code>Y[j]</code>
+such that <code>d(X[i],X[j]) &lt;= r</code>. The result is an integer vector
+<code>v</code> such that <code>v[i]</code> is the number of neighbours of
+<code>X[i]</code> in the pattern <code>Y</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer vector of length equal to the number of points in <code>X</code>.
+</p>
+
+
+<h3>Warning about accuracy</h3>
+
+<p>The results of these functions may not agree exactly with
+the correct answer (as calculated by a human) and may not
+be consistent between different computers and different installations
+of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>. The discrepancies arise in marginal cases where the interpoint
+distance is equal to, or very close to, the threshold <code>rmax</code>.
+</p>
+<p>Floating-point numbers in a computer
+are not mathematical Real Numbers: they are approximations using
+finite-precision binary arithmetic.
+The approximation is accurate to a tolerance of about
+<code>.Machine$double.eps</code>.
+</p>
+<p>If the true interpoint distance <i>d</i> and the threshold <code>rmax</code>
+are equal, or if their difference is no more than <code>.Machine$double.eps</code>,
+the result may be incorrect.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/closepairs.html">closepairs</a></code> to identify all close pairs of points.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   a &lt;- closepaircounts(cells, 0.1)
+   sum(a)
+   Y &lt;- split(amacrine)
+   b &lt;- crosspaircounts(Y$on, Y$off, 0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

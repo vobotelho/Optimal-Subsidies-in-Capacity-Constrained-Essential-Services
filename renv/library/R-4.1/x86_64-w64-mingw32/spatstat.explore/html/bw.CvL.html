@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cronie and van Lieshout's Criterion for Bandwidth Selection...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.CvL {spatstat.explore}"><tr><td>bw.CvL {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Cronie and van Lieshout's Criterion for Bandwidth Selection for Kernel Density
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses Cronie and van Lieshout's criterion based on Cambell's formula to select
+a smoothing bandwidth for the kernel estimation of point process intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   bw.CvL(X, ..., srange = NULL, ns = 16, sigma = NULL, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>srange</code></td>
+<td>
+
+<p>Optional numeric vector of length 2 giving the
+range of values of bandwidth to be searched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ns</code></td>
+<td>
+
+<p>Optional integer giving the number of values of
+bandwidth to search.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Optional. Vector of values of the bandwidth to be searched.
+Overrides the values of <code>ns</code> and <code>srange</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, a warning is issued if the optimal value of the
+cross-validation criterion occurs at one of the ends of the search interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate bandwidth <code>sigma</code>
+for the kernel estimator of point process intensity
+computed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+<p>The bandwidth <i>&sigma;</i> is chosen to 
+minimise the discrepancy between the area of the observation window and the
+sum of reciprocal estimated intensity values at the points of the point process
+</p>
+<p style="text-align: center;"><i>
+    CvL(&sigma;) = (|W| - sum[i] 1/&lambda;(x[i]))^2
+  </i></p>
+
+<p>where the sum is taken over all the data points <i>x[i]</i>,
+and where <i>&lambda;(x[i])</i> is the
+kernel-smoothing estimate of the intensity at
+<i>x[i]</i> with smoothing bandwidth <i>&sigma;</i>.
+</p>
+<p>The value of <i>CvL(&sigma;)</i> is computed
+directly, using <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>, 
+for <code>ns</code> different values of <i>&sigma;</i>
+between <code>srange[1]</code> and <code>srange[2]</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ottmar Cronie <a href="mailto:ottmar@chalmers.se">ottmar@chalmers.se</a>
+and
+Marie-Colette van Lieshout <a href="mailto:Marie-Colette.van.Lieshout@cwi.nl">Marie-Colette.van.Lieshout@cwi.nl</a>.
+Adapted for <span class="pkg">spatstat</span> by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Cronie, O and Van Lieshout, M N M (2018) A non-model-based approach to
+bandwidth selection for kernel estimators of spatial intensity functions,
+<em>Biometrika</em>, <b>105</b>, 455-462.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>.
+</p>
+<p>Alternative methods:
+<code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code>,
+<code><a href="../../spatstat.explore/help/bw.scott.html">bw.scott</a></code>,
+<code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code>,
+<code><a href="../../spatstat.explore/help/bw.frac.html">bw.frac</a></code>.
+</p>
+<p>For adaptive smoothing bandwidths, use <code><a href="../../spatstat.explore/help/bw.CvL.adaptive.html">bw.CvL.adaptive</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    b &lt;- bw.CvL(redwood)
+    b
+    plot(b, main="Cronie and van Lieshout bandwidth criterion for redwoods")
+    plot(density(redwood, b))
+    plot(density(redwood, bw.CvL))
+  }
+  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

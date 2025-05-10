@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Local pair correlation function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for localpcf {spatstat.explore}"><tr><td>localpcf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Local pair correlation function</h2>
+
+<h3>Description</h3>
+
+<p>Computes individual contributions to the
+pair correlation function from each data point.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  localpcf(X, ..., delta=NULL, rmax=NULL, nr=512, stoyan=0.15, rvalue=NULL)
+
+  localpcfinhom(X, ..., delta=NULL, rmax=NULL, nr=512, stoyan=0.15,
+         lambda=NULL, sigma=NULL, varcov=NULL,
+         update=TRUE, leaveoneout=TRUE, rvalue=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+
+<p>Smoothing bandwidth for pair correlation.
+The halfwidth of the Epanechnikov kernel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum value of distance <i>r</i> for which
+pair correlation values <i>g(r)</i> should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nr</code></td>
+<td>
+
+<p>Optional. Number of values of distance <i>r</i> for which
+pair correlation <i>g(r)</i> should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stoyan</code></td>
+<td>
+
+<p>Optional. The value of the constant <i>c</i> in Stoyan's rule
+of thumb for selecting the smoothing bandwidth <code>delta</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional.
+Values of the estimated intensity function, for the
+inhomogeneous pair correlation.
+Either a vector giving the intensity values
+at the points of the pattern <code>X</code>,
+a pixel image (object of class <code>"im"</code>) giving the
+intensity values at all locations, a fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>)
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma,varcov,...</code></td>
+<td>
+
+<p>These arguments are ignored by <code>localpcf</code>
+but are passed by <code>localpcfinhom</code> (when <code>lambda=NULL</code>)
+to the function <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the kernel smoothing estimation of <code>lambda</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value (passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> or
+<code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>) specifying whether to use a
+leave-one-out rule when calculating the intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>lambda</code> is a fitted model
+(class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>).
+If <code>update=TRUE</code> (the default),
+the model will first be refitted to the data <code>X</code>
+(using <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code> or <code><a href="../../spatstat.model/help/update.kppm.html">update.kppm</a></code>)
+before the fitted intensity is computed.
+If <code>update=FALSE</code>, the fitted intensity of the
+model will be computed without re-fitting it to <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rvalue</code></td>
+<td>
+<p>Optional. A <em>single</em> value of the distance argument
+<i>r</i> at which the local pair correlation should be computed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>localpcf</code> computes the contribution, from each individual
+data point in a point pattern <code>X</code>, to the
+empirical pair correlation function of <code>X</code>.
+These contributions are sometimes known as LISA (local indicator
+of spatial association) functions based on pair correlation.
+</p>
+<p><code>localpcfinhom</code> computes the corresponding contribution
+to the <em>inhomogeneous</em> empirical pair correlation function of <code>X</code>.
+</p>
+<p>Given a spatial point pattern <code>X</code>, the local pcf
+<i>g[i](r)</i> associated with the <i>i</i>th point
+in <code>X</code> is computed by
+</p>
+<p style="text-align: center;"><i>
+    g[i](r) = (a/(2 * pi * n) * sum[j] k(d[i,j] - r) 
+  </i></p>
+
+<p>where the sum is over all points <i>j != i</i>,
+<i>a</i> is the area of the observation window, <i>n</i> is the number
+of points in <code>X</code>, and <i>d[i,j]</i> is the distance
+between points <code>i</code> and <code>j</code>. Here <code>k</code> is the
+Epanechnikov kernel,
+</p>
+<p style="text-align: center;"><i>
+    k(t) = (3/(4*delta)) * max(0, 1 - t^2/delta^2).
+  </i></p>
+
+<p>Edge correction is performed using the border method
+(for the sake of computational efficiency):
+the estimate <i>g[i](r)</i> is set to <code>NA</code> if
+<i>r &gt; b[i]</i>, where <i>b[i]</i>
+is the distance from point <i>i</i> to the boundary of the
+observation window.
+</p>
+<p>The smoothing bandwidth <i>delta</i> may be specified.
+If not, it is chosen by Stoyan's rule of thumb
+<i>delta = c/lambda</i>
+where <i>lambda = n/a</i> is the estimated intensity
+and <i>c</i> is a constant, usually taken to be 0.15.
+The value of <i>c</i> is controlled by the argument <code>stoyan</code>.
+</p>
+<p>For <code>localpcfinhom</code>, the optional argument <code>lambda</code>
+specifies the values of the estimated intensity function.
+If <code>lambda</code> is given, it should be either a
+numeric vector giving the intensity values
+at the points of the pattern <code>X</code>,
+a pixel image (object of class <code>"im"</code>) giving the
+intensity values at all locations, a fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"dppm"</code>)
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+If <code>lambda</code> is not given, then it will be estimated
+using a leave-one-out kernel density smoother as described
+in <code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>.
+</p>
+<p>Alternatively, if the argument <code>rvalue</code> is given, and it is a
+single number, then the function will only be computed for this value
+of <i>r</i>, and the results will be returned as a numeric vector,
+with one entry of the vector for each point of the pattern <code>X</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+Essentially a data frame containing columns
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the vector of values of the argument <i>r</i> 
+at which the function <i>K</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value <i>K(r) = pi * r^2</i>
+or <i>L(r)=r</i> for a stationary Poisson process
+</p>
+</td></tr>
+</table>
+<p>together with columns containing the values of the
+local pair correlation function for each point in the pattern.
+Column <code>i</code> corresponds to the <code>i</code>th point.
+The last two columns contain the <code>r</code> and <code>theo</code> values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/localK.html">localK</a></code>,
+<code><a href="../../spatstat.explore/help/localKinhom.html">localKinhom</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>,
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- ponderosa
+
+  g &lt;- localpcf(X, stoyan=0.5)
+  colo &lt;- c(rep("grey", npoints(X)), "blue")
+  a &lt;- plot(g, main=c("local pair correlation functions", "Ponderosa pines"),
+          legend=FALSE, col=colo, lty=1)
+
+  # plot only the local pair correlation function for point number 7
+  plot(g, est007 ~ r)
+
+  # Extract the local pair correlation at distance 15 metres, for each point
+  g15 &lt;- localpcf(X, rvalue=15, stoyan=0.5)
+  g15[1:10]
+  # Check that the value for point 7 agrees with the curve for point 7:
+  points(15, g15[7], col="red") 
+
+  # Inhomogeneous 
+  gi &lt;- localpcfinhom(X, stoyan=0.5)
+  a &lt;- plot(gi, main=c("inhomogeneous local pair correlation functions",
+                       "Ponderosa pines"),
+                legend=FALSE, col=colo, lty=1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

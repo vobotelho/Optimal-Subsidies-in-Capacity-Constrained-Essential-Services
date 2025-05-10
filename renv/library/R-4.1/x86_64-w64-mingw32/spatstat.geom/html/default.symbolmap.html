@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Default Symbol Map for Plotting a Spatial Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for default.symbolmap {spatstat.geom}"><tr><td>default.symbolmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Default Symbol Map for Plotting a Spatial Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Determines the symbol map for plotting a spatial pattern,
+when one is not supplied by the user.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+default.symbolmap(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial object in the <span class="pkg">spatstat</span> package,
+such as a point pattern (class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In the <span class="pkg">spatstat</span> package, an object of class <code>"symbolmap"</code>
+defines a mapping between data and graphical symbols.
+</p>
+<p>If a plot command <code>plot(x, ...)</code> has been issued,
+and if the arguments were not sufficient to determine the
+symbol map that should be used, then <code>default.symbolmap(x, ...)</code> 
+will be executed to determine the default symbol map.
+</p>
+<p>The function <code>default.symbolmap</code> is generic, with a method
+for point patterns (class <code>"ppp"</code>) and possibly for other
+classes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A symbol map (object of class <code>"symbolmap"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/default.symbolmap.ppp.html">default.symbolmap.ppp</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Elliptical Window.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ellipse {spatstat.geom}"><tr><td>ellipse {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Elliptical Window.
+</h2>
+
+<h3>Description</h3>
+
+<p>Create an elliptical window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ellipse(a, b, centre=c(0,0), phi=0, ..., mask=FALSE, npoly = 128)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>a,b</code></td>
+<td>
+
+<p>The half-lengths of the axes of the ellipse.
+</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+
+<p>The centre of the ellipse.
+</p>
+</td></tr>
+<tr valign="top"><td><code>phi</code></td>
+<td>
+
+<p>The (anti-clockwise) angle through which the ellipse should be
+rotated (about its centre) starting from an orientation in which
+the axis of half-length <code>a</code> is horizontal.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mask</code></td>
+<td>
+
+<p>Logical value controlling the type of approximation
+to a perfect ellipse. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine the
+pixel resolution, if <code>mask</code> is <code>TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>npoly</code></td>
+<td>
+
+<p>The number of edges in the polygonal approximation to the ellipse.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command creates a window object
+representing an ellipse with the given centre and axes.
+</p>
+<p>By default, the ellipse is
+approximated by a polygon with <code>npoly</code> edges.
+</p>
+<p>If <code>mask=TRUE</code>, then the ellipse is approximated by a binary pixel
+mask. The resolution of the mask is controlled by
+the arguments <code>...</code> which are passed to <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+<p>The arguments <code>a</code> and <code>b</code> must be single positive numbers.
+The argument <code>centre</code> specifies the ellipse centre: it can be either 
+a numeric vector of length 2 giving the coordinates,
+or a <code>list(x,y)</code> giving the coordinates of exactly one point, or a
+point pattern (object of class <code>"ppp"</code>) containing exactly one point.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>owin</code> (either of type &ldquo;polygonal&rdquo;
+or of type &ldquo;mask&rdquo;) specifying an elliptical window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/disc.html">disc</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../help/as.mask.html">as.mask</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- ellipse(a=5,b=2,centre=c(5,1),phi=pi/6)
+  plot(W,lwd=2,border="red")
+  WM &lt;- ellipse(a=5,b=2,centre=c(5,1),phi=pi/6,mask=TRUE,dimyx=64)
+  plot(WM,add=TRUE,box=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

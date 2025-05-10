@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perform Computations or Retrieve Results From File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for reload.or.compute {spatstat.explore}"><tr><td>reload.or.compute {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Perform Computations or Retrieve Results From File
+</h2>
+
+<h3>Description</h3>
+
+<p>This utility either performs computations and saves the results in
+a file, or retrieves the results of previous computations stored in a file.
+If the designated file does not yet exist,
+the expression will be evaluated, and the results will be saved in the file.
+If the file already exists, the results will be re-loaded from the file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+reload.or.compute(filename, expr, objects = NULL,
+                  context = parent.frame(), 
+                  destination = parent.frame(),
+                  force=FALSE, verbose=TRUE, exclude=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+
+<p>Name of data file. A character string.
+</p>
+</td></tr>
+<tr valign="top"><td><code>expr</code></td>
+<td>
+
+<p><span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language expression to be evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>objects</code></td>
+<td>
+
+<p>Optional character vector of names of objects to be saved
+in <code>filename</code> after evaluating <code>expr</code>,
+or names of objects that should be present in <code>filename</code>
+when loaded.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exclude</code></td>
+<td>
+
+<p>Optional character vector of names of objects
+that should <b>not</b> be saved in <code>filename</code>
+and are <b>not</b> expected to be present in <code>filename</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>context</code></td>
+<td>
+
+<p>Environment containing objects that are mentioned in <code>expr</code>
+(other than objects in the global environment).
+</p>
+</td></tr>
+<tr valign="top"><td><code>destination</code></td>
+<td>
+
+<p>Environment into which the resulting objects should be assigned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>force</code></td>
+<td>
+
+<p>Logical value indicating whether to perform the computation
+in any case.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print a message indicating
+whether the data were recomputed or reloaded from the file.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This facility is useful for saving, and later re-loading, the results of
+time-consuming computations. It would typically be
+used in an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> script file or an <code><a href="../../utils/help/Sweave.html">Sweave</a></code> document.
+</p>
+<p>If the file called <code>filename</code> does not yet exist
+(or if <code>force=TRUE</code>),
+then <code>expr</code> will be evaluated
+and the results will be saved in <code>filename</code>
+using <code><a href="../../base/help/save.html">save</a></code>.
+By default, all objects that were created by evaluating the expression
+will be saved in the file.
+The optional argument <code>objects</code> specifies which results should be saved
+to the file. The optional argument <code>exclude</code>
+specifies results which should <em>not</em> be saved.
+</p>
+<p>If the file called <code>filename</code> already exists
+(and if <code>force=FALSE</code>, the default), then this file
+will be loaded into <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> using <code><a href="../../base/html/load.html">load</a></code>.
+The optional argument <code>objects</code> specifies the names
+of objects that must be present in the file; a warning is issued
+if any of them are missing.
+</p>
+<p>The resulting objects (either evaluated or loaded from file)
+can be assigned into any desired
+<code>destination</code> environment.
+The default behaviour is equivalent to evaluating <code>expr</code>
+in the current environment.
+</p>
+<p>If <code>force=TRUE</code> then <code>expr</code> will be evaluated
+(regardless of whether the file already exists or not)
+and the results will be saved in <code>filename</code>, overwriting
+any previously-existing file with that name. This is a convenient
+way to force the code to re-compute everything
+in an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> script file or <code><a href="../../utils/help/Sweave.html">Sweave</a></code> document.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Character vector (invisible) giving the names of the objects computed
+or loaded.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Demonstration using a temporary file
+  ## (For real applications, use a permanent file in your own filespace)
+  myfile &lt;- paste0(tempdir(), .Platform$file.sep, "mydata.rda")
+  reload.or.compute(myfile, {
+     # some very long computation ending with ..
+     x &lt;- 42
+     intermediateWorking &lt;- 12345
+     y &lt;- sqrt(x)
+  }, exclude="intermediateWorking")
+  ## the values x and y are saved
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

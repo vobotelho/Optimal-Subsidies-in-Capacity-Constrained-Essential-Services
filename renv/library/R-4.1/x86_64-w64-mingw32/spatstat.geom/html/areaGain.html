@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Difference of Disc Areas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for areaGain {spatstat.geom}"><tr><td>areaGain {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Difference of Disc Areas</h2>
+
+<h3>Description</h3>
+
+<p>Computes the area of that part of a disc
+that is not covered by other discs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   areaGain(u, X, r, ..., W=as.owin(X), exact=FALSE,
+                     ngrid=spatstat.options("ngrid.disc"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>u</code></td>
+<td>
+
+<p>Coordinates of the centre of the disc of interest.
+A vector of length 2.
+Alternatively, a point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Locations of the centres of other discs.
+A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Disc radius, or vector of disc radii.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> to determine the pixel
+resolution, when <code>exact=FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>)
+in which the area should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+
+<p>Choice of algorithm.
+If <code>exact=TRUE</code>, areas are computed exactly using
+analytic geometry. If <code>exact=FALSE</code> then a faster algorithm
+is used to compute a discrete approximation to the areas.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Integer. Number of points in the square grid used to compute
+the discrete approximation, when <code>exact=FALSE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the area of that part of
+the disc of radius <code>r</code> centred at the location <code>u</code>
+that is <em>not</em> covered by any of the discs of radius <code>r</code>
+centred at the points of the pattern <code>X</code>.
+This area is important in some calculations related to
+the area-interaction model <code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>.
+</p>
+<p>If <code>u</code> is a point pattern and <code>r</code> is a vector,
+the result is a matrix, with one row for each point in <code>u</code>
+and one column for each entry of <code>r</code>. The <code>[i,j]</code> entry
+in the matrix is the area of that part of the disc of radius
+<code>r[j]</code> centred at the location <code>u[i]</code> that is
+<em>not</em> covered by any of the discs of radius <code>r[j]</code>
+centred at the points of the pattern <code>X</code>.
+</p>
+<p>If <code>W</code> is not <code>NULL</code>, then the areas are computed only
+inside the window <code>W</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix with one row for each point in <code>u</code>
+and one column for each value in <code>r</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a></code>,
+<code><a href="../../spatstat.geom/help/areaLoss.html">areaLoss</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   u &lt;- c(0.5,0.5)
+   areaGain(u, cells, 0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Breakdown Spots in Microelectronic Materials</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bdspots {spatstat.data}"><tr><td>bdspots {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Breakdown Spots in Microelectronic Materials
+</h2>
+
+<h3>Description</h3>
+
+<p>A list of three point patterns, each giving the locations of
+electrical breakdown spots on a circular electrode in
+a microelectronic capacitor.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(bdspots)</pre>
+
+
+<h3>Format</h3>
+
+<p>A list (of class <code>"listof"</code>) of three spatial point patterns,
+each representing the spatial locations of breakdown spots on an
+electrode. The three electrodes are circular discs, of radii
+169, 282 and 423 microns respectively. Spatial coordinates are
+given in microns.  
+</p>
+
+
+<h3>Details</h3>
+
+<p>The application of successive voltage sweeps to the metal gate electrode
+of a microelectronic capacitor generates multiple breakdown spots
+on the electrode.
+The spatial distribution of these breakdown spots
+in MIM (metal-insulator-metal) and MIS (metal-insulator-semiconductor)
+structures was observed and analysed by 
+Miranda et al (2010, 2013) and Saura et al (2013a, 2013b, 2014).
+</p>
+<p>The data given here are the breakdown spot patterns for three circular
+electrodes of different radii, 169, 282 and 423 microns respectively,
+in MIM structures analysed in Saura et al (2013a).
+</p>
+
+
+<h3>Source</h3>
+
+<p>Professor Enrique Miranda, Departament d'Enginyeria
+Electronica,
+Escola d'Enginyeria, Universitat
+Autonoma
+de Barcelona, Barcelona, Spain.
+</p>
+
+
+<h3>References</h3>
+
+<p>Miranda, E. and O'Connor, E. and Hurley, P.K. (2010)
+Simulation of the breakdown spots spatial
+distribution in high-<em>K</em> dielectrics and model
+validation using the <span class="pkg">spatstat</span> package for <em>R</em> language.
+<em>ECS Transactions</em> <b>33</b> (3) 557&ndash;562.
+</p>
+<p>Miranda, E.,
+Jimenez, D.,
+Sune, J.,
+O'Connor, E.,
+Monaghan, S.,
+Povey, I.,
+Cherkaoui, K. and Hurley, P. K. (2013)
+Nonhomogeneous spatial distribution of filamentary leakage current
+paths in circular area Pt/HfO2/Pt capacitors.
+<em>J. Vac. Sci. Technol. B</em> <b>31</b>, 01A107.
+</p>
+<p>Saura, X.,
+Sune, J.,
+Monaghan, S., Hurley, P.K. and Miranda, E. (2013a)
+Analysis of the breakdown spot spatial distribution in Pt/HfO2/Pt
+capacitors using nearest neighbor statistics.
+<em>J. Appl. Phys.</em> <b>114</b>, 154112.
+</p>
+<p>Saura, X., Moix, D.,
+Sune, J.,
+Hurley, P.K. and Miranda, E. (2013b)
+Direct observation of the generation of breakdown spots in MIM
+structures under constant voltage stress.
+<em>Microelectronics Reliability</em> <b>53</b>, 1257&ndash;1260.
+</p>
+<p>Saura, X.,
+Monaghan, S.,
+Hurley, P.K.,
+Sune, J.
+and Miranda, E. (2014)
+Failure analysis of MIM and MIS structures using point-to-event
+distance and angular probability distributions. 
+<em>IEEE Transactions on Devices and Materials Reliability</em> 
+<b>14</b> (4) 1080&ndash;1090.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(bdspots)
+  if(require(spatstat.geom)) {
+plot(bdspots, equal.scales=TRUE)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

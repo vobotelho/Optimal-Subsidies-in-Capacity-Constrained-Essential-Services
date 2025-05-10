@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Array of Simulation Envelopes of Summary Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for envelopeArray {spatstat.explore}"><tr><td>envelopeArray {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Array of Simulation Envelopes of Summary Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute an array of simulation envelopes using
+a summary function that returns an array of curves.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+envelopeArray(X, fun, ..., dataname = NULL, verb = FALSE, reuse = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object containing point pattern data.
+A point pattern (object of class
+<code>"ppp"</code>, <code>"lpp"</code>, <code>"pp3"</code> or <code>"ppx"</code>)
+or a fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>Function that computes the desired summary statistic
+for a point pattern. The result of <code>fun</code> should be a
+function array (object of class <code>"fasp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> to control the simulations,
+or passed to <code>fun</code> when evaluating the function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dataname</code></td>
+<td>
+
+<p>Optional character string name for the data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verb</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reuse</code></td>
+<td>
+
+<p>Logical value indicating whether the envelopes in each panel
+should be based on the same set of simulated patterns
+(<code>reuse=TRUE</code>, the default)
+or on different, independent sets of simulated
+patterns (<code>reuse=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command is the counterpart of <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>
+when the function <code>fun</code> that is evaluated on each simulated point pattern
+will return an object of class <code>"fasp"</code> representing an array of
+summary functions.
+</p>
+<p>Simulated point patterns are generated according to the
+rules described for <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>. In brief, 
+if <code>X</code> is a point pattern, the algorithm generates
+simulated point patterns of the same kind, according to complete
+spatial randomness. If <code>X</code> is a fitted model, the algorithm
+generates simulated point patterns according to this model.
+</p>
+<p>For each simulated point pattern <code>Y</code>, the function <code>fun</code>
+is invoked. The result <code>Z &lt;- fun(Y, ...)</code> should be an object of
+class <code>"fasp"</code> representing an array of summary functions.
+The dimensions of the array <code>Z</code> should be the same
+for each simulated pattern <code>Y</code>.
+</p>
+<p>This algorithm finds the simulation envelope of the summary functions
+in each cell of the array. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fasp"</code> representing
+an array of envelopes.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>, <code><a href="../../spatstat.explore/help/alltypes.html">alltypes</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    Nsim &lt;- 19
+    X &lt;- finpines
+    co &lt;- "best"
+  } else {
+    ## smaller task to reduce check time
+    Nsim &lt;- 3
+    X &lt;- finpines[c(FALSE, TRUE)]
+    co &lt;- "none"
+  }
+  A &lt;- envelopeArray(X, markcrosscorr, nsim=Nsim, correction=co)
+  plot(A)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

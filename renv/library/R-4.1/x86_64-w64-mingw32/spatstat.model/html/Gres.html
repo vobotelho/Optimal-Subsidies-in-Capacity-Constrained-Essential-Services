@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residual G Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Gres {spatstat.model}"><tr><td>Gres {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Residual G Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a point pattern dataset,
+this function computes the residual <i>G</i> function,
+which serves as a diagnostic for goodness-of-fit of the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   Gres(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Object to be analysed.
+Either a fitted point process model (object of class <code>"ppm"</code>),
+a point pattern (object of class <code>"ppp"</code>),
+a quadrature scheme (object of class <code>"quad"</code>),
+or the value returned by a previous call to <code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command provides a diagnostic for the goodness-of-fit of
+a point process model fitted to a point pattern dataset.
+It computes a residual version of the <i>G</i> function of the
+dataset, which should be approximately zero if the model is a good
+fit to the data.
+</p>
+<p>In normal use, <code>object</code> is a fitted point process model
+or a point pattern. Then <code>Gres</code> first calls <code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code>
+to compute both the nonparametric estimate of the <i>G</i> function
+and its model compensator. Then <code>Gres</code> computes the
+difference between them, which is the residual <i>G</i>-function.
+</p>
+<p>Alternatively, <code>object</code> may be a function value table
+(object of class <code>"fv"</code>) that was returned by
+a previous call to <code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code>. Then <code>Gres</code> computes the
+residual from this object. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>),
+essentially a data frame of function values.
+There is a plot method for this class. See <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Jesper Moller.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Moller, J. (2011)
+Score, pseudo-score and residual
+diagnostics for spatial point process models.
+<em>Statistical Science</em> <b>26</b>, 613&ndash;646.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Related functions:
+<code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code>, 
+<code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>.
+</p>
+<p>Alternative functions:
+<code><a href="../../spatstat.model/help/Kres.html">Kres</a></code>, 
+<code><a href="../../spatstat.model/help/psstA.html">psstA</a></code>, 
+<code><a href="../../spatstat.model/help/psstG.html">psstG</a></code>, 
+<code><a href="../../spatstat.model/help/psst.html">psst</a></code>.
+</p>
+<p>Model-fitting:
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    fit0 &lt;- ppm(cells, ~1) # uniform Poisson
+    G0 &lt;- Gres(fit0)
+    plot(G0)
+# Hanisch correction estimate
+    plot(G0, hres ~ r)
+# uniform Poisson is clearly not correct
+
+    fit1 &lt;- ppm(cells, ~1, Strauss(0.08))
+    plot(Gres(fit1), hres ~ r)
+# fit looks approximately OK; try adjusting interaction distance
+
+    plot(Gres(cells, interaction=Strauss(0.12)))
+
+# How to make envelopes
+    if(interactive()) {
+      E &lt;- envelope(fit1, Gres, model=fit1, nsim=39)
+      plot(E)
+    }
+# For computational efficiency
+    Gc &lt;- Gcom(fit1)
+    G1 &lt;- Gres(Gc)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

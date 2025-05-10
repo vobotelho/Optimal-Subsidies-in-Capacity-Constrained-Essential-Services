@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exact Maximum Pseudolikelihood Estimate for Stationary...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for exactMPLEstrauss {spatstat.model}"><tr><td>exactMPLEstrauss {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Exact Maximum Pseudolikelihood Estimate for Stationary Strauss Process
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes, to very high accuracy, the Maximum Pseudolikelihood Estimates
+of the parameters of a stationary Strauss point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  exactMPLEstrauss(X, R, ngrid = 2048, plotit = FALSE, project=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data to which the Strauss process will be fitted.
+A point pattern dataset (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>R</code></td>
+<td>
+
+<p>Interaction radius of the Strauss process.
+A non-negative number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Grid size for calculation of integrals. An integer, giving the
+number of grid points in the <i>x</i> and <i>y</i> directions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plotit</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the log pseudolikelihood is plotted
+on the current device. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>project</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), the parameter
+<i>gamma</i> is constrained to lie in the interval
+<i>[0,1]</i>. If <code>FALSE</code>, this constraint is not applied.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is intended mainly for technical investigation
+of algorithm performance. Its practical use is quite limited.
+</p>
+<p>It fits the stationary Strauss point process model
+to the point pattern dataset <code>X</code> by maximum pseudolikelihood
+(with the border edge correction) using an algorithm with very high accuracy.
+This algorithm is more accurate than the
+<em>default</em> behaviour of the model-fitting function
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> because the discretisation is much finer.
+</p>
+<p>Ripley (1988) and Baddeley and Turner (2000) derived the
+log pseudolikelihood for the stationary Strauss
+process, and eliminated the parameter <i>beta</i>,
+obtaining an exact formula for the partial log pseudolikelihood
+as a function of the interaction parameter <i>gamma</i> only.
+The algorithm evaluates this expression to a high degree of accuracy,
+using numerical integration on a <code>ngrid * ngrid</code> lattice,
+uses <code><a href="../../stats/help/optim.html">optim</a></code> to maximise the log pseudolikelihood
+with respect to <i>gamma</i>, and finally recovers
+<i>beta</i>.
+</p>
+<p>The result is a vector of length 2, containing the fitted coefficients
+<i>log(beta)</i> and <i>log(gamma)</i>.
+These values correspond to the entries that would be obtained with
+<code>coef(ppm(X, ~1, Strauss(R)))</code>.
+The fitted coefficients are typically accurate to
+within <i>10^(-6)</i> as shown in Baddeley and Turner (2013).
+</p>
+<p>Note however that (by default) <code>exactMPLEstrauss</code> 
+constrains the parameter <i>gamma</i> to lie in the
+interval <i>[0,1]</i> in which the point process is well defined
+(Kelly and Ripley, 1976)
+whereas <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> does not constrain
+the value of <i>gamma</i> (by default). This behaviour is controlled by
+the argument <code>project</code> to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> and
+<code>exactMPLEstrauss</code>. The default for <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+is <code>project=FALSE</code>, while the default for <code>exactMPLEstrauss</code>
+is <code>project=TRUE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Vector of length 2.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Baddeley, A. and Turner, R. (2013)
+Bias correction for parameter estimates of spatial point process models.
+<em>Journal of Statistical Computation and Simulation</em>
+<b>2012</b>. <code>DOI: 10.1080/00949655.2012.755976</code>
+</p>
+<p>Kelly, F.P. and Ripley, B.D. (1976)
+On Strauss's model for clustering.
+<em>Biometrika</em> <b>63</b>, 357&ndash;360.
+</p>
+<p>Ripley, B.D. (1988)
+<em>Statistical inference for spatial processes</em>.
+Cambridge University Press.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ if(interactive()) {
+   rc &lt;- 0.09
+   exactMPLEstrauss(cells, rc, plotit=TRUE)
+   coef(ppm(cells ~1, Strauss(rc)))
+   coef(ppm(cells ~1, Strauss(rc), nd=128))
+   rr &lt;- 0.04
+   exactMPLEstrauss(redwood, rr)
+   exactMPLEstrauss(redwood, rr, project=FALSE)
+   coef(ppm(redwood ~1, Strauss(rr)))
+ } else {
+   rc &lt;- 0.09
+   exactMPLEstrauss(cells, rc, ngrid=64, plotit=TRUE)
+   exactMPLEstrauss(cells, rc, ngrid=64, project=FALSE)
+ }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

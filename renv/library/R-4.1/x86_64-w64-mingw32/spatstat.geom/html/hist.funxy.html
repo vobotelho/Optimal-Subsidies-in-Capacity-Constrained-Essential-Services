@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Histogram of Values of a Spatial Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for hist.funxy {spatstat.geom}"><tr><td>hist.funxy {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Histogram of Values of a Spatial Function</h2>
+
+<h3>Description</h3>
+
+<p>Computes and displays a histogram of the values of a spatial function
+of class <code>"funxy"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'funxy'
+hist(x, ..., xname)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A pixel image (object of class <code>"funxy"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+or <code><a href="../../spatstat.geom/help/hist.im.html">hist.im</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xname</code></td>
+<td>
+
+<p>Optional. Character string to be used as the
+name of the dataset <code>x</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes and (by default) displays a histogram
+of the values of the function <code>x</code>.
+</p>
+<p>An object of class <code>"funxy"</code> 
+describes a function of spatial location. It is a <code>function(x,y,..)</code>
+in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with additional attributes.
+</p>
+<p>The function <code>hist.funxy</code> is a method for the generic
+function <code><a href="../../graphics/html/hist.html">hist</a></code> for the class <code>"funxy"</code>.
+</p>
+<p>The function is first converted to a pixel image using <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>,
+then <code><a href="../../spatstat.geom/help/hist.im.html">hist.im</a></code> is called to produce the histogram.
+</p>
+<p>Any arguments in <code>...</code> are passed to <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+to determine the pixel resolution, 
+or to <code><a href="../../spatstat.geom/help/hist.im.html">hist.im</a></code> to determine the histogram breaks
+and to control or suppress plotting.
+Useful arguments include <code>W</code> for the spatial domain,
+<code>eps,dimyx</code> for pixel resolution, <code>main</code> for the main title.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"histogram"</code> as returned
+by <code><a href="../../graphics/help/hist.html">hist.default</a></code>. This object can be
+plotted.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/spatialcdf.html">spatialcdf</a></code> for the cumulative distribution function
+of an image or function.
+</p>
+<p><code><a href="../../graphics/html/hist.html">hist</a></code>,
+<code><a href="../../graphics/html/hist.html">hist.default</a></code>.
+</p>
+<p>For other statistical graphics such as Q-Q plots,
+use <code>as.im(X)[]</code> to extract the pixel values of image <code>X</code>,
+and apply the usual statistical graphics commands.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- funxy(function(x,y) {x^2}, unit.square())
+  hist(f)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

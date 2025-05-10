@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Taper Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for taperoff {spatstat.utils}"><tr><td>taperoff {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Taper Functions
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes a function that tapers smoothly from 0 to 1.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+taperoff(x, zeropoint = 0, onepoint = 1,
+         type = c("smooth", "cosine", "Gaussian"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Function argument. A number or a numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zeropoint</code></td>
+<td>
+
+<p>Value of <code>x</code> that should return a function value of 0.
+</p>
+</td></tr>
+<tr valign="top"><td><code>onepoint</code></td>
+<td>
+
+<p>Value of <code>x</code> that should return a function value of 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string (partially matched) specifying which taper function
+to use.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A taper is a mathematical function that exhibits a gradual transition between
+the values 0 and 1.
+</p>
+<p>By default, the function value <i>f(x)</i> is equal to 0
+if <i>x &le; 0</i>, is equal to 1 if <i>x &ge; 1</i>,
+and lies between 0 and 1 when <i>0 &lt; x &lt; 1</i>.
+</p>
+<p>If <code>type="cosine"</code>, the function is the cosine taper
+<i>f(x) = 1 - cos(&pi; * x)/2</i>.
+</p>
+<p>If <code>type="smooth"</code> the function is the smooth partition of unity
+<i>f(x) = &theta;(x)/(&theta;(x) + &theta;(1-x))</i>
+where <i>&theta;(x) = exp(-1/x)</i>.
+</p>
+<p>If <code>type="Gaussian"</code> the function is the cumulative distribution
+function of the Gaussian (normal) distribution with mean <i>1/2</i>
+and standard deviation <i>1/6</i>.
+</p>
+<p>If <code>zeropoint</code> and <code>onepoint</code> are specified, then
+the function value is equal to 0 when
+<code>x=zeropoint</code>, equal to 1 when <code>x=onepoint</code>, and lies
+between 0 and 1 when <code>x</code> lies between <code>zeropoint</code> and
+<code>onepoint</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector of the same length as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  curve(taperoff(x, type="smooth"))
+  curve(taperoff(x, type="cosine"), add=TRUE, col="green")
+  curve(taperoff(x, type="Gaussian"), add=TRUE, col="blue")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

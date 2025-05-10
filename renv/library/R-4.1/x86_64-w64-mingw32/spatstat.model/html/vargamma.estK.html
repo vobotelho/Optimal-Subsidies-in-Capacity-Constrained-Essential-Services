@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit the Neyman-Scott Cluster Point Process with Variance...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for vargamma.estK {spatstat.model}"><tr><td>vargamma.estK {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit the Neyman-Scott Cluster Point Process with Variance Gamma kernel</h2>
+
+<h3>Description</h3>
+
+<p>Fits the Neyman-Scott cluster point process, with Variance Gamma
+kernel, to a point pattern dataset by the Method of Minimum Contrast.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+vargamma.estK(X, startpar=c(kappa=1,scale=1), nu = -1/4, lambda=NULL,
+            q = 1/4, p = 2, rmin = NULL, rmax = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data to which the model will be fitted.
+Either a point pattern or a summary statistic.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>startpar</code></td>
+<td>
+
+<p>Vector of starting values for the parameters of the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nu</code></td>
+<td>
+
+<p>Numerical value controlling the shape of the tail of the clusters.
+A number greater than <code>-1/2</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional. An estimate of the intensity of the point process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>q,p</code></td>
+<td>
+
+<p>Optional. Exponents for the contrast criterion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmin, rmax</code></td>
+<td>
+
+<p>Optional. The interval of <i>r</i> values for the contrast criterion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../stats/help/optim.html">optim</a></code>
+to control the optimisation algorithm. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm fits the Neyman-Scott Cluster point process model
+with Variance Gamma kernel (Jalilian et al, 2013)
+to a point pattern dataset
+by the Method of Minimum Contrast, using the <i>K</i> function.
+</p>
+<p>The argument <code>X</code> can be either
+</p>
+
+<dl>
+<dt>a point pattern:</dt><dd><p>An object of class <code>"ppp"</code>
+representing a point pattern dataset. 
+The <i>K</i> function of the point pattern will be computed
+using <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>, and the method of minimum contrast
+will be applied to this.
+</p>
+</dd>
+<dt>a summary statistic:</dt><dd><p>An object of class <code>"fv"</code> containing
+the values of a summary statistic, computed for a point pattern
+dataset. The summary statistic should be the <i>K</i> function,
+and this object should have been obtained by a call to
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or one of its relatives.
+</p>
+</dd>
+</dl>
+
+<p>The algorithm fits the Neyman-Scott Cluster point process
+with Variance Gamma kernel to <code>X</code>,
+by finding the parameters of the model
+which give the closest match between the
+theoretical <i>K</i> function of the model
+and the observed <i>K</i> function.
+For a more detailed explanation of the Method of Minimum Contrast,
+see <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>The Neyman-Scott cluster point process with Variance Gamma
+kernel is described in Jalilian et al (2013).
+It is a cluster process formed by taking a 
+pattern of parent points, generated according to a Poisson process
+with intensity <i>kappa</i>, and around each parent point,
+generating a random number of offspring points, such that the
+number of offspring of each parent is a Poisson random variable with mean
+<i>mu</i>, and the locations of the offspring points of one parent
+have a common distribution described in Jalilian et al (2013).
+</p>
+<p>The shape of the kernel is determined by the dimensionless
+index <code>nu</code>. This is the parameter
+<i>nu' = alpha/2 - 1</i> appearing in
+equation (12) on page 126 of Jalilian et al (2013).
+In previous versions of spatstat instead of specifying <code>nu</code>
+(called <code>nu.ker</code> at that time) the user could specify
+<code>nu.pcf</code> which is the parameter <i>nu = alpha-1</i>
+appearing in equation (13), page 127 of Jalilian et al (2013).
+These are related by <code>nu.pcf = 2 * nu.ker + 1</code>
+and <code>nu.ker = (nu.pcf - 1)/2</code>. This syntax is still supported but
+not recommended for consistency across the package. In that case
+exactly one of <code>nu.ker</code> or <code>nu.pcf</code> must be specified.
+</p>
+<p>If the argument <code>lambda</code> is provided, then this is used
+as the value of the point process intensity <i>lambda</i>.
+Otherwise, if <code>X</code> is a
+point pattern, then  <i>lambda</i>
+will be estimated from <code>X</code>. 
+If <code>X</code> is a summary statistic and <code>lambda</code> is missing,
+then the intensity <i>lambda</i> cannot be estimated, and
+the parameter <i>mu</i> will be returned as <code>NA</code>.
+</p>
+<p>The remaining arguments <code>rmin,rmax,q,p</code> control the
+method of minimum contrast; see <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>The corresponding model can be simulated using <code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>.
+</p>
+<p>The parameter <code>eta</code> appearing in <code>startpar</code> is equivalent to the
+scale parameter <code>omega</code> used in  <code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>.
+</p>
+<p>Homogeneous or inhomogeneous Neyman-Scott/VarGamma models can also be
+fitted using the function <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code> and the fitted models
+can be simulated using <code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code>.
+</p>
+<p>The optimisation algorithm can be controlled through the
+additional arguments <code>"..."</code> which are passed to the
+optimisation function <code><a href="../../stats/help/optim.html">optim</a></code>. For example,
+to constrain the parameter values to a certain range,
+use the argument <code>method="L-BFGS-B"</code> to select an optimisation
+algorithm that respects box constraints, and use the arguments
+<code>lower</code> and <code>upper</code> to specify (vectors of) minimum and
+maximum values for each parameter.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"minconfit"</code>. There are methods for printing
+and plotting this object. It contains the following main components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>par </code></td>
+<td>
+<p>Vector of fitted parameter values.</p>
+</td></tr>
+<tr valign="top"><td><code>fit </code></td>
+<td>
+<p>Function value table (object of class <code>"fv"</code>)
+containing the observed values of the summary statistic
+(<code>observed</code>) and the theoretical values of the summary
+statistic computed from the fitted model parameters.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Abdollah Jalilian and Rasmus Waagepetersen.
+Adapted for <span class="pkg">spatstat</span> by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Jalilian, A., Guan, Y. and Waagepetersen, R. (2013)
+Decomposition of variance for spatial Cox processes.
+<em>Scandinavian Journal of Statistics</em> <b>40</b>, 119-137.
+</p>
+<p>Waagepetersen, R. (2007)
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b>, 252&ndash;258.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.model/help/vargamma.estpcf.html">vargamma.estpcf</a></code>,
+<code><a href="../../spatstat.model/help/lgcp.estK.html">lgcp.estK</a></code>,
+<code><a href="../../spatstat.model/help/thomas.estK.html">thomas.estK</a></code>,
+<code><a href="../../spatstat.model/help/cauchy.estK.html">cauchy.estK</a></code>,
+<code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.model/help/Kmodel.html">Kmodel</a></code>.
+</p>
+<p><code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code> to simulate the model.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   if(interactive()) {
+      u &lt;- vargamma.estK(redwood)
+      print(u)
+      plot(u)
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

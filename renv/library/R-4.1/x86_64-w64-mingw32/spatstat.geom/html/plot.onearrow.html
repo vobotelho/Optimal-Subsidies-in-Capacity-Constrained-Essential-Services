@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot an Arrow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.onearrow {spatstat.geom}"><tr><td>plot.onearrow {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot an Arrow</h2>
+
+<h3>Description</h3>
+
+<p>Plots an object of class <code>"onearrow"</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'onearrow'
+plot(x, ...,
+  add = FALSE, main = "",
+  retract = 0.05, headfraction = 0.25, headangle = 12, headnick = 0.1,
+  col.head = NA, lwd.head = lwd, lwd = 1, col = 1,
+  zap = FALSE, zapfraction = 0.07,
+  pch = 1, cex = 1, do.plot = TRUE, do.points = FALSE, show.all = !add)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"onearrow"</code> to be plotted.
+This object is created by the command <code><a href="../../spatstat.geom/help/onearrow.html">onearrow</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional graphics arguments passed to
+<code><a href="../../graphics/help/segments.html">segments</a></code> to control the appearance of the line.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>Logical value indicating whether to add graphics to the
+existing plot (<code>add=TRUE</code>) or to start a new plot
+(<code>add=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main title for the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>retract</code></td>
+<td>
+
+<p>Fraction of length of arrow to remove at each end.
+</p>
+</td></tr>
+<tr valign="top"><td><code>headfraction</code></td>
+<td>
+
+<p>Length of arrow head as a fraction of overall length of arrow.
+</p>
+</td></tr>
+<tr valign="top"><td><code>headangle</code></td>
+<td>
+
+<p>Angle (in degrees) between the outer edge of the arrow head
+and the shaft of the arrow.
+</p>
+</td></tr>
+<tr valign="top"><td><code>headnick</code></td>
+<td>
+
+<p>Size of the nick in the trailing edge of the arrow head
+as a fraction of length of arrow head. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.head,lwd.head</code></td>
+<td>
+
+<p>Colour and line style of the filled arrow head.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col,lwd</code></td>
+<td>
+
+<p>Colour and line style of the arrow shaft.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zap</code></td>
+<td>
+
+<p>Logical value indicating whether the arrow should
+include a Z-shaped (lightning-bolt) feature in the
+middle of the shaft.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zapfraction</code></td>
+<td>
+
+<p>Size of Z-shaped deviation as a fraction of total arrow length.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pch,cex</code></td>
+<td>
+
+<p>Plot character and character size for the two end points of the arrow,
+if <code>do.points=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical. Whether to actually perform the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.points</code></td>
+<td>
+
+<p>Logical. Whether to display the two end points of the arrow as well.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>x</code> should be an object of class <code>"onearrow"</code>
+created by the command <code><a href="../../spatstat.geom/help/onearrow.html">onearrow</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (class <code>"owin"</code>) enclosing the plotted graphics.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/onearrow.html">onearrow</a></code>,
+<code><a href="../../spatstat.geom/help/yardstick.html">yardstick</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  oa &lt;- onearrow(cells[c(1, 42)])
+  oa
+  plot(oa)
+  plot(oa, zap=TRUE, do.points=TRUE, col.head="pink", col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

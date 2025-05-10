@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mean and Median of Pixel Values in an Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for mean.im {spatstat.geom}"><tr><td>mean.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mean and Median of Pixel Values in an Image</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the mean or median
+of the pixel values in a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'im'
+## mean(x, trim=0, na.rm=TRUE, ...) 
+
+## S3 method for class 'im'
+## median(x, na.rm=TRUE)        [R &lt; 3.4.0]
+## median(x, na.rm=TRUE, ...)   [R &gt;= 3.4.0]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A pixel image (object of class <code>"im"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+
+<p>Logical value indicating whether <code>NA</code> values should be
+stripped before the computation proceeds.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>The fraction (0 to 0.5) of pixel values to be trimmed from
+each end of their range, before the mean is computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions calculate the mean and median
+of the pixel values in the image <code>x</code>.
+</p>
+<p>An object of class <code>"im"</code>
+describes a pixel image. See <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>)
+for details of this class.
+</p>
+<p>The function <code>mean.im</code> is a method for the generic
+function <code><a href="../../base/help/mean.html">mean</a></code> for the class <code>"im"</code>.
+Similarly <code>median.im</code> is a method for the generic
+<code><a href="../../stats/help/median.html">median</a></code>.
+</p>
+<p>If the image <code>x</code> is logical-valued, the mean value of <code>x</code> is
+the fraction of pixels that have the value <code>TRUE</code>. The median is
+not defined. 
+</p>
+<p>If the image <code>x</code> is factor-valued, then the mean of <code>x</code>
+is the mean of the integer codes of the pixel values. The median is
+are not defined.
+</p>
+<p>Other mathematical operations on images are supported by
+<code><a href="../../spatstat.geom/help/Math.im.html">Math.im</a></code>, <code><a href="../../spatstat.geom/help/Summary.im.html">Summary.im</a></code>
+and <code><a href="../../spatstat.geom/help/Complex.im.html">Complex.im</a></code>.
+</p>
+<p>Other information about an image can be obtained using
+<code><a href="../../spatstat.geom/help/summary.im.html">summary.im</a></code> or <code><a href="../../spatstat.geom/help/quantile.im.html">quantile.im</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Kassel Hingee.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/Math.im.html">Math.im</a></code> for other operations.
+</p>
+<p>Generics and default methods:
+<code><a href="../../base/help/mean.html">mean</a></code>,
+<code><a href="../../stats/help/median.html">median</a></code>.
+</p>
+<p><code><a href="../../spatstat.geom/help/quantile.im.html">quantile.im</a></code>,
+<code><a href="../../spatstat.geom/help/anyNA.im.html">anyNA.im</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/summary.im.html">summary.im</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- as.im(function(x,y) {x^2}, unit.square())
+  mean(X)
+  median(X)
+  mean(X, trim=0.05)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

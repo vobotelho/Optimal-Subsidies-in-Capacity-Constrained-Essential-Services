@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Display the result of a quadrat counting test.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.quadrattest {spatstat.explore}"><tr><td>plot.quadrattest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Display the result of a quadrat counting test.
+</h2>
+
+<h3>Description</h3>
+
+<p>Given the result of a quadrat counting test,
+graphically display the quadrats that were used, the 
+observed and expected counts, and the residual in each quadrat.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'quadrattest'
+plot(x, ..., textargs=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"quadrattest"</code> containing the result
+of <code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code> to
+control the display of the quadrats.
+</p>
+</td></tr>
+<tr valign="top"><td><code>textargs</code></td>
+<td>
+
+<p>List of additional arguments passed to
+<code><a href="../../graphics/help/text.default.html">text.default</a></code>
+to control the appearance of the text.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the plot method for objects
+of class <code>"quadrattest"</code>. Such an object is produced by
+<code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code> and represents the result of
+a <i>chi^2</i> test for a spatial point pattern.
+</p>
+<p>The quadrats are first plotted using <code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code>.
+Then in each quadrat, the observed and expected counts
+and the Pearson residual are displayed as text using
+<code><a href="../../graphics/help/text.default.html">text.default</a></code>.
+Observed count is displayed at top left; expected count at top right;
+and Pearson residual at bottom. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>,
+<code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code>,
+<code><a href="../../graphics/help/text.default.html">text.default</a></code>,
+<code><a href="../../spatstat.geom/help/plot.quadratcount.html">plot.quadratcount</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   plot(quadrat.test(swedishpines, 3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

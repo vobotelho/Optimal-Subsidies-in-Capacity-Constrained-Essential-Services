@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Diffusion Estimate of Conditional Probabilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for relriskHeat {spatstat.explore}"><tr><td>relriskHeat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Diffusion Estimate of Conditional Probabilities
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the conditional probability estimator of relative risk
+based on a multitype point pattern using the diffusion estimate
+of the type-specific intensities.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+relriskHeat(X, ...)
+
+## S3 method for class 'ppp'
+relriskHeat(X, ..., sigmaX=NULL, weights=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A multitype point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/densityHeat.html">densityHeat</a></code>
+controlling the estimation of each marginal intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigmaX</code></td>
+<td>
+
+<p>Optional.
+Numeric vector of bandwidths, one associated with each data point in
+<code>X</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional numeric vector of weights associated with each point of
+<code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>relriskHeat</code> is generic. This file documents the
+method <code>relriskHeat.ppp</code> for spatial point patterns (objects of
+class <code>"ppp"</code>).
+</p>
+<p>This function estimates the spatially-varying conditional probability
+that a random point (given that it is present) will belong to
+a given type.
+</p>
+<p>The algorithm separates <code>X</code> into 
+the sub-patterns consisting of points of each type.
+It then applies <code><a href="../help/densityHeat.html">densityHeat</a></code> to each sub-pattern,
+using the same bandwidth and smoothing regimen for each sub-pattern,
+as specified by the arguments <code>...</code>.
+</p>
+<p>If <code>weights</code> is specified, it should be a numeric vector
+of length equal to the number of points in <code>X</code>, so that
+<code>weights[i]</code> is the weight for data point <code>X[i]</code>.
+</p>
+<p>Similarly when performing lagged-arrival smoothing,
+the argument <code>sigmaX</code> must be a numeric vector of the same length
+as the number of points in <code>X</code>, and thus contain the
+point-specific bandwidths in the order corresponding to each of these
+points regardless of mark.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A named list (of class <code><a href="../../spatstat.geom/help/solist.html">solist</a></code>)
+containing pixel <code><a href="../../spatstat.geom/help/im.html">im</a></code>ages,
+giving the estimated conditional probability surfaces for each type.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Agarwal, N. and Aluru, N.R. (2010) 
+A data-driven stochastic collocation approach for
+uncertainty quantification in MEMS.
+<em>International Journal for Numerical Methods in Engineering</em>
+<b>83</b>, 575&ndash;597.
+</p>
+<p>Baddeley, A., Davies, T., Rakshit, S., Nair, G. and McSwiggan, G. (2022)
+Diffusion smoothing for spatial point patterns.
+<em>Statistical Science</em> <b>37</b>, 123&ndash;142.
+</p>
+<p>Barry, R.P. and McIntyre, J. (2011)
+Estimating animal densities and home range in regions with irregular
+boundaries and holes: a lattice-based alternative to the kernel
+density estimator. <em>Ecological Modelling</em> <b>222</b>, 1666&ndash;1672.
+</p>
+<p>Botev, Z.I. and Grotowski, J.F. and Kroese, D.P. (2010)
+Kernel density estimation via diffusion.
+<em>Annals of Statistics</em> <b>38</b>, 2916&ndash;2957.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/relrisk.ppp.html">relrisk.ppp</a></code> for the
+traditional convolution-based kernel estimator of
+conditional probability surfaces,
+and the function <code>risk</code> in the <span class="pkg">sparr</span> package for the
+density-ratio-based estimator.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## bovine tuberculosis data
+  X &lt;- subset(btb, select=spoligotype)
+  plot(X) 
+  P &lt;- relriskHeat(X,sigma=9)
+  plot(P)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

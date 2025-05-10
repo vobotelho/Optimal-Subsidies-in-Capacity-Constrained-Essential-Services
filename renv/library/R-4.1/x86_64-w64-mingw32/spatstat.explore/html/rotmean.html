@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rotational Average of a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rotmean {spatstat.explore}"><tr><td>rotmean {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Rotational Average of a Pixel Image
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the average pixel value over all rotations of the image
+about the origin, as a function of distance from the origin.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rotmean(X, ..., origin, padzero=TRUE, Xname, result=c("fv", "im"), adjust=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+<p>Optional. Origin about which the rotations should be performed.
+Either a numeric vector or a character string as described
+in the help for <code><a href="../../spatstat.geom/help/shift.owin.html">shift.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>padzero</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), the value of <code>X</code>
+is assumed to be zero outside the window of <code>X</code>.
+If <code>FALSE</code>, the value of <code>X</code> is taken to be undefined
+outside the window of <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Xname</code></td>
+<td>
+
+<p>Optional name for <code>X</code> to be used in the
+function labels.
+</p>
+</td></tr>
+<tr valign="top"><td><code>result</code></td>
+<td>
+
+<p>Character string specifying the kind of result required:
+either a function object or a pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Adjustment factor for bandwidth used in kernel smoothing.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes, for each possible distance <i>r</i>,
+the average pixel value of the pixels lying at
+distance <i>r</i> from the origin. Kernel smoothing is used
+to obtain a smooth function of <i>r</i>.
+</p>
+<p>If <code>result="fv"</code> (the default) the result is a function
+object of class <code>"fv"</code> giving the mean pixel value of <code>X</code>
+as a function of distance from the origin.
+</p>
+<p>If <code>result="im"</code> the result is a pixel image, with the same
+dimensions as <code>X</code>, giving the mean value of <code>X</code>
+over all pixels lying at the same distance from the origin
+as the current pixel.
+</p>
+<p>If <code>padzero=TRUE</code> (the default), the value of <code>X</code>
+is assumed to be zero outside the window of <code>X</code>. The rotational
+mean at a given distance <i>r</i> is the average value of the image
+<code>X</code> over the <em>entire</em> circle of radius <i>r</i>,
+including zero values outside the window if the circle
+lies partly outside the window.
+</p>
+<p>If <code>padzero=FALSE</code>, the value of <code>X</code> is taken to be
+undefined outside the window of <code>X</code>. The rotational mean
+is the average of the <code>X</code> values over the <em>subset</em> of the circle
+of radius <i>r</i> that lies entirely inside the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> or <code>"im"</code>,
+with the same coordinate units as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/radcumint.html">radcumint</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  online &lt;- interactive()
+  resolution &lt;- if(online) 128 else 32
+  Z &lt;- setcov(square(1), dimyx=resolution)
+  f &lt;- rotmean(Z)
+  if(online) {
+    plot(rotmean(Z))
+    plot(rotmean(Z, result="im"))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

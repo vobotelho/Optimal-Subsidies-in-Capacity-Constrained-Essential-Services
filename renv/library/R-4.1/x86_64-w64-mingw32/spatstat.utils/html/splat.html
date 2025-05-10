@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Print Text Within Margins</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for splat {spatstat.utils}"><tr><td>splat {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Print Text Within Margins
+</h2>
+
+<h3>Description</h3>
+
+<p>Prints a given character string or strings
+inside the text margin specified by <code>options("width")</code>.
+Indents the text if required.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+splat(..., indent = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Character strings, or other arguments acceptable to
+<code><a href="../../base/help/paste.html">paste</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>indent</code></td>
+<td>
+
+<p>Optional. Indentation of the text.
+Either an integer specifying the number of character positions
+by which the text should be indented, or a character string whose
+length determines the indentation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>splat</code> stands for &lsquo;split cat&rsquo;.
+</p>
+<p>The command <code>splat(...)</code> is like <code>cat(paste(...))</code>
+except that the output will be split into lines that can be
+printed within the current text margin
+specified by <code><a href="../../base/help/getOption.html">getOption</a>("width")</code>.
+</p>
+<p>The arguments <code>...</code> are first combined into a character vector
+using <code><a href="../../base/help/paste.html">paste</a></code>. Then they are split into words
+separated by white space. A newline will be inserted whenever the next
+word does not fit in the available text area.
+(Words will not be broken, so the text margin could be exceeded
+if any word is longer than <code><a href="../../base/help/getOption.html">getOption</a>("width")</code>).
+</p>
+<p>If any argument is a vector, each
+element of the vector is treated as a separate line.
+Existing newline characters in <code>...</code> are also respected.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  op &lt;- options(width=20)
+  splat("There is more than one way to skin a cat.")
+  splat("There is more than one", "way to skin a cat.", indent=5)
+
+  options(width=10)
+  splat("The value of pi is", pi)
+  splat("The value of pi is", signif(pi))
+  options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

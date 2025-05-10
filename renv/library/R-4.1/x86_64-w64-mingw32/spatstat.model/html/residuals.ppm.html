@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residuals for Fitted Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for residuals.ppm {spatstat.model}"><tr><td>residuals.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Residuals for Fitted Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a point pattern,
+compute residuals.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppm'
+residuals(object, type="raw", ...,
+                check=TRUE, drop=FALSE,
+                fittedvalues=NULL, 
+                new.coef=NULL, dropcoef=FALSE,
+                quad=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model (an object of class <code>"ppm"</code>)
+for which residuals should be calculated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String indicating the type of residuals to be calculated.
+Current options are
+<code>"raw"</code>, <code>"inverse"</code>, <code>"pearson"</code> and <code>"score"</code>.
+A partial match is adequate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value indicating whether to check the internal format
+of <code>object</code>. If there is any possibility that this object
+has been restored from a dump file, or has otherwise lost track of
+the environment where it was originally computed, set
+<code>check=TRUE</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value determining whether to delete quadrature points
+that were not used to fit the model. See <code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code> for
+explanation. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>fittedvalues</code></td>
+<td>
+
+<p>Vector of fitted values for the conditional intensity at 
+the quadrature points,
+from which the residuals will be computed. 
+For expert use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>new.coef</code></td>
+<td>
+
+<p>Optional. Numeric vector of coefficients for the model,
+replacing <code>coef(object)</code>.
+See the section on Modified Residuals below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dropcoef</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>quad</code></td>
+<td>
+
+<p>Optional. Data specifying how to re-fit the model.
+A list of arguments passed to <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>.
+See the section on Modified Residuals below.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes several kinds of residuals for the fit of
+a point process model to a spatial point pattern dataset
+(Baddeley et al, 2005).
+Use <code><a href="../../spatstat.model/help/plot.msr.html">plot.msr</a></code> to plot the residuals directly,
+or <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code>
+to produce diagnostic plots based on these residuals.
+</p>
+<p>The argument <code>object</code> must be a fitted point process model
+(object of class <code>"ppm"</code>). Such objects are produced by the maximum
+pseudolikelihood fitting algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+This fitted model object contains complete
+information about the original data pattern. 
+</p>
+<p>Residuals are attached both to the data points and to some
+other points in the window of observation (namely, to the dummy
+points of the quadrature scheme used to fit the model).
+If the fitted model is correct, then the sum of the 
+residuals over all (data and dummy) points in a spatial region <i>B</i>
+has mean zero. For further explanation, see Baddeley et al (2005).
+</p>
+<p>The type of residual
+is chosen by the argument <code>type</code>. Current options are
+</p>
+
+<dl>
+<dt><code>"raw"</code>:</dt><dd>
+<p>the raw residuals
+</p>
+<p style="text-align: center;"><i>
+	r[j] = z[j] - w[j] lambda[j]
+      </i></p>
+
+<p>at the quadrature points <i>u[j]</i>,
+where <i>z[j]</i> is the indicator equal to 1 if <i>u[j]</i>
+is a data point and 0 if <i>u[j]</i> is a dummy point;
+<i>w[j]</i> is the quadrature weight attached to
+<i>u[j]</i>; and
+</p>
+<p style="text-align: center;"><i>lambda[j] = lambda(u[j],x)</i></p>
+
+<p>is the conditional intensity of the fitted model at <i>u[j]</i>.
+These are the spatial analogue of the martingale residuals
+of a one-dimensional counting process.
+</p>
+</dd>
+<dt><code>"inverse"</code>:</dt><dd>
+<p>the &lsquo;inverse-lambda&rsquo; residuals (Baddeley et al, 2005)
+</p>
+<p style="text-align: center;"><i>
+	rI[j] = r[j]/lambda[j] = z[j]/lambda[j] - w[j]
+      </i></p>
+
+<p>obtained by dividing the raw residuals by 
+the fitted conditional intensity. These are 
+a counterpart of the exponential energy marks (see <code><a href="../../spatstat.model/help/eem.html">eem</a></code>).
+</p>
+</dd>
+<dt><code>"pearson"</code>:</dt><dd>
+<p>the Pearson residuals (Baddeley et al, 2005)
+</p>
+<p style="text-align: center;"><i>
+	rP[j] = r[j]/sqrt(lambda[j])
+	= z[j]/sqrt(lambda[j]) - w[j] sqrt(lambda[j])
+      </i></p>
+
+<p>obtained by dividing the raw residuals by the
+square root of the fitted conditional intensity.
+The Pearson residuals are standardised, in the sense
+that if the model (true and fitted) is Poisson,
+then the sum of the Pearson residuals in a spatial region <i>B</i>
+has variance equal to the area of <i>B</i>.
+</p>
+</dd>
+<dt><code>"score"</code>:</dt><dd>
+<p>the score residuals (Baddeley et al, 2005)
+</p>
+<p style="text-align: center;"><i>
+	r[j] = (z[j] - w[j] lambda[j]) * x[j,]
+      </i></p>
+
+<p>obtained by multiplying the raw residuals <i>r[j]</i>
+by the covariates <i>x[j,]</i> for quadrature point <i>j</i>.
+The score residuals always sum to zero.
+</p>
+</dd>
+</dl>
+
+<p>The result of <code>residuals.ppm</code> is a measure
+(object of class <code>"msr"</code>).
+Use <code><a href="../../spatstat.model/help/plot.msr.html">plot.msr</a></code> to plot the residuals directly,
+or <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code> to produce diagnostic plots
+based on these residuals.
+Use <code><a href="../../spatstat.model/help/integral.msr.html">integral.msr</a></code> to compute the total residual.
+</p>
+<p>By default, 
+the window of the measure is the same as the original window
+of the data. If <code>drop=TRUE</code> then the window is the
+domain of integration of the pseudolikelihood or composite likelihood.
+This only matters when the model <code>object</code> was fitted using
+the border correction: in that case, if <code>drop=TRUE</code> the
+window of the residuals is the erosion of the original data window
+by the border correction distance <code>rbord</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"msr"</code> 
+representing a signed measure or vector-valued measure
+(see <code><a href="../../spatstat.model/help/msr.html">msr</a></code>). This object can be plotted.
+</p>
+
+
+<h3>Modified Residuals</h3>
+
+<p>Sometimes we want to modify the calculation of residuals by using
+different values for the model parameters. This capability is
+provided by the arguments <code>new.coef</code> and <code>quad</code>.
+</p>
+<p>If <code>new.coef</code> is given, then the residuals will be computed
+by taking the model parameters to be <code>new.coef</code>.
+This should be a numeric vector
+of the same length as the vector of fitted model parameters
+<code>coef(object)</code>. 
+</p>
+<p>If <code>new.coef</code> is missing and <code>quad</code> is given,
+then the model parameters will
+be determined by re-fitting the model using a new
+quadrature scheme specified by <code>quad</code>. 
+Residuals will be computed for the
+original model <code>object</code> using these new parameter values.
+</p>
+<p>The argument <code>quad</code> should normally be
+a list of arguments in <code>name=value</code> format that will be
+passed to <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code> (together with
+the original data points) to determine the new quadrature scheme.
+It may also be a quadrature scheme (object of class
+<code>"quad"</code>) to which the model should be fitted, or a
+point pattern (object of class <code>"ppp"</code>) specifying the
+<em>dummy points</em> in a new quadrature scheme.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+<p>Baddeley, A., Moller, J. and Pakes, A.G. (2008) 
+Properties of residuals for spatial point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>60</b>, 627&ndash;649.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/msr.html">msr</a></code>,
+<code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(cells, ~x, Strauss(r=0.15))
+
+   # Pearson residuals
+   rp &lt;- residuals(fit, type="pe")
+   rp
+
+   # simulated data
+   X &lt;- rStrauss(100,0.7,0.05)
+   # fit Strauss model 
+   fit &lt;- ppm(X, ~1, Strauss(0.05))
+   res.fit &lt;- residuals(fit)
+
+   # check that total residual is 0 
+   integral.msr(residuals(fit, drop=TRUE))
+
+   # true model parameters
+   truecoef &lt;- c(log(100), log(0.7))
+   res.true &lt;- residuals(fit, new.coef=truecoef)  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

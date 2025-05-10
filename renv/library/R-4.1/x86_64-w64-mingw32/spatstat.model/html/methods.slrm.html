@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Spatial Logistic Regression Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.slrm {spatstat.model}"><tr><td>methods.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Spatial Logistic Regression Models
+</h2>
+
+<h3>Description</h3>
+
+<p>These are methods for the class <code>"slrm"</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'slrm'
+formula(x, ...)
+## S3 method for class 'slrm'
+print(x, ...)
+## S3 method for class 'slrm'
+summary(object, ...)
+## S3 method for class 'slrm'
+terms(x, ...)
+## S3 method for class 'slrm'
+labels(object, ...)
+## S3 method for class 'slrm'
+deviance(object, ...)
+## S3 method for class 'slrm'
+update(object, fmla, ..., evaluate = TRUE, env = parent.frame())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>An object of class <code>"slrm"</code>,
+representing a fitted spatial logistic regression model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fmla</code></td>
+<td>
+
+<p>Optional. A formula, to replace the formula of the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>evaluate</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, evaluate the updated call to
+<code>slrm</code>, so that the model is refitted; 
+if <code>FALSE</code>, simply return the updated call.
+</p>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+
+<p>Optional environment in which the model should be updated.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../stats/help/formula.html">formula</a></code>,
+<code><a href="../../stats/help/update.html">update</a></code>,
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../base/html/summary.html">summary</a></code>,
+<code><a href="../../stats/help/terms.html">terms</a></code>,
+<code><a href="../../base/html/labels.html">labels</a></code> and 
+<code><a href="../../stats/help/deviance.html">deviance</a></code>
+for the class <code>"slrm"</code>.
+</p>
+<p>An object of class <code>"slrm"</code> represents a fitted
+spatial logistic regression model. It is obtained from <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See the help files for the corresponding generic functions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>,  <code><a href="../../spatstat.model/help/plot.slrm.html">plot.slrm</a></code>,
+<code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code>, <code><a href="../../spatstat.model/help/simulate.slrm.html">simulate.slrm</a></code>,
+<code><a href="../../spatstat.model/help/vcov.slrm.html">vcov.slrm</a></code>,
+<code><a href="../../spatstat.model/help/coef.slrm.html">coef.slrm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- slrm(redwood ~ x)
+  coef(fit)
+  formula(fit)
+  tf &lt;- terms(fit)  
+  labels(fit)
+  deviance(fit) 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

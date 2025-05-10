@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vesicles Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vesicles {spatstat.data}"><tr><td>vesicles {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Vesicles Data
+</h2>
+
+<h3>Description</h3>
+
+<p>Point pattern of synaptic vesicles observed in rat brain tissue.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(vesicles)</pre>
+
+
+<h3>Format</h3>
+
+<p>The dataset <code>vesicles</code> is a point pattern
+(object of class <code>"ppp"</code>) representing the location
+of the synaptic vesicles. The window of the point pattern
+represents the region of presynapse where synaptic vesicles were
+observed in this study.
+There is a hole in the window, representing the region occupied by
+mitochondria, where synaptic vesicles do not occur.
+</p>
+<p>The dataset <code>vesicles.extra</code> is a list with entries
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>presynapse</code></td><td style="text-align: left;"> outer polygonal boundary of presynapse </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>mitochondria</code> </td><td style="text-align: left;"> polygonal boundary of mitochondria </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>mask</code> </td><td style="text-align: left;"> binary mask representation of vesicles window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>activezone</code> </td><td style="text-align: left;"> line segment pattern representing </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                      </td><td style="text-align: left;"> the active zone.
+  </td>
+</tr>
+
+</table>
+
+<p>All coordinates are in nanometres (nm).		    
+</p>
+
+
+<h3>Details</h3>
+
+<p>As part of a study on the effects of stress on brain function,
+Khanmohammadi et al (2014) analysed the spatial pattern of
+synaptic vesicles in 45-nanometre-thick sections of
+rat brain tissue visualised in transmission electron microscopy.
+</p>
+<p>To investigate the influence of stress, Khanmohammadi et al (2014)
+study the distribution of the synaptic vesicles in
+the pre-synaptic neuron in relation to the active zone of the
+presynaptic membrane. They hypothesize that the synaptic vesicle density
+is a decreasing function of distance to the active zone. 
+</p>
+<p>The boundaries for the active zone, mitochondria, pre- and post
+synaptic terminals, and the centre of the synaptic vesicles
+were annotated by hand on the image.
+</p>
+
+
+<h3>Raw Data</h3>
+
+<p>For demonstration and training purposes,
+the raw data files for this dataset are also
+provided in the <span class="pkg">spatstat.data</span> package installation:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>vesicles.txt</code></td><td style="text-align: left;"> spatial locations of vesicles </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>presynapse.txt</code></td><td style="text-align: left;"> vertices of <code>presynapse</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>mitochondria.txt</code> </td><td style="text-align: left;"> vertices of <code>mitochondria</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>vesiclesimage.tif</code> </td><td style="text-align: left;"> greyscale microscope image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>vesiclesmask.tif</code> </td><td style="text-align: left;"> binary image of <code>mask</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>activezone.txt</code> </td><td style="text-align: left;"> coordinates of <code>activezone</code> 
+  </td>
+</tr>
+
+</table>
+
+<p>The files are in the folder <code>rawdata/vesicles</code> in the
+<span class="pkg">spatstat.data</span> installation directory. The precise location of the
+files can be obtained using <code><a href="../../base/help/system.file.html">system.file</a></code>, as shown
+in the examples.  
+</p>
+
+
+<h3>Source</h3>
+
+<p>Nicoletta Nava, Mahdieh Khanmohammadi and Jens Randel Nyengaard.
+Experiment performed by Nicoletta Nava at the
+Stereology and Electron Microscopy Laboratory, Aarhus University,
+Denmark. Images were annotated by Mahdieh Khanmohammadi
+at the Department of Computer Science, University of Copenhagen.
+Jens Randel Nyengaard provided supervision and guidance,
+and curated the data.
+</p>
+
+
+<h3>References</h3>
+
+<p>Khanmohammadi, M., Waagepetersen, R., Nava, N.,
+Nyengaard, J.R. and Sporring, J. (2014)
+Analysing the distribution of synaptic vesicles using a
+spatial point process model.
+<em>5th ACM Conference on Bioinformatics, Computational Biology
+and Health Informatics</em>, Newport Beach, CA, USA, September 2014.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+plot(vesicles)
+with(vesicles.extra,
+     plot(activezone, add=TRUE, col="red"))
+   }
+
+## read coordinates of vesicles from raw data, for training purposes
+vf &lt;- system.file("rawdata", "vesicles", "vesicles.txt",
+                  package="spatstat.data")
+if(!any(nzchar(vf)))
+   stop("Could not find raw data file vesicles.txt")
+vdf &lt;- read.table(vf, header=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

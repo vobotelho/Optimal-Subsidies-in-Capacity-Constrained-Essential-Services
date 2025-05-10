@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Partial Residuals for Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for parres {spatstat.model}"><tr><td>parres {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Partial Residuals for Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the smoothed partial residuals, a diagnostic
+for transformation of a covariate in a Poisson point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+parres(model, covariate, ...,
+       smooth.effect=FALSE, subregion=NULL,
+       bw = "nrd0", adjust=1, from = NULL, to = NULL, n = 512,
+       bw.input = c("points", "quad"), bw.restrict=FALSE, covname)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariate</code></td>
+<td>
+
+<p>The covariate of interest.
+Either a character string matching the name of one of
+the canonical covariates in the model, or one of the names
+<code>"x"</code> or <code>"y"</code> referring to the Cartesian coordinates,
+or one of the names of the covariates given when <code>model</code> was fitted,
+or a pixel image (object of class <code>"im"</code>)
+or <code>function(x,y)</code> supplying the
+values of a covariate at any location.
+If the <code>model</code> depends on only one covariate,
+then this covariate is the default; otherwise a covariate must be specified.
+</p>
+</td></tr>
+<tr valign="top"><td><code>smooth.effect</code></td>
+<td>
+
+<p>Logical. Determines the choice of algorithm. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>subregion</code></td>
+<td>
+
+<p>Optional.  A window (object of class <code>"owin"</code>)
+specifying a subset of the spatial domain of the data.
+The calculation will be confined to the data in this subregion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Smoothing bandwidth or bandwidth rule
+(passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Smoothing bandwidth adjustment factor
+(passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>n, from, to</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../stats/help/density.default.html">density.default</a></code> to
+control the number and range of values at which the function
+will be estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw.input</code></td>
+<td>
+
+<p>Character string specifying the input data used for automatic
+bandwidth selection. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw.restrict</code></td>
+<td>
+
+<p>Logical value, specifying whether bandwidth selection is performed using
+data from the entire spatial domain or from the <code>subregion</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covname</code></td>
+<td>
+
+<p>Optional. Character string to use as the name of the covariate.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes the smoothed partial residual diagnostic
+(Baddeley, Chang, Song and Turner, 2012) 
+for the transformation of a covariate
+in a Poisson point process model.
+</p>
+<p>The argument <code>model</code> must be a fitted Poisson point process model.
+</p>
+<p>The diagnostic works in two different ways:
+</p>
+
+<dl>
+<dt>Canonical covariate:</dt><dd>
+<p>The argument <code>covariate</code> may be a character string
+which is the name of one of the <em>canonical covariates</em> in the
+model. 
+The canonical covariates are the
+functions <i>Z[j]</i> that appear
+in the expression for the Poisson point process intensity
+</p>
+<p style="text-align: center;"><i>
+	lambda(u) = exp(beta[1] * Z[1](u) + &hellip; + &beta;[p] * Z[p](u))
+      </i></p>
+
+<p>at spatial location <i>u</i>.
+Type <code>names(coef(model))</code> to see the names of the
+canonical covariates in <code>model</code>.
+If the selected covariate is <i>Z[j]</i>, then 
+the diagnostic plot concerns the model term
+<i>beta[j] * Z[j](u)</i>. The plot shows a smooth
+estimate of a function <i>h(z)</i> that should replace this linear
+term, that is, <i>beta[j] * Z[j](u)</i> should be
+replaced by <i>h(Z[j](u))</i>. The linear function is
+also plotted as a dotted line.
+</p>
+</dd>
+<dt>New covariate:</dt><dd>
+<p>If the argument <code>covariate</code> is a pixel image
+(object of class <code>"im"</code>) or a <code>function(x,y)</code>,
+it is assumed to provide the values of a covariate that is
+not present in the model.
+Alternatively <code>covariate</code> can be the name of a
+covariate that was supplied when the model was fitted
+(i.e. in the call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>)
+but which does not feature in the model formula.
+In either case we speak of a new covariate <i>Z(u)</i>.
+If the fitted model intensity is <i>lambda(u)</i>
+then we consider modifying this to
+<i>lambda(u) * exp(h(Z(u)))</i>
+where <i>h(z)</i> is some function. The diagnostic plot shows
+an estimate of <i>h(z)</i>.
+<b>Warning: in this case the diagnostic is not theoretically
+justified. This option is provided for research purposes.</b>
+</p>
+</dd>
+</dl>
+
+<p>Alternatively <code>covariate</code> can be one of the character strings
+<code>"x"</code> or <code>"y"</code> signifying the Cartesian coordinates.
+The behaviour here depends on whether the coordinate was one of the
+canonical covariates in the model.
+</p>
+<p>If there is more than one canonical covariate in the model
+that depends on the specified <code>covariate</code>, then
+the covariate effect is computed using all these canonical covariates.
+For example in a log-quadratic model which includes the terms <code>x</code> and
+<code>I(x^2)</code>, the quadratic effect involving both these terms
+will be computed.
+</p>
+<p>There are two choices for the algorithm.
+If <code>smooth.effect=TRUE</code>, the fitted covariate effect (according
+to <code>model</code>) is added to the point process residuals, then
+smoothing is applied to these values. If <code>smooth.effect=FALSE</code>,
+the point process residuals are smoothed first, and then the fitted
+covariate effect is added to the result.
+</p>
+<p>The smoothing bandwidth is controlled by the arguments
+<code>bw</code>, <code>adjust</code>, <code>bw.input</code> and <code>bw.restrict</code>.
+If <code>bw</code> is a numeric value, then
+the bandwidth is taken to be <code>adjust * bw</code>.
+If <code>bw</code> is a string representing a bandwidth selection rule
+(recognised by <code><a href="../../stats/help/density.default.html">density.default</a></code>)
+then the bandwidth is selected by this rule.
+</p>
+<p>The data used for automatic bandwidth selection are
+specified by <code>bw.input</code> and <code>bw.restrict</code>.
+If <code>bw.input="points"</code>  (the default) then bandwidth selection is
+based on the covariate values at the points of the original point
+pattern dataset to which the model was fitted.
+If <code>bw.input="quad"</code> then bandwidth selection is
+based on the covariate values at every quadrature point used to
+fit the model.
+If <code>bw.restrict=TRUE</code> then the bandwidth selection is performed
+using only data from inside the <code>subregion</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>)
+containing the values of the smoothed partial residual,
+the estimated variance, and the fitted effect of the covariate.
+Also belongs to the class <code>"parres"</code>
+which has methods for <code>print</code> and <code>plot</code>.
+</p>
+
+
+<h3>Slow computation</h3>
+
+<p>In a large dataset, computation can be very slow if the default
+settings are used, because the smoothing bandwidth is selected
+automatically. To avoid this, specify a numerical value
+for the bandwidth <code>bw</code>. One strategy is to use a coarser
+subset of the data to select <code>bw</code> automatically.
+The selected bandwidth can be read off the print output for
+<code>parres</code>.  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>,
+Ya-Mei Chang and Yong Song.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Chang, Y.-M., Song, Y. and Turner, R. (2013)
+Residual diagnostics for covariate effects in
+spatial point process models.
+<em>Journal of Computational and Graphical Statistics</em>,
+<b>22</b>, 886&ndash;905.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/addvar.html">addvar</a></code>,
+<code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>,
+<code><a href="../../spatstat.explore/help/rho2hat.html">rho2hat</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;-  rpoispp(function(x,y){exp(3+x+2*x^2)})
+  model &lt;- ppm(X ~x+y)
+  tra &lt;- parres(model, "x")
+  plot(tra)
+  tra
+  plot(parres(model, "x", subregion=square(0.5)))
+  model2 &lt;- ppm(X ~x+I(x^2)+y)
+  plot(parres(model2, "x"))
+  Z &lt;- setcov(owin())
+  plot(parres(model2, Z))
+
+  #' when the model involves only one covariate
+  modelb &lt;- ppm(bei ~ elev + I(elev^2), data=bei.extra)
+  plot(parres(modelb))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

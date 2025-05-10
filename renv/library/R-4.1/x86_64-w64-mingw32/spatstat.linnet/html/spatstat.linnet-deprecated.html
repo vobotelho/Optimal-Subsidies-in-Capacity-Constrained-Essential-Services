@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Deprecated spatstat.linnet functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatstat.linnet-deprecated {spatstat.linnet}"><tr><td>spatstat.linnet-deprecated {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Deprecated spatstat.linnet functions</h2>
+
+<h3>Description</h3>
+
+<p>Deprecated spatstat.linnet functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linnet'
+circumradius(x, ...)
+rjitterlpp(X, ...)
+bw.relrisklpp(X, ...)
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These functions are deprecated, and will eventually be deleted from
+the <span class="pkg">spatstat.linnet</span> package.
+</p>
+<p><code>rjitterlpp</code> is replaced by <code>rjitter.lpp</code>, a method for the
+generic <code>rjitter</code>.
+</p>
+<p><code>circumradius.linnet</code> is replaced by the more appropriately named
+<code>boundingradius.linnet</code>.
+</p>
+<p><code>bw.relrisklpp</code> is replaced by the method <code>bw.relrisk.lpp</code>
+for the generic <code>bw.relrisk</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>circumradius.linnet</code> returns a numeric value.
+</p>
+<p><code>rjitterlpp</code> returns a point pattern on a linear network (object of
+class <code>"lpp"</code>).
+</p>
+<p><code>bw.relrisklpp</code> returns an object of class <code>"bw.optim"</code> which
+is a numeric value with additional attributes.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

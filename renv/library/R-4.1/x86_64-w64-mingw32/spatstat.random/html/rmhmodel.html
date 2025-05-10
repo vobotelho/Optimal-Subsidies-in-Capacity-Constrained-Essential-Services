@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Define Point Process Model for Metropolis-Hastings...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rmhmodel {spatstat.random}"><tr><td>rmhmodel {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Define Point Process Model for Metropolis-Hastings Simulation.</h2>
+
+<h3>Description</h3>
+
+<p>Builds a description of a point process model
+for use in simulating the model by the Metropolis-Hastings
+algorithm. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rmhmodel(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments specifying the point process model
+in some format.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Simulated realisations of many point process models
+can be generated using the Metropolis-Hastings algorithm
+<code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>. The algorithm requires the model to be specified
+in a particular format: an object of class <code>"rmhmodel"</code>.
+</p>
+<p>The function <code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code> takes a
+description of a point process model in some other format, and
+converts it into an object of class <code>"rmhmodel"</code>.
+It also checks that the parameters of the model are valid.
+</p>
+<p>The function <code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code> is generic, with methods
+for
+</p>
+
+<dl>
+<dt>fitted point process models:</dt><dd>
+<p>an object of class <code>"ppm"</code>, obtained by a call to the
+model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+See <code><a href="../../spatstat.model/help/rmhmodel.ppm.html">rmhmodel.ppm</a></code>.
+</p>
+</dd>
+<dt>lists:</dt><dd>
+<p>a list of parameter values in a certain format.
+See <code><a href="../../spatstat.random/help/rmhmodel.list.html">rmhmodel.list</a></code>.
+</p>
+</dd>
+<dt>default:</dt><dd>
+<p>parameter values specified as separate arguments to <code>...</code>.
+See <code><a href="../../spatstat.random/help/rmhmodel.default.html">rmhmodel.default</a></code>.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"rmhmodel"</code>, which is essentially
+a list of parameter values for the model.
+</p>
+<p>There is a <code>print</code> method for this class, which prints
+a sensible description of the model chosen.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P. J. (2003) <em>Statistical Analysis of Spatial Point
+Patterns</em> (2nd ed.) Arnold, London.
+</p>
+<p>Diggle, P.J. and Gratton, R.J. (1984)
+Monte Carlo methods of inference for implicit statistical models.
+<em>Journal of the Royal Statistical Society, series B</em>
+<b>46</b>, 193 &ndash; 212.
+</p>
+<p>Diggle, P.J., Gates, D.J., and Stibbard, A. (1987)
+A nonparametric estimator for pairwise-interaction point processes.
+Biometrika <b>74</b>, 763 &ndash; 770.
+<em>Scandinavian Journal of Statistics</em> <b>21</b>, 359&ndash;373.
+</p>
+<p>Geyer, C.J. (1999)
+Likelihood Inference for Spatial Point
+Processes. Chapter 3 in  O.E. Barndorff-Nielsen, W.S. Kendall and
+M.N.M. Van Lieshout (eds) <em>Stochastic Geometry: Likelihood and
+Computation</em>, Chapman and Hall / CRC,  Monographs on Statistics and
+Applied Probability, number 80. Pages 79&ndash;140.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/rmhmodel.ppm.html">rmhmodel.ppm</a></code>,
+<code><a href="../../spatstat.random/help/rmhmodel.default.html">rmhmodel.default</a></code>,
+<code><a href="../../spatstat.random/help/rmhmodel.list.html">rmhmodel.list</a></code>,
+<code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>,
+<code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code>,
+<code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>,
+<code><a href="../../spatstat.model/help/Softcore.html">Softcore</a></code>,
+<code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>,
+<code><a href="../../spatstat.model/help/Triplets.html">Triplets</a></code>,
+<code><a href="../../spatstat.model/help/MultiStrauss.html">MultiStrauss</a></code>,
+<code><a href="../../spatstat.model/help/MultiStraussHard.html">MultiStraussHard</a></code>,
+<code><a href="../../spatstat.model/help/DiggleGratton.html">DiggleGratton</a></code>,
+<code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code>
+<code><a href="../../spatstat.model/help/Penttinen.html">Penttinen</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

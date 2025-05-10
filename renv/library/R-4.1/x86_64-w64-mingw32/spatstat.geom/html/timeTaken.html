@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract the Total Computation Time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for timeTaken {spatstat.geom}"><tr><td>timeTaken {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract the Total Computation Time
+</h2>
+
+<h3>Description</h3>
+
+<p>Given an object or objects that contain timing information
+(reporting the amount of computer time taken to compute each object),
+this function extracts the timing data and evaluates the total time taken.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+timeTaken(..., warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>One or more objects of class <code>"timed"</code> containing
+timing data. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether a warning should be issued if
+some of the arguments do not contain timing information.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"timed"</code> contains information on
+the amount of computer time that was taken to compute the object.
+See <code><a href="../../spatstat.geom/help/timed.html">timed</a></code>.
+</p>
+<p>This function extracts the timing information from one or more
+such objects, and calculates the total time.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object inheriting the class <code>"timed"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/timed.html">timed</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  A &lt;- timed(minnndist(bei))
+  B &lt;- timed(minnndist(redwood))
+  A
+  B
+  timeTaken(A,B)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

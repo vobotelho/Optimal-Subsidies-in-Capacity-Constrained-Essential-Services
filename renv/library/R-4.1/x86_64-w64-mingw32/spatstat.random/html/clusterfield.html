@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Field of clusters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clusterfield {spatstat.random}"><tr><td>clusterfield {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Field of clusters</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the superposition of cluster kernels at the location of a
+point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  clusterfield(model, locations = NULL, ...)
+
+  ## S3 method for class 'character'
+clusterfield(model, locations = NULL, ...)
+
+  ## S3 method for class 'function'
+clusterfield(model, locations = NULL, ..., mu = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Cluster model. Either a fitted cluster model (object of class
+<code>"kppm"</code>), a character string specifying the type of cluster
+model, or a function defining the cluster kernel. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>locations</code></td>
+<td>
+
+<p>A point pattern giving the locations of the kernels. Defaults to the
+centroid of the observation window for the <code>"kppm"</code> method and
+to the center of a unit square otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> or the
+cluster kernel. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean number of offspring per cluster. 
+A single number or a pixel image.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>clusterfield</code> is generic,
+with methods for <code>"character"</code> and <code>"function"</code> (described here)
+and a method for <code>"kppm"</code>
+(described in <code><a href="../../spatstat.model/help/clusterfield.kppm.html">clusterfield.kppm</a></code>).
+</p>
+<p>The calculations are performed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> and
+<code>...</code> arguments are passed thereto for control over the pixel
+resolution etc.
+(These arguments are then passed on to <code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>
+and <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>.)
+</p>
+<p>For the method <code>clusterfield.function</code>,
+the given kernel function should accept
+vectors of x and y coordinates as its first two arguments. Any
+additional arguments may be passed through the <code>...</code>.
+</p>
+<p>The method <code>clusterfield.function</code>
+also accepts the optional parameter <code>mu</code>
+(defaulting to 1) specifying the mean number of points per cluster (as
+a numeric) or the inhomogeneous reference cluster intensity (as an
+<code>"im"</code> object or a <code>function(x,y)</code>). The interpretation of
+<code>mu</code> is as explained in the simulation functions referenced in
+the See Also section below.
+</p>
+<p>For the method <code>clusterfield.character</code>, the
+argument <code>model</code> must be one of
+the following character strings:
+<code>model="Thomas"</code> for the Thomas process,
+<code>model="MatClust"</code> for the Matern cluster process,
+<code>model="Cauchy"</code> for the Neyman-Scott cluster process with
+Cauchy kernel, or <code>model="VarGamma"</code> for the Neyman-Scott
+cluster process with Variance Gamma kernel. For all these models the
+parameter <code>scale</code> is required and passed through <code>...</code> as
+well as the parameter <code>nu</code> when <code>model="VarGamma"</code>. This
+method calls <code>clusterfield.function</code> so the parameter <code>mu</code>
+may also be passed through <code>...</code> and will be interpreted as
+explained above.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/clusterfield.kppm.html">clusterfield.kppm</a></code>.
+</p>
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> and <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+</p>
+<p>Simulation algorithms for cluster models:
+<code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code>
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>
+<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>
+<code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # method for functions
+  kernel &lt;- function(x,y,scal) { 
+      r &lt;- sqrt(x^2 + y^2)
+      ifelse(r &gt; 0,
+             dgamma(r, shape=5, scale=scal)/(2 * pi * r),
+             0)               
+  }
+  X &lt;- runifpoint(10)
+  clusterfield(kernel, X, scal=0.05)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

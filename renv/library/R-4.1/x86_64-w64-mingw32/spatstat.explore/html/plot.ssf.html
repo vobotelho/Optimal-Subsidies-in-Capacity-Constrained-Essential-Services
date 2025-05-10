@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Spatially Sampled Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.ssf {spatstat.explore}"><tr><td>plot.ssf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Spatially Sampled Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot a spatially sampled function object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ssf'
+plot(x, ...,
+                   how = c("smoothed", "nearest", "points"),
+                   style = c("image", "contour", "imagecontour"),
+                   sigma = NULL, contourargs=list())
+
+## S3 method for class 'ssf'
+image(x, ...)
+
+## S3 method for class 'ssf'
+contour(x, ..., main, sigma = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Spatially sampled function (object of class <code>"ssf"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/image.default.html">image.default</a></code>
+or 
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code> to control the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>how</code></td>
+<td>
+
+<p>Character string determining whether to display the
+function values at the data points (<code>how="points"</code>),
+a smoothed interpolation of the function
+(<code>how="smoothed"</code>), or the function value at the
+nearest data point (<code>how="nearest"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string indicating whether to plot the smoothed function as
+a colour image, a contour map, or both.
+</p>
+</td></tr>
+<tr valign="top"><td><code>contourargs</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/contour.default.html">contour.default</a></code>
+to control the contours, if <code>style="contour"</code> or
+<code>style="imagecontour"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth for smooth interpolation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Optional main title for the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic
+<code><a href="../../graphics/help/plot.html">plot</a></code>,
+<code><a href="../../graphics/help/image.html">image</a></code> and
+<code><a href="../../graphics/help/contour.html">contour</a></code>
+for the class <code>"ssf"</code>.
+</p>
+<p>An object of class <code>"ssf"</code> represents a
+function (real- or vector-valued) that has been
+sampled at a finite set of points.
+</p>
+<p>For <code>plot.ssf</code> there are three types of display.
+If <code>how="points"</code> the exact function values
+will be displayed as circles centred at the locations where they
+were computed. If <code>how="smoothed"</code> (the default) these
+values will be kernel-smoothed using <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>
+and displayed as a pixel image.
+If <code>how="nearest"</code> the values will be interpolated
+by nearest neighbour interpolation using <code><a href="../../spatstat.geom/help/nnmark.html">nnmark</a></code>
+and displayed as a pixel image.
+</p>
+<p>For <code>image.ssf</code> and <code>contour.ssf</code> the values are
+kernel-smoothed before being displayed.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. (2017)
+Local composite likelihood for spatial point processes.
+<em>Spatial Statistics</em> <b>22</b>, 261&ndash;295.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/ssf.html">ssf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  a &lt;- ssf(cells, nndist(cells, k=1:3))
+  plot(a, how="points")
+  plot(a, how="smoothed")
+  plot(a, how="nearest")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

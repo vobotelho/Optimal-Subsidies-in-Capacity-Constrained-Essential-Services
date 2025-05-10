@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scatterplot Matrix for Pixel Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pairs.im {spatstat.explore}"><tr><td>pairs.im {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Scatterplot Matrix for Pixel Images
+</h2>
+
+<h3>Description</h3>
+
+<p>Produces a scatterplot matrix of the pixel values
+in two or more pixel images.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'im'
+pairs(..., plot=TRUE, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, each of which is either
+a pixel image (object of class <code>"im"</code>)
+or a named argument to be passed to <code><a href="../../graphics/html/pairs.html">pairs.default</a></code>.
+Alternatively, a single argument which is a list of pixel images.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the scatterplot matrix is plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value specifying whether pixel values that are <code>NA</code> 
+should be removed from the data frame that is returned by the function.
+This does not affect the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../graphics/html/pairs.html">pairs</a></code>
+for the class of pixel images.
+</p>
+<p>It produces a square array of plot panels, in which each panel shows
+a scatterplot of the pixel values of one image against the
+corresponding pixel values of another image.
+</p>
+<p>At least two of the arguments <code>...</code>
+should be pixel images (objects of class <code>"im"</code>).
+Their spatial domains must overlap, but need not have the same
+pixel dimensions.
+</p>
+<p>First the pixel image domains are intersected, and converted to a
+common pixel resolution. Then the corresponding pixel values of each image are
+extracted. Then <code><a href="../../graphics/html/pairs.html">pairs.default</a></code> is called to 
+plot the scatterplot matrix.
+</p>
+<p>Any arguments in <code>...</code> which are not pixel images will be
+passed to <code><a href="../../graphics/html/pairs.html">pairs.default</a></code> to control the plot.
+</p>
+<p>The return value of <code>pairs.im</code> is a data frame, returned
+invisibly. The data frame has one column
+for each image. Each row contains the pixel values of
+the different images for one pixel in the raster.
+If <code>drop=TRUE</code> (the default), any row which contains <code>NA</code>
+is deleted. The plot is not affected by the value of <code>drop</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Invisible. A <code>data.frame</code> containing the
+corresponding pixel values for each image.
+The return value also belongs to the class <code>plotpairsim</code> which has
+a plot method, so that it can be re-plotted.
+</p>
+
+
+<h3>Image or Contour Plots</h3>
+
+<p>Since the scatterplots may show very dense concentrations of points,
+it may be useful to set <code>panel=panel.image</code>
+or <code>panel=panel.contour</code> to draw a colour image or contour plot
+of the kernel-smoothed density of the scatterplot in each panel.
+The argument <code>panel</code> is passed
+to <code><a href="../../graphics/html/pairs.html">pairs.default</a></code>. See the help for 
+<code><a href="../../spatstat.explore/help/panel.image.html">panel.image</a></code> and <code><a href="../../spatstat.explore/help/panel.contour.html">panel.contour</a></code>.
+</p>
+
+
+<h3>Low Level Control of Graphics</h3>
+
+<p>To control the appearance of the individual scatterplot panels,
+see <code><a href="../../graphics/html/pairs.html">pairs.default</a></code>, <code><a href="../../graphics/html/points.html">points</a></code>
+or <code><a href="../../graphics/html/par.html">par</a></code>.
+To control the plotting symbol for the points in the scatterplot,
+use the arguments <code>pch</code>, <code>col</code>, <code>bg</code> as described
+under <code><a href="../../graphics/html/points.html">points</a></code> (because 
+the default panel plotter is the function <code><a href="../../graphics/html/points.html">points</a></code>).
+To suppress the tick marks on the plot axes,
+type <code>par(xaxt="n", yaxt="n")</code> before calling <code>pairs</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/pairs.html">pairs</a></code>,
+<code><a href="../../graphics/html/pairs.html">pairs.default</a></code>,
+<code><a href="../../spatstat.explore/help/panel.contour.html">panel.contour</a></code>,
+<code><a href="../../spatstat.explore/help/panel.image.html">panel.image</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>,
+<code><a href="../../spatstat.explore/help/cov.im.html">cov.im</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>,
+<code><a href="../../graphics/html/par.html">par</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- density(rpoispp(30))
+  Y &lt;- density(rpoispp(40))
+  Z &lt;- density(rpoispp(30))
+  p &lt;- pairs(X,Y,Z)
+  p
+  plot(p)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

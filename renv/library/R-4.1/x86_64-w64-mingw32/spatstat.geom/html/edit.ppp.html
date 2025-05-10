@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Invoke Text Editor on Spatial Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for edit.ppp {spatstat.geom}"><tr><td>edit.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Invoke Text Editor on Spatial Data
+</h2>
+
+<h3>Description</h3>
+
+<p>Invokes a text editor allowing the user to inspect and change
+entries in a spatial dataset. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+edit(name, ...)
+
+## S3 method for class 'psp'
+edit(name, ...)
+
+## S3 method for class 'im'
+edit(name, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+
+<p>A spatial dataset
+(object of class <code>"ppp"</code>, <code>"psp"</code> or <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to <code><a href="../../utils/help/edit.data.frame.html">edit.data.frame</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../utils/help/edit.html">edit</a></code> is generic. These functions
+are methods for spatial
+objects of class <code>"ppp"</code>, <code>"psp"</code> and <code>"im"</code>.
+</p>
+<p>The spatial dataset <code>name</code> is converted to a data frame or array,
+and the text editor is invoked. The user can change the values of spatial
+coordinates or marks of the points in a point pattern,
+or the coordinates or marks of the segments in a segment pattern,
+or the pixel values in an image. 
+The names of the columns of marks can also be edited.
+</p>
+<p>If <code>name</code> is a pixel image, it is converted to a matrix 
+and displayed in the same spatial orientation as if
+the image had been plotted.
+</p>
+<p>Note that the original object <code>name</code> is not changed;
+the function returns the edited dataset.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of the same kind as <code>name</code> containing the edited data.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../utils/help/edit.data.frame.html">edit.data.frame</a></code>,
+<code><a href="../../spatstat.geom/help/edit.hyperframe.html">edit.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) Z &lt;- edit(cells)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

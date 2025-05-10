@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Radial Cumulative Integral</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for radcumint {spatstat.explore}"><tr><td>radcumint {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Radial Cumulative Integral
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the cumulative integral of an image over increasing radial
+distances from the origin.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+radcumint(X, ..., origin, Xname, result = c("fv", "im"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>)
+with numerical or logical values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+<p>Optional. Origin about which the rotations should be performed.
+Either a numeric vector or a character string as described
+in the help for <code><a href="../../spatstat.geom/help/shift.owin.html">shift.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Xname</code></td>
+<td>
+
+<p>Optional name for <code>X</code> to be used in the
+function labels.
+</p>
+</td></tr>
+<tr valign="top"><td><code>result</code></td>
+<td>
+
+<p>Character string specifying the kind of result required:
+either a function object or a pixel image.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes, for each possible distance <i>r</i>,
+the integral of the pixel values lying inside the disc of radius
+<i>r</i> centred at the origin. 
+</p>
+<p>If <code>result="fv"</code> (the default) the result is a function
+object <code>f</code> of class <code>"fv"</code>. For each value of radius <i>r</i>,
+the function value <code>f(r)</code> is the integral of <code>X</code>
+over the disc of radius <i>r</i>.
+</p>
+<p>If <code>result="im"</code> the result is a pixel image, with the same
+dimensions as <code>X</code>. At a given pixel, the result is
+equal to <code>f(r)</code> where <code>r</code> is the distance from the given
+pixel to the origin. That is, at any given pixel, the resulting value
+is the integral of <code>X</code> over the disc
+centred at the origin whose boundary passes through the given pixel. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> or <code>"im"</code>,
+with the same coordinate units as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rotmean.html">rotmean</a></code>, <code><a href="../../spatstat.explore/help/spatialcdf.html">spatialcdf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   D &lt;- density(redwood)
+   plot(radcumint(D))
+   plot(radcumint(D, result="im"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

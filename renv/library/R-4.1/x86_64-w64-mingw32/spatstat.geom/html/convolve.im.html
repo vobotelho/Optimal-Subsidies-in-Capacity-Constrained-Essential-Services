@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convolution of Pixel Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for convolve.im {spatstat.geom}"><tr><td>convolve.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convolution of Pixel Images</h2>
+
+<h3>Description</h3>
+
+<p>Computes the convolution of two pixel images.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ convolve.im(X, Y=X, ..., reflectX=FALSE, reflectY=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>Optional. Another pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>reflectX,reflectY</code></td>
+<td>
+
+<p>Logical values specifying whether the images <code>X</code> and <code>Y</code>
+(respectively) should be reflected in the origin before computing
+the convolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <em>convolution</em> of two pixel images <i>X</i> and <i>Y</i> in the plane
+is the function <i>C(v)</i> defined for each vector <i>v</i> as
+</p>
+<p style="text-align: center;"><i>
+    C(v) = integral of X(u) * Y(v-u) du
+  </i></p>
+
+<p>where the integral is
+over all spatial locations <i>u</i>, and where <i>X(u)</i> and
+<i>Y(u)</i> denote the pixel values of <i>X</i> and <i>Y</i> respectively
+at location <i>u</i>.
+</p>
+<p>This command computes a discretised approximation to
+the convolution, using the Fast Fourier Transform.
+The return value is
+another pixel image (object of class <code>"im"</code>) whose greyscale values
+are values of the convolution.
+</p>
+<p>If <code>reflectX = TRUE</code> then the pixel image <code>X</code> is reflected
+in the origin (see <code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code>)
+before the convolution is computed, so that
+<code>convolve.im(X,Y,reflectX=TRUE)</code> is mathematically
+equivalent to <code>convolve.im(reflect(X), Y)</code>. (These two commands
+are not exactly equivalent, because the reflection is performed
+in the Fourier domain in the first command, and reflection is
+performed in the spatial domain in the second command).
+</p>
+<p>Similarly if <code>reflectY = TRUE</code> then the pixel image <code>Y</code> is reflected
+in the origin before the convolution is computed, so that
+<code>convolve.im(X,Y,reflectY=TRUE)</code> is mathematically
+equivalent to <code>convolve.im(X, reflect(Y))</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (an object of class <code>"im"</code>) representing the
+convolution of <code>X</code> and <code>Y</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/imcov.html">imcov</a></code>,
+<code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    X &lt;- as.im(letterR)
+    Y &lt;- as.im(square(1))
+  } else {
+    ## coarser image for testing
+    X &lt;- as.im(letterR, dimyx=32)
+    Y &lt;- as.im(square(1), dimyx=32)
+  }
+  plot(convolve.im(X, Y))
+  plot(convolve.im(X, Y, reflectX=TRUE))
+  plot(convolve.im(X))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

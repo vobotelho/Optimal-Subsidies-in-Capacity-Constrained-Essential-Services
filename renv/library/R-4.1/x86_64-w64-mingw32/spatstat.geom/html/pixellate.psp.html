@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Line Segment Pattern to Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pixellate.psp {spatstat.geom}"><tr><td>pixellate.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Line Segment Pattern to Pixel Image
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts a line segment pattern to a pixel image
+by measuring the length or number of lines intersecting each pixel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'psp'
+pixellate(x, W=NULL, ..., weights = NULL,
+                        what=c("length", "number"),
+                        DivideByPixelArea=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional window (object of class <code>"owin"</code>) determining
+the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional vector of weights associated with each line segment.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>String (partially matched) indicating whether to compute the
+total length of intersection (<code>what="length"</code>, the default)
+or the total number of segments intersecting each pixel
+(<code>what="number"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>DivideByPixelArea</code></td>
+<td>
+
+<p>Logical value, indicating whether the resulting pixel values
+should be divided by the pixel area.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function converts a line segment pattern to a pixel image by computing,
+for each pixel, the total length of
+intersection between the pixel and the line segments.
+Alternatively it can count the number of line segments intersecting
+each pixel. 
+</p>
+<p>This is a method for the generic function
+<code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code> for the class of line segment patterns.
+</p>
+<p>The pixel raster is determined by <code>W</code>
+and the optional arguments <code>...</code>.
+If <code>W</code> is missing or <code>NULL</code>, it defaults to the window
+containing <code>x</code>.
+Then <code>W</code> is converted to a
+binary pixel mask using <code><a href="../help/as.mask.html">as.mask</a></code>. The arguments
+<code>...</code> are passed to <code><a href="../help/as.mask.html">as.mask</a></code> to
+control the pixel resolution.
+</p>
+<p>If <code>weights</code> are given, then the length of the intersection
+between line segment <code>i</code> and pixel <code>j</code> is multiplied by
+<code>weights[i]</code> before the lengths are summed for each pixel.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) with numeric values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code>,
+<code><a href="../help/as.mask.html">as.mask</a></code>,
+<code><a href="../../spatstat.geom/help/psp2mask.html">psp2mask</a></code>.
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/psp2mask.html">psp2mask</a></code> if you only want to know
+which pixels are intersected by lines.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- psp(runif(10),runif(10), runif(10), runif(10), window=owin())
+  plot(pixellate(X))
+  plot(X, add=TRUE)
+  sum(lengths_psp(X))
+  sum(pixellate(X))
+  plot(pixellate(X, what="n"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

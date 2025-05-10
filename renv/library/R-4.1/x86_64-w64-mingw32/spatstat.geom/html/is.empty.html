@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether An Object Is Empty</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.empty {spatstat.geom}"><tr><td>is.empty {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test Whether An Object Is Empty</h2>
+
+<h3>Description</h3>
+
+<p>Checks whether the argument is an empty window,
+an empty point pattern, etc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.empty(x)
+## S3 method for class 'owin'
+is.empty(x)
+## S3 method for class 'ppp'
+is.empty(x)
+## S3 method for class 'psp'
+is.empty(x)
+## Default S3 method:
+is.empty(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>),
+a point pattern (object of class <code>"ppp"</code>), or
+a line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function tests whether the object <code>x</code>
+represents an empty spatial object, such as an empty window,
+a point pattern with zero points, or a line segment pattern
+with zero line segments. 
+</p>
+<p>An empty window can be obtained as the output of
+<code><a href="../../spatstat.geom/help/intersect.owin.html">intersect.owin</a></code>, <code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>,
+<code><a href="../../spatstat.geom/help/opening.html">opening</a></code>, <code><a href="../../spatstat.geom/help/complement.owin.html">complement.owin</a></code>
+and some other operations.
+</p>
+<p>An empty point pattern or line segment pattern can be
+obtained as the result of simulation.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

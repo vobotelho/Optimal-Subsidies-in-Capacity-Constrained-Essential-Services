@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check Whether Spatial Logistic Regression Model is Valid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for valid.slrm {spatstat.model}"><tr><td>valid.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Check Whether Spatial Logistic Regression Model is Valid
+</h2>
+
+<h3>Description</h3>
+
+<p>Determines whether a fitted spatial logistic regression model
+is a well-defined model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'slrm'
+valid(object, warn=TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted spatial logistic regression model (object of class <code>"slrm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning if the
+validity of the model cannot be checked (due to unavailability of
+the required code).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.model/help/valid.html">valid</a></code>
+for spatial logistic regression models (class <code>"slrm"</code>).
+</p>
+<p>In a model fitted by <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>, some of the fitted
+coefficients may be <code>NA</code> or infinite values.
+This can occur if the data are not
+adequate for estimation of the model parameters. The model is said
+to be <em>unidentifiable</em> or <em>confounded</em>.
+</p>
+<p>The function <code>valid.slrm</code> checks whether the fitted coefficients of
+<code>object</code> specify a well-defined model. It returns
+<code>TRUE</code> if the model is well-defined, and <code>FALSE</code> otherwise.
+</p>
+<p>Use the function <code><a href="../../spatstat.model/help/emend.slrm.html">emend.slrm</a></code> to force the fitted model
+to be valid.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value, or <code>NA</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>,
+<code><a href="../../spatstat.model/help/emend.slrm.html">emend.slrm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit1 &lt;- slrm(cells ~ x)
+   valid(fit1)
+   fit2 &lt;- slrm(cells ~ x + I(x))
+   valid(fit2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

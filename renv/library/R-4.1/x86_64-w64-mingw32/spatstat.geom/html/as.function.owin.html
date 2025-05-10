@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Window to Indicator Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.function.owin {spatstat.geom}"><tr><td>as.function.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Window to Indicator Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts a spatial window to a function of the
+<i>x</i> and <i>y</i> coordinates returning the value 1 inside the
+window and 0 outside.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'owin'
+as.function(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command converts a spatial window
+(object of class <code>"owin"</code>) to a <code>function(x,y)</code>
+where the arguments <code>x</code> and <code>y</code> are (vectors of) spatial
+coordinates. This is the indicator function of the window:
+it returns the value 1 for locations inside the window,
+and returns 0 for values outside the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language with arguments <code>x,y</code>.
+It also belongs to the class <code>"indicfun"</code> which has methods
+for <code>plot</code> and <code>print</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.im.owin.html">as.im.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- Window(humberside)
+  f &lt;- as.function(W)
+  f
+  f(5000, 4500)
+  f(123456, 78910)
+  X &lt;- runifrect(5, Frame(humberside))
+  f(X)
+  plot(f)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

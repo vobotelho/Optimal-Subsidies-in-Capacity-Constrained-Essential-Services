@@ -1,0 +1,4720 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Spatstat Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatstat-package {spatstat}"><tr><td>spatstat-package {spatstat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Spatstat Package</h2>
+
+<h3>Description</h3>
+
+<p>This is a summary of the features of 
+<span class="pkg">spatstat</span>, a family of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> packages
+for the statistical analysis of spatial point patterns.
+</p>
+
+
+<h3>Details</h3>
+
+<p><span class="pkg">spatstat</span> is a family of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> packages
+for the statistical analysis
+of spatial data. Its main focus is the analysis of
+spatial patterns of points in two-dimensional space.
+</p>
+<p><span class="pkg">spatstat</span> is designed to support a complete statistical analysis
+of spatial data. It supports
+</p>
+
+<ul>
+<li><p> creation, manipulation and plotting of point patterns;
+</p>
+</li>
+<li><p> exploratory data analysis;
+</p>
+</li>
+<li><p> spatial random sampling;
+</p>
+</li>
+<li><p> simulation of point process models;
+</p>
+</li>
+<li><p> parametric model-fitting;
+</p>
+</li>
+<li><p> non-parametric smoothing and regression;
+</p>
+</li>
+<li><p> formal inference (hypothesis tests, confidence intervals);
+</p>
+</li>
+<li><p> model diagnostics.
+</p>
+</li></ul>
+
+<p>Apart from two-dimensional point patterns and point processes,
+<span class="pkg">spatstat</span> also supports point patterns in three dimensions, 
+point patterns in multidimensional space-time,
+point patterns on a linear network,
+patterns of line segments in two dimensions, 
+and spatial tessellations and random sets in two dimensions.
+</p>
+<p>The package can fit several types of point process models
+to a point pattern dataset:
+</p>
+
+<ul>
+<li><p> Poisson point process models
+(by Berman-Turner approximate maximum likelihood
+or by spatial logistic regression)
+</p>
+</li>
+<li><p> Gibbs/Markov point process models
+(by Baddeley-Turner approximate maximum pseudolikelihood,
+Coeurjolly-Rubak logistic likelihood, or
+Huang-Ogata approximate maximum likelihood)
+</p>
+</li>
+<li><p> Cox/cluster point process models
+(by Waagepetersen's two-step fitting procedure
+and minimum contrast, composite likelihood, or Palm likelihood)
+</p>
+</li>
+<li><p> determinantal point process models
+(by Waagepetersen's two-step fitting procedure
+and minimum contrast, composite likelihood, or Palm likelihood)
+</p>
+</li></ul>
+
+<p>The models may include spatial trend,
+dependence on covariates, and complicated interpoint interactions.
+Models are specified by 
+a <code>formula</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>  language, and are fitted using
+a function analogous to <code><a href="../../stats/help/lm.html">lm</a></code> and <code><a href="../../stats/help/glm.html">glm</a></code>.
+Fitted models can be printed, plotted, predicted, simulated and so on.
+</p>
+
+
+<h3>Getting Started</h3>
+
+<p>For a quick introduction to <span class="pkg">spatstat</span>, read
+the package vignette <em>Getting started with spatstat</em>
+installed with <span class="pkg">spatstat</span>. To read that document, you can either
+</p>
+
+<ul>
+<li><p> visit <a href="https://cran.r-project.org/package=spatstat">https://cran.r-project.org/package=spatstat</a>
+and click on <code>Getting Started with Spatstat</code>
+</p>
+</li>
+<li>
+<p>start <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, type <code>library(spatstat)</code> and <code>vignette('getstart')</code>
+</p>
+</li>
+<li>
+<p>start <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, type <code>help.start()</code> to open the help
+browser, and navigate to <code>Packages &gt; spatstat &gt; Vignettes</code>.
+</p>
+</li></ul>
+
+<p>Once you have installed <span class="pkg">spatstat</span>, start <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> and type
+<code>library(spatstat)</code>. Then type <code>beginner</code>
+for a beginner's introduction, or 
+<code>demo(spatstat)</code> for a demonstration of the package's capabilities.
+</p>
+<p>For a complete course on <span class="pkg">spatstat</span>,
+and on statistical analysis of spatial point patterns,
+read the book by Baddeley, Rubak and Turner (2015).
+Other recommended books on spatial point process methods
+are Diggle (2014), Gelfand et al (2010) and Illian et al (2008).
+</p>
+<p>The <span class="pkg">spatstat</span> package includes over 50 datasets,
+which can be useful when learning the package.
+Type <code>demo(data)</code> to see plots of all datasets
+available in the package.
+Type <code>vignette('datasets')</code> for detailed background information
+on these datasets, and plots of each dataset.
+</p>
+<p>For information on converting your data into <span class="pkg">spatstat</span> format,
+read Chapter 3 of Baddeley, Rubak and Turner (2015).
+This chapter is available free online, as one of the sample chapters
+at the book companion website, <a href="https://book.spatstat.org/">https://book.spatstat.org/</a>.
+</p>
+
+
+
+
+
+
+
+<h3>Structure of the spatstat family</h3>
+
+  
+<p>The original <span class="pkg">spatstat</span> package grew to be very large.
+It has now been divided into several <b>sub-packages</b>:
+</p>
+
+<ul>
+<li> <p><span class="pkg">spatstat.utils</span> containing basic utilities
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.sparse</span> containing linear algebra utilities
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.data</span> containing datasets
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.univar</span> containing functions for estimating
+probability distributions of random variables
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.geom</span> containing functionality for geometrical
+operations, and defining the main classes of spatial objects
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.explore</span> containing the main functions for exploratory
+analysis of spatial data
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.model</span> containing the main functions for
+parametric statistical modelling and analysis,
+and formal inference, for spatial data
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.linnet</span> containing functions for
+spatial data on a linear network
+</p>
+</li>
+<li> <p><span class="pkg">spatstat</span>, which simply loads the other sub-packages
+listed above, and provides documentation.
+</p>
+</li></ul>
+
+<p>The breakup has been done in such a way that the user should not notice
+any difference. Source code that worked with the old <span class="pkg">spatstat</span>
+package should work with the new <span class="pkg">spatstat</span> family.
+Code that is documented in our books, journal articles and vignettes
+should still work.
+</p>
+<p>When you install <span class="pkg">spatstat</span>, the sub-packages listed above are also
+installed. Then if you load the <span class="pkg">spatstat</span> package by typing
+<code>library(spatstat)</code>, the other sub-packages listed above will
+automatically be loaded or imported. 
+</p>
+<p>This help file covers all the functionality and datasets
+that are provided in the sub-packages listed above.
+</p>
+
+
+<h3>Extension packages</h3>
+
+<p>Additionally there are several <b>extension packages:</b>
+</p>
+
+<ul>
+<li> <p><span class="pkg">spatstat.gui</span> for interactive graphics
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.local</span> for local likelihood
+(including geographically weighted regression)
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.Knet</span> for additional, computationally efficient code
+for linear networks
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.sphere</span> (under development) for spatial data
+on a sphere, including spatial data on the earth's surface
+</p>
+</li></ul>
+
+<p>The extension packages must be installed separately
+and loaded explicitly if needed. They also have separate documentation.
+</p>
+
+
+<h3>Updates</h3>
+
+<p>New versions of <span class="pkg">spatstat</span> are released every 8 weeks.
+Users are advised to update their installation of <span class="pkg">spatstat</span>
+regularly.
+</p>
+<p>Type <code>latest.news</code> to read the news documentation about
+changes to the current installed version of <span class="pkg">spatstat</span>.
+</p>
+<p>See the Vignette <em>Summary of recent updates</em>,
+installed with <span class="pkg">spatstat</span>, which describes the main changes
+to <span class="pkg">spatstat</span> since the book (Baddeley, Rubak and Turner, 2015)
+was published. It is accessible as <code>vignette('updates')</code>.
+</p>
+<p>Type <code>news(package="spatstat")</code> to read news documentation about
+all previous versions of the package.
+</p>
+
+
+<h3>FUNCTIONS AND DATASETS</h3>
+
+<p>Following is a summary of the main functions and datasets
+in the <span class="pkg">spatstat</span> package.
+Alternatively an alphabetical list of all functions and
+datasets is available by typing <code>library(help=spatstat)</code>.
+</p>
+<p>For further information on any of these,
+type <code>help(name)</code> or <code>?name</code>
+where <code>name</code> is the name of the function
+or dataset.
+</p>
+
+
+<h3>CONTENTS:</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    I. </td><td style="text-align: left;"> Creating and manipulating data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    II. </td><td style="text-align: left;"> Exploratory Data Analysis </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    III. </td><td style="text-align: left;"> Model fitting (Cox and cluster models) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    IV. </td><td style="text-align: left;"> Model fitting (Poisson and Gibbs models) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    V. </td><td style="text-align: left;"> Model fitting (determinantal point processes)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    VI. </td><td style="text-align: left;"> Model fitting (spatial logistic regression)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    VII. </td><td style="text-align: left;"> Simulation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    VIII. </td><td style="text-align: left;"> Tests and diagnostics</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    IX. </td><td style="text-align: left;"> Documentation
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>I. CREATING AND MANIPULATING DATA</h3>
+
+<p><b>Types of spatial data:</b>
+</p>
+<p>The main types of spatial data supported by <span class="pkg">spatstat</span> are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code> </td><td style="text-align: left;"> point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/owin.html">owin</a></code> </td><td style="text-align: left;"> window (spatial region) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/im.html">im</a></code> </td><td style="text-align: left;"> pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/psp.html">psp</a></code> </td><td style="text-align: left;"> line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/tess.html">tess</a></code> </td><td style="text-align: left;"> tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code> </td><td style="text-align: left;"> three-dimensional point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code> </td><td style="text-align: left;"> point pattern in any number of dimensions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code> </td><td style="text-align: left;"> point pattern on a linear network
+  </td>
+</tr>
+
+</table>
+
+<p><b>To create a point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code> </td><td style="text-align: left;">
+    create a point pattern from <i>(x,y)</i> and window information
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;">
+    <code>ppp(x, y, xlim, ylim)</code> for rectangular window</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;">
+    <code>ppp(x, y, poly)</code> for polygonal window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;">
+    <code>ppp(x, y, mask)</code> for binary image window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code> </td><td style="text-align: left;">
+    convert other types of data to a <code>ppp</code> object </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/clickppp.html">clickppp</a></code> </td><td style="text-align: left;">
+    interactively add points to a plot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/marks+3C-.html">marks&lt;-</a></code>, <code>%mark%</code>  </td><td style="text-align: left;">
+    attach/reassign marks to a point pattern
+  </td>
+</tr>
+
+</table>
+
+<p><b>To simulate a random point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code> </td><td style="text-align: left;">
+	generate <i>n</i> independent uniform random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code> </td><td style="text-align: left;">
+	generate <i>n</i> independent random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rmpoint.html">rmpoint</a></code> </td><td style="text-align: left;">
+	generate <i>n</i> independent multitype random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code> </td><td style="text-align: left;">
+	simulate the (in)homogeneous Poisson point process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rmpoispp.html">rmpoispp</a></code> </td><td style="text-align: left;">
+	simulate the (in)homogeneous multitype Poisson point process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/runifdisc.html">runifdisc</a></code> </td><td style="text-align: left;">
+	generate <i>n</i> independent uniform random points in disc</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rstrat.html">rstrat</a></code> </td><td style="text-align: left;">
+	stratified random sample of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/rsyst.html">rsyst</a></code> </td><td style="text-align: left;">
+	systematic random sample of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> </td><td style="text-align: left;">
+	apply random displacements to points in a pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rMaternI.html">rMaternI</a></code>  </td><td style="text-align: left;">
+	simulate the Matern Model I inhibition process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rMaternII.html">rMaternII</a></code> </td><td style="text-align: left;">
+	simulate the Matern Model II inhibition process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rSSI.html">rSSI</a></code> </td><td style="text-align: left;">
+	simulate Simple Sequential Inhibition process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rStrauss.html">rStrauss</a></code> </td><td style="text-align: left;">
+	simulate Strauss process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rHardcore.html">rHardcore</a></code> </td><td style="text-align: left;">
+	simulate Hard Core process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rStraussHard.html">rStraussHard</a></code> </td><td style="text-align: left;">
+	simulate Strauss-hard core process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rDiggleGratton.html">rDiggleGratton</a></code> </td><td style="text-align: left;">
+	simulate Diggle-Gratton process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rDGS.html">rDGS</a></code> </td><td style="text-align: left;">
+	simulate Diggle-Gates-Stibbard process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rPenttinen.html">rPenttinen</a></code> </td><td style="text-align: left;">
+	simulate Penttinen process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rNeymanScott.html">rNeymanScott</a></code> </td><td style="text-align: left;">
+	simulate a general Neyman-Scott process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rPoissonCluster.html">rPoissonCluster</a></code> </td><td style="text-align: left;">
+	simulate a general Poisson cluster process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code> </td><td style="text-align: left;">
+	simulate the Matern Cluster process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code> </td><td style="text-align: left;">
+	simulate the Thomas process  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rGaussPoisson.html">rGaussPoisson</a></code>  </td><td style="text-align: left;">
+	simulate the Gauss-Poisson cluster process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code> </td><td style="text-align: left;">
+	simulate Neyman-Scott Cauchy cluster process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code> </td><td style="text-align: left;">
+	simulate Neyman-Scott Variance Gamma cluster process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rthin.html">rthin</a></code> </td><td style="text-align: left;">  random thinning  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rcell.html">rcell</a></code> </td><td style="text-align: left;">
+	simulate the Baddeley-Silverman cell process  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rmh.html">rmh</a></code> </td><td style="text-align: left;">
+	simulate Gibbs point process using Metropolis-Hastings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code> </td><td style="text-align: left;">
+	simulate Gibbs point process using Metropolis-Hastings </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/runifpointOnLines.html">runifpointOnLines</a></code> </td><td style="text-align: left;">
+	generate <i>n</i> random points along specified line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rpoisppOnLines.html">rpoisppOnLines</a></code> </td><td style="text-align: left;">
+	generate Poisson random points along specified line segments 
+      </td>
+</tr>
+
+</table>
+
+<p><b>To randomly change an existing point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rshift.html">rshift</a></code> </td><td style="text-align: left;"> random shifting of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+        <code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> </td><td style="text-align: left;">
+	apply random displacements to points in a pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rthin.html">rthin</a></code> </td><td style="text-align: left;">  random thinning </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rlabel.html">rlabel</a></code> </td><td style="text-align: left;"> random (re)labelling of a multitype
+	point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+        <code><a href="../../spatstat.random/help/quadratresample.html">quadratresample</a></code> </td><td style="text-align: left;"> block resampling 
+      </td>
+</tr>
+
+</table>
+
+<p><b>Standard point pattern datasets:</b>
+</p>
+<p>Datasets in <span class="pkg">spatstat</span> are lazy-loaded, so you can simply
+type the name of the dataset to use it; there is no need
+to type <code><a href="../../utils/help/data.html">data</a>(amacrine)</code> etc.
+</p>
+<p>Type <code>demo(data)</code> to see a display of all the datasets
+installed with the package.
+</p>
+<p>Type <code>vignette('datasets')</code> for a document giving an overview
+of all datasets, including background information, and plots.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/amacrine.html">amacrine</a></code> </td><td style="text-align: left;"> Austin Hughes' rabbit amacrine cells </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/anemones.html">anemones</a></code> </td><td style="text-align: left;"> Upton-Fingleton sea anemones data</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/ants.html">ants</a></code> </td><td style="text-align: left;"> Harkness-Isham ant nests data</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/bdspots.html">bdspots</a></code> </td><td style="text-align: left;"> Breakdown spots in microelectrodes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/bei.html">bei</a></code> </td><td style="text-align: left;"> Tropical rainforest trees </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/betacells.html">betacells</a></code> </td><td style="text-align: left;"> Waessle et al. cat retinal ganglia data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/bramblecanes.html">bramblecanes</a></code> </td><td style="text-align: left;"> Bramble Canes data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/bronzefilter.html">bronzefilter</a></code> </td><td style="text-align: left;"> Bronze Filter Section data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/cells.html">cells</a></code> </td><td style="text-align: left;"> Crick-Ripley biological cells data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/chicago.html">chicago</a></code> </td><td style="text-align: left;"> Chicago crimes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/chorley.html">chorley</a></code> </td><td style="text-align: left;"> Chorley-Ribble cancer data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/clmfires.html">clmfires</a></code> </td><td style="text-align: left;"> Castilla-La Mancha forest fires </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/copper.html">copper</a></code> </td><td style="text-align: left;"> Berman-Huntington copper deposits data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/dendrite.html">dendrite</a></code> </td><td style="text-align: left;"> Dendritic spines </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/demohyper.html">demohyper</a></code> </td><td style="text-align: left;"> Synthetic point patterns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/demopat.html">demopat</a></code> </td><td style="text-align: left;"> Synthetic point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/finpines.html">finpines</a></code> </td><td style="text-align: left;"> Finnish Pines data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/flu.html">flu</a></code> </td><td style="text-align: left;"> Influenza virus proteins </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/gordon.html">gordon</a></code> </td><td style="text-align: left;"> People in Gordon Square, London </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/gorillas.html">gorillas</a></code> </td><td style="text-align: left;"> Gorilla nest sites </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/hamster.html">hamster</a></code> </td><td style="text-align: left;"> Aherne's hamster tumour data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/humberside.html">humberside</a></code> </td><td style="text-align: left;"> North Humberside childhood leukaemia data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/hyytiala.html">hyytiala</a></code> </td><td style="text-align: left;"> Mixed forest in
+Hyytiala, Finland</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/japanesepines.html">japanesepines</a></code> </td><td style="text-align: left;"> Japanese Pines data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/lansing.html">lansing</a></code> </td><td style="text-align: left;"> Lansing Woods data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/longleaf.html">longleaf</a></code> </td><td style="text-align: left;"> Longleaf Pines data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/mucosa.html">mucosa</a></code> </td><td style="text-align: left;"> Cells in gastric mucosa </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/murchison.html">murchison</a></code> </td><td style="text-align: left;"> Murchison gold deposits </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/nbfires.html">nbfires</a></code> </td><td style="text-align: left;"> New Brunswick fires data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/nztrees.html">nztrees</a></code> </td><td style="text-align: left;"> Mark-Esler-Ripley trees data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/osteo.html">osteo</a></code> </td><td style="text-align: left;"> Osteocyte lacunae (3D, replicated) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/paracou.html">paracou</a></code> </td><td style="text-align: left;"> Kimboto trees in Paracou, French Guiana </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/ponderosa.html">ponderosa</a></code> </td><td style="text-align: left;"> Getis-Franklin ponderosa pine trees data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/pyramidal.html">pyramidal</a></code> </td><td style="text-align: left;"> Pyramidal neurons from 31 brains </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/redwood.html">redwood</a></code> </td><td style="text-align: left;"> Strauss-Ripley redwood saplings data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/redwoodfull.html">redwoodfull</a></code> </td><td style="text-align: left;"> Strauss redwood saplings data (full set) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/residualspaper.html">residualspaper</a></code> </td><td style="text-align: left;"> Data from Baddeley et al (2005) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/shapley.html">shapley</a></code> </td><td style="text-align: left;"> Galaxies in an astronomical survey </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/simdat.html">simdat</a></code> </td><td style="text-align: left;"> Simulated point pattern (inhomogeneous, with interaction) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/spiders.html">spiders</a></code> </td><td style="text-align: left;"> Spider webs on mortar lines of brick wall </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/sporophores.html">sporophores</a></code> </td><td style="text-align: left;"> Mycorrhizal fungi around a tree </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/spruces.html">spruces</a></code> </td><td style="text-align: left;"> Spruce trees in Saxonia </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/swedishpines.html">swedishpines</a></code> </td><td style="text-align: left;"> Strand-Ripley Swedish pines data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/urkiola.html">urkiola</a></code> </td><td style="text-align: left;"> Urkiola Woods data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/waka.html">waka</a></code> </td><td style="text-align: left;"> Trees in Waka national park </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.data/help/waterstriders.html">waterstriders</a></code> </td><td style="text-align: left;"> Insects on water surface 
+      </td>
+</tr>
+
+</table>
+
+<p><b>To display a 2D point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code> </td><td style="text-align: left;">
+	plot a point pattern (e.g. <code>plot(X)</code>) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code>spatstat.gui::iplot</code> </td><td style="text-align: left;">
+	plot a point pattern interactively </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/persp.ppp.html">persp.ppp</a></code> </td><td style="text-align: left;">
+	perspective plot of marked point pattern
+      </td>
+</tr>
+
+</table>
+
+<p><b>To manipulate a 2D point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/edit.ppp.html">edit.ppp</a></code> </td><td style="text-align: left;"> interactive text editor </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code> </td><td style="text-align: left;">
+	extract or replace a subset of a point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+        </td><td style="text-align: left;"> <code>pp[subset]</code> or <code>pp[subwindow]</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/subset.ppp.html">subset.ppp</a></code> </td><td style="text-align: left;">
+	extract subset of point pattern satisfying a condition </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code> </td><td style="text-align: left;">
+	combine several point patterns  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/by.ppp.html">by.ppp</a></code> </td><td style="text-align: left;">
+	apply a function to sub-patterns of a point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> </td><td style="text-align: left;">
+	classify the points in a point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code> </td><td style="text-align: left;">
+	divide pattern into sub-patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/unmark.html">unmark</a></code> </td><td style="text-align: left;">
+	remove marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/npoints.html">npoints</a></code> </td><td style="text-align: left;">
+	count the number of points  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/coords.html">coords</a></code> </td><td style="text-align: left;">
+	extract coordinates, change coordinates  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/marks.html">marks</a></code> </td><td style="text-align: left;">
+	extract marks, change marks or attach marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code> </td><td style="text-align: left;">
+	rotate pattern  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/shift.html">shift</a> </code> </td><td style="text-align: left;">
+	translate pattern  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a> </code> </td><td style="text-align: left;">
+	swap <i>x</i> and <i>y</i> coordinates  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/reflect.html">reflect</a> </code> </td><td style="text-align: left;">
+	reflect in the origin  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/periodify.html">periodify</a> </code> </td><td style="text-align: left;">
+	make several translated copies  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/affine.html">affine</a></code> </td><td style="text-align: left;">
+	apply affine transformation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code> </td><td style="text-align: left;">
+	apply scalar dilation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> </td><td style="text-align: left;">
+	kernel estimation of point pattern intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code> </td><td style="text-align: left;">
+	diffusion kernel estimation of point pattern intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code> </td><td style="text-align: left;">
+	kernel smoothing of marks of point pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/nnmark.html">nnmark</a></code> </td><td style="text-align: left;">
+	mark value of nearest data point</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/sharpen.ppp.html">sharpen.ppp</a></code> </td><td style="text-align: left;">
+	data sharpening</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/identify.ppp.html">identify.ppp</a></code> </td><td style="text-align: left;">
+	interactively identify points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code> </td><td style="text-align: left;">
+	remove duplicate points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code> </td><td style="text-align: left;">
+	determine which points are duplicates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/uniquemap.ppp.html">uniquemap.ppp</a></code> </td><td style="text-align: left;">
+	map duplicated points to unique points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/connected.ppp.html">connected.ppp</a></code> </td><td style="text-align: left;"> find clumps of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code> </td><td style="text-align: left;">
+	compute Dirichlet-Voronoi tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code> </td><td style="text-align: left;">
+	compute Delaunay triangulation </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/delaunayDistance.html">delaunayDistance</a></code> </td><td style="text-align: left;">
+	graph distance in Delaunay triangulation </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/convexhull.html">convexhull</a></code> </td><td style="text-align: left;"> compute convex hull </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/discretise.html">discretise</a></code> </td><td style="text-align: left;"> discretise coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code> </td><td style="text-align: left;"> approximate point pattern by 
+	pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.im.ppp.html">as.im.ppp</a></code> </td><td style="text-align: left;"> approximate point pattern by 
+	pixel image 
+      </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code> to control plotting behaviour.
+</p>
+<p><b>To create a window:</b>
+</p>
+<p>An object of class <code>"owin"</code> describes a spatial region
+(a window of observation).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>	</td><td style="text-align: left;">	Create a window object </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	</td><td style="text-align: left;"> <code>owin(xlim, ylim)</code> for rectangular window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	</td><td style="text-align: left;"> <code>owin(poly)</code> for polygonal window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	</td><td style="text-align: left;"> <code>owin(mask)</code> for binary image window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/Window.html">Window</a></code>	</td><td style="text-align: left;">
+	Extract window of another object </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/Frame.html">Frame</a></code>	</td><td style="text-align: left;">
+	Extract the containing rectangle ('frame') of another object </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>	</td><td style="text-align: left;">
+	Convert other data to a window object </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/square.html">square</a></code>    </td><td style="text-align: left;">	make a square window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/disc.html">disc</a></code>    </td><td style="text-align: left;">	make a circular window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/ellipse.html">ellipse</a></code>    </td><td style="text-align: left;">	make an elliptical window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code>    </td><td style="text-align: left;">
+	Ripley-Rasson estimator of window, given only the points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/convexhull.html">convexhull</a></code> </td><td style="text-align: left;"> compute convex hull of something </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.data/help/letterR.html">letterR</a></code>    </td><td style="text-align: left;">
+	polygonal window in the shape of the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> logo </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/clickpoly.html">clickpoly</a></code>    </td><td style="text-align: left;">
+	interactively draw a polygonal window  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/clickbox.html">clickbox</a></code>    </td><td style="text-align: left;">
+	interactively draw a rectangle  
+      </td>
+</tr>
+
+</table>
+
+<p><b>To manipulate a window:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>	</td><td style="text-align: left;">	plot a window. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	</td><td style="text-align: left;">		<code>plot(W)</code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/boundingbox.html">boundingbox</a></code> </td><td style="text-align: left;">
+	Find a tight bounding box for the window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>	</td><td style="text-align: left;">
+	erode window by a distance r</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>	</td><td style="text-align: left;">
+	dilate window by a distance r</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/closing.html">closing</a></code>	</td><td style="text-align: left;">
+	close window by a distance r</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/opening.html">opening</a></code>	</td><td style="text-align: left;">
+	open window by a distance r</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/border.html">border</a></code>	</td><td style="text-align: left;">
+	difference between window and its erosion/dilation </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/complement.owin.html">complement.owin</a></code>	</td><td style="text-align: left;">
+	invert (swap inside and outside)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/simplify.owin.html">simplify.owin</a></code>	</td><td style="text-align: left;">
+	approximate a window by a simple polygon  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code> </td><td style="text-align: left;"> rotate window  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a></code> </td><td style="text-align: left;"> swap <i>x</i> and <i>y</i> coordinates  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/shift.html">shift</a> </code> </td><td style="text-align: left;"> translate window  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/periodify.html">periodify</a> </code> </td><td style="text-align: left;"> make several translated copies  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/affine.html">affine</a></code> </td><td style="text-align: left;"> apply affine transformation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.data.frame.owin.html">as.data.frame.owin</a></code> </td><td style="text-align: left;">
+	convert window to data frame 
+      </td>
+</tr>
+
+</table>
+
+<p><b>Digital approximations:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>	</td><td style="text-align: left;">
+	Make a discrete pixel approximation of a given window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.im.owin.html">as.im.owin</a></code> </td><td style="text-align: left;"> convert window to pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/pixellate.owin.html">pixellate.owin</a></code> </td><td style="text-align: left;"> convert window to pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/commonGrid.html">commonGrid</a></code> </td><td style="text-align: left;"> find common pixel grid for windows </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/nearest.raster.point.html">nearest.raster.point</a></code> </td><td style="text-align: left;">
+	map continuous coordinates to raster locations</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/raster.x.html">raster.x</a></code> </td><td style="text-align: left;">
+	raster x coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/raster.y.html">raster.y</a></code> </td><td style="text-align: left;">
+	raster y coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/raster.xy.html">raster.xy</a></code> </td><td style="text-align: left;">
+	raster x and y coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code> </td><td style="text-align: left;">
+	convert pixel mask to polygonal window 
+      </td>
+</tr>
+
+</table>
+
+<p>See <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code> to control the approximation
+</p>
+<p><b>Geometrical computations with windows:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/edges.html">edges</a></code>	</td><td style="text-align: left;">	extract boundary edges </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/intersect.owin.html">intersect.owin</a></code>	</td><td style="text-align: left;">	intersection of two windows</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/union.owin.html">union.owin</a></code>	</td><td style="text-align: left;">	union of two windows</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/setminus.owin.html">setminus.owin</a></code>	</td><td style="text-align: left;">	set subtraction of two windows</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/inside.owin.html">inside.owin</a></code>	</td><td style="text-align: left;">	determine whether a point is inside a window</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/area.owin.html">area.owin</a></code>	</td><td style="text-align: left;">	compute area </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/perimeter.html">perimeter</a></code>	</td><td style="text-align: left;">	compute perimeter length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/diameter.owin.html">diameter.owin</a></code>	</td><td style="text-align: left;">	compute diameter</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/incircle.html">incircle</a></code>	</td><td style="text-align: left;">	find largest circle inside a window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/inradius.html">inradius</a></code>	</td><td style="text-align: left;">	radius of incircle </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/connected.owin.html">connected.owin</a></code>    </td><td style="text-align: left;"> find connected components of window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/eroded.areas.html">eroded.areas</a></code>	</td><td style="text-align: left;">	compute areas of eroded windows</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/dilated.areas.html">dilated.areas</a></code>	</td><td style="text-align: left;">	compute areas of dilated windows</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/bdist.points.html">bdist.points</a></code>	</td><td style="text-align: left;">	compute distances from data points to window boundary </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/bdist.pixels.html">bdist.pixels</a></code>	</td><td style="text-align: left;">	compute distances from all pixels to window boundary </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/bdist.tiles.html">bdist.tiles</a></code>	</td><td style="text-align: left;">
+	boundary distance for each tile in tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/distmap.owin.html">distmap.owin</a></code>	</td><td style="text-align: left;">	distance transform image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/distfun.owin.html">distfun.owin</a></code>	</td><td style="text-align: left;">	distance transform </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/centroid.owin.html">centroid.owin</a></code>	</td><td style="text-align: left;"> compute centroid (centre of mass) of window</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/is.subset.owin.html">is.subset.owin</a></code>    </td><td style="text-align: left;"> determine whether one
+	window contains another </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/is.convex.html">is.convex</a></code> </td><td style="text-align: left;"> determine whether a window is convex </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/convexhull.html">convexhull</a></code> </td><td style="text-align: left;"> compute convex hull </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/triangulate.owin.html">triangulate.owin</a></code> </td><td style="text-align: left;"> decompose into triangles </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> </td><td style="text-align: left;"> pixel approximation of window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code> </td><td style="text-align: left;"> polygonal approximation of window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/is.rectangle.html">is.rectangle</a></code> </td><td style="text-align: left;"> test whether window is a rectangle </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/is.polygonal.html">is.polygonal</a></code> </td><td style="text-align: left;"> test whether window is polygonal </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/is.mask.html">is.mask</a></code> </td><td style="text-align: left;"> test whether window is a mask </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code> </td><td style="text-align: left;"> spatial covariance function of window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/pixelcentres.html">pixelcentres</a></code> </td><td style="text-align: left;"> extract centres of pixels in mask </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/clickdist.html">clickdist</a></code>    </td><td style="text-align: left;">
+	measure distance between two points clicked by user
+      </td>
+</tr>
+
+</table>
+
+<p><b>Pixel images:</b>
+An object of class <code>"im"</code> represents a pixel image. 
+Such objects are returned by some of the functions in
+<span class="pkg">spatstat</span> including <code><a href="../../spatstat.explore/help/Kmeasure.html">Kmeasure</a></code>,
+<code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code> and <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>. 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/im.html">im</a></code> </td><td style="text-align: left;"> create a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code> </td><td style="text-align: left;"> convert other data to a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/pixellate.html">pixellate</a></code> </td><td style="text-align: left;"> convert other data to a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.matrix.im.html">as.matrix.im</a></code> </td><td style="text-align: left;"> convert pixel image to matrix</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.data.frame.im.html">as.data.frame.im</a></code> </td><td style="text-align: left;"> convert pixel image to data frame</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/as.function.im.html">as.function.im</a></code> </td><td style="text-align: left;"> convert pixel image to function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>	</td><td style="text-align: left;">	plot a pixel image on screen as a digital image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/contour.im.html">contour.im</a></code>	</td><td style="text-align: left;"> draw contours of a pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>	</td><td style="text-align: left;"> draw perspective plot of a pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/rgbim.html">rgbim</a></code>	</td><td style="text-align: left;"> create colour-valued pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/hsvim.html">hsvim</a></code>	</td><td style="text-align: left;"> create colour-valued pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/+5B.im.html">[.im</a></code> 	</td><td style="text-align: left;"> extract a subset of a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/+5B+3C-.im.html">[&lt;-.im</a></code> 	</td><td style="text-align: left;"> replace a subset of a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/rotate.im.html">rotate.im</a></code> </td><td style="text-align: left;"> rotate pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/shift.im.html">shift.im</a></code> </td><td style="text-align: left;"> apply vector shift to pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/affine.im.html">affine.im</a></code> </td><td style="text-align: left;"> apply affine transformation to image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code>X</code>	</td><td style="text-align: left;">	print very basic information about image <code>X</code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/summary.im.html">summary</a>(X)</code> </td><td style="text-align: left;">	summary of image <code>X</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/hist.im.html">hist.im</a></code> </td><td style="text-align: left;">	histogram of image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/mean.im.html">mean.im</a></code> </td><td style="text-align: left;">	mean pixel value of image  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/integral.im.html">integral.im</a></code> </td><td style="text-align: left;">	integral of pixel values  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/quantile.im.html">quantile.im</a></code> </td><td style="text-align: left;">	quantiles of image  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/cut.im.html">cut.im</a></code> </td><td style="text-align: left;">	convert numeric image to factor image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/is.im.html">is.im</a></code> </td><td style="text-align: left;"> test whether an object is a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/interp.im.html">interp.im</a></code> </td><td style="text-align: left;"> interpolate a pixel image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/blur.html">blur</a></code> </td><td style="text-align: left;"> apply Gaussian blur to image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/blurHeat.html">blurHeat</a></code> </td><td style="text-align: left;"> apply diffusion blur to image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/Smooth.im.html">Smooth.im</a></code> </td><td style="text-align: left;"> apply Gaussian blur to image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/SmoothHeat.im.html">SmoothHeat.im</a></code> </td><td style="text-align: left;"> apply diffusion blur to image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/connected.im.html">connected.im</a></code> </td><td style="text-align: left;"> find connected components </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/compatible.im.html">compatible.im</a></code> </td><td style="text-align: left;"> test whether two images have
+	compatible dimensions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/harmonise.im.html">harmonise.im</a></code> </td><td style="text-align: left;"> make images compatible </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/commonGrid.html">commonGrid</a></code> </td><td style="text-align: left;"> find a common pixel grid for images </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code> </td><td style="text-align: left;"> evaluate any expression involving images</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/im.apply.html">im.apply</a></code> </td><td style="text-align: left;"> evaluate a function of several images </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/scaletointerval.html">scaletointerval</a></code> </td><td style="text-align: left;"> rescale pixel values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/zapsmall.im.html">zapsmall.im</a></code> </td><td style="text-align: left;"> set very small pixel values to zero </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/levelset.html">levelset</a></code> </td><td style="text-align: left;"> level set of an image</td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+	<code><a href="../../spatstat.geom/help/solutionset.html">solutionset</a></code> </td><td style="text-align: left;"> region where an expression is true </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/imcov.html">imcov</a></code> </td><td style="text-align: left;"> spatial covariance function of image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/convolve.im.html">convolve.im</a></code> </td><td style="text-align: left;"> spatial convolution of images </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.explore/help/transect.im.html">transect.im</a></code> </td><td style="text-align: left;"> line transect of image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/pixelcentres.html">pixelcentres</a></code> </td><td style="text-align: left;"> extract centres of pixels </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/transmat.html">transmat</a></code> </td><td style="text-align: left;"> convert matrix of pixel values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	                       </td><td style="text-align: left;"> to a different indexing convention </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rnoise.html">rnoise</a></code> </td><td style="text-align: left;"> random pixel noise
+     </td>
+</tr>
+
+</table>
+
+<p><b>Line segment patterns</b>
+</p>
+<p>An object of class <code>"psp"</code> represents a pattern of straight line
+segments.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/psp.html">psp</a></code> </td><td style="text-align: left;"> create a line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.psp.html">as.psp</a></code> </td><td style="text-align: left;"> convert other data into a line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/edges.html">edges</a></code> </td><td style="text-align: left;"> extract edges of a window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/is.psp.html">is.psp</a></code> </td><td style="text-align: left;"> determine whether a dataset has class <code>"psp"</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/plot.psp.html">plot.psp</a></code> </td><td style="text-align: left;"> plot a line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/print.psp.html">print.psp</a></code> </td><td style="text-align: left;"> print basic information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/summary.psp.html">summary.psp</a></code> </td><td style="text-align: left;"> print summary information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/+5B.psp.html">[.psp</a></code> </td><td style="text-align: left;"> extract a subset of a line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/subset.psp.html">subset.psp</a></code> </td><td style="text-align: left;"> extract subset of line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.data.frame.psp.html">as.data.frame.psp</a></code> </td><td style="text-align: left;">
+      convert line segment pattern to data frame </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/marks.psp.html">marks.psp</a></code> </td><td style="text-align: left;"> extract marks of line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/marks+3C-.psp.html">marks&lt;-.psp</a></code> </td><td style="text-align: left;"> assign new marks to line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/unmark.psp.html">unmark.psp</a></code> </td><td style="text-align: left;"> delete marks from line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/midpoints.psp.html">midpoints.psp</a></code> </td><td style="text-align: left;">
+      compute the midpoints of line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/endpoints.psp.html">endpoints.psp</a></code> </td><td style="text-align: left;"> extract the endpoints of line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/lengths_psp.html">lengths_psp</a></code> </td><td style="text-align: left;"> compute the lengths of line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/angles.psp.html">angles.psp</a></code> </td><td style="text-align: left;"> compute the orientation angles of line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code> </td><td style="text-align: left;"> combine several line segment patterns  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a></code> </td><td style="text-align: left;"> swap <i>x</i> and <i>y</i> coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/rotate.psp.html">rotate.psp</a></code> </td><td style="text-align: left;"> rotate a line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/shift.psp.html">shift.psp</a></code> </td><td style="text-align: left;"> shift a line segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/periodify.html">periodify</a></code> </td><td style="text-align: left;"> make several shifted copies </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/affine.psp.html">affine.psp</a></code> </td><td style="text-align: left;"> apply an affine transformation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/pixellate.psp.html">pixellate.psp</a></code> </td><td style="text-align: left;"> approximate line segment pattern
+    by pixel image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/psp2mask.html">psp2mask</a></code> </td><td style="text-align: left;"> approximate line segment pattern
+    by binary mask </td>
+</tr>
+<tr>
+ <td style="text-align: left;">      
+      <code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code> </td><td style="text-align: left;"> compute the distance map of a line
+      segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/distfun.psp.html">distfun.psp</a></code> </td><td style="text-align: left;"> compute the distance map of a line
+      segment pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.explore/help/density.psp.html">density.psp</a></code> </td><td style="text-align: left;"> kernel smoothing of line segments</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/selfcrossing.psp.html">selfcrossing.psp</a></code> </td><td style="text-align: left;"> find crossing points between
+      line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/selfcut.psp.html">selfcut.psp</a></code> </td><td style="text-align: left;"> cut segments where they cross </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/crossing.psp.html">crossing.psp</a></code> </td><td style="text-align: left;"> find crossing points between
+      two line segment patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/extrapolate.psp.html">extrapolate.psp</a></code> </td><td style="text-align: left;"> extrapolate line segments to
+      infinite lines </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code> </td><td style="text-align: left;"> find distance to nearest line segment
+      from a given point</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/nearestsegment.html">nearestsegment</a></code> </td><td style="text-align: left;"> find line segment closest to a
+      given point </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/project2segment.html">project2segment</a></code> </td><td style="text-align: left;"> find location along a line segment
+      closest to a given point </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/pointsOnLines.html">pointsOnLines</a></code> </td><td style="text-align: left;"> generate points evenly spaced
+      along line segment </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoisline.html">rpoisline</a></code> </td><td style="text-align: left;"> generate a realisation of the
+      Poisson line process inside a window</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/rlinegrid.html">rlinegrid</a></code> </td><td style="text-align: left;"> generate a random array of parallel
+      lines through a window
+    </td>
+</tr>
+
+</table>
+
+<p><b>Tessellations</b>
+</p>
+<p>An object of class <code>"tess"</code> represents a tessellation.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/tess.html">tess</a></code> </td><td style="text-align: left;"> create a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code> </td><td style="text-align: left;"> create a tessellation of rectangles</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code> </td><td style="text-align: left;"> create a tessellation of hexagons </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/polartess.html">polartess</a></code> </td><td style="text-align: left;"> tessellation using polar coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code> </td><td style="text-align: left;"> quantile tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/venn.tess.html">venn.tess</a></code> </td><td style="text-align: left;"> Venn diagram tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+      <code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code> </td><td style="text-align: left;"> compute Dirichlet-Voronoi tessellation of points</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code> </td><td style="text-align: left;"> compute Delaunay triangulation of points</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.tess.html">as.tess</a></code> </td><td style="text-align: left;"> convert other data to a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/plot.tess.html">plot.tess</a></code> </td><td style="text-align: left;"> plot a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/tiles.html">tiles</a></code> </td><td style="text-align: left;"> extract all the tiles of a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/+5B.tess.html">[.tess</a></code> </td><td style="text-align: left;"> extract some tiles of a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/+5B+3C-.tess.html">[&lt;-.tess</a></code> </td><td style="text-align: left;"> change some tiles of a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/intersect.tess.html">intersect.tess</a></code> </td><td style="text-align: left;"> intersect two tessellations </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                              </td><td style="text-align: left;"> or restrict a tessellation to a window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/chop.tess.html">chop.tess</a></code> </td><td style="text-align: left;"> subdivide a tessellation by a line </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code> </td><td style="text-align: left;"> generate tessellation using Poisson line
+      process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/tile.areas.html">tile.areas</a></code>	</td><td style="text-align: left;">
+      area of each tile in tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/bdist.tiles.html">bdist.tiles</a></code>	</td><td style="text-align: left;">
+      boundary distance for each tile in tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/connected.tess.html">connected.tess</a></code> </td><td style="text-align: left;"> find connected components of tiles </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/shift.tess.html">shift.tess</a></code> </td><td style="text-align: left;"> shift a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/rotate.tess.html">rotate.tess</a></code> </td><td style="text-align: left;"> rotate a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/reflect.tess.html">reflect.tess</a></code> </td><td style="text-align: left;"> reflect about the origin </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/flipxy.tess.html">flipxy.tess</a></code> </td><td style="text-align: left;"> reflect about the diagonal </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/affine.tess.html">affine.tess</a></code> </td><td style="text-align: left;"> apply affine transformation 
+    </td>
+</tr>
+
+</table>
+
+<p><b>Three-dimensional point patterns</b>
+</p>
+<p>An object of class <code>"pp3"</code> represents a three-dimensional
+point pattern in a rectangular box. The box is represented by
+an object of class <code>"box3"</code>.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code> </td><td style="text-align: left;"> create a 3-D point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/plot.pp3.html">plot.pp3</a></code> </td><td style="text-align: left;"> plot a 3-D point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/coords.html">coords</a></code> </td><td style="text-align: left;"> extract coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code> </td><td style="text-align: left;"> extract coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/subset.pp3.html">subset.pp3</a></code> </td><td style="text-align: left;"> extract subset of 3-D point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/unitname.pp3.html">unitname.pp3</a></code> </td><td style="text-align: left;"> name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/npoints.html">npoints</a></code> </td><td style="text-align: left;"> count the number of points  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/runifpoint3.html">runifpoint3</a></code> </td><td style="text-align: left;"> generate uniform random points in 3-D </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoispp3.html">rpoispp3</a></code> </td><td style="text-align: left;"> generate Poisson random points in 3-D </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.explore/help/envelope.pp3.html">envelope.pp3</a></code> </td><td style="text-align: left;"> generate simulation envelopes for
+      3-D pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/box3.html">box3</a></code> </td><td style="text-align: left;"> create a 3-D rectangular box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.box3.html">as.box3</a></code> </td><td style="text-align: left;"> convert data to 3-D rectangular box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/unitname.box3.html">unitname.box3</a></code> </td><td style="text-align: left;"> name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/diameter.box3.html">diameter.box3</a></code> </td><td style="text-align: left;"> diameter of box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/volume.box3.html">volume.box3</a></code> </td><td style="text-align: left;"> volume of box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/shortside.box3.html">shortside.box3</a></code> </td><td style="text-align: left;"> shortest side of box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/eroded.volumes.html">eroded.volumes</a></code> </td><td style="text-align: left;"> volumes of erosions of box 
+    </td>
+</tr>
+
+</table>
+
+<p><b>Multi-dimensional space-time point patterns</b>
+</p>
+<p>An object of class <code>"ppx"</code> represents a 
+point pattern in multi-dimensional space and/or time.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code> </td><td style="text-align: left;"> create a multidimensional space-time point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/coords.html">coords</a></code> </td><td style="text-align: left;"> extract coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code> </td><td style="text-align: left;"> extract coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/subset.ppx.html">subset.ppx</a></code> </td><td style="text-align: left;"> extract subset </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/unitname.ppx.html">unitname.ppx</a></code> </td><td style="text-align: left;"> name of unit of length </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/npoints.html">npoints</a></code> </td><td style="text-align: left;"> count the number of points  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/runifpointx.html">runifpointx</a></code> </td><td style="text-align: left;"> generate uniform random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoisppx.html">rpoisppx</a></code> </td><td style="text-align: left;"> generate Poisson random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/boxx.html">boxx</a></code> </td><td style="text-align: left;"> define multidimensional box  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/diameter.boxx.html">diameter.boxx</a></code> </td><td style="text-align: left;"> diameter of box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/volume.boxx.html">volume.boxx</a></code> </td><td style="text-align: left;"> volume of box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/shortside.boxx.html">shortside.boxx</a></code> </td><td style="text-align: left;"> shortest side of box </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/eroded.volumes.boxx.html">eroded.volumes.boxx</a></code> </td><td style="text-align: left;"> volumes of erosions of box 
+    </td>
+</tr>
+
+</table>
+
+<p><b>Point patterns on a linear network</b>
+</p>
+<p>An object of class <code>"linnet"</code> represents a linear network
+(for example, a road network).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code> </td><td style="text-align: left;"> create a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/clickjoin.html">clickjoin</a></code> </td><td style="text-align: left;"> interactively join vertices in network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>spatstat.gui::iplot.linnet</code> </td><td style="text-align: left;"> interactively plot network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/simplenet.html">simplenet</a></code> </td><td style="text-align: left;"> simple example of network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/lineardisc.html">lineardisc</a></code> </td><td style="text-align: left;"> disc in a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/delaunayNetwork.html">delaunayNetwork</a></code> </td><td style="text-align: left;"> network of Delaunay triangulation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/dirichletNetwork.html">dirichletNetwork</a></code> </td><td style="text-align: left;"> network of Dirichlet edges </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/methods.linnet.html">methods.linnet</a></code> </td><td style="text-align: left;"> methods for <code>linnet</code> objects</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/vertices.linnet.html">vertices.linnet</a></code> </td><td style="text-align: left;"> nodes of network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/joinVertices.html">joinVertices</a></code> </td><td style="text-align: left;"> join existing vertices in a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/insertVertices.html">insertVertices</a></code> </td><td style="text-align: left;"> insert new vertices at positions
+      along a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/addVertices.html">addVertices</a></code> </td><td style="text-align: left;"> add new vertices, extending a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code> </td><td style="text-align: left;"> remove vertices or lines from a network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/repairNetwork.html">repairNetwork</a></code> </td><td style="text-align: left;"> repair internal format </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/pixellate.linnet.html">pixellate.linnet</a></code> </td><td style="text-align: left;"> approximate by pixel image
+    </td>
+</tr>
+
+</table>
+
+<p>An object of class <code>"lpp"</code> represents a 
+point pattern on a linear network (for example,
+road accidents on a road network).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code> </td><td style="text-align: left;"> create a point pattern on a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/methods.lpp.html">methods.lpp</a></code> </td><td style="text-align: left;"> methods for <code>lpp</code> objects </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/subset.lpp.html">subset.lpp</a></code> </td><td style="text-align: left;"> method for <code>subset</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code> </td><td style="text-align: left;"> simulate Poisson points on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.linnet/help/runiflpp.html">runiflpp</a></code> </td><td style="text-align: left;"> simulate random points on a linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/chicago.html">chicago</a></code> </td><td style="text-align: left;"> Chicago crime data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/dendrite.html">dendrite</a></code> </td><td style="text-align: left;"> Dendritic spines data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.data/help/spiders.html">spiders</a></code> </td><td style="text-align: left;"> Spider webs on mortar lines of brick wall 
+    </td>
+</tr>
+
+</table>
+
+<p><b>Hyperframes</b>
+</p>
+<p>A hyperframe is like a data frame, except that the entries
+may be objects of any kind.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code> </td><td style="text-align: left;"> create a hyperframe </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.hyperframe.html">as.hyperframe</a></code> </td><td style="text-align: left;"> convert data to hyperframe </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/plot.hyperframe.html">plot.hyperframe</a></code> </td><td style="text-align: left;"> plot hyperframe </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/with.hyperframe.html">with.hyperframe</a></code> </td><td style="text-align: left;"> evaluate expression using each row
+      of hyperframe </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/cbind.hyperframe.html">cbind.hyperframe</a></code> </td><td style="text-align: left;"> combine hyperframes by columns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/rbind.hyperframe.html">rbind.hyperframe</a></code> </td><td style="text-align: left;"> combine hyperframes by rows</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/as.data.frame.hyperframe.html">as.data.frame.hyperframe</a></code> </td><td style="text-align: left;"> convert hyperframe to
+      data frame </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/subset.hyperframe.html">subset.hyperframe</a></code> </td><td style="text-align: left;"> method for <code>subset</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/head.hyperframe.html">head.hyperframe</a></code> </td><td style="text-align: left;"> first few rows of hyperframe </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/tail.hyperframe.html">tail.hyperframe</a></code> </td><td style="text-align: left;"> last few rows of hyperframe
+    </td>
+</tr>
+
+</table>
+
+<p><b>Layered objects</b>
+</p>
+<p>A layered object represents data that should be plotted in
+successive layers, for example, a background and a foreground.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/layered.html">layered</a></code> </td><td style="text-align: left;"> create layered object </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/plot.layered.html">plot.layered</a></code> </td><td style="text-align: left;"> plot layered object</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/+5B.layered.html">[.layered</a></code> </td><td style="text-align: left;"> extract subset of layered object
+    </td>
+</tr>
+
+</table>
+
+<p><b>Colour maps</b>
+</p>
+<p>A colour map is a mechanism for associating colours with data.
+It can be regarded as a function, mapping data to colours.
+Using a <code>colourmap</code> object in a plot command
+ensures that the mapping from numbers to colours is
+the same in different plots. 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code> </td><td style="text-align: left;"> create a colour map  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/plot.colourmap.html">plot.colourmap</a></code> </td><td style="text-align: left;"> plot the colour map only</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/tweak.colourmap.html">tweak.colourmap</a></code> </td><td style="text-align: left;"> alter individual colour values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/interp.colourmap.html">interp.colourmap</a></code> </td><td style="text-align: left;"> make a smooth transition
+      between colours </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.geom/help/beachcolourmap.html">beachcolourmap</a></code> </td><td style="text-align: left;"> one special colour map
+    </td>
+</tr>
+
+</table>
+
+
+
+<h3>II. EXPLORATORY DATA ANALYSIS</h3>
+
+<p><b>Inspection of data:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/summary.ppp.html">summary</a>(X)</code> </td><td style="text-align: left;">
+    print useful summary of point pattern <code>X</code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>X</code> </td><td style="text-align: left;">
+    print basic description of point pattern <code>X</code>  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>any(duplicated(X))</code> </td><td style="text-align: left;">
+    check for duplicated points in pattern <code>X</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>spatstat.gui::istat(X)</code> </td><td style="text-align: left;"> Interactive exploratory analysis </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>spatstat.gui::View.ppp(X)</code> </td><td style="text-align: left;"> spreadsheet-style viewer
+  </td>
+</tr>
+
+</table>
+
+<p><b>Classical exploratory tools:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/clarkevans.html">clarkevans</a></code> </td><td style="text-align: left;"> Clark and Evans aggregation index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/fryplot.html">fryplot</a></code> </td><td style="text-align: left;"> Fry plot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/miplot.html">miplot</a></code> </td><td style="text-align: left;"> Morisita Index plot
+  </td>
+</tr>
+
+</table>
+
+<p><b>Smoothing:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> </td><td style="text-align: left;"> kernel smoothed density/intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> </td><td style="text-align: left;"> kernel estimate of relative risk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/relriskHeat.html">relriskHeat</a></code> </td><td style="text-align: left;"> diffusion estimate of relative risk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code> </td><td style="text-align: left;"> spatial interpolation of marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/SmoothHeat.ppp.html">SmoothHeat.ppp</a></code> </td><td style="text-align: left;"> spatial interpolation of marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code> </td><td style="text-align: left;"> likelihood cross-validated bandwidth selection
+                               for <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.CvL.html">bw.CvL</a></code> </td><td style="text-align: left;"> Cronie-Van Lieshout bandwidth selection
+                                for density estimation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.scott.html">bw.scott</a></code> </td><td style="text-align: left;"> Scott's rule of thumb 
+                                for density estimation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/bw.abram.html">bw.abram</a></code> </td><td style="text-align: left;"> Abramson's rule for adaptive bandwidths</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.relriskHeatppp.html">bw.relriskHeatppp</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../../spatstat.explore/help/relriskHeat.ppp.html">relriskHeat.ppp</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.smoothppp.html">bw.smoothppp</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.frac.html">bw.frac</a></code> </td><td style="text-align: left;"> bandwidth selection using window geometry</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bw.stoyan.html">bw.stoyan</a></code> </td><td style="text-align: left;"> Stoyan's rule of thumb for bandwidth
+                               for <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+  </td>
+</tr>
+
+</table>
+
+<p><b>Modern exploratory tools:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/clusterset.html">clusterset</a></code> </td><td style="text-align: left;"> Allard-Fraley feature detection  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/nnclean.html">nnclean</a></code> </td><td style="text-align: left;"> Byers-Raftery feature detection  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/sharpen.ppp.html">sharpen.ppp</a></code> </td><td style="text-align: left;"> Choi-Hall data sharpening </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code> </td><td style="text-align: left;"> Kernel estimate of covariate effect</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/rho2hat.html">rho2hat</a></code> </td><td style="text-align: left;"> Kernel estimate of effect of two covariates</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/spatialcdf.html">spatialcdf</a></code> </td><td style="text-align: left;"> Spatial cumulative distribution function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/roc.html">roc</a></code> </td><td style="text-align: left;"> Receiver operating characteristic curve
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a point pattern:</b>
+Type <code>demo(sumfun)</code> for a demonstration of many
+of the summary statistics.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code> </td><td style="text-align: left;"> Mean intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code> </td><td style="text-align: left;"> Quadrat counts </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/intensity.quadratcount.html">intensity.quadratcount</a></code> </td><td style="text-align: left;"> Mean intensity in quadrats </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code> </td><td style="text-align: left;"> empty space function <i>F</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code> </td><td style="text-align: left;"> nearest neighbour distribution function <i>G</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Jest.html">Jest</a></code> </td><td style="text-align: left;"> <i>J</i>-function <i>J = (1-G)/(1-F)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> </td><td style="text-align: left;"> Ripley's <i>K</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Lest.html">Lest</a></code> </td><td style="text-align: left;"> Besag <i>L</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Tstat.html">Tstat</a></code> </td><td style="text-align: left;"> Third order <i>T</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/allstats.html">allstats</a></code> </td><td style="text-align: left;"> all four functions <i>F</i>, <i>G</i>, <i>J</i>, <i>K</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> </td><td style="text-align: left;"> 	pair correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code> </td><td style="text-align: left;"> <i>K</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Linhom.html">Linhom</a></code> </td><td style="text-align: left;"> <i>L</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code> </td><td style="text-align: left;"> pair correlation for inhomogeneous patterns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Finhom.html">Finhom</a></code> </td><td style="text-align: left;"> <i>F</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Ginhom.html">Ginhom</a></code> </td><td style="text-align: left;"> <i>G</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Jinhom.html">Jinhom</a></code> </td><td style="text-align: left;"> <i>J</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localL.html">localL</a></code> </td><td style="text-align: left;"> Getis-Franklin neighbourhood density function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localK.html">localK</a></code> </td><td style="text-align: left;"> neighbourhood K-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localpcf.html">localpcf</a></code> </td><td style="text-align: left;"> local pair correlation function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localKinhom.html">localKinhom</a></code> </td><td style="text-align: left;"> local <i>K</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localLinhom.html">localLinhom</a></code> </td><td style="text-align: left;"> local <i>L</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localpcfinhom.html">localpcfinhom</a></code> </td><td style="text-align: left;"> local pair correlation for inhomogeneous patterns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Ksector.html">Ksector</a></code> </td><td style="text-align: left;"> Directional <i>K</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kscaled.html">Kscaled</a></code> </td><td style="text-align: left;"> locally scaled <i>K</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kest.fft.html">Kest.fft</a></code> </td><td style="text-align: left;"> fast <i>K</i>-function using FFT for large datasets </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kmeasure.html">Kmeasure</a></code> </td><td style="text-align: left;"> reduced second moment measure </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> simulation envelopes for a summary
+    function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/varblock.html">varblock</a></code> </td><td style="text-align: left;"> variances and confidence intervals</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                   </td><td style="text-align: left;"> for a summary function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/lohboot.html">lohboot</a></code> </td><td style="text-align: left;"> bootstrap for a summary function 
+  </td>
+</tr>
+
+</table>
+
+<p>Related facilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code> </td><td style="text-align: left;"> plot a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code> </td><td style="text-align: left;"> evaluate any expression involving
+    summary functions</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/harmonise.fv.html">harmonise.fv</a></code> </td><td style="text-align: left;"> make functions compatible </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/eval.fasp.html">eval.fasp</a></code> </td><td style="text-align: left;"> evaluate any expression involving
+    an array of functions</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/with.fv.html">with.fv</a></code> </td><td style="text-align: left;"> evaluate an expression for a 
+    summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Smooth.fv.html">Smooth.fv</a></code> </td><td style="text-align: left;"> apply smoothing to a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/deriv.fv.html">deriv.fv</a></code> </td><td style="text-align: left;"> calculate derivative of a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pool.fv.html">pool.fv</a></code> </td><td style="text-align: left;"> pool several estimates of a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code> </td><td style="text-align: left;"> nearest neighbour distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nnwhich.html">nnwhich</a></code> </td><td style="text-align: left;"> find nearest neighbours </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code> </td><td style="text-align: left;"> distances between all pairs of points</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code> </td><td style="text-align: left;"> distances between points in two patterns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code> </td><td style="text-align: left;"> nearest neighbours between two point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/exactdt.html">exactdt</a></code> </td><td style="text-align: left;"> distance from any location to nearest data point</td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+    <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> </td><td style="text-align: left;"> distance map image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code> </td><td style="text-align: left;"> distance map function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nnmap.html">nnmap</a></code> </td><td style="text-align: left;"> nearest point image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nnfun.html">nnfun</a></code> </td><td style="text-align: left;"> nearest point function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> </td><td style="text-align: left;"> kernel smoothed density</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code> </td><td style="text-align: left;"> diffusion kernel smoothed density</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code> </td><td style="text-align: left;"> spatial interpolation of marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> </td><td style="text-align: left;"> kernel estimate of relative risk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/sharpen.ppp.html">sharpen.ppp</a></code> </td><td style="text-align: left;"> data sharpening  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rknn.html">rknn</a></code> </td><td style="text-align: left;"> theoretical distribution of nearest
+    neighbour distance
+ </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a multitype point pattern:</b>
+A multitype point pattern is represented by an object <code>X</code>
+of class <code>"ppp"</code> such that <code>marks(X)</code> is a factor. 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/relrisk.html">relrisk</a></code> </td><td style="text-align: left;"> kernel estimation of relative risk  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/scan.test.html">scan.test</a></code> </td><td style="text-align: left;"> spatial scan test of elevated risk  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a>,<a href="../../spatstat.explore/help/Gdot.html">Gdot</a>,<a href="../../spatstat.explore/help/Gmulti.html">Gmulti</a></code> </td><td style="text-align: left;">
+    multitype nearest neighbour distributions 
+    <i>G[i,j], G[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a>,<a href="../../spatstat.explore/help/Kdot.html">Kdot</a>, <a href="../../spatstat.explore/help/Kmulti.html">Kmulti</a></code> </td><td style="text-align: left;">
+    multitype <i>K</i>-functions 
+    <i>K[i,j], K[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a>,<a href="../../spatstat.explore/help/Ldot.html">Ldot</a></code> </td><td style="text-align: left;">
+    multitype <i>L</i>-functions 
+    <i>L[i,j], L[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Jcross.html">Jcross</a>,<a href="../../spatstat.explore/help/Jdot.html">Jdot</a>,<a href="../../spatstat.explore/help/Jmulti.html">Jmulti</a></code> </td><td style="text-align: left;">
+    multitype <i>J</i>-functions
+    <i>J[i,j],J[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcfcross.html">pcfcross</a></code> </td><td style="text-align: left;">
+    multitype pair correlation function <i>g[i,j]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcfdot.html">pcfdot</a></code> </td><td style="text-align: left;">
+    multitype pair correlation function <i>g[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcfmulti.html">pcfmulti</a></code> </td><td style="text-align: left;">
+    general pair correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markconnect.html">markconnect</a></code> </td><td style="text-align: left;">
+    marked connection function <i>p[i,j]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/alltypes.html">alltypes</a></code> </td><td style="text-align: left;">  estimates of the above
+    for all <i>i,j</i> pairs </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Iest.html">Iest</a></code> </td><td style="text-align: left;">  multitype <i>I</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kcross.inhom.html">Kcross.inhom</a>,<a href="../../spatstat.explore/help/Kdot.inhom.html">Kdot.inhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous counterparts of <code>Kcross</code>, <code>Kdot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Lcross.inhom.html">Lcross.inhom</a>,<a href="../../spatstat.explore/help/Ldot.inhom.html">Ldot.inhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous counterparts of <code>Lcross</code>, <code>Ldot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcfcross.inhom.html">pcfcross.inhom</a>,<a href="../../spatstat.explore/help/pcfdot.inhom.html">pcfdot.inhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous counterparts of <code>pcfcross</code>, <code>pcfdot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localKcross.html">localKcross</a>,<a href="../../spatstat.explore/help/localKdot.html">localKdot</a></code> </td><td style="text-align: left;">
+    local counterparts of <code>Kcross</code>, <code>Kdot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localLcross.html">localLcross</a>,<a href="../../spatstat.explore/help/localLdot.html">localLdot</a></code> </td><td style="text-align: left;">
+    local counterparts of <code>Lcross</code>, <code>Ldot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/localKcross.inhom.html">localKcross.inhom</a>,<a href="../../spatstat.explore/help/localLcross.inhom.html">localLcross.inhom</a></code> </td><td style="text-align: left;">
+    local counterparts of <code>Kcross.inhom</code>, <code>Lcross.inhom</code> 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a marked point pattern:</b>
+A marked point pattern is represented by an object <code>X</code>
+of class <code>"ppp"</code> with a component <code>X$marks</code>.
+The entries in the vector <code>X$marks</code> may be numeric, complex,
+string or any other atomic type. For numeric marks, there are the
+following functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markmean.html">markmean</a></code> </td><td style="text-align: left;"> smoothed local average of marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markvar.html">markvar</a></code> </td><td style="text-align: left;"> smoothed local variance of marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code> </td><td style="text-align: left;"> mark correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markcrosscorr.html">markcrosscorr</a></code> </td><td style="text-align: left;"> mark cross-correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markvario.html">markvario</a></code> </td><td style="text-align: left;"> mark variogram </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/markmarkscatter.html">markmarkscatter</a></code> </td><td style="text-align: left;"> mark-mark scatterplot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kmark.html">Kmark</a></code> </td><td style="text-align: left;"> mark-weighted <i>K</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Emark.html">Emark</a></code> </td><td style="text-align: left;"> mark independence diagnostic <i>E(r)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Vmark.html">Vmark</a></code> </td><td style="text-align: left;"> mark independence diagnostic <i>V(r)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/nnmean.html">nnmean</a></code> </td><td style="text-align: left;"> nearest neighbour mean index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/nnvario.html">nnvario</a></code> </td><td style="text-align: left;"> nearest neighbour mark variance index 
+  </td>
+</tr>
+
+</table>
+
+<p>For marks of any type, there are the following:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Gmulti.html">Gmulti</a></code> </td><td style="text-align: left;"> multitype nearest neighbour distribution </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Kmulti.html">Kmulti</a></code> </td><td style="text-align: left;"> multitype <i>K</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Jmulti.html">Jmulti</a></code> </td><td style="text-align: left;"> multitype <i>J</i>-function 
+  </td>
+</tr>
+
+</table>
+
+<p>Alternatively use <code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> to convert a marked point pattern
+to a multitype point pattern.
+</p>
+<p><b>Programming tools:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/applynbd.html">applynbd</a></code> </td><td style="text-align: left;"> apply function to every neighbourhood
+    in a point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/markstat.html">markstat</a></code> </td><td style="text-align: left;"> apply function to the marks of neighbours
+    in a point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/marktable.html">marktable</a></code> </td><td style="text-align: left;"> tabulate the marks of neighbours
+    in a point pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/pppdist.html">pppdist</a></code> </td><td style="text-align: left;"> find the optimal match between two point
+    patterns
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a point pattern on a linear network:</b>
+</p>
+<p>These are for point patterns on a linear network (class <code>lpp</code>).
+For unmarked patterns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearK.html">linearK</a></code> </td><td style="text-align: left;">
+    <i>K</i> function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKinhom.html">linearKinhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous <i>K</i> function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcf.html">linearpcf</a></code> </td><td style="text-align: left;">
+    pair correlation function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfinhom.html">linearpcfinhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous pair correlation on linear network
+  </td>
+</tr>
+
+</table>
+
+<p>For multitype patterns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKcross.html">linearKcross</a></code> </td><td style="text-align: left;">
+    <i>K</i> function between two types of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKdot.html">linearKdot</a></code> </td><td style="text-align: left;">
+    <i>K</i> function from one type to any type </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKcross.inhom.html">linearKcross.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearKcross.html">linearKcross</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearKdot.inhom.html">linearKdot.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearKdot.html">linearKdot</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearmarkconnect.html">linearmarkconnect</a></code> </td><td style="text-align: left;">
+    Mark connection function  on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearmarkequal.html">linearmarkequal</a></code> </td><td style="text-align: left;">
+    Mark equality function on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfcross.html">linearpcfcross</a></code> </td><td style="text-align: left;">
+    Pair correlation between two types of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfdot.html">linearpcfdot</a></code> </td><td style="text-align: left;">
+    Pair correlation from one type to any type </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfcross.inhom.html">linearpcfcross.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearpcfcross.html">linearpcfcross</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linearpcfdot.inhom.html">linearpcfdot.inhom</a></code> </td><td style="text-align: left;">
+    Inhomogeneous version of <code><a href="../../spatstat.linnet/help/linearpcfdot.html">linearpcfdot</a></code> 
+  </td>
+</tr>
+
+</table>
+
+<p>Related facilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/pairdist.lpp.html">pairdist.lpp</a></code> </td><td style="text-align: left;"> distances between pairs  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/crossdist.lpp.html">crossdist.lpp</a></code> </td><td style="text-align: left;"> distances between pairs </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nndist.lpp.html">nndist.lpp</a></code> </td><td style="text-align: left;"> nearest neighbour distances  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nncross.lpp.html">nncross.lpp</a></code> </td><td style="text-align: left;"> nearest neighbour distances  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nnwhich.lpp.html">nnwhich.lpp</a></code> </td><td style="text-align: left;"> find nearest neighbours  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/nnfun.lpp.html">nnfun.lpp</a></code> </td><td style="text-align: left;"> find nearest data point  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> </td><td style="text-align: left;"> kernel smoothing estimator of intensity  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/densityHeat.lpp.html">densityHeat.lpp</a></code> </td><td style="text-align: left;"> diffusion kernel estimate  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/distfun.lpp.html">distfun.lpp</a></code> </td><td style="text-align: left;"> distance transform  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/envelope.lpp.html">envelope.lpp</a></code> </td><td style="text-align: left;"> simulation envelopes  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code> </td><td style="text-align: left;"> simulate Poisson points on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/runiflpp.html">runiflpp</a></code> </td><td style="text-align: left;"> simulate random points on a linear network 
+  </td>
+</tr>
+
+</table>
+
+<p>It is also possible to fit point process models to <code>lpp</code> objects.
+See Section IV.
+</p>
+<p><b>Summary statistics for a three-dimensional point pattern:</b>
+</p>
+<p>These are for 3-dimensional point pattern objects (class <code>pp3</code>).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/F3est.html">F3est</a></code> </td><td style="text-align: left;"> empty space function <i>F</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/G3est.html">G3est</a></code> </td><td style="text-align: left;"> nearest neighbour function <i>G</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/K3est.html">K3est</a></code> </td><td style="text-align: left;"> <i>K</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/pcf3est.html">pcf3est</a></code> </td><td style="text-align: left;"> pair correlation function
+  </td>
+</tr>
+
+</table>
+
+<p>Related facilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/envelope.pp3.html">envelope.pp3</a></code> </td><td style="text-align: left;"> simulation envelopes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/pairdist.pp3.html">pairdist.pp3</a></code> </td><td style="text-align: left;"> distances between all pairs of
+    points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/crossdist.pp3.html">crossdist.pp3</a></code> </td><td style="text-align: left;"> distances between points in
+    two patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nndist.pp3.html">nndist.pp3</a></code> </td><td style="text-align: left;"> nearest neighbour distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nnwhich.pp3.html">nnwhich.pp3</a></code> </td><td style="text-align: left;"> find nearest neighbours </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nncross.pp3.html">nncross.pp3</a></code> </td><td style="text-align: left;"> find nearest neighbours in another pattern
+  </td>
+</tr>
+
+</table>
+
+<p><b>Computations for multi-dimensional point pattern:</b>
+</p>
+<p>These are for multi-dimensional space-time
+point pattern objects (class <code>ppx</code>).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/pairdist.ppx.html">pairdist.ppx</a></code> </td><td style="text-align: left;"> distances between all pairs of
+    points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/crossdist.ppx.html">crossdist.ppx</a></code> </td><td style="text-align: left;"> distances between points in
+    two patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nndist.ppx.html">nndist.ppx</a></code> </td><td style="text-align: left;"> nearest neighbour distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/nnwhich.ppx.html">nnwhich.ppx</a></code> </td><td style="text-align: left;"> find nearest neighbours
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for random sets:</b>
+</p>
+<p>These work for point patterns (class <code>ppp</code>),
+line segment patterns (class <code>psp</code>)
+or windows (class <code>owin</code>).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Hest.html">Hest</a></code> </td><td style="text-align: left;"> spherical contact distribution <i>H</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Gfox.html">Gfox</a></code> </td><td style="text-align: left;"> Foxall <i>G</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/Jfox.html">Jfox</a></code> </td><td style="text-align: left;"> Foxall <i>J</i>-function
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>III. MODEL FITTING (COX AND CLUSTER MODELS)</h3>
+
+<p>Cluster process models (with homogeneous or inhomogeneous intensity)
+and Cox processes can be fitted by the function <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+Its result is an object of class <code>"kppm"</code>.
+The fitted model can be printed, plotted, predicted, simulated
+and updated.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code> </td><td style="text-align: left;">  Fit model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/plot.kppm.html">plot.kppm</a></code> </td><td style="text-align: left;">  Plot the fitted model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/summary.kppm.html">summary.kppm</a></code> </td><td style="text-align: left;">  Summarise the fitted model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/fitted.kppm.html">fitted.kppm</a></code> </td><td style="text-align: left;"> Compute fitted intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/predict.kppm.html">predict.kppm</a></code> </td><td style="text-align: left;"> Compute fitted intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/update.kppm.html">update.kppm</a></code> </td><td style="text-align: left;"> Update the model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/improve.kppm.html">improve.kppm</a></code> </td><td style="text-align: left;"> Refine the estimate of trend </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code> </td><td style="text-align: left;"> Generate simulated realisations </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/vcov.kppm.html">vcov.kppm</a></code> </td><td style="text-align: left;"> Variance-covariance matrix of coefficients </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/methods.kppm.html">coef.kppm</a></code>
+    </td><td style="text-align: left;"> Extract trend coefficients </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/methods.kppm.html">formula.kppm</a></code>
+    </td><td style="text-align: left;"> Extract trend formula </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/parameters.html">parameters</a></code> </td><td style="text-align: left;"> Extract all model parameters </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/clusterfield.kppm.html">clusterfield.kppm</a></code> </td><td style="text-align: left;"> Compute offspring density </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/clusterradius.kppm.html">clusterradius.kppm</a></code> </td><td style="text-align: left;"> Radius of support of offspring density </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Kmodel.kppm.html">Kmodel.kppm</a></code> </td><td style="text-align: left;"> <i>K</i> function of fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/pcfmodel.kppm.html">pcfmodel.kppm</a></code> </td><td style="text-align: left;"> Pair correlation of fitted model 
+  </td>
+</tr>
+
+</table>
+
+<p>For model selection, you can also use 
+the generic functions <code><a href="../../stats/help/step.html">step</a></code>, <code><a href="../../stats/help/drop1.html">drop1</a></code> 
+and <code><a href="../../stats/help/AIC.html">AIC</a></code> on fitted point process models.
+For variable selection, see <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>.
+</p>
+<p>The theoretical models can also be simulated,
+for any choice of parameter values,
+using <code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>, <code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code>, <code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>,
+and <code><a href="../../spatstat.random/help/rLGCP.html">rLGCP</a></code>.
+</p>
+<p>Lower-level fitting functions include:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/lgcp.estK.html">lgcp.estK</a></code> </td><td style="text-align: left;"> fit a log-Gaussian Cox process model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/lgcp.estpcf.html">lgcp.estpcf</a></code> </td><td style="text-align: left;"> fit a log-Gaussian Cox process model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/thomas.estK.html">thomas.estK</a></code> </td><td style="text-align: left;"> fit the Thomas process model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/thomas.estpcf.html">thomas.estpcf</a></code> </td><td style="text-align: left;"> fit the Thomas process model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/matclust.estK.html">matclust.estK</a></code> </td><td style="text-align: left;"> fit the Matern Cluster process model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/matclust.estpcf.html">matclust.estpcf</a></code> </td><td style="text-align: left;"> fit the Matern Cluster process model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/cauchy.estK.html">cauchy.estK</a></code> </td><td style="text-align: left;"> fit a Neyman-Scott Cauchy cluster process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code><a href="../../spatstat.model/help/cauchy.estpcf.html">cauchy.estpcf</a></code> </td><td style="text-align: left;"> fit a Neyman-Scott Cauchy cluster process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code><a href="../../spatstat.model/help/vargamma.estK.html">vargamma.estK</a></code> </td><td style="text-align: left;"> fit a Neyman-Scott Variance Gamma process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code><a href="../../spatstat.model/help/vargamma.estpcf.html">vargamma.estpcf</a></code> </td><td style="text-align: left;"> fit a Neyman-Scott Variance Gamma process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code> </td><td style="text-align: left;"> low-level algorithm for fitting models
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> </td><td style="text-align: left;"> by the method of minimum contrast 
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>IV. MODEL FITTING (POISSON AND GIBBS MODELS)</h3>
+
+<p><b>Types of models</b>
+</p>
+<p>Poisson point processes are the simplest models for point patterns.
+A Poisson model assumes that the points are stochastically
+independent. It may allow the points to have a non-uniform spatial
+density. The special case of a Poisson process with a uniform
+spatial density is often called Complete Spatial Randomness.
+</p>
+<p>Poisson point processes are included in the more general class of Gibbs point
+process models. In a Gibbs model, there is <em>interaction</em>
+or dependence between points. Many different types of interaction
+can be specified.
+</p>
+<p>For a detailed explanation of how to fit Poisson or
+Gibbs point process models to point pattern data using <span class="pkg">spatstat</span>,
+see Baddeley and Turner (2005b) or Baddeley (2008).
+</p>
+<p><b>To fit a Poisson or Gibbs point process model:</b>
+</p>
+<p>Model fitting in <span class="pkg">spatstat</span> is performed mainly by the function
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. Its result is an object of class <code>"ppm"</code>.
+</p>
+<p>Here are some examples, where <code>X</code> is a point pattern (class
+<code>"ppp"</code>):
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <em>command</em> </td><td style="text-align: left;"> <em>model</em> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>ppm(X)</code> </td><td style="text-align: left;"> Complete Spatial Randomness </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>ppm(X ~ 1)</code> </td><td style="text-align: left;"> Complete Spatial Randomness </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>ppm(X ~ x)</code> </td><td style="text-align: left;"> Poisson process with </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                             </td><td style="text-align: left;"> intensity loglinear in <i>x</i> coordinate </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>ppm(X ~ 1, Strauss(0.1))</code> </td><td style="text-align: left;"> Stationary Strauss process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>ppm(X ~ x, Strauss(0.1))</code> </td><td style="text-align: left;"> Strauss process with </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                              </td><td style="text-align: left;"> conditional intensity loglinear in <i>x</i>
+  </td>
+</tr>
+
+</table>
+
+<p>It is also possible to fit models that depend on
+other covariates.
+</p>
+<p><b>Manipulating the fitted model:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code> </td><td style="text-align: left;"> 		Plot the fitted model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+    </td><td style="text-align: left;">   Compute the spatial trend and conditional intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;">   of the fitted point process model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/coef.ppm.html">coef.ppm</a></code> </td><td style="text-align: left;"> Extract the fitted model coefficients</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/parameters.html">parameters</a></code> </td><td style="text-align: left;"> Extract all model parameters</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/formula.ppm.html">formula.ppm</a></code> </td><td style="text-align: left;"> Extract the trend formula</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/intensity.ppm.html">intensity.ppm</a></code> </td><td style="text-align: left;"> Compute fitted intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Kmodel.ppm.html">Kmodel.ppm</a></code> </td><td style="text-align: left;"> <i>K</i> function of fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/pcfmodel.ppm.html">pcfmodel.ppm</a></code> </td><td style="text-align: left;"> pair correlation of fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code> </td><td style="text-align: left;"> Compute fitted conditional intensity at quadrature points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code> </td><td style="text-align: left;"> Compute point process residuals at quadrature points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code> </td><td style="text-align: left;"> Update the fit </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/vcov.ppm.html">vcov.ppm</a></code> </td><td style="text-align: left;"> Variance-covariance matrix of estimates</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/rmh.ppm.html">rmh.ppm</a></code> </td><td style="text-align: left;"> Simulate from fitted model  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code> </td><td style="text-align: left;"> Simulate from fitted model  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/print.ppm.html">print.ppm</a></code> </td><td style="text-align: left;"> Print basic information about a fitted model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/summary.ppm.html">summary.ppm</a></code> </td><td style="text-align: left;"> Summarise a fitted model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/effectfun.html">effectfun</a></code> </td><td style="text-align: left;"> Compute the fitted effect of one covariate</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/logLik.ppm.html">logLik.ppm</a></code> </td><td style="text-align: left;"> log-likelihood or log-pseudolikelihood</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/anova.ppm.html">anova.ppm</a></code> </td><td style="text-align: left;"> Analysis of deviance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/model.frame.ppm.html">model.frame.ppm</a></code> </td><td style="text-align: left;"> Extract data frame used to fit model  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/model.images.html">model.images</a></code> </td><td style="text-align: left;"> Extract spatial data used to fit model  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/model.depends.html">model.depends</a></code> </td><td style="text-align: left;"> Identify variables in the model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/as.interact.html">as.interact</a></code> </td><td style="text-align: left;"> Interpoint interaction component of model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/fitin.html">fitin</a></code> </td><td style="text-align: left;"> Extract fitted interpoint interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/is.hybrid.html">is.hybrid</a></code> </td><td style="text-align: left;"> Determine whether the model is a hybrid </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/valid.ppm.html">valid.ppm</a></code> </td><td style="text-align: left;"> Check the model is a valid point process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/project.ppm.html">project.ppm</a></code> </td><td style="text-align: left;"> Ensure the model is a valid point process 
+  </td>
+</tr>
+
+</table>
+
+<p>For model selection, you can also use 
+the generic functions <code><a href="../../stats/help/step.html">step</a></code>, <code><a href="../../stats/help/drop1.html">drop1</a></code> 
+and <code><a href="../../stats/help/AIC.html">AIC</a></code> on fitted point process models.
+For variable selection, see <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code> to control plotting of fitted model.
+</p>
+<p><b>To specify a point process model:</b>
+</p>
+<p>The first order &ldquo;trend&rdquo; of the model is determined by an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> 
+language formula. The formula specifies the form of the
+<em>logarithm</em> of the trend.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>X ~ 1</code>  </td><td style="text-align: left;"> No trend (stationary) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>X ~ x</code>   </td><td style="text-align: left;"> Loglinear trend
+      <i>lambda(x,y) =	exp(alpha + beta * x)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;"> where <i>x,y</i> are Cartesian coordinates </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>X ~ polynom(x,y,3)</code>  </td><td style="text-align: left;"> Log-cubic polynomial trend  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>X ~ harmonic(x,y,2)</code>  </td><td style="text-align: left;"> Log-harmonic polynomial trend </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>X ~ Z</code>   </td><td style="text-align: left;"> Loglinear function of covariate <code>Z</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;">  <i>lambda(x,y) =	exp(alpha + beta * Z(x,y))</i> 
+  </td>
+</tr>
+
+</table>
+
+<p>The higher order (&ldquo;interaction&rdquo;) components are described by
+an object of class <code>"interact"</code>. Such objects are created by:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Poisson.html">Poisson</a>()</code> </td><td style="text-align: left;">		the Poisson point process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/AreaInter.html">AreaInter</a>()</code>	 </td><td style="text-align: left;"> Area-interaction process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/BadGey.html">BadGey</a>()</code> </td><td style="text-align: left;">	multiscale Geyer process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Concom.html">Concom</a>()</code> </td><td style="text-align: left;">	connected component interaction</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/DiggleGratton.html">DiggleGratton</a>() </code> </td><td style="text-align: left;"> Diggle-Gratton potential </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/DiggleGatesStibbard.html">DiggleGatesStibbard</a>() </code> </td><td style="text-align: left;"> Diggle-Gates-Stibbard potential </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Fiksel.html">Fiksel</a>()</code>	 </td><td style="text-align: left;"> Fiksel pairwise interaction process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a>()</code>	 </td><td style="text-align: left;"> Geyer's saturation process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Hardcore.html">Hardcore</a>()</code>	 </td><td style="text-align: left;"> Hard core process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/HierHard.html">HierHard</a>()</code>	 </td><td style="text-align: left;"> Hierarchical multiype hard core process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/HierStrauss.html">HierStrauss</a>()</code>	 </td><td style="text-align: left;"> Hierarchical multiype Strauss process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/HierStraussHard.html">HierStraussHard</a>()</code>	 </td><td style="text-align: left;">
+    Hierarchical multiype Strauss-hard core process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a>()</code>	 </td><td style="text-align: left;"> Hybrid of several interactions</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/LennardJones.html">LennardJones</a>() </code> </td><td style="text-align: left;"> Lennard-Jones potential </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/MultiHard.html">MultiHard</a>()</code> </td><td style="text-align: left;"> 		multitype hard core process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/MultiStrauss.html">MultiStrauss</a>()</code> </td><td style="text-align: left;"> 		multitype Strauss process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/MultiStraussHard.html">MultiStraussHard</a>()</code> </td><td style="text-align: left;"> 	multitype Strauss/hard core process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/OrdThresh.html">OrdThresh</a>()</code> </td><td style="text-align: left;">		Ord process, threshold potential</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Ord.html">Ord</a>()</code> </td><td style="text-align: left;"> 		        Ord model, user-supplied potential </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a>()</code> </td><td style="text-align: left;">		pairwise interaction, piecewise constant </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Pairwise.html">Pairwise</a>()</code> </td><td style="text-align: left;">	pairwise interaction, user-supplied potential</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Penttinen.html">Penttinen</a>()</code> </td><td style="text-align: left;">	Penttinen pairwise interaction</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/SatPiece.html">SatPiece</a>()</code> </td><td style="text-align: left;">	Saturated pair model, piecewise  constant potential</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Saturated.html">Saturated</a>()</code> </td><td style="text-align: left;">	Saturated pair model, user-supplied potential</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Softcore.html">Softcore</a>()</code> </td><td style="text-align: left;"> pairwise interaction, soft core potential</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a>()</code> </td><td style="text-align: left;">  Strauss process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a>()</code> </td><td style="text-align: left;"> Strauss/hard core point process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Triplets.html">Triplets</a>()</code> </td><td style="text-align: left;"> Geyer triplets process
+  </td>
+</tr>
+
+</table>
+
+<p>Note that it is also possible to combine several such interactions
+using <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code>.
+</p>
+<p><b>Finer control over model fitting:</b>
+</p>
+<p>A quadrature scheme is represented by an object of
+class <code>"quad"</code>. To create a quadrature scheme, typically
+use <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code> </td><td style="text-align: left;"> default quadrature scheme </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                             </td><td style="text-align: left;"> using rectangular cells or Dirichlet cells</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/pixelquad.html">pixelquad</a></code>  </td><td style="text-align: left;"> quadrature scheme based on image pixels </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/quad.html">quad</a></code>       </td><td style="text-align: left;"> create an object of class <code>"quad"</code>
+  </td>
+</tr>
+
+</table>
+
+<p>To inspect a quadrature scheme:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>plot(Q)</code> </td><td style="text-align: left;"> plot quadrature scheme <code>Q</code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>print(Q)</code> </td><td style="text-align: left;"> print basic information about quadrature scheme <code>Q</code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/summary.quad.html">summary</a>(Q)</code> </td><td style="text-align: left;"> summary of quadrature scheme <code>Q</code>
+  </td>
+</tr>
+
+</table>
+
+<p>A quadrature scheme consists of data points, dummy points, and
+weights. To generate dummy points:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/default.dummy.html">default.dummy</a></code> </td><td style="text-align: left;"> default pattern of dummy points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/gridcentres.html">gridcentres</a></code> </td><td style="text-align: left;"> dummy points in a rectangular grid </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rstrat.html">rstrat</a></code> </td><td style="text-align: left;"> stratified random dummy pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/spokes.html">spokes</a></code> </td><td style="text-align: left;"> radial pattern of dummy points  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/corners.html">corners</a></code> </td><td style="text-align: left;"> dummy points at corners of the window
+  </td>
+</tr>
+
+</table>
+
+<p>To compute weights:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/gridweights.html">gridweights</a></code> </td><td style="text-align: left;"> quadrature weights by the grid-counting rule  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/dirichletWeights.html">dirichletWeights</a></code> </td><td style="text-align: left;"> quadrature weights are
+    Dirichlet tile areas
+  </td>
+</tr>
+
+</table>
+
+<p><b>Simulation and goodness-of-fit for fitted models:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/rmh.ppm.html">rmh.ppm</a></code> </td><td style="text-align: left;"> simulate realisations of a fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code> </td><td style="text-align: left;"> simulate realisations of a fitted model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> compute simulation envelopes for a
+    fitted model 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Point process models on a linear network:</b>
+</p>
+<p>An object of class <code>"lpp"</code> represents a pattern of points on
+a linear network. Point process models can also be fitted to these
+objects. Currently only Poisson models can be fitted.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code> </td><td style="text-align: left;"> point process model on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/anova.lppm.html">anova.lppm</a></code> </td><td style="text-align: left;"> analysis of deviance for </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;"> point process model on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/envelope.lppm.html">envelope.lppm</a></code> </td><td style="text-align: left;"> simulation envelopes for </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td><td style="text-align: left;"> point process model on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/fitted.lppm.html">fitted.lppm</a></code> </td><td style="text-align: left;"> fitted intensity values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/predict.lppm.html">predict.lppm</a></code> </td><td style="text-align: left;"> model prediction on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linim.html">linim</a></code> </td><td style="text-align: left;"> pixel image on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code> </td><td style="text-align: left;"> plot a pixel image on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/eval.linim.html">eval.linim</a></code> </td><td style="text-align: left;"> evaluate expression involving images </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code> </td><td style="text-align: left;"> function defined on linear network </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.linnet/help/methods.linfun.html">methods.linfun</a></code> </td><td style="text-align: left;"> conversion facilities
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>V. MODEL FITTING (DETERMINANTAL POINT PROCESS MODELS)</h3>
+
+<p>Code for fitting <em>determinantal point process models</em> has 
+recently been added to <span class="pkg">spatstat</span>.
+</p>
+<p>For information, see the help file for <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+
+
+<h3>VI. MODEL FITTING (SPATIAL LOGISTIC REGRESSION)</h3>
+
+<p><b>Logistic regression</b>
+</p>
+<p>Pixel-based spatial logistic regression is an alternative
+technique for analysing spatial point patterns
+that is widely used in Geographical Information Systems.
+It is approximately equivalent to fitting a Poisson point process
+model.
+</p>
+<p>In pixel-based logistic regression, the spatial domain is
+divided into small pixels, the presence or absence of a
+data point in each pixel is recorded, and logistic regression
+is used to model the presence/absence indicators as a function
+of any covariates.
+</p>
+<p>Facilities for performing spatial logistic regression are
+provided in <span class="pkg">spatstat</span> for comparison purposes.
+</p>
+<p><b>Fitting a spatial logistic regression</b>
+</p>
+<p>Spatial logistic regression is performed by the function
+<code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>. Its result is an object of class <code>"slrm"</code>.
+There are many methods for this class, including methods for
+<code>print</code>, <code>fitted</code>, <code>predict</code>, <code>simulate</code>,
+<code>anova</code>, <code>coef</code>, <code>logLik</code>, <code>terms</code>,
+<code>update</code>, <code>formula</code> and <code>vcov</code>. 
+</p>
+<p>For example, if <code>X</code> is a point pattern (class
+<code>"ppp"</code>):
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <em>command</em> </td><td style="text-align: left;"> <em>model</em> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>slrm(X ~ 1)</code> </td><td style="text-align: left;"> Complete Spatial Randomness </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>slrm(X ~ x)</code> </td><td style="text-align: left;"> Poisson process with </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                </td><td style="text-align: left;"> intensity loglinear in <i>x</i> coordinate </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>slrm(X ~ Z)</code> </td><td style="text-align: left;"> Poisson process with </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                </td><td style="text-align: left;"> intensity loglinear in covariate <code>Z</code>
+  </td>
+</tr>
+
+</table>
+
+<p><b>Manipulating a fitted spatial logistic regression</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/anova.slrm.html">anova.slrm</a></code> </td><td style="text-align: left;"> Analysis of deviance </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/coef.slrm.html">coef.slrm</a></code>  </td><td style="text-align: left;"> Extract fitted coefficients </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/vcov.slrm.html">vcov.slrm</a></code>  </td><td style="text-align: left;"> Variance-covariance matrix of fitted coefficients </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/fitted.slrm.html">fitted.slrm</a></code> </td><td style="text-align: left;"> Compute fitted probabilities or
+    intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/logLik.slrm.html">logLik.slrm</a></code>   </td><td style="text-align: left;"> Evaluate loglikelihood of fitted
+    model </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/plot.slrm.html">plot.slrm</a></code>    </td><td style="text-align: left;"> Plot fitted probabilities or
+    intensity </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code> </td><td style="text-align: left;"> Compute predicted probabilities or
+    intensity with new data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/simulate.slrm.html">simulate.slrm</a></code> </td><td style="text-align: left;"> Simulate model
+  </td>
+</tr>
+
+</table>
+
+<p>There are many other undocumented methods for this class,
+including methods for <code>print</code>, <code>update</code>, <code>formula</code>
+and <code>terms</code>. Stepwise model selection is
+possible using <code>step</code> or <code>stepAIC</code>.
+For variable selection, see <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>.
+</p>
+
+
+<h3>VII. SIMULATION</h3>
+
+<p>There are many ways to generate a random point pattern,
+line segment pattern, pixel image or tessellation
+in <span class="pkg">spatstat</span>. 
+</p>
+<p><b>Random point patterns:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code> </td><td style="text-align: left;">
+    generate <i>n</i> independent uniform random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code> </td><td style="text-align: left;">
+    generate <i>n</i> independent random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rmpoint.html">rmpoint</a></code> </td><td style="text-align: left;">
+    generate <i>n</i> independent multitype random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code> </td><td style="text-align: left;">
+    simulate the (in)homogeneous Poisson point process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rmpoispp.html">rmpoispp</a></code> </td><td style="text-align: left;">
+    simulate the (in)homogeneous multitype Poisson point process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/runifdisc.html">runifdisc</a></code> </td><td style="text-align: left;">
+    generate <i>n</i> independent uniform random points in disc</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rstrat.html">rstrat</a></code> </td><td style="text-align: left;">
+    stratified random sample of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/rsyst.html">rsyst</a></code> </td><td style="text-align: left;">
+    systematic random sample (grid) of points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rMaternI.html">rMaternI</a></code>  </td><td style="text-align: left;">
+    simulate the Matern Model I inhibition process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rMaternII.html">rMaternII</a></code> </td><td style="text-align: left;">
+    simulate the Matern Model II inhibition process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rSSI.html">rSSI</a></code> </td><td style="text-align: left;">
+    simulate Simple Sequential Inhibition process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rHardcore.html">rHardcore</a></code> </td><td style="text-align: left;">
+    simulate hard core process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rStrauss.html">rStrauss</a></code> </td><td style="text-align: left;">
+    simulate Strauss process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rStraussHard.html">rStraussHard</a></code> </td><td style="text-align: left;">
+    simulate Strauss-hard core process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rDiggleGratton.html">rDiggleGratton</a></code> </td><td style="text-align: left;">
+    simulate Diggle-Gratton process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rDGS.html">rDGS</a></code> </td><td style="text-align: left;">
+    simulate Diggle-Gates-Stibbard process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rPenttinen.html">rPenttinen</a></code> </td><td style="text-align: left;">
+    simulate Penttinen process (perfect simulation)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rNeymanScott.html">rNeymanScott</a></code> </td><td style="text-align: left;">
+    simulate a general Neyman-Scott process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code> </td><td style="text-align: left;">
+    simulate the Matern Cluster process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code> </td><td style="text-align: left;">
+    simulate the Thomas process  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rLGCP.html">rLGCP</a></code> </td><td style="text-align: left;">
+    simulate the log-Gaussian Cox process  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rGaussPoisson.html">rGaussPoisson</a></code>  </td><td style="text-align: left;">
+    simulate the Gauss-Poisson cluster process</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code> </td><td style="text-align: left;">
+    simulate Neyman-Scott process with Cauchy clusters </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code> </td><td style="text-align: left;">
+    simulate Neyman-Scott process with Variance Gamma clusters </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rcell.html">rcell</a></code> </td><td style="text-align: left;">
+    simulate the Baddeley-Silverman cell process  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/runifpointOnLines.html">runifpointOnLines</a></code> </td><td style="text-align: left;">
+    generate <i>n</i> random points along specified line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rpoisppOnLines.html">rpoisppOnLines</a></code> </td><td style="text-align: left;">
+    generate Poisson random points along specified line segments 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Resampling a point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/quadratresample.html">quadratresample</a></code> </td><td style="text-align: left;"> block resampling </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> </td><td style="text-align: left;">
+    apply random displacements to points in a pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rshift.html">rshift</a></code> </td><td style="text-align: left;"> random shifting of (subsets of) points</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rthin.html">rthin</a></code> </td><td style="text-align: left;">  random thinning 
+  </td>
+</tr>
+
+</table>
+
+<p>See also <code><a href="../../spatstat.explore/help/varblock.html">varblock</a></code> for estimating the variance
+of a summary statistic by block resampling, and
+<code><a href="../../spatstat.explore/help/lohboot.html">lohboot</a></code> for another bootstrap technique.
+</p>
+<p><b>Fitted point process models:</b>
+</p>
+<p>If you have fitted a point process model to a point pattern dataset,
+the fitted model can be simulated.
+</p>
+<p>Cluster process models 
+are fitted by the function <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code> yielding an
+object of class <code>"kppm"</code>. To generate one or more simulated
+realisations of this fitted model, use 
+<code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code>.
+</p>
+<p>Gibbs point process models 
+are fitted by the function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> yielding an
+object of class <code>"ppm"</code>. To generate a simulated
+realisation of this fitted model, use <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+To generate one or more simulated realisations of the fitted model,
+use <code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>.
+</p>
+<p><b>Other random patterns:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+     <code><a href="../../spatstat.geom/help/rlinegrid.html">rlinegrid</a></code> </td><td style="text-align: left;">
+     generate a random array of parallel lines through a window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+     <code><a href="../../spatstat.random/help/rpoisline.html">rpoisline</a></code> </td><td style="text-align: left;">
+     simulate the Poisson line process within a window </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+     <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code> </td><td style="text-align: left;">
+     generate random tessellation using Poisson line process </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+     <code><a href="../../spatstat.random/help/rMosaicSet.html">rMosaicSet</a></code> </td><td style="text-align: left;">
+     generate random set by selecting some tiles of a tessellation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+     <code><a href="../../spatstat.random/help/rMosaicField.html">rMosaicField</a></code> </td><td style="text-align: left;">
+     generate random pixel image by assigning random values
+     in each tile of a tessellation
+   </td>
+</tr>
+
+</table>
+
+<p><b>Simulation-based inference</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> critical envelope for Monte Carlo
+    test of goodness-of-fit </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bits.envelope.html">bits.envelope</a></code> </td><td style="text-align: left;"> critical envelope for balanced
+    two-stage Monte Carlo test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/qqplot.ppm.html">qqplot.ppm</a></code> </td><td style="text-align: left;"> diagnostic plot for interpoint
+    interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/scan.test.html">scan.test</a></code> </td><td style="text-align: left;"> spatial scan statistic/test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/studpermu.test.html">studpermu.test</a></code> </td><td style="text-align: left;"> studentised permutation test</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/segregation.test.html">segregation.test</a></code> </td><td style="text-align: left;"> test of segregation of types 
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>VIII. TESTS AND DIAGNOSTICS</h3>
+
+<p><b>Hypothesis tests:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code> </td><td style="text-align: left;"> <i>chi^2</i> goodness-of-fit
+    test on quadrat counts </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/clarkevans.test.html">clarkevans.test</a></code> </td><td style="text-align: left;"> Clark and Evans test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code> </td><td style="text-align: left;"> Spatial distribution goodness-of-fit test</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/berman.test.html">berman.test</a></code> </td><td style="text-align: left;"> Berman's goodness-of-fit tests</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> critical envelope for Monte Carlo
+    test of goodness-of-fit </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/scan.test.html">scan.test</a></code> </td><td style="text-align: left;"> spatial scan statistic/test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/dclf.test.html">dclf.test</a></code> </td><td style="text-align: left;"> Diggle-Cressie-Loosmore-Ford test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/mad.test.html">mad.test</a></code> </td><td style="text-align: left;"> Mean Absolute Deviation test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/anova.ppm.html">anova.ppm</a></code> </td><td style="text-align: left;"> Analysis of Deviance for
+    point process models 
+  </td>
+</tr>
+
+</table>
+
+<p>More recently-developed tests:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/dg.test.html">dg.test</a></code> </td><td style="text-align: left;"> Dao-Genton test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/bits.test.html">bits.test</a></code> </td><td style="text-align: left;"> Balanced independent two-stage test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/dclf.progress.html">dclf.progress</a></code> </td><td style="text-align: left;"> Progress plot for DCLF test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/mad.progress.html">mad.progress</a></code> </td><td style="text-align: left;"> Progress plot for MAD test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p><b>Sensitivity diagnostics:</b>
+</p>
+<p>Classical measures of model sensitivity such as leverage and influence
+have been adapted to point process models.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code> </td><td style="text-align: left;"> Leverage for point process model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code> </td><td style="text-align: left;"> Influence for point process model</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code> </td><td style="text-align: left;"> Parameter influence</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.model/help/dffit.ppm.html">dffit.ppm</a></code> </td><td style="text-align: left;"> Effect change diagnostic
+    </td>
+</tr>
+
+</table>
+
+<p><b>Diagnostics for covariate effect:</b>
+</p>
+<p>Classical diagnostics for covariate effects have been adapted to
+point process models.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/parres.html">parres</a></code> </td><td style="text-align: left;"> Partial residual plot</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/addvar.html">addvar</a></code> </td><td style="text-align: left;"> Added variable plot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code> </td><td style="text-align: left;"> Kernel estimate of covariate effect</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.explore/help/rho2hat.html">rho2hat</a></code> </td><td style="text-align: left;"> Kernel estimate of covariate effect
+    (bivariate) 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Residual diagnostics:</b>
+</p>
+<p>Residuals for a fitted point process model, and diagnostic plots
+based on the residuals, were introduced in Baddeley et al (2005) and
+Baddeley, Rubak and Moller (2011).
+</p>
+<p>Type <code>demo(diagnose)</code>
+for a demonstration of the diagnostics features.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/diagnose.ppm.html">diagnose.ppm</a></code> </td><td style="text-align: left;"> diagnostic plots for spatial trend</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/qqplot.ppm.html">qqplot.ppm</a></code> </td><td style="text-align: left;"> diagnostic Q-Q plot for interpoint interaction</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.data/help/residualspaper.html">residualspaper</a></code> </td><td style="text-align: left;"> examples from Baddeley et al (2005) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Kcom.html">Kcom</a></code> </td><td style="text-align: left;"> model compensator of <i>K</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code> </td><td style="text-align: left;"> model compensator of <i>G</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Kres.html">Kres</a></code> </td><td style="text-align: left;"> score residual of <i>K</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/Gres.html">Gres</a></code> </td><td style="text-align: left;"> score residual of <i>G</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/psst.html">psst</a></code> </td><td style="text-align: left;"> pseudoscore residual of summary function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/psstA.html">psstA</a></code> </td><td style="text-align: left;"> pseudoscore residual of empty space function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/psstG.html">psstG</a></code> </td><td style="text-align: left;"> pseudoscore residual of <i>G</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/compareFit.html">compareFit</a></code> </td><td style="text-align: left;"> compare compensators of several fitted
+    models
+  </td>
+</tr>
+
+</table>
+
+<p><b>Resampling and randomisation procedures</b>
+</p>
+<p>You can build your own tests based on randomisation
+and resampling using the following capabilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/quadratresample.html">quadratresample</a></code> </td><td style="text-align: left;"> block resampling </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> </td><td style="text-align: left;">
+    apply random displacements to points in a pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rshift.html">rshift</a></code> </td><td style="text-align: left;"> random shifting of (subsets of) points</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rthin.html">rthin</a></code> </td><td style="text-align: left;">  random thinning  
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>IX. DOCUMENTATION</h3>
+
+<p>The online manual entries are quite detailed and should be consulted
+first for information about a particular function.
+</p>
+<p>The book
+Baddeley, Rubak and Turner (2015) is a complete course
+on analysing spatial point patterns, with full details about
+<span class="pkg">spatstat</span>.
+</p>
+<p>Older material (which is now out-of-date but is freely available)
+includes Baddeley and Turner (2005a), a brief overview of
+the package in its early development;
+Baddeley and Turner (2005b), a more detailed explanation of
+how to fit point process models to data; and 
+Baddeley (2010), a complete set of notes from a 2-day workshop
+on the use of <span class="pkg">spatstat</span>. 
+</p>
+<p>Type <code>citation("spatstat")</code> to get a list of these references.
+</p>
+
+
+<h3>Licence</h3>
+
+<p>This library and its documentation are usable under the terms of the &quot;GNU 
+General Public License&quot;, a copy of which is distributed with the package.
+</p>
+
+
+<h3>Acknowledgements</h3>
+
+<p>Kasper Klitgaard Berthelsen,
+Ottmar Cronie,
+Tilman Davies,
+Yongtao Guan,
+Ute Hahn,
+Abdollah Jalilian,
+Marie-Colette van Lieshout,
+Greg McSwiggan,
+Tuomas Rajala,
+Suman Rakshit,
+Dominic Schuhmacher,
+Rasmus Waagepetersen
+and
+Hangsheng Wang
+made substantial contributions of code.
+</p>
+<p>Additional contributions and suggestions from
+Mohomed Abraj,
+Monsuru Adepeju,
+Corey Anderson,
+Ang Qi Wei,
+Ryan Arellano,
+Jens Astrom,
+Robert Aue,
+Marcel Austenfeld,
+Sandro Azaele,
+Guy Bayegnak,
+Colin Beale,
+Melanie Bell,
+Thomas Bendtsen,
+Ricardo Bernhardt,
+Andrew Bevan,
+Brad Biggerstaff,
+Anders Bilgrau,
+Leanne Bischof,
+Christophe Biscio,
+Roger Bivand,
+Jose M. Blanco Moreno,
+Florent Bonneu,
+Jordan Brown,
+Ian Buller,
+Julian Burgos,
+Simon Byers,
+Ya-Mei Chang,
+Jianbao Chen,
+Igor Chernayavsky,
+Y.C. Chin,
+Bjarke Christensen,
+Lucia Cobo Sanchez,
+Jean-Francois Coeurjolly,
+Kim Colyvas,
+Hadrien Commenges,
+Rochelle Constantine,
+Robin Corria Ainslie,
+Richard Cotton,
+Marcelino de la Cruz,
+Peter Dalgaard,
+Mario D'Antuono,
+Sourav Das,
+Peter Diggle,
+Patrick Donnelly,
+Ian Dryden,
+Stephen Eglen,
+Ahmed El-Gabbas,
+Belarmain Fandohan,
+Olivier Flores,
+David Ford,
+Peter Forbes,
+Shane Frank,
+Janet Franklin,
+Funwi-Gabga Neba,
+Oscar Garcia,
+Agnes Gault,
+Jonas Geldmann,
+Marc Genton,
+Shaaban Ghalandarayeshi,
+Julian Gilbey,
+Jason Goldstick,
+Pavel Grabarnik,
+C. Graf,
+Ute Hahn,
+Andrew Hardegen,
+Martin Bogsted Hansen,
+Martin Hazelton,
+Juha Heikkinen,
+Mandy Hering,
+Markus Herrmann,
+Maximilian Hesselbarth,
+Paul Hewson,
+Hamidreza Heydarian,
+Kassel Hingee,
+Stephanie Hogg,
+Kurt Hornik,
+Philipp Hunziker,
+Jack Hywood,
+Ross Ihaka,
+Cenk Icos,
+Aruna Jammalamadaka,
+Robert John-Chandran,
+Devin Johnson,
+Mahdieh Khanmohammadi,
+Bob Klaver,
+Lily Kozmian-Ledward,
+Peter Kovesi,
+Mike Kuhn,
+Jeff Laake,
+Robert Lamb,
+Frederic Lavancier,
+Tom Lawrence,
+Tomas Lazauskas,
+Jonathan Lee,
+George Leser,
+Angela Li,
+Li Haitao,
+George Limitsios,
+Andrew Lister,
+Nestor Luambua,
+Bethany Macdonald,
+Ben Madin,
+Martin Maechler,
+Daniel Manrique-Castano,
+Kiran Marchikanti,
+Jeff Marcus,
+Robert Mark,
+Peter McCullagh,
+Monia Mahling,
+Jorge Mateu Mahiques,
+Ulf Mehlig,
+Frederico Mestre,
+Sebastian Wastl Meyer,
+Mi Xiangcheng,
+Lore De Middeleer,
+Robin Milne,
+Enrique Miranda,
+Jesper Moller,
+Annie Mollie,
+Ines Moncada,
+Mehdi Moradi,
+Virginia Morera Pujol,
+Erika Mudrak,
+Gopalan Nair,
+Nader Najari,
+Nicoletta Nava,
+Linda Stougaard Nielsen,
+Felipe Nunes,
+Jens Randel Nyengaard,
+Jens Oehlschlaegel,
+Thierry Onkelinx,
+Sean O'Riordan,
+Evgeni Parilov,
+Jeff Picka,
+Nicolas Picard,
+Tim Pollington,
+Mike Porter,
+Sergiy Protsiv,
+Adrian Raftery,
+Suman Rakshit,
+Ben Ramage,
+Pablo Ramon,
+Xavier Raynaud,
+Nicholas Read,
+Matt Reiter,
+Ian Renner,
+Tom Richardson,
+Brian Ripley,
+Yonatan Rosen,
+Ted Rosenbaum,
+Barry Rowlingson,
+Jason Rudokas,
+Tyler Rudolph,
+John Rudge,
+Christopher Ryan,
+Farzaneh Safavimanesh,
+Aila Sarkka,
+Cody Schank,
+Katja Schladitz,
+Sebastian Schutte,
+Bryan Scott,
+Olivia Semboli,
+Francois Semecurbe,
+Vadim Shcherbakov,
+Shen Guochun,
+Shi Peijian,
+Harold-Jeffrey Ship,
+Tammy L Silva,
+Ida-Maria Sintorn,
+Yong Song, 
+Malte Spiess,
+Mark Stevenson,
+Kaspar Stucki,
+Jan Sulavik,
+Michael Sumner,
+P. Surovy,
+Ben Taylor,
+Thordis Linda Thorarinsdottir,
+Leigh Torres,
+Berwin Turlach,
+Torben Tvedebrink,
+Kevin Ummer,
+Medha Uppala,
+Malissa Usher,
+Andrew van Burgel,
+Tobias Verbeke,
+Mikko Vihtakari,
+Alexendre Villers,
+Fabrice Vinatier,
+Maximilian Vogtland,
+Sasha Voss,
+Sven Wagner,
+Hao Wang,
+H. Wendrock,
+Jan Wild,
+Carl G. Witthoft,
+Selene Wong,
+Maxime Woringer,
+Luke Yates,
+Mike Zamboni,
+Achim Zeileis
+and
+Tingting Zhan.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. (2010)
+<em>Analysing spatial point patterns in R</em>.
+Workshop notes, Version 4.1.
+Online technical publication, CSIRO.
+<a href="https://research.csiro.au/software/wp-content/uploads/sites/6/2015/02/Rspatialcourse_CMIS_PDF-Standard.pdf">https://research.csiro.au/software/wp-content/uploads/sites/6/2015/02/Rspatialcourse_CMIS_PDF-Standard.pdf</a>
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015)
+<em>Spatial Point Patterns: Methodology and Applications with R</em>.
+Chapman and Hall/CRC Press.
+</p>
+<p>Baddeley, A. and Turner, R. (2005a)
+Spatstat: an R package for analyzing spatial point patterns.
+<em>Journal of Statistical Software</em> <b>12</b>:6, 1&ndash;42.
+<code>DOI: 10.18637/jss.v012.i06</code>. 
+</p>
+<p>Baddeley, A. and Turner, R. (2005b)
+Modelling spatial point patterns in R.
+In: A. Baddeley, P. Gregori, J. Mateu, R. Stoica, and D. Stoyan,
+editors, <em>Case Studies in Spatial Point Pattern Modelling</em>,
+Lecture Notes in Statistics number 185. Pages 23&ndash;74.
+Springer-Verlag, New York, 2006. 
+ISBN: 0-387-28311-0.
+</p>
+<p>Baddeley, A., Turner, R.,
+Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+<p>Baddeley, A., Rubak, E. and Moller, J. (2011)
+Score, pseudo-score and residual
+diagnostics for spatial point process models.
+<em>Statistical Science</em> <b>26</b>, 613&ndash;646.
+</p>
+<p>Baddeley, A., Turner, R., Mateu, J. and Bevan, A. (2013)
+Hybrids of Gibbs point process models and their implementation.
+<em>Journal of Statistical Software</em> <b>55</b>:11, 1&ndash;43.
+<a href="https://www.jstatsoft.org/v55/i11/">https://www.jstatsoft.org/v55/i11/</a>
+</p>
+<p>Diggle, P.J. (2003)
+<em>Statistical analysis of spatial point patterns</em>,
+Second edition. Arnold.
+</p>
+<p>Diggle, P.J. (2014)
+<em>Statistical Analysis of Spatial and Spatio-Temporal Point Patterns</em>,
+Third edition. Chapman and Hall/CRC.
+</p>
+<p>Gelfand, A.E., Diggle, P.J., Fuentes, M. and Guttorp, P., editors (2010)
+<em>Handbook of Spatial Statistics</em>.
+CRC Press.
+</p>
+<p>Huang, F. and Ogata, Y. (1999)
+Improvements of the maximum pseudo-likelihood
+estimators in various spatial statistical models.
+<em>Journal of Computational and Graphical Statistics</em>
+<b>8</b>, 510&ndash;530.
+</p>
+<p>Illian, J., Penttinen, A., Stoyan, H. and Stoyan, D. (2008)
+<em>Statistical Analysis and Modelling of Spatial Point Patterns.</em>
+Wiley.
+</p>
+<p>Waagepetersen, R.
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b> (2007) 252&ndash;258.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat</em> version 3.3-1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

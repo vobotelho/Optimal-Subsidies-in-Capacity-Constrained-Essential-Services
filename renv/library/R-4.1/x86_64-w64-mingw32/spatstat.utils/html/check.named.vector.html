@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check Whether Object Has Required Components</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for check.named.vector {spatstat.utils}"><tr><td>check.named.vector {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Check Whether Object Has Required Components
+</h2>
+
+<h3>Description</h3>
+
+<p>These functions check whether the object <code>x</code> has
+components with the required names, and does not have
+any unexpected components.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+check.named.vector(x, nam, context = "", namopt = character(0),
+                   onError = c("fatal", "null"), xtitle=NULL)
+
+check.named.list(x, nam, context = "", namopt = character(0),
+                   onError = c("fatal", "null"), xtitle=NULL)
+
+check.named.thing(x, nam, namopt = character(0),
+                  xtitle = NULL, valid = TRUE, type = "object",
+                  context = "", fatal = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The object to be checked.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nam</code></td>
+<td>
+
+<p>Vector of character strings giving the names of all the
+components which must be present.
+</p>
+</td></tr>
+<tr valign="top"><td><code>namopt</code></td>
+<td>
+
+<p>Vector of character strings giving the names of components
+which may optionally be present.
+</p>
+</td></tr>
+<tr valign="top"><td><code>context</code></td>
+<td>
+
+<p>Character string describing the context in which <code>x</code> is being
+checked, for use in error messages.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xtitle</code></td>
+<td>
+
+<p>Optional character string to be used when referring to <code>x</code>
+in error messages.
+</p>
+</td></tr>
+<tr valign="top"><td><code>valid</code></td>
+<td>
+
+<p>Logical value indicating whether <code>x</code> belongs to the required
+class of objects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string describing the required class of objects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>onError</code></td>
+<td>
+
+<p>Character string indicating what to do if <code>x</code> fails the checks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating what to do if <code>x</code> fails the checks.
+If <code>fatal=TRUE</code> (the default), an error occurs.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>check.named.thing</code> checks whether <code>x</code> has all the
+required components, in the sense that <code>names(x)</code>
+includes all the names in <code>nam</code>,
+and that every entry in <code>names(x)</code> belongs to either <code>nam</code> or
+<code>namopt</code>. If all these checks are true, the result is a
+zero-length character vector. Otherwise, if <code>fatal=TRUE</code> (the
+default), an error occurs; otherwise the result is a character
+vector describing the checks which failed.
+</p>
+<p><code>check.named.vector</code> checks whether <code>x</code> is a numeric vector
+and <code>check.named.list</code> checks whether <code>x</code> is a list.
+They then call <code>check.named.thing</code> to check whether all the
+required components are present. If all these checks are true, the result is
+a reordered version of <code>x</code> in which all the compulsory entries
+appear first. Otherwise, if <code>onError="fatal"</code> (the default)
+an error occurs; otherwise the result is <code>NULL</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>check.named.vector</code> returns a numeric vector or <code>NULL</code>.
+</p>
+<p><code>check.named.list</code> returns a list or <code>NULL</code>.
+</p>
+<p><code>check.named.thing</code> returns a character vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/check.1.integer.html">check.1.integer</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  z &lt;- list(a=1, b=2, e=42)
+  check.named.list(z, c("a", "b"), namopt=c("c", "d", "e"))
+  check.named.thing(z, c("a", "b"), namopt=c("c", "d", "e"))
+  zz &lt;- unlist(z)
+  check.named.vector(zz, c("a", "b"), namopt=c("c", "d", "e"))
+  check.named.thing(z, c("b", "c"), namopt=c("d", "e"), fatal=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

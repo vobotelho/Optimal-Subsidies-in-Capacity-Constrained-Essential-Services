@@ -1,0 +1,846 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit Cluster or Cox Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for kppm {spatstat.model}"><tr><td>kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit Cluster or Cox Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Fit a homogeneous or inhomogeneous cluster process or
+Cox point process model to a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  kppm(X, ...)
+
+  ## S3 method for class 'formula'
+kppm(X,
+                clusters = c("Thomas","MatClust","Cauchy","VarGamma","LGCP"),
+                ...,
+                data=NULL)
+
+  ## S3 method for class 'ppp'
+kppm(X,
+       trend = ~1,
+       clusters = c("Thomas","MatClust","Cauchy","VarGamma","LGCP"),
+       data = NULL,
+       ...,
+       covariates=data,
+       subset,
+       method = c("mincon", "clik2", "palm", "adapcl"),
+       penalised = FALSE,
+       improve.type = c("none", "clik1", "wclik1", "quasi"),
+       improve.args = list(),
+       weightfun=NULL,
+       control=list(),
+       stabilize=TRUE,
+       algorithm,
+       trajectory=FALSE,
+       statistic="K",
+       statargs=list(),
+       rmax = NULL,
+       epsilon=0.01,
+       covfunargs=NULL,
+       use.gam=FALSE,
+       nd=NULL, eps=NULL,
+       ppm.improve.type=c("none", "ho", "enet"),
+       ppm.improve.args=list())
+
+## S3 method for class 'quad'
+kppm(X,
+       trend = ~1,
+       clusters = c("Thomas","MatClust","Cauchy","VarGamma","LGCP"),
+       data = NULL,
+       ...,
+       covariates=data,
+       subset,
+       method = c("mincon", "clik2", "palm", "adapcl"),
+       penalised = FALSE,
+       improve.type = c("none", "clik1", "wclik1", "quasi"),
+       improve.args = list(),
+       weightfun=NULL,
+       control=list(),
+       stabilize=TRUE,
+       algorithm,
+       trajectory=FALSE,
+       statistic="K",
+       statargs=list(),
+       rmax = NULL,
+       epsilon=0.01,
+       covfunargs=NULL,
+       use.gam=FALSE,
+       nd=NULL, eps=NULL,
+       ppm.improve.type=c("none", "ho", "enet"),
+       ppm.improve.args=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern dataset (object of class <code>"ppp"</code> or
+<code>"quad"</code>) to which the model should be fitted, or a
+<code>formula</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language defining the model. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend</code></td>
+<td>
+
+<p>An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> formula, with no left hand side,
+specifying the form of the log intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clusters</code></td>
+<td>
+
+<p>Character string determining the cluster model.
+Partially matched.
+Options are <code>"Thomas"</code>, <code>"MatClust"</code>,
+<code>"Cauchy"</code>, <code>"VarGamma"</code> and <code>"LGCP"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>data,covariates</code></td>
+<td>
+
+<p>The values of spatial covariates (other than the Cartesian
+coordinates) required by the model.
+A named list of pixel images, functions, windows,
+tessellations or numeric constants.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+
+<p>Optional.
+A subset of the spatial domain,
+to which the model-fitting should be restricted.
+A window (object of class <code>"owin"</code>)
+or a logical-valued pixel image (object of class <code>"im"</code>),
+or an expression (possibly involving the names of entries in <code>data</code>)
+which can be evaluated to yield a window or pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>The fitting method. Either 
+<code>"mincon"</code> for minimum contrast,
+<code>"clik2"</code> for second order composite likelihood,
+<code>"adapcl"</code> for adaptive second order composite likelihood,
+or <code>"palm"</code> for Palm likelihood.
+Partially matched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>penalised</code></td>
+<td>
+
+<p>Logical value specifying whether the objective function (the composite
+likelihood or contrast) should be modified by adding a penalty against
+extreme values of cluster scale. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>improve.type</code></td>
+<td>
+
+<p>Method for updating the initial estimate of the trend.
+Initially the trend is estimated as if the process
+is an inhomogeneous Poisson process.
+The default, <code>improve.type = "none"</code>, is to use this initial estimate.
+Otherwise, the trend estimate is
+updated by <code><a href="../../spatstat.model/help/improve.kppm.html">improve.kppm</a></code>, using information
+about the pair correlation function.
+Options are <code>"clik1"</code>
+(first order composite likelihood, essentially equivalent to <code>"none"</code>),
+<code>"wclik1"</code> (weighted first order composite likelihood) and
+<code>"quasi"</code> (quasi likelihood).
+</p>
+</td></tr>
+<tr valign="top"><td><code>improve.args</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.model/help/improve.kppm.html">improve.kppm</a></code> when
+<code>improve.type != "none"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weightfun</code></td>
+<td>
+
+<p>Optional weighting function <i>w</i>
+in the composite likelihoods or Palm likelihood.
+A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+or one of the strings <code>"threshold"</code> or <code>"taper"</code>.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+<p>List of control parameters passed to the optimization function
+<code><a href="../../stats/help/optim.html">optim</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stabilize</code></td>
+<td>
+
+<p>Logical value specifying whether to numerically stabilize
+the optimization algorithm, by specifying suitable default values of
+<code>control$fnscale</code> and <code>control$parscale</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>algorithm</code></td>
+<td>
+
+<p>Character string determining the mathematical algorithm
+to be used to solve the fitting problem.
+If <code>method="mincon", "clik2"</code> or <code>"palm"</code> this argument
+is passed to the generic optimization function
+<code><a href="../../stats/help/optim.html">optim</a></code>
+(renamed as the argument <code>method</code> to <code><a href="../../stats/help/optim.html">optim</a></code>)
+with default <code>"Nelder-Mead"</code>.
+If <code>method="adapcl"</code> the argument is passed to the
+equation solver <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>
+(renamed as the argument <code>method</code> to <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>)
+with default <code>"Bryden"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trajectory</code></td>
+<td>
+
+<p>Logical value specifying whether to save the history of all
+function evaluations performed by the optimization algorithm.
+</p>
+</td></tr>
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+
+<p>Name of the summary statistic to be used
+for minimum contrast estimation: either <code>"K"</code> or <code>"pcf"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>statargs</code></td>
+<td>
+
+<p>Optional list of arguments to be used when calculating
+the <code>statistic</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Maximum value of interpoint distance
+to use in the composite likelihood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>epsilon</code></td>
+<td>
+
+<p>Tuning parameter for the adaptive composite likelihood method.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covfunargs,use.gam,nd,eps</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> when fitting the intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ppm.improve.type,ppm.improve.args</code></td>
+<td>
+
+<p>Arguments controlling the initial fit of the trend.
+Passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> as the arguments
+<code>improve.type</code> and <code>improve.args</code> respectively.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function fits a clustered point process model to the
+point pattern dataset <code>X</code>. 
+</p>
+<p>The model may be either a <em>Neyman-Scott cluster process</em>
+or another <em>Cox process</em>.
+The type of model is determined by the argument <code>clusters</code>.
+Currently the options 
+are <code>clusters="Thomas"</code> for the Thomas process,
+<code>clusters="MatClust"</code> for the Matern cluster process,
+<code>clusters="Cauchy"</code> for the Neyman-Scott cluster process
+with Cauchy kernel,
+<code>clusters="VarGamma"</code> for the Neyman-Scott cluster process
+with Variance Gamma kernel (requires an additional argument <code>nu</code>
+to be passed through the dots; see <code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code> for details),
+and <code>clusters="LGCP"</code> for the log-Gaussian Cox process (may
+require additional arguments passed through <code>...</code>; see
+<code><a href="../../spatstat.random/help/rLGCP.html">rLGCP</a></code> for details on argument names).
+The first four models are Neyman-Scott cluster processes.
+</p>
+<p>The algorithm first estimates the intensity function
+of the point process using <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+The argument <code>X</code> may be a point pattern
+(object of class <code>"ppp"</code>) or a quadrature scheme
+(object of class <code>"quad"</code>). The intensity is specified by
+the <code>trend</code> argument.
+If the trend formula is <code>~1</code> (the default)
+then the model is <em>homogeneous</em>. The algorithm begins by
+estimating the intensity as the number of points divided by
+the area of the window.
+Otherwise, the model is <em>inhomogeneous</em>. 
+The algorithm begins by fitting a Poisson process with log intensity
+of the form specified by the formula <code>trend</code>.
+(See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for further explanation).
+</p>
+<p>The argument <code>X</code> may also be a <code>formula</code> in the
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language. The right hand side of the formula gives the
+<code>trend</code> as described above. The left hand side of the formula
+gives the point pattern dataset to which the model should be fitted.
+</p>
+<p>If <code>improve.type="none"</code> this is the final estimate of the
+intensity. Otherwise, the intensity estimate is updated, as explained in
+<code><a href="../../spatstat.model/help/improve.kppm.html">improve.kppm</a></code>. Additional arguments to
+<code><a href="../../spatstat.model/help/improve.kppm.html">improve.kppm</a></code> are passed as a named list in
+<code>improve.args</code>.
+</p>
+<p>The cluster parameters of the model are then fitted
+either by minimum contrast estimation,
+or by a composite likelihood method (maximum
+composite likelihood, maximum Palm likelihood, or by solving the adaptive 
+composite likelihood estimating equation).
+</p>
+
+<dl>
+<dt>Minimum contrast:</dt><dd>
+<p>If <code>method = "mincon"</code> (the default) clustering parameters of
+the model will be fitted
+by minimum contrast estimation, that is, by matching the theoretical
+<i>K</i>-function of the model to the empirical <i>K</i>-function
+of the data, as explained in <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>For a homogeneous model (<code> trend = ~1 </code>)
+the empirical <i>K</i>-function of the data is computed
+using <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+and the parameters of the cluster model are estimated by
+the method of minimum contrast.
+</p>
+<p>For an inhomogeneous model, 
+the inhomogeneous <i>K</i> function is estimated
+by <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code> using the fitted intensity.
+Then the parameters of the cluster model
+are estimated by the method of minimum contrast using the
+inhomogeneous <i>K</i> function. This two-step estimation
+procedure is due to Waagepetersen (2007).
+</p>
+<p>If <code>statistic="pcf"</code> then instead of using the
+<i>K</i>-function, the algorithm will use
+the pair correlation function <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> for homogeneous
+models and the inhomogeneous pair correlation function
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code> for inhomogeneous models.
+In this case, the smoothing parameters of the pair correlation
+can be controlled using the argument <code>statargs</code>,
+as shown in the Examples.
+</p>
+<p>Additional arguments <code>...</code> will be passed to
+<code><a href="../../spatstat.model/help/clusterfit.html">clusterfit</a></code> to control the minimum contrast fitting
+algorithm.
+</p>
+<p>The optimisation is performed by the generic
+optimisation algorithm <code><a href="../../stats/help/optim.html">optim</a></code>.
+</p>
+</dd>
+<dt>Second order composite likelihood:</dt><dd>
+<p>If <code>method = "clik2"</code> the clustering parameters of the
+model will be fitted by maximising the second-order composite likelihood
+(Guan, 2006). The log composite likelihood is
+</p>
+<p style="text-align: center;"><i>
+	sum[i,j] w(d[i,j]) log(rho(d[i,j]; theta))
+	- (sum[i,j] w(d[i,j]))
+	log(integral[D,D] w(||u-v||) rho(||u-v||; theta) du dv)
+      </i></p>
+
+<p>where the sums are taken over all pairs of data points
+<i>x[i], x[j]</i> separated by a distance
+<i>d[i,j] = ||x[i] - x[j]||</i>
+less than <code>rmax</code>,
+and the double integral is taken over all pairs of locations
+<i>u,v</i> in the spatial window of the data.
+Here <i>rho(d;theta)</i> is the
+pair correlation function of the model with
+cluster parameters <i>theta</i>.
+</p>
+<p>The function <i>w</i> in the composite likelihood
+is a weighting function and may be chosen arbitrarily.
+It is specified by the argument <code>weightfun</code>.
+If this is missing or <code>NULL</code> then the default is
+a threshold weight function,
+<i>w(d) = 1(d &lt;= R)</i>, where <i>R</i> is <code>rmax/2</code>.
+If it is specified, the argument <code>weightfun</code> should
+be a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language with one argument.
+Alternatively <code>weightfun</code> may be
+one of the strings <code>"threshold"</code> or <code>"taper"</code>
+representing the functions
+<i>w(d) = 1(d &lt;= R)</i>
+and
+<i>w(d) = min(1, R/d)</i> respectively.
+</p>
+<p>The optimisation is performed by the generic
+optimisation algorithm <code><a href="../../stats/help/optim.html">optim</a></code>.
+</p>
+</dd>
+<dt>Palm likelihood:</dt><dd>
+<p>If <code>method = "palm"</code> the clustering parameters of the
+model will be fitted by maximising the Palm loglikelihood
+(Tanaka et al, 2008)
+</p>
+<p style="text-align: center;"><i>
+	sum[i,j] w(x[i], x[j]) log(lambdaP(x[j] | x[i]; theta))
+	- integral[D] w(x[i], u) lambdaP(u | x[i]; theta) du
+      </i></p>
+
+<p>with the same notation as above. Here
+<i>lambdaP(u|v;theta)</i> is the Palm intensity of
+the model at location <i>u</i> given there is a point at <i>v</i>.
+</p>
+<p>The optimisation is performed by the generic
+optimisation algorithm <code><a href="../../stats/help/optim.html">optim</a></code>.
+</p>
+</dd>
+<dt>Adaptive Composite likelihood:</dt><dd>
+<p>If <code>method = "cladap"</code> the clustering parameters of the
+model will be fitted by solving the adaptive second order 
+composite likelihood estimating equation (Lavancier et al, 2021).
+The estimating function is
+</p>
+<p style="text-align: center;"><i>
+	&sum;[u,v] w(epsilon |g(0; theta)-1|/(g(||u-v||; theta)-1)) 
+	g'(||u-v||; theta) / g(||u-v||; theta) - integral[D,D] 
+	w(epsilon |g(0; theta)-1|/(g(||u-v||; theta)-1))
+	g'(||u-v||; theta) rho(u) rho(v) du dv
+      </i></p>
+
+<p>where the sum is taken over all distinct pairs of points.
+Here <i>g(d; theta)</i> is the
+pair correlation function  with
+parameters <i>theta</i>.
+The partial derivative with respect to <i>theta</i> 
+is <i>g'(d; theta)</i>, and <i>rho(u)</i> denotes
+the fitted intensity function of the model.
+</p>
+<p>The tuning parameter <i>epsilon</i> is 
+independent of the data. It can be specified by the
+argument <code>epsilon</code> and has default value <i>0.01</i>.
+</p>
+<p>The function <i>w</i> in the estimating function
+is a weighting function of bounded support <i>[-1,1]</i>.
+It is specified by the argument <code>weightfun</code>.
+If this is missing or <code>NULL</code> then the default is
+<i>w(d) = 1(||d|| &le; 1)
+	exp(1/(d^2-1))
+      </i>
+The estimating equation is solved using the
+nonlinear equation solver <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>
+from the package <span class="pkg">nleqslv</span>. The package <span class="pkg">nleqslv</span>
+must be installed in order to use this option.
+</p>
+</dd>   
+</dl>
+
+<p>If <code>penalised=TRUE</code>, the fitting procedure is modified by
+adding a penalty against extreme values of the cluster scale,
+as proposed by Baddeley et al (2022).
+</p>
+<p>If <code>trajectory=TRUE</code>, the resulting object contains the history
+of all points in the cluster parameter space which were evaluated by
+the optimization algorithm. The trajectory can be extracted by
+<code>traj(fit)</code> or <code>traj(obsurf(fit))</code> where <code>fit</code> is the
+fitted model object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"kppm"</code> representing the fitted model.
+There are methods for printing, plotting, predicting, simulating
+and updating objects of this class.
+</p>
+
+
+<h3>Cluster parameters for Neyman-Scott models</h3>
+
+<p>For Neyman-Scott models, the fitting procedure searches
+for the best-fitting values of the parameters
+that control the intensity of parents and the physical scale
+of the clusters. (Any parameters that control the shape of the clusters
+must be specified separately and are assumed to be fixed.)
+</p>
+<p>The fitted object <code>fit</code> contains the fitted cluster parameters as
+the element <code>fit$par</code> in the format described below.
+Initial estimates for these cluster
+parameters can be specified using the argument <code>startpar</code> in the
+same format.
+</p>
+<p>The cluster parameters will be stored in a <em>named</em> numeric vector
+<code>par</code> of length 2. The first value is always <code>kappa</code>,
+the intensity of parents (cluster centres).
+The format is as follows:
+</p>
+
+<ul>
+<li>
+<p>for <code>clusters="Thomas"</code>,
+a vector <code>c(kappa, sigma2)</code> where
+<code>sigma2</code> is the square of the cluster standard deviation;
+</p>
+</li>
+<li>
+<p>for <code>clusters="MatClust"</code>,
+a vector <code>c(kappa, R)</code> where
+<code>R</code> is the radius of the cluster;
+</p>
+</li>
+<li>
+<p>for <code>clusters="Cauchy"</code>,
+a vector <code>c(kappa, eta2)</code> where
+<code>eta2 = code{4 * scale^2}</code>
+where <code>scale</code> is the scale parameter for the model
+as used in <code><a href="../../spatstat.random/help/rCauchy.html">rCauchy</a></code>;
+</p>
+</li>
+<li>
+<p>for <code>clusters="VarGamma"</code>,
+a vector <code>c(kappa, eta)</code> where
+<code>eta</code> is equivalent to the
+scale parameter <code>omega</code> used in  <code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>.
+</p>
+</li></ul>
+
+<p>For <code>clusters="VarGamma"</code> it will be necessary to specify
+the shape parameter <code>nu</code> as described in the help for
+<code><a href="../../spatstat.random/help/rVarGamma.html">rVarGamma</a></code>. This is specified separately as an argument
+<code>nu</code> in the call to <code>kppm</code>.
+</p>
+
+
+<h3>Optimization algorithm</h3>
+
+<p>The following details allow greater control over the fitting
+procedure.
+</p>
+<p>For the first three fitting methods
+(<code>method="mincon", "clik2"</code> and <code>"palm"</code>), 
+the optimisation is performed by the generic
+optimisation algorithm <code><a href="../../stats/help/optim.html">optim</a></code>.
+The behaviour of this algorithm can be controlled
+by the following arguments to <code>kppm</code>:
+</p>
+
+<ul>
+<li>
+<p><code>startpar</code> determines the initial estimates of the cluster parameters.
+</p>
+</li>
+<li>
+<p><code>algorithm</code> determines the particular optimization
+method. This argument is passed to <code><a href="../../stats/help/optim.html">optim</a></code> as the
+argument <code>method</code>. Options are listed in the help for
+<code><a href="../../stats/help/optim.html">optim</a></code>. The default is the Nelder-Mead
+simplex method.
+</p>
+</li>
+<li>
+<p><code>control</code> is a named list of control parameters,
+documented in the help for <code><a href="../../stats/help/optim.html">optim</a></code>.
+Useful control arguments include
+<code>trace</code>, <code>maxit</code> and <code>abstol</code>.
+</p>
+</li>
+<li>
+<p><code>lower</code> and <code>upper</code> specify bounds for the
+cluster parameters, when <code>algorithm="L-BFGS-B"</code> or
+<code>algorithm="Brent"</code>, as described in the help for <code><a href="../../stats/help/optim.html">optim</a></code>. 
+</p>
+</li></ul>
+
+<p>For <code>method="adapcl"</code>, the estimating equation is solved
+using the nonlinear equation solver <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>
+from the package <span class="pkg">nleqslv</span>. 
+The package <span class="pkg">nleqslv</span> must be installed in order to use this
+option.
+The behaviour of this algorithm can be controlled
+by the following arguments to <code>kppm</code>:
+</p>
+
+<ul>
+<li>
+<p><code>startpar</code> determines the initial estimates of the cluster parameters.
+</p>
+</li>
+<li>
+<p><code>algorithm</code> determines the method for solving
+the equation. This argument is passed to <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code> as the
+argument <code>method</code>. Options are listed in the help for
+<code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>.
+</p>
+</li>
+<li>
+<p><code>globStrat</code> determines the global strategy
+to be applied. This argument is is passed to <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>
+as the argument <code>global</code>. Options are listed in the help for
+<code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>.
+</p>
+</li>
+<li>
+<p><code>control</code> is a named list of control parameters,
+documented in the help for <code><a href="../../nleqslv/help/nleqslv.html">nleqslv</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Log-Gaussian Cox Models</h3>
+
+<p>To fit a log-Gaussian Cox model,
+specify <code>clusters="LGCP"</code> and use additional arguments
+to specify the covariance structure. These additional arguments can
+be given individually in the call to <code>kppm</code>, or they can be
+collected together in a list called <code>covmodel</code>.
+</p>
+<p>For example a Matern model with parameter <i>&nu;=0.5</i> could be specified
+either by <code>kppm(X, clusters="LGCP", model="matern", nu=0.5)</code> or by
+<code>kppm(X, clusters="LGCP", covmodel=list(model="matern", nu=0.5))</code>.
+</p>
+<p>The argument <code>model</code> specifies the type of covariance
+model: the default is <code>model="exp"</code> for an exponential covariance.
+Additional arguments specify the shape parameters of the covariance
+model. For example if <code>model="matern"</code> then the additional argument
+<code>nu</code> is required. 
+</p>
+<p>The available models are as follows:
+</p>
+
+<dl>
+<dt><code>model="exponential"</code>:</dt><dd>
+<p>the exponential covariance function
+</p>
+<p style="text-align: center;"><i>C(r) = sigma^2 * exp(-r/h)</i></p>
+
+<p>where <i>&sigma;^2</i> is the (fitted) variance parameter,
+and <i>h</i> is the (fitted) scale parameter.
+No shape parameters are required.
+</p>
+</dd>
+<dt><code>model="gauss"</code>:</dt><dd>
+<p>the Gaussian covariance function
+</p>
+<p style="text-align: center;"><i>C(r) = sigma^2 * exp(-(r/h)^2)</i></p>
+
+<p>where <i>&sigma;^2</i> is the (fitted) variance parameter,
+and <i>h</i> is the (fitted) scale parameter.
+No shape parameters are required.
+</p>
+</dd>
+<dt><code>model="stable"</code>:</dt><dd>
+<p>the stable covariance function
+</p>
+<p style="text-align: center;"><i>
+	C(r) = sigma^2 * exp(-(r/h)^alpha)
+      </i></p>
+
+<p>where <i>&sigma;^2</i> is the (fitted) variance parameter,
+<i>h</i> is the (fitted) scale parameter,
+and <i>&alpha;</i> is the shape parameter <code>alpha</code>.
+The parameter <code>alpha</code> must be given, either as a stand-alone
+argument, or as an entry in the list <code>covmodel</code>.
+</p>
+</dd>
+<dt><code>model="gencauchy"</code>:</dt><dd>
+<p>the generalised Cauchy covariance function
+</p>
+<p style="text-align: center;"><i>
+	C(r) = sigma^2 * (1 + (x/h)^&alpha;)^(-&beta;/&alpha;)
+      </i></p>
+
+<p>where <i>&sigma;^2</i> is the (fitted) variance parameter,
+<i>h</i> is the (fitted) scale parameter,
+and <i>&alpha;</i> and <i>&beta;</i> are the shape parameters
+<code>alpha</code> and <code>beta</code>.
+The parameters <code>alpha</code> and <code>beta</code>
+must be given, either as stand-alone arguments, or as entries
+in the list <code>covmodel</code>.
+</p>
+</dd>
+<dt><code>model="matern"</code>:</dt><dd>
+<p>the Whittle-Matern covariance function
+</p>
+<p style="text-align: center;"><i>
+	C(r) = &sigma;^2 * 2^(1-&nu;) * &Gamma;(&nu;)^(-1) *
+	       (sqrt(2 *&nu;) * r/h)^&nu; * K[&nu;](sqrt(2 * nu) * r/h)
+      </i></p>
+
+<p>where <i>&sigma;^2</i> is the (fitted) variance parameter,
+<i>h</i> is the (fitted) scale parameter,
+and <i>&nu;</i> is the shape parameter <code>nu</code>.
+The parameter <code>nu</code> must be given, either as a stand-alone
+argument, or as an entry in the list <code>covmodel</code>.
+</p>
+</dd>
+</dl>
+
+<p>Note that it is not possible to use <em>anisotropic</em> covariance models
+because the <code>kppm</code> technique assumes the pair correlation function
+is isotropic.
+</p>
+
+
+<h3>Error and warning messages</h3>
+
+<p>See <code><a href="../../spatstat.model/help/ppm.ppp.html">ppm.ppp</a></code> for a list of common error messages
+and warnings originating from the first stage of model-fitting.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>,
+with contributions from Abdollah Jalilian <a href="mailto:jalilian@razi.ac.ir">jalilian@razi.ac.ir</a> and Rasmus Plenge Waagepetersen <a href="mailto:rw@math.auc.dk">rw@math.auc.dk</a>.
+Adaptive composite likelihood method contributed by Chiara Fend
+and modified by Adrian Baddeley.
+Penalised optimization developed by Adrian Baddeley, Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a>
+and Martin Hazelton <a href="mailto:Martin.Hazelton@otago.ac.nz">Martin.Hazelton@otago.ac.nz</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Davies, T.M., Hazelton, M.L., Rakshit, S. and Turner,
+R. (2022) Fundamental problems in fitting spatial cluster
+process models. <em>Spatial Statistics</em> <b>52</b>, 100709.
+DOI: <code>10.1016/j.spasta.2022.100709</code>
+</p>
+<p>Guan, Y. (2006) 
+A composite likelihood approach in fitting spatial point process models.
+<em>Journal of the American Statistical Association</em>
+<b>101</b>, 1502&ndash;1512.
+</p>
+<p>Guan, Y., Jalilian, A. and Waagepetersen, R. (2015)
+Quasi-likelihood for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>77</b>, 677-697.
+</p>
+<p>Jalilian, A., Guan, Y. and Waagepetersen, R. (2012)
+Decomposition of variance for spatial Cox processes.
+<em>Scandinavian Journal of Statistics</em> <b>40</b>, 119&ndash;137.
+</p>
+<p>Lavancier, F., Poinas, A., and Waagepetersen, R. (2021)
+Adaptive estimating function inference for nonstationary
+determinantal point processes.
+<em>Scandinavian Journal of Statistics</em>, <b>48</b> (1), 87&ndash;107.
+</p>
+<p>Tanaka, U. and Ogata, Y. and Stoyan, D. (2008)
+Parameter estimation and model selection for
+Neyman-Scott point processes. 
+<em>Biometrical Journal</em> <b>50</b>, 43&ndash;57.
+</p>
+<p>Waagepetersen, R. (2007)
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b>, 252&ndash;258.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Methods for <code>kppm</code> objects:
+<code><a href="../../spatstat.model/help/plot.kppm.html">plot.kppm</a></code>,
+<code><a href="../../spatstat.model/help/fitted.kppm.html">fitted.kppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.kppm.html">predict.kppm</a></code>,
+<code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code>,
+<code><a href="../../spatstat.model/help/update.kppm.html">update.kppm</a></code>,
+<code><a href="../../spatstat.model/help/vcov.kppm.html">vcov.kppm</a></code>,
+<code><a href="../help/methods.kppm.html">methods.kppm</a></code>,
+<code><a href="../../spatstat.model/help/as.ppm.kppm.html">as.ppm.kppm</a></code>,
+<code><a href="../../spatstat.model/help/as.fv.kppm.html">as.fv.kppm</a></code>,
+<code><a href="../../spatstat.model/help/Kmodel.kppm.html">Kmodel.kppm</a></code>,
+<code><a href="../../spatstat.model/help/pcfmodel.kppm.html">pcfmodel.kppm</a></code>.
+</p>
+<p>See also <code><a href="../../spatstat.model/help/improve.kppm.html">improve.kppm</a></code> for improving the fit of a
+<code>kppm</code> object.
+</p>
+<p>Minimum contrast fitting algorithm:
+higher level interface <code><a href="../../spatstat.model/help/clusterfit.html">clusterfit</a></code>;
+low-level algorithm <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>Alternative fitting algorithms:
+<code><a href="../../spatstat.model/help/thomas.estK.html">thomas.estK</a></code>,
+<code><a href="../../spatstat.model/help/matclust.estK.html">matclust.estK</a></code>,
+<code><a href="../../spatstat.model/help/lgcp.estK.html">lgcp.estK</a></code>,
+<code><a href="../../spatstat.model/help/cauchy.estK.html">cauchy.estK</a></code>,
+<code><a href="../../spatstat.model/help/vargamma.estK.html">vargamma.estK</a></code>,
+<code><a href="../../spatstat.model/help/thomas.estpcf.html">thomas.estpcf</a></code>,
+<code><a href="../../spatstat.model/help/matclust.estpcf.html">matclust.estpcf</a></code>,
+<code><a href="../../spatstat.model/help/lgcp.estpcf.html">lgcp.estpcf</a></code>,
+<code><a href="../../spatstat.model/help/cauchy.estpcf.html">cauchy.estpcf</a></code>,
+<code><a href="../../spatstat.model/help/vargamma.estpcf.html">vargamma.estpcf</a></code>.
+</p>
+<p>Summary statistics:
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>,
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code>.
+</p>
+<p>For fitting Poisson or Gibbs point process models, see <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  online &lt;- interactive()
+  if(!online) op &lt;- spatstat.options(npixel=32, ndummy.min=16)
+
+  # method for point patterns
+  kppm(redwood, ~1, "Thomas")
+  # method for formulas
+  kppm(redwood ~ 1, "Thomas")
+
+  # different models for clustering
+  if(online) kppm(redwood ~ x, "MatClust") 
+  kppm(redwood ~ x, "MatClust", statistic="pcf", statargs=list(stoyan=0.2)) 
+  kppm(redwood ~ x, cluster="Cauchy", statistic="K")
+  kppm(redwood, cluster="VarGamma", nu = 0.5, statistic="pcf")
+
+  # log-Gaussian Cox process (LGCP) models
+  kppm(redwood ~ 1, "LGCP", statistic="pcf")
+  kppm(redwood ~ x, "LGCP", statistic="pcf",
+                            model="matern", nu=0.3,
+                            control=list(maxit=10))
+
+  # Different fitting techniques
+  fitc &lt;- kppm(redwood ~ 1, "Thomas", method="c")
+  fitp &lt;- kppm(redwood ~ 1, "Thomas", method="p")
+  # penalised fit
+  fitmp &lt;- kppm(redwood ~ 1, "Thomas", penalised=TRUE)
+  # quasi-likelihood improvement 
+  fitq &lt;- kppm(redwood ~ x, "Thomas", improve.type = "quasi")
+
+  if(!online) spatstat.options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find Location of Maximum in a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for where.max {spatstat.geom}"><tr><td>where.max {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Find Location of Maximum in a Pixel Image
+</h2>
+
+<h3>Description</h3>
+
+<p>Finds the spatial location(s) where a given pixel image
+attains its maximum or minimum value.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  where.max(x, first = TRUE)
+  where.min(x, first = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>)
+or data that can be converted to a pixel image by <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>first</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code> (the default), then only one location
+will be returned. If <code>FALSE</code>, then all locations where the
+maximum is achieved will be returned.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function finds the spatial location or locations where the
+pixel image <code>x</code> attains its maximum or minimum value.
+The result is a point pattern giving the locations.
+</p>
+<p>If <code>first=TRUE</code> (the default), then only one location will
+be returned, namely the location with the smallest <i>y</i> coordinate
+value which attains the maximum or minimum.
+This behaviour is analogous to the functions
+<code><a href="../../base/help/which.min.html">which.min</a></code> and
+<code><a href="../../base/help/which.min.html">which.max</a></code>.
+</p>
+<p>If <code>first=FALSE</code>, then the function returns
+the locations of all pixels where the
+maximum (or minimum) value is attained. This could be a large
+number of points.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/Summary.im.html">Summary.im</a></code> for computing the minimum and maximum
+of pixel values;
+<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code> and <code><a href="../../spatstat.geom/help/Math.im.html">Math.im</a></code> for mathematical
+expressions involving images; <code><a href="../../spatstat.geom/help/solutionset.html">solutionset</a></code> for finding
+the set of pixels where a statement is true.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   D &lt;- distmap(letterR, invert=TRUE)
+   plot(D)
+   plot(where.max(D), add=TRUE, pch=16, cols="green")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Connected Components of Tiles of a Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for connected.tess {spatstat.geom}"><tr><td>connected.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Connected Components of Tiles of a Tessellation
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a tessellation, find the topologically-connected pieces
+of each tile, and make a new tessellation using these pieces.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'tess'
+connected(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine the
+pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>connected</code> is generic.
+This function <code>connected.tess</code> is the method for tessellations.
+</p>
+<p>Given the tessellation <code>X</code>, the algorithm considers each tile
+of the tessellation, and identifies its connected components
+(topologically-connected pieces) using <code><a href="../../spatstat.geom/help/connected.owin.html">connected.owin</a></code>.
+Each of these pieces is treated as a distinct tile
+and a new tessellation is made from these pieces.
+</p>
+<p>The result is another tessellation obtained by subdividing each tile
+of <code>X</code> into one or more new tiles.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another tessellation (object of class <code>"tess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/connected.owin.html">connected.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  BB &lt;- grow.rectangle(Frame(letterR), 0.2)
+  H &lt;- tess(tiles=list(IN=letterR, OUT=complement.owin(letterR, BB)))
+  opa &lt;- par(mfrow=c(1,2))
+  plot(H, do.col=TRUE)
+  plot(connected(H), do.col=TRUE, col=2:4)
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

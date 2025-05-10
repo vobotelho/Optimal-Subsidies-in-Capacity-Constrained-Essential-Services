@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate an Expression in a Function Table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for with.fv {spatstat.explore}"><tr><td>with.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate an Expression in a Function Table</h2>
+
+<h3>Description</h3>
+
+<p>Evaluate an R expression in a 
+function value table (object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+with(data, expr, ..., fun = NULL, enclos=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>A function value table (object of class <code>"fv"</code>)
+in which the expression will be evaluated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>expr</code></td>
+<td>
+<p>The expression to be evaluated. An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language
+expression, which may involve the names of columns in <code>data</code>,
+the special abbreviations <code>.</code>, <code>.x</code> and <code>.y</code>,
+and global constants or functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+<p>Logical value, specifying whether the result
+should be interpreted as another function (<code>fun=TRUE</code>)
+or simply returned as a numeric vector or array (<code>fun=FALSE</code>).
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>enclos</code></td>
+<td>
+
+<p>An environment in which to search for variables that are
+not found in <code>data</code>. Defaults to <code><a href="../../base/html/sys.parent.html">parent.frame</a>()</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic command <code><a href="../../base/html/with.html">with</a></code>
+for an object of class <code>"fv"</code> (function value table).
+</p>
+<p>An object of class <code>"fv"</code> is a convenient way of storing and
+plotting several different estimates of the same function. It is
+effectively a data frame with extra attributes. 
+See <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code> for further explanation.
+</p>
+<p>This command makes it possible to perform computations that involve
+different estimates of the same function. For example we use it to compute
+the arithmetic difference between two different edge-corrected
+estimates of the <i>K</i> function of a point pattern.
+</p>
+<p>The argument <code>expr</code> should be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language expression. The expression
+may involve
+</p>
+
+<ul>
+<li><p> the name of any column in <code>data</code>, referring to
+one of the estimates of the function;
+</p>
+</li>
+<li><p> the symbol <code>.</code> which stands for all
+the available estimates of the function;
+</p>
+</li>
+<li><p> the symbol <code>.y</code> which stands for the recommended
+estimate of the function (in an <code>"fv"</code> object, one of the
+estimates is always identified as the recommended estimate);
+</p>
+</li>
+<li><p> the symbol <code>.x</code> which stands for the argument of the function;
+</p>
+</li>
+<li><p> global constants or functions.
+</p>
+</li></ul>
+
+<p>See the Examples.
+The expression should be capable of handling
+vectors and matrices.
+</p>
+<p>The interpretation of the argument <code>fun</code> is as follows:
+</p>
+
+<ul>
+<li>
+<p>If <code>fun=FALSE</code>, the result of evaluating the expression
+<code>expr</code> will be returned as a numeric vector, matrix or 
+data frame.
+</p>
+</li>
+<li>
+<p>If <code>fun=TRUE</code>, then the result of evaluating <code>expr</code>
+will be interpreted as containing the values of a new function.
+The return value will be an object of class <code>"fv"</code>.
+(This can only happen if the result has the right dimensions.)
+</p>
+</li>
+<li> 
+<p>The default is <code>fun=TRUE</code> if the result of evaluating
+<code>expr</code> has more than one column, and <code>fun=FALSE</code> otherwise.
+</p>
+</li></ul>
+
+<p>To perform calculations involving <em>several</em> objects of
+class <code>"fv"</code>, use <code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>)
+or a numeric vector or data frame.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/with.html">with</a></code>,
+<code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../../spatstat.explore/help/eval.fv.html">eval.fv</a></code>,
+<code><a href="../help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # compute 4 estimates of the K function
+  X &lt;- runifrect(42)
+  K &lt;- Kest(X)
+  plot(K)
+
+  # derive 4 estimates of the L function L(r) = sqrt(K(r)/pi)
+  L &lt;- with(K, sqrt(./pi))
+  plot(L)
+
+  # compute 4 estimates of V(r) = L(r)/r
+  V &lt;- with(L, ./.x)
+  plot(V)
+
+  # compute the maximum absolute difference between
+  # the isotropic and translation correction estimates of K(r)
+  D &lt;- with(K, max(abs(iso - trans)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

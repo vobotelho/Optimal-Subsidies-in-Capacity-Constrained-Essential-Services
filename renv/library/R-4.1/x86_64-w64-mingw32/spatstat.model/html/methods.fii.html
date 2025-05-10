@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Fitted Interactions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.fii {spatstat.model}"><tr><td>methods.fii {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Fitted Interactions
+</h2>
+
+<h3>Description</h3>
+
+<p>These are methods specifically for the class <code>"fii"</code> of
+fitted interpoint interactions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fii'
+print(x, ...)
+
+## S3 method for class 'fii'
+coef(object, ...)
+
+## S3 replacement method for class 'fii'
+coef(object, ...) &lt;- value
+
+## S3 method for class 'fii'
+plot(x, ...)
+
+## S3 method for class 'fii'
+summary(object,...)
+
+## S3 method for class 'summary.fii'
+print(x, ...)
+
+## S3 method for class 'summary.fii'
+coef(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>An object of class <code>"fii"</code> representing a fitted
+interpoint interaction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Numeric vector containing new values for the fitted
+interaction coefficients.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the class <code>"fii"</code>.
+An object of class <code>"fii"</code> represents a fitted interpoint
+interaction. It is usually obtained by
+using the command <code><a href="../../spatstat.model/help/fitin.html">fitin</a></code> to extract the fitted
+interaction part of a fitted point process model. 
+See <code><a href="../../spatstat.model/help/fitin.html">fitin</a></code> for further explanation of this class.
+</p>
+<p>The commands listed here are methods for the generic functions
+<code><a href="../../base/help/print.html">print</a></code>,
+<code><a href="../../base/help/summary.html">summary</a></code>,
+<code><a href="../../base/help/plot.html">plot</a></code>,
+<code><a href="../../stats/help/coef.html">coef</a></code>
+and <code><a href="../../nlme/help/coef+3C-.html">coef&lt;-</a></code>
+for objects of the class <code>"fii"</code>.
+</p>
+<p>Following the usual convention, <code>summary.fii</code> returns an object of class
+<code>summary.fii</code>, for which there is a print method.
+The effect is that, when the user types <code>summary(x)</code>,
+the summary is printed, but when the user types <code>y &lt;- summary(x)</code>,
+the summary information is saved.
+</p>
+<p>The method <code>coef.fii</code> extracts the canonical coefficients of
+the fitted interaction, and returns them as a numeric vector.
+The method <code>coef.summary.fii</code> transforms these values into
+quantities that are more easily interpretable, in a format that
+depends on the particular model.
+</p>
+<p>There are also methods for the generic commands <code><a href="../../spatstat.random/help/reach.html">reach</a></code> and
+<code><a href="../../spatstat.model/help/as.interact.html">as.interact</a></code>, described elsewhere.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The <code>print</code> and <code>plot</code> methods return <code>NULL</code>.
+</p>
+<p>The <code>summary</code> method returns an object of class
+<code>summary.fii</code>.
+</p>
+<p><code>coef.fii</code> returns a numeric vector.
+<code>coef.summary.fii</code> returns data whose structure
+depends on the model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/fitin.html">fitin</a></code>,
+<code><a href="../../spatstat.model/help/reach.fii.html">reach.fii</a></code>,
+<code><a href="../../spatstat.model/help/as.interact.fii.html">as.interact.fii</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  mod &lt;- ppm(cells ~1, Strauss(0.1))
+  f &lt;- fitin(mod)
+  f
+  summary(f)
+  plot(f)
+  coef(f)
+  coef(summary(f))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

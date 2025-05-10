@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rank of a square matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for matrix.rank {matrixcalc}"><tr><td>matrix.rank {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Rank of a square matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the rank of a square numeric matrix based on the selected method.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+matrix.rank(x, method = c("qr", "chol"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a matrix </p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p> a character string that specifies the method to be used </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the user specifies &quot;qr&quot; as the method, then the QR decomposition function is used to obtain the rank.
+If the user specifies &quot;chol&quot; as the method, the rank is obtained from the attributes of the value returned.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument is not a square numeric matrix, then the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/is.square.matrix.html">is.square.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- diag( seq( 1, 4, 1 ) )
+matrix.rank( A )
+B &lt;- matrix( seq( 1, 16, 1 ), nrow=4, byrow=TRUE )
+matrix.rank( B )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

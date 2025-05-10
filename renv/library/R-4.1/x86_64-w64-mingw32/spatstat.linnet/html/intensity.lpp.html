@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Empirical Intensity of Point Pattern on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intensity.lpp {spatstat.linnet}"><tr><td>intensity.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Empirical Intensity of Point Pattern on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the average number of points per unit length
+in a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+intensity(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>
+It computes the empirical intensity of a point pattern
+on a linear network (object of class <code>"lpp"</code>),
+i.e. the average density of points per unit length.
+</p>
+<p>If the point pattern is multitype, the intensities of the
+different types are computed separately.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value (giving the intensity) or numeric vector
+(giving the intensity for each possible type).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>, 
+<code><a href="../../spatstat.geom/help/intensity.ppp.html">intensity.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  intensity(chicago)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

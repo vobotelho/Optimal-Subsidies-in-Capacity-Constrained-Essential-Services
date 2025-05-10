@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fitted Conditional Intensity for Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fitted.ppm {spatstat.model}"><tr><td>fitted.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fitted Conditional Intensity for Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a point pattern,
+compute the fitted conditional intensity or fitted trend of the model
+at the points of the pattern,
+or at the points of the quadrature scheme used to fit the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppm'
+fitted(object, ..., type="lambda",
+                       dataonly=FALSE, new.coef=NULL, leaveoneout=FALSE,
+		       drop=FALSE, check=TRUE, repair=TRUE,
+		       ignore.hardcore=FALSE, dropcoef=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model (an object of class <code>"ppm"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String (partially matched) indicating whether the fitted value is the
+conditional intensity (<code>"lambda"</code> or <code>"cif"</code>) or
+the first order trend (<code>"trend"</code>)
+or the logarithm of conditional intensity (<code>"link"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>dataonly</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, then values will only be computed
+at the points of the data point pattern. If <code>FALSE</code>, then
+values will be computed at all the points of the quadrature scheme
+used to fit the model, including the points of the data point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>new.coef</code></td>
+<td>
+
+<p>Numeric vector of parameter values to replace the 
+fitted model parameters <code>coef(object)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> the fitted value at each data
+point will be computed using a leave-one-out method. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value determining whether to delete quadrature points
+that were not used to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value indicating whether to check the internal format
+of <code>object</code>. If there is any possibility that this object
+has been restored from a dump file, or has otherwise lost track of
+the environment where it was originally computed, set
+<code>check=TRUE</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>repair</code></td>
+<td>
+
+<p>Logical value indicating whether to repair the internal format
+of <code>object</code>, if it is found to be damaged. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>ignore.hardcore</code></td>
+<td>
+
+<p>Advanced use only.
+Logical value specifying whether to compute only the
+finite part of the interaction potential (effectively removing
+any hard core interaction terms).
+</p>
+</td></tr>
+<tr valign="top"><td><code>dropcoef</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>object</code> must be a fitted point process model
+(object of class <code>"ppm"</code>). Such objects are produced by the 
+model-fitting algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>).
+</p>
+<p>This function evaluates the conditional intensity
+<i>lambdahat(u,x)</i>
+or spatial trend <i>bhat(u)</i> of the fitted point process
+model for certain locations <i>u</i>,
+where <code>x</code> is the original point pattern dataset to which
+the model was fitted.
+</p>
+<p>The locations <i>u</i> at which the fitted conditional intensity/trend
+is evaluated, are the points of the
+quadrature scheme used to fit the model in <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+They include the data points (the points of the original point pattern
+dataset <code>x</code>) and other &ldquo;dummy&rdquo; points 
+in the window of observation.
+</p>
+<p>If <code>leaveoneout=TRUE</code>, fitted values will be computed
+for the data points only, using a &lsquo;leave-one-out&rsquo; rule: 
+the fitted value at <code>X[i]</code> is effectively computed by
+deleting this point from the data and re-fitting the model to the
+reduced pattern <code>X[-i]</code>, then predicting the value at
+<code>X[i]</code>. (Instead of literally performing this calculation,
+we apply a Taylor approximation using the influence function
+computed in <code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>. 
+</p>
+<p>The argument <code>drop</code> is explained in <code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code>.
+</p>
+<p>Use <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code> to compute the fitted conditional
+intensity at other locations or with other values of the
+explanatory variables.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector containing the values of the fitted conditional intensity,
+fitted spatial trend, or logarithm of the fitted conditional intensity.
+</p>
+<p>Entries in this vector correspond to the quadrature points (data or
+dummy points) used to fit the model. The quadrature points can be
+extracted from <code>object</code> by <code>union.quad(quad.ppm(object))</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Moller, J. and Hazelton, M. (2005).
+Residual analysis for spatial point processes (with discussion).
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    str &lt;- ppm(cells ~x, Strauss(r=0.1))
+    lambda &lt;- fitted(str)
+
+    # extract quadrature points in corresponding order
+    quadpoints &lt;- union.quad(quad.ppm(str))
+
+    # plot conditional intensity values
+    # as circles centred on the quadrature points 
+    quadmarked &lt;- setmarks(quadpoints, lambda)
+    plot(quadmarked)
+
+    if(!interactive()) str &lt;- ppm(cells ~ x)
+
+    lambdaX &lt;- fitted(str, leaveoneout=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

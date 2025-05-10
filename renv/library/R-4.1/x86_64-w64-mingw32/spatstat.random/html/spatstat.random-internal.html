@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal spatstat.random functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.random-internal {spatstat.random}"><tr><td>spatstat.random-internal {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal spatstat.random functions</h2>
+
+<h3>Description</h3>
+
+<p>Internal spatstat.random functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+
+
+change.default.expand(x, newdefault)
+datagen.runifpointOnLines(n, L)
+datagen.runifpoisppOnLines(lambda, L)
+datagen.rpoisppOnLines(lambda, L, lmax, ..., check)
+default.clipwindow(object, epsilon)
+expandwinPerfect(W, expand, amount)
+detect.par.format(par, native, generic)
+fakeNeyScot(Y, lambda, win, saveLambda, saveparents)
+getRandomFieldsModelGen(model)
+handle.rshift.args(W, ..., radius, width, height,
+                   edge, clip, edgedefault)
+HermiteCoefs(order)
+is.cadlag(s)
+is.expandable(x)
+## S3 method for class 'rmhmodel'
+is.expandable(x) 
+kraever(package, fatal)
+kraeverRandomFields()
+MultiPair.checkmatrix(mat, n, matname, naok, zerook, asymmok)
+optimalinflation(clusters, mod, rD)
+## S3 method for class 'rmhcontrol'
+print(x, ...)
+## S3 method for class 'rmhexpand'
+print(x, ..., prefix=TRUE)
+## S3 method for class 'rmhmodel'
+print(x, ...)
+## S3 method for class 'rmhstart'
+print(x, ...)
+## S3 method for class 'rmhInfoList'
+print(x, ...)
+## S3 method for class 'summary.rmhexpand'
+print(x, ...)
+RandomFieldsSafe()
+reheat(model, invtemp)
+resolve.vargamma.shape(..., nu.ker, nu.pcf, nu, allow.nu, allow.default)
+retrieve.param(desired, aliases, ..., par)
+rMaternInhibition(type, kappa, r, win, stationary, ..., nsim, drop)
+rMatClustHom(kappa, mu, R, W, ..., nsim, drop, inflate, saveparents)
+rThomasHom(kappa, mu, sigma, W, ...,
+           nsim, drop, inflate, saveparents, maxinflate)
+rCauchyHom(kappa, mu, scale, W, ...,
+           nsim, drop, inflate, saveparents, maxinflate)
+rGRFcircembed(W, mu, var, corrfun, ..., nsim, drop)
+rGRFgauss(W, mu, var, scale, ..., nsim, drop)
+rGRFexpo(W, mu, var, scale, ..., nsim, drop)
+rGRFstable(W, mu, var, scale, alpha, ..., nsim, drop)
+rGRFgencauchy(W, mu, var, scale, alpha, beta, ..., nsim, drop)
+rGRFmatern(W, mu, var, scale, nu, ..., nsim, drop)
+rPoissonClusterEngine(kappa, expand, rcluster, win, ...,
+                      nsim, drop, saveparents, kappamax, lmax, rmax) 
+RmhExpandRule(nama)
+## S3 method for class 'rmhcontrol'
+rmhcontrol(...) 
+## S3 method for class 'list'
+rmhcontrol(...) 
+rmhEngine(InfoList, ..., verbose, kitchensink, preponly, snoop,
+                           overrideXstart, overrideclip) 
+rmhResolveControl(control, model)
+rmhResolveExpansion(win, control, imagelist, itype)
+rmhResolveTypes(model, start, control)
+rmhsnoop(..., Wsim, Wclip, R, xcoords, ycoords, mlevels, mcodes, irep, itype, 
+     proptype, proplocn, propmark, propindx, numerator, denominator,
+     panel.only)
+rmhSnoopEnv(Xinit, Wclip, R)
+## S3 method for class 'rmhmodel'
+rmhmodel(model, ...) 
+## S3 method for class 'rmhstart'
+rmhstart(start, ...) 
+## S3 method for class 'list'
+rmhstart(start, ...) 
+rmpoint.I.allim(n, f, types, nsim)
+rpoint.multi(n, f, fmax, marks, win, giveup, verbose, warn, nsim, drop)
+rthinEngine(X, P, ..., nsim, drop, Pmax, na.zero, what, fatal, warn)
+runifpoispp(lambda, win, ..., nsim, drop)
+runifpoisppOnLines(lambda, L, nsim, drop)
+spatstatClusterModelInfo(name, onlyPCP)
+spatstatClusterSimInfo(name)
+spatstatClusterSimModelMatch(name, verbose)
+spatstatRmhInfo(cifname)
+summarise.trend(trend, w, a)
+## S3 method for class 'rmhexpand'
+summary(object, ...)
+thinjump(n, p)
+thinParents(X, P, Pmax)
+## S3 method for class 'rmhstart'
+update(object, ...)
+validate.kappa.mu(kappa, mu, kappamax, mumax,
+                  win, expand, ..., context)
+
+
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These internal <span class="pkg">spatstat.random</span> functions should not be called
+directly by the user. Their names and capabilities may change
+without warning from one version of <span class="pkg">spatstat.random</span> to the next.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return values of these functions are not documented,
+and may change without warning.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

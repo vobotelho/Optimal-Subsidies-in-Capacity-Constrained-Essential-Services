@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Range of Interaction for a Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for reach.dppm {spatstat.model}"><tr><td>reach.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Range of Interaction for a Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Returns the range of interaction for a determinantal point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'dppm'
+reach(x, ...)
+
+  ## S3 method for class 'detpointprocfamily'
+reach(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Model of class <code>"detpointprocfamily"</code> or <code>"dppm"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments passed to the range function
+of the given model.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The range of interaction for a determinantal point
+process model may defined as the smallest number <i>R</i> such that
+<i>g(r)=1</i> for all <i>r&gt;=R</i>, where <i>g</i> is the pair
+correlation function. For many models the range is infinite, but one
+may instead use a value where the pair correlation function is
+sufficiently close to 1. For example in the Matern model this defaults
+to finding <i>R</i> such that <i>g(R)=0.99</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+reach(dppMatern(lambda=100, alpha=.01, nu=1, d=2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Multidimensional Space-Time Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ppx {spatstat.geom}"><tr><td>ppx {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Multidimensional Space-Time Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Creates a multidimensional space-time point pattern
+with any kind of coordinates and marks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ppx(data, domain=NULL, coord.type=NULL, simplify=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>The coordinates and marks of the points.
+A <code>data.frame</code> or <code>hyperframe</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional. The space-time domain containing the points.
+An object in some appropriate format, or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>coord.type</code></td>
+<td>
+
+<p>Character vector specifying how each column of
+<code>data</code> should be interpreted: as a spatial coordinate,
+a temporal coordinate, a local coordinate or a mark.
+Entries are partially matched to the values
+<code>"spatial"</code>,
+<code>"temporal"</code>,
+<code>"local"</code> and
+<code>"mark"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>simplify</code></td>
+<td>
+
+<p>Logical value indicating whether to simplify the result
+in special cases.
+If <code>simplify=TRUE</code>, a two-dimensional point pattern
+will be returned as an object of class <code>"ppp"</code>,
+and a three-dimensional point pattern will be returned as
+an object of class <code>"pp3"</code>.
+If <code>simplify=FALSE</code> (the default) then the result is always
+an object of class <code>"ppx"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ppx"</code>
+represents a marked point pattern
+in multidimensional space and/or time. There may be any
+number of spatial coordinates, any number of temporal coordinates,
+any number of local coordinates,
+and any number of mark variables. The individual marks may be
+atomic (numeric values, factor values, etc) or objects of any kind.
+</p>
+<p>The argument <code>data</code> should contain the coordinates and marks of
+the points. It should be a <code>data.frame</code> or more generally a
+<code>hyperframe</code> (see <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>) with
+one row of data for each point.
+</p>
+<p>Each column of <code>data</code> is either
+a spatial coordinate, a temporal coordinate,
+a local coordinate, or a mark variable.
+The argument <code>coord.type</code> determines how each column is interpreted.
+It should be a character vector, of length equal to the number of
+columns of <code>data</code>. It should contain strings that partially match
+the values <code>"spatial"</code>, <code>"temporal"</code>, <code>"local"</code> and
+<code>"mark"</code>. (The first letters will be sufficient.)
+</p>
+<p>By default (if <code>coord.type</code> is missing or <code>NULL</code>),
+columns of numerical data are assumed to represent
+spatial coordinates, while other columns are assumed to be marks.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Usually an object of class <code>"ppx"</code>.
+If <code>simplify=TRUE</code> the result may be an object of
+class <code>"ppp"</code> or <code>"pp3"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>,
+<code><a href="../../spatstat.geom/help/print.ppx.html">print.ppx</a></code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   df &lt;- data.frame(x=runif(4),y=runif(4),t=runif(4),
+                    age=rep(c("old", "new"), 2),
+                    size=runif(4))
+   X &lt;- ppx(data=df, coord.type=c("s","s","t","m","m"))
+   X
+
+   #' one-dimensional points
+   #' with marks which are two-dimensional point patterns
+   val &lt;- sample(10:20, 4)
+   E &lt;- lapply(val, runifrect)
+   E
+   hf &lt;- hyperframe(num=val, e=as.listof(E))
+   Z &lt;- ppx(data=hf, domain=c(10,20))
+   Z
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

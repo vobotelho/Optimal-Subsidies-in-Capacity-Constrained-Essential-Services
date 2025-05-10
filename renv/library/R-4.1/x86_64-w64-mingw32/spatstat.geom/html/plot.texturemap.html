@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Texture Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.texturemap {spatstat.geom}"><tr><td>plot.texturemap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Texture Map
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot a representation of a texture map,
+similar to a plot legend.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'texturemap'
+plot(x, ..., main, xlim = NULL, ylim = NULL,
+                           vertical = FALSE, axis = TRUE,
+                           side = if(vertical) "right" else "bottom",
+                           labelmap = NULL, gap = 0.25,
+                           spacing = NULL, add = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Texture map object (class <code>"texturemap"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional graphics arguments passed to
+<code><a href="../../spatstat.geom/help/add.texture.html">add.texture</a></code> or <code><a href="../../graphics/help/axis.html">axis</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Main title for plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xlim,ylim</code></td>
+<td>
+
+<p>Optional vectors of length 2 giving the <i>x</i> and <i>y</i> limits
+of the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>vertical</code></td>
+<td>
+
+<p>Logical value indicating whether to arrange the texture boxes
+in a vertical column (<code>vertical=TRUE</code> or a horizontal row
+(<code>vertical=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>axis</code></td>
+<td>
+
+<p>Logical value indicating whether to plot axis-style labels
+next to the texture boxes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>side</code></td>
+<td>
+
+<p>One of the character strings
+<code>"bottom"</code>, <code>"left"</code>, <code>"top"</code>  or <code>"right"</code>,
+or one of the integers from 1 to 4,
+specifying the position of the axis-style labels,
+if <code>axis=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labelmap</code></td>
+<td>
+
+<p>Optional. A <code>function</code> which will be applied to the
+data values (the inputs of the texture map) before they are
+displayed on the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>gap</code></td>
+<td>
+
+<p>Separation between texture boxes, as a fraction of the
+width or height of a box.
+</p>
+</td></tr>
+<tr valign="top"><td><code>spacing</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../spatstat.geom/help/add.texture.html">add.texture</a></code> controlling the density
+of lines in a texture. Expressed in spatial coordinate units.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether to add the graphics to an existing
+plot (<code>add=TRUE</code>) or to initialise a new plot
+(<code>add=FALSE</code>, the default).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A texture map is an association between data values and graphical
+textures. An object of class <code>"texturemap"</code> represents a texture
+map. Such objects are returned from the plotting function
+<code><a href="../../spatstat.geom/help/textureplot.html">textureplot</a></code>, and can be created directly by the function
+<code><a href="../../spatstat.geom/help/texturemap.html">texturemap</a></code>.
+</p>
+<p>This function <code>plot.texturemap</code> is a method for the generic
+<code><a href="../../graphics/html/plot.default.html">plot</a></code> for the class <code>"texturemap"</code>. It displays
+a sample of each of the textures in the texture map, in a separate
+box, annotated by the data value which is mapped to that texture.
+</p>
+<p>The arrangement and position of the boxes is controlled by
+the arguments <code>vertical</code>, <code>xlim</code>, <code>ylim</code> and
+<code>gap</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/texturemap.html">texturemap</a></code>,
+<code><a href="../../spatstat.geom/help/textureplot.html">textureplot</a></code>,
+<code><a href="../../spatstat.geom/help/add.texture.html">add.texture</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   tm &lt;- texturemap(c("First", "Second", "Third"), 2:4, col=2:4)
+   plot(tm, vertical=FALSE)
+   ## abbreviate the labels
+   plot(tm, labelmap=function(x) substr(x, 1, 2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

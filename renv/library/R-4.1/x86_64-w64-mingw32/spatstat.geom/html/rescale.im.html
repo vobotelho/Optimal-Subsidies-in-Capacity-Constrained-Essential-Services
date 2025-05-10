@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Pixel Image to Another Unit of Length</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rescale.im {spatstat.geom}"><tr><td>rescale.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Pixel Image to Another Unit of Length</h2>
+
+<h3>Description</h3>
+
+<p>Converts a pixel image to 
+another unit of length.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'im'
+rescale(X, s, unitname)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Pixel image (object of class <code>"im"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+<p>Conversion factor: the new units are <code>s</code> times the old units.</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. New name for the unit of length.
+See <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>.
+</p>
+<p>The spatial coordinates of the pixels in <code>X</code>
+will be re-expressed
+in terms of a new unit of length that is <code>s</code> times the current
+unit of length given in <code>X</code>.
+(Thus, the coordinate values are <em>divided</em> by <code>s</code>,
+while the unit value is multiplied by <code>s</code>).
+</p>
+<p>If <code>s</code> is missing, then the coordinates will be re-expressed
+in &lsquo;native&rsquo; units; for example if the current unit is
+equal to 0.1 metres, then the coordinates will be re-expressed in metres.
+</p>
+<p>The result is a pixel image representing the <em>same</em> data
+but re-expressed in a different unit.
+</p>
+<p>Pixel values are unchanged. This may not be what you intended!
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another pixel image (of class <code>"im"</code>),
+containing the same pixel values, but with pixel coordinates
+expressed in the new units.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.html">im</a></code>,
+<code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>,
+<code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>,
+<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Bramble Canes data: 1 unit = 9 metres
+  bramblecanes
+# distance transform
+  Z &lt;- distmap(bramblecanes)
+# convert to metres
+# first alter the pixel values
+  Zm &lt;- eval.im(9 * Z)
+# now rescale the pixel coordinates
+  Z &lt;- rescale(Zm, 1/9)
+# or equivalently
+  Z &lt;- rescale(Zm)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Function to Image Broken Down by Factor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for by.im {spatstat.geom}"><tr><td>by.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Function to Image Broken Down by Factor</h2>
+
+<h3>Description</h3>
+
+<p>Splits a pixel image into sub-images and applies a function to each
+sub-image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'im'
+by(data, INDICES, FUN, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>A pixel image (object of class <code>"im"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>INDICES</code></td>
+<td>
+<p>Grouping variable.
+Either a tessellation (object of class <code>"tess"</code>) or
+a factor-valued pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>Function to be applied to each sub-image of <code>data</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments passed to <code>FUN</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/by.html">by</a></code> for
+pixel images (class <code>"im"</code>).
+</p>
+<p>The pixel image <code>data</code> is first divided into sub-images according
+to <code>INDICES</code>. Then the function <code>FUN</code> is applied to each subset.
+The results of each computation are returned in a list.
+</p>
+<p>The grouping variable <code>INDICES</code> may be either
+</p>
+
+<ul>
+<li><p> a tessellation (object of class <code>"tess"</code>). Each tile of
+the tessellation delineates a subset of the spatial domain.
+</p>
+</li>
+<li><p> a pixel image (object of class <code>"im"</code>) with factor
+values. The levels of the factor determine subsets of the spatial
+domain.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A list containing the results of each evaluation of <code>FUN</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/split.im.html">split.im</a></code>,
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- square(1)
+  X &lt;- as.im(function(x,y){sqrt(x^2+y^2)}, W)
+  Y &lt;- dirichlet(runifrect(12, W))
+  # mean pixel value in each subset
+  unlist(by(X, Y, mean))
+  # trimmed mean
+  unlist(by(X, Y, mean, trim=0.05))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

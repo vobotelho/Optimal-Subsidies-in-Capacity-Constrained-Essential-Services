@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Smoothed Intensity of Split Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for density.splitppp {spatstat.explore}"><tr><td>density.splitppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Kernel Smoothed Intensity of Split Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Compute a kernel smoothed intensity function for each
+of the components of a split point pattern,
+or each of the point patterns in a list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'splitppp'
+density(x, ..., weights=NULL, se=FALSE)
+
+  ## S3 method for class 'ppplist'
+density(x, ..., weights=NULL, se=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Split point pattern (object of class <code>"splitppp"</code>
+created by <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>) to be smoothed.
+Alternatively a list of point patterns,
+of class <code>"ppplist"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code> to control
+the smoothing, pixel resolution, edge correction etc.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Numerical weights for the points. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+
+<p>Logical value indicating whether to compute standard errors as well.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code>density</code>.
+</p>
+<p>The argument <code>x</code> should be a list of point patterns,
+and should belong to one of the classes 
+<code>"ppplist"</code> or <code>"splitppp"</code>.
+</p>
+<p>Typically <code>x</code> is obtained by applying
+the function <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code> to a point pattern <code>y</code>
+by calling <code>split(y)</code>. This splits the points of <code>y</code> into several
+sub-patterns.
+</p>
+<p>A kernel estimate of the intensity function of each of the
+point patterns is computed using <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+</p>
+<p>The return value is usually a list, each of whose entries is a
+pixel image (object of class <code>"im"</code>). The return value
+also belongs to the class <code>"solist"</code> and can be plotted
+or printed.
+</p>
+<p>If the argument <code>at="points"</code> is given, the result is a list
+of numeric vectors giving the intensity values at the data points.
+</p>
+<p>If <code>se=TRUE</code>, the result is a list with two elements named
+<code>estimate</code> and <code>SE</code>, each of the format described above.
+</p>
+<p>The argument <code>weights</code> specifies numerical case weights
+for the data points.
+Normally it should be a list, with the same length as
+<code>x</code>. The entry <code>weights[[i]]</code> will determine the
+case weights for the pattern <code>x[[i]]</code>, and may be given in
+any format acceptable to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>.
+For example, <code>weights[[i]]</code> can be
+a numeric vector of length equal to <code>npoints(x[[i]])</code>,
+a single numeric value, a numeric matrix,
+a pixel image (object of class <code>"im"</code>),
+an <code>expression</code>, or a function of class <code>"funxy"</code>.
+</p>
+<p>For convenience, <code>weights</code> can also be a single <code>expression</code>,
+or a single pixel image (object of class <code>"im"</code>),
+or a single function of class <code>"funxy"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of pixel images (objects of class <code>"im"</code>)
+which can be plotted or printed;
+or a list of numeric vectors giving the values at specified points.
+</p>
+<p>If <code>se=TRUE</code>, the result is a list with two elements named
+<code>estimate</code> and <code>SE</code>, each of the format described above.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- density(split(amacrine), 0.05)
+  plot(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

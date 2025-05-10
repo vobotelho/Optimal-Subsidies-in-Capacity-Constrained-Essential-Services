@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test matrix for positive indefiniteness</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for is.indefinite {matrixcalc}"><tr><td>is.indefinite {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Test matrix for positive indefiniteness </h2>
+
+<h3>Description</h3>
+
+<p>This function returns TRUE if the argument, a square symmetric real matrix x, is indefinite.
+That is, the matrix has both positive and negative eigenvalues.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.indefinite(x, tol=1e-8)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a matrix </p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p> a numeric tolerance level </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For an indefinite matrix, the matrix should positive and negative eigenvalues. The R function <code>eigen</code>
+is used to compute the eigenvalues. If any of the eigenvalues is absolute value is less than the
+given tolerance, that eigenvalue is replaced with zero. If the matrix has both positive and
+negative eigenvalues, it is declared to be indefinite.
+</p>
+
+
+<h3>Value</h3>
+
+<p>TRUE or FALSE.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/is.positive.definite.html">is.positive.definite</a></code>, 
+<code><a href="../../matrixcalc/help/is.positive.semi.definite.html">is.positive.semi.definite</a></code>, 
+<code><a href="../../matrixcalc/help/is.negative.definite.html">is.negative.definite</a></code>, 
+<code><a href="../../matrixcalc/help/is.negative.semi.definite.html">is.negative.semi.definite</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+###
+### identity matrix is always positive definite
+###
+I &lt;- diag( 1, 3 )
+is.indefinite( I )
+###
+### positive definite matrix
+### eigenvalues are 3.4142136 2.0000000 0.585786
+###
+A &lt;- matrix( c( 2, -1, 0, -1, 2, -1, 0, -1, 2 ), nrow=3, byrow=TRUE )
+is.indefinite( A )
+###
+### positive semi-defnite matrix
+### eigenvalues are 4.732051 1.267949 8.881784e-16
+###
+B &lt;- matrix( c( 2, -1, 2, -1, 2, -1, 2, -1, 2 ), nrow=3, byrow=TRUE )
+is.indefinite( B )
+###
+### negative definite matrix
+### eigenvalues are -0.5857864 -2.0000000 -3.4142136
+###
+C &lt;- matrix( c( -2, 1, 0, 1, -2, 1, 0, 1, -2 ), nrow=3, byrow=TRUE )
+is.indefinite( C )
+###
+### negative semi-definite matrix
+### eigenvalues are 1.894210e-16 -1.267949 -4.732051
+###
+D &lt;- matrix( c( -2, 1, -2, 1, -2, 1, -2, 1, -2 ), nrow=3, byrow=TRUE )
+is.indefinite( D )
+###
+### indefinite matrix
+### eigenvalues are 3.828427  1.000000 -1.828427
+###
+E &lt;- matrix( c( 1, 2, 0, 2, 1, 2, 0, 2, 1 ), nrow=3, byrow=TRUE )
+is.indefinite( E )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

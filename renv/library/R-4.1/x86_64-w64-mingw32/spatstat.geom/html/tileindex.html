@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Which Tile Contains Each Given Point</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for tileindex {spatstat.geom}"><tr><td>tileindex {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Determine Which Tile Contains Each Given Point
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a tessellation and a list of spatial points,
+determine which tile of the tessellation contains each of the
+given points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+tileindex(x, y, Z)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Spatial coordinates.
+Numeric vectors of equal length.
+(Alternatively <code>y</code> may be missing
+and <code>x</code> may be an object containing
+spatial coordinates).
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function determines which tile of the tessellation <code>Z</code>
+contains each of the spatial points
+with coordinates <code>(x[i],y[i])</code>.
+</p>
+<p>The result is a factor, of the same length as <code>x</code> and <code>y</code>,
+indicating which tile contains each point. The levels of the factor
+are the names of the tiles of <code>Z</code>.
+Values are <code>NA</code> if the corresponding point lies outside the tessellation.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A factor, of the same length as <code>x</code> and <code>y</code>,
+whose levels are the names of the tiles of <code>Z</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> and <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code> to
+divide up the points of a point pattern according to
+a tessellation.
+</p>
+<p><code><a href="../../spatstat.geom/help/as.function.tess.html">as.function.tess</a></code> to create a function whose
+value is the tile index.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(7)
+  V &lt;- dirichlet(X)
+  tileindex(0.1, 0.4, V)
+  tileindex(list(x=0.1, y=0.4), Z=V)
+  tileindex(X, Z=V)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

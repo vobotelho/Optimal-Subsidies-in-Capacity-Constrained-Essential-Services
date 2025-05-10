@@ -1,0 +1,672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.im {spatstat.geom}"><tr><td>plot.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Plot a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'im'
+plot(x, ...,
+                   main,
+                   add=FALSE, clipwin=NULL,
+                   col=NULL, reverse.col=FALSE,
+                   valuesAreColours=NULL, log=FALSE,
+                   ncolours=256, gamma=1, 
+                   ribbon=show.all, show.all=!add,
+                   drop.ribbon=FALSE,
+                   ribside=c("right", "left", "bottom", "top"),
+                   ribsep=0.15, ribwid=0.05, ribn=1024,
+                   ribscale=1, ribargs=list(), riblab=NULL, colargs=list(),
+                   useRaster=NULL, workaround=FALSE, zap=1,
+                   do.plot=TRUE,
+                   addcontour=FALSE, contourargs=list()) 
+
+  ## S3 method for class 'im'
+image(x, ...,
+                   main,
+                   add=FALSE, clipwin=NULL,
+                   col=NULL, reverse.col=FALSE,
+                   valuesAreColours=NULL, log=FALSE, 
+                   ncolours=256, gamma=1, 
+                   ribbon=show.all, show.all=!add,
+                   drop.ribbon=FALSE,
+                   ribside=c("right", "left", "bottom", "top"),
+                   ribsep=0.15, ribwid=0.05, ribn=1024,
+                   ribscale=1, ribargs=list(), riblab=NULL, colargs=list(),
+                   useRaster=NULL, workaround=FALSE, zap=1,
+                   do.plot=TRUE,
+                   addcontour=FALSE, contourargs=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The pixel image to be plotted.
+An object of class <code>"im"</code> (see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../graphics/help/image.default.html">image.default</a></code>
+to control the plot. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main title for the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether to superimpose the image on the
+existing plot (<code>add=TRUE</code>)
+or to initialise a new plot (<code>add=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipwin</code></td>
+<td>
+
+<p>Optional. A window (object of class <code>"owin"</code>).
+Only this subset of the image will be displayed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>Colours for displaying the pixel values.
+Either a character vector of colour values,
+an object of class <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>,
+or a <code>function</code> as described under Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reverse.col</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, the sequence of colour values
+specified by <code>col</code> will be reversed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>valuesAreColours</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, the pixel values of <code>x</code>
+are to be interpreted as colour values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, the colour map will be
+evenly-spaced on a logarithmic scale.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ncolours</code></td>
+<td>
+
+<p>Integer. The default number of colours in the colour map
+for a real-valued image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>gamma</code></td>
+<td>
+
+<p>Exponent for the gamma correction of the colours.
+A single positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribbon</code></td>
+<td>
+
+<p>Logical flag indicating whether to display a ribbon
+showing the colour map. Default is <code>TRUE</code>
+for new plots and <code>FALSE</code> for added plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether to display all plot elements
+including the main title and colour ribbon. Default is <code>TRUE</code>
+for new plots and <code>FALSE</code> for added plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop.ribbon</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, then a ribbon will not be displayed
+if all pixel values are equal.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribside</code></td>
+<td>
+
+<p>Character string indicating where to display the ribbon
+relative to the main image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribsep</code></td>
+<td>
+
+<p>Factor controlling the space between the ribbon and the image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribwid</code></td>
+<td>
+
+<p>Factor controlling the width of the ribbon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribn</code></td>
+<td>
+
+<p>Number of different values to display in the ribbon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribscale</code></td>
+<td>
+
+<p>Rescaling factor for tick marks. The values on the numerical scale
+printed beside the ribbon will be multiplied by this rescaling factor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribargs</code></td>
+<td>
+
+<p>List of additional arguments passed to
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>, 
+<code><a href="../../graphics/help/axis.html">axis</a></code> and
+<code><a href="../../grDevices/help/axisTicks.html">axisTicks</a></code>
+to control the display of the ribbon and its scale axis. These may override
+the <code>...</code> arguments. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>riblab</code></td>
+<td>
+
+<p>Text to be plotted in the margin near the ribbon.
+A character string or expression to be interpreted as text,
+or a list of arguments to be passed to
+<code><a href="../../graphics/help/mtext.html">mtext</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>colargs</code></td>
+<td>
+
+<p>List of additional arguments passed to
+<code>col</code> if it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>useRaster</code></td>
+<td>
+
+<p>Logical value, passed to <code><a href="../../graphics/help/image.default.html">image.default</a></code>.
+Images are plotted using a bitmap raster if <code>useRaster=TRUE</code>
+or by drawing polygons if <code>useRaster=FALSE</code>.
+Bitmap raster display tends to produce better results,
+but is not supported on all graphics devices.
+The default is to use bitmap raster display if it is supported.
+</p>
+</td></tr>
+<tr valign="top"><td><code>workaround</code></td>
+<td>
+
+<p>Logical value, specifying whether to use a workaround to avoid a bug
+which occurs with some device drivers in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, in which the image
+has the wrong spatial orientation. See the section on
+<b>Image is Displayed in Wrong Spatial Orientation</b> below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zap</code></td>
+<td>
+
+<p>Noise threshold factor. A numerical value greater than or equal to 1.
+If the range of pixel values is less than
+<code>zap * .Machine$double.eps</code>, the image will be treated as
+constant. This avoids displaying images which should be constant
+but contain small numerical errors.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually plot the image
+and colour ribbon.
+Setting <code>do.plot=FALSE</code> will simply return the
+colour map and the bounding box that were chosen for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>addcontour</code></td>
+<td>
+
+<p>Logical value specifying whether to add contour lines to the image
+plot. The contour lines will also be drawn on the colour ribbon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>contourargs</code></td>
+<td>
+
+<p>Optional list of arguments to be passed to
+<code><a href="../../graphics/help/contour.default.html">contour.default</a></code> to control the contour plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"im"</code>.
+[It is also the <code>image</code> method for <code>"im"</code>.]
+</p>
+<p>The pixel image <code>x</code> is displayed on the current plot device,
+using equal scales on the <code>x</code> and <code>y</code> axes.
+</p>
+<p>If <code>ribbon=TRUE</code>, a legend will be plotted.
+The legend consists of a colour ribbon and an axis with tick-marks,
+showing the correspondence between the pixel values and the colour map.
+</p>
+<p>Arguments <code>ribside, ribsep, ribwid</code> control the placement
+of the colour ribbon.
+By default, the ribbon is placed at the right of the main image.
+This can be changed using the argument <code>ribside</code>.
+The width of the ribbon is <code>ribwid</code> times the size of the pixel
+image, where &lsquo;size&rsquo; means the larger of the width and the height.
+The distance separating the ribbon and the image is <code>ribsep</code> times
+the size of the pixel image.
+</p>
+<p>The ribbon contains the colours representing <code>ribn</code>
+different numerical values, evenly spaced between the minimum and
+maximum pixel values in the image <code>x</code>, rendered according to
+the chosen colour map.
+</p>
+<p>The argument <code>ribargs</code> controls the annotation of the
+colour ribbon. It is a list of arguments to be passed to
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>, 
+<code><a href="../../graphics/help/axis.html">axis</a></code> and
+<code><a href="../../grDevices/help/axisTicks.html">axisTicks</a></code>.
+To plot the colour ribbon without the axis and
+tick-marks, use <code>ribargs=list(axes=FALSE)</code>.
+To ensure that the numerals or symbols printed next to the colour map
+are oriented horizontally, use <code>ribargs=list(las=1)</code>.
+To double the size of the numerals or symbols, 
+use <code>ribargs=list(cex.axis=2)</code>.
+To control the number of tick-marks, use <code>ribargs=list(nint=N)</code>
+where <code>N</code> is the desired number of intervals (so there will
+be <code>N+1</code> tickmarks, subject to the vagaries of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> internal code). 
+</p>
+<p>The argument <code>riblab</code> contains text that will be displayed
+in the margin next to the ribbon. 
+</p>
+<p>The argument <code>ribscale</code> is used
+to rescale the numerical values printed next to the colour map,
+for convenience. 
+For example if the pixel values in <code>x</code> range between 1000 and
+4000, it would be sensible to use <code>ribscale=1/1000</code> so that the
+colour map tickmarks would be labelled 1 to 4. 
+</p>
+<p>Normally the pixel values are displayed using the colours given in the
+argument <code>col</code>. This may be either
+</p>
+
+<ul>
+<li><p> an explicit colour map (an object of class
+<code>"colourmap"</code>, created by the command <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>).
+This is the best way to ensure
+that when we plot different images, the colour maps are consistent.
+</p>
+</li>
+<li><p> a character vector or integer vector
+that specifies a set of colours.
+The colour mapping will be stretched to match the range of
+pixel values in the image <code>x</code>. The mapping of pixel values
+to colours is determined as follows.
+</p>
+
+<dl>
+<dt>logical-valued images:</dt><dd><p>the values <code>FALSE</code> and
+<code>TRUE</code> are mapped to the colours <code>col[1]</code> and
+<code>col[2]</code> respectively.
+The vector <code>col</code> should have length 2.
+</p>
+</dd>
+<dt>factor-valued images:</dt><dd><p>the factor levels <code>levels(x)</code>
+are mapped to the entries of <code>col</code> in order. The vector
+<code>col</code> should have the same length as <code>levels(x)</code>.
+</p>
+</dd>
+<dt>numeric-valued images:</dt><dd>
+<p>By default, the range of pixel values in <code>x</code>
+is divided into <code>n = length(col)</code>
+equal subintervals, which are mapped to the colours in <code>col</code>.
+(If <code>col</code> was not specified, it defaults to a vector of 255
+colours.)
+</p>
+<p>Alternatively if the argument <code>zlim</code> is given, it should be
+a vector of length 2 specifying an interval of real numbers.
+This interval will be used instead of the range of pixel
+values. The interval from <code>zlim[1]</code> to <code>zlim[2]</code> will be
+mapped to the colours in <code>col</code>. This facility enables the user to
+plot several images using a consistent colour map.
+</p>
+<p>Alternatively if the argument <code>breaks</code> is given,
+then this specifies
+the endpoints of the subintervals that are mapped to each colour.
+This is incompatible with <code>zlim</code>.
+</p>
+<p>The arguments <code>col</code> and <code>zlim</code> or <code>breaks</code>
+are then passed to the function <code><a href="../../graphics/html/image.html">image.default</a></code>.
+For examples of the use of these arguments,
+see <code><a href="../../graphics/html/image.html">image.default</a></code>.
+</p>
+</dd>
+</dl>
+
+</li>
+<li> 
+<p>a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language
+with an argument named <code>range</code>
+or <code>inputs</code>.
+</p>
+<p>If <code>col</code> is a function with an argument named <code>range</code>,
+and if the pixel values of <code>x</code> are numeric values, 
+then the colour values will be determined by evaluating
+<code>col(range=range(x))</code>. The result of this evaluation
+should be a character vector containing colour values, or
+a <code>"colourmap"</code> object. Examples of such functions
+are <code><a href="../../spatstat.geom/help/beachcolours.html">beachcolours</a></code> and <code><a href="../../spatstat.geom/help/beachcolourmap.html">beachcolourmap</a></code>.
+</p>
+<p>If <code>col</code> is a function with an argument named <code>inputs</code>,
+and if the pixel values of <code>x</code> are discrete values (integer,
+logical, factor or character), 
+then the colour values will be determined by evaluating
+<code>col(inputs=p)</code> where <code>p</code> is the set of possible pixel
+values. The result should be a character vector 
+containing colour values, or a <code>"colourmap"</code> object.
+
+</p>
+</li>
+<li>
+<p>a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language with first argument
+named <code>n</code>.
+The colour values will be determined by evaluating
+<code>col(n)</code> where <code>n</code> is the
+number of distinct pixel values, up to a maximum of 128.
+The result of this evaluation
+should be a character vector containing color values.
+Examples of such functions are
+<code><a href="../../grDevices/help/heat.colors.html">heat.colors</a></code>,
+<code><a href="../../grDevices/help/terrain.colors.html">terrain.colors</a></code>,
+<code><a href="../../grDevices/help/topo.colors.html">topo.colors</a></code> and
+<code><a href="../../grDevices/help/cm.colors.html">cm.colors</a></code>. 
+
+</p>
+</li></ul>
+
+<p>If <code>col</code> is missing or <code>col=NULL</code>, the default colour values
+are the linear, perceptually uniform colour sequence given by
+<code><a href="../../spatstat.data/help/Kovesi.html">Kovesi</a>[[29,"values"]]</code>.
+</p>
+<p>If <code>spatstat.options("monochrome")</code> has been set to <code>TRUE</code>
+then <b>all colours will be converted to grey scale values</b>.
+</p>
+<p>If <code>reverse.col=TRUE</code>, the sequence of colour values specified
+by <code>col</code> will be reversed (unless <code>valuesAreColours=TRUE</code>).
+</p>
+<p>Other graphical parameters controlling the display of both the pixel image
+and the ribbon can be passed through the <code>...</code> arguments
+to the function <code><a href="../../graphics/help/image.default.html">image.default</a></code>.
+A parameter is handled only if it is one of the following:
+</p>
+
+<ul>
+<li><p> a formal argument of <code><a href="../../graphics/help/image.default.html">image.default</a></code>
+that is operative when <code>add=TRUE</code>.
+</p>
+</li>
+<li><p> one of the parameters
+<code>"main", "asp", "sub", "axes", "xlab", "ylab"</code>
+described in <code><a href="../../graphics/help/plot.default.html">plot.default</a></code>.
+</p>
+</li>
+<li><p> one of the parameters
+<code>"ann", "cex", "font", "cex.axis", "cex.lab", "cex.main", "cex.sub",
+      "col.axis", "col.lab", "col.main", "col.sub",
+      "font.axis", "font.lab", "font.main", "font.sub"</code>
+described in <code><a href="../../graphics/help/par.html">par</a></code>.
+</p>
+</li>
+<li><p> the argument <code>box</code>, a logical value specifying whether
+a box should be drawn.
+</p>
+</li></ul>
+
+<p>Images are plotted using a bitmap raster if <code>useRaster=TRUE</code>
+or by drawing polygons if <code>useRaster=FALSE</code>.
+Bitmap raster display (performed by <code><a href="../../graphics/help/rasterImage.html">rasterImage</a></code>)
+tends to produce better results, but is not supported on all graphics devices.
+The default is to use bitmap raster display if it is
+supported according to <code><a href="../../grDevices/help/dev.capabilities.html">dev.capabilities</a></code>.
+</p>
+<p>Alternatively, the pixel values could be directly 
+interpretable as colour values in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>. That is, the pixel values
+could be character strings that represent colours, or
+values of a factor whose levels are character strings representing
+colours.
+</p>
+
+<ul>
+<li><p> If <code>valuesAreColours=TRUE</code>, then the pixel values will
+be interpreted as colour values and displayed using these colours.
+</p>
+</li>
+<li><p> If <code>valuesAreColours=FALSE</code>, then the pixel values will
+<em>not</em> be interpreted as colour values, even if they could be.
+</p>
+</li>
+<li><p> If <code>valuesAreColours=NULL</code>, the algorithm will guess
+what it should do. If the argument <code>col</code> is given,
+the pixel values will <em>not</em> be interpreted as colour values. Otherwise,
+if all the pixel values are strings that represent colours, then
+they will be interpreted and displayed as colours.
+</p>
+</li></ul>
+
+<p>If pixel values are interpreted as colours, 
+the arguments <code>col</code> and <code>ribbon</code> will be ignored,
+and a ribbon will not be plotted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The colour map used. An object of class <code>"colourmap"</code>.
+</p>
+<p>Also has an attribute <code>"bbox"</code> giving a bounding box
+for the plot (containing the main colour image and the
+colour ribbon if plotted).
+If a ribbon was plotted, there is also an attribute
+<code>"bbox.legend"</code> giving a bounding box for the ribbon image.
+Text annotation occurs outside these bounding boxes.
+</p>
+
+
+<h3>Adding contour lines</h3>
+
+<p>If <code>addcontour=TRUE</code>, contour lines will be superimposed on the
+image. Lines will also be superimposed on the colour ribbon at the
+corresponding positions.
+The display of the contour lines can be controlled by
+arguments specified in <code>contourargs</code>.
+</p>
+
+
+<h3>Main title, box and white space</h3>
+
+<p>The left-right placement of the main title is controlled by the
+argument <code>adj.main</code> passed to <code><a href="../help/plot.owin.html">plot.owin</a></code>.
+A rectangular box surrounding the image domain is drawn by default; it can be
+suppressed by setting <code>box=FALSE</code>.
+White space around the plot is controlled by
+<code><a href="../../graphics/help/par.html">par</a>('mar')</code>.
+</p>
+
+
+<h3>Complex-valued images</h3>
+
+<p>If the pixel values in <code>x</code> are complex numbers,
+they will be converted into four images containing the real and
+imaginary parts and the modulus and argument, 
+and plotted side-by-side using <code><a href="../../spatstat.geom/help/plot.imlist.html">plot.imlist</a></code>.
+</p>
+
+
+<h3>Monochrome colours</h3>
+
+<p>If <code>spatstat.options("monochrome")</code> has been set to <code>TRUE</code>,
+then <b>the image will be plotted in greyscale</b>.
+The colours are converted to grey scale values using
+<code><a href="../../spatstat.geom/help/to.grey.html">to.grey</a></code>.
+The choice of colour map still has an effect, since it determines
+the final grey scale values.
+</p>
+<p>Monochrome display can also be achieved by
+setting the graphics device parameter <code>colormodel="grey"</code>
+when starting a new graphics device, or in a call to
+<code><a href="../../grDevices/html/ps.options.html">ps.options</a></code> or <code><a href="../../grDevices/html/pdf.options.html">pdf.options</a></code>.
+</p>
+
+
+<h3>Image Looks Like Noise</h3>
+
+<p>An image plot which looks like digital noise
+can be produced when the pixel values are almost exactly equal
+but include a tiny amount of numerical error.
+To check this, look at the numerals plotted next to the colour ribbon,
+or compute <code>diff(range(x))</code>, to determine whether the range
+of pixel values is almost zero. The behaviour can be suppressed
+by picking a larger value of the argument <code>zap</code>.
+</p>
+
+
+<h3>Image Rendering Errors and Problems</h3>
+
+<p>The help for <code><a href="../../graphics/help/image.default.html">image.default</a></code>
+and <code><a href="../../graphics/help/rasterImage.html">rasterImage</a></code> explains that
+errors may occur, or images may be rendered incorrectly, on some
+devices, depending on the availability of colours and other
+device-specific constraints.
+</p>
+<p>If the image is not displayed at all,
+try setting <code>useRaster=FALSE</code> in the call to <code>plot.im</code>.
+If the ribbon colours are not displayed, set
+<code>ribargs=list(useRaster=FALSE)</code>.
+</p>
+<p>Errors may occur on some graphics devices if the image is very
+large. If this happens, try setting <code>useRaster=FALSE</code> in the
+call to <code>plot.im</code>.
+</p>
+<p>The error message
+<code>useRaster=TRUE can only be used with a regular grid</code>
+means that the <i>x</i> and <i>y</i> coordinates of the pixels in the
+image are not perfectly equally spaced, due to numerical rounding.
+This occurs with some images created by earlier versions of <span class="pkg">spatstat</span>.
+To repair the coordinates in an image <code>X</code>, type
+<code>X &lt;- as.im(X)</code>.
+</p>
+
+
+<h3>Image is Displayed in Wrong Spatial Orientation</h3>
+
+<p>If the image is displayed in the wrong spatial orientation,
+and you created the image data directly, 
+please check that you understand the <span class="pkg">spatstat</span> convention for
+the spatial orientation of pixel images. The row index of the matrix
+of pixel values corresponds to the increasing <i>y</i> coordinate; the
+column index of the matrix corresponds to the increasing <i>x</i> coordinate
+(Baddeley, Rubak and Turner, 2015, section 3.6.3, pages 66&ndash;67).
+</p>
+<p>Images can be displayed in the wrong spatial orientation
+on some devices, due to a bug in the device driver. This occurs only
+when the plot coordinates are <em>reversed</em>, that is, when 
+the plot was initialised with coordinate limits <code>xlim, ylim</code>
+such that <code>xlim[1] &gt; xlim[2]</code> or <code>ylim[1] &gt; ylim[2]</code> or
+both. This bug is reported to occur only when <code>useRaster=TRUE</code>.
+To fix this, try setting <code>workaround=TRUE</code>, or if that is
+unsuccessful, <code>useRaster=FALSE</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>,
+<code><a href="../../spatstat.geom/help/contour.im.html">contour.im</a></code>,
+<code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>,
+<code><a href="../../spatstat.geom/help/hist.im.html">hist.im</a></code>,
+<code><a href="../../graphics/help/image.default.html">image.default</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>,
+<code><a href="../../spatstat.geom/help/default.image.colours.html">default.image.colours</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # an image
+   Z &lt;- setcov(owin())
+   plot(Z)
+   plot(Z, ribside="bottom")
+   # stretchable colour map
+   plot(Z, col=rainbow)
+   plot(Z, col=terrain.colors(128), axes=FALSE)
+   # fixed colour map
+   tc &lt;- colourmap(rainbow(128), breaks=seq(-1,2,length=129))
+   plot(Z, col=tc)
+   # colour map function, with argument 'range'
+   plot(Z, col=beachcolours, colargs=list(sealevel=0.5))
+   # tweaking the plot
+   plot(Z, main="La vie en bleu", col.main="blue", cex.main=1.5,
+        box=FALSE,
+        ribargs=list(col.axis="blue", col.ticks="blue", cex.axis=0.75))
+   # add axes and axis labels
+   plot(Z, axes=TRUE, ann=TRUE, xlab="Easting", ylab="Northing")
+   # add contour lines
+   plot(Z, addcontour=TRUE, contourargs=list(col="white", drawlabels=FALSE))
+   # log scale
+   V &lt;- eval.im(exp(exp(Z+2))/1e4)
+   plot(V, log=TRUE, main="Log scale")
+   # it's complex
+   Y &lt;- exp(Z + V * 1i)
+   plot(Y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

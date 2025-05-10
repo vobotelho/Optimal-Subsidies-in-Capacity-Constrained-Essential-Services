@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Fitted Effect of a Spatial Covariate in a Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for effectfun {spatstat.model}"><tr><td>effectfun {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Fitted Effect of a Spatial Covariate in a Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Compute the trend or intensity of a fitted point process model
+as a function of one of its covariates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  effectfun(model, covname, ..., se.fit=FALSE, nvalues=256)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted point process model (object of class
+<code>"ppm"</code>, <code>"kppm"</code>, <code>"lppm"</code>, <code>"dppm"</code>, <code>"rppm"</code>
+or <code>"profilepl"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covname</code></td>
+<td>
+
+<p>The name of the covariate. A character string.
+(Needed only if the model has more than one covariate.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>The fixed values of other covariates (in the form
+<code>name=value</code>) if required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>se.fit</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, asymptotic standard errors of the estimates
+will be computed, together with a 95% confidence interval.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nvalues</code></td>
+<td>
+
+<p>Integer. The number of values of the covariate (if it is numeric)
+for which the effect function should be evaluated.
+We recommend at least 256.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The object <code>model</code> should be an object of class
+<code>"ppm"</code>, <code>"kppm"</code>, <code>"lppm"</code>, <code>"dppm"</code>, <code>"rppm"</code>
+or <code>"profilepl"</code>
+representing a point process model fitted to point pattern data.
+</p>
+<p>The model's trend formula should involve a spatial covariate
+named <code>covname</code>. This could be <code>"x"</code> or <code>"y"</code>
+representing one of the Cartesian coordinates.
+More commonly the covariate
+is another, external variable that was supplied when fitting the model.
+</p>
+<p>The command <code>effectfun</code> computes the fitted trend 
+of the point process <code>model</code> as a function of the covariate
+named <code>covname</code>. 
+The return value can be plotted immediately, giving a
+plot of the fitted trend against the value of the covariate.
+</p>
+<p>If the model also involves covariates other than <code>covname</code>,
+then these covariates will be held fixed. Values for
+these other covariates must be provided as arguments
+to <code>effectfun</code> in the form <code>name=value</code>. 
+</p>
+<p>If <code>se.fit=TRUE</code>, the algorithm also calculates
+the asymptotic standard error of the fitted trend,
+and a (pointwise) asymptotic 95% confidence interval for the
+true trend.
+</p>
+<p>This command is just a wrapper for the prediction method
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>. For more complicated computations
+about the fitted intensity, use <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame containing a column of values of the covariate and a column
+of values of the fitted trend.
+If <code>se.fit=TRUE</code>, there are 3 additional columns containing the
+standard error and the upper and lower limits of a confidence interval.
+</p>
+<p>If the covariate named <code>covname</code> is numeric (rather than a factor
+or logical variable), the return value is
+also of class <code>"fv"</code> so that it can be plotted immediately.
+</p>
+
+
+<h3>Trend and intensity</h3>
+
+<p>For a Poisson point process model, the trend is the same as the
+intensity of the point process. For a more general Gibbs model, the trend
+is the first order potential in the model (the first order term in the
+Gibbs representation). In Poisson or Gibbs models fitted by
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, the trend is the only part of the model that
+depends on the covariates.
+</p>
+
+
+<h3>Determinantal point process models with fixed intensity</h3>
+
+<p>The function <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code> which fits 
+a determinantal point process model allows the user to specify the
+intensity <code>lambda</code>. In such cases the effect function is
+undefined, and <code>effectfun</code> stops with an error message.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>,
+<code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- copper$SouthPoints
+  D &lt;- distfun(copper$SouthLines)
+  fit &lt;- ppm(X ~ polynom(D, 5))
+  effectfun(fit)
+  plot(effectfun(fit, se.fit=TRUE))
+
+  fitx &lt;- ppm(X ~ x + polynom(D, 5))
+  plot(effectfun(fitx, "D", x=20))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

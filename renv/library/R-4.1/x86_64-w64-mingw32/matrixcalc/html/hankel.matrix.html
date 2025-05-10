@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hankel Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hankel.matrix {matrixcalc}"><tr><td>hankel.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Hankel Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function constructs an order n Hankel matrix from the values in
+the order n vector x.  Each row of the matrix is a circular shift of
+the values in the previous row.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hankel.matrix(n, x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> a positive integer value for order of matrix greater than 1 </p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a vector of values used to construct the matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A Hankel matrix is a square matrix with constant skew diagonals.
+The determinant of a Hankel matrix is called a catalecticant.
+Hankel matrices are formed when the hidden Mark model is sought
+from a given sequence of data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n</i> matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument n is not a positive integer, the function presents an error message and stops.
+If the length of x is less than n, the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Power, S. C. (1982). <em>Hankel Operators on Hilbert Spaces</em>, Research
+notes in mathematics, Series 64, Pitman Publishing.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+H &lt;- hankel.matrix( 4, seq( 1, 7 ) )
+print( H )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

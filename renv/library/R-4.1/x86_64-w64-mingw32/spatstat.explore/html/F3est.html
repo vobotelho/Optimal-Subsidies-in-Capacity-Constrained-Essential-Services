@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Empty Space Function of a Three-Dimensional Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for F3est {spatstat.explore}"><tr><td>F3est {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Empty Space Function of a Three-Dimensional Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the empty space function <i>F3(r)</i> from 
+a three-dimensional point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+F3est(X, ..., rmax = NULL, nrval = 128, vside = NULL,
+              correction = c("rs", "km", "cs"),
+              sphere = c("fudge", "ideal", "digital"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Three-dimensional point pattern (object of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum value of argument <i>r</i> for which
+<i>F3(r)</i> will be estimated. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrval</code></td>
+<td>
+
+<p>Optional. Number of values of <i>r</i> for which
+<i>F3(r)</i> will be estimated. A large value of <code>nrval</code>
+is required to avoid discretisation effects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>vside</code></td>
+<td>
+
+<p>Optional. 
+Side length of the voxels in the discrete approximation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional. Character vector specifying the edge correction(s)
+to be applied. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sphere</code></td>
+<td>
+
+<p>Optional. Character string specifying how to calculate the
+theoretical value of <i>F3(r)</i> for a Poisson
+process. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For a stationary point process <i>Phi</i> in three-dimensional
+space, the empty space function is
+</p>
+<p style="text-align: center;"><i>
+    F3(r) = P(d(0,Phi) &lt;= r)
+  </i></p>
+
+<p>where <i>d(0,Phi)</i> denotes the distance from a fixed
+origin <i>0</i> to the nearest point of <i>Phi</i>.
+</p>
+<p>The three-dimensional point pattern <code>X</code> is assumed to be a
+partial realisation of a stationary point process <i>Phi</i>.
+The empty space function of <i>Phi</i> can then be estimated using
+techniques described in the References.
+</p>
+<p>The box containing the point
+pattern is discretised into cubic voxels of side length <code>vside</code>.
+The distance function <i>d(u,Phi)</i> is computed for
+every voxel centre point
+<i>u</i> using a three-dimensional version of the distance transform
+algorithm (Borgefors, 1986). The empirical cumulative distribution
+function of these values, with appropriate edge corrections, is the
+estimate of <i>F3(r)</i>.
+</p>
+<p>The available edge corrections are:
+</p>
+
+<dl>
+<dt><code>"rs"</code>:</dt><dd>
+<p>the reduced sample (aka minus sampling, border correction)
+estimator (Baddeley et al, 1993)
+</p>
+</dd>
+<dt><code>"km"</code>:</dt><dd>
+<p>the three-dimensional version of the
+Kaplan-Meier estimator (Baddeley and Gill, 1997)
+</p>
+</dd>
+<dt><code>"cs"</code>:</dt><dd>
+<p>the three-dimensional generalisation of
+the Chiu-Stoyan or Hanisch estimator (Chiu and Stoyan, 1998).
+</p>
+</dd>
+</dl>
+
+<p>Alternatively <code>correction="all"</code> selects all options.
+</p>
+<p>The result includes a column <code>theo</code> giving the 
+theoretical value of <i>F3(r)</i> for
+a uniform Poisson process (Complete Spatial Randomness).
+This value depends on the volume of the sphere of radius <code>r</code>
+measured in the discretised distance metric.
+The argument <code>sphere</code> determines how this will be calculated.
+</p>
+
+<ul>
+<li>
+<p>If <code>sphere="ideal"</code> the calculation will use the
+volume of an ideal sphere of radius <i>r</i> namely
+<i>(4/3) * pi * r^3</i>. This is not recommended
+because the theoretical values of <i>F3(r)</i>
+are inaccurate.
+</p>
+</li>
+<li>
+<p>If <code>sphere="fudge"</code> then the volume of the ideal sphere will
+be multiplied by 0.78, which gives the approximate volume
+of the sphere in the discretised distance metric.
+</p>
+</li>
+<li>
+<p>If <code>sphere="digital"</code> then the volume of the sphere in the
+discretised distance metric is computed exactly using another
+distance transform. This takes longer to compute, but is exact.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>) that can be
+plotted, printed or coerced to a data frame containing the function values.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>A small value of <code>vside</code> and a large value of <code>nrval</code>
+are required for reasonable accuracy. 
+</p>
+<p>The default value of <code>vside</code> ensures that the total number of
+voxels is <code>2^22</code> or about 4 million.
+To change the default number of voxels, see
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("nvoxel")</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rana Moyeed.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J, Moyeed, R.A., Howard, C.V. and Boyde, A.
+Analysis of a three-dimensional point pattern with replication.
+<em>Applied Statistics</em> <b>42</b> (1993) 641&ndash;668.
+</p>
+<p>Baddeley, A.J. and Gill, R.D. (1997)
+Kaplan-Meier estimators of interpoint distance
+distributions for spatial point processes.
+<em>Annals of Statistics</em> <b>25</b>, 263&ndash;292.
+</p>
+<p>Borgefors, G. (1986)
+Distance transformations in digital images.
+<em>Computer Vision, Graphics and Image Processing</em>
+<b>34</b>, 344&ndash;371.
+</p>
+<p>Chiu, S.N. and Stoyan, D. (1998)
+Estimators of distance distributions for spatial patterns.
+<em>Statistica Neerlandica</em> <b>52</b>, 239&ndash;246.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code> to create a three-dimensional point
+pattern (object of class <code>"pp3"</code>).
+</p>
+<p><code><a href="../../spatstat.explore/help/G3est.html">G3est</a></code>,
+<code><a href="../../spatstat.explore/help/K3est.html">K3est</a></code>,
+<code><a href="../../spatstat.explore/help/pcf3est.html">pcf3est</a></code> for other summary functions of
+a three-dimensional point pattern.
+</p>
+<p><code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code> to estimate the empty space function of
+point patterns in two dimensions.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  
+  X &lt;- rpoispp3(42)
+  Z &lt;- F3est(X)
+  if(interactive()) plot(Z)
+  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

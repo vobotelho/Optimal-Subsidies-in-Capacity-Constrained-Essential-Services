@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Tessellation Delimited by Several Sets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for venn.tess {spatstat.geom}"><tr><td>venn.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Tessellation Delimited by Several Sets
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a list of windows, construct the tessellation
+formed by all combinations of inclusion/exclusion of these
+windows. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+venn.tess(..., window = NULL, labels=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Sets which delimit the tessellation.
+Any number of windows (objects of class <code>"owin"</code>)
+or tessellations (objects of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Optional. The bounding window of the resulting tessellation.
+If not specified, the default is the union of all the
+arguments <code>...</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+
+<p>Logical value, specifying whether to attach marks to each tile
+that reveal how it was formed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The arguments <code>...</code> may be any number of windows.
+This function constructs a tessellation, like a Venn diagram,
+whose boundaries are made up of the boundaries of these sets.
+Each tile of the tessellation is defined by one of the 
+possible combinations in which each set is either included or
+excluded. 
+</p>
+<p>If the arguments <code>...</code> are named, then the resulting tiles
+will also have tile names, which identify the inclusion/exclusion
+combinations defining each tile. See the Examples.
+</p>
+<p>If <code>labels=TRUE</code> then the tiles have marks which indicate the
+inclusion/exclusion combinations defining each tile.
+See the Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intersect.tess.html">intersect.tess</a></code>.
+</p>
+<p>To construct other kinds of tessellations, see
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>, <code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code>,
+<code><a href="../../spatstat.geom/help/polartess.html">polartess</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>, <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>, <code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>
+and <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A &lt;- square(1)
+   B &lt;- square(c(-0.5,0.5))
+   W &lt;- square(c(-1, 1.5))
+   V &lt;- venn.tess(A=A, B=B, window=W)
+   V
+   plot(V, do.labels=TRUE)
+   Vlab &lt;- venn.tess(A=A, B=B, window=W, labels=TRUE)
+   marks(Vlab)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

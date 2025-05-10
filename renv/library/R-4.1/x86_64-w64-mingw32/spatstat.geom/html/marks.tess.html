@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Marks of a Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for marks.tess {spatstat.geom}"><tr><td>marks.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Marks of a Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Extract or change the marks attached to
+the tiles of a tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'tess'
+marks(x, ...)           
+
+## S3 replacement method for class 'tess'
+marks(x, ...) &lt;- value
+
+## S3 method for class 'tess'
+unmark(X)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,X</code></td>
+<td>
+
+<p>Tessellation (object of class <code>"tess"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Vector or data frame of mark values,
+or <code>NULL</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract or change the marks
+attached to each of the tiles in the tessellation <code>x</code>.
+They are methods for the generic functions
+<code><a href="../../spatstat.geom/help/marks.html">marks</a></code>, <code><a href="../../spatstat.geom/help/marks+3C-.html">marks&lt;-</a></code> and <code><a href="../../spatstat.geom/help/unmark.html">unmark</a></code>
+for the class <code>"tess"</code> of tessellations
+</p>
+<p>The expression <code>marks(x)</code> extracts the marks of <code>x</code>.
+The assignment <code>marks(x) &lt;- value</code> assigns new marks to the
+dataset <code>x</code>, and updates the dataset <code>x</code> in the current
+environment. 
+</p>
+<p>The marks can be a vector, a factor, a data frame or a hyperframe.
+</p>
+<p>For the assignment <code>marks(x) &lt;- value</code>, the <code>value</code>
+should be a vector or factor of length equal to the number of
+tiles in <code>x</code>, or a data frame or hyperframe with as many rows
+as there are tiles in <code>x</code>. If <code>value</code> is a single value,
+or a data frame or hyperframe with one row, then it will be replicated
+so that the same marks will be attached to each tile.
+</p>
+<p>To remove marks, use <code>marks(x) &lt;- NULL</code> or <code>unmark(x)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>marks(x)</code>, the result is a vector, factor, data frame or hyperframe,
+containing the mark values attached to the tiles of <code>x</code>.
+If there are no marks, the result is <code>NULL</code>.
+</p>
+<p>For <code>unmark(x)</code>, the result is the tessellation without marks.
+</p>
+<p>For <code>marks(x) &lt;- value</code>, the result is the updated tessellation
+<code>x</code> (with the side-effect that the dataset <code>x</code> is updated in
+the current environment).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/marks.html">marks</a></code>,
+<code><a href="../../spatstat.geom/help/marks+3C-.html">marks&lt;-</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  D &lt;- dirichlet(cells)
+  marks(D) &lt;- tile.areas(D)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

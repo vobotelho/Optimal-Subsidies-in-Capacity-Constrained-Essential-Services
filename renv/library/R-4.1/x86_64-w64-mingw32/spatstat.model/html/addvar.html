@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Added Variable Plot for Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for addvar {spatstat.model}"><tr><td>addvar {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Added Variable Plot for Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the coordinates for an Added Variable Plot
+for a fitted point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+addvar(model, covariate, ...,
+                   subregion=NULL,
+                   bw="nrd0", adjust=1,
+                   from=NULL, to=NULL, n=512,
+                   bw.input = c("points", "quad"),
+                   bw.restrict = FALSE,
+                   covname, crosscheck=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>covariate</code></td>
+<td>
+
+<p>The covariate to be added to the model. Either a
+pixel image, a <code>function(x,y)</code>, or a character string
+giving the name of a covariate that was supplied when
+the model was fitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>subregion</code></td>
+<td>
+
+<p>Optional.  A window (object of class <code>"owin"</code>)
+specifying a subset of the spatial domain of the data.
+The calculation will be confined to the data in this subregion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Smoothing bandwidth or bandwidth rule
+(passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Smoothing bandwidth adjustment factor
+(passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>n, from, to</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../stats/help/density.default.html">density.default</a></code> to
+control the number and range of values at which the function
+will be estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw.input</code></td>
+<td>
+
+<p>Character string specifying the input data used for automatic
+bandwidth selection. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw.restrict</code></td>
+<td>
+
+<p>Logical value, specifying whether bandwidth selection is performed using
+data from the entire spatial domain or from the <code>subregion</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covname</code></td>
+<td>
+
+<p>Optional. Character string to use as the name of the covariate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>crosscheck</code></td>
+<td>
+
+<p>For developers only.
+Logical value indicating whether to perform
+cross-checks on the validity of the calculation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command generates the plot coordinates for an Added Variable Plot
+for a spatial point process model.
+</p>
+<p>Added Variable Plots (Cox, 1958, sec 4.5; Wang, 1985)
+are commonly used in linear models and generalized linear
+models, to decide whether a model with response <i>y</i> and predictors <i>x</i>
+would be improved by including another predictor <i>z</i>.
+</p>
+<p>In a (generalised) linear model 
+with response <i>y</i> and predictors <i>x</i>,
+the Added Variable Plot for a new covariate <i>z</i> 
+is a plot of the smoothed Pearson residuals from the original model
+against the scaled residuals from a weighted linear
+regression of <i>z</i> on <i>x</i>.
+If this plot has nonzero slope, then the new covariate <i>z</i> is
+needed. For general advice see Cook and Weisberg(1999); Harrell (2001).
+</p>
+<p>Essentially the same technique can be used for a spatial point process
+model (Baddeley et al, 2012).
+</p>
+<p>The argument <code>model</code> should be a fitted spatial point process
+model (object of class <code>"ppm"</code>). 
+</p>
+<p>The argument <code>covariate</code>
+identifies the covariate that is to be considered for addition to
+the model. It should be either a pixel image (object of class
+<code>"im"</code>) or a <code>function(x,y)</code> giving the values of the
+covariate at any spatial location. Alternatively <code>covariate</code>
+may be a character string, giving the name of a covariate that was
+supplied (in the <code>covariates</code> argument to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>)
+when the model was fitted, but was not used in the model.
+</p>
+<p>The result of <code>addvar(model, covariate)</code> is an object belonging
+to the classes <code>"addvar"</code> and <code>"fv"</code>. Plot this object to
+generate the added variable plot. 
+</p>
+<p>Note that the plot method shows the pointwise significance bands
+for a test of the <em>null</em> model, i.e. the null hypothesis
+that the new covariate has no effect.
+</p>
+<p>The smoothing bandwidth is controlled by the arguments
+<code>bw</code>, <code>adjust</code>, <code>bw.input</code> and <code>bw.restrict</code>.
+If <code>bw</code> is a numeric value, then
+the bandwidth is taken to be <code>adjust * bw</code>.
+If <code>bw</code> is a string representing a bandwidth selection rule
+(recognised by <code><a href="../../stats/help/density.default.html">density.default</a></code>)
+then the bandwidth is selected by this rule.
+</p>
+<p>The data used for automatic bandwidth selection are
+specified by <code>bw.input</code> and <code>bw.restrict</code>.
+If <code>bw.input="points"</code>  (the default) then bandwidth selection is
+based on the covariate values at the points of the original point
+pattern dataset to which the model was fitted.
+If <code>bw.input="quad"</code> then bandwidth selection is
+based on the covariate values at every quadrature point used to
+fit the model.
+If <code>bw.restrict=TRUE</code> then the bandwidth selection is performed
+using only data from inside the <code>subregion</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"addvar"</code> containing the coordinates
+for the added variable plot. There is a <code>plot</code> method.
+</p>
+
+
+<h3>Slow computation</h3>
+
+<p>In a large dataset, computation can be very slow if the default
+settings are used, because the smoothing bandwidth is selected
+automatically. To avoid this, specify a numerical value
+for the bandwidth <code>bw</code>. One strategy is to use a coarser
+subset of the data to select <code>bw</code> automatically.
+The selected bandwidth can be read off the print output for
+<code>addvar</code>.  
+</p>
+
+
+<h3>Internal data</h3>
+
+<p>The return value has an attribute <code>"spatial"</code> which contains
+the internal data: the computed values of the residuals,
+and of all relevant covariates,
+at each quadrature point of the model. It is an object of class
+<code>"ppp"</code> with a data frame of marks.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>,
+Ya-Mei Chang and Yong Song.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Chang, Y.-M., Song, Y. and Turner, R. (2013)
+Residual diagnostics for covariate effects in
+spatial point process models.
+<em>Journal of Computational and Graphical Statistics</em>,
+<b>22</b>, 886&ndash;905.
+</p>
+<p>Cook, R.D. and Weisberg, S. (1999)
+<em>Applied regression, including computing and graphics</em>.
+New York: Wiley.
+</p>
+<p>Cox, D.R. (1958) <em>Planning of Experiments</em>. New York: Wiley.
+</p>
+<p>Harrell, F. (2001) <em>Regression Modeling Strategies</em>. New York: Springer.
+</p>
+<p>Wang, P. (1985) Adding a variable in generalized linear models.
+<em>Technometrics</em> <b>27</b>, 273&ndash;276.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/parres.html">parres</a></code>,
+<code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>,
+<code><a href="../../spatstat.explore/help/rho2hat.html">rho2hat</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;-  rpoispp(function(x,y){exp(3+3*x)})
+  model &lt;- ppm(X, ~y)
+  adv &lt;- addvar(model, "x")
+  plot(adv)
+  adv &lt;- addvar(model, "x", subregion=square(0.5))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

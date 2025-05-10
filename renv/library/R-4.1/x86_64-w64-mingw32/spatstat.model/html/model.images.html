@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Images of Constructed Covariates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for model.images {spatstat.model}"><tr><td>model.images {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Images of Constructed Covariates</h2>
+
+<h3>Description</h3>
+
+<p>For a point process model fitted to spatial point pattern data,
+this function computes pixel images of the covariates
+in the design matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  model.images(object, ...)
+
+  ## S3 method for class 'ppm'
+model.images(object, W = as.owin(object), ...)
+
+  ## S3 method for class 'kppm'
+model.images(object, W = as.owin(object), ...)
+
+  ## S3 method for class 'dppm'
+model.images(object, W = as.owin(object), ...)
+
+
+  ## S3 method for class 'slrm'
+model.images(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model. An object of class <code>"ppm"</code>
+or <code>"kppm"</code>
+or <code>"slrm"</code> or <code>"dppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>) in which the
+images should be computed. Defaults to the window
+in which the model was fitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments (such as <code>na.action</code>) passed to
+<code><a href="../../stats/help/model.matrix.html">model.matrix.lm</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command is similar to <code><a href="../../spatstat.model/help/model.matrix.ppm.html">model.matrix.ppm</a></code> except
+that it computes pixel images of the covariates,
+instead of computing the covariate values at certain points only.
+</p>
+<p>The <code>object</code> must be a fitted spatial point process model
+object of class <code>"ppm"</code> (produced by the model-fitting
+function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>) or class <code>"kppm"</code> (produced by the
+fitting function <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>)
+or class <code>"dppm"</code> (produced by the
+fitting function <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>)
+or class <code>"slrm"</code> (produced by <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>). 
+</p>
+<p>The spatial covariates required by the model-fitting procedure
+are computed at every pixel location in the window <code>W</code>.
+For <code>slrm</code> objects, the
+covariates are computed on the pixels that were used to fit the
+model.
+</p>
+<p>Note that the spatial covariates computed here
+are not necessarily the original covariates
+that were supplied when fitting the
+model. Rather, they are the canonical covariates,
+the covariates that appear in the
+loglinear representation of the (conditional) intensity
+and in the columns of the design matrix. For example, they might include
+dummy or indicator variables for different levels of a factor,
+depending on the contrasts that are in force.
+</p>
+<p>The pixel resolution is determined by <code>W</code> 
+if <code>W</code> is a mask (that is <code>W$type = "mask"</code>).
+Otherwise, the pixel resolution is determined by
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>.
+</p>
+<p>The format of the result depends on whether the original point pattern
+data were marked or unmarked.
+</p>
+
+<ul>
+<li>
+<p>If the original dataset was unmarked,
+the result is a named list of pixel images (objects of class
+<code>"im"</code>) containing the values of the spatial covariates.
+The names of the list elements are the names of the covariates
+determined by <code><a href="../../stats/help/model.matrix.html">model.matrix.lm</a></code>.
+The result is also of class <code>"solist"</code> so that it can
+be plotted immediately.
+</p>
+</li>
+<li> 
+<p>If the original dataset was a multitype point pattern,
+the result is a <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>
+with one column for each possible type of points.
+Each column is a named list of pixel images (objects of class
+<code>"im"</code>) containing the values of the spatial covariates.
+The row names of the hyperframe are the names of the covariates
+determined by <code><a href="../../stats/help/model.matrix.html">model.matrix.lm</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A list (of class <code>"solist"</code>) or
+array (of class <code>"hyperframe"</code>) containing
+pixel images (objects of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/model.matrix.ppm.html">model.matrix.ppm</a></code>,
+<code><a href="../../stats/help/model.matrix.html">model.matrix</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,
+<code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>,
+<code><a href="../../spatstat.geom/help/im.html">im</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- ppm(cells ~ x)
+   model.images(fit)
+   B &lt;- owin(c(0.2, 0.4), c(0.3, 0.8))
+   model.images(fit, B)
+   fit2 &lt;- ppm(cells ~ cut(x,3))
+   model.images(fit2)
+   fit3 &lt;- slrm(japanesepines ~ x)
+   model.images(fit3)
+   fit4 &lt;- ppm(amacrine ~ marks + x)
+   model.images(fit4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

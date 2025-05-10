@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: SVD Inverse of a square matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for svd.inverse {matrixcalc}"><tr><td>svd.inverse {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> SVD Inverse of a square matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the inverse of a matrix using singular value
+decomposition.  If the matrix is a square matrix, this should be equivalent
+to using the <code>solve</code> function.  If the matrix is not a square matrix,
+then the result is the Moore-Penrose pseudo inverse.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+svd.inverse(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a numeric matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- matrix( c ( 1, 2, 2, 1 ), nrow=2, byrow=TRUE)
+invA &lt;- svd.inverse( A )
+print( A )
+print( invA )
+print( A %*% invA )
+B &lt;- matrix( c( -1, 2, 2 ), nrow=1, byrow=TRUE )
+invB &lt;- svd.inverse( B )
+print( B )
+print( invB )
+print( B %*% invB )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

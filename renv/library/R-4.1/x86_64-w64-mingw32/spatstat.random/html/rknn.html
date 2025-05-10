@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Theoretical Distribution of Nearest Neighbour Distance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rknn {spatstat.random}"><tr><td>rknn {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Theoretical Distribution of Nearest Neighbour Distance
+</h2>
+
+<h3>Description</h3>
+
+<p>Density, distribution function, quantile function and random
+generation for the random distance to the <i>k</i>th nearest neighbour
+in a Poisson point process in <i>d</i> dimensions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dknn(x, k = 1, d = 2, lambda = 1)
+pknn(q, k = 1, d = 2, lambda = 1)
+qknn(p, k = 1, d = 2, lambda = 1)
+rknn(n, k = 1, d = 2, lambda = 1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,q</code></td>
+<td>
+<p>vector of quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>vector of probabilities.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of observations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>order of neighbour.</p>
+</td></tr>
+<tr valign="top"><td><code>d</code></td>
+<td>
+<p>dimension of space.</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p>intensity of Poisson point process.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In a Poisson point process in <i>d</i>-dimensional space, let
+the random variable <i>R</i> be
+the distance from a fixed point to the <i>k</i>-th nearest random point,
+or the distance from a random point to the
+<i>k</i>-th nearest other random point.
+</p>
+<p>Then <i>R^d</i> has a Gamma distribution with shape parameter <i>k</i>
+and rate <i>lambda * alpha</i> where
+<i>alpha</i> is a constant (equal to the volume of the
+unit ball in <i>d</i>-dimensional space).
+See e.g. Cressie (1991, page 61).
+</p>
+<p>These functions support calculation and simulation for the
+distribution of <i>R</i>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector:
+<code>dknn</code> returns the probability density,
+<code>pknn</code> returns cumulative probabilities (distribution function),
+<code>qknn</code> returns quantiles,
+and <code>rknn</code> generates random deviates.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Cressie, N.A.C. (1991)
+<em>Statistics for spatial data</em>.
+John Wiley and Sons, 1991.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- seq(0, 5, length=20)
+  densities &lt;- dknn(x, k=3, d=2)
+  cdfvalues &lt;- pknn(x, k=3, d=2)
+  randomvalues &lt;- rknn(100, k=3, d=2)
+  deciles &lt;- qknn((1:9)/10, k=3, d=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

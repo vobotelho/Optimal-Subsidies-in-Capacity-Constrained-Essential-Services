@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create A Regular Polygon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for regularpolygon {spatstat.geom}"><tr><td>regularpolygon {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Create A Regular Polygon
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a window object representing a regular (equal-sided) polygon.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+regularpolygon(n, edge = 1, centre = c(0, 0), ...,
+               align = c("bottom", "top", "left", "right", "no"))
+
+hexagon(edge = 1, centre = c(0,0), ...,
+        align = c("bottom", "top", "left", "right", "no"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of edges in the polygon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>Length of each edge in the polygon. A single positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+
+<p>Coordinates of the centre of the polygon.
+A numeric vector of length 2,
+or a <code>list(x,y)</code> giving the coordinates of exactly one point, or a
+point pattern (object of class <code>"ppp"</code>) containing exactly one point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>align</code></td>
+<td>
+
+<p>Character string specifying whether to align one of the edges with
+a vertical or horizontal boundary.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>regularpolygon</code> creates a regular (equal-sided)
+polygon with <code>n</code> sides, centred at <code>centre</code>,
+with sides of equal length <code>edge</code>.
+The function <code>hexagon</code> is the special case <code>n=6</code>.
+</p>
+<p>The orientation of the polygon is determined by the argument <code>align</code>.
+If <code>align="no"</code>, one vertex of the polygon is placed on the
+<i>x</i>-axis.
+Otherwise, an edge of the polygon is aligned with one side of
+the frame, specified by the value of <code>align</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/disc.html">disc</a></code>, <code><a href="../../spatstat.geom/help/ellipse.html">ellipse</a></code>,
+<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>.
+</p>
+<p><code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code> for hexagonal tessellations.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(hexagon())
+  plot(regularpolygon(7))
+  plot(regularpolygon(7, align="left"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

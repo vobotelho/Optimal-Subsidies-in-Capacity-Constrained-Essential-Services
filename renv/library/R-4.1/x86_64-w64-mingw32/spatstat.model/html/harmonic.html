@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Basis for Harmonic Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for harmonic {spatstat.model}"><tr><td>harmonic {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Basis for Harmonic Functions</h2>
+
+<h3>Description</h3>
+
+<p>Evaluates a basis for the harmonic polynomials in <i>x</i> and <i>y</i>
+of degree less than or equal to <i>n</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   harmonic(x, y, n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Vector of <i>x</i> coordinates
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>Vector of <i>y</i> coordinates
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Maximum degree of polynomial
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes a basis for the harmonic polynomials
+in two variables <i>x</i> and <i>y</i> up to a given degree <i>n</i>
+and evaluates them at given <i>x,y</i> locations.
+It can be used in model formulas (for example in
+the model-fitting functions
+<code><a href="../../stats/help/lm.html">lm</a>,<a href="../../stats/help/glm.html">glm</a>,<a href="../../mgcv/help/gam.html">gam</a></code> and 
+<code><a href="../help/ppm.html">ppm</a></code>) to specify a
+linear predictor which is a harmonic function.
+</p>
+<p>A function <i>f(x,y)</i> is harmonic if
+</p>
+<p style="text-align: center;"><i>
+    (d/dx)^2 f + (d/dy)^2 f = 0.</i></p>
+
+<p>The harmonic polynomials of degree less than or equal to
+<i>n</i> have a basis consisting of <i>2 n</i> functions.
+</p>
+<p>This function was implemented on a suggestion of P. McCullagh
+for fitting nonstationary spatial trend to point process models.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with <code>2 * n</code> columns giving the values of the
+basis functions at the coordinates. Each column is labelled by an
+algebraic expression for the corresponding basis function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/ppm.html">ppm</a></code>,
+<code><a href="../help/polynom.html">polynom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # inhomogeneous point pattern
+   X &lt;- unmark(longleaf)
+   
+
+   # fit Poisson point process with log-cubic intensity
+   fit.3 &lt;- ppm(X ~ polynom(x,y,3), Poisson())
+
+   # fit Poisson process with log-cubic-harmonic intensity
+   fit.h &lt;- ppm(X ~ harmonic(x,y,3), Poisson())
+
+   # Likelihood ratio test
+   lrts &lt;- 2 * (logLik(fit.3) - logLik(fit.h))
+   df &lt;- with(coords(X),
+              ncol(polynom(x,y,3)) - ncol(harmonic(x,y,3)))
+   pval &lt;- 1 - pchisq(lrts, df=df)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Entries in a Hyperframe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.hyperframe {spatstat.geom}"><tr><td>plot.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Entries in a Hyperframe</h2>
+
+<h3>Description</h3>
+
+<p>Plots the entries in a hyperframe, in a series of
+panels, one panel for each row of the hyperframe.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'hyperframe'
+plot(x, e, ..., main, arrange=TRUE,
+                            nrows=NULL, ncols=NULL,
+                            parargs=list(mar=mar * marsize),
+                            marsize=1, mar=c(1,1,3,1))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Data to be plotted. A hyperframe (object of class <code>"hyperframe"</code>, see
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>e</code></td>
+<td>
+
+<p>How to plot each row. Optional. An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language call or expression
+(typically enclosed in <code><a href="../../base/html/substitute.html">quote</a>()</code> that will be
+evaluated in each row of the hyperframe to generate the plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments controlling the plot (when <code>e</code> is missing).
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Overall title for the array of plots.</p>
+</td></tr>
+<tr valign="top"><td><code>arrange</code></td>
+<td>
+
+<p>Logical flag indicating whether to plot the objects
+side-by-side on a single page (<code>arrange=TRUE</code>)
+or plot them individually in a succession of frames
+(<code>arrange=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrows,ncols</code></td>
+<td>
+
+<p>Optional. The number of rows/columns in the plot layout
+(assuming <code>arrange=TRUE</code>).
+You can specify either or both of these numbers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>parargs</code></td>
+<td>
+
+<p>Optional list of arguments passed to <code><a href="../../graphics/html/par.html">par</a></code> before
+plotting each panel. Can be used to control margin sizes, etc.
+</p>
+</td></tr>
+<tr valign="top"><td><code>marsize</code></td>
+<td>
+
+<p>Optional scale parameter controlling the sizes of margins around
+the panels. Incompatible with <code>parargs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mar</code></td>
+<td>
+
+<p>Optional numeric vector of length 1, 2 or 4
+controlling the relative sizes of margins between
+the panels. Incompatible with <code>parargs</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"hyperframe"</code>.
+</p>
+<p>The argument <code>x</code> must be a hyperframe (like a data frame,
+except that the entries can be objects of any class; see
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>).
+</p>
+<p>This function generates a series of plots, one plot for each
+row of the hyperframe. If <code>arrange=TRUE</code> (the default), then
+these plots are arranged in a neat array of panels within a single
+plot frame. If <code>arrange=FALSE</code>, the plots are simply executed
+one after another.
+</p>
+<p>Exactly what is plotted, and how it is plotted, depends on the
+argument <code>e</code>. The default (if <code>e</code> is missing) is to plot
+only the first column of <code>x</code>. Each entry in the first column
+is plotted using the generic <code><a href="../../graphics/html/plot.default.html">plot</a></code> command, together with
+any extra arguments given in <code>...</code>.
+</p>
+<p>If <code>e</code> is present, it should be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language expression
+involving the column names of <code>x</code>.
+(It is typically created using <code><a href="../../base/html/substitute.html">quote</a></code> or
+<code><a href="../../base/html/expression.html">expression</a></code>.)
+The expression will be evaluated once for each row of <code>x</code>.
+It will be evaluated in an environment where each column name of
+<code>x</code> is interpreted as meaning the object in that column
+in the current row.
+See the Examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/with.hyperframe.html">with.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   H &lt;- hyperframe(id=1:6)
+   H$X &lt;- with(H, runifrect(100))
+   H$D &lt;- with(H, distmap(X))
+   # points only
+   plot(H[,"X"])
+   plot(H, quote(plot(X, main=id)))
+   # points superimposed on images
+   plot(H, quote({plot(D, main=id); plot(X, add=TRUE)}))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

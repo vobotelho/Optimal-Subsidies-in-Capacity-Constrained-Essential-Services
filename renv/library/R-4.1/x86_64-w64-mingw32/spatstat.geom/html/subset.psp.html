@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Subset of Line Segment Satisfying A Condition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for subset.psp {spatstat.geom}"><tr><td>subset.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Subset of Line Segment Satisfying A Condition
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a line segment pattern, return the subset
+of segments which satisfy a specified condition.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'psp'
+subset(x, subset, select, drop=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+
+<p>Logical expression indicating which points are to be kept.
+The expression may involve the names of spatial coordinates
+of the segment endpoints
+(<code>x0</code>, <code>y0</code>, <code>x1</code>, <code>y1</code>), the <code>marks</code>, and
+(if there is more than one column of marks)
+the names of individual columns of marks.
+Missing values are taken as false. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>select</code></td>
+<td>
+
+<p>Expression indicating which columns of marks should be kept.
+The <em>names</em> of columns of marks can be used in this expression,
+and will be treated as if they were column indices.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating whether to remove unused levels
+of the marks, if the marks are a factor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/subset.html">subset</a></code>.
+It extracts the subset of <code>x</code> consisting of those segments
+that satisfy the logical expression
+<code>subset</code>, and retains only the columns of marks that are
+specified by the expression <code>select</code>. The result is
+always a line segment pattern, with the same window as <code>x</code>.
+</p>
+<p>The argument <code>subset</code> determines the subset that
+will be extracted. It should be a logical expression.
+It may involve the variable names
+<code>x0</code>, <code>y0</code>, <code>x1</code>, <code>y1</code>
+representing the Cartesian coordinates of the segment endpoints;
+the name <code>marks</code> representing the marks;
+and (if there is more than one column of marks)
+the names of individual columns of marks.
+The default is to keep all segments.
+</p>
+<p>The argument <code>select</code> determines which columns of marks
+will be retained (if there are several columns of marks).
+It should be an expression involving the names of columns of marks
+(which will be interpreted as integers representing the positions of
+these columns). For example if there are columns of marks named
+<code>A</code> to <code>Z</code>, then <code>select=D:F</code> is a valid expression
+and means that columns <code>D</code>, <code>E</code> and <code>F</code> will be
+retained. Similarly <code>select=-(A:C)</code> is valid and means that columns
+<code>A</code> to <code>C</code> will be deleted.  
+The default is to retain all columns.
+</p>
+<p>Setting <code>subset=FALSE</code> will produce an empty point pattern
+(i.e. containing zero points) in the same window as <code>x</code>.
+Setting <code>select=FALSE</code> or <code>select= -marks</code> will
+remove all the marks from <code>x</code>.
+</p>
+<p>The argument <code>drop</code> determines whether to remove
+unused levels of a factor, if the resulting point pattern is multitype
+(i.e. the marks are a factor) or if the marks are a data frame
+in which some of the columns are factors.
+</p>
+<p>The result is always a line segment pattern.
+To extract only some columns of marks as a data frame,
+use <code>subset(as.data.frame(x), ...)</code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>A line segment pattern (object of class <code>"psp"</code>)
+in the same spatial window as <code>x</code>. The result is a subset of <code>x</code>,
+possibly with some columns of marks removed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/subset.html">subset</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.psp.html">[.psp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ plot(nbw.seg)
+ plot(subset(nbw.seg, x0 &lt; 500 &amp; y0 &lt; 800), add=TRUE, lwd=6)
+ subset(nbw.seg, type == "island")
+ subset(nbw.seg, type == "coast", select= -type)
+ subset(nbw.seg, type %in% c("island", "coast"), select= FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

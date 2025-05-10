@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hadamard product of two matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hadamard.prod {matrixcalc}"><tr><td>hadamard.prod {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Hadamard product of two matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function returns the Hadamard or Shur product of two matrices, x and y, that have the same row and
+column dimensions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hadamard.prod(x, y)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a numeric matrix or vector object </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> a numeric matrix or vector object </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Hadamard product is an element-by-element product of the two matrices. Let <i>{\bf{x}}</i> 
+and <i>{\bf{x}}</i> be two <i>m \times n</i> numeric matrices.  The Hadamard product is <i>{\bf{x}}\, \circ \,{\bf{y}} = &le;ft\lbrack {\begin{array}{cccc}
+{{x_{1,1}}\,{y_{1,1}}}&amp;{{x_{1,2}}\,{y_{1,2}}}&amp; \cdots &amp;{{x_{1,n}}\,{y_{1,n}}}\\
+{{x_{2,1}}\,{y_{121}}}&amp;{{x_{2,2}}\,{y_{2,2}}}&amp; \cdots &amp;{{x_{2,n}}\,{y_{2,n}}}\\
+ \cdots &amp; \cdots &amp; \cdots &amp; \cdots \\
+{{x_{m,1}}\,{y_{m,1}}}&amp;{{x_{m,2}}\,{y_{m,2}}}&amp; \cdots &amp;{{x_{m,n}}\,{y_{m,n}}}
+\end{array}} \right\rbrack</i>.
+It uses the * operation in R.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The function converts vectors to matrices if necessary.
+The function stops running if x or y is not numeric and an error message is displayed.
+The function also stops running if x and y do not have the same row and column dimensions and an error mesage
+is displayed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Hadamard, J (1983). Resolution d'une question relative aux determinants, <em>Bulletin des Sciences
+Mathematiques</em>, 17, 240-246.
+</p>
+<p>Styan, G. P. H. (1973). Hadamard Products and Multivariate Statistical Analysis,
+<em>Linear Algebra and Its Applications</em>, Elsevier, 6, 217-240.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix( c( 1, 2, 3, 4 ), nrow=2, byrow=TRUE )
+y &lt;- matrix( c( 2, 4, 6, 8 ), nrow=2, byrow=TRUE )
+z &lt;- hadamard.prod( x, y )
+print( z )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

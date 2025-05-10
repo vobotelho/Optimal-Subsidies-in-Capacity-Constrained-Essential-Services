@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Where is the Minimum or Maximum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for which.min.fair {spatstat.utils}"><tr><td>which.min.fair {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Where is the Minimum or Maximum
+</h2>
+
+<h3>Description</h3>
+
+<p>Determines the index of the minimum or maximum of a vector.
+If there are multiple entries which achieve the minimum or maximum,
+one of the indices is selected at random.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+which.min.fair(x)
+which.max.fair(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>numeric, logical, integer or double vector.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are alternatives to
+the standard <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions <code><a href="../../base/help/which.min.html">which.min</a></code>
+and <code><a href="../../base/help/which.max.html">which.max</a></code>.
+</p>
+<p>The standard functions <code><a href="../../base/help/which.min.html">which.min</a></code>
+and <code><a href="../../base/help/which.max.html">which.max</a></code> find the index of the
+<b>first</b> entry in the vector <code>x</code> which achieves the minimum
+or maximum value. This can cause a bias in some simulation
+experiments.
+</p>
+<p>The functions <code>which.min.fair</code> and <code>which.max.fair</code>
+identify all entries of the vector <code>x</code> which achieve the
+minimum or maximum respectively, and
+<b>select one of them at random</b>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single integer (or <code>integer(0)</code> if all entries of <code>x</code> are
+<code>NA</code> or <code>NaN</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/which.min.html">which.min</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  z &lt;- c(20, 40, 20, 10, 40, 20, 10, 20, 40)
+  replicate(5, which.max(z))
+  replicate(5, which.max.fair(z))
+  replicate(5, which.min.fair(z))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

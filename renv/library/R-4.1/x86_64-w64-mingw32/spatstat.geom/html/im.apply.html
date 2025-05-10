@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Function Pixelwise to List of Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for im.apply {spatstat.geom}"><tr><td>im.apply {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Apply Function Pixelwise to List of Images 
+</h2>
+
+<h3>Description</h3>
+
+<p>Returns a pixel image obtained by applying a function
+to the values of corresponding pixels in several pixel images.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+im.apply(X, FUN, ..., fun.handles.na=FALSE, check=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A list of pixel images (objects of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+
+<p>A function that can be applied to vectors,
+or a character string giving the name of such a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments to <code>FUN</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun.handles.na</code></td>
+<td>
+
+<p>Logical value specifying what to do when the data include
+<code>NA</code> values. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value specifying whether to check that the images in
+<code>X</code> are compatible (for example that they have the same
+grid of pixel locations) and to convert them to compatible images
+if necessary.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>X</code> should be a list of pixel images
+(objects of class <code>"im"</code>). If the images do not have
+identical pixel grids, they will be converted to a common
+grid using <code><a href="../../spatstat.geom/help/harmonise.im.html">harmonise.im</a></code>.
+</p>
+<p>At each pixel location, the values of the images in <code>X</code>
+at that pixel will be extracted as a vector. The function
+<code>FUN</code> will be applied to this vector. The result (which should be
+a single value) becomes the pixel value of the resulting image.
+</p>
+<p>The argument <code>fun.handles.na</code> specifies what to do
+when some of the pixel values are <code>NA</code>.
+</p>
+
+<ul>
+<li><p> If <code>fun.handles.na=FALSE</code> (the default),
+the function <code>FUN</code> is never applied to data that include
+<code>NA</code> values; the result is defined to be <code>NA</code> whenever
+the data contain <code>NA</code>.
+</p>
+</li>
+<li>
+<p>If <code>fun.handles.na=TRUE</code>, the function <code>FUN</code> will be applied to
+all pixel data, including those which contain <code>NA</code> values.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code> for algebraic operations with images.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # list of two pixel images
+  Y &lt;- solapply(bei.extra, scaletointerval)
+  plot(Y)
+  im.apply(Y, max)
+  im.apply(Y, sum)
+
+  ## Example with incompatible patterns of NA values
+  B &lt;- owin(c(438, 666), c(80, 310))
+  Y[[1]][B] &lt;- NA
+  opa &lt;- par(mfrow=c(2,2))
+  plot(Y[[1]])
+  plot(Y[[2]])
+  #' Default action: NA -&gt; NA
+  plot(im.apply(Y, mean))
+  #' Use NA handling in mean.default
+  plot(im.apply(Y, mean, na.rm=TRUE, fun.handles.na=TRUE))
+  par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

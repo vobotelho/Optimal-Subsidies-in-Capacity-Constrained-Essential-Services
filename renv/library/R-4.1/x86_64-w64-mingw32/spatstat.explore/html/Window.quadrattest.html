@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Window of Spatial Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Window.quadrattest {spatstat.explore}"><tr><td>Window.quadrattest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Window of Spatial Object</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial object (such as a point pattern or pixel image)
+in two dimensions, these functions extract the window
+in which the object is defined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+ ## S3 method for class 'quadrattest'
+Window(X, ...)
+
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A spatial object.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic function <code><a href="../../spatstat.geom/help/Window.html">Window</a></code>
+which extract the spatial window in which the object <code>X</code>
+is defined. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"owin"</code> (see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>)
+specifying an observation window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/Window.html">Window</a></code>,
+<code><a href="../../spatstat.geom/help/Window.ppp.html">Window.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/Window.psp.html">Window.psp</a></code>.
+</p>
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A &lt;- quadrat.test(cells, 4)
+   Window(A)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

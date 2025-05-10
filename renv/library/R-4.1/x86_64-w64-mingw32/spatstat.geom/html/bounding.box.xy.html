@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convex Hull of Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for bounding.box.xy {spatstat.geom}"><tr><td>bounding.box.xy {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convex Hull of Points</h2>
+
+<h3>Description</h3>
+
+<p>Computes the smallest rectangle containing a set of points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bounding.box.xy(x, y=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>vector of <code>x</code> coordinates of observed points,
+or a 2-column matrix giving <code>x,y</code> coordinates,
+or a list with components <code>x,y</code> giving coordinates
+(such as a point pattern object of class <code>"ppp"</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>(optional) vector of <code>y</code> coordinates of observed points,
+if <code>x</code> is a vector.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given an observed pattern of points with coordinates 
+given by <code>x</code> and <code>y</code>, this function finds the smallest
+rectangle, with sides parallel to the coordinate axes, that contains
+all the points, and returns it as a window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (an object of class <code>"owin"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/convexhull.xy.html">convexhull.xy</a></code>,
+<code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- runif(30)
+  y &lt;- runif(30)
+  w &lt;- bounding.box.xy(x,y)
+  plot(owin(), main="bounding.box.xy(x,y)")
+  plot(w, add=TRUE)
+  points(x,y)
+
+  X &lt;- runifrect(30)
+  plot(X, main="bounding.box.xy(X)")
+  plot(bounding.box.xy(X), add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

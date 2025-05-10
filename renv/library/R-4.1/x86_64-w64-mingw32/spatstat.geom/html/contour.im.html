@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Contour plot of pixel image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for contour.im {spatstat.geom}"><tr><td>contour.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Contour plot of pixel image</h2>
+
+<h3>Description</h3>
+
+<p>Generates a contour plot of a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'im'
+contour(x, ..., main, axes=FALSE, add=FALSE,
+            nlevels=10, levels=NULL, labels=NULL, log=FALSE, 
+            col=par("fg"), 
+            clipwin=NULL, show.all=!add, do.plot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Pixel image to be plotted.
+An object of class <code>"im"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Character string to be displayed as the main title.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nlevels,levels</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/contour.default.html">contour.default</a></code>
+controlling the choice of contour levels.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/contour.default.html">contour.default</a></code>
+controlling the text labels plotted next to the contour lines.
+</p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+
+<p>Logical value. If <code>TRUE</code>, the contour levels will be
+evenly-spaced on a logarithmic scale.
+</p>
+</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, coordinate axes are plotted
+(with tick marks) around a region slightly larger than the image window.
+If <code>FALSE</code> (the default), no axes are plotted,
+and a box is drawn tightly around the image window.
+Ignored if <code>add=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code>, a new plot is created. If <code>TRUE</code>,
+the contours are drawn over the existing plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>Colour in which to draw the contour lines.
+Either a single value that can be interpreted as a colour value,
+or a <code>colourmap</code> object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipwin</code></td>
+<td>
+
+<p>Optional. A window (object of class <code>"owin"</code>).
+Only this subset of the data will be displayed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments passed to <code><a href="../../graphics/html/contour.html">contour.default</a></code>
+controlling the contour plot; see Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether to display all plot elements
+including the main title, bounding box, and (if
+<code>axis=TRUE</code>) coordinate axis markings.
+Default is <code>TRUE</code> for new plots and <code>FALSE</code> for added plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually perform the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic <code>contour</code> function,
+for objects of the class <code>"im"</code>.
+</p>
+<p>An object of class <code>"im"</code> represents a pixel image;
+see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+<p>This function displays the values of the pixel image <code>x</code>
+as a contour plot on the current plot device,
+using equal scales on the <i>x</i> and <i>y</i> axes.
+</p>
+<p>The appearance of the plot can be modified
+using any of the arguments listed in the help for
+<code><a href="../../graphics/html/contour.html">contour.default</a></code>.
+Useful ones include:
+</p>
+
+<dl>
+<dt>nlevels</dt><dd>
+<p>Number of contour levels to plot.
+</p>
+</dd>
+<dt>drawlabels</dt><dd>
+<p>Whether to label the contour lines with text.
+</p>
+</dd>
+<dt>col,lty,lwd</dt><dd>
+<p>Colour, type, and width of contour lines.
+</p>
+</dd>
+</dl>
+
+<p>See <code><a href="../../graphics/html/contour.html">contour.default</a></code> for a full list of these arguments.
+</p>
+<p>The defaults for any of the abovementioned arguments
+can be reset using <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("par.contour")</code>.
+</p>
+<p>If <code>log=TRUE</code>, the contour lines will be evenly-spaced
+on a logarithmic scale, provided the range of pixel values
+is at least 1.5 orders of magnitude (a ratio of at least 32).
+Otherwise the levels will be evenly-spaced on the original scale.
+</p>
+<p>If <code>col</code> is a colour map (object of class <code>"colourmap"</code>,
+see <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>) then the contours will be plotted in
+different colours as determined by the colour map.
+The contour at level <code>z</code> will be plotted
+in the colour <code>col(z)</code> associated with this level in the colour map.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Invisibly, a rectangle (object of class <code>"owin"</code> specifying a rectangle)
+containing the plotted region.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>,
+<code><a href="../../spatstat.geom/help/persp.im.html">persp.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # an image
+   Z &lt;- setcov(owin())
+   contour(Z, axes=TRUE)
+   contour(Z)
+
+   V &lt;- 100 * Z^2 + 1
+   contour(V, log=TRUE, labcex=1)
+
+   co &lt;- colourmap(rainbow(100), range=c(0,1))
+   contour(Z, col=co, lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

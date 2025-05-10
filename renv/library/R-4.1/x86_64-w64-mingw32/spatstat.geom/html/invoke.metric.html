@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perform Geometric Task using a Specified Metric</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for invoke.metric {spatstat.geom}"><tr><td>invoke.metric {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Perform Geometric Task using a Specified Metric
+</h2>
+
+<h3>Description</h3>
+
+<p>Perform a desired geometrical operation
+using a specified distance metric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  invoke.metric(m, task, ..., evaluate=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>m</code></td>
+<td>
+
+<p>Metric (object of class <code>"metric"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>task</code></td>
+<td>
+
+<p>Character string specifying the task.
+The name of a function that performs
+the desired operation for the Euclidean metric. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Input to the function that performs the geometrical operation
+(matching the arguments of <code>task</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>evaluate</code></td>
+<td>
+
+<p>Logical value specifying whether to actually perform the
+computation and return the result (<code>evaluate=TRUE</code>, the default)
+or to simply return the function which performs the computation
+(<code>evaluate=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A &lsquo;metric&rsquo; is a measure of distance between points in space.
+An object of class <code>"metric"</code> represents such a metric,
+and supports many geometrical computations that involve
+the metric. See <code><a href="../../spatstat.geom/help/metric.object.html">metric.object</a></code>.
+</p>
+<p>The argument <code>task</code> should be the name of an existing function
+in the <span class="pkg">spatstat</span> family representing a geometrical operation, such
+as computing pairwise distances, nearest-neighbour distances,
+the distance map, and so on. The code will determine whether
+this geometrical operation has a counterpart using the specified metric,
+that is defined and supported in the object <code>m</code>.
+If so, then this operation will be applied to the
+data specified in <code>...</code>, and the result will be returned.
+</p>
+<p>For example, the <span class="pkg">spatstat</span> function <code><a href="../../spatstat.geom/help/nndist.ppp.html">nndist.ppp</a></code> computes
+nearest-neighbour distances using the Euclidean distance metric.
+To calculate nearest-neighbour distances for a point pattern <code>X</code>
+using another metric <code>m</code>,
+use <code>invoke.metric(m, "nndist.ppp", X)</code>.
+</p>
+<p>If <code>evaluate=FALSE</code>, the computation is not performed,
+and <code>invoke.metric</code> simply returns a function to
+perform the desired operation. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>evaluate=TRUE</code> (the default), the result of the computation has the
+same format as the result of the computation using the existing
+function named <code>task</code>.
+</p>
+<p>If <code>evaluate=FALSE</code>, the result is a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language
+to perform the desired operation;
+or <code>NULL</code> if the operation is not supported by the metric.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/convexmetric.html">convexmetric</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## nearest-neighbour distances using rectangular metric (L^1 metric)
+  d &lt;- convexmetric(square(c(-1,1)))
+  y &lt;- invoke.metric(d, "nndist.ppp", cells)
+  f &lt;- invoke.metric(d, "nndist.ppp", cells, evaluate=FALSE)
+  y &lt;- f(cells)
+  invoke.metric(d, "orderPizza", evaluate=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K Function or Pair Correlation Function of Cluster Model or...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Kmodel.kppm {spatstat.model}"><tr><td>Kmodel.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>K Function or Pair Correlation Function of Cluster Model or Cox model</h2>
+
+<h3>Description</h3>
+
+<p>Returns the theoretical <i>K</i> function or the pair correlation function
+of a cluster point process model or Cox point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'kppm'
+Kmodel(model, ...)
+
+   ## S3 method for class 'kppm'
+pcfmodel(model, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted cluster point process model (object of
+class <code>"kppm"</code>) typically obtained from
+the model-fitting algorithm <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For certain types of point process models, it is possible to
+write down a mathematical expression for the <i>K</i> function
+or the pair correlation function of the model. In particular this
+is possible for a fitted cluster point process model 
+(object of class <code>"kppm"</code> obtained from <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>).
+</p>
+<p>The functions <code><a href="../../spatstat.model/help/Kmodel.html">Kmodel</a></code> and <code><a href="../../spatstat.model/help/pcfmodel.html">pcfmodel</a></code> are generic.
+The functions documented here are the methods for the class <code>"kppm"</code>.
+</p>
+<p>The return value is a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+which takes one argument <code>r</code>.
+Evaluation of this function, on a numeric vector <code>r</code>,
+yields values of the desired <i>K</i> function or pair correlation
+function at these distance values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+which takes one argument <code>r</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+to estimate the <i>K</i> function or pair correlation function
+nonparametrically from data.
+</p>
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code> to fit cluster models.
+</p>
+<p><code><a href="../../spatstat.model/help/Kmodel.html">Kmodel</a></code> for the generic functions.
+</p>
+<p><code><a href="../../spatstat.model/help/Kmodel.ppm.html">Kmodel.ppm</a></code> for the method for Gibbs processes.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- kppm(redwood, ~x, "MatClust")
+  K &lt;- Kmodel(fit)
+  K(c(0.1, 0.2))
+  curve(K(x), from=0, to=0.25)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

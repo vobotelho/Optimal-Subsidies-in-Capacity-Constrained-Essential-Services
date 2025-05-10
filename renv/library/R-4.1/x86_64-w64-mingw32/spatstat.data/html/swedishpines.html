@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Swedish Pines Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for swedishpines {spatstat.data}"><tr><td>swedishpines {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Swedish Pines Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>The data give the locations of pine saplings
+in a Swedish forest. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(swedishpines)</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code>
+representing the point pattern of tree locations
+in a rectangular plot 9.6 by 10 metres.
+</p>
+<p>Cartesian coordinates are given in <em>decimetres</em> (multiples of 0.1 metre)
+rounded to the nearest decimetre.
+Type <code><a href="../../spatstat.geom/help/rescale.html">rescale</a>(swedishpines)</code> to get an equivalent dataset
+where the coordinates are expressed in metres.
+</p>
+<p>See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format of a
+point pattern object.
+</p>
+
+
+<h3>Note</h3>
+
+<p>For previous analyses see Ripley (1981, pp. 172-175),
+Venables and Ripley (1997, p. 483),
+Baddeley and Turner (2000).
+</p>
+
+
+<h3>Source</h3>
+
+<p>Strand (1972), Ripley (1981)</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Ripley, B.D. (1981) 
+<em>Spatial statistics</em>.
+John Wiley and Sons.
+</p>
+<p>Strand, L. (1972). 
+A model for stand growth.
+<em>IUFRO Third Conference Advisory Group of Forest Statisticians</em>,
+INRA, Institut National de la Recherche Agronomique, Paris.
+Pages 207&ndash;216.
+</p>
+<p>Venables, W.N. and Ripley, B.D. (1997)
+<em>Modern applied statistics with S-PLUS</em>.
+Second edition. Springer Verlag. 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+     swedishpines
+
+     ## rescale to metres
+     rescale(swedishpines)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

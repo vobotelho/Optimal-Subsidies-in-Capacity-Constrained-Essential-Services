@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Diggle-Gates-Stibbard Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for DiggleGatesStibbard {spatstat.model}"><tr><td>DiggleGatesStibbard {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Diggle-Gates-Stibbard Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the Diggle-Gates-Stibbard point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  DiggleGatesStibbard(rho)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rho</code></td>
+<td>
+<p>Interaction range</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Diggle, Gates and Stibbard (1987) proposed a pairwise interaction
+point process in which each pair of points separated by
+a distance <i>d</i> contributes a factor <i>e(d)</i> to the
+probability density, where
+</p>
+<p style="text-align: center;"><i>
+    e(d) = sin^2((&pi; * d)/(2 * &rho;))
+  </i></p>
+
+<p>for <i>d &lt; &rho;</i>, and <i>e(d)</i> is equal to 1
+for <i>d &ge; &rho;</i>.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the Diggle-Gates-Stibbard 
+pairwise interaction is 
+yielded by the function <code>DiggleGatesStibbard()</code>.
+See the examples below.
+</p>
+<p>Note that this model does not have any regular parameters
+(as explained in the section on Interaction Parameters
+in the help file for <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>).
+The parameter <i>&rho;</i> is not estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the Diggle-Gates-Stibbard
+process with interaction range <code>rho</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Ripley, B.D. (1981) 
+<em>Spatial statistics</em>.
+John Wiley and Sons.
+</p>
+<p>Diggle, P.J., Gates, D.J., and Stibbard, A. (1987)
+A nonparametric estimator for pairwise-interaction point processes.
+Biometrika <b>74</b>, 763 &ndash; 770.
+<em>Scandinavian Journal of Statistics</em> <b>21</b>, 359&ndash;373.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/DiggleGratton.html">DiggleGratton</a></code>,
+<code><a href="../../spatstat.random/help/rDGS.html">rDGS</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   DiggleGatesStibbard(0.02)
+   # prints a sensible description of itself
+
+   ppm(cells ~1, DiggleGatesStibbard(0.05))
+   # fit the stationary D-G-S process to `cells'
+
+   
+     ppm(cells ~ polynom(x,y,3), DiggleGatesStibbard(0.05))
+     # fit a nonstationary D-G-S process
+     # with log-cubic polynomial trend
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

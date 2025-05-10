@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Approximate a Polygon by a Simpler Polygon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for simplify.owin {spatstat.geom}"><tr><td>simplify.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Approximate a Polygon by a Simpler Polygon
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a polygonal window, this function finds a simpler polygon
+that approximates it.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+simplify.owin(W, dmin)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>The polygon which is to be simplied.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dmin</code></td>
+<td>
+
+<p>Numeric value. The smallest permissible length of an edge.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function simplifies a polygon <code>W</code>
+by recursively deleting the shortest edge of <code>W</code>
+until all remaining edges are longer than the specified
+minimum length <code>dmin</code>, or until there are only three edges left.
+</p>
+<p>The argument <code>W</code> must be a window (object of class
+<code>"owin"</code>). It should be of type <code>"polygonal"</code>.
+If <code>W</code> is a rectangle, it is returned without alteration.
+</p>
+<p>The simplification algorithm is not yet implemented for
+binary masks. If <code>W</code> is a mask, an error is generated.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another window (object of class <code>"owin"</code>)
+of type <code>"polygonal"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(letterR, col="red")
+  plot(simplify.owin(letterR, 0.3), col="blue", add=TRUE)
+
+  W &lt;- Window(chorley)
+  plot(W)
+  WS &lt;- simplify.owin(W, 2)
+  plot(WS, add=TRUE, border="green")
+  points(vertices(WS))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Sparse Three-Dimensional Arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for methods.sparse3Darray {spatstat.sparse}"><tr><td>methods.sparse3Darray {spatstat.sparse}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Sparse Three-Dimensional Arrays
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for the class <code>"sparse3Darray"</code>
+of sparse three-dimensional arrays.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'sparse3Darray'
+anyNA(x, recursive = FALSE)
+ ## S3 method for class 'sparse3Darray'
+dim(x)
+ ## S3 replacement method for class 'sparse3Darray'
+dim(x) &lt;- value
+ ## S3 method for class 'sparse3Darray'
+dimnames(x)
+ ## S3 replacement method for class 'sparse3Darray'
+dimnames(x) &lt;- value
+ ## S3 method for class 'sparse3Darray'
+print(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A sparse three-dimensional array (object of class <code>"sparse3Darray"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Replacement value (see Details).
+</p>
+</td></tr>
+<tr valign="top"><td><code>recursive,...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generics
+<code><a href="../../base/help/anyNA.html">anyNA</a></code>,
+<code><a href="../../base/help/dim.html">dim</a></code>,
+<code><a href="../../base/help/dim%3C-.html">dim&lt;-</a></code>,
+<code><a href="../../base/help/dimnames.html">dimnames</a></code>,
+<code><a href="../../base/help/dimnames%3C-.html">dimnames&lt;-</a></code>
+and <code><a href="../../base/help/print.html">print</a></code>
+for the class <code>"sparse#Darray"</code> of sparse three-dimensional
+arrays.
+</p>
+<p>For <code>dimnames(x) &lt;- value</code>, the <code>value</code> should either be
+<code>NULL</code>, or a list of length 3 containing character vectors giving
+the names of the margins.
+</p>
+<p>For <code>dim(x) &lt;- value</code>, the <code>value</code> should be an integer
+vector of length 3 giving the new dimensions of the array. Note that this
+operation does not change the array positions of the non-zero entries
+(unlike <code>dim(x) &lt;- value</code> for a full array). An error occurs if
+some of the non-zero entries would lie outside the new extent of the array.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>anyNA</code> returns a single logical value.
+</p>
+<p><code>dim</code> returns an integer vector of length 3.
+</p>
+<p><code>dimnames</code> returns <code>NULL</code>, or a list of length 3
+whose entries are character vectors.
+</p>
+<p><code>dim&lt;-</code> and <code>dimnames&lt;-</code> return a sparse 3D array.
+</p>
+<p><code>print</code> returns <code>NULL</code>, invisibly.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.sparse/help/sparse3Darray.html">sparse3Darray</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ M &lt;- sparse3Darray(i=1:4, j=sample(1:4, replace=TRUE),
+                    k=c(1,2,1,2), x=1:4, dims=c(5,5,2))
+
+ anyNA(M)
+ dim(M)
+ dimnames(M)
+ dimnames(M) &lt;- list(letters[1:5], LETTERS[1:5], c("Yes", "No"))
+ print(M)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.sparse</em> version 3.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

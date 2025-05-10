@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: plot a Fitted Multiple Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.mppm {spatstat.model}"><tr><td>plot.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>plot a Fitted Multiple Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to multiple point patterns
+by <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>,
+compute spatial trend or conditional intensity surface of the model,
+in a form suitable for plotting, and (optionally) plot this
+surface.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'mppm'
+plot(x, ...,
+                trend=TRUE, cif=FALSE, se=FALSE,
+                how=c("image", "contour", "persp"),
+                main)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point process model fitted to multiple point patterns,
+typically obtained from
+the model-fitting algorithm <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>.
+An object of class <code>"mppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code> or
+<code><a href="../../spatstat.geom/help/plot.anylist.html">plot.anylist</a></code> controlling the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the fitted trend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cif</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the fitted conditional intensity.
+</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the standard error of the
+fitted trend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>how</code></td>
+<td>
+
+<p>Single character string indicating the style of plot to be performed. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Character string for the main title of the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"mppm"</code>
+of point process models fitted to multiple point patterns
+(see <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>).
+</p>
+<p>It invokes <code><a href="../../spatstat.model/help/subfits.html">subfits</a></code> to compute the fitted model for
+each individual point pattern dataset, then calls
+<code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code> to plot these individual models. These
+individual plots are displayed using <code><a href="../../spatstat.geom/help/plot.anylist.html">plot.anylist</a></code>,
+which generates either a series of separate plot frames or an
+array of plot panels on a single page. 
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Ida-Maria Sintorn and Leanne Bischoff.
+Implemented by 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/plot.ppm.html">plot.ppm</a></code>,
+<code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>,
+<code><a href="../../spatstat.geom/help/plot.anylist.html">plot.anylist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # Synthetic data from known model
+  n &lt;- 9
+  H &lt;- hyperframe(V=1:n,
+                  U=runif(n, min=-1, max=1))
+  H$Z &lt;- setcov(square(1))
+  H$U &lt;- with(H, as.im(U, as.rectangle(Z)))
+  H$Y &lt;- with(H, rpoispp(eval.im(exp(2+3*Z))))
+
+  fit &lt;- mppm(Y ~Z + U + V, data=H)
+
+  plot(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

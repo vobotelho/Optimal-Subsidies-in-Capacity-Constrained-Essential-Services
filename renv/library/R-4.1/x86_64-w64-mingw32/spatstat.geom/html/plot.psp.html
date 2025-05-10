@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: plot a Spatial Line Segment Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.psp {spatstat.geom}"><tr><td>plot.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>plot a Spatial Line Segment Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Plot a two-dimensional line segment pattern
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'psp'
+plot(x, ..., main, add=FALSE,
+                     show.all=!add, show.window=show.all, do.plot=TRUE,
+                     use.marks=TRUE,
+                     which.marks=1,
+                     style=c("colour", "width", "none"),
+                     col=NULL, 
+                     ribbon=show.all,
+                     ribsep=0.15, ribwid=0.05, ribn=1024,
+                     scale=NULL, adjust=1,
+                     legend=TRUE,
+                     leg.side=c("right", "left", "bottom", "top"),
+                     leg.sep=0.1,
+                     leg.wid=0.1,
+                     leg.args=list(),
+                     leg.scale=1,
+                     negative.args=list(col=2))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The line segment pattern to be plotted.
+An object of class <code>"psp"</code>,
+or data which can be converted into 
+this format by <code><a href="../../spatstat.geom/help/as.psp.html">as.psp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments that will be passed to the plotting functions
+<code><a href="../../graphics/html/segments.html">segments</a></code> (to plot the segments)
+and 
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code> (to plot the observation window).
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Character string giving a title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the current plot is not erased;
+the segments are plotted on top of the
+current plot, and the window is not plotted (by default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value specifying whether to plot everything
+including the window, main title, and colour ribbon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.window</code></td>
+<td>
+
+<p>Logical value specifying whether to plot the window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually perform the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.marks</code></td>
+<td>
+
+<p>Logical value specifying whether to use the marks
+attached to the segments (<code>use.marks=TRUE</code>, the default)
+or to ignore them (<code>use.marks=FALSE</code>). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>which.marks</code></td>
+<td>
+
+<p>Index determining which column of marks to use,
+if the marks of <code>x</code> are a data frame.
+A character string or an integer.
+Defaults to <code>1</code> indicating the first column of marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string specifying how to represent the
+mark value of each segment. If <code>style="colour"</code> (the default)
+segments are coloured according to their mark value.
+If <code>style="width"</code>, segments are drawn with a width
+proportional to their mark value.
+If <code>style="none"</code> the mark values are ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>Colour information.
+If <code>style="width"</code> or <code>style="none"</code>,
+then <code>col</code> should be a single value,
+interpretable as a colour; the line segments will be plotted
+using this colour.
+If <code>style="colour"</code> and <code>x</code> has marks,
+then the mark values will be mapped
+to colours using the information in <code>col</code>, which should be a 
+colour map (object of class <code>"colourmap"</code>)
+or a vector of colour values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribbon</code></td>
+<td>
+
+<p>Logical value indicating whether to display a ribbon
+showing the colour map (in which mark values are associated with
+colours) when <code>style="colour"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribsep</code></td>
+<td>
+
+<p>Factor controlling the space between the colour ribbon and the image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribwid</code></td>
+<td>
+
+<p>Factor controlling the width of the colour ribbon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribn</code></td>
+<td>
+
+<p>Number of different values to display in the colour ribbon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Optional. Physical scale for representing the mark values of
+<code>x</code> as physical widths on the plot, when <code>style="width"</code>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Optional adjustment factor for <code>scale</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical value indicating whether to display a legend
+showing the width map (in which mark values are associated with
+segment widths) when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.side</code></td>
+<td>
+
+<p>Character string (partially matched) specifying where the legend
+should be plotted,
+when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.sep</code></td>
+<td>
+
+<p>Factor controlling the space between the legend and the main plot,
+when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.wid</code></td>
+<td>
+
+<p>Factor controlling the width of the legend,
+when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.args</code></td>
+<td>
+
+<p>Optional list of additional arguments passed to
+<code><a href="../../graphics/help/axis.html">axis</a></code> and
+<code><a href="../../graphics/help/text.default.html">text.default</a></code>
+controlling the appearance of the legend,
+when <code>style="width"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.scale</code></td>
+<td>
+
+<p>Rescaling factor for labels, when <code>style="width"</code>.
+The values on the numerical scale
+printed beside the legend will be multiplied by this rescaling factor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>negative.args</code></td>
+<td>
+
+<p>Optional list of arguments to <code><a href="../../graphics/help/polygon.html">polygon</a></code>
+to be used when the mark values are negative. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for 
+line segment pattern datasets (of class <code>"psp"</code>,
+see <code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>).
+It plots both the observation window <code>Window(x)</code>
+and the line segments themselves.
+</p>
+<p>Plotting of the window <code>Window(x)</code> is performed by
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>. This plot may be modified 
+through the <code>...</code> arguments. 
+</p>
+<p>Plotting of the segments themselves is performed
+by the standard R function <code><a href="../../graphics/html/segments.html">segments</a></code>.
+Its plotting behaviour may also be modified through the <code>...</code>
+arguments.
+</p>
+<p>There are three different styles of plotting
+which apply when the segments have marks
+(i.e. when <code>marks(x)</code> is not null):
+</p>
+
+<dl>
+<dt><code>style="colour"</code> (the default):</dt><dd>
+<p>Segments are plotted with different colours depending on their
+mark values.
+The colour map, associating mark values with colours,
+is determined by the argument <code>col</code>. The colour map will be
+displayed as a vertical colour ribbon to the right of the plot, if
+<code>ribbon=TRUE</code> (the default).
+</p>
+</dd>
+<dt><code>style="width"</code>:</dt><dd>
+<p>Segments are plotted with different widths depending on their
+mark values. 
+The expanded segments are plotted using the base graphics
+function <code><a href="../../graphics/help/polygon.html">polygon</a></code>.
+The width map, associating mark values with line widths,
+can be specified by giving the physical scale factor <code>scale</code>.
+There is a sensible default scale, which can be adjusted using
+the adjustment factor <code>adjust</code>.
+The width map will be displayed as a vertical stack of lines
+to the right of the plot, if <code>legend=TRUE</code> (the default).
+</p>
+</dd>
+<dt><code>style="none"</code> or <code>use.marks=FALSE</code>:</dt><dd>
+<p>Mark information is ignored and the
+segments are plotted as thin lines using <code><a href="../../graphics/help/segments.html">segments</a></code>.
+</p>
+</dd>
+</dl>
+
+<p>If <code>marks(x)</code> is a data frame, the default is to use the first
+column of <code>marks(x)</code> to determine the colours or widths.
+To specify another
+column, use the argument <code>which.marks</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>style="colour"</code>, the result is a <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>
+object specifying the association between
+marks and colours, if any.
+</p>
+<p>If <code>style="width"</code>, the result is a numeric value giving the
+scaling between the mark values and the physical widths.
+</p>
+<p>In all cases, the return value also has an attribute
+<code>"bbox"</code> giving a bounding box for the plot.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>,
+<code><a href="../../graphics/html/plot.default.html">plot</a></code>,
+<code><a href="../../graphics/html/par.html">par</a></code>,
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>,
+<code><a href="../../spatstat.geom/help/text.psp.html">text.psp</a></code>,
+<code><a href="../../graphics/html/symbols.html">symbols</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- psp(runif(20), runif(20), runif(20), runif(20), window=owin())
+  plot(X)
+  plot(X, lwd=3)
+  lettuce &lt;- sample(letters[1:4], 20, replace=TRUE)
+  marks(X) &lt;- data.frame(A=1:20, B=factor(lettuce))
+  plot(X)
+  plot(X, which.marks="B")
+  plot(X, style="width", col="grey")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

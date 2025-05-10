@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot the Palm Intensity Diagnostic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.palmdiag {spatstat.model}"><tr><td>plot.palmdiag {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot the Palm Intensity Diagnostic
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot the Palm intensity diagnostic for a fitted cluster process
+or Cox process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'palmdiag'
+plot(x, ...,
+          style = c("intervals", "dots", "bands"),
+          args.dots = list(pch = 16), args.intervals = list(),
+          xlim=NULL, main)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"palmdiag"</code> produced by <code><a href="../../spatstat.model/help/palmdiagnose.html">palmdiagnose</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>
+when the fitted curve is plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Character string specifying the style of plot for the
+nonparametric estimates. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>args.dots</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/points.html">points</a></code>
+when <code>style="dots"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>args.intervals</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/segments.html">segments</a></code>
+when <code>style="intervals"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+<p>Optional range of distances plotted along the horizontal
+axis. A numeric vector of length 2.</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Optional main title for plot.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function plots the diagnostic proposed by
+Tanaka, Ogata and Stoyan (2008, Section 2.3)
+for assessing goodness-of-fit of a Neyman-Scott cluster process model
+to a point pattern dataset. The diagnostic is computed by
+the function <code><a href="../../spatstat.model/help/palmdiagnose.html">palmdiagnose</a></code>.
+</p>
+<p>First the Palm intensity of the fitted model is plotted as a
+function of interpoint distance <i>r</i> using
+<code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>. Then the nonparametric estimates
+of the Palm intensity are plotted on the same graph as follows:
+</p>
+
+<ul>
+<li><p> if <code>style="dots"</code>, the nonparametric
+estimate for each band of distances is plotted as a dot,
+with horizontal coordinate at the middle of the band.
+This is the style proposed by Tanaka et al (2008).
+</p>
+</li>
+<li><p> if <code>style="intervals"</code> (the default), each nonparametric estimate
+is plotted as a dot, and a 95% confidence interval is
+plotted as a vertical line segment, centred on the dot.
+The confidence interval is based on the Poisson approximation.
+</p>
+</li>
+<li><p> if <code>style="bands"</code>, the nonparametric estimates
+are drawn as a continuous curve which is flat on each band of
+distances. The 95% confidence intervals are drawn as grey shading.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Tanaka, U., Ogata, Y. and Stoyan, D. (2008)
+Parameter estimation and model selection for Neyman-Scott Point
+Processes.
+<em>Biometrical Journal</em> <b>50</b>, 1, 43&ndash;57.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/palmdiagnose.html">palmdiagnose</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- kppm(redwood)
+   R &lt;- palmdiagnose(fit)
+   plot(R, style="d")
+   plot(R)
+   plot(R, style="b")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

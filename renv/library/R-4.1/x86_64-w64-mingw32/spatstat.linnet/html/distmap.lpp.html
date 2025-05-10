@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map of Point Pattern on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for distmap.lpp {spatstat.linnet}"><tr><td>distmap.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Distance Map of Point Pattern on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distance from each pixel to the nearest
+point in the given point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+distmap(X, ..., k=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer. The distance to the <code>k</code>-th nearest data point
+will be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/as.linim.linfun.html">as.linim.linfun</a></code>
+to control pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>.
+It computes the distance map of the point pattern <code>X</code>
+as a pixel image on the network.
+</p>
+<p>At a pixel <i>u</i>, the greyscale value
+equals the distance from <i>u</i> to the
+nearest point of the pattern <code>X</code> (or the <i>k</i>-th nearest point
+of <code>X</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image on the network (object of class <code>"linim"</code>)
+whose greyscale values are the values of the distance map.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The pixel values in the image <code>distmap(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values in <code>distmap(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Generic function <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> and methods.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(distmap(spiders))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interpolate a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for interp.im {spatstat.geom}"><tr><td>interp.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interpolate a Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Interpolates the values of a pixel image at any
+desired location in the frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+interp.im(Z, x, y=NULL, bilinear=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Pixel image (object of class <code>"im"</code>)
+with numeric or integer values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Vectors of Cartesian coordinates.
+Alternatively <code>x</code> can be a point pattern and <code>y</code> can be missing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>bilinear</code></td>
+<td>
+
+<p>Logical value specifying the choice of interpolation rule.
+If <code>bilinear=TRUE</code> then a bilinear interpolation rule is used.
+If <code>bilinear=FALSE</code> (the default) then a slightly biased rule
+is used; this rule is consistent with earlier versions of
+<span class="pkg">spatstat</span>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A value at each location <code>(x[i],y[i])</code> will be
+interpolated using the pixel values of <code>Z</code> at the four
+surrounding pixel centres, by simple bilinear interpolation.
+</p>
+<p>At the boundary (where <code>(x[i],y[i])</code> is not surrounded by
+four pixel centres) the value at the nearest pixel
+is taken.
+</p>
+<p>The arguments <code>x,y</code> can be anything acceptable to
+<code><a href="../../grDevices/help/xy.coords.html">xy.coords</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Vector of interpolated values, with <code>NA</code> for points that lie
+outside the domain of the image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>,
+with a contribution from an anonymous user.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   opa &lt;- par(mfrow=c(1,2))
+   # coarse image
+   V &lt;- as.im(function(x,y) { x^2 + y }, owin(), dimyx=10)
+   plot(V, main="coarse image", col=terrain.colors(256))
+
+   # lookup value at location (0.5,0.5)
+   V[list(x=0.5,y=0.5)]
+   # interpolated value at location (0.5,0.5)
+   interp.im(V, 0.5, 0.5)
+   interp.im(V, 0.5, 0.5, bilinear=TRUE)
+   # true value is 0.75
+
+   # how to obtain an interpolated image at a desired resolution
+   U &lt;- as.im(interp.im, W=owin(), Z=V, dimyx=256)
+   plot(U, main="interpolated image", col=terrain.colors(256))
+   par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

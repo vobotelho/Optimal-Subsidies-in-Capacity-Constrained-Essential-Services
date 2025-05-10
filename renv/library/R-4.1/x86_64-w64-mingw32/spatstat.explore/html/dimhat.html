@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimate Dimension of Central Subspace</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dimhat {spatstat.explore}"><tr><td>dimhat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Estimate Dimension of Central Subspace 
+</h2>
+
+<h3>Description</h3>
+
+<p>Given the kernel matrix that characterises a central subspace,
+this function estimates the dimension of the subspace.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  dimhat(M)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>M</code></td>
+<td>
+
+<p>Kernel of subspace. A symmetric, non-negative definite, numeric
+matrix, typically obtained from <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the maximum descent estimate of
+the dimension of the central subspace with a given kernel matrix <code>M</code>.
+</p>
+<p>The matrix <code>M</code> should be the kernel matrix of a central subspace,
+which can be obtained from <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>. It must be a symmetric,
+non-negative-definite, numeric matrix.
+</p>
+<p>The algorithm finds the eigenvalues
+<i>lambda[1] &ge;  ...&ge; lambda[n]</i>
+of <i>M</i>,
+and then determines the index <i>k</i> for which
+<i>lambda[k]/lambda[k-1]</i> is greatest.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single integer giving the estimated dimension.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Matlab original by Yongtao Guan,
+translated to <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> by Suman Rakshit.
+</p>
+
+
+<h3>References</h3>
+
+<p>Guan, Y. and Wang, H. (2010)
+Sufficient dimension reduction for spatial point
+processes directed by Gaussian random fields.
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>72</b>, 367&ndash;387.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>, <code><a href="../../spatstat.explore/help/subspaceDistance.html">subspaceDistance</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

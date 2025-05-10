@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate grid of parallel lines with random displacement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rlinegrid {spatstat.geom}"><tr><td>rlinegrid {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate grid of parallel lines with random displacement</h2>
+
+<h3>Description</h3>
+
+<p>Generates a grid of parallel lines, equally spaced, inside the
+specified window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rlinegrid(angle = 45, spacing = 0.1, win = owin())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>angle</code></td>
+<td>
+<p>Common orientation of the lines, in degrees anticlockwise
+from the x axis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>spacing</code></td>
+<td>
+<p>Spacing between successive lines.</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+<p>Window in which to generate the lines. An object of
+class <code>"owin"</code> or something acceptable to
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The grid is randomly displaced from the origin.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.html">psp</a></code>,
+<code><a href="../../spatstat.random/help/rpoisline.html">rpoisline</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(rlinegrid(30, 0.05))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Result of Scan Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.scan.test {spatstat.explore}"><tr><td>plot.scan.test {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Result of Scan Test
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes or plots an image showing the
+likelihood ratio test statistic for the scan test,
+or the optimal circle radius. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'scan.test'
+plot(x, ..., what=c("statistic", "radius"),
+               do.window = TRUE)
+
+ ## S3 method for class 'scan.test'
+as.im(X, ..., what=c("statistic", "radius"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,X</code></td>
+<td>
+
+<p>Result of a scan test. An object of class <code>"scan.test"</code>
+produced by <code><a href="../../spatstat.explore/help/scan.test.html">scan.test</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> to control the appearance
+of the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string indicating whether to produce an image of the
+(profile) likelihood ratio test statistic (<code>what="statistic"</code>,
+the default) or an image of the optimal value of circle radius
+(<code>what="radius"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.window</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the original window
+of the data as well.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract, and plot, the spatially-varying value
+of the likelihood ratio test statistic which forms the basis of
+the scan test.
+</p>
+<p>If the test result <code>X</code> was based on circles of
+the same radius <code>r</code>, then <code>as.im(X)</code> is a pixel image
+of the likelihood ratio test statistic as a function of the
+position of the centre of the circle.
+</p>
+<p>If the test result <code>X</code> was based on circles of
+several different radii <code>r</code>, then <code>as.im(X)</code> is a pixel image
+of the profile (maximum value over all radii <code>r</code>)
+likelihood ratio test statistic as a function of the
+position of the centre of the circle, and
+<code>as.im(X, what="radius")</code> is a pixel image giving
+for each location <i>u</i> the value of <code>r</code> which maximised
+the likelihood ratio test statistic at that location.
+</p>
+<p>The <code>plot</code> method plots the corresponding image.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value of <code>as.im.scan.test</code> is a pixel image (object of
+class <code>"im"</code>). The value of <code>plot.scan.test</code> is <code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/scan.test.html">scan.test</a></code>,
+<code><a href="../../spatstat.explore/help/scanLRTS.html">scanLRTS</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   online &lt;- interactive()
+   Nsim &lt;- if(online) 19 else 2
+   r &lt;- if(online) seq(0.04, 0.1, by=0.01) else c(0.05, 0.1)
+   a &lt;- scan.test(redwood, r=r, method="poisson", nsim=Nsim)
+   plot(a)
+   as.im(a)
+   plot(a, what="radius")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

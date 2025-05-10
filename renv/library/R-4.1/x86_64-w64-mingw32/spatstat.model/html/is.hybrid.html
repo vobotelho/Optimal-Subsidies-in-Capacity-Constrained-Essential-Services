@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether Object is a Hybrid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.hybrid {spatstat.model}"><tr><td>is.hybrid {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Test Whether Object is a Hybrid
+</h2>
+
+<h3>Description</h3>
+
+<p>Tests where a point process model or point process interaction
+is a hybrid of several interactions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.hybrid(x)
+
+## S3 method for class 'ppm'
+is.hybrid(x)
+
+## S3 method for class 'interact'
+is.hybrid(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point process model (object of class <code>"ppm"</code>)
+or a point process interaction structure
+(object of class <code>"interact"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A <em>hybrid</em> (Baddeley, Turner, Mateu and Bevan, 2012)
+is a point process model created by combining two or more
+point process models, or an interpoint interaction created by combining
+two or more interpoint interactions.
+</p>
+<p>The function <code>is.hybrid</code> is generic, with methods for
+point process models (objects of class <code>"ppm"</code>)
+and point process interactions
+(objects of class <code>"interact"</code>).
+These functions return <code>TRUE</code> if the object <code>x</code> is a hybrid,
+and <code>FALSE</code> if it is not a hybrid.
+</p>
+<p>Hybrids of two or more interpoint interactions
+are created by the function <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code>.
+Such a hybrid interaction can then be fitted to point pattern data
+using <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>TRUE</code> if the object is a hybrid, and <code>FALSE</code> otherwise.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Mateu, J. and Bevan, A. (2013)
+Hybrids of Gibbs point process models and their implementation.
+<em>Journal of Statistical Software</em> <b>55</b>:11, 1&ndash;43.
+<code>DOI: 10.18637/jss.v055.i11</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  S &lt;- Strauss(0.1)
+  is.hybrid(S)
+  H &lt;- Hybrid(Strauss(0.1), Geyer(0.2, 3))
+  is.hybrid(H)
+
+  fit &lt;- ppm(redwood, ~1, H)
+  is.hybrid(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

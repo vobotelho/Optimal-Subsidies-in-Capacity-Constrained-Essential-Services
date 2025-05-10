@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Replace Entries in a Sparse Array</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Extract.sparse3Darray {spatstat.sparse}"><tr><td>Extract.sparse3Darray {spatstat.sparse}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract or Replace Entries in a Sparse Array</h2>
+
+<h3>Description</h3>
+
+<p>Extract or replace entries in a sparse three-dimensional array.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'sparse3Darray'
+x[i, j, k, drop=TRUE, ...]
+  ## S3 replacement method for class 'sparse3Darray'
+x[i, j, k, ...] &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Sparse three-dimensional array
+(object of class <code>"sparse3Darray"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i,j,k</code></td>
+<td>
+
+<p>Subset indices for each dimension of the array. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Replacement value for the subset. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating whether to return a lower-dimensional
+object (matrix or vector) when appropriate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored. This argument is required for compatibility
+with the generic function.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are defined for a sparse three-dimensional array <code>x</code>.
+They extract a designated subset of the array,
+or replace the values in the designated subset.
+</p>
+<p>The function <code>[.sparse3Darray</code> is a method for the generic
+subset extraction operator <code><a href="../../base/html/Extract.html">[</a></code>.
+The function <code>[&lt;-.sparse3Darray</code> is a method for the generic
+subset replacement operator <code><a href="../../base/html/Extract.html">[&lt;-</a></code>.
+</p>
+<p>These methods use the same indexing rules
+as the subset operator for full arrays:
+</p>
+
+<ul>
+<li><p> If <code>i</code>, <code>j</code> and <code>k</code> are integer vectors,
+the subset is the Cartesian product (i.e. all cells in the array
+identified by an entry of <code>i</code>, an entry of <code>j</code> and
+an entry of <code>k</code>).
+</p>
+</li>
+<li><p> Some or all of the arguments <code>i</code>, <code>j</code> and <code>k</code>
+may be missing from the call; a missing index argument is
+interpreted as meaning that all possible values of that index are
+allowed.
+</p>
+</li>
+<li><p> Arguments <code>i</code>, <code>j</code> and <code>k</code> may be logical
+vectors (with the value <code>TRUE</code> assigned to entries that should
+be included).
+</p>
+</li>
+<li><p> Arguments <code>i</code>, <code>j</code> and <code>k</code> may be
+character vectors with entries matching the corresponding
+<code>dimnames</code>.
+</p>
+</li>
+<li><p> Argument <code>i</code> may be an integer matrix with 3 columns
+(and the arguments <code>j,k</code> should be absent).
+Each row of the matrix contains the indices
+of one cell in the array.
+</p>
+</li></ul>
+
+<p>If the designated subset lies within the array bounds, then
+the result of <code>[</code> will be a sparse three-dimensional array,
+sparse matrix or sparse vector. If <code>drop=FALSE</code> the result
+will always be three-dimensional; if <code>drop=TRUE</code> (the default)
+the result will be reduced to two or one dimensions when appropriate.
+</p>
+<p>If the designated subset <em>does not</em> lie within the array bounds, then
+the result of <code>[</code> will be a full three-dimensional array,
+matrix or vector containing <code>NA</code> values at the positions that
+were outside the array bounds.
+</p>
+<p>The result of <code>[&lt;-</code> is always a sparse three-dimensional array.
+If the designated subset did not lie within the array bounds of
+<code>x</code>, then the array bounds will be extended (with a warning message).
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>[.sparse3Darray</code> returns either
+a sparse three-dimensional array (class <code>"sparse3Darray"</code>),
+a sparse matrix (class <code>sparseMatrix</code> in the <span class="pkg">Matrix</span> package),
+a sparse vector (class <code>sparseVector</code> in the <span class="pkg">Matrix</span> package),
+or in some cases a full array, matrix or vector.
+</p>
+<p><code>[&lt;-.sparse3Darray</code> returns another sparse three-dimensional
+array.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.sparse/help/sparse3Darray.html">sparse3Darray</a></code>,
+<code><a href="../../spatstat.sparse/help/methods.sparse3Darray.html">methods.sparse3Darray</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  M &lt;- sparse3Darray(i=1:4, j=sample(1:4, replace=TRUE),
+                     k=c(1,2,1,2), x=1:4, dims=c(5,5,2))
+  dimnames(M) &lt;- list(letters[1:5], LETTERS[1:5], c("yes", "no"))
+  M[ 3:4, , ]
+  M[ 3:4, 2:4, ]
+  M[ 4:3, 4:2, 1:2]
+  M[, 3, ]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.sparse</em> version 3.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

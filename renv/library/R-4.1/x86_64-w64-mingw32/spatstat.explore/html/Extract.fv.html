@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Replace Subset of Function Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Extract.fv {spatstat.explore}"><tr><td>Extract.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract or Replace Subset of Function Values</h2>
+
+<h3>Description</h3>
+
+<p>Extract or replace a subset of an object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'fv'
+x[i, j, ..., drop=FALSE]
+
+  ## S3 replacement method for class 'fv'
+x[i, j] &lt;- value
+
+  ## S3 replacement method for class 'fv'
+x$name &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>a function value object,
+of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+Essentially a data frame.
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>any appropriate subset index.
+Selects a subset of the rows of the data frame, i.e.
+a subset of the domain of the function(s) represented by <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+
+<p>any appropriate subset index for the columns of the data frame.
+Selects some of the functions present in <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+
+<p>the name of a column of the data frame.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the result is a data frame or vector
+containing the selected rows and columns of data.
+If <code>FALSE</code> (the default),
+the result is another object of class <code>"fv"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Replacement value for the column or columns selected by
+<code>name</code> or <code>j</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract a designated subset of an object of class
+<code>"fv"</code>, or replace the designated subset with other data,
+or delete the designated subset.
+</p>
+<p>The subset is specified by the 
+row index <code>i</code> and column index <code>j</code>, or
+by the column name <code>name</code>. Either <code>i</code> or <code>j</code>
+may be missing, or both may be missing.
+</p>
+<p>The function <code>[.fv</code> is a method for the generic operator
+<code><a href="../../base/html/Extract.html">[</a></code> for the class <code>"fv"</code>. It extracts the
+designated subset of <code>x</code>, and returns it as
+another object of class <code>"fv"</code> (if <code>drop=FALSE</code>)
+or as a data frame or vector (if <code>drop=TRUE</code>).
+</p>
+<p>The function <code>[&lt;-.fv</code> is a method for the generic operator
+<code><a href="../../base/html/Extract.html">[&lt;-</a></code> for the class <code>"fv"</code>.
+If <code>value</code> is <code>NULL</code>, the designated subset of <code>x</code> will be
+deleted from <code>x</code>.
+Otherwise, the designated subset of <code>x</code> will be
+replaced by the data contained in <code>value</code>.
+The return value is the modified object <code>x</code>.
+</p>
+<p>The function <code>$&lt;-.fv</code> is a method for the generic operator
+<code><a href="../../base/html/Extract.html">$&lt;-</a></code> for the class <code>"fv"</code>.
+If <code>value</code> is <code>NULL</code>, the designated column of <code>x</code> will be
+deleted from <code>x</code>.
+Otherwise, the designated column of <code>x</code> will be
+replaced by the data contained in <code>value</code>.
+The return value is the modified object <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>[.fv</code> with <code>drop=TRUE</code>
+is a data frame or vector. 
+</p>
+<p>Otherwise, the result is another object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ K &lt;- Kest(cells)
+
+ # discard the estimates of K(r) for r  &gt; 0.1
+ Ksub &lt;- K[K$r &lt;= 0.1, ]
+
+ # extract the border method estimates
+ bor &lt;- K[ , "border", drop=TRUE]
+ # or equivalently
+ bor &lt;- K$border
+
+ # remove the border-method estimates
+ K$border &lt;- NULL
+ K
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

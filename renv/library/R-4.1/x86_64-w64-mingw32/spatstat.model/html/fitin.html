@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract the Interaction from a Fitted Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fitin.ppm {spatstat.model}"><tr><td>fitin.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract the Interaction from a Fitted Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model that has been fitted to point pattern
+data, this function extracts the interpoint interaction part of the
+model as a separate object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fitin(object)
+
+## S3 method for class 'ppm'
+fitin(object)
+
+## S3 method for class 'profilepl'
+fitin(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>A fitted point process model (object of class
+<code>"ppm"</code> or <code>"profilepl"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ppm"</code> describes a fitted point process
+model. It contains information about the original data to which the
+model was fitted, the spatial trend that was fitted, the
+interpoint interaction that was fitted, and other data.
+See <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>) for details of this class.
+</p>
+<p>The function <code>fitin</code> extracts from this model the information about the
+fitted interpoint interaction only.
+The information is organised as an object of class <code>"fii"</code>
+(fitted interpoint interaction).
+This object can be printed or plotted.
+</p>
+<p>Users may find this a convenient way to plot the
+fitted interpoint interaction term, as shown in the Examples.
+</p>
+<p>For a pairwise interaction, the plot of the fitted interaction
+shows the pair interaction function (the contribution to the
+probability density from a pair of points as a function of the
+distance between them). For a higher-order interaction, the plot shows
+the strongest interaction (the value most different from 1)
+that could ever arise at the given distance. 
+</p>
+<p>The fitted interaction coefficients can also be extracted
+from this object using <code><a href="../../stats/html/coef.html">coef</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fii"</code> representing the fitted
+interpoint interaction. This object can be printed and plotted.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Methods for handling fitted interactions: 
+<code><a href="../../spatstat.model/help/methods.fii.html">methods.fii</a></code>, <code><a href="../../spatstat.model/help/reach.fii.html">reach.fii</a></code>,
+<code><a href="../../spatstat.model/help/as.interact.fii.html">as.interact.fii</a></code>.
+</p>
+<p>Background:
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # unmarked 
+   model &lt;- ppm(swedishpines ~1, PairPiece(seq(3,19,by=4)))
+   f &lt;- fitin(model)
+   f
+   plot(f)
+
+# extract fitted interaction coefficients
+   coef(f)
+
+   # multitype
+   # fit the stationary multitype Strauss process to `amacrine'
+   r &lt;- 0.02 * matrix(c(1,2,2,1), nrow=2,ncol=2)
+   model &lt;- ppm(amacrine ~1, MultiStrauss(r))
+   f &lt;- fitin(model)
+   f
+   plot(f)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

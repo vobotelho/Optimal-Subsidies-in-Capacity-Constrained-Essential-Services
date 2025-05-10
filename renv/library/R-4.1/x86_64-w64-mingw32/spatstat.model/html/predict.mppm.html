@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prediction for Fitted Multiple Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for predict.mppm {spatstat.model}"><tr><td>predict.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Prediction for Fitted Multiple Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted multiple point process model obtained by <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>,
+evaluate the spatial trend and/or the conditional intensity of the
+model. By default, predictions are evaluated over a grid of
+locations, yielding pixel images of the trend and conditional intensity.
+Alternatively predictions may be evaluated at specified
+locations with specified values of the covariates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'mppm'
+predict(object, ..., newdata = NULL, type = c("trend", "cif"),
+             ngrid = 40, locations=NULL, verbose=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>The fitted model. An object of class <code>"mppm"</code>
+obtained from <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+
+<p>Optional.
+New values of the covariates, for which the predictions should be computed.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Type of predicted values required. A character string or vector of
+character strings. Options are <code>"trend"</code> for the spatial trend
+(first-order term) and <code>"cif"</code> or <code>"lambda"</code> for the
+conditional intensity.
+Alternatively <code>type="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Dimensions of the grid of spatial locations at which prediction will be
+performed (if <code>locations=NULL</code>). An integer or a pair of integers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>locations</code></td>
+<td>
+
+<p>Optional. The locations at which
+predictions should be performed. A list of point patterns, with one entry
+for each row of <code>newdata</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical flag indicating whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the spatial trend and the conditional
+intensity of a spatial point process model that has been fitted to
+several spatial point patterns. See Chapter 16 of
+Baddeley, Rubak and Turner (2015) for explanation and examples.
+</p>
+<p>Note that by &ldquo;spatial trend&rdquo; we mean the (exponentiated) first
+order potential and not the intensity of the process. [For example
+if we fit the stationary Strauss process with parameters
+<i>beta</i> and <i>gamma</i>,
+then the spatial trend is constant and equal to <i>beta</i>.]
+The conditional intensity <i>lambda(u,X)</i> of the fitted
+model is evaluated at each required spatial location u, with respect
+to the response point pattern X.
+</p>
+<p>If <code>newdata=NULL</code>, predictions are computed for the original
+values of the covariates, to which the model was fitted.
+Otherwise <code>newdata</code> should be a hyperframe
+(see <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>) containing columns of covariates
+as required by the model. If <code>type</code> includes <code>"cif"</code>,
+then <code>newdata</code> must also include a column of spatial point
+pattern responses, in order to compute the conditional intensity.
+</p>
+<p>If <code>locations=NULL</code>, then predictions are performed
+at an <code>ngrid</code> by <code>ngrid</code> grid of locations in the window
+for each response point pattern. The result will be a hyperframe
+containing a column of images of the trend (if selected)
+and a column of images of the conditional intensity (if selected).
+The result can be plotted.
+</p>
+<p>If <code>locations</code> is given, then it should be a list of point
+patterns (objects of class <code>"ppp"</code>). Predictions are performed at these
+points, and the results are returned as mark values attached to the
+<code>locations</code>. The result is a hyperframe containing columns
+called <code>trend</code> and/or <code>cif</code>. The column called <code>trend</code>
+contains marked point patterns in which the point locations are
+the <code>locations</code> and the mark value is the predicted trend.
+The column called <code>cif</code>
+contains marked point patterns in which the point locations are
+the <code>locations</code> and the mark value is the predicted conditional
+intensity.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A hyperframe with columns named <code>trend</code> and/or <code>cif</code>.
+</p>
+<p>If  <code>locations=NULL</code>, the entries of the hyperframe are
+pixel images.
+</p>
+<p>If <code>locations</code> is not null, the entries are
+marked point patterns constructed by attaching the predicted values
+to the <code>locations</code> point patterns.
+</p>
+
+
+<h3>Models that depend on row number</h3>
+
+<p>The point process model that is described by an <code>mppm</code> object
+may be a different point process for each row of the original
+hyperframe of data. This occurs if
+the model formula includes the variable <code>id</code> (representing
+row number) or if the model has a different interpoint interaction on
+each row.
+</p>
+<p>If the point process model
+is different on each row of the original data,
+then either
+</p>
+
+<ul>
+<li> <p><code>newdata</code> is missing. Predictions are computed for
+each row of the original data using the point process model
+that applies on each row.
+</p>
+</li>
+<li> <p><code>newdata</code> must have the same number of rows
+as the original data. Each row of <code>newdata</code> is assumed
+to be a replacement for the corresponding row of the original data.
+The prediction for row <code>i</code> of <code>newdata</code>
+will be computed for the point process model that applies to row <code>i</code>
+of the original data.
+</p>
+</li>
+<li> <p><code>newdata</code> must include a column called <code>id</code>
+specifying the row number, and therefore identifying which
+of the point process models should apply.
+The predictions for row <code>i</code>
+of <code>newdata</code> will be computed for the point process model that applies
+to row <code>k</code> of the original data, where <code>k = newdata$id[i]</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Ida-Maria Sintorn and Leanne Bischoff.
+Implemented by 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R.
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b> (2000) 283&ndash;322.
+</p>
+<p>Baddeley, A., Bischof, L., Sintorn, I.-M., Haggarty, S.,
+Bell, M. and Turner, R. 
+Analysis of a designed experiment where the response is a spatial
+point pattern. In preparation.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>,
+<code><a href="../../spatstat.model/help/fitted.mppm.html">fitted.mppm</a></code>,
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  h &lt;- hyperframe(Bugs=waterstriders)
+  fit &lt;- mppm(Bugs ~ x, data=h, interaction=Strauss(7))
+  # prediction on a grid
+  p &lt;- predict(fit)
+  plot(p$trend)
+  # prediction at specified locations
+  loc &lt;- with(h, runifpoint(20, Window(Bugs)))
+  p2 &lt;- predict(fit, locations=loc)
+  plot(p2$trend)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

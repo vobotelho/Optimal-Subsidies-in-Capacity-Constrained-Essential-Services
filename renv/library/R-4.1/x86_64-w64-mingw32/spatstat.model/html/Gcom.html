@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Model Compensator of Nearest Neighbour Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Gcom {spatstat.model}"><tr><td>Gcom {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Model Compensator of Nearest Neighbour Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a point pattern dataset,
+this function computes the <em>compensator</em> 
+of the nearest neighbour distance distribution function <i>G</i>
+based on the fitted model 
+(as well as the usual nonparametric estimates
+of <i>G</i> based on the data alone).
+Comparison between the nonparametric and model-compensated <i>G</i>
+functions serves as a diagnostic for the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Gcom(object, r = NULL, breaks = NULL, ...,
+     correction = c("border", "Hanisch"),
+     conditional = !is.poisson(object),
+     restrict=FALSE,
+     model=NULL,
+     trend = ~1, interaction = Poisson(),
+     rbord = reach(interaction),
+     ppmcorrection="border",
+     truecoef = NULL, hi.res = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Object to be analysed.
+Either a fitted point process model (object of class <code>"ppm"</code>)
+or a point pattern (object of class <code>"ppp"</code>)
+or quadrature scheme (object of class <code>"quad"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. 
+Vector of values of the argument <i>r</i> at which the
+function <i>G(r)</i> should be computed.
+This argument is usually not specified. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Edge correction(s) to be employed in calculating the compensator.
+Options are <code>"border"</code>, <code>"Hanisch"</code> and <code>"best"</code>.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>conditional</code></td>
+<td>
+
+<p>Optional. Logical value indicating whether to 
+compute the estimates for the conditional case. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>restrict</code></td>
+<td>
+
+<p>Logical value indicating whether to compute
+the restriction estimator (<code>restrict=TRUE</code>) or
+the reweighting estimator (<code>restrict=FALSE</code>, the default).
+Applies only if <code>conditional=TRUE</code>.  See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Optional. A fitted point process model (object of
+class <code>"ppm"</code>) to be re-fitted to the data
+using <code><a href="../../spatstat.model/help/update.ppm.html">update.ppm</a></code>, if <code>object</code> is a point pattern.
+Overrides the arguments <code>trend,interaction,rbord,ppmcorrection</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend,interaction,rbord</code></td>
+<td>
+
+<p>Optional. Arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+to fit a point process model to the data,
+if <code>object</code> is a point pattern.
+See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ppmcorrection</code></td>
+<td>
+
+<p>The <code>correction</code> argument to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>truecoef</code></td>
+<td>
+
+<p>Optional. Numeric vector. If present, this will be treated as 
+if it were the true coefficient vector of the point process model,
+in calculating the diagnostic. Incompatible with <code>hi.res</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hi.res</code></td>
+<td>
+
+<p>Optional. List of parameters passed to <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>.
+If this argument is present, the model will be
+re-fitted at high resolution as specified by these parameters.
+The coefficients
+of the resulting fitted model will be taken as the true coefficients.
+Then the diagnostic will be computed for the default
+quadrature scheme, but using the high resolution coefficients.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command provides a diagnostic for the goodness-of-fit of
+a point process model fitted to a point pattern dataset.
+It computes different estimates of the nearest neighbour distance
+distribution function <i>G</i> of the
+dataset, which should be approximately equal if the model is a good
+fit to the data.
+</p>
+<p>The first argument, <code>object</code>, is usually a fitted point process model
+(object of class <code>"ppm"</code>), obtained from the
+model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>For convenience, <code>object</code> can also be a point pattern
+(object of class <code>"ppp"</code>).
+In that case, a point process
+model will be fitted to it,
+by calling <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> using the arguments
+<code>trend</code> (for the first order trend),
+<code>interaction</code> (for the interpoint interaction)
+and <code>rbord</code> (for the erosion distance in the border correction
+for the pseudolikelihood). See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for details
+of these arguments.
+</p>
+<p>The algorithm first extracts the original point pattern dataset
+(to which the model was fitted) and computes the 
+standard nonparametric estimates of the <i>G</i> function.
+It then also computes the <em>model-compensated</em> 
+<i>G</i> function. The different functions are returned
+as columns in a data frame (of class <code>"fv"</code>).
+The interpretation of the columns is as follows
+(ignoring edge corrections):
+</p>
+
+<dl>
+<dt><code>bord</code>:</dt><dd> 
+<p>the nonparametric border-correction estimate of <i>G(r)</i>,
+</p>
+<p style="text-align: center;"><i>
+	G(r) = (sum[i] I(d[i] &lt;= r) I(b[i] &gt; r))/(sum[i] I(b[i] &gt; r))
+      </i></p>
+
+<p>where <i>d[i]</i> is the distance from the <i>i</i>-th data point
+to its nearest neighbour, and <i>b[i]</i> is the distance from the
+<i>i</i>-th data point to the boundary of the window <i>W</i>.
+</p>
+</dd>
+<dt><code>bcom</code>:</dt><dd>
+<p>the model compensator of the border-correction estimate
+</p>
+<p style="text-align: center;"><i>
+	C G(r) = (integral[u] lambda(u,x) I(b(u) &gt; r) I( d(u,x) &lt;= r ))/(1
+	+ sum[i] I(b[i] &gt; r))
+      </i></p>
+
+<p>where 
+<i>lambda(u,x)</i> denotes the conditional intensity
+of the model at the location <i>u</i>, and <i>d(u,x)</i> denotes the
+distance from <i>u</i> to the nearest point in <i>x</i>, while
+<i>b(u)</i> denotes the distance from <i>u</i> to the boundary of the
+window<i>W</i>.
+</p>
+</dd>
+<dt><code>han</code>:</dt><dd>
+<p>the nonparametric Hanisch estimate of <i>G(r)</i>
+</p>
+<p style="text-align: center;"><i>
+	G(r) = D(r)/D(infty)
+      </i></p>
+
+<p>where
+</p>
+<p style="text-align: center;"><i>
+	D(r) = sum[i] I(x[i] in W[-r]) I(d[i] &lt;= r)/area(W[-d[i]])
+      </i></p>
+
+<p>in which <i>W[-r]</i> denotes the erosion of the window
+<i>W</i> by a distance <i>r</i>.
+</p>
+</dd>
+<dt><code>hcom</code>:</dt><dd>
+<p>the corresponding model-compensated function 
+</p>
+<p style="text-align: center;"><i>
+	C G(r) = integral[u] lambda(u,x) I(u in W[-d(u)]) I(d(u) &lt;= r)/
+	(1 + D(infty) area(W[-d(u)]))
+      </i></p>
+
+<p>where <i>d(u) = d(u, x)</i> is the (&lsquo;empty space&rsquo;) 
+distance from location <i>u</i> to the nearest point of <i>x</i>.
+</p>
+</dd>
+</dl>
+
+<p>If the fitted model is a Poisson point process, then the formulae above
+are exactly what is computed. If the fitted model is not Poisson, the 
+formulae above are modified slightly to handle edge effects.
+</p>
+<p>The modification is determined by the arguments
+<code>conditional</code> and <code>restrict</code>.
+The value of <code>conditional</code> defaults to <code>FALSE</code> for Poisson models
+and <code>TRUE</code> for non-Poisson models.
+If <code>conditional=FALSE</code> then the formulae above are not modified.
+If <code>conditional=TRUE</code>, then the algorithm calculates
+the <em>restriction estimator</em> if <code>restrict=TRUE</code>,
+and calculates the <em>reweighting estimator</em> if <code>restrict=FALSE</code>.
+See Appendix E of Baddeley, Rubak and Moller (2011).
+See also <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>('eroded.intensity')</code>.
+Thus, by default, the reweighting estimator is computed
+for non-Poisson models.
+</p>
+<p>The border-corrected and Hanisch-corrected estimates of <i>G(r)</i> are
+approximately unbiased estimates of the <i>G</i>-function,
+assuming the point process is
+stationary. The model-compensated functions are unbiased estimates
+<em>of the mean value of the corresponding nonparametric estimate</em>,
+assuming the model is true. Thus, if the model is a good fit, the mean value
+of the difference between the nonparametric and model-compensated
+estimates is approximately zero.
+</p>
+<p>To compute the difference between the nonparametric and model-compensated
+functions, use <code><a href="../../spatstat.model/help/Gres.html">Gres</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>),
+essentially a data frame of function values.
+There is a plot method for this class. See <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Jesper Moller.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Moller, J. (2011)
+Score, pseudo-score and residual
+diagnostics for spatial point process models.
+<em>Statistical Science</em> <b>26</b>, 613&ndash;646.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Related functions:
+<code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>,
+<code><a href="../../spatstat.model/help/Gres.html">Gres</a></code>.
+</p>
+<p>Alternative functions:
+<code><a href="../../spatstat.model/help/Kcom.html">Kcom</a></code>, 
+<code><a href="../../spatstat.model/help/psstA.html">psstA</a></code>, 
+<code><a href="../../spatstat.model/help/psstG.html">psstG</a></code>, 
+<code><a href="../../spatstat.model/help/psst.html">psst</a></code>.
+</p>
+<p>Model fitting: <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    fit0 &lt;- ppm(cells ~1) # uniform Poisson
+    G0 &lt;- Gcom(fit0)
+    G0
+    plot(G0)
+# uniform Poisson is clearly not correct
+
+# Hanisch estimates only
+    plot(Gcom(fit0), cbind(han, hcom) ~ r)
+
+    fit1 &lt;- ppm(cells, ~1, Strauss(0.08))
+    plot(Gcom(fit1), cbind(han, hcom) ~ r)
+
+# Try adjusting interaction distance
+
+    fit2 &lt;- update(fit1, Strauss(0.10))
+    plot(Gcom(fit2), cbind(han, hcom) ~ r)
+
+    G3 &lt;- Gcom(cells, interaction=Strauss(0.12))
+    plot(G3, cbind(han, hcom) ~ r)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

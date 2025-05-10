@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Superimpose Several Point Patterns on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for superimpose.lpp {spatstat.linnet}"><tr><td>superimpose.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Superimpose Several Point Patterns on Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Superimpose any number of point patterns on the same linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+superimpose(..., L=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, each of which represents a point
+pattern on the same linear network.
+Each argument can be either an object of class <code>"lpp"</code>,
+giving both the spatial coordinates of the points and the
+linear network, or a <code>list(x,y)</code> or <code>list(x,y,seg,tp)</code>
+giving just the spatial coordinates of the points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Optional. The linear network.
+An object of class <code>"linnet"</code>.
+This argument is required if none of the other arguments
+is of class <code>"lpp"</code>. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is used to superimpose several point patterns
+on the same linear network. It is a method for the generic
+function <code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code>.
+</p>
+<p>Each of the arguments <code>...</code>
+can be either a point pattern on a linear network
+(object of class <code>"lpp"</code> 
+giving both the spatial coordinates of the points and the
+linear network), or a <code>list(x,y)</code> or <code>list(x,y,seg,tp)</code>
+giving just the spatial coordinates of the points.
+These arguments must represent point patterns on the <em>same</em>
+linear network.
+</p>
+<p>The argument <code>L</code> is an alternative way to specify the linear
+network, and is required if none of the arguments <code>...</code> is an
+object of class <code>"lpp"</code>.
+</p>
+<p>The arguments <code>...</code> may be <em>marked</em> patterns.
+The marks of each component pattern must have the same format.
+Numeric and character marks may be &ldquo;mixed&rdquo;.  If there is such
+mixing then the numeric marks are coerced to character in the
+combining process. If the mark structures are all data frames,
+then these data frames must have the same number of columns and
+identical column names.
+</p>
+<p>If the arguments <code>...</code> are given in the form <code>name=value</code>,
+then the <code>name</code>s will be used as an extra column of marks
+attached to the elements of the corresponding patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"lpp"</code> representing the combined point
+pattern on the linear network.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+<p>and Greg McSwiggan.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoislpp(5, simplenet)
+  Y &lt;- rpoislpp(10, simplenet)
+  superimpose(X,Y) # not marked
+  superimpose(A=X, B=Y) # multitype with types A and B
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

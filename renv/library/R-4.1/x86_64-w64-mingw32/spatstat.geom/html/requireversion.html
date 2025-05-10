@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Require a Specific Version of a Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for requireversion {spatstat.geom}"><tr><td>requireversion {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Require a Specific Version of a Package
+</h2>
+
+<h3>Description</h3>
+
+<p>Checks that the version number of a specified package is greater than or
+equal to the specified version number.
+For use in stand-alone <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> scripts.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+requireversion(pkg, ver, fatal=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pkg</code></td>
+<td>
+
+<p>Package name.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ver</code></td>
+<td>
+
+<p>Character string containing version number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating whether an error should occur
+when the package version is less than <code>ver</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function checks whether the installed version of the
+package <code>pkg</code> is greater than or equal to <code>ver</code>.
+By default, an error occurs if this condition is not met.
+</p>
+<p>It is useful in stand-alone <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> scripts, which often require
+a particular version of a package in order to work correctly.
+</p>
+<p><b>This function should not be used inside a package</b>:
+for that purpose, the dependence on packages and versions
+should be specified in the package description file.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  requireversion(spatstat.geom, "1.42-0")
+  requireversion(spatstat.data, "999.999-999", fatal=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

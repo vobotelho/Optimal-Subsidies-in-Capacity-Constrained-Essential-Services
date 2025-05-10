@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Whether an Object is Connected</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.connected {spatstat.geom}"><tr><td>is.connected {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Determine Whether an Object is Connected
+</h2>
+
+<h3>Description</h3>
+
+<p>Determine whether an object is 
+topologically connected.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.connected(X, ...)
+
+## Default S3 method:
+is.connected(X, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial object such as a pixel image (object of class <code>"im"</code>),
+or a window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/connected.html">connected</a></code> to determine the
+connected components.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The command <code>is.connected(X)</code> returns <code>TRUE</code> if the object
+<code>X</code> consists of a single, topologically-connected piece,
+and returns <code>FALSE</code> if <code>X</code> consists of several pieces
+which are not joined together.
+</p>
+<p>The function <code>is.connected</code> is generic.
+The default method <code>is.connected.default</code> 
+works for many classes of objects, including windows (class <code>"owin"</code>)
+and images (class <code>"im"</code>).
+There is 
+a method for point patterns, described in <code><a href="../../spatstat.geom/help/is.connected.ppp.html">is.connected.ppp</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/connected.html">connected</a></code>,
+<code><a href="../../spatstat.geom/help/is.connected.ppp.html">is.connected.ppp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  d &lt;- distmap(cells, dimyx=256)
+  X &lt;- levelset(d, 0.07)
+  plot(X)
+  is.connected(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

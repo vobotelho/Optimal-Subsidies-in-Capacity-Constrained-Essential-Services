@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ripley's Isotropic Edge Correction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for edge.Ripley {spatstat.explore}"><tr><td>edge.Ripley {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Ripley's Isotropic Edge Correction 
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes Ripley's isotropic edge correction weights
+for a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+edge.Ripley(X, r, W = Window(X), method = c("C", "interpreted"),
+            maxweight = 100, internal=list())
+
+rmax.Ripley(W)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window for which the edge correction is required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Vector or matrix of interpoint distances for which the edge correction
+should be computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Choice of algorithm. Either <code>"interpreted"</code> or <code>"C"</code>.
+This is needed only for debugging purposes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>maxweight</code></td>
+<td>
+
+<p>Maximum permitted value of the edge correction weight.
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+<p>For developer use only.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>edge.Ripley</code>
+computes Ripley's (1977) isotropic edge correction
+weight, which is used in estimating the <i>K</i> function and in many
+other contexts.
+</p>
+<p>The function <code>rmax.Ripley</code> computes the maximum value of
+distance <i>r</i> for which the isotropic edge correction
+estimate of <i>K(r)</i> is valid.
+</p>
+<p>For a single point <i>x</i> in a window <i>W</i>,
+and a distance <i>r &gt; 0</i>, the isotropic edge correction weight
+is
+</p>
+<p style="text-align: center;"><i>
+    e(u, r) = 2 * &pi; * r/length(intersection(c(u,r), W))
+  </i></p>
+
+<p>where <i>c(u,r)</i> is the circle of radius <i>r</i> centred at the
+point <i>u</i>. The denominator is the length of the overlap between
+this circle and the window <i>W</i>.
+</p>
+<p>The function <code>edge.Ripley</code> computes this edge correction weight
+for each point in the point pattern <code>X</code> and for each
+corresponding distance value in the vector or matrix <code>r</code>.
+</p>
+<p>If <code>r</code> is a vector, with one entry for each point in
+<code>X</code>, then the result is a vector containing the
+edge correction weights <code>e(X[i], r[i])</code> for each <code>i</code>.
+</p>
+<p>If <code>r</code> is a matrix, with one row for each point in <code>X</code>,
+then the result is a matrix whose <code>i,j</code> entry gives the
+edge correction weight <code>e(X[i], r[i,j])</code>.
+For example <code>edge.Ripley(X, pairdist(X))</code> computes all the
+edge corrections required for the <i>K</i>-function.
+</p>
+<p>If any value of the edge correction weight exceeds <code>maxwt</code>,
+it is set to <code>maxwt</code>.
+</p>
+<p>The function <code>rmax.Ripley</code> computes the smallest distance <i>r</i>
+such that it is possible to draw a circle of radius <i>r</i>, centred
+at a point of <code>W</code>, such that the circle does not intersect the
+interior of <code>W</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector or matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ripley, B.D. (1977)
+Modelling spatial patterns (with discussion).
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>39</b>, 172 &ndash; 212.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/edge.Trans.html">edge.Trans</a></code>,
+<code><a href="../../spatstat.explore/help/rmax.Trans.html">rmax.Trans</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  v &lt;- edge.Ripley(cells, pairdist(cells))
+
+  rmax.Ripley(Window(cells))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

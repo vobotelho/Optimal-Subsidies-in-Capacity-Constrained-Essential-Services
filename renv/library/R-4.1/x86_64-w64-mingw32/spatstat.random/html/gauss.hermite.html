@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Gauss-Hermite Quadrature Approximation to Expectation for...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gauss.hermite {spatstat.random}"><tr><td>gauss.hermite {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Gauss-Hermite Quadrature Approximation to Expectation for Normal Distribution
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculates an approximation to the expected value of any function of a
+normally-distributed random variable, using Gauss-Hermite quadrature.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gauss.hermite(f, mu = 0, sd = 1, ..., order = 5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>The function whose moment should be approximated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean of the normal distribution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sd</code></td>
+<td>
+
+<p>Standard deviation of the normal distribution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code>f</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>order</code></td>
+<td>
+
+<p>Number of quadrature points in the Gauss-Hermite quadrature
+approximation. A small positive integer.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm calculates the approximate expected value of
+<code>f(Z)</code> when <code>Z</code> is a normally-distributed random
+variable with mean <code>mu</code> and standard deviation <code>sd</code>.
+The expected value is an integral with respect to the
+Gaussian density; this integral is approximated
+using Gauss-Hermite quadrature.
+</p>
+<p>The argument <code>f</code> should be a function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language
+whose first argument is the variable <code>Z</code>. Additional arguments
+may be passed through <code>...</code>. The value returned by <code>f</code>
+may be a single numeric value, a vector, or a matrix. The values
+returned by <code>f</code> for different values of <code>Z</code> must have
+compatible dimensions.
+</p>
+<p>The result is a weighted average of several values of <code>f</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric value, vector or matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  gauss.hermite(function(x) x^2, 3, 1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

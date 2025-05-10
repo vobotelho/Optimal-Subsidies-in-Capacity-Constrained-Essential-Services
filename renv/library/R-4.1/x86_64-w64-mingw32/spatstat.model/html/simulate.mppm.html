@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate a Point Process Model Fitted to Several Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for simulate.mppm {spatstat.model}"><tr><td>simulate.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate a Point Process Model Fitted to Several Point Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Generates simulated realisations from a 
+point process model that was fitted to several point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'mppm'
+simulate(object, nsim=1, ..., verbose=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Point process model fitted to several point patterns.
+An object of class <code>"mppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated realisations (of each original pattern).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Further arguments passed to <code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>
+to control the simulation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the generic function
+<code><a href="../../stats/help/simulate.html">simulate</a></code> for the class <code>"mppm"</code> of fitted
+point process models for replicated point pattern data.
+</p>
+<p>The result is a hyperframe with <code>n</code> rows and <code>nsim</code> columns,
+where <code>n</code> is the number of original point pattern
+datasets to which the model was fitted. Each column of the hyperframe
+contains a simulated version of the original data.
+</p>
+<p>For each of the original point pattern datasets, the
+fitted model for this dataset is extracted using
+<code><a href="../../spatstat.model/help/subfits.html">subfits</a></code>, then <code>nsim</code> simulated realisations
+of this model are generated using <code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>,
+and these are stored in the corresponding row of the output.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A hyperframe.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>,
+<code><a href="../../spatstat.model/help/simulate.ppm.html">simulate.ppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  H &lt;- hyperframe(Bugs=waterstriders)
+  fit &lt;- mppm(Bugs ~ id, H)
+  y &lt;- simulate(fit, nsim=2)
+  y
+  plot(y[1,,drop=TRUE], main="Simulations for Waterstriders pattern 1")
+  plot(y[,1,drop=TRUE], main="Simulation 1 for each Waterstriders pattern")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

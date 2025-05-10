@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Buffer Distance Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for bufftess {spatstat.geom}"><tr><td>bufftess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Buffer Distance Tessellation
+</h2>
+
+<h3>Description</h3>
+
+<p>Constructs a spatial tessellation, composed of rings or buffers at specified
+distances away from the given spatial object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bufftess(X, breaks, W = Window(X), ..., polygonal = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial object in two dimensions,
+such as a point pattern (class <code>"ppp"</code>) or
+line segment pattern (class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Either a numeric vector specifying the cut points for the
+distance values, or a single integer specifying the number of cut points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional. Window (object of class <code>"owin"</code>) inside which the
+tessellation will be constructed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> controlling the
+pixel resolution when <code>polygonal=FALSE</code>,
+and optional arguments passed to <code><a href="../../base/help/cut.default.html">cut.default</a></code>
+controlling the labelling of the distance bands.
+</p>
+</td></tr>
+<tr valign="top"><td><code>polygonal</code></td>
+<td>
+
+<p>Logical value specifying whether the tessellation should consist of
+polygonal tiles (<code>polygonal=TRUE</code>, the default) or
+should be constructed using a pixel image (<code>polygonal=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function divides space into tiles defined
+by distance from the object <code>X</code>. The result is a tessellation
+(object of class <code>"tess"</code>) that consists of concentric rings
+around <code>X</code>.
+</p>
+<p>The distance values which determine the tiles are specified by
+the argument <code>breaks</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>breaks</code> is a vector of numerical values, then these
+values are taken to be the distances defining the tiles.
+The first tile is the region of space that lies at distances
+between <code>breaks[1]</code> and <code>breaks[2]</code> away from <code>X</code>;
+the second tile is the region lying at distances between
+<code>breaks[2]</code> and <code>breaks[3]</code> away from <code>X</code>; and so on.
+The number of tiles will be <code>length(breaks)-1</code>.
+</p>
+</li>
+<li>
+<p>If <code>breaks</code> is a single integer, it is interpreted as specifying
+the number of intervals between breakpoints.
+There will be <code>breaks+1</code> equally spaced
+break points, ranging from zero to the maximum
+achievable distance. The number of tiles will equal <code>breaks</code>.
+</p>
+</li></ul>
+
+<p>The tessellation can be computed using either raster calculations
+or vector calculations.
+</p>
+
+<ul>
+<li> 
+<p>If <code>polygonal=TRUE</code> (the default), the tiles are computed as
+polygonal windows using vector geometry, and the result is a
+tessellation consisting of polygonal tiles.
+This calculation could be slow and could require substantial memory,
+but produces a geometrically accurate result.
+</p>
+</li>
+<li>
+<p>If <code>polygonal=FALSE</code>, the distance map of <code>X</code> is computed
+as a pixel image (<code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>), then the distance values
+are divided into discrete bands using <code><a href="../../spatstat.geom/help/cut.im.html">cut.im</a></code>. The result is a
+tessellation specified by a pixel image. This computation is faster
+but less accurate.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+<p>The result also has an attribute <code>breaks</code> which is the vector of distance breakpoints.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Polygonal calculations are performed using <code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>
+and <code><a href="../../spatstat.geom/help/setminus.owin.html">setminus.owin</a></code>. Pixel calculations are performed
+using <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> and <code><a href="../../spatstat.geom/help/cut.im.html">cut.im</a></code>. See
+<code><a href="../help/as.mask.html">as.mask</a></code> for details of arguments that control pixel
+resolution. 
+</p>
+<p>For other kinds of tessellations, see 
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>,
+<code><a href="../../spatstat.geom/help/hextess.html">hextess</a></code>,
+<code><a href="../../spatstat.geom/help/venn.tess.html">venn.tess</a></code>,
+<code><a href="../../spatstat.geom/help/polartess.html">polartess</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>, <code><a href="../../spatstat.geom/help/delaunay.html">delaunay</a></code>,
+<code><a href="../../spatstat.geom/help/quantess.html">quantess</a></code>, <code><a href="../../spatstat.geom/help/quadrats.html">quadrats</a></code>
+and 
+<code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- cells[c(FALSE,FALSE,FALSE,TRUE)]
+  if(interactive()) {
+    b &lt;- c(0, 0.05, 0.1, 0.15, 0.2, Inf)
+    n &lt;- 5
+  } else {
+    ## simpler data for testing
+    b &lt;- c(0, 0.1, 0.2, Inf)
+    n &lt;- 3
+  }
+  plot(bufftess(X, b), do.col=TRUE, col=1:n)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spider Webs on Mortar Lines of a Brick Wall</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spiders {spatstat.data}"><tr><td>spiders {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Spider Webs on Mortar Lines of a Brick Wall
+</h2>
+
+<h3>Description</h3>
+
+<p>Data recording the locations of small spider webs on
+the network of mortar lines of a brick wall.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data("spiders")</pre>
+
+
+<h3>Format</h3>
+
+<p>Object of class <code>"lpp"</code> representing a pattern of points
+on a linear network. Spatial coordinates are expressed in millimetres.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The data give the positions of 48 webs 
+of the urban wall spider <em>Oecobius navus</em> 
+on the mortar lines of a brick wall, 
+recorded by Voss (1999) and manually digitised by Mark Handcock. 
+The mortar spaces provide the only opportunity for constructing webs
+(Voss 1999; Voss et al 2007) so this is a pattern of points on a
+network of lines.
+</p>
+<p>The habitat preferences of this species were studied in detail
+by Voss et al (2007). Questions of interest include evidence for
+non-uniform density of webs and for interaction between nearby individuals.
+</p>
+<p>Observations were made inside a square quadrat of side length 1.125 metres.
+The original hand-drawn map was digitised manually by Mark
+S. Handcock, and reformatted as a <code>spatstat</code> object by
+Ang Qi Wei.
+</p>
+<p>The dataset <code>spiders</code> is an object of class <code>"lpp"</code>
+(point pattern on a linear network). Coordinates are given in millimetres.
+The linear network has 156 vertices and a total length of 20.22 metres. 
+</p>
+<p><em>Please cite Voss et al (2007) with any use of these data.</em> 
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dr Sasha Voss. Coordinates manually recorded by M.S. Handcock
+and formatted by Q.W. Ang.
+</p>
+<p><em>Please cite Voss et al (2007) with any use of these data.</em> 
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010)
+<em>Statistical methodology for events on a network</em>.
+Master's thesis, School of Mathematics and Statistics, University of
+Western Australia.
+</p>
+<p>Voss, S. (1999)
+Habitat preferences and spatial dynamics of the
+urban wall spider: <em>Oecobius annulipes</em> Lucas.
+Honours Thesis, Department of Zoology, University of Western
+Australia.	  
+</p>
+<p>Voss, S., Main, B.Y. and Dadour, I.R. (2007)
+Habitat preferences of the urban wall spider 
+<em>Oecobius navus</em> (Araneae, Oecobiidae).
+<em>Australian Journal of Entomology</em> <b>46</b>, 261&ndash;268.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.linnet)) {
+plot(spiders, show.window=FALSE, pch=16)
+   }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

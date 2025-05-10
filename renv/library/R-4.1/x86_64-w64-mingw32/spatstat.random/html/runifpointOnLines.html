@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate N Uniform Random Points On Line Segments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for runifpointOnLines {spatstat.random}"><tr><td>runifpointOnLines {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate N Uniform Random Points On Line Segments</h2>
+
+<h3>Description</h3>
+
+<p>Given a line segment pattern, generate a random point pattern
+consisting of <code>n</code> points uniformly distributed on the
+line segments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+runifpointOnLines(n, L, nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Number of points to generate.</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+<p>Line segment pattern (object of class <code>"psp"</code>)
+on which the points should lie.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command generates a point pattern consisting of <code>n</code>
+independent random points, each point uniformly distributed on
+the line segment pattern. This means that, for each random point,
+</p>
+
+<ul>
+<li><p> the
+probability of falling on a particular segment is proportional to the
+length of the segment; and
+</p>
+</li>
+<li><p> given that the point falls on a particular segment,
+it has uniform probability density along that segment.
+</p>
+</li></ul>
+
+<p>If <code>n</code> is a single integer, the result is an unmarked point
+pattern containing <code>n</code> points.
+If <code>n</code> is a vector of integers, the result is a marked point
+pattern, with <code>m</code> different types of points, where
+<code>m = length(n)</code>,
+in which there are <code>n[j]</code> points of type <code>j</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>nsim = 1</code>, 
+a point pattern (object of class <code>"ppp"</code>) with the same
+window as <code>L</code>.
+If <code>nsim &gt; 1</code>, a list of point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.html">psp</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/pointsOnLines.html">pointsOnLines</a></code>,
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- psp(runif(10), runif(10), runif(10), runif(10),  window=owin())
+  Y &lt;- runifpointOnLines(20, X)
+  plot(X, main="")
+  plot(Y, add=TRUE)
+  Z &lt;- runifpointOnLines(c(5,5), X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

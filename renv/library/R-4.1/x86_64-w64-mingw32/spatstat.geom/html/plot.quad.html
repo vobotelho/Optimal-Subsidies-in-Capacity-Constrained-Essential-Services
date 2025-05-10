@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Spatial Quadrature Scheme</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.quad {spatstat.geom}"><tr><td>plot.quad {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Spatial Quadrature Scheme</h2>
+
+<h3>Description</h3>
+
+<p>Plot a two-dimensional spatial quadrature scheme.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'quad'
+plot(x, ..., main, add=FALSE, dum=list(), tiles=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The spatial quadrature scheme to be plotted.
+An object of class <code>"quad"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments controlling the plotting
+of the data points of the quadrature scheme.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>text to be displayed as a title above the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether the graphics should be added to the
+current plot if there is one (<code>add=TRUE</code>)
+or whether a new plot should be initialised (<code>add=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>dum</code></td>
+<td>
+
+<p>list of extra arguments controlling the plotting of the dummy points of the
+quadrature scheme. See below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tiles</code></td>
+<td>
+
+<p>Logical value indicating whether to display the tiles used to
+compute the quadrature weights.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for 
+quadrature schemes (objects of class <code>"quad"</code>,
+see <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>).
+</p>
+<p>First the data points of the quadrature scheme
+are plotted (in their observation window) using 
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code> with any arguments specified in <code>...</code>
+</p>
+<p>Then the dummy points of the quadrature scheme are plotted
+using <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code> with any arguments specified in
+<code>dum</code>.
+</p>
+<p>By default the dummy points are superimposed onto the plot of data
+points. This can be overridden by including the argument
+<code>add=FALSE</code> in the list <code>dum</code> as shown in the examples.
+In this case the data and dummy point patterns are plotted separately.
+</p>
+<p>See <code><a href="../../graphics/help/par.html">par</a></code> and <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+for other possible arguments controlling the plots.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>,
+<code><a href="../../graphics/help/par.html">par</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Q &lt;- quadscheme(nztrees)
+
+   plot(Q, main="NZ trees: quadrature scheme")
+
+   oldpar &lt;- par(mfrow=c(2,1))
+   plot(Q, main="NZ trees", dum=list(add=FALSE))
+   par(oldpar)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

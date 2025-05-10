@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perfect Simulation of the Strauss-Hardcore Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rStraussHard {spatstat.random}"><tr><td>rStraussHard {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perfect Simulation of the Strauss-Hardcore Process</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random pattern of points, a simulated realisation
+of the Strauss-Hardcore process, using a perfect simulation algorithm.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rStraussHard(beta, gamma = 1, R = 0, H = 0, W = owin(),
+               expand=TRUE, nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>beta</code></td>
+<td>
+
+<p>intensity parameter (a positive number).
+</p>
+</td></tr>
+<tr valign="top"><td><code>gamma</code></td>
+<td>
+
+<p>interaction parameter (a number between 0 and 1, inclusive).
+</p>
+</td></tr>
+<tr valign="top"><td><code>R</code></td>
+<td>
+
+<p>interaction radius (a non-negative number).
+</p>
+</td></tr>
+<tr valign="top"><td><code>H</code></td>
+<td>
+
+<p>hard core distance (a non-negative number smaller than <code>R</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>window (object of class <code>"owin"</code>) in which to
+generate the random pattern. Currently this must be a rectangular
+window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>expand</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code>, simulation is performed
+in the window <code>W</code>, which must be rectangular.
+If <code>TRUE</code> (the default), simulation is performed
+on a larger window, and the result is clipped to the original
+window <code>W</code>.
+Alternatively <code>expand</code> can be an object of class 
+<code>"rmhexpand"</code> (see <code><a href="../help/rmhexpand.html">rmhexpand</a></code>)
+determining the expansion method.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a realisation of the 
+Strauss-Hardcore point process in the window <code>W</code>
+using a &lsquo;perfect simulation&rsquo; algorithm.
+</p>
+<p>The Strauss-Hardcore process is described in <code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>.
+</p>
+<p>The simulation algorithm used to generate the point pattern
+is &lsquo;dominated coupling from the past&rsquo;
+as implemented by Berthelsen and Moller (2002, 2003).
+This is a &lsquo;perfect simulation&rsquo; or &lsquo;exact simulation&rsquo;
+algorithm, so called because the output of the algorithm is guaranteed
+to have the correct probability distribution exactly (unlike the
+Metropolis-Hastings algorithm used in <code><a href="../help/rmh.html">rmh</a></code>, whose output
+is only approximately correct).
+</p>
+<p>A limitation of the perfect simulation algorithm
+is that the interaction parameter
+<i>gamma</i> must be less than or equal to <i>1</i>.
+To simulate a Strauss-hardcore process with
+<i>gamma &gt; 1</i>, use <code><a href="../help/rmh.html">rmh</a></code>.
+</p>
+<p>There is a tiny chance that the algorithm will 
+run out of space before it has terminated. If this occurs, an error
+message will be generated.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>nsim = 1</code>, a point pattern (object of class <code>"ppp"</code>).
+If <code>nsim &gt; 1</code>, a list of point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Kasper Klitgaard Berthelsen and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Berthelsen, K.K. and Moller, J. (2002)
+A primer on perfect simulation for spatial point processes.
+<em>Bulletin of the Brazilian Mathematical Society</em> 33, 351-367.
+</p>
+<p>Berthelsen, K.K. and Moller, J. (2003)
+Likelihood and non-parametric Bayesian MCMC inference 
+for spatial point processes based on perfect simulation and
+path sampling. 
+<em>Scandinavian Journal of Statistics</em> 30, 549-564.
+</p>
+<p>Moller, J. and Waagepetersen, R. (2003).
+<em>Statistical Inference and Simulation for Spatial Point Processes.</em>
+Chapman and Hall/CRC.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rmh.html">rmh</a></code>,
+<code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>.
+</p>
+<p><code><a href="../help/rHardcore.html">rHardcore</a></code>,
+<code><a href="../help/rStrauss.html">rStrauss</a></code>,
+<code><a href="../help/rDiggleGratton.html">rDiggleGratton</a></code>,
+<code><a href="../help/rDGS.html">rDGS</a></code>,
+<code><a href="../help/rPenttinen.html">rPenttinen</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Z &lt;- rStraussHard(100,0.7,0.05,0.02)
+   Y &lt;- rStraussHard(100,0.7,0.05,0.01, nsim=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

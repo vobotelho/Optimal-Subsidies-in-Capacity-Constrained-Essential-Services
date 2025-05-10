@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulation of Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for simulate.dppm {spatstat.model}"><tr><td>simulate.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulation of Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Generates simulated realisations from a determinantal point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'dppm'
+simulate(object, nsim = 1, seed = NULL, ...,
+    W = NULL, trunc = 0.99, correction = "periodic", rbord = reach(object))
+
+  ## S3 method for class 'detpointprocfamily'
+simulate(object, nsim = 1, seed = NULL, ...,
+    W = NULL, trunc = 0.99, correction = "periodic", rbord = reach(object))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Determinantal point process model. An object of class
+<code>"detpointprocfamily"</code> or <code>"dppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations.</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+
+<p>an object specifying whether and how to initialise the random
+number generator. Either <code>NULL</code> or an integer that will be
+used in a call to <code><a href="../../base/help/Random.html">set.seed</a></code> before
+simulating the point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed on to <code><a href="../../spatstat.model/help/rdpp.html">rdpp</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Object specifying the window of simulation (defaults to a unit
+box if nothing else is sensible &ndash; see Details). Can be any single
+argument acceptable to <code><a href="../../spatstat.geom/help/as.boxx.html">as.boxx</a></code> (e.g. an <code>"owin"</code>,
+<code>"box3"</code> or <code>"boxx"</code> object).
+</p>
+</td></tr>
+<tr valign="top"><td><code>trunc</code></td>
+<td>
+
+<p>Numeric value specifying how the model truncation is preformed. See
+Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Character string specifying the type of correction to use.
+The options are <code>"periodic"</code> (default) and <code>"border"</code>.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rbord</code></td>
+<td>
+
+<p>Numeric value specifying the extent of the border correction if this
+correction is used. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic function
+<code><a href="../../stats/help/simulate.html">simulate</a></code> for the classes <code>"detpointprocfamily"</code> and
+<code>"dppm"</code> of determinantal point process models.
+</p>
+<p>The return value is a list of <code>nsim</code> point patterns.
+It also carries an attribute <code>"seed"</code> that
+captures the initial state of the random number generator.
+This follows the convention used in
+<code>simulate.lm</code> (see <code><a href="../../stats/help/simulate.html">simulate</a></code>).
+It can be used to force a sequence of simulations to be
+repeated exactly, as shown in the examples for
+<code><a href="../../stats/help/simulate.html">simulate</a></code>.
+</p>
+<p>The exact simulation of a determinantal point process model involves
+an infinite series, which typically has no analytical solution. In the
+implementation a truncation is performed. The truncation
+<code>trunc</code> can be specified either directly as a positive integer
+or as a fraction between 0 and 1. In the latter case the truncation is chosen
+such that the expected number of points in a simulation is
+<code>trunc</code> times the theoretical expected number of points in the
+model. The default is 0.99.
+</p>
+<p>The window of the returned point pattern(s) can be specified via the
+argument <code>W</code>. For a fitted model (of class <code>"dppm"</code>) it
+defaults to the observation window of the data used to fit the
+model. For inhomogeneous models it defaults to the window of the
+intensity image. Otherwise it defaults to a unit box.  For
+non-rectangular windows simulation is done in the containing rectangle
+and then restricted to the window.  For inhomogeneous models a
+stationary model is first simulated using the maximum intensity and
+then the result is obtained by thinning.
+</p>
+<p>The default is to use periodic edge correction for simulation such
+that opposite edges are glued together.  If border correction is used
+then the simulation is done in an extended window. Edge effects are
+theoretically completely removed by doubling the size of the window in
+each spatial dimension, but for practical purposes much less extension
+may be sufficient. The numeric <code>rbord</code> determines the extent of
+the extra space added to the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of length <code>nsim</code> containing simulated point patterns.
+If the patterns are two-dimensional, then they are 
+objects of class <code>"ppp"</code>, and the list has class <code>"solist"</code>.
+Otherwise, the patterns are objects of class <code>"ppx"</code> and the
+list has class <code>"anylist"</code>.
+</p>
+<p>The return value also carries an attribute <code>"seed"</code> that
+captures the initial state of the random number generator.
+See Details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Lavancier, F. Moller, J. and Rubak, E. (2015)
+Determinantal point process models and statistical inference
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>77</b>, 853&ndash;977.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/rdpp.html">rdpp</a></code>,
+<code><a href="../../stats/help/simulate.html">simulate</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(interactive()) {
+   nsim &lt;- 2
+   lam &lt;- 100
+} else {
+   nsim &lt;- 1
+   lam &lt;- 30
+}
+model &lt;- dppGauss(lambda=lam, alpha=.05, d=2)
+simulate(model, nsim)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

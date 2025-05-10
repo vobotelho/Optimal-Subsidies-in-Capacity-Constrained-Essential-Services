@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Graphics Symbol Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for symbolmap {spatstat.geom}"><tr><td>symbolmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Graphics Symbol Map
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a graphics symbol map that associates data values with
+graphical symbols.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+symbolmap(..., range = NULL, inputs = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Named arguments specifying the graphical parameters.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+
+<p>Optional. Range of numbers that are mapped.
+A numeric vector of length 2 giving the minimum and maximum
+values that will be mapped.
+Incompatible with <code>inputs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>inputs</code></td>
+<td>
+
+<p>Optional. A vector containing all the data values
+that will be mapped to symbols.
+Incompatible with <code>range</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A graphical symbol map is an association between
+data values and graphical symbols. 
+The command <code>symbolmap</code> creates an object of class
+<code>"symbolmap"</code> that represents a graphical symbol map.
+</p>
+<p>Once a symbol map has been created, it can be applied to any
+suitable data to generate a plot of those data.
+This makes it easy to ensure that
+the <em>same</em> symbol map is used in two different plots.
+The symbol map can be plotted as a legend to the plots,
+and can also be plotted in its own right.
+</p>
+<p>The possible values of data that will be mapped
+are specified by <code>range</code> or <code>inputs</code>.
+</p>
+
+<ul>
+<li><p> if <code>range</code> is given, it should be a numeric vector
+of length 2 giving the minimum and maximum values of the range
+of numbers that will be mapped. These limits must be finite.
+</p>
+</li>
+<li><p> if <code>inputs</code> is given, it should be a vector
+of any atomic type (e.g. numeric, character, logical, factor).
+This vector contains all the possible data values
+that will be mapped.
+</p>
+</li>
+<li><p> If neither <code>range</code> nor <code>inputs</code> is given,
+it is assumed that the possible values are real numbers.
+</p>
+</li></ul>
+
+<p>The association of data values with graphical symbols
+is specified by the other arguments <code>...</code>
+which are given in <code>name=value</code> form.
+These arguments specify the kinds of symbols that will be
+used, the sizes of the symbols, and graphics parameters for
+drawing the symbols.
+</p>
+<p>Each graphics parameter can be either a single
+value, for example <code>shape="circles"</code>,
+or a <code>function(x)</code> which determines the value
+of the graphics parameter as a function of the data <code>x</code>,
+for example <code>shape=function(x) ifelse(x &gt; 0, "circles", "squares")</code>.
+Colourmaps (see <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>) are also acceptable
+because they are functions.
+</p>
+<p>Currently recognised graphics parameters, and their
+allowed values, are:
+</p>
+
+<dl>
+<dt>shape</dt><dd>
+<p>The shape of the symbol: currently
+either <code>"circles"</code>, <code>"squares"</code>, <code>"arrows"</code>,
+<code>"crossticks"</code> or <code>NA</code>.
+This parameter takes precedence over <code>pch</code>.
+(Crossticks are used only for point patterns on a linear network).
+</p>
+</dd>
+<dt>size</dt><dd>
+<p>The size of the symbol: a positive number or zero.
+</p>
+</dd>
+<dt>pch</dt><dd>
+<p>Graphics character code:
+a positive integer, or a single character.
+See <code><a href="../../graphics/help/par.html">par</a></code>.
+</p>
+</dd>
+<dt>cex</dt><dd>
+<p>Graphics character expansion factor.
+</p>
+</dd>
+<dt>cols</dt><dd>
+<p>Colour of plotting characters.
+</p>
+</dd>
+<dt>fg,bg</dt><dd>
+<p>Colour of foreground (or symbol border) and background
+(or symbol interior).
+</p>
+</dd>
+<dt>col,lwd,lty</dt><dd>
+<p>Colour, width and style of lines.
+</p>
+</dd>
+<dt>etch</dt><dd>
+<p>Logical. If <code>TRUE</code>, each symbol is surrounded
+by a border drawn in the opposite colour,
+which improves its visibility against the background.
+Default is <code>FALSE</code>.
+</p>
+</dd>
+<dt>direction,headlength,headangle,arrowtype</dt><dd>
+<p>Numeric parameters of arrow symbols, applicable when
+<code>shape="arrows"</code>. Here <code>direction</code> is the direction
+of the arrow in degrees anticlockwise from the <i>x</i> axis;
+<code>headlength</code> is the length of the head of the arrow in
+coordinate units; <code>headangle</code> is the angle subtended by the point
+of the arrow; and <code>arrowtype</code> is an integer code
+specifying which ends of the shaft have arrowheads
+attached (0 means no arrowheads, 1 is an arrowhead at the start
+of the shaft, 2 is an arrowhead at the end of the shaft, and
+3 is arrowheads at both ends).
+</p>
+</dd>
+</dl>
+
+<p>A vector of colour values is also acceptable for the arguments
+<code>col,cols,fg,bg</code> if
+<code>range</code> is specified.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"symbolmap"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code> to plot the symbol map itself.
+</p>
+<p><code><a href="../../spatstat.geom/help/invoke.symbolmap.html">invoke.symbolmap</a></code> to apply the symbol map to some data
+and plot the resulting symbols.
+</p>
+<p><code><a href="../../spatstat.geom/help/update.symbolmap.html">update.symbolmap</a></code> to change the symbol map.
+</p>
+<p>There are methods for <code>print</code> and <code>summary</code> for symbol maps.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  g &lt;- symbolmap(inputs=letters[1:10], pch=11:20)
+
+  g1 &lt;- symbolmap(range=c(0,100), size=function(x) x/50)
+
+  g2 &lt;- symbolmap(shape=function(x) ifelse(x &gt; 0, "circles", "squares"),
+                    size=function(x) sqrt(ifelse(x &gt; 0, x/pi, -x)),
+                    bg = function(x) ifelse(abs(x) &lt; 1, "red", "black"))
+
+  colmap &lt;- colourmap(topo.colors(20), range=c(0,10))
+  g3 &lt;- symbolmap(pch=21, bg=colmap, range=c(0,10))
+  plot(g3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

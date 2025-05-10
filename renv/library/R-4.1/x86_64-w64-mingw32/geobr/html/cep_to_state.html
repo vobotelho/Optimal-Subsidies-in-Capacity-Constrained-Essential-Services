@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine the state of a given CEP postal code</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cep_to_state {geobr}"><tr><td>cep_to_state {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determine the state of a given CEP postal code</h2>
+
+<h3>Description</h3>
+
+<p>Zips codes in Brazil are known as CEP, the abbreviation for postal code
+address. CEPs in Brazil are 8 digits long, with the format <code>'xxxxx-xxx'</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cep_to_state(cep)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>cep</code></td>
+<td>
+<p>A character string with 8 digits in the format <code>"xxxxxxxx"</code>, or
+with the format <code>'xxxxx-xxx'</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A character string with a state abbreviation.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+uf &lt;- cep_to_state(cep = '69900-000')
+
+# Or:
+uf &lt;- cep_to_state(cep = '69900000')
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

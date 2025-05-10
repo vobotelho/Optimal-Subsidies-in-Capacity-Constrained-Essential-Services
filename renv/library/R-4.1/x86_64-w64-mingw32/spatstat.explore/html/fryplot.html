@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fry Plot of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fryplot {spatstat.explore}"><tr><td>fryplot {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fry Plot of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Displays the Fry plot (Patterson plot) of a spatial point pattern. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fryplot(X, ..., width=NULL, from=NULL, to=NULL, axes=FALSE)
+frypoints(X, from=NULL, to=NULL, dmax=Inf)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>) or something
+acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Optional arguments to control the appearance of the
+plot.</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>Optional parameter indicating the width of a box
+for a zoomed-in view of the Fry plot near the origin.</p>
+</td></tr>
+<tr valign="top"><td><code>from,to</code></td>
+<td>
+
+<p>Optional. Subset indices specifying which points of <code>X</code>
+will be considered when forming the vectors (drawn from each point of
+<code>from</code>, to each point of <code>to</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+
+<p>Logical value indicating whether to draw axes,
+crossing at the origin.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dmax</code></td>
+<td>
+
+<p>Maximum distance between points. Pairs at greater distances
+do not contribute to the result. The default means there is
+no maximum distance.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>fryplot</code> generates a Fry plot (or Patterson plot);
+<code>frypoints</code> returns the points of the Fry plot as a point pattern
+dataset.
+</p>
+<p>Fry (1979) and Hanna and Fry (1979) introduced a manual graphical method for
+investigating features of a spatial point pattern of mineral deposits.
+A transparent sheet, marked
+with an origin or centre point, is placed over the point pattern.
+The transparent sheet is shifted so that the origin lies over one of
+the data points, and the positions of all the <em>other</em> data points
+are copied onto the transparent sheet. This procedure is repeated for
+each data point in turn. The resulting plot (the Fry plot)
+is a pattern of <i>n(n-1)</i> points, where <i>n</i> is the original number
+of data points. This procedure was previously proposed by
+Patterson (1934, 1935) for studying inter-atomic distances in
+crystals, and is also known as a Patterson plot.
+</p>
+<p>The function <code>fryplot</code> generates the Fry/Patterson plot.
+Standard graphical parameters
+such as <code>main</code>, <code>pch</code>,
+<code>lwd</code>, <code>col</code>, <code>bg</code>, <code>cex</code> can be used to control
+the appearance of the plot.
+To zoom in (to view only a subset of the Fry plot at higher
+magnification), use the argument <code>width</code> to specify the width
+of a rectangular field of view centred at the origin, or the standard
+graphical arguments <code>xlim</code> and <code>ylim</code> to specify another
+rectangular field of view. (The actual field of view may be slightly
+larger, depending on the graphics device.)
+</p>
+<p>The function <code>frypoints</code> returns the points of the Fry
+plot as a point pattern object. There may be a large number of points
+in this pattern, so this function should be used only if further
+analysis of the Fry plot is required.
+</p>
+<p>Fry plots are particularly useful for recognising anisotropy in
+regular point patterns. A void around the origin in the Fry plot
+suggests regularity (inhibition between points) and the shape of the
+void gives a clue to anisotropy in the pattern. Fry plots are also
+useful for detecting periodicity or rounding of the spatial
+coordinates. 
+</p>
+<p>In mathematical terms, the Fry plot of a point pattern <code>X</code>
+is simply a plot of the vectors <code>X[i] - X[j]</code> connecting all
+pairs of distinct points in <code>X</code>. 
+</p>
+<p>The Fry plot is related to the <i>K</i> function (see
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>) and the reduced second moment measure
+(see <code><a href="../../spatstat.explore/help/Kmeasure.html">Kmeasure</a></code>). For example, the number 
+of points in the Fry plot lying within a circle of given radius
+is an unnormalised and uncorrected version of the <i>K</i> function.
+The Fry plot has a similar appearance to the plot of the
+reduced second moment measure <code><a href="../../spatstat.explore/help/Kmeasure.html">Kmeasure</a></code> when the
+smoothing parameter <code>sigma</code> is very small.
+</p>
+<p>The Fry plot does not adjust for the effect
+of the size and shape of the sampling window. 
+The density of points in the Fry plot tapers off near the edges of the
+plot. This is an edge effect, a consequence of the bounded sampling
+window. In geological applications this is usually not
+important, because interest is focused on the behaviour near the
+origin where edge effects can be ignored.
+To correct for the edge effect, use <code><a href="../../spatstat.explore/help/Kmeasure.html">Kmeasure</a></code> or
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or its relatives.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>fryplot</code> returns <code>NULL</code>.
+<code>frypoints</code> returns a point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Fry, N. (1979) 
+Random point distributions and strain measurement in rocks.
+<em>Tectonophysics</em> <b>60</b>, 89&ndash;105.
+</p>
+<p>Hanna, S.S. and Fry, N. (1979)
+A comparison of methods of strain determination in rocks from
+southwest Dyfed (Pembrokeshire) and adjacent areas.
+<em>Journal of Structural Geology</em> <b>1</b>, 155&ndash;162.
+</p>
+<p>Patterson, A.L. (1934) A Fourier series method for the determination
+of the component of inter-atomic distances in crystals.
+<em>Physics Reviews</em> <b>46</b>, 372&ndash;376.
+</p>
+<p>Patterson, A.L. (1935) A direct method for the determination of the
+components of inter-atomic distances in crystals.
+<em>Zeitschrift fuer Krystallographie</em> <b>90</b>, 517&ndash;554.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kmeasure.html">Kmeasure</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## unmarked data
+fryplot(cells)
+Y &lt;- frypoints(cells)
+
+## numerical marks
+fryplot(longleaf, width=4, axes=TRUE)
+
+## multitype points
+fryplot(amacrine, width=0.2,
+                  from=(marks(amacrine) == "on"),
+                  chars=c(3,16), cols=2:3,
+                  main="Fry plot centred at an On-cell")
+points(0,0)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check For Numeric Vector With Correct Length</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for check.nvector {spatstat.utils}"><tr><td>check.nvector {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Check For Numeric Vector With Correct Length
+</h2>
+
+<h3>Description</h3>
+
+<p>This is a programmer's utility function
+to check whether the argument is a numeric
+vector of the correct length.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+     check.nvector(v, npoints = NULL, fatal = TRUE, things = "data points",
+                   naok = FALSE, warn = FALSE, vname, oneok = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>v</code></td>
+<td>
+
+<p>The argument to be checked.
+</p>
+</td></tr>
+<tr valign="top"><td><code>npoints</code></td>
+<td>
+
+<p>The required length of <code>v</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating whether to stop with an error message
+if <code>v</code> does not satisfy all requirements.
+</p>
+</td></tr>
+<tr valign="top"><td><code>things</code></td>
+<td>
+
+<p>Character string describing what the entries of <code>v</code> should
+correspond to.
+</p>
+</td></tr>
+<tr valign="top"><td><code>naok</code></td>
+<td>
+
+<p>Logical value indicating whether <code>NA</code> values are permitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical value indicating whether to issue a warning
+if <code>v</code> does not satisfy all requirements.
+</p>
+</td></tr>
+<tr valign="top"><td><code>vname</code></td>
+<td>
+
+<p>Character string giving the name of <code>v</code> to be used in messages.
+</p>
+</td></tr>
+<tr valign="top"><td><code>oneok</code></td>
+<td>
+
+<p>Logical value indicating whether <code>v</code> is permitted to have
+length 1.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function checks whether <code>v</code> is a numeric vector with
+length equal to <code>npoints</code> (or length equal to 1 if
+<code>oneok=TRUE</code>), not containing any <code>NA</code> values (unless
+<code>naok=TRUE</code>).
+</p>
+<p>If these requirements are all satisfied, the result is the logical
+value <code>TRUE</code>.
+</p>
+<p>If not, then if <code>fatal=TRUE</code> (the default), an error occurs;
+if <code>fatal=FALSE</code>, the result is the logical value <code>FALSE</code>
+with an attribute describing the requirement that was not satisfied.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical value indicating whether all the requirements were
+satisfied. If <code>FALSE</code>, then this value has an attribute
+<code>"whinge"</code>, a character string describing the requirements that
+were not satisfied.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/check.anyvector.html">check.anyvector</a></code>,
+<code><a href="../../spatstat.utils/help/check.nmatrix.html">check.nmatrix</a></code>,
+<code><a href="../../spatstat.utils/help/check.1.real.html">check.1.real</a></code>, <code><a href="../../spatstat.utils/help/check.named.vector.html">check.named.vector</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   z &lt;- 1:10
+   check.nvector(z, 5, fatal=FALSE)
+   y &lt;- 42
+   check.nvector(y, 5, fatal=FALSE, oneok=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

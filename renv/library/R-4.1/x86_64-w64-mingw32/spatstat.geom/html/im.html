@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Pixel Image Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for im {spatstat.geom}"><tr><td>im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a Pixel Image Object</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of
+class <code>"im"</code> representing a two-dimensional pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  im(mat, xcol=seq_len(ncol(mat)), yrow=seq_len(nrow(mat)),
+   xrange=NULL, yrange=NULL,
+   unitname=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mat</code></td>
+<td>
+
+<p>matrix or vector containing the pixel values of the image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xcol</code></td>
+<td>
+
+<p>vector of <i>x</i> coordinates for the pixel grid
+</p>
+</td></tr>
+<tr valign="top"><td><code>yrow</code></td>
+<td>
+
+<p>vector of <i>y</i> coordinates for the pixel grid
+</p>
+</td></tr>
+<tr valign="top"><td><code>xrange,yrange</code></td>
+<td>
+
+<p>Optional. Vectors of length 2 giving the <i>x</i> and <i>y</i>
+limits of the enclosing rectangle.
+(Ignored if <code>xcol</code>, <code>yrow</code> are present.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. Name of unit of length. Either a single character string,
+or a vector of two character strings giving the
+singular and plural forms, respectively.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function creates an object of class <code>"im"</code> representing
+a &lsquo;pixel image&rsquo; or two-dimensional array of values.
+</p>
+<p>The pixel grid is rectangular and occupies a rectangular window
+in the spatial coordinate system. 
+The pixel values are <em>scalars</em>: they can be real numbers, integers, 
+complex numbers, single characters or strings, 
+logical values, or categorical values. A pixel's
+value can also be <code>NA</code>, meaning that no value is defined
+at that location, and effectively that pixel is &lsquo;outside&rsquo; the window. 
+Although the pixel values must be scalar,
+photographic colour images (i.e., with red, green, and blue brightness
+channels) can be represented as character-valued images in <span class="pkg">spatstat</span>,
+using <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>'s standard encoding of colours as character strings.
+</p>
+<p>The matrix <code>mat</code> contains the &lsquo;greyscale&rsquo; values
+for a rectangular grid of pixels.
+Note carefully that the entry <code>mat[i,j]</code>
+gives the pixel value at the location <code>(xcol[j],yrow[i])</code>.
+That is, the <b>row</b> index of the matrix <code>mat</code> corresponds
+to increasing <b>y</b> coordinate, while the column index of <code>mat</code>
+corresponds to increasing <b>x</b> coordinate.
+Thus <code>yrow</code> has one entry for each row of <code>mat</code>
+and <code>xcol</code> has one entry for each column of <code>mat</code>.
+Under the usual convention in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, a correct
+display of the image would be obtained by transposing the matrix, e.g.
+<code>image.default(xcol, yrow, t(mat))</code>, if you wanted to do it by hand.
+</p>
+<p>The entries of <code>mat</code> may be numeric (real or integer), complex, 
+logical, character, or factor values.
+If <code>mat</code> is not a matrix, it will be converted into
+a matrix with <code>nrow(mat) = length(yrow)</code> and
+<code>ncol(mat) = length(xcol)</code>.
+</p>
+<p>To make a factor-valued image, note that 
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> has a quirky way of handling matrices with
+factor-valued entries. The command <code><a href="../../base/html/matrix.html">matrix</a></code> cannot be used
+directly, because it destroys factor information.
+To make a factor-valued image, do one of the following:
+</p>
+
+<ul>
+<li>
+<p>Create a <code>factor</code> containing the pixel values,
+say <code>mat &lt;- factor(.....)</code>, 
+and then assign matrix dimensions to it by <code>dim(mat) &lt;- c(nr, nc)</code>
+where <code>nr, nc</code> are the numbers of rows and columns. The
+resulting object <code>mat</code> is both a factor and a vector.
+</p>
+</li>
+<li>
+<p>Supply <code>mat</code> as a one-dimensional factor
+and specify the arguments <code>xcol</code> and <code>yrow</code>
+to determine the dimensions of the image.
+</p>
+</li>
+<li>
+<p>Use the functions
+<code><a href="../../spatstat.geom/help/cut.im.html">cut.im</a></code> or <code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code> to make factor-valued
+images from other images).
+</p>
+</li></ul>
+
+<p>For a description of the methods available for pixel image objects,
+see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+<p>To convert other kinds of data to a pixel image (for example,
+functions or windows), use <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>The internal representation of images is likely to change in future
+releases of <span class="pkg">spatstat</span>. The safe way to extract pixel values
+from an image object is to use <code><a href="../../spatstat.geom/help/as.matrix.im.html">as.matrix.im</a></code>
+or <code><a href="../../spatstat.geom/help/+5B.im.html">[.im</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code> for details of the class.
+</p>
+<p><code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code> for converting other kinds of data to an image.
+</p>
+<p><code><a href="../../spatstat.geom/help/as.matrix.im.html">as.matrix.im</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.im.html">[.im</a></code>,
+<code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code> for manipulating images.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   vec &lt;- rnorm(1200)
+   mat &lt;- matrix(vec, nrow=30, ncol=40)
+   whitenoise &lt;- im(mat)
+   whitenoise &lt;- im(mat, xrange=c(0,1), yrange=c(0,1))
+   whitenoise &lt;- im(mat, xcol=seq(0,1,length=40), yrow=seq(0,1,length=30))
+   whitenoise &lt;- im(vec, xcol=seq(0,1,length=40), yrow=seq(0,1,length=30))
+   plot(whitenoise)
+
+   # Factor-valued images:
+   f &lt;- factor(letters[1:12])
+   dim(f) &lt;- c(3,4)
+   Z &lt;- im(f)
+
+   # Factor image from other image:
+   cutwhite &lt;- cut(whitenoise, 3)
+   plot(cutwhite)
+
+   # Factor image from raw data
+   cutmat &lt;- cut(mat, 3)
+   dim(cutmat) &lt;- c(30,40)
+   cutwhite &lt;- im(cutmat)
+   plot(cutwhite)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

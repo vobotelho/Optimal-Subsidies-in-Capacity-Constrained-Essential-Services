@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Delete or Extract a Branch of a Tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for deletebranch {spatstat.linnet}"><tr><td>deletebranch {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Delete or Extract a Branch of a Tree
+</h2>
+
+<h3>Description</h3>
+
+<p>Deletes or extracts a given branch of a tree.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+deletebranch(X, ...)
+
+## S3 method for class 'linnet'
+deletebranch(X, code, labels, ...)
+
+## S3 method for class 'lpp'
+deletebranch(X, code, labels, ...)
+
+extractbranch(X, ...)
+
+## S3 method for class 'linnet'
+extractbranch(X, code, labels, ..., which=NULL)
+
+## S3 method for class 'lpp'
+extractbranch(X, code, labels, ..., which=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>)
+or point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>code</code></td>
+<td>
+
+<p>Character string. Label of the branch to be deleted or extracted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+
+<p>Vector of character strings. Branch labels for the
+vertices of the network, usually obtained from
+<code><a href="../../spatstat.linnet/help/treebranchlabels.html">treebranchlabels</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to methods.</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Logical vector indicating which vertices of the network
+should be extracted. Overrides <code>code</code> and <code>labels</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The linear network <code>L &lt;- X</code> or <code>L &lt;- as.linnet(X)</code>
+must be a tree, that is, it has no loops.
+</p>
+<p>The argument <code>labels</code> should be a character vector
+giving tree branch labels for each vertex of the network.
+It is usually obtained by calling <code><a href="../../spatstat.linnet/help/treebranchlabels.html">treebranchlabels</a></code>.
+</p>
+<p>The branch designated by the string <code>code</code> will be deleted
+or extracted.
+</p>
+<p>The return value is the result of deleting or extracting
+this branch from <code>X</code>
+along with any data associated with this branch (such as points or marks).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of the same type as <code>X</code>
+obtained by deleting or extracting the specified branch.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/treebranchlabels.html">treebranchlabels</a></code>,
+<code><a href="../../spatstat.linnet/help/branchlabelfun.html">branchlabelfun</a></code>,
+<code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # make a simple tree
+  m &lt;- simplenet$m
+  m[8,10] &lt;- m[10,8] &lt;- FALSE
+  L &lt;- linnet(vertices(simplenet), m)
+  plot(L, main="")
+  # compute branch labels 
+  tb &lt;- treebranchlabels(L, 1)
+  tbc &lt;- paste0("[", tb, "]")
+  text(vertices(L), labels=tbc, cex=2)
+
+  # delete branch B
+  LminusB &lt;- deletebranch(L, "b", tb)
+  plot(LminusB, add=TRUE, col="green")
+
+  # extract branch B
+  LB &lt;- extractbranch(L, "b", tb)
+  plot(LB, add=TRUE, col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mosaic Random Field</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rMosaicField {spatstat.random}"><tr><td>rMosaicField {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mosaic Random Field</h2>
+
+<h3>Description</h3>
+
+<p>Generate a realisation of a random field
+which is piecewise constant on the tiles of a given tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rMosaicField(X, 
+    rgen = function(n) { sample(0:1, n, replace = TRUE)},
+    ...,
+    rgenargs=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A tessellation (object of class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+determining the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rgen</code></td>
+<td>
+
+<p>Function that generates random values for the
+tiles of the tessellation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rgenargs</code></td>
+<td>
+
+<p>List containing extra arguments that should be passed
+to <code>rgen</code> (typically specifying parameters of the
+distribution of the values).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a realisation of a random field
+which is piecewise constant on the tiles of the given
+tessellation <code>X</code>. The values in each tile
+are independent and identically distributed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code>,
+<code><a href="../../spatstat.random/help/rMosaicSet.html">rMosaicSet</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   if(interactive()) {
+     lambda &lt;- 3
+     d &lt;- 256
+     n &lt;- 30
+   } else {
+     lambda &lt;- 1
+     d &lt;- 32
+     n &lt;- 5
+   }
+   X &lt;- rpoislinetess(lambda)
+   plot(rMosaicField(X, runif, dimyx=d))
+   plot(rMosaicField(X, rnorm, rgenargs=list(mean=10, sd=2), dimyx=d))
+   Y &lt;- dirichlet(runifpoint(n))
+   plot(rMosaicField(Y, rnorm, dimyx=d))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

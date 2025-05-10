@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Boyce Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for boyce {spatstat.explore}"><tr><td>boyce {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Boyce Index
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the discrete or continuous Boyce index for a spatial
+point pattern dataset.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+boyce(X, Z, ..., breaks = NULL, halfwidth = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A spatial point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Habitat suitability classes or habitat suitability index.
+Either a tessellation (object of class <code>"tess"</code>)
+or a spatial covariate such as a pixel image (object of class
+<code>"im"</code>), a <code>function(x,y)</code> or one of the letters
+<code>"a", "b"</code> representing the cartesian coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.explore/help/rhohat.ppp.html">rhohat.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>The breakpoint values defining discrete bands of values
+of the covariate <code>Z</code> for which the discrete Boyce index will
+be calculated. Either a numeric vector of breakpoints for <code>Z</code>,
+or a single integer specifying the number of evenly-spaced
+breakpoints.
+Incompatible with <code>halfwidth</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>halfwidth</code></td>
+<td>
+
+<p>The half-width <i>h</i> of the interval <i>[z-h,z+h]</i> which will
+be used to calculate the continuous Boyce index <i>B(z)</i> for each
+possible value <i>z</i> of the covariate <i>Z</i>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a spatial point pattern <code>X</code> and some kind of explanatory
+information <code>Z</code>, this function computes either the
+index originally defined by Boyce et al (2002)
+or the &lsquo;continuous Boyce index&rsquo; defined by Hirzel et al (2006).
+</p>
+<p>Boyce et al (2002) defined an index of habitat suitability in which
+the study region <i>W</i> is first divided into separate subregions
+<i>C[1], C[2], ..., C[m]</i> based on appropriate scientific
+considerations. Then we count the number <i>n[j]</i> of data
+points of <code>X</code> that fall in each subregion <i>C[j]</i>,
+measure the area <i>a[j]</i> of each subregion <i>C[j]</i>,
+and calculate the index
+</p>
+<p style="text-align: center;"><i>
+    B[j] = (n[j]/n)/(a[j]/a)
+  </i></p>
+
+<p>where <i>a</i> is the total area and <i>n</i> is the total number of
+points in <code>X</code>.
+</p>
+<p>Hirzel et al (2006) defined another version of this index which is
+based on a continuous spatial covariate. For each possible value <i>z</i>
+of the covariate <i>Z</i>, 
+consider the region <i>C(z)</i> where the value of the covariate
+lies between <i>z-h</i> and <i>z+h</i>, where <i>h</i> is the
+chosen &lsquo;halfwidth&rsquo;. The &lsquo;continuous Boyce index&rsquo; is
+</p>
+<p style="text-align: center;"><i>
+    B(z) = (n(z)/n)/(a(z)/a)
+  </i></p>
+
+<p>where <i>n(z)</i> is the number of points of <code>X</code>
+falling in <i>C(z)</i>, and <i>a(z)</i> is  the area of <i>C(z)</i>.
+</p>
+<p>If <code>Z</code> is a tessellation (object of class <code>"tess"</code>),
+the algorithm calculates the original (&lsquo;discrete&rsquo;) Boyce index
+(Boyce et al, 2002)
+for each tile of the tessellation. The result is another tessellation,
+identical to <code>Z</code> except that the mark values are the
+values of the discrete Boyce index.
+</p>
+<p>If <code>Z</code> is a pixel image whose values are categorical (i.e. factor
+values), then <code>Z</code> is treated as a tessellation, with one tile
+for each level of the factor. The discrete Boyce index is then
+calculated. The result is a tessellation with marks that are the
+values of the discrete Boyce index.
+</p>
+<p>Otherwise, if <code>Z</code> is a spatial covariate such as a pixel image,
+a <code>function(x,y)</code> or one of the characters <code>"x"</code> or
+<code>"y"</code>, then exactly one of the arguments <code>breaks</code> or
+<code>halfwidth</code> must be given. 
+</p>
+
+<ul>
+<li><p> if <code>halfwidth</code> is given, it should be a single positive
+number. The continuous Boyce index (Hirzel et al, 2006)
+is computed using the specified halfwidth <i>h</i>.
+The result is an object of class <code>"fv"</code> that can be plotted
+to show <i>B(z)</i> as a function of <i>z</i>.
+</p>
+</li>
+<li><p> if <code>breaks</code> is given, it can be either a numeric vector
+of possible values of <code>Z</code> defining the breakpoints for the
+bands of values of <code>Z</code>, or a single integer specifying the
+number of evenly-spaced breakpoints that should be created.
+The discrete Boyce index (Boyce et al, 2002) is computed.
+The result is an object of class <code>"fv"</code> that can be plotted
+to show the discrete Boyce index as a function of <i>z</i>.
+</p>
+</li></ul>
+
+<p>When <code>Z</code> is a spatial covariate (not factor-valued), the calculation is performed
+using <code><a href="../../spatstat.explore/help/rhohat.ppp.html">rhohat.ppp</a></code> (since the Boyce index is a special case
+of <code>rhohat</code>). Arguments <code>...</code> passed to
+<code><a href="../../spatstat.explore/help/rhohat.ppp.html">rhohat.ppp</a></code> control the accuracy of the spatial discretisation
+and other parameters of the algorithm.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation (object of class <code>"tess"</code>)
+or a function value table (object of class <code>"fv"</code>)
+as explained above.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Boyce, M.S., Vernier, P.R., Nielsen, S.E. and Schmiegelow, F.K.A. (2002)
+Evaluating resource selection functions.
+<em>Ecological modelling</em> <b>157</b>, 281&ndash;300.
+</p>
+<p>Hirzel, A.H., Le Lay, V., Helfer, V., Randin, C. and Guisan, A. (2006)
+Evaluating the ability of habitat suitability models
+to predict species presences.
+<em>Ecological Modelling</em> <b>199</b>, 142&ndash;152.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  online &lt;- interactive()
+  ## a simple tessellation
+  V &lt;- quadrats(Window(bei), 4, 3)
+  if(online) plot(V)
+
+  ## discrete Boyce index for a simple tessellation
+  A &lt;- boyce(bei, V)
+
+  if(online) {
+   plot(A, do.col=TRUE)
+   marks(A)
+   tilenames(A)
+  }
+
+  ## spatial covariate: terrain elevation
+  Z &lt;- bei.extra$elev
+
+  ## continuous Boyce index for terrain elevation
+  BC &lt;- boyce(bei, Z, halfwidth=10)
+
+  if(online) plot(BC)
+
+  ## discrete Boyce index for terrain elevation steps of height 5 metres
+  bk &lt;- c(seq(min(Z), max(Z), by=5), Inf)
+  BD &lt;- boyce(bei, Z, breaks=bk)
+
+  if(online) plot(BD)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

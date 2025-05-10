@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Three-Dimensional Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.pp3 {spatstat.geom}"><tr><td>plot.pp3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Three-Dimensional Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Plots a three-dimensional point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'pp3'
+plot(x, ..., eye=NULL, org=NULL, theta=25, phi=15,
+                    type=c("p", "n", "h"),
+                    box.back=list(col="pink"),
+                    box.front=list(col="blue", lwd=2))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Three-dimensional point pattern (object of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/help/points.html">points</a></code>
+controlling the appearance of the points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eye</code></td>
+<td>
+
+<p>Optional. Eye position. A numeric vector of length 3 giving the
+location from which the scene is viewed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>org</code></td>
+<td>
+
+<p>Optional. Origin (centre) of the view. A numeric vector of length
+3 which will be at the centre of the view.
+</p>
+</td></tr>
+<tr valign="top"><td><code>theta,phi</code></td>
+<td>
+
+<p>Optional angular coordinates (in degrees) specifying the direction
+from which the scene is viewed: <code>theta</code> is the azimuth
+and <code>phi</code> is the colatitude. Ignored if <code>eye</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Type of plot: <code>type="p"</code> for points,
+<code>type="h"</code> for points on vertical lines,
+<code>type="n"</code> for box only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>box.front,box.back</code></td>
+<td>
+
+<p>How to plot the three-dimensional box that contains the points.
+A list of graphical arguments passed to <code><a href="../../graphics/help/segments.html">segments</a></code>,
+or a logical value indicating whether or not to plot
+the relevant part of the box. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the plot method for objects of class <code>"pp3"</code>.
+It generates a two-dimensional plot of the point pattern <code>x</code>
+and its containing box as if they had been viewed from the
+location specified by <code>eye</code> (or from the direction
+specified by <code>theta</code> and <code>phi</code>). 
+</p>
+<p>The edges of the box at the &lsquo;back&rsquo; of the scene (as viewed from the
+eye position) are plotted first. Then the points are added. Finally the
+remaining &lsquo;front&rsquo; edges are plotted. The arguments
+<code>box.back</code> and <code>box.front</code> specify graphical parameters for
+drawing the back and front edges, respectively. Alternatively
+<code>box.back=FALSE</code> specifies that the back edges shall not be drawn.
+</p>
+<p>Note that default values of arguments to <code>plot.pp3</code>
+can be set by <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("par.pp3")</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- osteo$pts[[1]]
+  plot(X, main="Osteocyte lacunae, animal 1, brick 1",
+       cex=1.5, pch=16)
+  plot(X, type="h", main="", box.back=list(lty=3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

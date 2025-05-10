@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Covariance of a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for imcov {spatstat.geom}"><tr><td>imcov {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial Covariance of a Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Computes the unnormalised spatial covariance function of a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ imcov(X, Y=X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>Optional. Another pixel image.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The (uncentred, unnormalised)
+<em>spatial covariance function</em> of a pixel image <i>X</i> in the plane
+is the function <i>C(v)</i> defined for each vector <i>v</i> as
+</p>
+<p style="text-align: center;"><i>
+    C(v) = integral of X(u) * X(u-v) du
+  </i></p>
+
+<p>where the integral is
+over all spatial locations <i>u</i>, and where <i>X(u)</i> denotes the
+pixel value at location <i>u</i>.
+</p>
+<p>This command computes a discretised approximation to
+the spatial covariance function, using the Fast Fourier Transform.
+The return value is
+another pixel image (object of class <code>"im"</code>) whose greyscale values
+are values of the spatial covariance function.
+</p>
+<p>If the argument <code>Y</code> is present, then <code>imcov(X,Y)</code>
+computes the set <em>cross-covariance</em> function <i>C(u)</i>
+defined as 
+</p>
+<p style="text-align: center;"><i>
+    C(v) = integral of X(u) * Y(u-v) du.
+  </i></p>
+
+<p>Note that <code>imcov(X,Y)</code> is equivalent to
+<code>convolve.im(X,Y,reflectY=TRUE)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (an object of class <code>"im"</code>) representing the
+spatial covariance function of <code>X</code>,
+or the cross-covariance of <code>X</code> and <code>Y</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code>,
+<code><a href="../../spatstat.geom/help/convolve.im.html">convolve.im</a></code>,
+<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- as.im(square(1))
+  v &lt;- imcov(X)
+  plot(v)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

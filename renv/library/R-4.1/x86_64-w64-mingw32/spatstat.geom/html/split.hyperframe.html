@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide Hyperframe Into Subsets and Reassemble</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for split.hyperframe {spatstat.geom}"><tr><td>split.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Divide Hyperframe Into Subsets and Reassemble
+</h2>
+
+<h3>Description</h3>
+
+<p><code>split</code> divides the data <code>x</code> into subsets defined
+by <code>f</code>. The replacement form replaces values corresponding to
+such a division. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'hyperframe'
+split(x, f, drop = FALSE, ...)
+
+  ## S3 replacement method for class 'hyperframe'
+split(x, f, drop = FALSE, ...) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Hyperframe (object of class <code>"hyperframe"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>a <code>factor</code> in the sense that <code>as.factor(f)</code> defines the
+grouping, or a list of such factors in which case their
+interaction is used for the grouping.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>logical value, indicating whether levels that do not occur should be
+dropped from the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>a list of hyperframes which arose (or could have arisen)
+from the command <code>split(x,f,drop=drop)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/split.html">split</a></code> and <code><a href="../../base/html/split.html">split&lt;-</a></code>
+for hyperframes (objects of class <code>"hyperframe"</code>).
+</p>
+<p>A hyperframe is like a data frame, except that its entries
+can be objects of any kind. The behaviour of these methods
+is analogous to the corresponding methods for data frames.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value returned from <code>split.hyperframe</code> is a list of
+hyperframe containing
+the values for the groups.  The components of the list are named
+by the levels of <code>f</code> (after converting to a factor, or if already
+a factor and <code>drop = TRUE</code>, dropping unused levels).
+</p>
+<p>The replacement method <code>split&lt;-.hyperframe</code> returns
+a new hyperframe <code>x</code> for which <code>split(x,f)</code> equals <code>value</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>, <code><a href="../../spatstat.geom/help/+5B.hyperframe.html">[.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   split(pyramidal, pyramidal$group)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Close Pairs of Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for closepairs {spatstat.geom}"><tr><td>closepairs {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Close Pairs of Points
+</h2>
+
+<h3>Description</h3>
+
+<p>Low-level functions to find all close pairs of points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+closepairs(X, rmax, ...)
+
+## S3 method for class 'ppp'
+closepairs(X, rmax, twice=TRUE,
+                         what=c("all","indices","ijd"),
+                         distinct=TRUE, neat=TRUE,
+                         periodic=FALSE, ...)
+
+crosspairs(X, Y, rmax, ...)
+
+## S3 method for class 'ppp'
+crosspairs(X, Y, rmax,
+                        what=c("all", "indices", "ijd"),
+                        periodic=FALSE, ...,
+                        iX=NULL, iY=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Point patterns (objects of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Maximum distance between pairs of points to be counted as close pairs.
+</p>
+</td></tr>
+<tr valign="top"><td><code>twice</code></td>
+<td>
+
+<p>Logical value indicating whether all ordered pairs of close points
+should be returned. If <code>twice=TRUE</code> (the default),
+each pair will appear twice in the output, as <code>(i,j)</code>
+and again as <code>(j,i)</code>. If <code>twice=FALSE</code>,
+then each pair will appear only once, as the pair <code>(i,j)</code>
+with <code>i &lt; j</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>String specifying the data to be returned for each close pair of points.
+If <code>what="all"</code> (the default) then the
+returned information includes the indices <code>i,j</code> of each pair,
+their <code>x,y</code> coordinates, and the distance between them.
+If <code>what="indices"</code> then only the indices <code>i,j</code> are
+returned.
+If <code>what="ijd"</code> then the indices <code>i,j</code> and the
+distance <code>d</code> are returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>distinct</code></td>
+<td>
+
+<p>Logical value indicating whether to return only the
+pairs of points with different indices <code>i</code> and <code>j</code>
+(<code>distinct=TRUE</code>, the default) or to also include
+the pairs where <code>i=j</code> (<code>distinct=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>neat</code></td>
+<td>
+
+<p>Logical value indicating whether to ensure that <code>i &lt; j</code>
+in each output pair, when <code>twice=FALSE</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical value indicating whether to use the periodic edge correction.
+The window of <code>X</code> should be a rectangle.
+Opposite pairs of edges of the window will be treated as identical.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments, ignored by methods.</p>
+</td></tr>
+<tr valign="top"><td><code>iX,iY</code></td>
+<td>
+
+<p>Optional vectors used to determine whether a point in <code>X</code>
+is identical to a point in <code>Y</code>. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are the efficient low-level functions used by <span class="pkg">spatstat</span>
+to find all close pairs of points in a point pattern
+or all close pairs between two point patterns. 
+</p>
+<p><code>closepairs(X,rmax)</code> finds all pairs of distinct points
+in the pattern <code>X</code> which lie at a distance less than or equal to
+<code>rmax</code> apart, and returns them. The result is
+a list with the following components:
+</p>
+
+<dl>
+<dt>i</dt><dd><p>Integer vector of indices of the first point in each pair.</p>
+</dd>
+<dt>j</dt><dd><p>Integer vector of indices of the second point in each pair.</p>
+</dd>
+<dt>xi,yi</dt><dd><p>Coordinates of the first point in each pair.</p>
+</dd>
+<dt>xj,yj</dt><dd><p>Coordinates of the second point in each pair.</p>
+</dd>
+<dt>dx</dt><dd><p>Equal to <code>xj-xi</code></p>
+</dd>
+<dt>dy</dt><dd><p>Equal to <code>yj-yi</code></p>
+</dd>
+<dt>d</dt><dd><p>Euclidean distance between each pair of points.</p>
+</dd>
+</dl>
+
+<p>If <code>what="indices"</code> then only the components <code>i</code> and
+<code>j</code> are returned. This is slightly faster and more efficient
+with use of memory.
+</p>
+<p><code>crosspairs(X,rmax)</code> identifies all pairs of neighbours
+<code>(X[i], Y[j])</code> between the patterns <code>X</code> and <code>Y</code>,
+and returns them. The result is
+a list with the same format as for <code>closepairs</code>.
+</p>
+<p>The arguments <code>iX</code> and <code>iY</code> are used when
+the two point patterns <code>X</code> and <code>Y</code> may have some points in
+common.  In this situation <code>crosspairs(X, Y)</code> would return some
+pairs of points in which the two points are identical.
+To avoid this, attach a unique integer
+identifier to each point, such that two points are identical if their
+identifier values are equal. Let <code>iX</code> be the vector of
+identifier values for the points in <code>X</code>, and <code>iY</code>
+the vector of identifiers for points in <code>Y</code>. Then the code
+will only compare two points if they have different values of the
+identifier. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with components <code>i</code> and <code>j</code>,
+and possibly other components as described under Details.
+</p>
+
+
+<h3>Warning about accuracy</h3>
+
+<p>The results of these functions may not agree exactly with
+the correct answer (as calculated by a human) and may not
+be consistent between different computers and different installations
+of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>. The discrepancies arise in marginal cases where the interpoint
+distance is equal to, or very close to, the threshold <code>rmax</code>.
+</p>
+<p>Floating-point numbers in a computer
+are not mathematical Real Numbers: they are approximations using
+finite-precision binary arithmetic.
+The approximation is accurate to a tolerance of about
+<code>.Machine$double.eps</code>.
+</p>
+<p>If the true interpoint distance <i>d</i> and the threshold <code>rmax</code>
+are equal, or if their difference is no more than <code>.Machine$double.eps</code>,
+the result may be incorrect.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/closepairs.pp3.html">closepairs.pp3</a></code> for the corresponding
+functions for 3D point patterns.
+</p>
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>, <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>, <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>,
+<code><a href="../../spatstat.geom/help/applynbd.html">applynbd</a></code>, <code><a href="../../spatstat.geom/help/markstat.html">markstat</a></code>
+for functions which use these capabilities.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   d &lt;- closepairs(cells, 0.1)
+   head(as.data.frame(d))
+
+   Y &lt;- split(amacrine)
+   e &lt;- crosspairs(Y$on, Y$off, 0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

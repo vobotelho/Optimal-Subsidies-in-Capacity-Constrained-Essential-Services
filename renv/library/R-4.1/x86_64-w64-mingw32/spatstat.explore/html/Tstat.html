@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Third order summary statistic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Tstat {spatstat.explore}"><tr><td>Tstat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Third order summary statistic
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the third order summary statistic <i>T(r)</i>
+of a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Tstat(X, ..., r = NULL, rmax = NULL,
+    correction = c("border", "translate"), ratio = FALSE, verbose=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, 
+from which an estimate of <i>T(r)</i> will be computed.
+An object of class <code>"ppp"</code>, or data
+in any format acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Vector of values for the argument <i>r</i> at which <i>T(r)</i> 
+should be evaluated. Users are advised <em>not</em> to specify this
+argument; there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Numeric. The maximum value of <i>r</i> for which
+<i>T(r)</i> should be estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional. A character vector containing any selection of the
+options <code>"none"</code>, <code>"border"</code>, <code>"bord.modif"</code>,
+<code>"translate"</code>, <code>"translation"</code>, or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, an estimate of the computation time
+is printed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command calculates the 
+third-order summary statistic <i>T(r)</i> for a spatial point patterns,
+defined by Schladitz and Baddeley (2000).
+</p>
+<p>The definition of <i>T(r)</i> is similar to the definition of Ripley's
+<i>K</i> function <i>K(r)</i>, except that <i>K(r)</i> counts pairs of
+points while <i>T(r)</i> counts triples of points. 
+Essentially <i>T(r)</i> is a rescaled cumulative
+distribution function of the diameters of triangles in the
+point pattern. The diameter of a triangle is the length of its
+longest side.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+
+
+<h3>Computation time</h3>
+
+<p>If the number of points is large, the algorithm can take a very long time
+to inspect all possible triangles. A rough estimate
+of the total computation time will be printed at the beginning
+of the calculation. If this estimate seems very large,
+stop the calculation using the user interrupt signal, and
+call <code>Tstat</code> again, using <code>rmax</code> to restrict the
+range of <code>r</code> values,
+thus reducing the number of triangles to be inspected.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a></p>
+
+
+<h3>References</h3>
+
+<p>Schladitz, K. and Baddeley, A. (2000)
+A third order point process characteristic.
+<em>Scandinavian Journal of Statistics</em> <b>27</b> (2000) 657&ndash;671.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(Tstat(redwood))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

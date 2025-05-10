@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Make Pixel Images Compatible</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for harmonise.im {spatstat.geom}"><tr><td>harmonise.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Make Pixel Images Compatible</h2>
+
+<h3>Description</h3>
+
+<p>Convert several pixel images to a common pixel raster.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'im'
+harmonise(...)
+
+## S3 method for class 'im'
+harmonize(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of pixel images (objects of class <code>"im"</code>)
+or data which can be converted to pixel images by <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+</p>
+</td></tr> 
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function makes any number of pixel images compatible,
+by converting them all to a common pixel grid.
+</p>
+<p>The command <code><a href="../../spatstat.geom/help/harmonise.html">harmonise</a></code> is generic. This is the
+method for objects of class <code>"im"</code>.
+</p>
+<p>At least one of the arguments <code>...</code> must be a pixel image.
+Some arguments may be windows (objects of class <code>"owin"</code>),
+functions (<code>function(x,y)</code>) or numerical constants. These will be
+converted to images using <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+</p>
+<p>The common pixel grid is determined by inspecting all the pixel
+images in the argument list, computing the bounding box of all the
+images, then finding the image with the highest spatial resolution, 
+and extending its pixel grid to cover the bounding box. 
+</p>
+<p>The return value is a list with entries corresponding to the input
+arguments.
+If the arguments were named (<code>name=value</code>) then the return value
+also carries these names.
+</p>
+<p>If you just want to determine the appropriate pixel resolution,
+without converting the images, use <code><a href="../../spatstat.geom/help/commonGrid.html">commonGrid</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list,
+of length equal to the number of arguments <code>...</code>,
+whose entries are pixel images.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/commonGrid.html">commonGrid</a></code>,
+<code><a href="../../spatstat.geom/help/compatible.im.html">compatible.im</a></code>,
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Image1 &lt;- setcov(square(1), dimyx=32)
+   Image2 &lt;- setcov(square(1), dimyx=16)
+   Function1 &lt;- function(x,y) { x }
+   Window1 &lt;- shift(letterR, c(-2, -1))
+   h &lt;- harmonise(X=Image1, Y=Image2, Z=Function1, W=Window1)
+   plot(h, main="")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

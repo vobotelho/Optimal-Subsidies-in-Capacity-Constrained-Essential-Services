@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data Sharpening of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sharpen {spatstat.explore}"><tr><td>sharpen {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Data Sharpening of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Performs Choi-Hall data sharpening of a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+sharpen(X, ...)
+## S3 method for class 'ppp'
+sharpen(X, sigma=NULL, ...,
+                      varcov=NULL, edgecorrect=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A marked point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Standard deviation of isotropic Gaussian smoothing kernel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>varcov</code></td>
+<td>
+
+<p>Variance-covariance matrix of anisotropic Gaussian kernel.
+Incompatible with <code>sigma</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>edgecorrect</code></td>
+<td>
+
+<p>Logical value indicating whether to apply
+edge effect bias correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+to control the pixel resolution of the result.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Choi and Hall (2001) proposed a procedure for
+<em>data sharpening</em> of spatial point patterns.
+This procedure is appropriate for earthquake epicentres
+and other point patterns which are believed to exhibit
+strong concentrations of points along a curve. Data sharpening
+causes such points to concentrate more tightly along the curve.
+</p>
+<p>If the original data points are 
+<i>X[1],..., X[n]</i>
+then the sharpened points are
+</p>
+<p style="text-align: center;"><i>
+    X^[i] = (sum[j] X[j] * k(X[j] - X[i]))/(sum[j] k(X[j] - X[i]))
+  </i></p>
+
+<p>where <i>k</i> is a smoothing kernel in two dimensions.
+Thus, the new point <i>X^[i]</i> is a
+vector average of the nearby points <i>X[j]</i>.
+</p>
+<p>The function <code>sharpen</code> is generic. It currently has only one
+method, for two-dimensional point patterns (objects of class
+<code>"ppp"</code>).
+</p>
+<p>If <code>sigma</code> is given, the smoothing kernel is the
+isotropic two-dimensional Gaussian density with standard deviation
+<code>sigma</code> in each axis. If <code>varcov</code> is given, the smoothing
+kernel is the Gaussian density with variance-covariance matrix
+<code>varcov</code>.
+</p>
+<p>The data sharpening procedure tends to cause the point pattern
+to contract away from the boundary of the window. That is,
+points <i>X[i]</i> that lie 'quite close to the edge of the window
+of the point pattern tend to be displaced inward. 
+If <code>edgecorrect=TRUE</code> then the algorithm is modified to
+correct this vector bias. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>) in the same window
+as the original pattern <code>X</code>, and with the same marks as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Choi, E. and Hall, P. (2001)
+Nonparametric analysis of earthquake point-process data.
+In M. de Gunst, C. Klaassen and A. van der Vaart (eds.)
+<em>State of the art in probability and statistics:
+Festschrift for Willem R. van Zwet</em>,
+Institute of Mathematical Statistics, Beachwood, Ohio.
+Pages 324&ndash;344.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- unmark(shapley)
+   
+   Y &lt;- sharpen(X, sigma=0.5)
+   Z &lt;- sharpen(X, sigma=0.5, edgecorrect=TRUE)
+   opa &lt;- par(mar=rep(0.2, 4))
+   plot(solist(X, Y, Z), main= " ",
+        main.panel=c("data", "sharpen", "sharpen, correct"),
+        pch=".", equal.scales=TRUE, mar.panel=0.2)
+   par(opa)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

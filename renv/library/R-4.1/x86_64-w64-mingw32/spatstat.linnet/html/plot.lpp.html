@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Point Pattern on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.lpp {spatstat.linnet}"><tr><td>plot.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Point Pattern on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Plots a point pattern on a linear network.
+Plot method for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+plot(x, ..., main, add = FALSE,
+     type = c("p", "n"),
+     use.marks=TRUE, which.marks=NULL,
+     legend=TRUE,
+     leg.side=c("left", "bottom", "top", "right"),
+     leg.args=list(),
+     show.all = !add, show.window=FALSE, show.network=TRUE, 
+     do.plot = TRUE, multiplot=TRUE) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.linnet/help/plot.linnet.html">plot.linnet</a></code>
+or <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Main title for plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether the plot is to be added to the
+existing plot (<code>add=TRUE</code>) or whether a new plot should be
+initialised (<code>add=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Type of plot: either <code>"p"</code> or <code>"n"</code>.
+If <code>type="p"</code> (the default), both the points and the observation window
+are plotted. If <code>type="n"</code>, only the window is plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.marks</code></td>
+<td>
+
+<p>logical flag; if <code>TRUE</code>, plot points using a different
+plotting symbol for each mark;
+if <code>FALSE</code>, only the locations of the points will be plotted,
+using <code><a href="../../graphics/html/points.html">points</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>which.marks</code></td>
+<td>
+
+<p>Index determining which column of marks to use,
+if the marks of <code>x</code> are a data frame.
+A character or integer vector identifying one or more
+columns of marks. 
+If <code>add=FALSE</code> then
+the default is to plot all columns of marks, in a series of separate
+plots.
+If <code>add=TRUE</code> then only one column of marks can be plotted,
+and the default is <code>which.marks=1</code>
+indicating the first column of marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+
+<p>Logical value indicating whether to add a legend showing the mapping
+between mark values and graphical symbols (for a marked point pattern).
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.side</code></td>
+<td>
+
+<p>Position of legend relative to main plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leg.args</code></td>
+<td>
+
+<p>List of additional arguments passed to <code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code>
+or <code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code> to control the legend.
+In addition to arguments documented under
+<code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code>, and graphical arguments recognised
+by <code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code>, the list may also include the argument
+<code>sep</code> giving the separation between the main plot and the
+legend, or <code>sep.frac</code> giving the separation as a fraction
+of the relevant dimension (width or height) of the main plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether to plot everything
+including the main title and the window containing the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.window</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the
+window containing the network. Overrides <code>show.all</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.network</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value determining whether to actually perform the plotting.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiplot</code></td>
+<td>
+
+<p>Logical value giving permission to display multiple plots.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The linear network is plotted by <code><a href="../../spatstat.linnet/help/plot.linnet.html">plot.linnet</a></code>,
+then the points are plotted using code equivalent to <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>.
+</p>
+<p>Commonly-used arguments include:
+</p>
+
+<ul>
+<li> <p><code>col</code> and <code>lwd</code> for the colour and width of lines
+in the linear network
+</p>
+</li>
+<li> <p><code>cols</code> for the colour or colours of the points
+</p>
+</li>
+<li> <p><code>chars</code> for the plot characters representing different
+types of points
+</p>
+</li>
+<li> <p><code>shape</code> to control the shape of the symbol
+(this argument takes precedence over <code>chars</code>).
+</p>
+</li></ul>
+
+<p>These are documented in the help file for
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>.
+</p>
+<p>If <code>shape="crossticks"</code>, the points are
+drawn as short line segments perpendicular to the network.
+</p>
+<p>Note that the linear network will be plotted
+even when <code>add=TRUE</code>, unless <code>show.network=FALSE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisible) object of class <code>"symbolmap"</code>
+giving the correspondence between 
+mark values and plotting characters.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code> for options for representing the points.
+</p>
+<p>See also <code><a href="../../spatstat.linnet/help/points.lpp.html">points.lpp</a></code>, <code><a href="../../spatstat.linnet/help/text.lpp.html">text.lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(chicago, cols=1:7)
+  plot(dendrite, shape="crossticks", cols=2:4, size=8,
+                 leg.side="bottom", leg.args=list(lwd=3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

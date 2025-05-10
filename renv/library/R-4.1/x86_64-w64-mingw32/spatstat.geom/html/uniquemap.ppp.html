@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Map Duplicate Entries to Unique Entries</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for uniquemap.ppp {spatstat.geom}"><tr><td>uniquemap.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Map Duplicate Entries to Unique Entries
+</h2>
+
+<h3>Description</h3>
+
+<p>Determine whether points in a point pattern are duplicated,
+choose a unique representative for each set of duplicates,
+and map the duplicates to the unique representative.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+uniquemap(x)
+
+## S3 method for class 'lpp'
+uniquemap(x)
+
+## S3 method for class 'ppx'
+uniquemap(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>, <code>"lpp"</code>,
+<code>"pp3"</code> or <code>"ppx"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.univar/help/uniquemap.html">uniquemap</a></code> is generic, with methods for
+point patterns, and a default method.
+</p>
+<p>This function determines whether any points of <code>x</code> are
+duplicated, and constructs a mapping of the indices of <code>x</code>
+so that all duplicates are mapped to a unique representative index.
+</p>
+<p>The result is an integer vector <code>u</code> such that
+<code>u[j] = i</code> if
+the points <code>x[i]</code> and <code>x[j]</code> are identical and
+point <code>i</code> has been chosen as the unique representative.
+The entry <code>u[i] = i</code> means either that point <code>i</code> is
+unique, or that it has been chosen as the unique representative
+of its equivalence class.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code>, <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>,
+<code><a href="../../spatstat.univar/help/uniquemap.default.html">uniquemap.default</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Y &lt;- runifrect(4)
+  X &lt;- Y[c(1,2,3,4,2,1)]
+  uniquemap(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mark of Nearest Neighbour</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nnmark {spatstat.geom}"><tr><td>nnmark {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Mark of Nearest Neighbour 
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a marked point pattern dataset <code>X</code>
+this function computes, for each desired location <code>y</code>,
+the mark attached to the nearest neighbour of <code>y</code> in <code>X</code>.
+The desired locations <code>y</code> can be either a pixel grid
+or the point pattern <code>X</code> itself.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nnmark(X, ..., k = 1, at=c("pixels", "points"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A marked point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine the
+pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Single integer. The <code>k</code>th nearest data point will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>String specifying whether to compute the values
+at a grid of pixel locations (<code>at="pixels"</code>) or
+only at the points of <code>X</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a marked point pattern dataset <code>X</code>
+this function computes, for each desired location <code>y</code>,
+the mark attached to the point of <code>X</code> that is nearest
+to <code>y</code>. The desired locations <code>y</code> can be either a pixel grid
+or the point pattern <code>X</code> itself.
+</p>
+<p>The argument <code>X</code> must be a marked point pattern (object
+of class <code>"ppp"</code>, see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>).
+The marks are allowed to be a vector or a data frame.
+</p>
+
+<ul>
+<li>
+<p>If <code>at="points"</code>, then for each point in <code>X</code>,
+the algorithm finds the nearest <em>other</em> point in <code>X</code>,
+and extracts the mark attached to it.
+The result is a vector or data frame containing the marks
+of the neighbours of each point.
+</p>
+</li>
+<li>
+<p>If <code>at="pixels"</code> (the default), then for each pixel
+in a rectangular grid, the algorithm finds the nearest point in <code>X</code>,
+and extracts the mark attached to it.
+The result is an image or a list of images containing the marks
+of the neighbours of each pixel.
+The pixel resolution is controlled by the arguments <code>...</code>
+passed to <code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+</li></ul>
+
+<p>If the argument <code>k</code> is given, then the <code>k</code>-th nearest
+neighbour will be used.
+</p>
+
+
+<h3>Value</h3>
+
+<p><em>If <code>X</code> has a single column of marks:</em>
+</p>
+
+<ul>
+<li> 
+<p>If <code>at="pixels"</code> (the default), the result is
+a pixel image (object of class <code>"im"</code>). 
+The value at each pixel is the mark attached
+to the nearest point of <code>X</code>.
+</p>
+</li>
+<li>
+<p>If <code>at="points"</code>, the result is a vector or factor
+of length equal to the number of points in <code>X</code>.
+Entries are the mark values of the
+nearest neighbours of each point of <code>X</code>.
+</p>
+</li></ul>
+
+<p><em>If <code>X</code> has a data frame of marks:</em>
+</p>
+
+<ul>
+<li> 
+<p>If <code>at="pixels"</code> (the default), the result is a named list of 
+pixel images (object of class <code>"im"</code>). There is one
+image for each column of marks. This list also belongs to
+the class <code>"solist"</code>, for which there is a plot method.
+</p>
+</li>
+<li>
+<p>If <code>at="points"</code>, the result is a data frame
+with one row for each point of <code>X</code>,
+Entries are the mark values of the
+nearest neighbours of each point of <code>X</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/marktable.html">marktable</a></code>,
+<code><a href="../../spatstat.geom/help/nnwhich.html">nnwhich</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(nnmark(ants))
+  v &lt;- nnmark(ants, at="points")
+  v[1:10]
+  plot(nnmark(finpines))
+  vf &lt;- nnmark(finpines, at="points")
+  vf[1:5,]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

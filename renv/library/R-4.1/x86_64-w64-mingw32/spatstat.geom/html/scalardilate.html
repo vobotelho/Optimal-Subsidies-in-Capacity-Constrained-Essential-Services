@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Scalar Dilation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for scalardilate {spatstat.geom}"><tr><td>scalardilate {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Scalar Dilation</h2>
+
+<h3>Description</h3>
+
+<p>Applies scalar dilation to a plane geometrical object,
+such as a point pattern or a window,
+relative to a specified origin.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  scalardilate(X, f, ...)
+
+  ## S3 method for class 'im'
+scalardilate(X, f, ..., origin=NULL)
+
+  ## S3 method for class 'owin'
+scalardilate(X, f, ..., origin=NULL)
+
+  ## S3 method for class 'ppp'
+scalardilate(X, f, ..., origin=NULL)
+
+  ## S3 method for class 'psp'
+scalardilate(X, f, ..., origin=NULL)
+
+  ## Default S3 method:
+scalardilate(X, f, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Any suitable dataset representing a two-dimensional
+object, such as a point pattern (object of class <code>"ppp"</code>),
+a window (object of class <code>"owin"</code>), a pixel image
+(class <code>"im"</code>) and so on.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Scalar dilation factor. A finite number greater than zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored by the methods.</p>
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+<p>Origin for the scalar dilation. Either a vector of 2 numbers,
+or one of the character strings
+<code>"centroid"</code>, <code>"midpoint"</code>,
+<code>"left"</code>, <code>"right"</code>, <code>"top"</code>, <code>"bottom"</code>,
+<code>"topleft"</code>, <code>"bottomleft"</code>, <code>"topright"</code> or
+<code>"bottomright"</code> (partially matched).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command performs scalar dilation of the object <code>X</code>
+by the factor <code>f</code> relative to the origin specified by
+<code>origin</code>. 
+</p>
+<p>The function <code>scalardilate</code> is generic, with methods for
+windows (class <code>"owin"</code>), point patterns (class <code>"ppp"</code>),
+pixel images (class <code>"im"</code>), line segment patterns (class <code>"psp"</code>)
+and a default method.
+</p>
+<p>If the argument <code>origin</code> is not given,
+then every spatial coordinate is multiplied by the factor <code>f</code>.
+</p>
+<p>If <code>origin</code> is given, then scalar dilation is performed
+relative to the specified origin. Effectively, <code>X</code> is shifted
+so that <code>origin</code> is moved to <code>c(0,0)</code>, then scalar dilation
+is performed, then the result is shifted so that <code>c(0,0)</code> is
+moved to <code>origin</code>.
+</p>
+<p>This command is a special case of an affine transformation:
+see <code><a href="../../spatstat.geom/help/affine.html">affine</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of the same type, representing the
+result of applying the scalar dilation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+plot(letterR)
+plot(scalardilate(letterR, 0.7, origin="left"), col="red", add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

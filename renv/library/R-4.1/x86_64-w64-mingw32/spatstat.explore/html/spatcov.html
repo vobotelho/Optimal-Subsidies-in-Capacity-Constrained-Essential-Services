@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimate the Spatial Covariance Function of a Random Field</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatcov {spatstat.explore}"><tr><td>spatcov {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Estimate the Spatial Covariance Function of a Random Field
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a pixel image, calculate an estimate of the spatial
+covariance function. Given two pixel images, calculate an estimate of their
+spatial cross-covariance function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spatcov(X, Y=X, ..., correlation=FALSE, isotropic = TRUE,
+        clip = TRUE, pooling=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>Optional. Another pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correlation</code></td>
+<td>
+
+<p>Logical value specifying whether to standardise
+so that the spatial correlation function is returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>isotropic</code></td>
+<td>
+
+<p>Logical value specifying whether to assume the covariance
+is isotropic, so that the result is a function of the lag distance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip</code></td>
+<td>
+
+<p>Logical value specifying whether to restrict the results to
+the range of spatial lags where the estimate is reliable.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pooling</code></td>
+<td>
+
+<p>Logical value specifying the estimation method when <code>isotropic=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In normal usage, only the first argument <code>X</code> is given.
+Then the pixel image <code>X</code> is treated as a realisation of a stationary
+random field, and its spatial covariance function is estimated.
+</p>
+<p>Alternatively if <code>Y</code> is given,
+then <code>X</code> and <code>Y</code> are assumed to be
+jointly stationary random fields, and their spatial cross-covariance
+function is estimated.
+</p>
+<p>For any random field <code>X</code>, the spatial covariance
+is defined for any two spatial locations <i>u</i> and <i>v</i> by
+</p>
+<p style="text-align: center;"><i>
+    C(u,v) = cov(X(u), X(v))
+  </i></p>
+
+<p>where <i>X(u)</i> and <i>X(v)</i> are the values of the random field
+at those locations. Here<i>cov</i> denotes the
+statistical covariance, defined for any random variables
+<i>A</i> and <i>B</i> by
+<i>cov(A,B) = E(AB) - E(A) E(B)</i>
+where <i>E(A)</i> denotes the expected value of <i>A</i>.
+</p>
+<p>If the random field is assumed to be stationary (at least second-order
+stationary) then the spatial covariance <i>C(u,v)</i>
+depends only on the lag vector <i>v-u</i>:
+</p>
+<p style="text-align: center;"><i>
+    C(u,v) = C_2(v-u)
+  </i></p>
+
+<p style="text-align: center;"><i>
+    C(u,v) = C2(v-u)
+  </i></p>
+
+<p>where <i>C2</i> is a function of a single vector argument.
+</p>
+<p>If the random field is stationary and isotropic, then the spatial
+covariance depends only on the lag distance
+<i>||v-u||</i>:
+</p>
+<p style="text-align: center;"><i>
+    C2(v-u) = C1(||v-u||)
+  </i></p>
+
+<p>where <i>C1</i> is a function of distance.
+</p>
+<p>The function <code>spatcov</code> computes estimates of the
+covariance function <i>C1</i> or <i>C2</i> as follows:
+</p>
+
+<ul>
+<li> 
+<p>If <code>isotropic=FALSE</code>, an estimate of the 
+covariance function <i>C2</i> is computed,
+assuming the random field is stationary, using the naive
+moment estimator,
+<code>C2 = imcov(X-mean(X))/setcov(Window(X))</code>.
+The result is a pixel image.
+</p>
+</li>
+<li> 
+<p>If <code>isotropic=TRUE</code> (the default)
+an estimate of the covariance function <i>C1</i>
+is computed, assuming the random field is stationary and isotropic.
+</p>
+
+<ul>
+<li> 
+<p>When <code>pooling=FALSE</code>, the estimate of <i>C1</i>
+is the rotational average of the naive estimate of <i>C2</i>.
+</p>
+</li>
+<li> 
+<p>When <code>pooling=TRUE</code> (the default), the  estimate of <i>C1</i>
+is the ratio of the rotational averages of the numerator and
+denominator which form the naive estimate of  <i>C2</i>.
+</p>
+</li></ul>
+
+<p>The result is a function object (class <code>"fv"</code>).
+</p>
+</li></ul>
+
+<p>If the argument <code>Y</code> is given, it should be a pixel image
+compatible with <code>X</code>. An estimate of the spatial cross-covariance function
+between <code>X</code> and <code>Y</code> will be computed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>isotropic=TRUE</code> (the default), the result is a function value
+table (object of class <code>"fv"</code>) giving the estimated values of the
+covariance function or spatial correlation function
+for a sequence of values of the spatial lag
+distance <code>r</code>.
+</p>
+<p>If <code>isotropic=FALSE</code>, the result is a pixel image
+(object of class <code>"im"</code>) giving the estimated values of the
+spatial covariance function or spatial correlation function
+for a grid of values of the spatial lag vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/imcov.html">imcov</a></code>, <code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(offline &lt;- !interactive()) op &lt;- spatstat.options(npixel=32)
+
+  D &lt;- density(cells)
+  plot(spatcov(D))
+
+if(offline) spatstat.options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

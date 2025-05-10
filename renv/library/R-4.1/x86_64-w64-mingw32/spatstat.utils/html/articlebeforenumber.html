@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Indefinite Article Preceding A Number</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for articlebeforenumber {spatstat.utils}"><tr><td>articlebeforenumber {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Indefinite Article Preceding A Number
+</h2>
+
+<h3>Description</h3>
+
+<p>Determines the indefinite article (<em>an</em> or <em>a</em>) which should
+precede a given number, if the number is read out in English.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+articlebeforenumber(k, teenhundreds=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>A single number.</p>
+</td></tr>
+<tr valign="top"><td><code>teenhundreds</code></td>
+<td>
+
+<p>Logical value specifying that (for example)
+1800 should be read as &ldquo;eighteen hundred&rdquo;
+instead of &ldquo;one thousand eight hundred&rdquo;.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function applies the rule that,
+if the English language word or phrase for the number <code>k</code>
+begins with a vowel, then it should be preceded by <em>an</em>,
+and otherwise by <em>a</em>.
+</p>
+<p>If <code>teenhundreds=FALSE</code> (the default),
+the numbers 1100 and 1800 will be read as
+&lsquo;one thousand one hundred&rsquo; and &lsquo;one thousand eight hundred&rsquo;,
+and the indefinite article will be <em>a</em>.
+However if <code>teenhundreds=TRUE</code>, the numbers 1100 and 1800 
+be read as &lsquo;eleven hundred&rsquo; and &lsquo;eighteen hundred&rsquo;
+and the indefinite article will be <em>an</em>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>One of the character strings <code>"an"</code> or <code>"a"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.utils/help/ordinal.html">ordinal</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- function(k) cat(paste(articlebeforenumber(k),
+                       paste0(k, "-fold"),
+                       "increase\n"))
+  f(8)
+  f(18)
+  f(28)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

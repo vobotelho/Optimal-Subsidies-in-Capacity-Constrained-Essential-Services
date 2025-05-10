@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Murchison gold deposits</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for murchison {spatstat.data}"><tr><td>murchison {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Murchison gold deposits
+</h2>
+
+<h3>Description</h3>
+
+<p>Data recording the spatial locations of gold deposits and associated
+geological features in the Murchison area of Western Australia.
+Extracted from a large scale (1:500,000) study of the
+Murchison area by the Geological Survey of Western Australia
+(Watkins and Hickman, 1990). The features recorded are
+</p>
+
+<ul>
+<li><p> the locations of gold deposits;
+</p>
+</li>
+<li><p> the locations of geological faults;
+</p>
+</li>
+<li><p> the region that contains greenstone bedrock.
+</p>
+</li></ul>
+
+<p>The study region is contained in a <i>330 * 400</i> kilometre
+rectangle. At this scale, gold deposits are points, i.e. their spatial
+extent is negligible. 
+Gold deposits in this region occur only in greenstone bedrock.
+Geological faults can be observed reliably only within the same
+region. However, some faults have been extrapolated
+(by geological &ldquo;interpretation&rdquo;) outside the greenstone boundary 
+from information observed in the greenstone region.
+</p>
+<p>Deposit locations were extracted from the Minedex database
+(Geological Survey of Western Australia, n.d.) and include deposits of
+all sizes. The fault geometry and greenstone boundaries
+were mapped and collated by Watkins and Hickman (1990).
+</p>
+<p>These data were analysed by Foxall and Baddeley (2002) and Brown et al
+(2002); see also Groves et al (2000), Knox-Robinson and Groves (1997),
+Baddeley, Rubak and Turner (2015) and Baddeley (2019).
+The main aim is to predict the intensity of the
+point pattern of gold deposits from the more easily observable fault
+pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ data(murchison)
+</pre>
+
+
+<h3>Format</h3>
+
+<p><code>murchison</code> is a list with the following entries:
+</p>
+
+<dl>
+<dt>gold</dt><dd><p>a point pattern (object of class <code>"ppp"</code>)
+representing the point pattern of gold deposits.
+See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code> for details of the format.
+</p>
+</dd>
+<dt>faults</dt><dd><p>a line segment pattern (object of class <code>"psp"</code>)
+representing the geological faults.
+See <code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code> for details of the format.
+</p>
+</dd>
+<dt>greenstone</dt><dd><p>the greenstone bedrock region.
+An object of class <code>"owin"</code>. Consists of multiple
+irregular polygons with holes.
+</p>
+</dd>
+</dl>
+
+<p>All coordinates are given in <b>metres</b>.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Data were kindly provided by Dr Carl Knox-Robinson of the
+Department of Geology and Geophysics, University of Western Australia.
+Permission to use the data is granted by Dr Tim Griffin,
+Geological Survey of Western Australia and by Dr Knox-Robinson.
+<em>Please make appropriate acknowledgement</em> to
+Watkins and Hickman (1990) and the Geological Survey of Western Australia.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. (2018) 
+A statistical commentary on mineral prospectivity analysis.
+In Daya Sagar, B.S., Cheng, Q. and Agterberg, F.P. (eds.)
+<em>Handbook of Mathematical Geosciences: Fifty Years of IAMG</em>.
+International Association for Mathematical Geosciences.
+Chapter 2, pages 25&ndash;65.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+<p>Brown, W.M., Gedeon, T.D., Baddeley, A.J. and Groves, D.I. (2002)
+Bivariate J-function and other graphical
+statistical methods help select the best predictor
+variables as inputs for a neural network method of
+mineral prospectivity mapping.
+In U. Bayer, H. Burger and W. Skala (eds.)
+<em>IAMG 2002: 8th Annual Conference of the
+International Association for Mathematical Geology</em>,
+Volume 1, 2002. International Association of Mathematical Geology.
+Pages 257&ndash;268.
+</p>
+<p>Foxall, R. and Baddeley, A. (2002)
+Nonparametric measures of association between a
+spatial point process and a random set, with
+geological applications. <em>Applied Statistics</em> <b>51</b>, 165&ndash;182.
+</p>
+<p>Geological Survey of Western Australia (n.d.)
+MINEDEX database of Mines and Mineral Deposits.
+<a href="https://www.dmp.wa.gov.au/Mines-and-mineral-deposits-1502.aspx">https://www.dmp.wa.gov.au/Mines-and-mineral-deposits-1502.aspx</a>.
+</p>
+<p>Groves, D.I., Goldfarb, R.J., Knox-Robinson, C.M., Ojala, J., Gardoll,
+S, Yun, G.Y. and Holyland, P. (2000)
+Late-kinematic timing of orogenic gold deposits and significance for
+computer-based exploration techniques with emphasis on the Yilgarn Block,
+Western Australia.
+<em>Ore Geology Reviews</em>, <b>17</b>, 1&ndash;38.
+</p>
+<p>Knox-Robinson, C.M. and Groves, D.I. (1997)
+Gold prospectivity mapping using a geographic information system
+(GIS), with examples from the Yilgarn Block of Western Australia.
+<em>Chronique de la Recherche Miniere</em> <b>529</b>, 127&ndash;138.
+</p>
+<p>Watkins, K.P. and Hickman, A.H. (1990)
+<em>Geological evolution and mineralization of the Murchison Province,
+Western Australia</em>.
+Bulletin 137, Geological Survey of Western Australia. 267 pages.
+Published by Department of Mines, Western Australia, 1990.
+Available online from Department of Industry and Resources,
+State Government of Western Australia, <code>www.doir.wa.gov.au</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+  if(interactive()) {
+  data(murchison)
+  plot(murchison$greenstone, main="Murchison data", col="lightgreen")
+  plot(murchison$gold, add=TRUE, pch="+",col="blue")
+  plot(murchison$faults, add=TRUE, col="red")
+  }
+  ## rescale to kilometres
+  Mur &lt;- solapply(murchison, rescale, s=1000, unitname="km")
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

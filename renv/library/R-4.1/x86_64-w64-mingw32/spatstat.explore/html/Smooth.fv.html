@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Smoothing to Function Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Smooth.fv {spatstat.explore}"><tr><td>Smooth.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Apply Smoothing to Function Values
+</h2>
+
+<h3>Description</h3>
+
+<p>Applies smoothing to the values
+in selected columns of a function value table.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+Smooth(X, which = "*", ...,
+          method=c("smooth.spline", "loess"),
+          xinterval=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Values to be smoothed.
+A function value table (object of class <code>"fv"</code>,
+see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Character vector identifying which columns of the table
+should be smoothed. Either a vector containing names
+of columns, or one of the wildcard strings <code>"*"</code> or <code>"."</code>
+explained below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code>
+or <code><a href="../../stats/help/loess.html">loess</a></code> to control the smoothing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Smoothing algorithm. A character string, partially matched
+to either <code>"smooth.spline"</code> or <code>"loess"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xinterval</code></td>
+<td>
+
+<p>Optional. Numeric vector of length 2 specifying a range of
+<i>x</i> values. Smoothing will be performed only on the part of the
+function corresponding to this range.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The command <code>Smooth.fv</code>
+applies smoothing to the function values in
+a function value table (object of class <code>"fv"</code>).
+</p>
+<p><code>Smooth.fv</code> is a method for the generic function
+<code><a href="../../spatstat.explore/help/Smooth.html">Smooth</a></code>.
+</p>
+<p>The smoothing is performed either by 
+<code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code> or by
+<code><a href="../../stats/help/loess.html">loess</a></code>.
+</p>
+<p>Smoothing is applied to every column
+(or to each of the selected columns) of function values in turn,
+using the function argument as the <i>x</i> coordinate
+and the selected column as the <i>y</i> coordinate.
+The original function values are then replaced by the corresponding
+smooth interpolated function values.
+</p>
+<p>The optional argument <code>which</code> specifies which of the
+columns of function values in <code>x</code> will be smoothed.
+The default (indicated by the wildcard <code>which="*"</code>)
+is to smooth all function values, i.e.\ all columns except the
+function argument. Alternatively <code>which="."</code> designates
+the subset of function values that are displayed in the default plot.
+Alternatively <code>which</code> can be a character vector containing the
+names of columns of <code>x</code>.
+</p>
+<p>If the argument <code>xinterval</code> is given, then
+smoothing will be performed only in the specified range 
+of <i>x</i> values. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another function value table (object of class <code>"fv"</code>)
+of the same format.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Smooth.html">Smooth</a></code>,
+<code><a href="../../spatstat.explore/help/with.fv.html">with.fv</a></code>,
+<code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code>,
+<code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   G &lt;- Gest(cells)
+   plot(G)
+   plot(Smooth(G, df=9), add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

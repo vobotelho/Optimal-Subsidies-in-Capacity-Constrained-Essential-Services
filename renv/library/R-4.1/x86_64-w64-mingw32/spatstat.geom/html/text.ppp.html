@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Add Text Labels to Spatial Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for text.ppp {spatstat.geom}"><tr><td>text.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Add Text Labels to Spatial Pattern 
+</h2>
+
+<h3>Description</h3>
+
+<p>Plots a text label at the location of each point in a spatial point
+pattern, or each object in a spatial pattern of objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+text(x, ...)
+
+
+## S3 method for class 'psp'
+text(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial point pattern (object of class <code>"ppp"</code>),
+or a spatial pattern of line segments (class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../graphics/help/text.default.html">text.default</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic <code><a href="../../graphics/html/text.html">text</a></code>.
+A text label is added to the existing plot,
+at the location of each point in the point pattern <code>x</code>,
+or near the location of the midpoint of each segment
+in the segment pattern <code>x</code>.
+</p>
+<p>Additional arguments <code>...</code> are passed to
+<code><a href="../../graphics/help/text.default.html">text.default</a></code> and may be used to control the
+placement of the labels relative to the point locations, and
+the size and colour of the labels.
+</p>
+<p>By default, the labels are the serial numbers 1 to <code>n</code>, where
+<code>n</code> is the number of points or segments in <code>x</code>. This can
+be changed by specifying the argument <code>labels</code>, which should be
+a vector of length <code>n</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/help/text.default.html">text.default</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(cells)
+  text(cells, pos=2)
+
+  plot(Frame(cells))
+  text(cells, cex=1.5)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

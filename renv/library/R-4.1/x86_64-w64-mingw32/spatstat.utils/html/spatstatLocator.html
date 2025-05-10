@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Graphical Input</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstatLocator {spatstat.utils}"><tr><td>spatstatLocator {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Graphical Input
+</h2>
+
+<h3>Description</h3>
+
+<p>This is an alternative to the <code><a href="../../graphics/help/locator.html">locator</a></code>
+function. It contains a workaround for a bug that occurs in
+<code>RStudio</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spatstatLocator(n, type = c("p", "l", "o", "n"), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Optional. Maximum number of points to locate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character specifying how to plot the locations.
+If <code>"p"</code> or <code>"o"</code> the points are plotted;
+if <code>"l"</code> or <code>"o"</code> they are joined by lines.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional graphics parameters used to plot the locations.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a replacement/workaround for the <code><a href="../../graphics/html/locator.html">locator</a></code>
+function in some versions of <span class="pkg">RStudio</span> which do not seem to
+recognise the option <code>type="p"</code>.
+</p>
+<p>See <code><a href="../../graphics/help/locator.html">locator</a></code> for a description of the
+behaviour.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing components <code>x</code> and <code>y</code> which are vectors
+giving the coordinates of the identified points in the
+user coordinate system, i.e., the one specified by <code>par("usr")</code>.
+</p>
+
+
+<h3>Software Testing</h3>
+
+<p>Programmers may like to know that
+code which depends on <code>spatstatLocator</code>
+can be tested in a non-interactive session,
+if the coordinates are previously queued using
+<code><a href="../../spatstat.utils/help/queueSpatstatLocator.html">queueSpatstatLocator</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/help/locator.html">locator</a></code>.
+</p>
+<p><code><a href="../../spatstat.utils/help/queueSpatstatLocator.html">queueSpatstatLocator</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   if(interactive()) locator(1, type="p")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

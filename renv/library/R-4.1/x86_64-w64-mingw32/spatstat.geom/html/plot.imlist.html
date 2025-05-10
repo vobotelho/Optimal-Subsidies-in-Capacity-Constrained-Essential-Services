@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a List of Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.imlist {spatstat.geom}"><tr><td>plot.imlist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a List of Images</h2>
+
+<h3>Description</h3>
+
+<p>Plots an array of pixel images.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'imlist'
+plot(x, ..., plotcommand="image",
+                          equal.ribbon=FALSE,
+                          equal.scales=FALSE, 
+                          ribmar=NULL)
+
+  ## S3 method for class 'imlist'
+image(x, ..., equal.ribbon=FALSE,
+                                   equal.scales=FALSE, ribmar=NULL)
+
+  ## S3 method for class 'listof'
+image(x, ..., equal.ribbon=FALSE,
+                                   equal.scales=FALSE, ribmar=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of the class <code>"imlist"</code>
+representing a list of pixel images.
+Alternatively <code>x</code> may belong to the outdated class <code>"listof"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code> to control the
+spatial arrangement of panels, and arguments passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>
+to control the display of each panel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>equal.ribbon</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the colour maps of all the images will be
+the same. If <code>FALSE</code>, the colour map of each
+image is adjusted to the range of values of that image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>equal.scales</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the images will be plotted using the
+same physical scale, and the plots will be aligned neatly where possible. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribmar</code></td>
+<td>
+
+<p>Numeric vector of length 4 specifying the margins around the
+colour ribbon, if <code>equal.ribbon=TRUE</code>. Entries in the vector
+give the margin at the bottom, left, top, and right respectively,
+as a multiple of the height of a line of text.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plotcommand</code></td>
+<td>
+
+<p>Character string giving the name of a function
+to be used to display each image.
+Recognised by <code>plot.imlist</code> only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic plot commands
+<code>plot</code> and <code>image</code> for the class <code>"imlist"</code>.
+They are currently identical.
+</p>
+<p>An object of class <code>"imlist"</code> represents a list of pixel images.
+(The outdated class <code>"listof"</code> is also handled.)
+</p>
+<p>Each entry in the list <code>x</code> will be displayed as a pixel image,
+in an array of panels laid out on the same graphics display,
+using <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>. Individual panels are plotted by
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+<p>If <code>equal.ribbon=FALSE</code> (the default), 
+the images are rendered using different colour maps,
+which are displayed as colour ribbons beside each image.
+If <code>equal.ribbon=TRUE</code>, the images are rendered using the
+same colour map, and a single colour ribbon will be displayed at the right
+side of the array.
+The colour maps and the placement of the colour ribbons are
+controlled by arguments <code>...</code> passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+<p>If <code>equal.scales=TRUE</code>, the images are plotted using the same
+physical scale, and the plots will be aligned neatly where possible.
+If <code>equal.scales=FALSE</code> (the default), images are plotted using
+equal amounts of space in the available plotting area, so they may
+be plotted at different physical scales.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>,
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ ## bei.extra is a list of pixel images on the same spatial domain
+ Y &lt;- solapply(bei.extra, scaletointerval)
+ image(Y, equal.ribbon=TRUE, equal.scales=TRUE,
+          main="",
+          mar.panel=0, hsep=1,
+          ribside="bottom",
+          col.ticks="blue", col.axis="blue", cex.axis=1.2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

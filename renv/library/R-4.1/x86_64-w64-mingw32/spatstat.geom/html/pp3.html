@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Three Dimensional Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pp3 {spatstat.geom}"><tr><td>pp3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Three Dimensional Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a three-dimensional point pattern
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pp3(x, y, z, ..., marks=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y,z</code></td>
+<td>
+
+<p>Numeric vectors of equal length, containing Cartesian coordinates
+of points in three-dimensional space.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.box3.html">as.box3</a></code> to determine
+the three-dimensional box in which the points have been observed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>marks</code></td>
+<td>
+
+<p>Optional.
+Vector, data frame, or hyperframe of mark values associated with the points.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"pp3"</code> represents a pattern of points in
+three-dimensional space. The points are assumed to have been observed
+by exhaustively inspecting a three-dimensional rectangular box. The
+boundaries of the box are included as part of the dataset.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"pp3"</code> representing a three dimensional
+point pattern. Also belongs to class <code>"ppx"</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/box3.html">box3</a></code>, 
+<code><a href="../../spatstat.geom/help/print.pp3.html">print.pp3</a></code>, 
+<code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- pp3(runif(10), runif(10), runif(10),
+            box3(c(0,1)),
+            marks=rnorm(10))
+   X
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

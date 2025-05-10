@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Intensity Functions of Spatial Covariate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for methods.rhohat {spatstat.explore}"><tr><td>methods.rhohat {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Intensity Functions of Spatial Covariate
+</h2>
+
+<h3>Description</h3>
+
+<p>These are methods for the class <code>"rhohat"</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'rhohat'
+print(x, ...)
+
+## S3 method for class 'rhohat'
+plot(x, ..., do.rug=TRUE)
+
+## S3 method for class 'rhohat'
+predict(object, ..., relative=FALSE,
+             what=c("rho", "lo", "hi", "se"))
+
+## S3 method for class 'rhohat'
+simulate(object, nsim=1, ..., drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>An object of class <code>"rhohat"</code> representing 
+a smoothed estimate of the intensity function of a point process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to other methods.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.rug</code></td>
+<td>
+
+<p>Logical value indicating whether to plot the observed values of
+the covariate as a rug plot along the horizontal axis.
+</p>
+</td></tr>
+<tr valign="top"><td><code>relative</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the
+estimated point process intensity (<code>relative=FALSE</code>)
+or the relative risk (<code>relative=TRUE</code>) in the case
+of a relative risk estimate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulations to be generated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>nsim=1</code>.
+If <code>drop=TRUE</code> (the default), a point pattern is returned.
+If <code>drop=FALSE</code>, a list of length 1 containing a point pattern
+is returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Optional character string (partially matched) specifying which
+value should be calculated: either the function estimate (<code>what="rho"</code>,
+the default), the lower or upper end of the confidence interval
+(<code>what="lo"</code> or <code>what="hi"</code>) or the standard error
+(<code>what="se"</code>).
+</p>
+</td></tr>	 
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic commands
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../graphics/help/plot.html">plot</a></code>,
+<code><a href="../../stats/help/predict.html">predict</a></code> and
+<code><a href="../../stats/help/simulate.html">simulate</a></code>
+for the class <code>"rhohat"</code>.
+</p>
+<p>An object of class <code>"rhohat"</code> is an estimate
+of the intensity of a point process, as a function of a
+given spatial covariate. See <code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>.
+</p>
+<p>The method <code>plot.rhohat</code> displays the estimated function
+<i>rho</i> using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>, and optionally
+adds a <code><a href="../../graphics/html/rug.html">rug</a></code> plot of the observed values of the covariate.
+</p>
+<p>The method <code>predict.rhohat</code> computes a pixel image of the
+intensity <i>rho(Z(u))</i> at each spatial location
+<i>u</i>, where <i>Z</i> is the spatial covariate.
+</p>
+<p>The method <code>simulate.rhohat</code> invokes <code>predict.rhohat</code>
+to determine the predicted intensity, and then simulates a
+Poisson point process with this intensity.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>predict.rhohat</code> the value is a pixel image
+(object of class <code>"im"</code> or <code>"linim"</code>).
+For <code>simulate.rhohat</code> the value is a point pattern
+(object of class <code>"ppp"</code> or <code>"lpp"</code>).
+For other functions, the value is <code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rhohat.html">rhohat</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;-  rpoispp(function(x,y){exp(3+3*x)})
+  rho &lt;- rhohat(X, function(x,y){x})
+  rho
+  plot(rho)
+  Y &lt;- predict(rho)
+  plot(Y)
+  plot(simulate(rho), add=TRUE)
+  #
+  if(require("spatstat.model")) {
+    fit &lt;- ppm(X, ~x)
+    rho &lt;- rhohat(fit, "y")
+    opa &lt;- par(mfrow=c(1,2))
+    plot(predict(rho))
+    plot(predict(rho, relative=TRUE))
+    par(opa)
+    plot(predict(rho, what="se"))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

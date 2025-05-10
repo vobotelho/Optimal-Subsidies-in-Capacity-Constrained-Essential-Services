@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Functions on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.linfun {spatstat.linnet}"><tr><td>methods.linfun {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Functions on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for the class <code>"linfun"</code> of functions on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'linfun'
+print(x, ...)
+
+  ## S3 method for class 'linfun'
+summary(object, ...)
+
+  ## S3 method for class 'linfun'
+plot(x, ..., L=NULL, main) 
+
+  ## S3 method for class 'linfun'
+as.data.frame(x, ...)
+
+  ## S3 method for class 'linfun'
+as.owin(W, ...)
+
+  ## S3 method for class 'linfun'
+as.function(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object,W</code></td>
+<td>
+
+<p>A function on a linear network
+(object of class <code>"linfun"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+<p>A linear network</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code>, 
+<code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>, <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>
+or <code><a href="../../base/html/print.default.html">print.default</a></code>, or arguments passed to
+<code>x</code> if it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main title for plot.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../graphics/html/plot.default.html">plot</a></code>, <code><a href="../../base/html/print.html">print</a></code>, <code><a href="../../base/html/summary.html">summary</a></code>
+<code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code> and <code><a href="../../base/html/as.function.html">as.function</a></code>,
+and for the <span class="pkg">spatstat</span> generic function
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+<p>An object of class <code>"linfun"</code> represents a
+mathematical function that could be evaluated at any location
+on a linear network. It is essentially an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> <code>function</code> with some
+extra attributes.
+</p>
+<p>The method <code>as.owin.linfun</code> extracts the two-dimensional spatial
+window containing the linear network.
+</p>
+<p>The method <code>plot.linfun</code> first converts the function to a
+pixel image using <code><a href="../../spatstat.linnet/help/as.linim.linfun.html">as.linim.linfun</a></code>, then plots the image using
+<code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>.
+</p>
+<p>Note that a <code>linfun</code> function may have additional arguments,
+other than those which specify the location on the network
+(see <code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code>). These additional arguments may be passed
+to <code>plot.linfun</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.linfun</code> and <code>summary.linfun</code> the result is <code>NULL</code>.
+</p>
+<p>For <code>plot.linfun</code> the result is the same as
+for <code><a href="../../spatstat.linnet/help/plot.linim.html">plot.linim</a></code>.
+</p>
+<p>For the conversion methods, the result is an object of the
+required type: <code>as.owin.linfun</code> returns an object of
+class <code>"owin"</code>, and so on.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(3, simplenet)
+   f &lt;- nnfun(X)
+   f
+   plot(f)
+   as.function(f)
+   as.owin(f)
+   head(as.data.frame(f))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

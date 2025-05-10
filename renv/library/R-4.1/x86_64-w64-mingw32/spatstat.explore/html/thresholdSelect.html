@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Select Threshold to Convert Numerical Predictor to Binary...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for thresholdSelect {spatstat.explore}"><tr><td>thresholdSelect {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Select Threshold to Convert Numerical Predictor to Binary Predictor
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and a spatial covariate that has some predictive
+value for the point pattern,
+determine the optimal value of the threshold for converting
+the covariate to a binary predictor.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+thresholdSelect(X, Z, method = c("Y", "LL", "AR", "t", "C"), Zname)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Spatial covariate with numerical values.
+Either a pixel image (object of class <code>"im"</code>),
+a distance function (object of class <code>"distfun"</code>)
+or a <code>function(x,y)</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string (partially matched)
+specifying the method to be used to select the
+optimal threshold value. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Zname</code></td>
+<td>
+
+<p>Optional character string giving a short name for the covariate.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The spatial covariate <code>Z</code> is assumed to have some utility as a
+predictor of the point pattern <code>X</code>.
+</p>
+<p>This code chooses the best threshold value <i>v</i> for converting the
+numerical predictor <code>Z</code> to a binary predictor, for use in
+techniques such as Weights of Evidence.
+</p>
+<p>The best threshold is selected by maximising the criterion
+specified by the argument <code>method</code>. Options are:
+</p>
+
+<ul>
+<li> <p><code>method="Y"</code> (the default): the Youden criterion 
+</p>
+</li>
+<li> <p><code>method="LL"</code>: log-likelihood 
+</p>
+</li>
+<li> <p><code>method="AR"</code>: the Akman-Raftery criterion
+</p>
+</li>
+<li> <p><code>method="t"</code>: the Studentised Weights-of-Evidence contrast
+</p>
+</li>
+<li> <p><code>method="C"</code>: the Weights-of-Evidence contrast
+</p>
+</li></ul>
+
+<p>These criteria are explained in Baddeley et al (2021).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the criterion used to select
+the threshold.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Brown, W., Milne, R.K., Nair, G.,
+Rakshit, S., Lawrence, T., Phatak, A. and Fu, S.C. (2021)
+Optimal thresholding of predictors in mineral prospectivity analysis.
+<em>Natural Resources Research</em> <b>30</b> 923&ndash;969.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/thresholdCI.html">thresholdCI</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  gold &lt;- rescale(murchison$gold, 1000, "km")
+  faults &lt;- rescale(murchison$faults, 1000, "km")
+  distfault &lt;- distfun(faults)
+  z &lt;- thresholdSelect(gold, distfault)
+  z
+  plot(z, xlim=c(0, 20))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

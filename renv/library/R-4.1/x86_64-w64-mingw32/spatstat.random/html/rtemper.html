@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulated Annealing or Simulated Tempering for Gibbs Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rtemper {spatstat.random}"><tr><td>rtemper {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Simulated Annealing or Simulated Tempering for Gibbs Point Processes
+</h2>
+
+<h3>Description</h3>
+
+<p>Performs simulated annealing or simulated tempering
+for a Gibbs point process model using a specified
+annealing schedule.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rtemper(model, invtemp, nrep, ..., track=FALSE, start = NULL, verbose = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A Gibbs point process model: a fitted Gibbs point process model
+(object of class <code>"ppm"</code>), or any data acceptable to
+<code><a href="../../spatstat.random/help/rmhmodel.html">rmhmodel</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>invtemp</code></td>
+<td>
+
+<p>A numeric vector of positive numbers.
+The sequence of values of inverse temperature that will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+
+<p>An integer vector of the same length as <code>invtemp</code>.
+The value <code>nrep[i]</code> specifies the number of steps of the
+Metropolis-Hastings algorithm that will be performed
+at inverse temperature <code>invtemp[i]</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+
+<p>Initial starting state for the simulation.
+Any data acceptable to <code><a href="../../spatstat.random/help/rmhstart.html">rmhstart</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>track</code></td>
+<td>
+
+<p>Logical flag indicating whether to save the transition
+history of the simulations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.random/help/rmh.default.html">rmh.default</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Metropolis-Hastings simulation algorithm
+<code><a href="../../spatstat.random/help/rmh.html">rmh</a></code> is run for
+<code>nrep[1]</code> steps at inverse temperature <code>invtemp[1]</code>,
+then for 
+<code>nrep[2]</code> steps at inverse temperature <code>invtemp[2]</code>,
+and so on.
+</p>
+<p>Setting the inverse temperature to a value <i>alpha</i>
+means that the probability density of the Gibbs model, <i>f(x)</i>,
+is replaced by <i>g(x) = C f(x)^alpha</i>
+where <i>C</i> is a normalising constant depending on
+<i>alpha</i>.
+Larger values of <i>alpha</i> exaggerate the high and low
+values of probability density, while smaller values of <i>alpha</i>
+flatten out the probability density.
+</p>
+<p>For example if the original <code>model</code> is a Strauss process,
+the modified model is close to a hard core process
+for large values of inverse temperature, and close to a Poisson process
+for small values of inverse temperature. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+<p>If <code>track=TRUE</code>, the result also has an attribute
+<code>"history"</code> which is a data frame with columns
+<code>proposaltype</code>, <code>accepted</code>, 
+<code>numerator</code> and <code>denominator</code>, as described
+in <code><a href="../../spatstat.random/help/rmh.default.html">rmh.default</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rmh.default.html">rmh.default</a></code>,
+<code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   stra &lt;- rmhmodel(cif="strauss",
+                    par=list(beta=2,gamma=0.2,r=0.7),
+                    w=square(10))
+   nr &lt;- if(interactive()) 1e5 else 1e3
+   Y &lt;- rtemper(stra, c(1, 2, 4, 8), nr * (1:4), verbose=TRUE, track=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

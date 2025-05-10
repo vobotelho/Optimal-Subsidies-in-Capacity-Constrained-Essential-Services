@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Adaptive Kernel Estimate of Intensity of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityAdaptiveKernel.ppp {spatstat.explore}"><tr><td>densityAdaptiveKernel.ppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Adaptive Kernel Estimate of Intensity of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Computes an adaptive estimate of the intensity function of a point
+pattern using a variable-bandwidth smoothing kernel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+densityAdaptiveKernel(X, bw, ...,
+       weights=NULL,       
+       at=c("pixels", "points"),
+       edge=TRUE, ngroups) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Numeric vector of smoothing bandwidths for each point in <code>X</code>,
+or a pixel image giving the smoothing bandwidth at each spatial
+location, or a spatial function of class <code>"funxy"</code> giving the
+smoothing bandwidth at each location.
+The default is to compute bandwidths using <code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to
+<code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code> to compute the smoothing bandwidths
+if <code>bw</code> is missing,
+or passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the spatial resolution of the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional vector of numeric weights for the points of <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>String specifying whether to compute the intensity values
+at a grid of pixel locations (<code>at="pixels"</code>) or
+only at the points of <code>x</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>edge</code></td>
+<td>
+
+<p>Logical value indicating whether to perform edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngroups</code></td>
+<td>
+
+<p>Number of groups into which the bandwidth values should be
+partitioned and discretised.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes a spatially-adaptive kernel estimate of the
+spatially-varying intensity from the point pattern <code>X</code>
+using the partitioning technique of Davies and Baddeley (2018).
+</p>
+<p>The function <code><a href="../../spatstat.univar/help/densityAdaptiveKernel.html">densityAdaptiveKernel</a></code> is generic.
+This file documents the method for point patterns,
+<code>densityAdaptiveKernel.ppp</code>.
+</p>
+<p>The argument <code>bw</code> specifies the smoothing bandwidths to be
+applied to each of the points in <code>X</code>. It may be a numeric vector
+of bandwidth values, or a pixel image or function yielding the
+bandwidth values.
+</p>
+<p>If the points of <code>X</code> are <i>x[1], ..., x[n]</i>
+and the corresponding bandwidths are
+<i>&sigma;[1], ..., &sigma;[n]</i>
+then the adaptive kernel estimate of intensity at a location <i>u</i> is
+</p>
+<p style="text-align: center;"><i>
+    &lambda;(u) = sum[i] e(x[i], k(u, x[i], &sigma;[i])
+  </i></p>
+
+<p>where <i>k(u, v, &sigma;)</i> is the value at <i>u</i>
+of the (possibly edge-corrected) smoothing kernel with bandwidth <i>&sigma;</i>
+induced by a data point at <i>v</i>.
+</p>
+<p>Exact computation of the estimate above can be time-consuming:
+it takes <i>n</i> times longer than fixed-bandwidth smoothing.
+</p>
+<p>The partitioning method of Davies and Baddeley (2018)
+accelerates this computation by partitioning the range of
+bandwidths into <code>ngroups</code> intervals,
+correspondingly subdividing the points of the pattern <code>X</code> into
+<code>ngroups</code> sub-patterns according to bandwidth,
+and applying fixed-bandwidth smoothing to each sub-pattern.
+</p>
+<p>The default value of <code>ngroups</code> is the integer part of the square root of
+the number of points in <code>X</code>, so that the computation time is
+only about <i>sqrt(n)</i> times slower than fixed-bandwidth
+smoothing. Any positive value of <code>ngroups</code>
+can be specified by the user. Specifying <code>ngroups=Inf</code> enforces exact
+computation of the estimate without partitioning. Specifying
+<code>ngroups=1</code> is the same as fixed-bandwidth smoothing with
+bandwidth <code>sigma=median(bw)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>at="pixels"</code> (the default), the result is a pixel image.
+If <code>at="points"</code>, the result is a numeric vector with one entry
+for each data point in <code>X</code>.
+</p>
+
+
+<h3>Bandwidths and Bandwidth Selection</h3>
+
+<p>The function <code>densityAdaptiveKernel</code>
+computes one adaptive estimate of the intensity,
+determined by the smoothing bandwidth values <code>bw</code>.
+</p>
+<p>Typically the bandwidth values are computed by first computing
+a pilot estimate of the intensity, then using <code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code>
+to compute the vector of bandwidths according to Abramson's rule.
+This involves specifying a global bandwidth <code>h0</code>.
+</p>
+<p>The default bandwidths may work well in many contexts, but for optimal
+bandwidth selection, this calculation should be performed repeatedly with
+different values of <code>h0</code> to optimise the value of <code>h0</code>.
+This can be computationally demanding; we recommend
+the function <code>multiscale.density</code> in the <span class="pkg">sparr</span> package
+which supports much faster bandwidth selection, using the FFT
+method of Davies and Baddeley (2018).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Tilman Davies.
+</p>
+
+
+<h3>References</h3>
+
+<p>Davies, T.M. and Baddeley, A. (2018)
+Fast computation of spatially adaptive kernel estimates.
+<em>Statistics and Computing</em>, <b>28</b>(4), 937-956.
+</p>
+<p>Hall, P. and Marron, J.S. (1988)
+Variable window width kernel density estimates of probability
+densities.
+<em>Probability Theory and Related Fields</em>, <b>80</b>, 37-49.
+</p>
+<p>Silverman, B.W. (1986)
+<em>Density Estimation for Statistics and Data Analysis</em>.
+Chapman and Hall, New York.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/bw.abram.ppp.html">bw.abram.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/adaptive.density.html">adaptive.density</a></code>,
+<code><a href="../../spatstat.explore/help/densityVoronoi.html">densityVoronoi</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+<p>See the function <code>bivariate.density</code> in the <span class="pkg">sparr</span> package
+for a more flexible implementation, and
+<code>multiscale.density</code> for an implementation that is more
+efficient for bandwidth selection.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Z &lt;- densityAdaptiveKernel(redwood, h0=0.1)
+  plot(Z, main="Adaptive kernel estimate")
+  points(redwood, col="white")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

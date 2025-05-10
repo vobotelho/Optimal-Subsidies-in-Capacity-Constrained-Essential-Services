@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Concatenate x,y Coordinate Vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for concatxy {spatstat.geom}"><tr><td>concatxy {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Concatenate x,y Coordinate Vectors</h2>
+
+<h3>Description</h3>
+
+<p>Concatenate any number of pairs of <code>x</code> and <code>y</code>
+coordinate vectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  concatxy(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, each of which is a structure
+containing elements <code>x</code> and <code>y</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function can be used to superimpose two or more point patterns
+of unmarked points (but see also <code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code> which is
+recommended). 
+</p>
+<p>It assumes that each of the arguments in
+<code>...</code> is a structure containing (at least) the elements
+<code>x</code> and <code>y</code>. It concatenates all the <code>x</code> elements
+into a vector <code>x</code>, and similarly for <code>y</code>, and returns these
+concatenated vectors.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with two components <code>x</code> and <code>y</code>, which are the
+concatenations of all the corresponding <code>x</code> and <code>y</code>
+vectors in the argument list.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/superimpose.html">superimpose</a></code>,
+<code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  dat &lt;- runifrect(30)
+  xy &lt;- list(x=runif(10),y=runif(10))
+  new &lt;- concatxy(dat, xy)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

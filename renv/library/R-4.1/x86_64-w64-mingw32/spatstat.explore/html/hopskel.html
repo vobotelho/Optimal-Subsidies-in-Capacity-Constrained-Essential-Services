@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hopkins-Skellam Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hopskel {spatstat.explore}"><tr><td>hopskel {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hopkins-Skellam Test</h2>
+
+<h3>Description</h3>
+
+<p>Perform the Hopkins-Skellam test of Complete Spatial Randomness,
+or simply calculate the test statistic.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hopskel(X)
+
+hopskel.test(X, ...,
+             alternative=c("two.sided", "less", "greater",
+                           "clustered", "regular"),
+             method=c("asymptotic", "MonteCarlo"),
+             nsim=999)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>String indicating the type of alternative for the
+hypothesis test. Partially matched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Method of performing the test. Partially matched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of Monte Carlo simulations to perform, if a Monte Carlo
+p-value is required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Hopkins and Skellam (1954) proposed a test of Complete Spatial
+Randomness based on comparing nearest-neighbour distances with
+point-event distances.
+</p>
+<p>If the point pattern <code>X</code> contains <code>n</code>
+points, we first compute the nearest-neighbour distances
+<i>P[1], ..., P[n]</i> 
+so that <i>P[i]</i> is the distance from the <i>i</i>th data
+point to the nearest other data point. Then we 
+generate another completely random pattern <code>U</code> with
+the same number <code>n</code> of points, and compute for each point of <code>U</code>
+the distance to the nearest point of <code>X</code>, giving
+distances <i>I[1], ..., I[n]</i>.
+The test statistic is 
+</p>
+<p style="text-align: center;"><i>
+    A = (sum[i] P[i]^2) / (sum[i] I[i]^2)
+  </i></p>
+
+<p>The null distribution of <i>A</i> is roughly
+an <i>F</i> distribution with shape parameters <i>(2n,2n)</i>.
+(This is equivalent to using the test statistic <i>H=A/(1+A)</i>
+and referring <i>H</i> to the Beta distribution with parameters
+<i>(n,n)</i>).
+</p>
+<p>The function <code>hopskel</code> calculates the Hopkins-Skellam test statistic
+<i>A</i>, and returns its numeric value. This can be used as a simple
+summary of spatial pattern: the value <i>H=1</i> is consistent
+with Complete Spatial Randomness, while values <i>H &lt; 1</i> are
+consistent with spatial clustering, and values <i>H &gt; 1</i> are consistent
+with spatial regularity.
+</p>
+<p>The function <code>hopskel.test</code> performs the test.
+If <code>method="asymptotic"</code> (the default), the test statistic <i>H</i>
+is referred to the <i>F</i> distribution. If <code>method="MonteCarlo"</code>,
+a Monte Carlo test is performed using <code>nsim</code> simulated point
+patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value of <code>hopskel</code> is a single number.
+</p>
+<p>The value of <code>hopskel.test</code> is an object of class <code>"htest"</code>
+representing the outcome of the test. It can be printed. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Hopkins, B. and Skellam, J.G. (1954) 
+A new method of determining the type of distribution
+of plant individuals. <em>Annals of Botany</em> <b>18</b>, 
+213&ndash;227.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/clarkevans.html">clarkevans</a></code>,
+<code><a href="../../spatstat.explore/help/clarkevans.test.html">clarkevans.test</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  hopskel(redwood)
+  hopskel.test(redwood, alternative="clustered")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

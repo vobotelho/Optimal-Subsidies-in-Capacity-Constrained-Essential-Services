@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class of Line Segment Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for psp.object {spatstat.geom}"><tr><td>psp.object {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class of Line Segment Patterns</h2>
+
+<h3>Description</h3>
+
+<p>A class <code>"psp"</code> to represent a spatial pattern of
+line segments in the plane.
+Includes information about the window in which the
+pattern was observed. Optionally includes marks.
+</p>
+
+
+<h3>Details</h3>
+
+<p>An object of this class represents 
+a two-dimensional pattern of line segments. It specifies
+</p>
+
+<ul>
+<li><p> the locations of the line segments (both endpoints)
+</p>
+</li>
+<li><p> the window in which the pattern was observed
+</p>
+</li>
+<li><p> optionally, a &ldquo;mark&rdquo; attached to each line segment
+(extra information such as a type label).
+</p>
+</li></ul>
+
+<p>If <code>X</code> is an object of type <code>psp</code>,
+it contains the following elements:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>ends</code> </td><td style="text-align: left;"> data frame with entries <code>x0, y0, x1, y1</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                </td><td style="text-align: left;"> giving coordinates of segment endpoints </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+    <code>window</code> </td><td style="text-align: left;"> window of observation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                  </td><td style="text-align: left;"> (an object of class <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>n</code> </td><td style="text-align: left;"> number of line segments </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>marks</code> </td><td style="text-align: left;"> optional vector or data frame of marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>markformat</code> </td><td style="text-align: left;"> character string specifying the format of the </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                      </td><td style="text-align: left;"> marks; &ldquo;none&rdquo;, &ldquo;vector&rdquo;, or
+                      &ldquo;dataframe&rdquo;
+  </td>
+</tr>
+
+</table>
+
+<p>Users are strongly advised not to manipulate these entries
+directly.
+</p>
+<p>Objects of class <code>"psp"</code>
+may be created by the function
+<code><a href="../../spatstat.geom/help/psp.html">psp</a></code>
+and converted from other types of data by the function
+<code><a href="../../spatstat.geom/help/as.psp.html">as.psp</a></code>.
+Note that you must always specify the window of observation;
+there is intentionally no default action of &ldquo;guessing&rdquo; the window
+dimensions from the line segments alone.
+</p>
+<p>Subsets of a line segment pattern may be obtained by the functions
+<code><a href="../../spatstat.geom/help/+5B.psp.html">[.psp</a></code> and <code><a href="../../spatstat.geom/help/clip.psp.html">clip.psp</a></code>.
+</p>
+<p>Line segment pattern objects can be plotted just by typing <code>plot(X)</code>
+which invokes the <code>plot</code> method for line segment pattern objects,
+<code><a href="../../spatstat.geom/help/plot.psp.html">plot.psp</a></code>. See <code><a href="../../spatstat.geom/help/plot.psp.html">plot.psp</a></code> for further information.
+</p>
+<p>There are also methods for <code>summary</code> and <code>print</code>
+for line segment patterns. Use <code>summary(X)</code> to see a useful description
+of the data.
+</p>
+<p>Utilities for line segment patterns include
+<code><a href="../../spatstat.geom/help/midpoints.psp.html">midpoints.psp</a></code> (to compute the midpoints of each segment),
+<code><a href="../../spatstat.geom/help/lengths_psp.html">lengths_psp</a></code>, (to compute the length of each segment),
+<code><a href="../../spatstat.geom/help/angles.psp.html">angles.psp</a></code>, (to compute the angle of orientation of
+each segment), and 
+<code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code> to compute the distance map of a
+line segment pattern.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.html">psp</a></code>,
+<code><a href="../../spatstat.geom/help/as.psp.html">as.psp</a></code>,
+<code><a href="../../spatstat.geom/help/+5B.psp.html">[.psp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# creating 
+    a &lt;- psp(runif(20),runif(20),runif(20),runif(20), window=owin())
+# converting from other formats
+    a &lt;- as.psp(matrix(runif(80), ncol=4), window=owin())
+    a &lt;- as.psp(data.frame(x0=runif(20), y0=runif(20),
+                            x1=runif(20), y1=runif(20)), window=owin())
+# clipping
+    w &lt;- owin(c(0.1,0.7), c(0.2, 0.8))
+    b &lt;- clip.psp(a, w)
+    b &lt;- a[w]
+# the last two lines are equivalent.
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

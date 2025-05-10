@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Run Point-and-Click Interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for run.simplepanel {spatstat.geom}"><tr><td>run.simplepanel {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Run Point-and-Click Interface
+</h2>
+
+<h3>Description</h3>
+
+<p>Execute various operations in a simple
+point-and-click user interface.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+run.simplepanel(P, popup=TRUE, verbose = FALSE)
+clear.simplepanel(P)
+redraw.simplepanel(P, verbose = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>P</code></td>
+<td>
+
+<p>An interaction panel (object of class <code>"simplepanel"</code>,
+created by <code><a href="../../spatstat.geom/help/simplepanel.html">simplepanel</a></code> or <code><a href="../../spatstat.geom/help/grow.simplepanel.html">grow.simplepanel</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>popup</code></td>
+<td>
+
+<p>Logical. If <code>popup=TRUE</code> (the default),
+the panel will be displayed in a
+new popup window. If <code>popup=FALSE</code>,
+the panel will be displayed on the current graphics
+window if it already exists, and on a new window otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, debugging information will be printed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These commands enable the user to run a simple, robust,
+point-and-click interface to any <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code.
+The interface is implemented
+using only the basic graphics package in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+<p>The argument <code>P</code> is an object of class <code>"simplepanel"</code>,
+created by <code><a href="../../spatstat.geom/help/simplepanel.html">simplepanel</a></code> or <code><a href="../../spatstat.geom/help/grow.simplepanel.html">grow.simplepanel</a></code>,  
+which specifies the graphics to be displayed and the actions to be performed
+when the user interacts with the panel.
+</p>
+<p>The command <code>run.simplepanel(P)</code> activates the panel:
+the display is initialised and the graphics system waits for the
+user to click the panel. 
+While the panel is active, the user can only interact with the panel;
+the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> command line interface and the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> GUI cannot be used.
+When the panel terminates (typically because the user
+clicked a button labelled Exit), control returns to the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> command line
+interface and the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> GUI. 
+</p>
+<p>The command <code>clear.simplepanel(P)</code> clears all the display
+elements in the panel, resulting in a blank display except for the
+title of the panel.
+</p>
+<p>The command <code>redraw.simplepanel(P)</code> redraws all the buttons
+of the panel, according to the <code>redraw</code> functions contained
+in the panel.
+</p>
+<p>If <code>popup=TRUE</code> (the default), <code>run.simplepanel</code> begins by
+calling <code><a href="../../grDevices/help/dev.new.html">dev.new</a></code> so that a new popup window
+is created; this window is closed using
+<code><a href="../../grDevices/help/dev.off.html">dev.off</a></code> when <code>run.simplepanel</code> terminates.
+If <code>popup=FALSE</code>, the panel will be displayed on the current graphics
+window if it already exists, and on a new window otherwise;
+this window is not closed when <code>run.simplepanel</code> terminates.
+</p>
+<p>For more sophisticated control of the graphics focus (for example, to
+use the panel to control the display on another window),
+initialise the graphics devices yourself using
+<code><a href="../../grDevices/help/dev.new.html">dev.new</a></code> or similar commands; save these devices
+in the shared environment <code>env</code> of the panel <code>P</code>;
+and write the click/redraw functions of <code>P</code> in such a way that
+they access these devices using <code><a href="../../grDevices/help/dev.set.html">dev.set</a></code>.
+Then use <code>run.simplepanel</code> with <code>popup=FALSE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return value of <code>run.simplepanel(P)</code> is the value returned
+by the <code>exit</code> function of <code>P</code>. See <code><a href="../../spatstat.geom/help/simplepanel.html">simplepanel</a></code>.
+</p>
+<p>The functions <code>clear.simplepanel</code> and <code>redraw.simplepanel</code>
+return <code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/simplepanel.html">simplepanel</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    # make boxes (alternatively use layout.boxes())
+    Bminus &lt;- square(1)
+    Bvalue &lt;- shift(Bminus, c(1.2, 0))
+    Bplus &lt;- shift(Bvalue, c(1.2, 0))
+    Bdone &lt;- shift(Bplus, c(1.2, 0))
+    myboxes &lt;- list(Bminus, Bvalue, Bplus, Bdone)
+    myB &lt;- do.call(boundingbox,myboxes)
+
+    # make environment containing an integer count
+    myenv &lt;- new.env()
+    assign("answer", 0, envir=myenv)
+
+    # what to do when finished: return the count.
+    myexit &lt;- function(e) { return(get("answer", envir=e)) }
+
+    # button clicks
+    # decrement the count
+    Cminus &lt;- function(e, xy) {
+     ans &lt;- get("answer", envir=e)
+     assign("answer", ans - 1, envir=e)
+     return(TRUE)
+   }
+   # display the count (clicking does nothing)
+   Cvalue &lt;- function(...) { TRUE }
+   # increment the count
+   Cplus &lt;- function(e, xy) {
+    ans &lt;- get("answer", envir=e)
+    assign("answer", ans + 1, envir=e)
+    return(TRUE)
+   }
+   # quit button
+   Cdone &lt;- function(e, xy) { return(FALSE) }
+
+   myclicks &lt;- list("-"=Cminus,
+                    value=Cvalue,
+                    "+"=Cplus,
+                    done=Cdone)
+
+   # redraw the button that displays the current value of the count
+   Rvalue &lt;- function(button, nam, e) {
+     plot(button, add=TRUE)
+     ans &lt;- get("answer", envir=e)
+     text(centroid.owin(button), labels=ans)
+     return(TRUE)
+  }
+
+  # make the panel
+  P &lt;- simplepanel("Counter",
+                   B=myB, boxes=myboxes,
+                   clicks=myclicks,
+                   redraws = list(NULL, Rvalue, NULL, NULL),
+                   exit=myexit, env=myenv)
+  P
+
+  run.simplepanel(P)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

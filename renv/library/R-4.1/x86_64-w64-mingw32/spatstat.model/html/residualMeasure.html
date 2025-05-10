@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residual Measure for an Observed Point Pattern and a Fitted...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for residualMeasure {spatstat.model}"><tr><td>residualMeasure {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Residual Measure for an Observed Point Pattern and a Fitted Intensity
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and an estimate of its intensity function
+obtained in any fashion, compute the residual measure.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+residualMeasure(Q, lambda,
+               type = c("raw", "inverse", "Pearson", "pearson"),
+               ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Q</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+or quadrature scheme (object of class <code>"quad"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Predicted intensity. An image (object of class <code>"im"</code>)
+or a list of images.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the type of residuals.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>
+if <code>Q</code> is a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command constructs the residual measure
+for the model in which <code>Q</code> is the observed point pattern
+or quadrature scheme, and <code>lambda</code> is the estimated intensity
+function obtained in some fashion.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+<p>Baddeley, A., Moller, J. and Pakes, A.G. (2008) 
+Properties of residuals for spatial point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>60</b>, 627&ndash;649.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## nonparametric regression estimate of intensity
+  ## as a function of terrain elevation
+  f &lt;- rhohat(bei, bei.extra$elev)
+  ## predicted intensity as a function of location
+  lam &lt;- predict(f)
+  ## residuals
+  res &lt;- residualMeasure(bei, lam)
+  res
+  plot(res)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

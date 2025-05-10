@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Indefinite Integral</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for indefinteg {spatstat.univar}"><tr><td>indefinteg {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Indefinite Integral
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the indefinite integral of the given function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  indefinteg(f, x, ...,
+             method=c("trapezoid", "quadrature"),
+             lower=min(x), nfine=8192) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function taking a numeric first argument and returning a
+numeric vector of the same length.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Vector of values of the argument for which the indefinite integral
+should be evaluated. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>additional arguments to be passed to <code>f</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String (partially matched) specifying how to compute the integrals.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lower</code></td>
+<td>
+
+<p>Lower limit of integration. A single number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nfine</code></td>
+<td>
+
+<p>Number of sub-intervals to use for computation
+if <code>method='trapezoid'</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The indefinite integral of the given function <code>f</code>
+is computed numerically at each of the desired values <code>x</code>.
+The lower limit of integration is taken to be <code>min(x)</code>.
+</p>
+<p>The result is a numeric vector <code>y</code> of the same length as
+<code>x</code>, with entries
+</p>
+<p style="text-align: center;"><i>
+    y[i] = integral[lower]^(x[i]) f(t) dt
+  </i></p>
+
+<p>If <code>method='trapezoid'</code> (the default),
+the integrals are computed rapidly using the trapezoid rule.
+If <code>method='quadrature'</code> the integrals are computed
+accurately but much more slowly, using the numerical quadrature routine
+<code><a href="../../stats/help/integrate.html">integrate</a></code>.
+</p>
+<p>If <code>method='trapezoid'</code> 
+the function <code>f</code> is first evaluated 
+on a finer grid of values of the function argument.
+The fine grid contains <code>nfine</code> sample points.
+The values of the indefinite integral on the fine grid
+are computed using the trapezoidal approximation.
+Finally the values of the indefinite integral are extracted at
+the desired argument values <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector of the same length as <code>x</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/integrate.html">integrate</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  curve(indefinteg(sin, x), to=pi)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

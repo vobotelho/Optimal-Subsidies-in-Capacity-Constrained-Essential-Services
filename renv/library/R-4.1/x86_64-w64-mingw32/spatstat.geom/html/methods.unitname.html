@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Units</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.unitname {spatstat.geom}"><tr><td>methods.unitname {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Units
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for class <code>"unitname"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'unitname'
+print(x, ...)
+  ## S3 method for class 'unitname'
+summary(object, ...)
+  ## S3 method for class 'unitname'
+rescale(X, s, unitname)
+  ## S3 method for class 'unitname'
+compatible(A,B, ..., coerce=TRUE)
+  ## S3 method for class 'unitname'
+harmonise(..., coerce=TRUE, single=FALSE)
+  ## S3 method for class 'unitname'
+harmonize(..., coerce=TRUE, single=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,X,A,B,object</code></td>
+<td>
+
+<p>Objects of class <code>"unitname"</code> representing
+units of length.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments.
+For <code>print.unitname</code> these arguments are passed to
+<code><a href="../../base/help/print.default.html">print.default</a></code>.
+For <code>summary.unitname</code> they are ignored.
+For <code>compatible.unitname</code> and <code>harmonise.unitname</code> these arguments
+are other objects of class <code>"unitname"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>Conversion factor: the new units are <code>s</code> times the old units.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional new name for the unit. If present, this overrides the
+rescaling operation and simply substitutes the new name for the old
+one.
+</p>
+</td></tr>
+<tr valign="top"><td><code>coerce</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, a null unit of length is compatible with
+any non-null unit.
+</p>
+</td></tr>
+<tr valign="top"><td><code>single</code></td>
+<td>
+
+<p>Logical value indicating whether to return a single unitname,
+or a list of unitnames.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/print.html">print</a></code>, <code><a href="../../base/html/summary.html">summary</a></code>, <code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>
+and <code><a href="../../spatstat.geom/help/compatible.html">compatible</a></code>
+for the class <code>"unitname"</code>.
+</p>
+<p>An object of class <code>"unitname"</code> represents a unit of length.
+</p>
+<p>The <code>print</code> method prints a description of the unit of length,
+and the <code>summary</code> method gives a more detailed description.
+</p>
+<p>The <code>rescale</code> method changes the unit of length by rescaling it.
+</p>
+<p>The <code>compatible</code> method tests whether two or more units of length
+are compatible.
+</p>
+<p>The <code>harmonise</code> method returns the common unit of length
+if there is one. For consistency with other methods for
+<code><a href="../../spatstat.geom/help/harmonise.html">harmonise</a></code>, the result is a list of unitname objects,
+with one entry for each argument in <code>...</code>. All of these
+entries are identical. This can be overridden by setting
+<code>single=TRUE</code> when the result will be a single unitname object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.unitname</code> the value is <code>NULL</code>.
+For <code>summary.unitname</code> the value is an object of class
+<code>summary.unitname</code> (with its own print method).
+For <code>rescale.unitname</code> the value is another object of class <code>"unitname"</code>.
+For <code>compatible.unitname</code> the result is logical.
+For <code>harmonise.unitname</code> the result is a list of
+identical unitnames if <code>single=FALSE</code> (the default),
+or a single unitname if <code>single=TRUE</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/box3.html">box3</a></code>,
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

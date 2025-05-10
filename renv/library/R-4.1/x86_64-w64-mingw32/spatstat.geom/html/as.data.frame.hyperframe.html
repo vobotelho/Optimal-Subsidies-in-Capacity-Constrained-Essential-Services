@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Coerce Hyperframe to Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.data.frame.hyperframe {spatstat.geom}"><tr><td>as.data.frame.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coerce Hyperframe to Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Converts a hyperframe to a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'hyperframe'
+as.data.frame(x, row.names = NULL,
+                                  optional = FALSE, ..., 
+                                  discard=TRUE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Hyperframe (object of class <code>"hyperframe"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>row.names</code></td>
+<td>
+<p>Optional character vector of row names.</p>
+</td></tr>
+<tr valign="top"><td><code>optional</code></td>
+<td>
+<p>Argument passed to <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code>
+controlling what happens to row names.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>discard</code></td>
+<td>
+<p>Logical. Whether to discard columns of the hyperframe
+that do not contain atomic data. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+<p>Logical. Whether to issue a warning when columns are discarded.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code>
+for the class of hyperframes (see <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>.
+</p>
+<p>If <code>discard=TRUE</code>, any columns of the hyperframe that
+do not contain atomic data will be removed (and a warning will
+be issued if <code>warn=TRUE</code>). 
+If <code>discard=FALSE</code>, then such columns are converted to
+strings indicating what class of data
+they originally contained.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  h &lt;- hyperframe(X=1:3, Y=letters[1:3], f=list(sin, cos, tan))
+  as.data.frame(h, discard=TRUE, warn=FALSE)
+  as.data.frame(h, discard=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

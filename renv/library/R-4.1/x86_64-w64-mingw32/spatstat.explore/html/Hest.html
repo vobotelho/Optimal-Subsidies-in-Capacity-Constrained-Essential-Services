@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spherical Contact Distribution Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Hest {spatstat.explore}"><tr><td>Hest {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spherical Contact Distribution Function</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the spherical contact distribution function of a
+random set.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Hest(X, r=NULL, breaks=NULL, ...,
+     W,
+     correction=c("km", "rs", "han"),
+     conditional=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed random set.
+An object of class <code>"ppp"</code>, <code>"psp"</code> or <code>"owin"</code>.
+Alternatively a pixel image (class <code>"im"</code>) with logical values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. Vector of values for the argument <i>r</i> at which <i>H(r)</i> 
+should be evaluated. Users are advised <em>not</em> to specify this
+argument; there is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>This argument is for internal use only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the discretisation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional. A window (object of class <code>"owin"</code>)
+to be taken as the window of observation.
+The contact distribution function will be estimated
+from values of the contact distance inside <code>W</code>.
+The default is <code>W=Frame(X)</code> when <code>X</code> is a window,
+and <code>W=Window(X)</code> otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional.
+The edge correction(s) to be used to estimate <i>H(r)</i>.
+A vector of character strings selected from
+<code>"none"</code>, <code>"rs"</code>, <code>"km"</code>, <code>"han"</code>
+and <code>"best"</code>.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>conditional</code></td>
+<td>
+
+<p>Logical value indicating whether to compute the
+conditional or unconditional distribution. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The spherical contact distribution function
+of a stationary random set <i>X</i>
+is the cumulative distribution function <i>H</i> of the distance
+from a fixed point in space to the nearest point of <i>X</i>,
+given that the point lies outside <i>X</i>.
+That is, <i>H(r)</i> equals
+the probability that <code>X</code> lies closer than <i>r</i> units away
+from the fixed point <i>x</i>, given that <code>X</code> does not cover <i>x</i>.
+</p>
+<p>Let <i>D = d(x,X)</i> be the shortest distance from an arbitrary
+point <i>x</i> to the set <code>X</code>. Then the spherical contact
+distribution function is
+</p>
+<p style="text-align: center;"><i>H(r) = P(D &lt;= r | D &gt; 0)</i></p>
+
+<p>For a point process, the spherical contact distribution function
+is the same as the empty space function <i>F</i> discussed
+in <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>. 
+</p>
+<p>The argument <code>X</code> may be a point pattern
+(object of class <code>"ppp"</code>), a line segment pattern
+(object of class <code>"psp"</code>) or a window (object of class
+<code>"owin"</code>). It is assumed to be a realisation of a stationary
+random set.
+</p>
+<p>The algorithm first calls <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> to compute the
+distance transform of <code>X</code>, then computes the Kaplan-Meier
+and reduced-sample estimates of the cumulative distribution
+following Hansen et al (1999).
+If <code>conditional=TRUE</code> (the default) the algorithm
+returns an estimate of the spherical contact function
+<i>H(r)</i> as defined above. 
+If <code>conditional=FALSE</code>, it instead returns an estimate of the
+cumulative distribution function
+<i>H*(r) = P(D &lt;= r)</i>
+which includes a jump at <i>r=0</i> if <code>X</code> has nonzero area.
+</p>
+<p>Accuracy depends on the pixel resolution, which is controlled by the
+arguments <code>eps</code>, <code>dimyx</code> and <code>xy</code> passed to
+<code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>. For example, use <code>eps=0.1</code> to specify
+square pixels of side 0.1 units, and <code>dimyx=256</code> to specify a
+256 by 256 grid of pixels.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>Essentially a data frame containing up to six columns:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the function <i>H(r)</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>rs</code></td>
+<td>
+<p>the &ldquo;reduced sample&rdquo; or &ldquo;border correction&rdquo;
+estimator of <i>H(r)</i>
+</p>
+</td></tr>
+<tr valign="top"><td><code>km</code></td>
+<td>
+<p>the spatial Kaplan-Meier estimator of <i>H(r)</i>
+</p>
+</td></tr>
+<tr valign="top"><td><code>hazard</code></td>
+<td>
+<p>the hazard rate <i>lambda(r)</i>
+of <i>H(r)</i> by the spatial Kaplan-Meier method
+</p>
+</td></tr>
+<tr valign="top"><td><code>han</code></td>
+<td>
+<p>the spatial Hanisch-Chiu-Stoyan estimator of <i>H(r)</i>
+</p>
+</td></tr>
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>the uncorrected estimate of <i>H(r)</i>,
+i.e. the empirical distribution of the distance from 
+a fixed point in the window to the nearest point of <code>X</code>
+</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+with contributions from Kassel Hingee.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J. Spatial sampling and censoring.
+In O.E. Barndorff-Nielsen, W.S. Kendall and
+M.N.M. van Lieshout (eds) 
+<em>Stochastic Geometry: Likelihood and Computation</em>.
+Chapman and Hall, 1998.
+Chapter 2, pages 37-78.
+</p>
+<p>Baddeley, A.J. and Gill, R.D. 
+The empty space hazard of a spatial pattern.
+Research Report 1994/3, Department of Mathematics,
+University of Western Australia, May 1994.
+</p>
+<p>Hansen, M.B., Baddeley, A.J. and Gill, R.D.
+First contact distributions for spatial patterns:
+regularity and estimation.
+<em>Advances in Applied Probability</em> <b>31</b> (1999) 15-33.
+</p>
+<p>Ripley, B.D. <em>Statistical inference for spatial processes</em>.
+Cambridge University Press, 1988.
+</p>
+<p>Stoyan, D, Kendall, W.S. and Mecke, J.
+<em>Stochastic geometry and its applications</em>.
+2nd edition. Springer Verlag, 1995.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runifpoint(42)
+   H &lt;- Hest(X)
+   Y &lt;- rpoisline(10)
+   H &lt;- Hest(Y)
+   H &lt;- Hest(Y, dimyx=256)
+   X &lt;- heather$coarse
+   plot(Hest(X))
+   H &lt;- Hest(X, conditional=FALSE)
+
+   P &lt;- owin(poly=list(x=c(5.3, 8.5, 8.3, 3.7, 1.3, 3.7),
+                       y=c(9.7, 10.0, 13.6, 14.4, 10.7, 7.2)))
+   plot(X)
+   plot(P, add=TRUE, col="red")
+   H &lt;- Hest(X, W=P)
+   Z &lt;- as.im(FALSE, Frame(X))
+   Z[X] &lt;- TRUE
+   Z &lt;- Z[P, drop=FALSE]
+   plot(Z)
+   H &lt;- Hest(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

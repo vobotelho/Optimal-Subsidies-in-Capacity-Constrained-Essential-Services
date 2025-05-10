@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether A Point Pattern on a Network is Multitype</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.multitype.lpp {spatstat.linnet}"><tr><td>is.multitype.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test Whether A Point Pattern on a Network is Multitype</h2>
+
+<h3>Description</h3>
+
+<p>Tests whether a point pattern on a network has &ldquo;marks&rdquo;
+attached to the points which classify the points into several types.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+is.multitype(X, na.action="warn", ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on a linear networl
+(object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+
+<p>String indicating what to do if <code>NA</code> values are
+encountered amongst the marks.
+Options are <code>"warn"</code>, <code>"fatal"</code> and <code>"ignore"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>&ldquo;Marks&rdquo; are observations attached to each point of a point pattern.
+For example the <code><a href="../../spatstat.data/help/chicago.html">chicago</a></code> dataset contains
+the locations of crimes, each crime location
+being marked by the type of crime.
+</p>
+<p>This function tests whether the point pattern <code>X</code>
+contains or involves marked points, <b>and</b> that the
+marks are a factor.
+It is a method for the generic function
+<code><a href="../../spatstat.geom/help/is.multitype.html">is.multitype</a></code>.
+</p>
+<p>The argument <code>na.action</code> determines what action will be taken
+if the point pattern has a vector of marks but some or all of the
+marks are <code>NA</code>. Options are   <code>"fatal"</code> to cause a fatal
+error; <code>"warn"</code> to issue a warning and then return <code>TRUE</code>;
+and <code>"ignore"</code> to take no action except returning <code>TRUE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical value, equal to <code>TRUE</code> if <code>X</code> is a multitype point pattern.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.multitype.html">is.multitype</a></code>,
+<code><a href="../../spatstat.linnet/help/is.multitype.lppm.html">is.multitype.lppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   is.multitype(chicago)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Area of Part of Disc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for discpartarea {spatstat.geom}"><tr><td>discpartarea {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Area of Part of Disc
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute area of intersection between a disc and a window  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+discpartarea(X, r, W=as.owin(X))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>)
+specifying the centres of the discs.
+Alternatively, <code>X</code> may be in any format
+acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Matrix, vector or numeric value specifying the
+radii of the discs.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) with which the
+discs should be intersected.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm computes the exact area of the intersection between
+a window <code>W</code> and a disc (or each of several discs).
+The centres of the discs are specified by the point pattern
+<code>X</code>, and their radii are specified by <code>r</code>.
+</p>
+<p>If <code>r</code> is a single numeric value, then the algorithm computes the
+area of intersection between <code>W</code> and the disc of radius <code>r</code> centred
+at each point of <code>X</code>, and returns a one-column matrix
+containing one entry for each point of <code>X</code>.
+</p>
+<p>If <code>r</code> is a vector of length <code>m</code>, then the algorithm
+returns an <code>n * m</code> matrix in which the entry on row <code>i</code>,
+column <code>j</code> is the area of the
+intersection between <code>W</code> and the disc centred at <code>X[i]</code>
+with radius <code>r[j]</code>.
+</p>
+<p>If <code>r</code> is a matrix, it should have one row for each point in
+<code>X</code>. The algorithm
+returns a matrix in which the entry on row <code>i</code>,
+column <code>j</code> is the area of the
+intersection between <code>W</code> and the disc centred at <code>X[i]</code>
+with radius <code>r[i,j]</code>.
+</p>
+<p>Areas are computed by analytic geometry.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric matrix, with one row for each point of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/disc.html">disc</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- unmark(demopat)[1:3]
+  discpartarea(X, 0.2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

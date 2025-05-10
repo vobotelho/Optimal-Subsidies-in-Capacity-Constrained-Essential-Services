@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Predictors from Sufficient Dimension Reduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sdrPredict {spatstat.explore}"><tr><td>sdrPredict {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Predictors from Sufficient Dimension Reduction
+</h2>
+
+<h3>Description</h3>
+
+<p>Given the result of a Sufficient Dimension Reduction method,
+compute the new predictors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  sdrPredict(covariates, B)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>covariates</code></td>
+<td>
+
+<p>A list of pixel images (objects of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>B</code></td>
+<td>
+
+<p>Either a matrix of coefficients for the covariates, or the result of
+a call to <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function assumes that <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code> has already been used to
+find a minimal set of predictors based on the <code>covariates</code>.
+The argument <code>B</code> should be either the result of <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>
+or the coefficient matrix returned as one of the
+results of <code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>. The columns of this matrix define linear
+combinations of the <code>covariates</code>. This function evaluates those
+linear combinations, and returns a list of pixel images containing the
+new predictors.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of pixel images  (objects of class <code>"im"</code>)
+with one entry for each column of <code>B</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/sdr.html">sdr</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   A &lt;- sdr(bei, bei.extra)
+   Y &lt;- sdrPredict(bei.extra, A)
+   Y
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

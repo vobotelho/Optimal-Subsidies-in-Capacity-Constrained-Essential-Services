@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Expand Symbolic Polynomials in a Formula</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for expand.polynom {spatstat.utils}"><tr><td>expand.polynom {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Expand Symbolic Polynomials in a Formula
+</h2>
+
+<h3>Description</h3>
+
+<p>Create a formula representing a polynomial,
+or expand polynomials in an existing formula.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  expand.polynom(f)
+  sympoly(x, y, n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>A formula.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Variable names.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Integer specifying the degree of the polynomial.
+(If <code>n</code> is missing, <code>y</code> will be interpreted as the degree.)
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions expand a polynomial into its homogeneous terms
+and return a model formula.
+</p>
+<p><code>sympoly(x, n)</code> creates a formula whose right-hand side represents the
+polynomial of degree <code>n</code> in the variable <code>x</code>. Each
+homogeneous term <code>x^k</code> is a separate term in the formula.
+</p>
+<p><code>sympoly(x, y, n)</code> creates a formula representing the
+polynomial of degree <code>n</code> in the two variables <code>x</code> and
+<code>y</code>.
+</p>
+<p>If <code>f</code> is a formula containing a term of the form
+<code>polynom(...)</code> then <code>expand.polynom(f)</code> replaces this term
+by its expansion as a sum of homogeneous terms, as defined in
+the help for <code><a href="../../spatstat.model/help/polynom.html">polynom</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>formula</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/polynom.html">polynom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   sympoly(A, 4)
+   sympoly(A, B, 3)
+   expand.polynom(U ~ A + polynom(B, 2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find Largest Circle Inside Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for incircle {spatstat.geom}"><tr><td>incircle {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find Largest Circle Inside Window</h2>
+
+<h3>Description</h3>
+
+<p>Find the largest circle contained in a given window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+incircle(W)
+
+inradius(W)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>A window (object of class <code>"owin"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a window <code>W</code> of any type and shape, 
+the function <code>incircle</code> determines the largest circle
+that is contained inside <code>W</code>, while <code>inradius</code> computes its
+radius only.
+</p>
+<p>For non-rectangular windows, the incircle is computed approximately
+by finding the maximum of the distance map (see
+<code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>) of the complement of the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result of <code>incircle</code> is 
+a list with entries <code>x,y,r</code> giving the location <code>(x,y)</code>
+and radius <code>r</code> of the incircle.
+</p>
+<p>The result of <code>inradius</code> is the numerical value of radius.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/centroid.owin.html">centroid.owin</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- square(1)
+  Wc &lt;- incircle(W)
+  plot(W)
+  plot(disc(Wc$r, c(Wc$x, Wc$y)), add=TRUE)
+
+  plot(letterR)
+  Rc &lt;- incircle(letterR)
+  plot(disc(Rc$r, c(Rc$x, Rc$y)), add=TRUE)
+
+  W &lt;- as.mask(letterR)
+  plot(W)
+  Rc &lt;- incircle(W)
+  plot(disc(Rc$r, c(Rc$x, Rc$y)), add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

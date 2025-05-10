@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lookup Tables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lut {spatstat.geom}"><tr><td>lut {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lookup Tables</h2>
+
+<h3>Description</h3>
+
+<p>Create a lookup table.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lut(outputs, ..., range=NULL, breaks=NULL, inputs=NULL, gamma=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>outputs</code></td>
+<td>
+<p>Vector of output values</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+
+<p>Interval of numbers to be mapped.
+A numeric vector of length 2, specifying the ends of the range of values
+to be mapped.
+Incompatible with <code>breaks</code> or <code>inputs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>inputs</code></td>
+<td>
+
+<p>Input values to which the output values are associated.
+A factor or vector of the same length as <code>outputs</code>.
+Incompatible with <code>breaks</code> or <code>range</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Breakpoints for the lookup table.
+A numeric vector of length equal to <code>length(outputs)+1</code>.
+Incompatible with <code>range</code> or <code>inputs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>gamma</code></td>
+<td>
+
+<p>Exponent for gamma correction, when <code>range</code> is given.
+A single positive number.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A lookup table is a function, mapping input values to output values.
+</p>
+<p>The command <code>lut</code> creates an object representing
+a lookup table, which can then be used to control various behaviour
+in the <span class="pkg">spatstat</span> package. It can also be used to compute the
+output value assigned to any input value. 
+</p>
+<p>The argument <code>outputs</code> specifies the output values to which
+input data values will be mapped. It should be a vector of
+any atomic type (e.g. numeric, logical, character, complex) or factor
+values. 
+</p>
+<p>Exactly one of the arguments <code>range</code>, <code>inputs</code> or <code>breaks</code>
+must be specified by name.
+</p>
+
+<ul>
+<li> 
+<p>If <code>inputs</code> is given, then it should be a vector or factor,
+of the same length as <code>outputs</code>. The entries of <code>inputs</code> can be
+any atomic type (e.g. numeric, logical, character, complex) or factor
+values. The resulting lookup table associates the value <code>inputs[i]</code>
+with the value <code>outputs[i]</code>.
+The argument <code>outputs</code> should have the same length as <code>inputs</code>.
+</p>
+</li>
+<li>
+<p>If <code>range</code> is given, then it determines the interval of the real
+number line that will be mapped. It should be a numeric vector of
+length 2. 
+The interval will be divided evenly into bands, each of which is
+mapped to an entry of <code>outputs</code>. (If <code>gamma</code> is given,
+then the bands are equally spaced on a scale where the original values
+are raised to the power <code>gamma</code>.)
+</p>
+</li>
+<li>
+<p>If <code>breaks</code> is given, then it determines intervals
+of the real number line
+which are mapped to each output value. It should be a numeric vector,
+of length at least 2, with entries that are in increasing order.
+Infinite values are allowed. Any number in the range
+between <code>breaks[i]</code> and <code>breaks[i+1]</code> will be mapped to the
+value <code>outputs[i]</code>. 
+The argument <code>outputs</code> should have length equal to
+<code>length(breaks) - 1</code>.
+</p>
+</li></ul>
+
+<p>It is also permissible for <code>outputs</code> to be a single value,
+representing a trivial lookup table in which all data values are mapped to
+the same output value.
+</p>
+<p>The result is an object of class <code>"lut"</code>. 
+There is a <code>print</code> method for this class.
+Some plot commands in the <span class="pkg">spatstat</span> package accept an object
+of this class as a specification of a lookup table.
+</p>
+<p>The result is also a function <code>f</code> which can be used to compute
+the output value assigned to any input data value. 
+That is, <code>f(x)</code> returns the output value assigned
+to <code>x</code>. This also works for vectors of input data values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function, which is also an object of class <code>"lut"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # lookup table for real numbers, using breakpoints
+  cr &lt;- lut(factor(c("low", "medium", "high")), breaks=c(0,5,10,15))
+  cr
+  cr(3.2)
+  cr(c(3,5,7))
+  # lookup table for discrete set of values
+  ct &lt;- lut(c(0,1), inputs=c(FALSE, TRUE))
+  ct(TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set Default Control Parameters for Metropolis-Hastings...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for default.rmhcontrol {spatstat.random}"><tr><td>default.rmhcontrol {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set Default Control Parameters for Metropolis-Hastings Algorithm.</h2>
+
+<h3>Description</h3>
+
+<p>For a Gibbs point process model (either a fitted model,
+or a model specified by its parameters), this command
+sets appropriate default values of the
+parameters controlling the iterative behaviour
+of the Metropolis-Hastings algorithm.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   default.rmhcontrol(model, w=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted point process model (object of class <code>"ppm"</code>)
+or a description of a Gibbs point process model
+(object of class <code>"rmhmodel"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>Optional. Window for the resulting simulated patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function sets the values of 
+the parameters controlling the iterative behaviour
+of the Metropolis-Hastings
+simulation algorithm. It uses default values
+that would be appropriate for the fitted point
+process model <code>model</code>.
+</p>
+<p>The expansion parameter <code>expand</code> is set to
+<code><a href="../../spatstat.random/help/default.expand.html">default.expand</a>(model, w)</code>.
+</p>
+<p>All other parameters revert to their defaults given in
+<code><a href="../../spatstat.random/help/rmhcontrol.default.html">rmhcontrol.default</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code> for the full list of control parameters.
+To override default parameters, use <code><a href="../../spatstat.random/help/update.rmhcontrol.html">update.rmhcontrol</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"rmhcontrol"</code>. See <code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rmhcontrol.html">rmhcontrol</a></code>,
+<code><a href="../help/update.rmhcontrol.html">update.rmhcontrol</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../help/default.expand.html">default.expand</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(spatstat.model)) {
+  fit &lt;- ppm(cells, ~1, Strauss(0.1))
+  default.rmhcontrol(fit)
+  default.rmhcontrol(fit, w=square(2))
+}
+   m &lt;- rmhmodel(cif='strauss',
+                 par=list(beta=100, gamma=0.5, r=0.1),
+                 w=unit.square())
+  default.rmhcontrol(m)
+  default.rmhcontrol(m, w=square(2))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

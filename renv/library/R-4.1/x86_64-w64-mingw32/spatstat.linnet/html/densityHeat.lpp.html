@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kernel Density on a Network using Heat Equation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for densityHeat.lpp {spatstat.linnet}"><tr><td>densityHeat.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Kernel Density on a Network using Heat Equation
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern on a linear network,
+compute a kernel estimate of intensity,
+by solving the heat equation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+densityHeat(x, sigma=NULL, ...,
+              at=c("pixels", "points"), leaveoneout=TRUE,
+              weights = NULL,
+              dx = NULL, dt = NULL, iterMax = 1e+06,
+              finespacing = TRUE, verbose=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>)
+to be smoothed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth (standard deviation of the kernel).
+A numeric value in the same units as the spatial coordinates of <code>x</code>.
+Alternatively <code>sigma</code> may be a function which selects a
+bandwidth when applied to <code>X</code>,
+for example, <code><a href="../../spatstat.explore/help/bw.scott.iso.html">bw.scott.iso</a></code> or <code><a href="../../spatstat.linnet/help/bw.lppl.html">bw.lppl</a></code>.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> determining the
+resolution of the result. (Any other arguments are ignored.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>String specifying whether to compute the intensity values
+at a fine grid of pixel locations on the network
+(<code>at="pixels"</code>, the default) or
+only at the data points of <code>x</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value indicating whether to compute a leave-one-out
+estimator. Applicable only when <code>at="points"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Numeric vector of weights associated with the
+points of <code>x</code>. Weights may be positive, negative or zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dx</code></td>
+<td>
+
+<p>Optional. Spacing of the sampling points along the network.
+A single number giving a distance value in the same units as <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dt</code></td>
+<td>
+
+<p>Optional. Time step in the heat equation solver.
+A single number. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>iterMax</code></td>
+<td>
+
+<p>Maximum number of iterations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>finespacing</code></td>
+<td>
+
+<p>Logical value specifying whether the discrete approximation is
+required to be accurate along every segment of the network,
+no matter how short the segment is. See the section on Discretisation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value specifying whether to print progress reports.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.explore/help/densityHeat.html">densityHeat</a></code> is generic.
+This is the method for the class <code>"lpp"</code> of points on a linear
+network.
+</p>
+<p>Kernel smoothing is applied to the points of <code>x</code>
+using a kernel based on path distances in the network.
+If <code>at="pixels"</code> (the default),
+the result is a pixel image on the linear network (class
+<code>"linim"</code>) which can be plotted.
+If <code>at="points"</code> the result is a numeric vector giving the
+density estimates at the data points of <code>x</code>. 
+</p>
+<p>The smoothing operation is equivalent to the
+&ldquo;equal-split continuous&rdquo; rule described in
+Section 9.2.3 of Okabe and Sugihara (2012).
+However, the actual computation is performed rapidly, by solving the classical
+time-dependent heat equation on the network,
+as described in McSwiggan et al (2016).
+Computational time is short, but increases quadratically with
+<code>sigma</code>.
+</p>
+<p>If <code>at="points"</code> and <code>leaveoneout=TRUE</code>, 
+a leave-one-out estimate is computed at each data point
+(that is, the estimate at each data point <code>x[i]</code> is based
+on all of the points except <code>x[i]</code>)
+using the truncated series approximation
+of McSwiggan et al (2019).
+</p>
+<p>The argument <code>sigma</code> specifies the smoothing bandwidth.
+If <code>sigma</code> is missing or <code>NULL</code>,
+the default is one-eighth of the length of the shortest side
+of the bounding box of <code>x</code>.
+If <code>sigma</code> is a function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, it is assumed
+to be a bandwidth selection rule, and it will be applied to <code>x</code>
+to compute the bandwidth value.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>at="pixels"</code> (the default),
+a pixel image on the linear network (object of class <code>"linim"</code>).
+</p>
+<p>If <code>at="points"</code>, a numeric vector with one entry for each point
+of <code>x</code>.
+</p>
+
+
+<h3>Infinite bandwidth</h3>
+
+<p>If <code>sigma=Inf</code>, the resulting density estimate is 
+constant over all locations,
+and is equal to the average density of points per unit length.
+(If the network is not connected, then this rule
+is applied separately to each connected component of the network).
+</p>
+
+
+<h3>Discretisation and Error Messages</h3>
+
+<p>The arguments <code>dx</code>, <code>dt</code> and <code>iterMax</code>
+determine the discretisation of the network, according to
+a set of rules. The argument <code>finespacing</code> determines
+which rule will be applied. 
+</p>
+<p>The arguments <code>dx</code>, <code>dt</code>, <code>iterMax</code>
+are connected by several constraints; specifying one of these
+arguments will affect the default values of the other two arguments.
+</p>
+<p>The argument <code>finespacing</code> specifies whether
+a very fine spacing of sample points is required, in order to attain
+hihg accuracy.
+</p>
+
+<ul>
+<li>
+<p>If <code>finespacing=TRUE</code> (the default), then the
+sample point spacing <code>dx</code> must not exceed
+one-third of the length of the shortest
+segment of the network. This ensures that the discrete approximation
+is accurate along every segment, no matter how short the segment
+is. However, this may not be feasible
+if it implies a very large number of sample points, or a large number
+of iterations: in such cases, the code may terminate with an error
+about illegal values of <code>dx</code>, <code>dt</code> or <code>iterMax</code>.
+</p>
+</li>
+<li>
+<p>If <code>finespacing=FALSE</code>, then
+the sample point spacing <code>dx</code> will be about one-half the width
+of a pixel in the default pixellation of the window of <code>x</code>.
+This is usually a much coarser resolution than the one
+selected by <code>finespacing=TRUE</code>. If it is too coarse,
+the pixel resolution can be refined using
+the arguments <code>dimyx</code>, <code>eps</code> or <code>xy</code>
+passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>. For example,
+<code>dimyx=512</code> would specify a 512 x 512 pixel grid.
+The default pixel resolution can be changed for the remainder of
+the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> session by <code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>('npixel')</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Greg McSwiggan.
+</p>
+
+
+<h3>References</h3>
+
+<p>McSwiggan, G., Baddeley, A. and Nair, G. (2016)
+Kernel density estimation on a linear network.
+<em>Scandinavian Journal of Statistics</em> <b>44</b>, 324&ndash;345.
+</p>
+<p>McSwiggan, G., Baddeley, A. and Nair, G. (2019)
+Estimation of relative risk for events on a linear network.
+<em>Statistics and Computing</em> <b>30</b>, 469&ndash;484.
+</p>
+<p>Okabe, A. and Sugihara, K. (2012)
+<em>Spatial analysis along networks</em>.
+Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(3, simplenet)
+  D &lt;- densityHeat(X, 0.2)
+  plot(D, style="w", main="", adjust=2)
+  densityHeat.lpp(X, 0.2, at="points")
+  Dw &lt;- densityHeat(X, 0.2, weights=c(1,2,-1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

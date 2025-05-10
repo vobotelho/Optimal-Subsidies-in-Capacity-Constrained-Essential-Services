@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Array of Contour Plots</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for contour.imlist {spatstat.geom}"><tr><td>contour.imlist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Array of Contour Plots</h2>
+
+<h3>Description</h3>
+
+<p>Generates an array of contour plots.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'imlist'
+contour(x, ...)
+
+  ## S3 method for class 'listof'
+contour(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of the class <code>"imlist"</code>
+representing a list of pixel images.
+Alternatively <code>x</code> may belong to the outdated class <code>"listof"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code> to control the
+spatial arrangement of panels, and arguments passed
+to <code><a href="../../spatstat.geom/help/contour.im.html">contour.im</a></code> to control the display of each panel.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic command
+<code>contour</code> for the class <code>"imlist"</code>.
+An object of class <code>"imlist"</code> represents a list of pixel images.
+</p>
+<p>(The outdated class <code>"listof"</code> is also handled.)
+</p>
+<p>Each entry in the list <code>x</code> will be displayed as a contour plot,
+in an array of panels laid out on the same graphics display,
+using <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>. Invididual panels are plotted
+by <code><a href="../../spatstat.geom/help/contour.im.html">contour.im</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>,
+<code><a href="../../spatstat.geom/help/contour.im.html">contour.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# bei.extra is a named list of covariate images
+ contour(bei.extra,
+         main="Barro Colorado: covariates")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

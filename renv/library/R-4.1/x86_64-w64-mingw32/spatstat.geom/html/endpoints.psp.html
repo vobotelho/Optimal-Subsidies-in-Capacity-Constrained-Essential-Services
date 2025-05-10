@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Endpoints of Line Segment Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for endpoints.psp {spatstat.geom}"><tr><td>endpoints.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Endpoints of Line Segment Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the endpoints of each line segment
+in a line segment pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  endpoints.psp(x, which="both")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>String specifying which endpoint or endpoints should be
+returned. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function extracts one endpoint, or both endpoints,
+from each of the line segments in <code>x</code>,
+and returns these points as a point pattern object.
+</p>
+<p>The argument <code>which</code> determines which endpoint or endpoints
+of each line segment should be returned:
+</p>
+
+<dl>
+<dt><code>which="both"</code></dt><dd>
+<p>(the default): both endpoints
+of each line segment are returned. The result is a point pattern
+with twice as many points as there are line segments in <code>x</code>.
+</p>
+</dd>
+<dt><code>which="first"</code></dt><dd>
+<p>select the first endpoint
+of each line segment (returns the points with coordinates
+<code>x$ends$x0, x$ends$y0</code>).
+</p>
+</dd>
+<dt><code>which="second"</code></dt><dd>
+<p>select the second endpoint
+of each line segment (returns the points with coordinates
+<code>x$ends$x1, x$ends$y1</code>).
+</p>
+</dd>
+<dt><code>which="left"</code></dt><dd>
+<p>select the left-most endpoint
+(the endpoint with the smaller <i>x</i> coordinate)
+of each line segment.
+</p>
+</dd>
+<dt><code>which="right"</code></dt><dd>
+<p>select the right-most endpoint
+(the endpoint with the greater <i>x</i> coordinate)
+of each line segment.
+</p>
+</dd>
+<dt><code>which="lower"</code></dt><dd>
+<p>select the lower endpoint
+(the endpoint with the smaller <i>y</i> coordinate)
+of each line segment.
+</p>
+</dd>
+<dt><code>which="upper"</code></dt><dd>
+<p>select the upper endpoint
+(the endpoint with the greater <i>y</i> coordinate)
+of each line segment.
+</p>
+</dd>
+</dl>
+
+<p>The result is a point pattern. It also has an attribute
+<code>"id"</code> which is an integer vector identifying
+the segment which contributed each point.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/marks.psp.html">marks.psp</a></code>,
+<code><a href="../../spatstat.geom/help/summary.psp.html">summary.psp</a></code>,
+<code><a href="../../spatstat.geom/help/midpoints.psp.html">midpoints.psp</a></code>,
+<code><a href="../../spatstat.geom/help/lengths_psp.html">lengths_psp</a></code>,
+<code><a href="../../spatstat.geom/help/angles.psp.html">angles.psp</a></code>,
+<code><a href="../../spatstat.geom/help/extrapolate.psp.html">extrapolate.psp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  a &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  plot(a)
+  b &lt;- endpoints.psp(a, "left")
+  plot(b, add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

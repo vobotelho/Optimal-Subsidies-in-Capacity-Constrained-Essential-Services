@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Model selection criteria for the intensity function of a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ic.kppm {spatstat.model}"><tr><td>ic.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Model selection criteria for the intensity function of a point process</h2>
+
+<h3>Description</h3>
+
+<p>Information criteria for selecting the intensity function model
+of a Poisson, cluster or Cox point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ic(object)
+
+  ## S3 method for class 'ppm'
+ic(object)
+
+  ## S3 method for class 'kppm'
+ic(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function returns information criteria for selecting the
+intensity function model of a Poisson, Cox or cluster point process
+fitted by first order composite likelihood
+(i.e. using the Poisson likelihood function). 
+</p>
+<p>Degrees of freedom <i>df</i> for the information criteria are given by
+the trace of <i>S^{-1} &Sigma;</i> where <i>S</i> is the sensitivity matrix
+and <i>&Sigma;</i> is the variance matrix for the log composite
+likelihood score function. In case of a Poisson process, <i>df</i> is
+the number of parameters in the model for the intensity function. 
+</p>
+<p>The composite Bayesian information criterion (cbic) is
+<i>-2 * ll + log(n) * df</i>
+where <i>ll</i> is the maximal log first-order composite likelihood
+(Poisson loglikelihood for the intensity function) and
+<i>n</i> is the observed number of points.
+It reduces to the BIC criterion in case of a Poisson process.
+</p>
+<p>The composite information criterion (cic) is
+<i>- 2 * ll + 2 * df</i>
+and reduces to the AIC in case of a Poisson process.
+</p>
+<p>NOTE: the information criteria are for selecting the intensity
+function model (a set of covariates) within a given model class.
+They cannot be used to choose among different types of cluster
+or Cox point process models (e.g. can not be used to choose
+between Thomas and LGCP models).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with entries <code>loglike</code>, <code>cbic</code>, <code>cic</code> and
+<code>df</code>. 
+Here <code>loglike</code> is the fitted log first-order composite likelihood,
+<code>cbic</code> is composite Bayesian information criterion,
+<code>cic</code> is is the composite likelihood criterion and
+<code>df</code> is the adjusted degrees of freedom for the
+fitted intensity function model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Achmad Choiruddin, Jean-Francois Coeurjolly and Rasmus Waagepetersen.
+</p>
+
+
+<h3>References</h3>
+
+<p>Choiruddin, A., Coeurjolly, J.F. and Waagepetersen, R. (2020) 
+Information criteria for inhomogeneous spatial point processes.
+<em>Australian and New Zealand Journal of Statistics</em>.
+To appear. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+
+    # model with one covariate
+    fit1 &lt;- kppm(bei~elev,data=bei.extra)
+    ic1  &lt;- ic(fit1)
+
+    # model with two covariates
+    fit2 &lt;- kppm(bei~elev+grad,data=bei.extra)
+    ic2  &lt;- ic(fit2)
+  
+    # smallest cbic for fit1 but smallest cic for fit2
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residuals for Recursively Partitioned Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for residuals.rppm {spatstat.model}"><tr><td>residuals.rppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Residuals for Recursively Partitioned Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model
+that was fitted to a point pattern
+by recursive partitioning (regression tree) methods,
+compute the residual measure.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'rppm'
+residuals(object,
+                           type=c("raw", "inverse", "Pearson"),
+                           ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model (an object of class <code>"ppm"</code>)
+for which residuals should be calculated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String (partially matched)
+indicating the type of residuals to be calculated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the residual measure for a
+point process model that was fitted to point pattern data
+by recursive partitioning of the covariates.
+</p>
+<p>The argument <code>object</code> must be a fitted model object
+of class <code>"rppm"</code>). Such objects are
+created by the fitting algorithm <code><a href="../../spatstat.model/help/rppm.html">rppm</a></code>.
+</p>
+<p>The type of residual is chosen by the argument <code>type</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+<p>Baddeley, A., Moller, J. and Pakes, A.G. (2008) 
+Properties of residuals for spatial point processes.
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>60</b>, 627&ndash;649.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- rppm(bei ~ elev + grad, data=bei.extra)
+  res &lt;- residuals(fit)
+  plot(res)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Leverage and Influence Measures for Spatial Point Process...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ppmInfluence {spatstat.model}"><tr><td>ppmInfluence {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Leverage and Influence Measures for Spatial Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculates all the leverage and
+influence measures described in <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>,
+<code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code> and <code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ppmInfluence(fit,
+                what = c("leverage", "influence", "dfbetas"),
+                ...,
+                iScore = NULL, iHessian = NULL, iArgs = NULL,
+                drop = FALSE,
+                fitname = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fit</code></td>
+<td>
+
+<p>A fitted point process model of class <code>"ppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character vector specifying which quantities are to be calculated.
+Default is to calculate all quantities.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>iScore,iHessian</code></td>
+<td>
+
+<p>Components of the score vector and Hessian matrix for
+the irregular parameters, if required. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>iArgs</code></td>
+<td>
+
+<p>List of extra arguments for the functions <code>iScore</code>,
+<code>iHessian</code> if required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. Whether to include (<code>drop=FALSE</code>) or
+exclude (<code>drop=TRUE</code>) contributions from quadrature
+points that were not used to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fitname</code></td>
+<td>
+
+<p>Optional character string name for the fitted model <code>fit</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function calculates all the
+leverage and influence measures
+described in <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>, <code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code>
+and <code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>.
+</p>
+<p>When analysing large datasets, the user can
+call <code>ppmInfluence</code> to perform the calculations efficiently,
+then extract the leverage and influence values as desired.
+For example the leverage can be extracted either as
+<code>result$leverage</code> or <code>leverage(result)</code>.
+</p>
+<p>If the point process model trend has irregular parameters that were
+fitted (using <code><a href="../../spatstat.model/help/ippm.html">ippm</a></code>)
+then the influence calculation requires the first and second
+derivatives of the log trend with respect to the irregular parameters. 
+The argument <code>iScore</code> should be a list,
+with one entry for each irregular parameter, of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions that compute the
+partial derivatives of the log trend (i.e. log intensity or
+log conditional intensity) with respect to each irregular
+parameter. The argument <code>iHessian</code> should be a list,
+with <i>p^2</i> entries where <i>p</i> is the number of irregular
+parameters, of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions that compute the second order
+partial derivatives of the
+log trend with respect to each pair of irregular parameters.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the leverage and influence measures specified by
+<code>what</code>. The result also belongs to the class <code>"ppmInfluence"</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code>,
+<code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>,
+<code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X ~ x+y)
+   fI &lt;- ppmInfluence(fit)
+
+   fitlev &lt;- fI$leverage
+   fitlev &lt;- leverage(fI)
+
+   fitinf &lt;- fI$influence
+   fitinf &lt;- influence(fI)
+
+   fitdfb &lt;- fI$dfbetas
+   fitdfb &lt;- dfbetas(fI) 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

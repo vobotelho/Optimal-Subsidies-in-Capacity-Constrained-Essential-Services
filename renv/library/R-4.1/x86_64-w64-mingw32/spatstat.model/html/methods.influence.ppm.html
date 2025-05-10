@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Influence Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.influence.ppm {spatstat.model}"><tr><td>methods.influence.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Methods for Influence Objects</h2>
+
+<h3>Description</h3>
+
+<p>Methods for the class <code>"influence.ppm"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'influence.ppm'
+as.ppp(X, ...)
+
+ ## S3 method for class 'influence.ppm'
+as.owin(W, ..., fatal=TRUE)
+
+ ## S3 method for class 'influence.ppm'
+domain(X, ...)
+
+ ## S3 method for class 'influence.ppm'
+Smooth(X, ...)
+
+ ## S3 method for class 'influence.ppm'
+Window(X, ...)
+
+ ## S3 method for class 'influence.ppm'
+integral(f, domain, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,W,f</code></td>
+<td>
+<p>An object of class <code>"influence.ppm"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Optional. Domain of integration: a window (class <code>"owin"</code>)
+or a tessellation (class <code>"tess"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating what to do if the data cannot be
+converted to a window. If <code>fatal=TRUE</code> (the default)
+an error occurs. If <code>fatal=FALSE</code> a value of <code>NULL</code>
+is returned.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the class <code>"influence.ppm"</code>.
+An object of this class
+represents the influence measure of a fitted point process model
+(see <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>).
+</p>
+<p>For <code>as.ppp</code>, <code>domain</code>, <code>integral</code> and <code>Window</code>,
+additional arguments (<code>...</code>) are ignored.
+For <code>as.owin</code> and <code>Smooth</code>, 
+additional arguments are passed to the method for class <code>"ppp"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>) for
+<code>as.owin</code>, <code>domain</code> and <code>Window</code>.
+A point pattern (object of class <code>"ppp"</code>) for
+<code>as.ppp</code>. A numeric value or numeric vector for <code>integral</code>.
+A pixel image, or list of pixel images, for <code>Smooth</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>, <code><a href="../../spatstat.model/help/plot.influence.ppm.html">plot.influence.ppm</a></code>,
+<code><a href="../../spatstat.model/help/+5B.influence.ppm.html">[.influence.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ fit &lt;- ppm(cells ~ x)
+ a &lt;- influence(fit)
+ Window(a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

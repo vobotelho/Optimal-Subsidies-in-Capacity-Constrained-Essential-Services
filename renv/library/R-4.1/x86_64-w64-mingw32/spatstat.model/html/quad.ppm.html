@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Quadrature Scheme Used to Fit a Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quad.ppm {spatstat.model}"><tr><td>quad.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Quadrature Scheme Used to Fit a Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted point process model,
+this function extracts the 
+quadrature scheme used to fit the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  quad.ppm(object, drop=FALSE, clip=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>fitted point process model (an object of class <code>"ppm"</code>
+or <code>"kppm"</code> or <code>"lppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value determining whether to delete quadrature points
+that were not used to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip</code></td>
+<td>
+
+<p>Logical value determining whether to erode the window,
+if <code>object</code> was fitted using the border correction.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ppm"</code> represents a point process model
+that has been fitted to data. It is typically produced by
+the model-fitting algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>The maximum pseudolikelihood algorithm in <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+approximates the pseudolikelihood
+integral by a sum over a finite set of quadrature points,
+which is constructed by augmenting
+the original data point pattern by a set of &ldquo;dummy&rdquo; points.
+The fitted model object returned by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+contains complete information about this quadrature scheme.
+See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> or <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code> for further
+information.
+</p>
+<p>This function <code>quad.ppm</code> extracts the quadrature scheme.
+A typical use of this function would be to inspect the quadrature scheme
+(points and weights) to gauge the accuracy of the approximation to the
+exact pseudolikelihood.
+</p>
+<p>Some quadrature points may not have been used in
+fitting the model. This happens if the border correction is used,
+and in other cases (e.g. when the value of a covariate is <code>NA</code>
+at these points). The argument <code>drop</code> specifies whether these
+unused quadrature points shall be deleted (<code>drop=TRUE</code>) or
+retained (<code>drop=FALSE</code>) in the return value.
+</p>
+<p>The quadrature scheme has a <em>window</em>, which by default is set to
+equal the window of the original data. However this window may be
+larger than the actual domain of integration of the pseudolikelihood
+or composite likelihood that was used to fit the model.
+If <code>clip=TRUE</code> then the window of the quadrature scheme is
+set to the actual domain of integration. This option only has an effect
+when the model was fitted using the border correction; then
+the window is obtained by eroding the original data window
+by the border correction distance. 
+</p>
+<p>See <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code> for a list of all operations that can be
+performed on objects of class <code>"ppm"</code>.
+See <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code> for a list of all operations that can be
+performed on objects of class <code>"quad"</code>.
+</p>
+<p>This function can also be applied to objects of class <code>"kppm"</code>
+and <code>"lppm"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A quadrature scheme (object of class <code>"quad"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ fit &lt;- ppm(cells ~1, Strauss(r=0.1))
+ Q &lt;- quad.ppm(fit)
+ 
+   plot(Q)
+ 
+ npoints(Q$data)
+ npoints(Q$dummy)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

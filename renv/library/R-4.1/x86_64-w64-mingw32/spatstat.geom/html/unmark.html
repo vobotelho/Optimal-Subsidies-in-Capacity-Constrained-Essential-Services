@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Remove Marks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for unmark {spatstat.geom}"><tr><td>unmark {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Remove Marks</h2>
+
+<h3>Description</h3>
+
+<p>Remove the mark information from a spatial dataset. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ unmark(X)
+ ## S3 method for class 'ppp'
+unmark(X)
+ ## S3 method for class 'splitppp'
+unmark(X)
+ ## S3 method for class 'psp'
+unmark(X)
+ ## S3 method for class 'ppx'
+unmark(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>),
+a split point pattern (object of class <code>"splitppp"</code>),
+a line segment pattern (object of class <code>"psp"</code>)
+or a multidimensional space-time point pattern
+(object of class <code>"ppx"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A &lsquo;mark&rsquo; is a value attached to each point in a spatial point pattern,
+or attached to each line segment in a line segment pattern, etc.
+</p>
+<p>The function <code>unmark</code> is a simple way to 
+remove the marks from such a dataset.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of the same class as <code>X</code>
+with any mark information deleted.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/psp.object.html">psp.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  hicks &lt;- lansing[lansing$marks == "hickory", ]
+
+  # plot(hicks)  # still a marked point pattern, but only 1 value of marks
+  # plot(unmark(hicks)) # unmarked
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

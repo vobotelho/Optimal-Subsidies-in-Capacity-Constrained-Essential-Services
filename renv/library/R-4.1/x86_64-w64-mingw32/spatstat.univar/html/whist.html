@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Weighted Histogram</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for whist {spatstat.univar}"><tr><td>whist {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Weighted Histogram
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the weighted histogram of a set of observations
+with a given set of weights.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+whist(x, breaks, weights = NULL, method=c("C", "interpreted"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Numeric vector of observed values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Vector of breakpoints for the histogram. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Numeric vector of weights for the observed values. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Developer use only.
+A character string specifying whether to use internal C code
+(<code>method="C"</code>, the default) or interpreted <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code
+(<code>method="interpreted"</code>). 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This low-level function computes (but does not plot) the weighted
+histogram of a vector of observations <code>x</code> using a given
+vector of <code>weights</code>.
+</p>
+<p>The arguments <code>x</code> and <code>weights</code> should be numeric vectors of
+equal length. They may include <code>NA</code> or infinite values.
+</p>
+<p>The argument <code>breaks</code> should be a numeric vector whose entries
+are strictly increasing. These values define the boundaries between the
+successive histogram cells.
+The breaks <em>do not</em> have to span the range
+of the observations.
+</p>
+<p>There are <code>N-1</code> histogram cells, where <code>N = length(breaks)</code>.
+An observation <code>x[i]</code> falls in the <code>j</code>th cell if
+<code>breaks[j] &lt;= x[i] &lt; breaks[j+1]</code> (for <code>j &lt; N-1</code>)
+or
+<code>breaks[j] &lt;= x[i] &lt;= breaks[j+1]</code> (for <code>j = N-1</code>).
+The weighted histogram value <code>h[j]</code> for the <code>j</code>th cell is
+the sum of <code>weights[i]</code> for all observations <code>x[i]</code> that
+fall in the cell.
+</p>
+<p>Note that, in contrast to the function <code><a href="../../graphics/html/hist.html">hist</a></code>,
+the function <code>whist</code> does not require the breakpoints to span the
+range of the observations <code>x</code>. Values of <code>x</code> that fall outside the
+range of <code>breaks</code> are handled separately; their total weight
+is returned as an attribute of the histogram. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector of length <code>N-1</code> containing the
+histogram values, where <code>N = length(breaks)</code>.
+</p>
+<p>The return value also has attributes <code>"low"</code> and <code>"high"</code>
+giving the total weight of all observations that are less than
+the lowest breakpoint, or greater than the highest breakpoint,
+respectively.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>with thanks to Peter Dalgaard.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- rnorm(100)
+  b &lt;- seq(-1,1,length=21)
+  w &lt;- runif(100)
+  whist(x,b,w)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

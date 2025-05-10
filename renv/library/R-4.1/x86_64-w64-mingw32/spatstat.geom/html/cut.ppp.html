@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Classify Points in a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for cut.ppp {spatstat.geom}"><tr><td>cut.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Classify Points in a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Classifies the points in a point pattern into distinct types
+according to the numerical marks in the pattern, or according to
+another variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppp'
+cut(x, z=marks(x), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A two-dimensional point pattern.
+An object of class <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>z</code></td>
+<td>
+
+<p>Data determining the classification. A numeric vector,
+a factor, a pixel image, a window, a tessellation, or a string
+giving the name of a column of marks or the name of a spatial coordinate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../base/html/cut.html">cut.default</a></code>.
+They determine the breakpoints for the mapping from numerical values
+in <code>z</code> to factor values in the output.
+See <code><a href="../../base/html/cut.html">cut.default</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function has the effect of classifying each point in the point
+pattern <code>x</code> into one of several possible types. The
+classification is based on the dataset <code>z</code>, which may be either
+</p>
+
+<ul>
+<li>
+<p>a factor (of length equal to the number of points in <code>z</code>)
+determining the classification of each point in <code>x</code>.
+Levels of the factor determine the classification.
+</p>
+</li>
+<li>
+<p>a numeric vector (of length equal to the number of points in
+<code>z</code>). The range of values of <code>z</code> will be divided into
+bands (the number of bands is determined by <code>...</code>)
+and <code>z</code> will be converted to a factor using
+<code><a href="../../base/html/cut.html">cut.default</a></code>.
+</p>
+</li>
+<li>
+<p>a pixel image (object of class <code>"im"</code>).
+The value of <code>z</code> at each point of <code>x</code> will be
+used as the classifying variable.
+</p>
+</li>
+<li>
+<p>a tessellation (object of class <code>"tess"</code>, see
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>). Each point of <code>x</code> will be classified
+according to the tile of the tessellation into which it falls.
+</p>
+</li>
+<li>
+<p>a window (object of class <code>"owin"</code>).
+Each point of <code>x</code> will be classified
+according to whether it falls inside or outside this window.
+</p>
+</li>
+<li>
+<p>a character string, giving the name of one of the columns
+of <code>marks(x)</code>, if this is a data frame.
+</p>
+</li>
+<li>
+<p>a character string <code>"x"</code> or <code>"y"</code> identifying one of the
+spatial coordinates.
+</p>
+</li></ul>
+
+<p>The default is to take <code>z</code> to be the vector of marks in
+<code>x</code> (or the first column in the data frame of marks of <code>x</code>,
+if it is a data frame). If the marks are numeric, then the range of values
+of the numerical marks is divided into several intervals, and each
+interval is associated with a level of a factor. 
+The result is a
+marked point pattern, with the same window and point locations as
+<code>x</code>, but with the numeric mark of each point discretised
+by replacing it by the factor level.
+This is a convenient way to transform a marked point pattern
+which has numeric marks into a multitype point pattern,
+for example to plot it or analyse it. See the examples.
+</p>
+<p>To select some points from a point pattern, use the subset operators
+<code><a href="../../spatstat.geom/help/+5B.ppp.html">[.ppp</a></code> or <code><a href="../../spatstat.geom/help/subset.ppp.html">subset.ppp</a></code> instead.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A multitype point pattern, that is, a point pattern object
+(of class <code>"ppp"</code>) with a <code>marks</code> vector that is a factor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/cut.html">cut</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/tess.html">tess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # (1) cutting based on numeric marks of point pattern
+ 
+ trees &lt;- longleaf
+ # Longleaf Pines data
+ # the marks are positive real numbers indicating tree diameters.
+
+ 
+ if(interactive()) {
+ plot(trees)
+ }
+
+ # cut the range of tree diameters into three intervals
+ long3 &lt;- cut(trees, breaks=3)
+ if(interactive()) {
+ plot(long3)
+ }
+
+ # adult trees defined to have diameter at least 30 cm
+ long2 &lt;- cut(trees, breaks=c(0,30,100), labels=c("Sapling", "Adult"))
+ plot(long2)
+ plot(long2, cols=c("green","blue"))
+
+ # (2) cutting based on another numeric vector
+ # Divide Swedish Pines data into 3 classes
+ # according to nearest neighbour distance
+
+ swedishpines
+ plot(cut(swedishpines, nndist(swedishpines), breaks=3))
+
+ # (3) cutting based on tessellation
+ # Divide Swedish Pines study region into a 4 x 4 grid of rectangles
+ # and classify points accordingly
+
+ tes &lt;- tess(xgrid=seq(0,96,length=5),ygrid=seq(0,100,length=5))
+ plot(cut(swedishpines, tes))
+ plot(tes, lty=2, add=TRUE)
+
+ # (4) inside/outside a given region
+ with(murchison, cut(gold, greenstone))
+
+ # (5) multivariate marks
+ finpines
+ cut(finpines, "height", breaks=4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

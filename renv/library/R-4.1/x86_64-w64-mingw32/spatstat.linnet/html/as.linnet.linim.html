@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Linear Network from Data on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.linnet.linim {spatstat.linnet}"><tr><td>as.linnet.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract Linear Network from Data on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given some kind of data on a linear network,
+the command <code>as.linnet</code> extracts the linear network itself.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'linim'
+as.linnet(X, ...)
+
+ ## S3 method for class 'linfun'
+as.linnet(X, ...)
+
+ ## S3 method for class 'lintess'
+as.linnet(X, ...)
+
+ ## S3 method for class 'lpp'
+as.linnet(X, ..., fatal=TRUE, sparse)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data on a linear network.
+A point pattern (class <code>"lpp"</code>),
+pixel image (class <code>"linim"</code>), function (class
+<code>"linfun"</code>) or tessellation (class <code>"lintess"</code>)
+on a linear network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating whether data in the wrong format
+should lead to an error (<code>fatal=TRUE</code>) or a warning
+(<code>fatal=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sparse</code></td>
+<td>
+
+<p>Logical value indicating whether to use a sparse matrix
+representation, as explained in <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>.
+Default is to keep the same representation as in <code>X</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic <code><a href="../../spatstat.linnet/help/as.linnet.html">as.linnet</a></code>
+for various classes.
+</p>
+<p>The network on which the data are defined is extracted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A linear network (object of class <code>"linnet"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>, 
+<code><a href="../../spatstat.linnet/help/methods.linnet.html">methods.linnet</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # make some data
+  xcoord &lt;- linfun(function(x,y,seg,tp) { x }, simplenet)
+  as.linnet(xcoord)
+  X &lt;- as.linim(xcoord)
+  as.linnet(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

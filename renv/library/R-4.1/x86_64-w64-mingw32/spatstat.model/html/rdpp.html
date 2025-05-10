@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulation of a Determinantal Point Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rdpp {spatstat.model}"><tr><td>rdpp {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulation of a Determinantal Point Process</h2>
+
+<h3>Description</h3>
+
+<p>Generates simulated realisations from a determinantal point process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rdpp(eig, index, basis = "fourierbasis",
+       window = boxx(rep(list(0:1), ncol(index))),
+       reject_max = 10000, progress = 0, debug = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>eig</code></td>
+<td>
+
+<p>vector of values between 0 and 1 specifying the non-zero
+eigenvalues for the process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+
+<p><code>data.frame</code> or <code>matrix</code> (or something acceptable to
+<code><a href="../../base/html/matrix.html">as.matrix</a></code>) specifying indices of the basis
+functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>basis</code></td>
+<td>
+<p>character string giving the name of the basis.</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>window (of class <code>"owin"</code>, <code>"box3"</code> or <code>"boxx"</code>)
+giving the domain of the point process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reject_max</code></td>
+<td>
+
+<p>integer giving the maximal number of trials for rejection sampling.
+</p>
+</td></tr>
+<tr valign="top"><td><code>progress</code></td>
+<td>
+
+<p>integer giving the interval for making a progress report. The value
+zero turns reporting off.
+</p>
+</td></tr>
+<tr valign="top"><td><code>debug</code></td>
+<td>
+
+<p>logical value indicating whether debug informationb
+should be outputted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+index &lt;- expand.grid(-2:2,-2:2)
+eig &lt;- exp(-rowSums(index^2))
+X &lt;- rdpp(eig, index)
+X
+## To simulate a det. projection p. p. with the given indices set eig=1:
+XX &lt;- rdpp(1, index)
+XX
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

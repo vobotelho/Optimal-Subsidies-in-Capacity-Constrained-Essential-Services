@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculate Derivative of Function Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for deriv.fv {spatstat.explore}"><tr><td>deriv.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Calculate Derivative of Function Values
+</h2>
+
+<h3>Description</h3>
+
+<p>Applies numerical differentiation to the values
+in selected columns of a function value table.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'fv'
+deriv(expr, which = "*", ...,
+          method=c("spline", "numeric"),
+          kinks=NULL,
+          periodic=FALSE,
+          Dperiodic=periodic)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>expr</code></td>
+<td>
+
+<p>Function values to be differentiated.
+A function value table (object of class <code>"fv"</code>,
+see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+
+<p>Character vector identifying which columns of the table
+should be differentiated. Either a vector containing names
+of columns, or one of the wildcard strings <code>"*"</code> or <code>"."</code>
+explained below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code>
+to control the differentiation algorithm, if <code>method="spline"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Differentiation method. A character string, partially matched
+to either <code>"spline"</code> or <code>"numeric"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kinks</code></td>
+<td>
+
+<p>Optional vector of <i>x</i> values where the derivative is
+allowed to be discontinuous. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical value indicating whether the function <code>expr</code>
+is periodic. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>Dperiodic</code></td>
+<td>
+
+<p>Logical value indicating whether the resulting derivative
+should be a periodic function.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command performs numerical differentiation on the function values in
+a function value table (object of class <code>"fv"</code>).
+The differentiation is performed either by 
+<code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code> or by
+a naive numerical difference algorithm.
+</p>
+<p>The command <code><a href="../../stats/html/deriv.html">deriv</a></code> is generic. This is the
+method for objects of class <code>"fv"</code>.
+</p>
+<p>Differentiation is applied to every column
+(or to each of the selected columns) of function values in turn,
+using the function argument as the <i>x</i> coordinate
+and the selected column as the <i>y</i> coordinate.
+The original function values are then replaced by the corresponding
+derivatives.
+</p>
+<p>The optional argument <code>which</code> specifies which of the
+columns of function values in <code>expr</code> will be differentiated.
+The default (indicated by the wildcard <code>which="*"</code>)
+is to differentiate all function values, i.e.\ all columns except the
+function argument. Alternatively <code>which="."</code> designates
+the subset of function values that are displayed in the default plot.
+Alternatively <code>which</code> can be a character vector containing the
+names of columns of <code>expr</code>.
+</p>
+<p>If the argument <code>kinks</code> is given, it should be a numeric vector
+giving the discontinuity points of the function: the value or values
+of the function argument at which the function is
+not differentiable. Differentiation will be performed separately on
+intervals between the discontinuity points.
+</p>
+<p>If <code>periodic=TRUE</code> then the function <code>expr</code> is taken to be
+periodic, with period equal to the range of the function
+argument in <code>expr</code>. The resulting derivative is periodic.
+</p>
+<p>If <code>periodic=FALSE</code> but <code>Dperiodic=TRUE</code>, then the
+<em>derivative</em> is assumed to be periodic. This would be
+appropriate if <code>expr</code> is the cumulative distribution function
+of an angular variable, for example. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another function value table (object of class <code>"fv"</code>)
+of the same format.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/with.fv.html">with.fv</a></code>,
+<code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../../stats/help/smooth.spline.html">smooth.spline</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   G &lt;- Gest(cells)
+   plot(deriv(G, which=".", spar=0.5))
+   A &lt;- pairorient(redwood, 0.05, 0.15)
+   DA &lt;- deriv(A, spar=0.6, Dperiodic=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

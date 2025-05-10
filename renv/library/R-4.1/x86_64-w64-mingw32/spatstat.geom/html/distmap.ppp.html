@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for distmap.ppp {spatstat.geom}"><tr><td>distmap.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Distance Map of Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distance from each pixel to the nearest
+point in the given point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ppp'
+distmap(X, ..., clip=FALSE, metric=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip</code></td>
+<td>
+
+<p>Logical value specifying whether the resulting pixel image
+should be clipped to the window of <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>metric</code></td>
+<td>
+
+<p>Optional. A distance metric
+(object of class <code>"metric"</code>, see <code><a href="../../spatstat.geom/help/metric.object.html">metric.object</a></code>)
+which will be used to compute the distances.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The &ldquo;distance map&rdquo; of a point pattern <i>X</i> is the function
+<i>f</i> whose value <code>f(u)</code> is defined for any two-dimensional
+location <i>u</i> as the shortest distance from <i>u</i> to <i>X</i>.
+</p>
+<p>This function computes the distance map of the point pattern <code>X</code>
+and returns the distance map as a pixel image. The greyscale value
+at a pixel <i>u</i> equals the distance from <i>u</i> to the nearest
+point of the pattern <code>X</code>.
+</p>
+<p>If <code>clip=FALSE</code> (the default), the resulting pixel values are defined at every pixel in
+the rectangle <code>Frame(X)</code>. If <code>clip=TRUE</code>, the pixel values are defined
+only inside <code>Window(X)</code>, and are <code>NA</code> outside this window.
+Computation is faster when <code>clip=FALSE</code>.
+</p>
+<p>Additionally, the return value 
+has two attributes, <code>"index"</code> and <code>"bdry"</code>, which are
+also pixel images. The grey values in <code>"bdry"</code> give the
+distance from each pixel to the boundary of the window containing <code>X</code>.
+The grey values in <code>"index"</code> are integers identifying which
+point of <code>X</code> is closest. 
+</p>
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>.
+</p>
+<p>Note that this function gives the distance from the
+<em>centre of each pixel</em> to the nearest data point.
+To compute the exact distance from a given spatial location
+to the nearest data point in <code>X</code>, use <code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code> or 
+<code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) whose greyscale values
+are the values of the distance map.
+The return value has attributes <code>"index"</code> and <code>"bdry"</code>
+which are also pixel images. 
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The pixel values in the image <code>distmap(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values in <code>distmap(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Generic function <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code> and other methods
+<code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code>,
+<code><a href="../../spatstat.geom/help/distmap.owin.html">distmap.owin</a></code>.
+</p>
+<p>Generic function <code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code>.
+</p>
+<p>Nearest neighbour distance <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>.
+</p>
+<p><code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code> and <code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code> to control the unit
+of length.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  U &lt;- distmap(cells)
+  if(interactive()) {
+    plot(U)
+    plot(attr(U, "bdry"))
+    plot(attr(U, "index"))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

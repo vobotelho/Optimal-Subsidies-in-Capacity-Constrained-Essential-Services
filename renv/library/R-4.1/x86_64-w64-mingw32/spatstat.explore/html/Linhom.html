@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inhomogeneous L-function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Linhom {spatstat.explore}"><tr><td>Linhom {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Inhomogeneous L-function</h2>
+
+<h3>Description</h3>
+
+<p>Calculates an estimate of the inhomogeneous version of
+the <i>L</i>-function (Besag's transformation of Ripley's <i>K</i>-function)
+for a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Linhom(X, ..., correction)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>The observed point pattern, 
+from which an estimate of <i>L(r)</i> will be computed.
+An object of class <code>"ppp"</code>, or data
+in any format acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction,...</code></td>
+<td>
+
+<p>Other arguments passed to <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code>
+to control the estimation procedure.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes an estimate of the inhomogeneous version of
+the <i>L</i>-function for a spatial point pattern.
+</p>
+<p>The original <i>L</i>-function is a transformation
+(proposed by Besag) of Ripley's <i>K</i>-function,
+</p>
+<p style="text-align: center;"><i>L(r) = sqrt(K(r)/pi)</i></p>
+
+<p>where <i>K(r)</i> is the Ripley <i>K</i>-function of a spatially homogeneous
+point pattern, estimated by <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>.
+</p>
+<p>The inhomogeneous <i>L</i>-function is the corresponding transformation
+of the inhomogeneous <i>K</i>-function, estimated by <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code>.
+It is appropriate when the point pattern clearly does not have a
+homogeneous intensity of points. It was proposed by
+Baddeley, Moller and Waagepetersen (2000).
+</p>
+<p>The command <code>Linhom</code> first calls
+<code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code> to compute the estimate of the inhomogeneous K-function,
+and then applies the square root transformation.
+</p>
+<p>For a Poisson point pattern (homogeneous or inhomogeneous),
+the theoretical value of the inhomogeneous <i>L</i>-function is <i>L(r) = r</i>.
+The square root also has the effect of stabilising
+the variance of the estimator, so that <i>L</i> is more appropriate
+for use in simulation envelopes and hypothesis tests.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code>, see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+which can be plotted directly using <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>Essentially a data frame containing columns
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the vector of values of the argument <i>r</i> 
+at which the function <i>L</i> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value <i>L(r) = r</i>
+for a stationary Poisson process
+</p>
+</td></tr>
+</table>
+<p>together with columns named 
+<code>"border"</code>, <code>"bord.modif"</code>,
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the function <i>L(r)</i> obtained by the edge corrections
+named.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Moller, J. and Waagepetersen, R. (2000)
+Non- and semiparametric estimation of interaction in
+inhomogeneous point patterns.
+<em>Statistica Neerlandica</em> <b>54</b>, 329&ndash;350.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/Lest.html">Lest</a></code>,
+<code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code>,
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ X &lt;- japanesepines
+ L &lt;- Linhom(X, sigma=0.1)
+ plot(L, main="Inhomogeneous L function for Japanese Pines")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

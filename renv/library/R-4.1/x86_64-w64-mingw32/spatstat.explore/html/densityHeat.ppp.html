@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Diffusion Estimate of Point Pattern Intensity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityHeat.ppp {spatstat.explore}"><tr><td>densityHeat.ppp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Diffusion Estimate of Point Pattern Intensity
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the diffusion estimate of the intensity of a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppp'
+densityHeat(x, sigma, ..., weights=NULL,
+          connect=8, symmetric=FALSE,
+          sigmaX=NULL, k=1, show=FALSE, se=FALSE,
+          at=c("pixels", "points"),
+          leaveoneout = TRUE,
+          extrapolate = FALSE, coarsen = TRUE,
+          verbose=TRUE, internal=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Smoothing bandwidth. A single number giving the equivalent
+standard deviation of the smoother.
+Alternatively, a pixel image (class <code>"im"</code>) or a
+<code>function(x,y)</code> giving the spatially-varying bandwidth.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>
+controlling the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional numeric vector of weights associated with each point of
+<code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>connect</code></td>
+<td>
+
+<p>Grid connectivity: either 4 or 8.
+</p>
+</td></tr>
+<tr valign="top"><td><code>symmetric</code></td>
+<td>
+
+<p>Logical value indicating whether to <em>force</em> the algorithm
+to use a symmetric random walk.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigmaX</code></td>
+<td>
+
+<p>Numeric vector of bandwidths, one associated with each data point in
+<code>x</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer. Calculations will be performed by repeatedly multiplying
+the current state by the <code>k</code>-step transition matrix.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show</code></td>
+<td>
+
+<p>Logical value indicating whether to plot successive iterations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+
+<p>Logical value indicating whether to compute standard errors.
+</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>Character string specifying whether to compute values
+at a grid of pixels (<code>at="pixels"</code>, the default)
+or at the data points of <code>x</code> (<code>at="points"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaveoneout</code></td>
+<td>
+
+<p>Logical value specifying whether to compute a leave-one-out
+estimate at each data point, when <code>at="points"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>extrapolate</code></td>
+<td>
+
+<p>Logical value specifying whether to use Richardson extrapolation
+to improve the accuracy of the computation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>coarsen</code></td>
+<td>
+
+<p>Logical value, controlling the calculation performed when
+<code>extrapolate=TRUE</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value specifying whether to print progress reports.
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+
+<p>Developer use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command computes a diffusion kernel estimate 
+of point process intensity from the observed point pattern <code>x</code>.
+</p>
+<p>The function <code><a href="../../spatstat.explore/help/densityHeat.html">densityHeat</a></code> is generic,
+with methods for point patterns in two dimensions
+(class <code>"ppp"</code>) and point patterns on a linear network
+(class <code>"lpp"</code>). The function <code>densityHeat.ppp</code> described
+here is the method for class <code>"ppp"</code>. Given a two-dimensional
+point pattern <code>x</code>, it computes a diffusion kernel estimate
+of the intensity of the point process which generated <code>x</code>.
+</p>
+<p>Diffusion kernel estimates were developed
+by Botev et al (2010), Barry and McIntyre (2011) and
+Baddeley et al (2022). 
+</p>
+<p>Barry and McIntyre (2011) proposed an estimator for point process
+intensity based on a random walk on the pixel grid inside the
+observation window. Baddeley et al (2022) showed that the
+Barry-McIntyre method is a special case of the <em>diffusion estimator</em> 
+proposed by Botev et al (2010).
+</p>
+<p>The original Barry-McIntyre algorithm assumes a symmetric random walk
+(i.e. each possible transition has the same probability <i>p</i>)
+and requires a square pixel grid (i.e. equal
+spacing in the <i>x</i> and <i>y</i> directions). Their original
+algorithm is used if <code>symmetric=TRUE</code>. Use the <code>...</code>
+arguments to ensure a square grid: for example, the argument
+<code>eps</code> specifies a square grid with spacing <code>eps</code> units.
+</p>
+<p>The more general algorithm used here (Baddeley et al, 2022)
+does not require a square grid of pixels.
+If the pixel grid is not square, and if <code>symmetric=FALSE</code>
+(the default), then the random walk is not symmetric,
+in the sense that the probabilities of different jumps will be
+different, in order to ensure that the smoothing is isotropic.
+</p>
+<p>This implementation also includes two generalizations to
+the case of adaptive smoothing (Baddeley et al, 2022).
+</p>
+<p>In the first version of adaptive smoothing, the bandwidth is
+spatially-varying.
+The argument <code>sigma</code> should be a pixel image (class <code>"im"</code>)
+or a <code>function(x,y)</code> specifying the bandwidth at each spatial
+location. The smoothing is performed by solving the 
+heat equation with spatially-varying parameters.
+</p>
+<p>In the second version of adaptive smoothing, each data point in
+<code>x</code> is smoothed using a separate bandwidth.
+The argument <code>sigmaX</code> should be a numeric vector
+specifying the bandwidth for each point of <code>x</code>.
+The smoothing is performed using the lagged arrival algorithm.
+The argument <code>sigma</code> can be omitted.
+</p>
+<p>If <code>extrapolate=FALSE</code> (the default), calculations are performed
+using the Euler scheme for the heat equation. 
+If <code>extrapolate=TRUE</code>, the accuracy of the result will be
+improved by applying Richardson extrapolation (Baddeley et al, 2022, Section
+4). After computing the intensity estimate using the Euler scheme
+on the desired pixel grid, another estimate is computed using the same
+method on another pixel grid, and the two estimates are combined by
+Richardson extrapolation to obtain a more accurate result.
+The second grid is coarser than the original grid if
+<code>coarsen=TRUE</code> (the default), and finer than the original grid
+if <code>coarsen=FALSE</code>. Setting <code>extrapolate=TRUE</code> increases
+computation time by 35% if <code>coarsen=TRUE</code> and by 400% if
+<code>coarsen=FALSE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Pixel image (object of class <code>"im"</code>) giving the estimated
+intensity of the point process.
+</p>
+<p>If <code>se=TRUE</code>, the result has an attribute <code>"se"</code>
+which is another pixel image giving the estimated standard error.
+</p>
+<p>If <code>at="points"</code> then the result is a numeric vector
+with one entry for each point of <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley and Tilman Davies.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Davies, T., Rakshit, S., Nair, G. and McSwiggan, G. (2022)
+Diffusion smoothing for spatial point patterns.
+<em>Statistical Science</em> <b>37</b> (1) 123&ndash;142.
+</p>
+<p>Barry, R.P. and McIntyre, J. (2011)
+Estimating animal densities and home range in regions with irregular
+boundaries and holes: a lattice-based alternative to the kernel
+density estimator. <em>Ecological Modelling</em> <b>222</b>, 1666&ndash;1672.
+</p>
+<p>Botev, Z.I., Grotowski, J.F. and Kroese, D.P. (2010)
+Kernel density estimation via diffusion.
+<em>Annals of Statistics</em> <b>38</b>, 2916&ndash;2957.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/density.ppp.html">density.ppp</a></code> for the usual kernel estimator,
+and <code><a href="../help/adaptive.density.html">adaptive.density</a></code> for the
+tessellation-based estimator.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   online &lt;- interactive()
+   if(!online) op &lt;- spatstat.options(npixel=32)
+
+   X &lt;- runifpoint(25, letterR)
+   Z &lt;- densityHeat(X, 0.2)
+   if(online) {
+     plot(Z, main="Diffusion estimator")
+     plot(X, add=TRUE, pch=16)
+     integral(Z) # should equal 25
+   }
+
+   Z &lt;- densityHeat(X, 0.2, se=TRUE)
+   Zse &lt;- attr(Z, "se")
+   if(online) plot(solist(estimate=Z, SE=Zse), main="")
+
+   Zex &lt;- densityHeat(X, 0.2, extrapolate=TRUE)
+
+   ZS &lt;- densityHeat(X, 0.2, symmetric=TRUE, eps=0.125)
+   if(online) {
+     plot(ZS, main="fixed bandwidth")
+     plot(X, add=TRUE, pch=16)
+   }
+
+   sig &lt;- function(x,y) { (x-1.5)/10 }
+   ZZ &lt;- densityHeat(X, sig)
+   if(online) {
+     plot(ZZ, main="adaptive (I)")
+     plot(X, add=TRUE, pch=16)
+   }
+
+   sigX &lt;- sig(X$x, X$y)
+   AA &lt;- densityHeat(X, sigmaX=sigX)
+   if(online) {
+     plot(AA, main="adaptive (II)")
+     plot(X, add=TRUE, pch=16)
+   }
+   if(!online) spatstat.options(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

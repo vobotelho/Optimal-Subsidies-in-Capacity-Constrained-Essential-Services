@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Re-Labelling of Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rlabel {spatstat.random}"><tr><td>rlabel {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Re-Labelling of Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Randomly allocates marks to a point pattern,
+or permutes the existing marks, or resamples
+from the existing marks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   rlabel(X, labels=marks(X), permute=TRUE, group=NULL, ..., nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>,
+<code>"lpp"</code>, <code>"pp3"</code> or <code>"ppx"</code>)
+or line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+
+<p>Vector of values from which the new marks will be drawn
+at random. Defaults to the vector of existing marks.
+</p>
+</td></tr>
+<tr valign="top"><td><code>permute</code></td>
+<td>
+
+<p>Logical value indicating whether to generate new marks
+by randomly permuting <code>labels</code> or
+by drawing a random sample with replacement.
+</p>
+</td></tr>
+<tr valign="top"><td><code>group</code></td>
+<td>
+
+<p>Optional. A factor, or other data dividing the points into groups.
+Random relabelling will be performed separately within each group.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments passed to <code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> to
+determine the grouping factor, when <code>group</code> is given.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This very simple function allocates random marks to
+an existing point pattern <code>X</code>. It is useful
+for hypothesis testing purposes. (The function can also be applied
+to line segment patterns.)
+</p>
+<p>In the simplest case, the command <code>rlabel(X)</code> yields
+a point pattern obtained from <code>X</code> by randomly permuting
+the marks of the points.
+</p>
+<p>If <code>permute=TRUE</code>, then <code>labels</code> should be a vector of
+length equal to the number of points in <code>X</code>.
+The result of <code>rlabel</code> will be a point pattern
+with locations given by <code>X</code> and marks given by
+a random permutation of <code>labels</code> (i.e. a random sample without
+replacement).
+</p>
+<p>If <code>permute=FALSE</code>, then <code>labels</code> may be a vector of
+any length. 
+The result of <code>rlabel</code> will be a point pattern
+with locations given by <code>X</code> and marks given by
+a random sample from <code>labels</code> (with replacement).
+</p>
+<p>The argument <code>group</code> specifies that the points are
+divided into several different groups, and that the random labelling
+shall be performed separately on each group.
+The arguments <code>group</code> and <code>...</code> are passed to
+<code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> to determine the grouping. Thus <code>group</code>
+could be a <code>factor</code>, or the name of a column of marks in
+<code>X</code>, or a tessellation, or a factor-valued pixel image, etc.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>nsim = 1</code> and <code>drop=TRUE</code>,
+a marked point pattern (of the same class as <code>X</code>).
+If <code>nsim &gt; 1</code>, a list of point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/marks%3C-.html">marks&lt;-</a></code> to assign arbitrary marks.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   amacrine
+
+   # Randomly permute the marks "on" and "off"
+   # Result always has 142 "off" and 152 "on"
+   Y &lt;- rlabel(amacrine)
+
+   # randomly allocate marks "on" and "off"
+   # with probabilities p(off) = 0.48, p(on) = 0.52
+   Y &lt;- rlabel(amacrine, permute=FALSE)
+
+   # randomly allocate marks "A" and "B" with equal probability
+   Y &lt;- rlabel(cells, labels=factor(c("A", "B")), permute=FALSE)
+
+   # divide the window into tiles and 
+   # randomly permute the marks within each tile
+   Z &lt;- rlabel(amacrine, group=quadrats(Window(amacrine), 4, 3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Poisson Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Poisson {spatstat.model}"><tr><td>Poisson {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Poisson Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the Poisson point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ Poisson()
+</pre>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>, which fits point process models to 
+point pattern data, requires an argument <code>interaction</code>
+of class <code>"interact"</code>
+describing the interpoint interaction structure
+of the model to be fitted. 
+The appropriate description of the Poisson process is 
+provided by the value of the function <code>Poisson</code>.
+</p>
+<p>This works for all types of Poisson processes including
+multitype and nonstationary Poisson processes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction 
+structure of the Poisson point process
+(namely, there are no interactions).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ ppm(nztrees ~1, Poisson())
+ # fit the stationary Poisson process to 'nztrees'
+ # no edge correction needed
+
+ lon &lt;- longleaf
+ 
+ longadult &lt;- unmark(subset(lon, marks &gt;= 30))
+ ppm(longadult ~ x, Poisson())
+ # fit the nonstationary Poisson process 
+ # with intensity lambda(x,y) = exp( a + bx)
+
+ # trees marked by species
+ lans &lt;- lansing
+ 
+ ppm(lans ~ marks, Poisson())
+ # fit stationary marked Poisson process
+ # with different intensity for each species
+
+ 
+   ppm(lansing ~ marks * polynom(x,y,3), Poisson())
+   # fit nonstationary marked Poisson process
+   # with different log-cubic trend for each species
+ 
+ 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

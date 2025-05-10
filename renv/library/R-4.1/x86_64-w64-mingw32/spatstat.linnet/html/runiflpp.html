@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Uniform Random Points on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for runiflpp {spatstat.linnet}"><tr><td>runiflpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Uniform Random Points on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates <i>n</i> random points, independently and
+uniformly distributed, on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+runiflpp(n, L, nsim=1, drop=TRUE, ex=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of random points to generate.
+A nonnegative integer, or a vector of integers
+specifying the number of points of each type.
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>,
+see <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to generate.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>nsim=1</code>.
+If <code>drop=TRUE</code> (the default), the result is a point pattern.
+If <code>drop=FALSE</code>, the result is a list with one entry which is a
+point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ex</code></td>
+<td>
+
+<p>Optional. A point pattern on a network
+(object of class <code>"lpp"</code>) which serves as an example
+to determine the default values of <code>n</code> and <code>L</code>.
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The specified number <code>n</code> of random points is
+generated with uniform distribution on the network <code>L</code>.
+The random points are generated using <code><a href="../../spatstat.random/help/runifpointOnLines.html">runifpointOnLines</a></code>.
+</p>
+<p>If <code>n</code> is an integer vector, then a multitype point pattern is
+generated, with <code>n[i]</code> random points of type <code>i</code>.
+</p>
+<p>If <code>ex</code> is given, then it serves as an example for determining
+<code>n</code> and <code>L</code>. The default value of <code>n</code>
+will be the number of points in <code>ex</code>
+(or the number of points of each type in <code>ex</code> if it is
+multitype).
+The default value of <code>L</code> will be 
+the network on which <code>ex</code> is defined. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>nsim = 1</code> and <code>drop=TRUE</code>,
+a point pattern on a linear network
+(object of class <code>"lpp"</code>).
+Otherwise, a list of such point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/rlpp.html">rlpp</a></code> for non-uniform random points;
+<code><a href="../../spatstat.linnet/help/rpoislpp.html">rpoislpp</a></code> for Poisson point process;
+</p>
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>,
+<code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(10, simplenet)
+   plot(X)
+  # marked
+   Z &lt;- runiflpp(c(a=10, b=3), simplenet)
+  # using 'ex' 
+   U &lt;- runiflpp(ex=Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

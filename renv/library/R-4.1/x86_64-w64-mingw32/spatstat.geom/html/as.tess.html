@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data To Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.tess {spatstat.geom}"><tr><td>as.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data To Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Converts data specifying a tessellation,
+in any of several formats, into an object of class <code>"tess"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ as.tess(X)
+ ## S3 method for class 'tess'
+as.tess(X)
+ ## S3 method for class 'im'
+as.tess(X)
+ ## S3 method for class 'owin'
+as.tess(X)
+ ## S3 method for class 'quadratcount'
+as.tess(X)
+ ## S3 method for class 'list'
+as.tess(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Data to be converted to a tessellation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tessellation is a collection of disjoint spatial regions
+(called <em>tiles</em>) that fit together to form a larger spatial
+region. This command creates an object of class <code>"tess"</code> that
+represents a tessellation. 
+</p>
+<p>This function converts data in any of several formats 
+into an object of class <code>"tess"</code> for use by the <span class="pkg">spatstat</span>
+package.  The argument <code>X</code> may be
+</p>
+
+<ul>
+<li>
+<p>an object of class <code>"tess"</code>.
+The object will be stripped of any extraneous attributes
+and returned.
+</p>
+</li>
+<li>
+<p>a pixel image (object of class <code>"im"</code>) with pixel values that
+are logical or factor values. Each level of the factor will
+determine a tile of the tessellation.
+</p>
+</li>
+<li>
+<p>a window (object of class <code>"owin"</code>). The result will be a
+tessellation consisting of a single tile.
+</p>
+</li>
+<li>
+<p>a set of quadrat counts (object of class <code>"quadratcount"</code>)
+returned by the command <code><a href="../help/quadratcount.html">quadratcount</a></code>.
+The quadrats
+used to generate the counts will be extracted and returned as a
+tessellation.
+</p>
+</li>
+<li>
+<p>a quadrat test (object of class <code>"quadrattest"</code>)
+returned by the command <code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>. 
+The quadrats
+used to perform the test will be extracted and returned as a
+tessellation.
+</p>
+</li>
+<li>
+<p>a list of windows (objects of class <code>"owin"</code>)
+giving the tiles of the tessellation.
+</p>
+</li></ul>
+
+<p>The function <code>as.tess</code> is generic, with methods for
+various classes, as listed above.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"tess"</code> specifying a tessellation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/tess.html">tess</a></code>
+</p>
+<p><code><a href="../help/quadratcount.html">quadratcount</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # pixel image
+ v &lt;- as.im(function(x,y){factor(round(5 * (x^2 + y^2)))}, W=owin())
+ levels(v) &lt;- letters[seq(length(levels(v)))]
+ as.tess(v)
+ # quadrat counts
+ qNZ &lt;- quadratcount(nztrees, nx=4, ny=3)
+ as.tess(qNZ)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

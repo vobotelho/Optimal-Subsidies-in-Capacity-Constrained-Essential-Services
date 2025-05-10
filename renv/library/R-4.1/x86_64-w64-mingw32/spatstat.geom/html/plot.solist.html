@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a List of Spatial Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.solist {spatstat.geom}"><tr><td>plot.solist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a List of Spatial Objects</h2>
+
+<h3>Description</h3>
+
+<p>Plots a list of two-dimensional spatial objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'solist'
+plot(x, ..., main, arrange=TRUE,
+   nrows=NULL, ncols=NULL, main.panel=NULL,
+   mar.panel=c(2,1,1,2), hsep=0, vsep=0,
+   panel.begin=NULL, panel.end=NULL, panel.args=NULL,
+   panel.begin.args=NULL, panel.end.args=NULL, panel.vpad = 0.2,
+   plotcommand="plot",
+   adorn.left=NULL, adorn.right=NULL, adorn.top=NULL, adorn.bottom=NULL,
+   adorn.size=0.2, adorn.args=list(),
+   equal.scales=FALSE, halign=FALSE, valign=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An object of the class <code>"solist"</code>,
+essentially a list of two-dimensional spatial datasets.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../graphics/html/plot.default.html">plot</a></code> when generating each
+plot panel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Overall heading for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>arrange</code></td>
+<td>
+
+<p>Logical flag indicating whether to plot the objects
+side-by-side on a single page (<code>arrange=TRUE</code>)
+or plot them individually in a succession of frames
+(<code>arrange=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrows,ncols</code></td>
+<td>
+
+<p>Optional. The number of rows/columns in the plot layout
+(assuming <code>arrange=TRUE</code>).
+You can specify either or both of these numbers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main.panel</code></td>
+<td>
+
+<p>Optional. A character string, or a vector of character strings,
+or a vector of expressions, giving the headings for each
+plot panel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mar.panel</code></td>
+<td>
+
+<p>Size of the margins outside each plot panel.
+A numeric vector of length 4 giving the bottom, left, top,
+and right margins in that order. (Alternatively the vector
+may have length 1 or 2 and will be replicated to length 4).
+See the section on <em>Spacing between plots</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hsep,vsep</code></td>
+<td>
+
+<p>Additional horizontal and vertical separation between plot panels,
+expressed in the same units as <code>mar.panel</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>panel.begin,panel.end</code></td>
+<td>
+
+<p>Optional. Functions that will be executed before and after each panel is
+plotted. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>panel.args</code></td>
+<td>
+
+<p>Optional. Function that determines different plot arguments
+for different panels. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>panel.begin.args</code></td>
+<td>
+
+<p>Optional. List of additional arguments for <code>panel.begin</code>
+when it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>panel.end.args</code></td>
+<td>
+
+<p>Optional. List of additional arguments for <code>panel.end</code>
+when it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>panel.vpad</code></td>
+<td>
+
+<p>Amount of extra vertical space that should be allowed for the
+title of each panel, if a title will be displayed.
+Expressed as a fraction of the height of the panel.
+Applies only when <code>equal.scales=FALSE</code> (the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>plotcommand</code></td>
+<td>
+
+<p>Optional.
+Character string containing the name of the command that should be
+executed to plot each panel. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>adorn.left,adorn.right,adorn.top,adorn.bottom</code></td>
+<td>
+
+<p>Optional. Functions (with no arguments) that will be executed to
+generate additional plots at the margins (left, right, top and/or
+bottom, respectively) of the array of plots.
+Alternatively they may be objects of class <code>"colourmap"</code>
+or <code>"symbolmap"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adorn.size</code></td>
+<td>
+
+<p>Relative width (as a fraction of the other panels' widths)
+of the margin plots.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adorn.args</code></td>
+<td>
+
+<p>Optional list of arguments passed to the functions
+<code>adorn.left</code>, <code>adorn.right</code>, <code>adorn.top</code>
+and <code>adorn.bottom</code> if they are functions, or arguments passed to
+<code><a href="../../spatstat.geom/help/plot.colourmap.html">plot.colourmap</a></code> or <code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code>
+as appropriate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>equal.scales</code></td>
+<td>
+
+<p>Logical value indicating whether the components
+should be plotted at (approximately) the same physical scale. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>halign,valign</code></td>
+<td>
+
+<p>Logical values indicating whether panels in a column
+should be aligned to the same <i>x</i> coordinate system
+(<code>halign=TRUE</code>) and whether panels in a row should
+be aligned to the same <i>y</i> coordinate system (<code>valign=TRUE</code>).
+These are applicable only if <code>equal.scales=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"solist"</code>.
+</p>
+<p>An object of class <code>"solist"</code> represents a 
+list of two-dimensional spatial datasets.
+This is the <code>plot</code> method for such objects.
+</p>
+<p>In the <span class="pkg">spatstat</span> package, various functions produce
+an object of class <code>"solist"</code>.
+These objects can be plotted in a nice arrangement
+using <code>plot.solist</code>. See the Examples.
+</p>
+<p>The argument <code>panel.args</code> determines extra graphics parameters
+for each panel. It should be a function that will be called
+as <code>panel.args(i)</code> where <code>i</code> is the panel number.
+Its return value should be a list of graphics parameters that can
+be passed to the relevant <code>plot</code> method. These parameters
+override any parameters specified in the <code>...</code> arguments.
+</p>
+<p>The arguments <code>panel.begin</code> and <code>panel.end</code>
+determine graphics that will be plotted before and after
+each panel is plotted. They may be objects
+of some class that can be plotted
+with the generic <code>plot</code> command. Alternatively they
+may be functions that will be
+called as <code>panel.begin(i, y, main=main.panel[i])</code>
+and <code>panel.end(i, y, add=TRUE)</code> where <code>i</code> is the panel
+number and <code>y = x[[i]]</code>.
+</p>
+<p>If all entries of <code>x</code> are pixel images,
+the function <code><a href="../../spatstat.geom/help/image.listof.html">image.listof</a></code> is called to control
+the plotting. The arguments <code>equal.ribbon</code> and <code>col</code>
+can be used to determine the colour map or maps applied.
+</p>
+<p>If <code>equal.scales=FALSE</code> (the default), then the 
+plot panels will have equal height on the plot device
+(unless there is only one column of panels, in which case
+they will have equal width on the plot device). This means that the
+objects are plotted at different physical scales, by default.
+</p>
+<p>If <code>equal.scales=TRUE</code>, then the dimensions of the
+plot panels on the plot device will be proportional
+to the spatial dimensions of the
+corresponding components of <code>x</code>. This means that the
+objects will be plotted at <em>approximately</em> equal physical scales.
+If these objects have very different spatial sizes,
+the plot command could fail (when it tries
+to plot the smaller objects at a tiny scale), with an error
+message that the figure margins are too large.
+</p>
+<p>The objects will be plotted at <em>exactly</em> equal
+physical scales, and <em>exactly</em> aligned on the device,
+under the following conditions:
+</p>
+
+<ul>
+<li>
+<p>every component of <code>x</code> is a spatial object
+whose position can be shifted by <code><a href="../../spatstat.geom/help/shift.html">shift</a></code>;
+</p>
+</li>
+<li>
+<p><code>panel.begin</code> and <code>panel.end</code> are either
+<code>NULL</code> or they are spatial objects 
+whose position can be shifted by <code><a href="../../spatstat.geom/help/shift.html">shift</a></code>;
+</p>
+</li>
+<li>
+<p><code>adorn.left</code>, 
+<code>adorn.right</code>, 
+<code>adorn.top</code> and 
+<code>adorn.bottom</code> are all <code>NULL</code>.
+</p>
+</li></ul>
+
+<p>Another special case is when every component of <code>x</code> is an
+object of class <code>"fv"</code> representing a function.
+If <code>equal.scales=TRUE</code> then all these functions will 
+be plotted with the same axis scales
+(i.e. with the same <code>xlim</code> and the same <code>ylim</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Spacing between plots</h3>
+
+<p>The spacing between individual plots is controlled by the parameters
+<code>mar.panel</code>, <code>hsep</code> and <code>vsep</code>.
+</p>
+<p>If <code>equal.scales=FALSE</code>, the plot panels are
+logically separate plots. The margins for each panel are
+determined by the argument <code>mar.panel</code> which becomes 
+the graphics parameter <code>mar</code>
+described in the help file for <code><a href="../../graphics/html/par.html">par</a></code>.
+One unit of <code>mar</code> corresponds to one line of text in the margin.
+If <code>hsep</code> or <code>vsep</code> are present, <code>mar.panel</code>
+is augmented by <code>c(vsep, hsep, vsep, hsep)/2</code>.
+</p>
+<p>If <code>equal.scales=TRUE</code>, all the plot panels are drawn
+in the same coordinate system which represents a physical scale.
+The unit of measurement for <code>mar.panel[1,3]</code>
+is one-sixth of the greatest height of any object plotted in the same row
+of panels, and the unit for <code>mar.panel[2,4]</code> is one-sixth of the
+greatest width of any object plotted in the same column of panels.
+If <code>hsep</code> or <code>vsep</code> are present,
+they are interpreted in the same units as <code>mar.panel[2]</code>
+and <code>mar.panel[1]</code> respectively.
+</p>
+
+
+<h3>Error messages</h3>
+
+<p>If the error message &lsquo;Figure margins too large&rsquo;
+occurs, this generally means that one of the
+objects had a much smaller physical scale than the others.
+Ensure that <code>equal.scales=FALSE</code>
+and increase the values of <code>mar.panel</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.anylist.html">plot.anylist</a></code>,
+<code><a href="../../spatstat.geom/help/contour.listof.html">contour.listof</a></code>,
+<code><a href="../../spatstat.geom/help/image.listof.html">image.listof</a></code>,
+<code><a href="../../spatstat.explore/help/density.splitppp.html">density.splitppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ D &lt;- solapply(split(amacrine), distmap)
+ plot(D)
+ plot(D, main="", equal.ribbon=TRUE,
+      panel.end=function(i,y,...){contour(y, ...)})
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

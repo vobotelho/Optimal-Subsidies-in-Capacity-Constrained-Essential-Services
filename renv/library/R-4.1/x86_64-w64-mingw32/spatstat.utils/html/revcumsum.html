@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reverse Cumulative Sum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for revcumsum {spatstat.utils}"><tr><td>revcumsum {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Reverse Cumulative Sum
+</h2>
+
+<h3>Description</h3>
+
+<p>Returns a vector of cumulative sums of the input values,
+running in reverse order. That is, the <code>i</code>th entry in the output
+is the sum of entries <code>i</code> to <code>n</code> in the input,
+where <code>n</code> is the length of the input.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+revcumsum(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A numeric or complex vector. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This low-level utility function is a faster alternative to
+<code><a href="../../base/help/rev.html">rev</a>(<a href="../../base/help/cumsum.html">cumsum</a>(<a href="../../base/help/rev.html">rev</a>(x)))</code>
+under certain conditions.
+It computes the reverse cumulative sum of the entries of <code>x</code>.
+If <code>y &lt;- revcumsum(x)</code>, then <code>y[i] = sum(x[i:n])</code> where
+<code>n = length(x)</code>.
+</p>
+<p>This function should not be used if <code>x</code> could contain <code>NA</code>
+values: this would lead to an error.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of the same length and type as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/cumsum.html">cumsum</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  revcumsum(1:5)
+  rev(cumsum(rev(1:5)))
+  x &lt;- runif(1e6)
+  system.time(rev(cumsum(rev(x))))
+  system.time(revcumsum(x))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Line Segment Pattern to Binary Pixel Mask</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for psp2mask {spatstat.geom}"><tr><td>psp2mask {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Line Segment Pattern to Binary Pixel Mask
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts a line segment pattern to a binary pixel mask
+by determining which pixels intersect the lines.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+psp2mask(x, W=NULL, ...)
+as.mask.psp(x, W=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional window (object of class <code>"owin"</code>)
+determining the pixel raster.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional extra arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to determine the pixel resolution.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>psp2mask</code> and <code>as.mask.psp</code> are currently
+identical. In future versions of the package, <code>as.mask.psp</code>
+will be deprecated, and then removed. 
+</p>
+<p>This function converts a line segment pattern to a binary
+pixel mask by determining which pixels intersect the lines.
+</p>
+<p>The pixel raster is determined by <code>W</code>
+and the optional arguments <code>...</code>.
+If <code>W</code> is missing or <code>NULL</code>, it defaults to the window
+containing <code>x</code>.
+Then <code>W</code> is converted to a
+binary pixel mask using <code><a href="../help/as.mask.html">as.mask</a></code>. The arguments
+<code>...</code> are passed to <code><a href="../help/as.mask.html">as.mask</a></code> to
+control the pixel resolution.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>)
+which is a binary pixel mask (type <code>"mask"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pixellate.psp.html">pixellate.psp</a></code>,
+<code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/pixellate.psp.html">pixellate.psp</a></code> if you want to measure the
+length of line in each pixel.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  plot(psp2mask(X))
+  plot(X, add=TRUE, col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

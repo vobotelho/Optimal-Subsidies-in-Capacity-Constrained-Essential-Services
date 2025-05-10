@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: S3 Group Generic methods for List of Images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Math.imlist {spatstat.geom}"><tr><td>Math.imlist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>S3 Group Generic methods for List of Images</h2>
+
+<h3>Description</h3>
+
+<p>These are group generic methods for the class <code>"imlist"</code>
+of lists of images. These methods 
+allows the usual mathematical functions and operators to be applied
+directly to lists of images. See Details for a list of implemented functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 methods for group generics have prototypes:
+Math(x, ...)
+Ops(e1, e2)
+Complex(z)
+Summary(..., na.rm = TRUE)
+
+
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,z,e1,e2</code></td>
+<td>
+
+<p>Lists of pixel images (objects of class <code>"imlist"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to methods.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>logical: should missing values be removed?</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"imlist"</code> represents a list of pixel images.
+It is a <code>list</code>, whose entries are pixel images
+(objects of class <code>"im"</code>).
+</p>
+<p>The following mathematical functions and operators are
+defined for lists of images.
+</p>
+<p>Not all functions will make sense for all
+types of images. For example, none of the functions in the <code>"Math"</code> group
+make sense for character-valued images. Note that the <code>"Ops"</code>
+group methods are implemented using <code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>, which tries
+to harmonise images via <code><a href="../../spatstat.geom/help/harmonise.im.html">harmonise.im</a></code> if they aren't
+compatible to begin with.
+</p>
+
+<ol>
+<li><p> Group <code>"Math"</code>:
+</p>
+
+<ul>
+<li>
+<p><code>abs</code>, <code>sign</code>, <code>sqrt</code>,<br />
+<code>floor</code>, <code>ceiling</code>, <code>trunc</code>,<br />
+<code>round</code>, <code>signif</code>
+</p>
+</li>
+<li>
+<p><code>exp</code>, <code>log</code>,  <code>expm1</code>, <code>log1p</code>,<br />
+<code>cos</code>, <code>sin</code>, <code>tan</code>,<br />
+<code>cospi</code>, <code>sinpi</code>, <code>tanpi</code>,<br />
+<code>acos</code>, <code>asin</code>, <code>atan</code>
+</p>
+<p><code>cosh</code>, <code>sinh</code>, <code>tanh</code>,<br />
+<code>acosh</code>, <code>asinh</code>, <code>atanh</code>
+</p>
+</li>
+<li>
+<p><code>lgamma</code>, <code>gamma</code>, <code>digamma</code>, <code>trigamma</code>
+</p>
+</li>
+<li> <p><code>cumsum</code>, <code>cumprod</code>, <code>cummax</code>, <code>cummin</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Ops"</code>:
+</p>
+
+<ul>
+<li>
+<p><code>"+"</code>, <code>"-"</code>, <code>"*"</code>, <code>"/"</code>,
+<code>"^"</code>, <code>"%%"</code>, <code>"%/%"</code>
+</p>
+</li>
+<li> <p><code>"&amp;"</code>, <code>"|"</code>, <code>"!"</code>
+</p>
+</li>
+<li> <p><code>"=="</code>, <code>"!="</code>,
+<code>"&lt;"</code>, <code>"&lt;="</code>, <code>"&gt;="</code>, <code>"&gt;"</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Summary"</code>:
+</p>
+
+<ul>
+<li> <p><code>all</code>, <code>any</code>
+</p>
+</li>
+<li> <p><code>sum</code>, <code>prod</code>
+</p>
+</li>
+<li> <p><code>min</code>, <code>max</code>
+</p>
+</li>
+<li> <p><code>range</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Complex"</code>:
+</p>
+
+<ul>
+<li> <p><code>Arg</code>, <code>Conj</code>, <code>Im</code>, <code>Mod</code>, <code>Re</code>
+</p>
+</li></ul>
+
+</li></ol>
+
+<p>For the binary operations in <code>"Ops"</code>,
+either
+</p>
+
+<ul>
+<li> <p><code>e1</code> and <code>e2</code> are lists of pixel images,
+and contain the same number of images.
+
+
+</p>
+</li>
+<li><p> one of <code>e1,e2</code> is a list of pixel images,
+and the other is a single atomic value.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>The result of <code>"Math"</code>, <code>"Ops"</code> and <code>"Complex"</code> group
+operations is another list of images.
+The result of <code>"Summary"</code> group operations is a numeric vector of
+length 1 or 2.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/Math.im.html">Math.im</a></code> or <code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>
+for evaluating expressions involving images.
+<code><a href="../../spatstat.geom/help/solapply.html">solapply</a></code> for a wrapper for <code><a href="../../base/help/lapply.html">lapply</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  a &lt;- solist(A=setcov(square(1)), B=setcov(square(2)))
+  log(a)/2 - sqrt(a)
+  range(a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Points on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rlpp {spatstat.linnet}"><tr><td>rlpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Random Points on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Generates <i>n</i> independent random points
+on a linear network with a specified probability density.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rlpp(n, f, ..., nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of random points to generate.
+A nonnegative integer giving the number of points,
+or an integer vector giving the numbers of points of each type.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Probability density (not necessarily normalised).
+A pixel image on a linear network (object of class <code>"linim"</code>)
+or a function on a linear network (object of class <code>"linfun"</code>).
+Alternatively, <code>f</code> can be a list of functions or pixel images,
+giving the densities of points of each type.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code>f</code> if it is a function
+or a list of functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to generate.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical value indicating what to do when <code>nsim=1</code>.
+If <code>drop=TRUE</code> (the default), the result is a point pattern.
+If <code>drop=FALSE</code>, the result is a list with one entry which is a
+point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The linear network <code>L</code>, on which the points will be generated,
+is determined by the argument <code>f</code>.
+</p>
+<p>If <code>f</code> is a function, it is converted to a pixel image
+on the linear network, using any additional function arguments
+<code>...</code>.
+</p>
+<p>If <code>n</code> is a single integer and <code>f</code> is a function or pixel image,
+then independent random points are generated on <code>L</code> with
+probability density proportional to <code>f</code>.
+</p>
+<p>If <code>n</code> is an integer vector and <code>f</code> is a list of functions
+or pixel images, where <code>n</code> and <code>f</code> have the same length,
+then independent random points of several types are generated on
+<code>L</code>, with <code>n[i]</code> points of type <code>i</code> having probability
+density proportional to <code>f[[i]]</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>nsim = 1</code> and <code>drop=TRUE</code>,
+a point pattern on the linear network,
+i.e.\ an object of class <code>"lpp"</code>.
+Otherwise, a list of such point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/runiflpp.html">runiflpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  g &lt;- function(x, y, seg, tp) { exp(x + 3*y) }
+  f &lt;- linfun(g, simplenet)
+
+  rlpp(20, f)
+
+  plot(rlpp(20, f, nsim=3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

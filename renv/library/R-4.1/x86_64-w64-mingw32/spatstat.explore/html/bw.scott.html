@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scott's Rule for Bandwidth Selection for Kernel Density</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.scott {spatstat.explore}"><tr><td>bw.scott {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Scott's Rule for Bandwidth Selection for Kernel Density
+</h2>
+
+<h3>Description</h3>
+
+<p>Use Scott's rule of thumb to determine the smoothing bandwidth
+for the kernel estimation of point process intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   bw.scott(X, isotropic=FALSE, d=NULL)
+
+   bw.scott.iso(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern (object of class <code>"ppp"</code>,
+<code>"lpp"</code>, <code>"pp3"</code> or <code>"ppx"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>isotropic</code></td>
+<td>
+
+<p>Logical value indicating whether to compute a single
+bandwidth for an isotropic Gaussian kernel (<code>isotropic=TRUE</code>)
+or separate bandwidths for each coordinate axis
+(<code>isotropic=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>d</code></td>
+<td>
+
+<p>Advanced use only.
+An integer value that should be used in Scott's formula
+instead of the true number of spatial dimensions.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions select a bandwidth <code>sigma</code>
+for the kernel estimator of point process intensity
+computed by <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>
+or other appropriate functions.
+They can be applied to a point pattern
+belonging to any class <code>"ppp"</code>, <code>"lpp"</code>, <code>"pp3"</code>
+or <code>"ppx"</code>.
+</p>
+<p>The bandwidth <i>&sigma;</i> is computed by the rule of thumb
+of Scott (1992, page 152, equation 6.42). 
+The bandwidth is proportional to <i>n^(-1/(d+4))</i>
+where <i>n</i> is the number of points and <i>d</i> is the number of
+spatial dimensions.
+</p>
+<p>This rule is very fast to compute. It typically produces a larger bandwidth
+than <code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code>. It is useful for estimating
+gradual trend.
+</p>
+<p>If <code>isotropic=FALSE</code> (the default), <code>bw.scott</code> provides a
+separate bandwidth for each coordinate axis, and the result of the
+function is a vector, of length equal to the number of coordinates.
+If <code>isotropic=TRUE</code>, a single bandwidth value is computed
+and the result is a single numeric value.
+</p>
+<p><code>bw.scott.iso(X)</code> is equivalent to
+<code>bw.scott(X, isotropic=TRUE)</code>.
+</p>
+<p>The default value of <i>d</i> is as follows:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <b>class</b> </td><td style="text-align: left;"> <b>dimension</b> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"ppp"</code> </td><td style="text-align: left;"> 2 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"lpp"</code> </td><td style="text-align: left;"> 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"pp3"</code> </td><td style="text-align: left;"> 3 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>"ppx"</code> </td><td style="text-align: left;"> number of spatial coordinates
+  </td>
+</tr>
+
+</table>
+
+<p>The use of <code>d=1</code> for point patterns on a linear network
+(class <code>"lpp"</code>) was proposed by McSwiggan et al (2016)
+and Rakshit et al (2019).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numerical value giving the selected
+bandwidth, or a numerical vector giving the
+selected bandwidths for each coordinate.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Scott, D.W. (1992)
+<em>Multivariate Density Estimation. Theory, Practice and
+Visualization</em>. 
+New York: Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code>,
+<code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code>,
+<code><a href="../../spatstat.explore/help/bw.CvL.html">bw.CvL</a></code>,
+<code><a href="../../spatstat.explore/help/bw.frac.html">bw.frac</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  hickory &lt;- split(lansing)[["hickory"]]
+  b &lt;- bw.scott(hickory)
+  b
+  if(interactive()) {
+   plot(density(hickory, b))
+  }
+  bw.scott.iso(hickory)
+  bw.scott(osteo$pts[[1]])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

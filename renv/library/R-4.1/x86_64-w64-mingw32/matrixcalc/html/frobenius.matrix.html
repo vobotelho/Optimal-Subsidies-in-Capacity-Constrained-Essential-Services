@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Frobenius Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for frobenius.matrix {matrixcalc}"><tr><td>frobenius.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Frobenius Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns an order n Frobenius matrix that is useful
+in numerical mathematics.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+frobenius.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>  a positive integer value greater than 1</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Frobenius matrix is also called the companion matrix.  It arises
+in the solution of systems of linear first order differential equations.
+The formula for the order <i>n</i> Frobenius matrix is <i>{\bf{F}} = 
+&le;ft\lbrack {\begin{array}{ccccc}0&amp;0&amp; \cdots &amp;0&amp;{{{&le;ft( { - 1} \right)}^{n - 1}}
+&le;ft( {\begin{array}{ccccc}n\\0\end{array}} \right)}\\1&amp;0&amp; \cdots &amp;0&amp;{{{&le;ft( { - 1} \right)}^{n - 2}}
+&le;ft( {\begin{array}{ccccc}n\\1\end{array}} \right)}\\0&amp;1&amp; \ddots &amp;0&amp;{{{&le;ft( { - 1} \right)}^{n - 3}}
+&le;ft( {\begin{array}{ccccc}n\\2\end{array}} \right)}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\0&amp;0&amp; \cdots &amp;1&amp;{{{&le;ft( { - 1} \right)}^0}
+&le;ft( {\begin{array}{ccccc}n\\{n - 1}\end{array}} 
+\right)}\end{array}} 
+\right\rbrack</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An order <i>n</i> matrix
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument n is not a positive integer that is greater than 1, 
+the function presents an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Aceto, L. and D. Trigiante (2001). Matrices of Pascal and Other Greats,
+<em>American Mathematical Monthly</em>, March 2001, 108(3), 232-245.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+F &lt;- frobenius.matrix( 10 )
+print( F )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

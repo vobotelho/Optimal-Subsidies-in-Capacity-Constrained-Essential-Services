@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class of Optimized Bandwidths</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.optim.object {spatstat.explore}"><tr><td>bw.optim.object {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class of Optimized Bandwidths</h2>
+
+<h3>Description</h3>
+
+<p>An object of the class <code>"bw.optim"</code> represents
+a tuning parameter (usually a smoothing bandwidth)
+that has been selected automatically.
+The object can be used as if it were a numerical value,
+but it can also be plotted to show the optimality criterion.
+</p>
+
+
+<h3>Details</h3>
+
+<p>An object of the class <code>"bw.optim"</code> represents the numerical
+value of a smoothing bandwidth, a threshold, or a similar
+tuning parameter, that has been selected by optimising 
+a criterion such as cross-validation.
+</p>
+<p>The object is a numerical value, with some attributes that retain
+information about how the value was selected.
+</p>
+<p>Attributes include the vector of candidate values that were examined,
+the corresponding values of the optimality criterion, the name of the
+parameter, the name of the optimality criterion, and the units in
+which the parameter is measured.
+</p>
+<p>There are methods for <code>print</code>, <code>plot</code>,
+<code>summary</code>, <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code> and <code><a href="../../spatstat.explore/help/as.fv.html">as.fv</a></code>
+for the class <code>"bw.optim"</code>.
+</p>
+<p>The <code>print</code> method simply prints the numerical value of the
+parameter.
+The <code>summary</code> method prints this value, and states how
+this value was selected.
+</p>
+<p>The <code>plot</code> method produces a plot of the optimisation criterion
+against the candidate value of the parameter. The <code>as.data.frame</code>
+and <code>as.fv</code> methods extract this graphical information as a data
+frame or function table, respectively.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Functions which produce objects of class <code>bw.optim</code> include
+<code><a href="../../spatstat.explore/help/bw.CvL.html">bw.CvL</a></code>,
+<code><a href="../../spatstat.explore/help/bw.CvL.adaptive.html">bw.CvL.adaptive</a></code>,
+<code><a href="../../spatstat.explore/help/bw.diggle.html">bw.diggle</a></code>,
+<code><a href="../../spatstat.linnet/help/bw.lppl.html">bw.lppl</a></code>,
+<code><a href="../../spatstat.explore/help/bw.pcf.html">bw.pcf</a></code>,
+<code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code>,
+<code><a href="../../spatstat.explore/help/bw.relrisk.html">bw.relrisk</a></code>,
+<code><a href="../../spatstat.linnet/help/bw.relrisk.lpp.html">bw.relrisk.lpp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.smoothppp.html">bw.smoothppp</a></code>
+and
+<code><a href="../../spatstat.linnet/help/bw.voronoi.html">bw.voronoi</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Ns &lt;- if(interactive()) 32 else 3
+  b &lt;- bw.ppl(redwood, srange=c(0.02, 0.07), ns=Ns)
+  b
+  summary(b)
+  plot(b)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

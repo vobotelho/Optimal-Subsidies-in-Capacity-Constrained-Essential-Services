@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Subset of Pixel Image on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.linim {spatstat.linnet}"><tr><td>Extract.linim {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Subset of Pixel Image on Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of a pixel image on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'linim'
+x[i, ..., drop=TRUE]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A pixel image on a linear network (object of class <code>"linim"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Spatial window defining the subregion.
+Either a spatial window (an object of class <code>"owin"</code>), or a
+logical-valued pixel image, 
+or any type of index that applies to a matrix,
+or a point pattern (an object of class <code>"lpp"</code> or <code>"ppp"</code>),
+or something that can be converted to a point pattern
+by <code><a href="../../spatstat.linnet/help/as.lpp.html">as.lpp</a></code> (using the network on which <code>x</code> is defined).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments passed to <code>[.im</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+<p>Logical value indicating whether <code>NA</code> values should
+be omitted from the result.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the subset operator <code>"["</code> for
+pixel images on linear networks (objects of class <code>"linim"</code>). 
+</p>
+<p>The pixel image <code>x</code> will be restricted to the 
+domain specified by <code>i</code>.
+</p>
+<p>Pixels outside the domain of <code>x</code> are assigned the value <code>NA</code>;
+if <code>drop=TRUE</code> (the default) such <code>NA</code> values are deleted
+from the result; if <code>drop=FALSE</code>, then <code>NA</code> values are retained.
+</p>
+<p>If <code>i</code> is a window (or a logical-valued pixel image)
+then <code>x[i]</code> is another pixel image of class <code>"linim"</code>,
+representing the restriction of <code>x</code> to the spatial domain
+specified by <code>i</code>.
+</p>
+<p>If <code>i</code> is a point pattern, then <code>x[i]</code> is the vector of
+pixel values of <code>x</code> at the locations specified by <code>i</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another pixel image on a linear network (object of class <code>"linim"</code>)
+or a vector of pixel values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code> to extract the data
+lying on selected edges of the network.
+</p>
+<p><code><a href="../../spatstat.linnet/help/linim.html">linim</a></code> to make a pixel image on a network.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  M &lt;- psp2mask(as.psp(simplenet))
+  Z &lt;- as.im(function(x,y){x}, W=M)
+  Y &lt;- linim(simplenet, Z)
+  X &lt;- runiflpp(4, simplenet)
+  Y[X]
+  Y[square(c(0.3, 0.6))]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

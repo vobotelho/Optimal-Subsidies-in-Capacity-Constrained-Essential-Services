@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Air Bubbles in Concrete</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for concrete {spatstat.data}"><tr><td>concrete {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Air Bubbles in Concrete
+</h2>
+
+<h3>Description</h3>
+
+<p>Prof. Shin-ichi Igarashi's data:  a point pattern of the locations,
+in a cross-section of a concrete body, of the centroids of
+air bubbles in the cement paste matrix surrounding particles
+of aggregate.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data("concrete")</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"ppp"</code> representing the point pattern
+of air bubble centroid locations. Spatial coordinates are expressed in microns.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The window of the point pattern is a binary mask
+(window of type <code>"mask"</code>; see <code><a href="../../spatstat.geom/help/owin.html">owin</a></code>
+and <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> for more information
+about this type of window).
+This window in effect consists of the
+cement paste matrix, or equivalently of the complement (in the
+observed cross-section) of the aggregate.
+</p>
+<p>Major scientific interest is focussed on analysing the distribution
+of the location of the air bubbles in the cement paste matrix.
+These bubbles are important in assuring frost resistance of the
+concrete.  Each air bubble protects a region around it to a certain
+distance. To protect an entire concrete object against severe frost
+attack, it is necessary to cover the whole of the cement paste matrix
+with subsets of protected regions formed around the air bubbles. It
+is believed that the protected regions are related to the Dirichlet
+tessellation of the centroids of the bubbles, and the statistical
+properties of the protected regions can be determined from those
+of the Dirichlet tessellation.  In this regard, the areas of the
+tiles are particularly important.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Prof. Shin-ichi Igarashi, of the School of Geoscience and
+Civil Engineering, Kanazawa University, personal communication.
+</p>
+
+
+<h3>References</h3>
+
+<p>Natesaiyer, K., Hover, K.C. and Snyder, K.A. (1992). Protected-paste
+volume of air-entrained cement paste: part 1. <em>Journal of
+Materials in Civil Engineering</em> <b>4</b> No.2, 166 &ndash; 184.
+</p>
+<p>Murotani, T., Igarashi, S. and Koto, H. (2019). Distribution
+analysis and modeling of air voids in concrete as spatial point
+processes. <em>Cement and Concrete Research</em> <b>115</b> 124 &ndash; 132.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+     plot(concrete,chars="+",cols="blue",col="yellow")
+     # The aggregate is in yellow; the cement paste matrix is in white.
+
+     # Unit of length: use \mu symbol for micron
+     unitname(concrete) &lt;- "\u00B5m"
+
+     if(interactive()) {
+       # Compute the Dirichlet tessellation
+       dtc &lt;- dirichlet(concrete)
+       plot(dtc,ribbon=FALSE, col=sample(rainbow(dtc$n)))
+       # Study Dirichlet tile areas
+       areas &lt;- tile.areas(dtc)
+       aa &lt;- areas/1000 # Divide by 1000 to avoid numerical instability
+       # Fit a gamma distribution by the method of moments 
+       mm &lt;- mean(aa)
+       vv &lt;- var(aa)
+       shape &lt;- mm^2/vv
+       rate &lt;- mm/vv
+       rate &lt;- rate/1000 # Adjust for rescaling
+       hist(areas,probability=TRUE,ylim=c(0,7.5e-6),
+          main="Histogram and density estimates for areas",ylab="",xlab="area")
+       lines(density(areas),col="red")
+       curve(dgamma(x,shape=shape,rate=rate),add=TRUE,col="blue")
+       legend("topright",lty=1,col=c("red","blue"),
+              legend=c("non-parametric","gamma fit"),bty="n")
+     }
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

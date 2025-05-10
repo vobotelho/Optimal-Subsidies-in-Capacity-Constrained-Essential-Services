@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function Value Table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fv.object {spatstat.explore}"><tr><td>fv.object {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function Value Table</h2>
+
+<h3>Description</h3>
+
+<p>A class <code>"fv"</code> to support the convenient plotting
+of several estimates of the same function.
+</p>
+
+
+<h3>Details</h3>
+
+<p>An object of this class is a convenient way of storing and plotting
+several different estimates of the same function.
+</p>
+<p>It is a data frame with extra attributes indicating
+the recommended way of plotting the function, and other information.
+</p>
+<p>There are methods for <code>print</code> and <code>plot</code> for
+this class.
+</p>
+<p>Objects of class <code>"fv"</code> are returned by
+<code><a href="../help/Fest.html">Fest</a></code>, <code><a href="../help/Gest.html">Gest</a></code>,<code><a href="../help/Jest.html">Jest</a></code>,
+and <code><a href="../help/Kest.html">Kest</a></code> along with many other functions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Objects of class <code>"fv"</code> are returned by
+<code><a href="../help/Fest.html">Fest</a></code>, <code><a href="../help/Gest.html">Gest</a></code>,<code><a href="../help/Jest.html">Jest</a></code>,
+and <code><a href="../help/Kest.html">Kest</a></code> along with many other functions.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code> for plotting an <code>"fv"</code> object.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/as.function.fv.html">as.function.fv</a></code> to convert an <code>"fv"</code> object
+to an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function.
+</p>
+<p>Use <code><a href="../../spatstat.explore/help/cbind.fv.html">cbind.fv</a></code> to combine several <code>"fv"</code> objects.
+Use <code><a href="../../spatstat.explore/help/bind.fv.html">bind.fv</a></code> to glue additional columns onto an existing
+<code>"fv"</code> object.
+</p>
+<p><em>Undocumented</em> functions for modifying an <code>"fv"</code> object
+include <code>fvnames</code>, <code>fvnames&lt;-</code>,
+<code>tweak.fv.entry</code> and <code>rebadge.fv</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    K &lt;- Kest(cells)
+    class(K)
+
+    K  # prints a sensible summary
+
+    plot(K)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

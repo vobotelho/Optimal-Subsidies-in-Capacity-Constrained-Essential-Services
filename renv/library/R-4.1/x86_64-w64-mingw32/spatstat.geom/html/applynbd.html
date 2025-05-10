@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Function to Every Neighbourhood in a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for applynbd {spatstat.geom}"><tr><td>applynbd {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Function to Every Neighbourhood in a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Visit each point in a point pattern, find the neighbouring points,
+and apply a given function to them.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   applynbd(X, FUN, N=NULL, R=NULL, criterion=NULL, exclude=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern. 
+An object of class <code>"ppp"</code>,
+or data which can be converted into 
+this format by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+
+<p>Function to be applied to each neighbourhood.
+The arguments of <code>FUN</code> are described under <b>Details</b>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>N</code></td>
+<td>
+
+<p>Integer. If this argument is present,
+the neighbourhood of a point of <code>X</code> is defined to consist of the
+<code>N</code> points of <code>X</code> which are closest to it.
+</p>
+</td></tr>
+<tr valign="top"><td><code>R</code></td>
+<td>
+
+<p>Nonnegative numeric value. If this argument is present,
+the neighbourhood of a point of <code>X</code> is defined to consist of
+all points of <code>X</code> which lie within a distance <code>R</code>
+of it.
+</p>
+</td></tr>
+<tr valign="top"><td><code>criterion</code></td>
+<td>
+
+<p>Function. If this argument is present, 
+the neighbourhood of a point of <code>X</code> is determined by
+evaluating this function. See under <b>Details</b>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exclude</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> then the point currently being visited
+is excluded from its own neighbourhood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments passed to the function <code>FUN</code>.
+They must be given in the form <code>name=value</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is an analogue of <code><a href="../../base/html/apply.html">apply</a></code>
+for point patterns. It visits each point in the point pattern <code>X</code>,
+determines which points of <code>X</code> are &ldquo;neighbours&rdquo; of the current
+point, applies the function <code>FUN</code> to this neighbourhood,
+and collects the values returned by <code>FUN</code>.
+</p>
+<p>The definition of &ldquo;neighbours&rdquo; depends on the arguments
+<code>N</code>, <code>R</code> and <code>criterion</code>.
+Also the argument <code>exclude</code> determines whether
+the current point is excluded from its own neighbourhood.
+</p>
+
+<ul>
+<li> 
+<p>If <code>N</code> is given, then the neighbours of the current
+point are the <code>N</code> points of <code>X</code> which are closest to
+the current point (including the current point itself
+unless <code>exclude=TRUE</code>).
+</p>
+</li>
+<li>
+<p>If <code>R</code> is given, then the neighbourhood of the current point
+consists of all points of <code>X</code> which lie closer than a distance <code>R</code>
+from the current point.
+</p>
+</li>
+<li> 
+<p>If <code>criterion</code> is given, then it must be a function
+with two arguments <code>dist</code> and <code>drank</code> which will be
+vectors of equal length.
+The interpretation is that <code>dist[i]</code> will be the
+distance of a point from the current point, and
+<code>drank[i]</code> will be the rank of that distance (the three points
+closest to the current point will have rank 1, 2 and 3).
+This function must return a logical vector of the same length
+as <code>dist</code> and <code>drank</code> whose <code>i</code>-th entry is
+<code>TRUE</code> if the corresponding point should be included in
+the neighbourhood. See the examples below.
+</p>
+</li>
+<li>
+<p>If more than one of the arguments <code>N</code>, <code>R</code> and
+<code>criterion</code> is given, the neighbourhood is defined as
+the <em>intersection</em> of the neighbourhoods specified by these arguments.
+For example if <code>N=3</code> and <code>R=5</code> then the neighbourhood
+is formed by finding the 3 nearest neighbours of current point,
+and retaining only those neighbours which lie closer than 5 units
+from the current point.
+</p>
+</li></ul>
+
+<p>When <code>applynbd</code> is executed, 
+each point of <code>X</code> is visited, and the following happens
+for each point:
+</p>
+
+<ul>
+<li>
+<p>the neighbourhood of the current point is determined according
+to the chosen rule, and stored as a point pattern <code>Y</code>;
+</p>
+</li>
+<li>
+<p>the function <code>FUN</code> is called as:
+</p>
+<p><code>FUN(Y=Y, current=current, dists=dists, dranks=dranks, ...)</code>
+</p>
+<p>where <code>current</code> is the location of the current point
+(in a format explained below),
+<code>dists</code> is a vector of distances from the current
+point to each of the points in <code>Y</code>, 
+<code>dranks</code> is a vector of the ranks of these distances
+with respect to the full point pattern <code>X</code>,
+and <code>...</code> are the arguments passed from the call to
+<code>applynbd</code>;
+</p>
+</li>
+<li>
+<p>The result of the call to <code>FUN</code> is stored.
+</p>
+</li></ul>
+
+<p>The results of each call to <code>FUN</code> are collected and returned
+according to the usual rules for <code><a href="../../base/html/apply.html">apply</a></code> and its
+relatives. See the <b>Value</b> section of this help file.
+</p>
+<p>The format of the argument <code>current</code> is as follows.
+If <code>X</code> is an unmarked point pattern, then <code>current</code> is a
+list of length 2 with entries <code>current$x</code> and <code>current$y</code>
+containing the coordinates of the current point.
+If <code>X</code> is marked, then <code>current</code> is a point pattern
+containing exactly one point, so that <code>current$x</code> is its
+<i>x</i>-coordinate and <code>current$marks</code> is its mark value.
+In either case, the coordinates of the current point can be referred to as
+<code>current$x</code> and <code>current$y</code>.
+</p>
+<p>Note that <code>FUN</code> will be called exactly as described above,
+with each argument named explicitly. Care is required when writing the
+function <code>FUN</code> to ensure that
+the arguments will match up. See the Examples.
+</p>
+<p>See <code><a href="../../spatstat.geom/help/markstat.html">markstat</a></code> for a common use of this function.
+</p>
+<p>To simply tabulate the marks in every <code>R</code>-neighbourhood, use
+<code><a href="../../spatstat.explore/help/marktable.html">marktable</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Similar to the result of <code><a href="../../base/html/apply.html">apply</a></code>.
+If each call to <code>FUN</code> returns a single numeric value,
+the result is a vector of dimension <code>npoints(X)</code>, the number of points
+in <code>X</code>.
+If each call to <code>FUN</code> returns a vector of the same length
+<code>m</code>, then the result is a matrix of dimensions <code>c(m,n)</code>;
+note the transposition of the indices, as usual for the family of
+<code>apply</code> functions.
+If the calls to <code>FUN</code> return vectors of different lengths,
+the result is a list of length <code>npoints(X)</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../base/html/apply.html">apply</a></code>,
+<code><a href="../../spatstat.geom/help/markstat.html">markstat</a></code>,
+<code><a href="../../spatstat.explore/help/marktable.html">marktable</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  redwood
+  # count the number of points within radius 0.2 of each point of X
+  nneighbours &lt;- applynbd(redwood, R=0.2, function(Y, ...){npoints(Y)-1})
+  # equivalent to:
+  nneighbours &lt;- applynbd(redwood, R=0.2, function(Y, ...){npoints(Y)}, exclude=TRUE)
+
+  # compute the distance to the second nearest neighbour of each point
+  secondnndist &lt;- applynbd(redwood, N = 2,
+                           function(dists, ...){max(dists)},
+                           exclude=TRUE)
+
+  # marked point pattern
+  trees &lt;- longleaf
+  
+  # compute the median of the marks of all neighbours of a point
+  # (see also 'markstat')
+  dbh.med &lt;- applynbd(trees, R=90, exclude=TRUE,
+                 function(Y, ...) { median(marks(Y))})
+
+
+  # ANIMATION explaining the definition of the K function
+  # (arguments `fullpicture' and 'rad' are passed to FUN)
+
+  if(interactive()) {
+  showoffK &lt;- function(Y, current, dists, dranks, fullpicture,rad) { 
+	plot(fullpicture, main="")
+	points(Y, cex=2)
+        ux &lt;- current[["x"]]
+        uy &lt;- current[["y"]]
+	points(ux, uy, pch="+",cex=3)
+	theta &lt;- seq(0,2*pi,length=100)
+	polygon(ux + rad * cos(theta), uy+rad*sin(theta))
+	text(ux + rad/3, uy + rad/2,npoints(Y),cex=3)
+	if(interactive()) Sys.sleep(if(runif(1) &lt; 0.1) 1.5 else 0.3)
+	return(npoints(Y))
+  }
+  applynbd(redwood, R=0.2, showoffK, fullpicture=redwood, rad=0.2, exclude=TRUE)
+
+  # animation explaining the definition of the G function
+
+  showoffG &lt;- function(Y, current, dists, dranks, fullpicture) { 
+	plot(fullpicture, main="")
+	points(Y, cex=2)
+        u &lt;- current
+	points(u[1],u[2],pch="+",cex=3)
+	v &lt;- c(Y$x[1],Y$y[1])
+	segments(u[1],u[2],v[1],v[2],lwd=2)
+	w &lt;- (u + v)/2
+	nnd &lt;- dists[1]
+	text(w[1],w[2],round(nnd,3),cex=2)
+	if(interactive()) Sys.sleep(if(runif(1) &lt; 0.1) 1.5 else 0.3)
+	return(nnd)
+  }
+
+  applynbd(cells, N=1, showoffG, exclude=TRUE, fullpicture=cells)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

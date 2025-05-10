@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculate Summary Statistic for All Types in a Multitype...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for alltypes {spatstat.explore}"><tr><td>alltypes {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Calculate Summary Statistic for All Types in a Multitype Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Given a marked point pattern, this computes the estimates of
+a selected summary function (<i>F</i>,<i>G</i>, <i>J</i>, <i>K</i> etc)
+of the pattern, for all possible combinations of marks,
+and returns these functions in an array.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  alltypes(X, fun="K", ...,
+           dataname=NULL,verb=FALSE,envelope=FALSE,reuse=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern, for which summary function
+estimates are required.  An object of class <code>"ppp"</code> or <code>"lpp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+<p>The summary function. Either an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function,
+or a character string indicating the summary function
+required.  Options for strings are
+<code>"F"</code>, <code>"G"</code>, <code>"J"</code>, <code>"K"</code>, <code>"L"</code>, <code>"pcf"</code>,
+<code>"Gcross"</code>, <code>"Jcross"</code>, <code>"Kcross"</code>, <code>"Lcross"</code>,
+<code>"Gdot"</code>, <code>"Jdot"</code>, <code>"Kdot"</code>, <code>"Ldot"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to the summary function
+(and to the function <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> if appropriate)
+</p>
+</td></tr>
+<tr valign="top"><td><code>dataname</code></td>
+<td>
+<p>Character string giving an optional (alternative)
+name to the point pattern, different from what is given
+in the call.  This name, if supplied, may be used by
+<code><a href="../../spatstat.explore/help/plot.fasp.html">plot.fasp</a>()</code> in forming the title of the plot.
+If not supplied it defaults to the parsing of the argument
+supplied as <code>X</code> in the call.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verb</code></td>
+<td>
+
+<p>Logical value.  If <code>verb</code> is
+true then terse &ldquo;progress reports&rdquo; (just the values of the
+mark indices) are printed out when the calculations for that
+combination of marks are completed. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>envelope</code></td>
+<td>
+
+<p>Logical value. If <code>envelope</code> is true, then simulation envelopes
+of the summary function will also be computed. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>reuse</code></td>
+<td>
+
+<p>Logical value indicating whether the envelopes in each panel
+should be based on the same set of simulated patterns
+(<code>reuse=TRUE</code>) or on different, independent sets of simulated
+patterns (<code>reuse=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This routine is a convenient way to analyse the dependence between
+types in a multitype point pattern.
+It computes the estimates of a selected summary function of the
+pattern, for all possible combinations of marks.
+It returns these functions in an array
+(an object of class <code>"fasp"</code>) amenable to plotting
+by <code><a href="../../spatstat.explore/help/plot.fasp.html">plot.fasp</a>()</code>.
+</p>
+<p>The argument <code>fun</code> specifies the summary function that will
+be evaluated for each type of point, or for each pair of types.
+It may be either an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function or a character string.
+</p>
+<p>Suppose that the points have possible types <i>1,2,&hellip;,m</i>
+and let <i>X[i]</i> denote the pattern of points of type <i>i</i> only.
+</p>
+<p>If <code>fun="F"</code> then this routine
+calculates, for each possible type <i>i</i>,
+an estimate of the Empty Space Function <i>F[i](r)</i> of
+<i>X[i]</i>. See <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>
+for explanation of the empty space function.
+The estimate is computed by applying <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>
+to <i>X[i]</i> with the optional arguments <code>...</code>.
+</p>
+<p>If <code>fun</code> is
+<code>"Gcross"</code>, <code>"Jcross"</code>, <code>"Kcross"</code> or <code>"Lcross"</code>,
+the routine calculates, for each pair of types <i>(i,j)</i>,
+an estimate of the &ldquo;<code>i</code>-to<code>j</code>&rdquo; cross-type function
+<i>G[i,j](r)</i>,
+<i>J[i,j](r)</i>,
+<i>K[i,j](r)</i> or
+<i>L[i,j](r)</i> respectively describing the
+dependence between 
+<i>X[i]</i> and <i>X[j]</i>.
+See <code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>, <code><a href="../../spatstat.explore/help/Jcross.html">Jcross</a></code>, <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>
+or <code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code> respectively for explanation of these
+functions.
+The estimate is computed by applying the relevant function
+(<code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code> etc)
+to <code>X</code> using each possible value of the arguments <code>i,j</code>,
+together with the optional arguments <code>...</code>.
+</p>
+<p>If <code>fun</code> is <code>"pcf"</code> the routine calculates
+the cross-type pair correlation function <code><a href="../../spatstat.explore/help/pcfcross.html">pcfcross</a></code>
+between each pair of types.
+</p>
+<p>If <code>fun</code> is 
+<code>"Gdot"</code>, <code>"Jdot"</code>, <code>"Kdot"</code> or <code>"Ldot"</code>,
+the routine calculates, for each type <i>i</i>,
+an estimate of the &ldquo;<code>i</code>-to-any&rdquo; dot-type function
+<i>G[i.](r)</i>,
+<i>J[i.](r)</i> or
+<i>K[i.](r)</i> or
+<i>L[i.](r)</i> respectively describing the
+dependence between <i>X[i]</i> and <i>X</i>.
+See <code><a href="../../spatstat.explore/help/Gdot.html">Gdot</a></code>, <code><a href="../../spatstat.explore/help/Jdot.html">Jdot</a></code>, <code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code>
+or <code><a href="../../spatstat.explore/help/Ldot.html">Ldot</a></code> respectively for explanation of these functions.
+The estimate is computed by applying the relevant function
+(<code><a href="../../spatstat.explore/help/Gdot.html">Gdot</a></code> etc)
+to <code>X</code> using each possible value of the argument <code>i</code>,
+together with the optional arguments <code>...</code>.
+</p>
+<p>The letters <code>"G"</code>, <code>"J"</code>, <code>"K"</code> and <code>"L"</code>
+are interpreted as abbreviations for <code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>,
+<code><a href="../../spatstat.explore/help/Jcross.html">Jcross</a></code>, <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code> and <code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code>
+respectively, assuming the point pattern is
+marked. If the point pattern is unmarked, the appropriate
+function <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>, <code><a href="../../spatstat.explore/help/Jest.html">Jest</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or <code><a href="../../spatstat.explore/help/Lest.html">Lest</a></code> is invoked instead.
+</p>
+<p>If <code>envelope=TRUE</code>, then as well as computing the value of the
+summary function for each combination of types, the algorithm also
+computes simulation envelopes of the summary function for each
+combination of types. The arguments <code>...</code> are passed to the function
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> to control the number of
+simulations, the random process generating the simulations,
+the construction of envelopes, and so on. 
+</p>
+<p>When <code>envelope=TRUE</code> it is possible that errors could occur
+because the simulated point patterns do not satisfy the requirements
+of the summary function (for example, because the simulated pattern
+is empty and <code>fun</code> requires at least one point). If the number
+of such errors exceeds the maximum permitted number <code>maxnerr</code>,
+then the envelope algorithm will give up, and will return
+the empirical summary function for the data point pattern,
+<code>fun(X)</code>, in place of the envelope.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function array (an object of class <code>"fasp"</code>,
+see <code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code>). This can be plotted
+using <code><a href="../../spatstat.explore/help/plot.fasp.html">plot.fasp</a></code>.
+</p>
+<p>If the pattern is not marked, the resulting &ldquo;array&rdquo; has dimensions
+<i>1 x 1</i>. Otherwise the following is true:
+</p>
+<p>If <code>fun="F"</code>,
+the function array has dimensions <i>m * 1</i>
+where <i>m</i> is the number of different marks in the point pattern.
+The entry at position <code>[i,1]</code> in this array
+is the result of applying <code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code> to the
+points of type <code>i</code> only.
+</p>
+<p>If <code>fun</code> is <code>"Gdot"</code>, <code>"Jdot"</code>, <code>"Kdot"</code>
+or <code>"Ldot"</code>, the function array
+again has dimensions <i>m * 1</i>.
+The entry at position <code>[i,1]</code> in this array
+is the result of <code>Gdot(X, i)</code>, <code>Jdot(X, i)</code>
+<code>Kdot(X, i)</code> or <code>Ldot(X, i)</code> respectively.
+</p>
+<p>If <code>fun</code> is <code>"Gcross"</code>, <code>"Jcross"</code>, <code>"Kcross"</code>
+or <code>"Lcross"</code> 
+(or their abbreviations <code>"G"</code>, <code>"J"</code>, <code>"K"</code> or <code>"L"</code>),
+the function array has dimensions <i>m * m</i>.
+The <code>[i,j]</code> entry of the function array
+(for <i>i != j</i>) is the
+result of applying the function <code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>,
+<code><a href="../../spatstat.explore/help/Jcross.html">Jcross</a></code>, <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code> or<code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code> to
+the pair of types <code>(i,j)</code>. The diagonal
+<code>[i,i]</code> entry of the function array is the result of
+applying the univariate function <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>,
+<code><a href="../../spatstat.explore/help/Jest.html">Jest</a></code>, <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or <code><a href="../../spatstat.explore/help/Lest.html">Lest</a></code> to the
+points of type <code>i</code> only.
+</p>
+<p>If <code>envelope=FALSE</code>, then
+each function entry <code>fns[[i]]</code> retains the format
+of the output of the relevant estimating routine
+<code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>, <code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>, <code><a href="../../spatstat.explore/help/Jest.html">Jest</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,  <code><a href="../../spatstat.explore/help/Lest.html">Lest</a></code>, <code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>,
+<code><a href="../../spatstat.explore/help/Jcross.html">Jcross</a></code> ,<code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>, <code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code>,
+<code><a href="../../spatstat.explore/help/Gdot.html">Gdot</a></code>, <code><a href="../../spatstat.explore/help/Jdot.html">Jdot</a></code>, <code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code> or
+<code><a href="../../spatstat.explore/help/Ldot.html">Ldot</a></code>
+The default formulae for plotting these functions are 
+<code>cbind(km,theo) ~ r</code> for F, G, and J functions, and
+<code>cbind(trans,theo) ~ r</code> for K and L functions.
+</p>
+<p>If <code>envelope=TRUE</code>, then each function entry <code>fns[[i]]</code>
+has the same format as the output of the <code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code> command.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Sizeable amounts of memory may be needed during the calculation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/plot.fasp.html">plot.fasp</a></code>,
+<code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code>,
+<code><a href="../../spatstat.explore/help/Fest.html">Fest</a></code>,
+<code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code>,
+<code><a href="../../spatstat.explore/help/Jest.html">Jest</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>,
+<code><a href="../../spatstat.explore/help/Lest.html">Lest</a></code>,
+<code><a href="../../spatstat.explore/help/Gcross.html">Gcross</a></code>,
+<code><a href="../../spatstat.explore/help/Jcross.html">Jcross</a></code>,
+<code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>,
+<code><a href="../../spatstat.explore/help/Lcross.html">Lcross</a></code>,
+<code><a href="../../spatstat.explore/help/Gdot.html">Gdot</a></code>,
+<code><a href="../../spatstat.explore/help/Jdot.html">Jdot</a></code>,
+<code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code>,
+<code><a href="../../spatstat.explore/help/envelope.html">envelope</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # bramblecanes (3 marks).
+   bram &lt;- bramblecanes
+   
+   bF &lt;- alltypes(bram,"F",verb=TRUE)
+   plot(bF)
+   if(interactive()) {
+     plot(alltypes(bram,"G"))
+     plot(alltypes(bram,"Gdot"))
+   }
+   
+   # Swedishpines (unmarked).
+  swed &lt;- swedishpines
+   
+   plot(alltypes(swed,"K"))
+
+   plot(alltypes(amacrine, "pcf"), ylim=c(0,1.3))
+
+   # envelopes
+   bKE &lt;- alltypes(bram,"K",envelope=TRUE,nsim=19)
+   # global version:
+   
+     bFE &lt;- alltypes(bram,"F",envelope=TRUE,nsim=19,global=TRUE)
+   
+
+   # extract one entry
+   as.fv(bKE[1,1])
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

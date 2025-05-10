@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate a Logistic Regression Quadrature Scheme from a Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quadscheme.logi {spatstat.geom}"><tr><td>quadscheme.logi {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate a Logistic Regression Quadrature Scheme from a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Generates a logistic regression quadrature scheme (an object of class
+<code>"logiquad"</code> inheriting from <code>"quad"</code>)
+from point patterns of data and dummy points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ quadscheme.logi(data, dummy, dummytype = "stratrand",
+                 nd = NULL, mark.repeat = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+<p>The observed data point pattern.
+An object of class <code>"ppp"</code>
+or in a format recognised by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>dummy</code></td>
+<td>
+
+<p>The pattern of dummy points for the quadrature. 
+An object of class <code>"ppp"</code>
+or in a format recognised by <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a>()</code>.
+If missing a sensible default is generated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dummytype</code></td>
+<td>
+
+<p>The name of the type of dummy points to use when <code>"dummy"</code>
+is missing. Currently available
+options are: <code>"stratrand"</code> (default), <code>"binomial"</code>,
+<code>"poisson"</code>, <code>"grid"</code> and <code>"transgrid"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nd</code></td>
+<td>
+
+<p>Integer, or integer vector of length 2 controlling the intensity of
+dummy points when <code>"dummy"</code> is missing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mark.repeat</code></td>
+<td>
+
+<p>Repeating the dummy points for each level of a marked data pattern
+when <code>"dummy"</code> is missing. (See details.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the primary method for producing a quadrature schemes
+for use by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> when the logistic regression
+approximation (Baddeley et al. 2013) to the pseudolikelihood of the
+model is applied (i.e. when <code>method="logi"</code> in <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>).
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> fits a point process model to an
+observed point pattern. When used with the option <code>method="logi"</code>
+it requires a quadrature scheme consisting of 
+the original data point pattern and an additional pattern of dummy points.
+Such quadrature schemes are represented by objects of class
+<code>"logiquad"</code>.
+</p>
+<p>Quadrature schemes are created by the function
+<code>quadscheme.logi</code>.
+The arguments <code>data</code> and <code>dummy</code> specify the data and dummy
+points, respectively. There is a sensible default for the dummy 
+points.
+Alternatively the dummy points
+may be specified arbitrarily and given in any format recognised by
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+</p>
+<p>The quadrature region is the region over which we are
+integrating, and approximating integrals by finite sums.
+If <code>dummy</code> is a point pattern object (class <code>"ppp"</code>)
+then the quadrature region is taken to be <code>Window(dummy)</code>.
+If <code>dummy</code> is just a list of <i>x, y</i> coordinates
+then the quadrature region defaults to the observation window
+of the data pattern, <code>Window(data)</code>.
+</p>
+<p>If <code>dummy</code> is missing, then a pattern of dummy points will be
+generated, taking account of the optional arguments <code>dummytype</code>,
+<code>nd</code>, and <code>mark.repeat</code>.
+</p>
+<p>The currently accepted values for <code>dummytype</code> are:
+</p>
+
+<ul>
+<li> <p><code>"grid"</code> where the frame of the window
+is divided into a <code>nd * nd</code> or <code>nd[1] * nd[2]</code> regular grid
+of tiles and the centers constitutes the dummy points.
+</p>
+</li>
+<li> <p><code>"transgrid"</code> where a regular grid as above is translated
+by a random vector.
+</p>
+</li>
+<li> <p><code>"stratrand"</code> where each point of a regular grid as above
+is randomly translated within its tile.
+</p>
+</li>
+<li> <p><code>"binomial"</code> where <code>nd * nd</code> or <code>nd[1] * nd[2]</code>
+points are generated uniformly in the frame of the
+window.
+<code>"poisson"</code> where a homogeneous Poisson point process with
+intensity <code>nd * nd</code> or <code>nd[1] * nd[2]</code> is
+generated within the frame of observation window.
+</p>
+</li></ul>
+
+<p>Then if the window is not rectangular, any dummy points
+lying outside it are deleted. 
+</p>
+<p>If <code>data</code> is a multitype point pattern the dummy points should also
+be marked (with the same levels of the marks as <code>data</code>). If
+<code>dummy</code> is missing and the dummy pattern is generated by
+<code>quadscheme.logi</code> the default behaviour is to attach a uniformly
+distributed mark (from the levels of the marks) to each dummy
+point. Alternatively, if <code>mark.repeat=TRUE</code> each dummy point is
+repeated as many times as there are levels of the marks with a distinct
+mark value attached to it.
+</p>
+<p>Finally, each point (data and dummy) is assigned the weight 1. The
+weights are never used and only appear to be compatible with the class
+<code>"quad"</code> from which the <code>"logiquad"</code> object inherits.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"logiquad"</code> inheriting from <code>"quad"</code>
+describing the quadrature scheme 
+(data points, dummy points, and quadrature weights)
+suitable as the argument <code>Q</code> of the function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code> for
+fitting a point process model.
+</p>
+<p>The quadrature scheme can be inspected using the
+<code>print</code> and <code>plot</code> methods for objects
+of class <code>"quad"</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Coeurjolly, J.-F., Rubak, E. and Waagepetersen, R. (2014)
+Logistic regression for spatial Gibbs point processes.
+<em>Biometrika</em> <b>101</b> (2) 377&ndash;392.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Q &lt;- quadscheme.logi(simdat)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Window of Spatial Object on a Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Window.lpp {spatstat.linnet}"><tr><td>Window.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Window of Spatial Object on a Network</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial object on a network,
+these functions extract the window
+in which the network is defined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'lpp'
+Window(X, ...)
+
+ ## S3 method for class 'lppm'
+Window(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A spatial object.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic function <code><a href="../../spatstat.geom/help/Window.html">Window</a></code>
+which extract the spatial window in which the object <code>X</code>
+is defined. 
+</p>
+<p>For the methods defined here, <code>X</code> should be a spatial object
+on a linear network (object of class <code>"lpp"</code> or <code>"lppm"</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"owin"</code>
+(see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>)
+specifying an observation window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/Window.html">Window</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Window(spiders)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a List of Point Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.splitppp {spatstat.geom}"><tr><td>plot.splitppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a List of Point Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Plots a list of point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'splitppp'
+plot(x, ..., main)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A named list of point patterns,
+typically obtained from <code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.listof.html">plot.listof</a></code> which control the
+layout of the plot panels, their appearance, and the
+plot behaviour in individual plot panels.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Optional main title for the plot.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the <code>plot</code> method for the class <code>"splitppp"</code>.
+It is typically used to plot the result of the function
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>.
+</p>
+<p>The argument <code>x</code> should be a named list of point patterns
+(objects of class <code>"ppp"</code>, see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>).
+Each of these point patterns will be plotted in turn
+using <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>.
+</p>
+<p>Plotting is performed by <code><a href="../../spatstat.geom/help/plot.listof.html">plot.listof</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Null.
+</p>
+
+
+<h3>Error messages</h3>
+
+<p>If the error message &lsquo;Figure margins too large&rsquo;
+occurs, ensure that <code>equal.scales=FALSE</code>
+and increase the values of <code>mar.panel</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.listof.html">plot.listof</a></code> for arguments controlling the plot.
+</p>
+<p><code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Multitype point pattern
+ plot(split(amacrine))
+ plot(split(amacrine), main="", 
+     panel.begin=function(i, y, ...) { plot(distmap(y), ribbon=FALSE, ...) })
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

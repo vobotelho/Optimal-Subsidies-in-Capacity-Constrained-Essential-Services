@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Coefficients of Fitted Spatial Logistic Regression Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for coef.slrm {spatstat.model}"><tr><td>coef.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Coefficients of Fitted Spatial Logistic Regression Model 
+</h2>
+
+<h3>Description</h3>
+
+<p>Extracts the coefficients (parameters) from a fitted
+Spatial Logistic Regression model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'slrm'
+coef(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>a fitted spatial logistic regression model.
+An object of class <code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for <code><a href="../../stats/html/coef.html">coef</a></code> for fitted spatial logistic
+regression models (objects of class <code>"slrm"</code>, usually obtained
+from the function <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>).
+</p>
+<p>It extracts the fitted canonical parameters, i.e.\ the coefficients in the
+linear predictor of the spatial logistic regression.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector of coefficients.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoispp(42)
+  fit &lt;- slrm(X ~ x+y)
+  coef(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.tess {spatstat.geom}"><tr><td>plot.tess {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Plots a tessellation, with optional labels for the tiles, and optional
+filled colour in each tile.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'tess'
+plot(x, ..., main, add=FALSE,
+                      show.all=!add,
+                      border=NULL,
+                      do.plot=TRUE,
+                      do.labels=!missing(labels),
+                      labels=tilenames(x), labelargs=list(),
+                      do.col=!missing(values),
+                      values=marks(x),
+                      multiplot=TRUE, 
+                      col=NULL, ribargs=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Tessellation (object of class <code>"tess"</code>) to be plotted.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments controlling the appearance of the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Heading for the plot. A character string.</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>Logical. Determines whether the tessellation plot is added
+to the existing plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show.all</code></td>
+<td>
+
+<p>Logical value indicating whether to plot everything
+including the main title and the observation window of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>border</code></td>
+<td>
+
+<p>Colour of the tile boundaries. A character string or other value
+specifying a single colour. 
+Ignored for pixel tessellations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually perform the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.labels</code></td>
+<td>
+
+<p>Logical value indicating whether to show a text label for each tile
+of the tessellation. The default is <code>TRUE</code> if <code>labels</code> are
+given, and <code>FALSE</code> otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+<p>Character vector of labels for the tiles.</p>
+</td></tr>
+<tr valign="top"><td><code>labelargs</code></td>
+<td>
+
+<p>List of arguments passed to
+<code><a href="../../graphics/html/text.html">text.default</a></code> to control display of the text labels.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.col</code></td>
+<td>
+
+<p>Logical value indicating whether tiles should be filled with
+colour (for tessellations where the tiles are rectangles or polygons).
+The default is <code>TRUE</code> if <code>values</code> are given, and <code>FALSE</code> otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+
+<p>A vector of numerical values (or a factor, or vector of character
+strings) that will be associated with each tile of the tessellation
+and which determine the colour of the tile. The default is
+the marks of <code>x</code>. If the tessellation is not marked,
+or if the argument <code>values=NULL</code> is given, the default is
+a factor giving the tile identifier.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiplot</code></td>
+<td>
+
+<p>Logical value giving permission to display multiple plot panels.
+This applies when <code>do.col=TRUE</code> and <code>ncol(values) &gt; 1</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>A vector of colours for each of the <code>values</code>,
+or a <code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code> that maps these values to colours.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ribargs</code></td>
+<td>
+
+<p>List of additional arguments to control the plot of the colour map,
+if <code>do.col=TRUE</code>. See explanation in <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic <code><a href="../../graphics/html/plot.default.html">plot</a></code> function
+for the class <code>"tess"</code> of tessellations (see <code><a href="../../spatstat.geom/help/tess.html">tess</a></code>).
+</p>
+<p>The window of the tessellation is plotted, and then the tiles of the
+tessellation are plotted in their correct positions in the window.
+</p>
+<p>Rectangular or polygonal tiles are plotted individually
+using <code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code>, while a
+tessellation represented by a pixel image
+is plotted using <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>.
+The arguments <code>...</code> control the appearance of the plot,
+and are passed to <code><a href="../../graphics/html/segments.html">segments</a></code>,
+<code><a href="../../spatstat.geom/help/plot.owin.html">plot.owin</a></code> or <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> as appropriate.
+</p>
+<p>If <code>do.col=TRUE</code>, then the tiles of the tessellation are filled
+with colours determined by the argument <code>values</code>.
+By default, these values are the marks associated with each of the tiles.
+If there is more than one column of marks or values,
+then the default behaviour (if <code>multiplot=TRUE</code>)
+is to display several plot panels, one for
+each column of mark values. Then the arguments <code>...</code> are
+passed to <code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code> to determine the arrangement of
+the panels. 
+</p>
+<p>If <code>do.labels=TRUE</code>, a text label is plotted in the middle of
+each tile. The text labels are determined by the argument
+<code>labels</code>, and default to the names of the tiles given by <code>tilenames(x)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisible) window of class <code>"owin"</code> specifying a bounding box
+for the plot, or an object of class <code>"colourmap"</code> specifying the
+colour map. (In the latter case, the bounding box information is
+available as an attribute, and can be extracted
+using <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.)
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/tess.html">tess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Rect &lt;- tess(xgrid=0:4,ygrid=0:4)
+  Diri &lt;- dirichlet(runifrect(7))
+  plot(Diri)
+  plot(Rect, border="blue", lwd=2, lty=2)
+  plot(Rect, do.col=TRUE, border="white")
+  plot(Rect, do.col=TRUE, values=runif(16), border="white")
+  B &lt;- Rect[c(1, 2, 5, 7, 9)]
+  plot(B, hatch=TRUE)
+  plot(Diri, do.col=TRUE)
+  plot(Diri, do.col=TRUE, do.labels=TRUE, labelargs=list(col="white"),
+             ribbon=FALSE)
+  v &lt;- as.im(function(x,y){factor(round(5 * (x^2 + y^2)))}, W=owin())
+  levels(v) &lt;- letters[seq(length(levels(v)))]
+  Img &lt;- tess(image=v)
+  plot(Img)
+  plot(Img, col=rainbow(11), ribargs=list(las=1))
+  a &lt;- tile.areas(Diri)
+  marks(Diri) &lt;- data.frame(area=a, random=runif(7, max=max(a)))
+  plot(Diri, do.col=TRUE, equal.ribbon=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

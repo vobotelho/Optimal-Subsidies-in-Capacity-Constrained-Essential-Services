@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Connected Component Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Concom {spatstat.model}"><tr><td>Concom {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Connected Component Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the Connected Component point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Concom(r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Threshold distance</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function defines the interpoint interaction structure of a point
+process called the connected component process.
+It can be used to fit this model to point pattern data.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the connected component interaction is
+yielded by the function <code>Concom()</code>. See the examples below.
+</p>
+<p>In <b>standard form</b>, the connected component process
+(Baddeley and Moller, 1989) with disc radius <i>r</i>,
+intensity parameter <i>&kappa;</i> and interaction parameter
+<i>&gamma;</i> is a point process with probability density
+</p>
+<p style="text-align: center;"><i>
+    f(x[1],&hellip;,x[n]) =
+    &alpha; . &kappa;^n(x) . &gamma;^(-C(x))
+  </i></p>
+
+<p>for a point pattern <i>x</i>, where 
+<i>x[1],&hellip;,x[n]</i> represent the 
+points of the pattern, <i>n(x)</i> is the number of points in the
+pattern, and <i>C(x)</i> is defined below.
+Here <i>&alpha;</i> is a normalising constant.
+</p>
+<p>To define the term <code>C(x)</code>, suppose that we construct a planar
+graph by drawing an edge between 
+each pair of points <i>x[i],x[j]</i> which are less than
+<i>r</i> units apart. Two points belong to the same connected component
+of this graph if they are joined by a path in the graph.
+Then <i>C(x)</i> is the number of connected components of the graph.
+</p>
+<p>The interaction parameter <i>&gamma;</i> can be any positive number.
+If <i>&gamma; = 1</i> then the model reduces to a Poisson
+process with intensity <i>&kappa;</i>.
+If <i>&gamma; &lt; 1</i> then the process is regular,
+while if <i>&gamma; &gt; 1</i> the process is clustered.
+Thus, a connected-component interaction process can be used to model either
+clustered or regular point patterns.
+</p>
+<p>In <span class="pkg">spatstat</span>, the model is parametrised in a different form,
+which is easier to interpret.
+In <b>canonical form</b>, the probability density is rewritten as
+</p>
+<p style="text-align: center;"><i>
+    f(x_1,&hellip;,x_n) =
+    &alpha; . &beta;^n(x) &gamma;^(-U(x))
+  </i></p>
+
+<p>where <i>&beta;</i> is the new intensity parameter and
+<i>U(x) = C(x) - n(x)</i> is the interaction potential. 
+In this formulation, each isolated point of the pattern contributes a
+factor <i>&beta;</i> to the probability density (so the
+first order trend is <i>&beta;</i>). The quantity 
+<i>U(x)</i> is a true interaction potential, in the sense that
+<i>U(x) = 0</i> if the point pattern <i>x</i> does not contain any
+points that lie close together.
+</p>
+<p>When a new point <i>u</i> is added to an existing point pattern
+<i>x</i>, the rescaled potential <i>-U(x)</i> increases by
+zero or a positive integer.
+The increase is zero if <i>u</i> is not close to any point of <i>x</i>.
+The increase is a positive integer <i>k</i> if there are
+<i>k</i> different connected components of <i>x</i> that lie close to <i>u</i>.
+Addition of the point
+<i>u</i> contributes a factor <i>&beta; * &eta;^&delta;</i>
+to the probability density, where <i>&delta;</i> is the
+increase in potential.
+</p>
+<p>If desired, the original parameter <i>&kappa;</i> can be recovered from
+the canonical parameter by <i>&kappa; = &beta; * &gamma;</i>.
+</p>
+<p>The <em>nonstationary</em> connected component process is similar except that 
+the contribution of each individual point <i>x[i]</i>
+is a function <i>&beta;(x[i])</i>
+of location, rather than a constant beta. 
+</p>
+<p>Note the only argument of <code>Concom()</code> is the threshold distance <code>r</code>.
+When <code>r</code> is fixed, the model becomes an exponential family.
+The canonical parameters <i>log(&beta;)</i>
+and <i>log(&gamma;)</i>
+are estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, not fixed in
+<code>Concom()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the connected component process with disc radius <i>r</i>.
+</p>
+
+
+<h3>Edge correction</h3>
+
+<p>The interaction distance of this process is infinite.
+There are no well-established procedures for edge correction
+for fitting such models, and accordingly the model-fitting function
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> will give an error message saying that the user must
+specify an edge correction. A reasonable solution is
+to use the border correction at the same distance <code>r</code>, as shown in the
+Examples.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J. and Moller, J. (1989)
+Nearest-neighbour Markov point processes and random sets.
+<em>International Statistical Review</em> <b>57</b>, 89&ndash;121.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # prints a sensible description of itself
+   Concom(r=0.1)
+
+   # Fit the stationary connected component process to redwood data
+   ppm(redwood ~1, Concom(r=0.07), rbord=0.07)
+
+   # Fit the stationary connected component process to `cells' data
+   ppm(cells ~1, Concom(r=0.06), rbord=0.06)
+   # eta=0 indicates hard core process.
+
+   # Fit a nonstationary connected component model
+   # with log-cubic polynomial trend
+   
+     ppm(swedishpines ~polynom(x/10,y/10,3), Concom(r=7), rbord=7)
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

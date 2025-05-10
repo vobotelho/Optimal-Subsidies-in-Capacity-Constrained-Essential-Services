@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Fitted Spatial Logistic Regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.slrm {spatstat.model}"><tr><td>plot.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Fitted Spatial Logistic Regression
+</h2>
+
+<h3>Description</h3>
+
+<p>Plots a fitted Spatial Logistic Regression model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'slrm'
+plot(x, ..., type = "intensity")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>a fitted spatial logistic regression model.
+An object of class <code>"slrm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code> to
+control the appearance of the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Character string (partially) matching one of 
+<code>"probabilities"</code>, <code>"intensity"</code> or <code>"link"</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for <code><a href="../../graphics/html/plot.default.html">plot</a></code> for fitted spatial logistic
+regression models (objects of class <code>"slrm"</code>, usually obtained
+from the function <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>).
+</p>
+<p>This function plots the result of <code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>, 
+<code><a href="../../spatstat.model/help/predict.slrm.html">predict.slrm</a></code>, 
+<code><a href="../../spatstat.geom/help/plot.im.html">plot.im</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- copper$SouthPoints
+   Y &lt;- copper$SouthLines
+   Z &lt;- distmap(Y)
+   fit &lt;- slrm(X ~ Z)
+   plot(fit)
+   plot(fit, type="link")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

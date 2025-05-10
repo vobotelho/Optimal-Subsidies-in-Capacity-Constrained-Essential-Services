@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distance Map of Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for distmap.owin {spatstat.geom}"><tr><td>distmap.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distance Map of Window</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distance from each pixel to the nearest point
+in the given window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'owin'
+distmap(X, ..., discretise=FALSE, invert=FALSE,
+        connect=8, metric=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>discretise</code></td>
+<td>
+
+<p>Logical flag controlling the choice of algorithm when <code>X</code> is
+a polygonal window. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>invert</code></td>
+<td>
+
+<p>If <code>TRUE</code>, compute the distance transform of the
+complement of the window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>connect</code></td>
+<td>
+
+<p>Neighbourhood connectivity for the discrete distance transform
+algorithm. Either 8 or 24.
+</p>
+</td></tr>
+<tr valign="top"><td><code>metric</code></td>
+<td>
+
+<p>Optional. A distance metric
+(object of class <code>"metric"</code>, see <code><a href="../../spatstat.geom/help/metric.object.html">metric.object</a></code>)
+which will be used to compute the distances.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The &ldquo;distance map&rdquo; of a window <i>W</i> is the function
+<i>f</i> whose value <code>f(u)</code> is defined for any two-dimensional
+location <i>u</i> as the shortest distance from <i>u</i> to <i>W</i>.
+</p>
+<p>This function computes the distance map of the window <code>X</code>
+and returns the distance map as a pixel image. The greyscale value
+at a pixel <i>u</i> equals the distance from <i>u</i> to the nearest
+pixel in <code>X</code>.
+</p>
+<p>Additionally, the return value 
+has an attribute <code>"bdry"</code> which is 
+also a pixel image. The grey values in <code>"bdry"</code> give the
+distance from each pixel to the bounding rectangle of the image.
+</p>
+<p>If <code>X</code> is a binary pixel mask,
+the distance values computed are not the
+usual Euclidean distances. Instead the distance between two pixels
+is measured by the length of the
+shortest path connecting the two pixels. A path is a series of steps
+between neighbouring pixels (each pixel has 8 neighbours). 
+This is the standard &lsquo;distance transform&rsquo; algorithm of image
+processing (Rosenfeld and Kak, 1968; Borgefors, 1986).
+</p>
+<p>If <code>X</code> is a polygonal window, then exact Euclidean distances
+will be computed if <code>discretise=FALSE</code>. If <code>discretise=TRUE</code>
+then the window will first be converted to a binary pixel mask
+and the discrete path distances will be computed.
+</p>
+<p>The arguments <code>...</code> are passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+to control the pixel resolution.
+</p>
+<p>This function is a method for the generic <code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) whose greyscale values
+are the values of the distance map.
+The return value has an attribute <code>"bdry"</code>
+which is a pixel image.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The pixel values in the image <code>distmap(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values in <code>distmap(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Borgefors, G.
+Distance transformations in digital images.
+<em>Computer Vision, Graphics and Image Processing</em> <b>34</b>
+(1986) 344&ndash;371.
+</p>
+<p>Rosenfeld, A. and Pfalz, J.L.
+Distance functions on digital pictures.
+<em>Pattern Recognition</em> <b>1</b> (1968) 33-61.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distmap.html">distmap</a></code>,
+<code><a href="../../spatstat.geom/help/distmap.ppp.html">distmap.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  U &lt;- distmap(letterR)
+  if(interactive()) {
+  plot(U)
+  plot(attr(U, "bdry"))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

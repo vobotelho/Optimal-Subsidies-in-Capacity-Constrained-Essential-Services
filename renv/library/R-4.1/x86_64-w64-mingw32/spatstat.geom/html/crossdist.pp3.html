@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pairwise distances between two different three-dimensional...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for crossdist.pp3 {spatstat.geom}"><tr><td>crossdist.pp3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pairwise distances between two different three-dimensional point patterns</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distances between pairs of points
+taken from two different three-dimensional point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'pp3'
+crossdist(X, Y, ..., periodic=FALSE, squared=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Point patterns in three dimensions (objects of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical. Specifies whether to apply a periodic edge correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>squared</code></td>
+<td>
+
+<p>Logical. If <code>squared=TRUE</code>, the squared distances are
+returned instead (this computation is faster).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given two point patterns in three-dimensional space, 
+this function computes the Euclidean distance from each point
+in the first pattern to each point in the second pattern,
+and returns a matrix containing these distances.
+</p>
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>
+for three-dimensional point patterns (objects of class <code>"pp3"</code>).
+</p>
+<p>This function expects two
+point patterns <code>X</code> and <code>Y</code>, and returns the matrix
+whose <code>[i,j]</code> entry is the distance from <code>X[i]</code> to
+<code>Y[j]</code>.
+</p>
+<p>Alternatively if <code>periodic=TRUE</code>, then provided the windows
+containing <code>X</code> and <code>Y</code> are identical and are rectangular,
+then the distances will be computed in the &lsquo;periodic&rsquo;
+sense (also known as &lsquo;torus&rsquo; distance): opposite edges of the
+rectangle are regarded as equivalent.
+This is meaningless if the window is not a rectangle.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix whose <code>[i,j]</code> entry is the distance
+from the <code>i</code>-th point in <code>X</code>
+to the <code>j</code>-th point in <code>Y</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+based on code for two dimensions by 
+Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/crossdist.html">crossdist</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code>,
+<code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.explore/help/G3est.html">G3est</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(spatstat.random)) {
+   X &lt;- runifpoint3(20)
+   Y &lt;- runifpoint3(30)
+} else {
+   X &lt;- osteo$pts[[1]]
+   Y &lt;- osteo$pts[[2]]
+   Y &lt;- Y[domain(X)]
+}
+   d &lt;- crossdist(X, Y)
+   d &lt;- crossdist(X, Y, periodic=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

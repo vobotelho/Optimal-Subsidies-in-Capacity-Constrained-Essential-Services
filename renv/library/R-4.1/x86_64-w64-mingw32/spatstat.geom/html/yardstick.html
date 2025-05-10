@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Text, Arrow or Scale Bar in a Diagram</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for yardstick {spatstat.geom}"><tr><td>yardstick {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Text, Arrow or Scale Bar in a Diagram
+</h2>
+
+<h3>Description</h3>
+
+<p>Create spatial objects that represent a text string,
+an arrow, or a yardstick (scale bar).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+textstring(x, y, txt = NULL, ...)
+
+onearrow(x0, y0, x1, y1, txt = NULL, ...)
+
+yardstick(x0, y0, x1, y1, txt = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Coordinates where the text should be placed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x0,y0,x1,y1</code></td>
+<td>
+
+<p>Spatial coordinates of both ends of the arrow or yardstick.
+Alternatively <code>x0</code> can be a point pattern (class <code>"ppp"</code>)
+containing exactly two points, or a line segment pattern
+(class <code>"psp"</code>) consisting of exactly one line segment.
+</p>
+</td></tr>
+<tr valign="top"><td><code>txt</code></td>
+<td>
+
+<p>The text to be displayed beside the line segment.
+Either a character string or an expression.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional named arguments for plotting the object.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These commands create objects that represent components of a
+diagram:
+</p>
+
+<ul>
+<li> <p><code>textstring</code> creates an object that represents a string
+of text at a particular spatial location.
+</p>
+</li>
+<li> <p><code>onearrow</code> creates an object that represents an arrow
+between two locations.
+</p>
+</li>
+<li> <p><code>yardstick</code> creates an object that represents
+a scale bar: a line segment indicating the scale of the plot.
+</p>
+</li></ul>
+
+<p>To display the relevant object, it should be plotted, using
+<code>plot</code>. See the help files for the plot methods
+<code><a href="../../spatstat.geom/help/plot.textstring.html">plot.textstring</a></code>, <code><a href="../../spatstat.geom/help/plot.onearrow.html">plot.onearrow</a></code>
+and <code><a href="../../spatstat.geom/help/plot.yardstick.html">plot.yardstick</a></code>.
+</p>
+<p>These objects are designed to be included as components in a
+<code><a href="../../spatstat.geom/help/layered.html">layered</a></code> object or a <code><a href="../../spatstat.geom/help/solist.html">solist</a></code>. This makes it
+possible to build up a diagram consisting of many spatial objects,
+and to annotate the diagram with arrows, text and so on, so that
+ultimately the entire diagram is plotted using <code>plot</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"diagramobj"</code> which also
+belongs to one of the special classes <code>"textstring"</code>, <code>"onearrow"</code>
+or <code>"yardstick"</code>. There are methods for <code>plot</code>,
+<code>print</code>, <code>"["</code> and <code><a href="../../spatstat.geom/help/shift.html">shift</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.textstring.html">plot.textstring</a></code>,
+<code><a href="../../spatstat.geom/help/plot.onearrow.html">plot.onearrow</a></code>,
+<code><a href="../../spatstat.geom/help/plot.yardstick.html">plot.yardstick</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rescale(swedishpines)
+  plot(X, pch=16, main="")
+  yd &lt;- yardstick(0,0,1,1, "diagonal")
+  yy &lt;- yardstick(X[1:2])
+  ys &lt;- yardstick(as.psp(list(xmid=4, ymid=0.5, length=1, angle=0),
+                         window=Window(X)),
+                  txt="1 m")
+  ys
+  plot(ys, angle=90)
+  scalardilate(ys, 2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Superimpose Several Geometric Patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for superimpose {spatstat.geom}"><tr><td>superimpose {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Superimpose Several Geometric Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Superimpose any number of point patterns or line segment patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  superimpose(...)
+
+  ## S3 method for class 'ppp'
+superimpose(..., W=NULL, check=TRUE)
+
+  ## S3 method for class 'psp'
+superimpose(..., W=NULL, check=TRUE)
+
+  ## S3 method for class 'splitppp'
+superimpose(..., W=NULL, check=TRUE)
+
+  ## S3 method for class 'ppplist'
+superimpose(..., W=NULL, check=TRUE)
+
+  ## Default S3 method:
+superimpose(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Any number of arguments, each of which represents either a point
+pattern or a line segment pattern or a list of point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional. Data determining the window for the resulting pattern.
+Either a window (object of class <code>"owin"</code>, or something
+acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>), or a function
+which returns a window, or one of the strings
+<code>"convex"</code>, <code>"rectangle"</code>, <code>"bbox"</code> or <code>"none"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+
+<p>Logical value (passed to <code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code> or <code><a href="../../spatstat.geom/help/psp.html">psp</a></code>
+as appropriate) determining whether to check the geometrical
+validity of the resulting pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is used to superimpose several geometric patterns
+of the same kind, producing a single pattern of the same kind.
+</p>
+<p>The function <code>superimpose</code> is generic, with methods
+for the class <code>ppp</code> of point patterns, the class <code>psp</code>
+of line segment patterns, and a default method. There is also
+a method for <code>lpp</code>, described separately in
+<code>superimpose.lpp</code>.
+</p>
+<p>The dispatch to a method is initially determined
+by the class of the <em>first</em> argument in <code>...</code>.
+</p>
+
+<ul>
+<li> <p><code>default</code>:  If the first argument is 
+<em>not</em> an object of class <code>ppp</code> or <code>psp</code>, then the
+default method <code>superimpose.default</code> is executed.
+This checks the class of all arguments, and dispatches to the
+appropriate method. Arguments of class <code>ppplist</code> can be handled.
+</p>
+</li>
+<li> <p><code>ppp</code>:
+If the first <code>...</code> argument is an object of
+class <code>ppp</code> then the method <code>superimpose.ppp</code>
+is executed. All arguments in <code>...</code>
+must be either <code>ppp</code> objects or lists
+with components <code>x</code> and <code>y</code>. The result will
+be an object of class <code>ppp</code>.
+</p>
+</li>
+<li><p> psp:
+If the first <code>...</code> argument is an object of
+class <code>psp</code> then the <code>psp</code> method is dispatched and all
+<code>...</code> arguments must be <code>psp</code> objects.
+The result is a <code>psp</code> object.
+</p>
+</li></ul>
+
+<p>The patterns are <em>not</em> required to have the same window
+of observation. 
+</p>
+<p>The window for the superimposed pattern is controlled
+by the argument <code>W</code>.
+</p>
+
+<ul>
+<li>
+<p>If <code>W</code> is a window (object of class <code>"W"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>)
+then this determines the window for the superimposed pattern.
+</p>
+</li>
+<li>
+<p>If <code>W</code> is <code>NULL</code>, or the character string <code>"none"</code>,
+then windows are extracted from the geometric patterns,
+as follows. 
+For <code>superimpose.psp</code>, all arguments <code>...</code>
+are line segment patterns (objects of class <code>"psp"</code>);
+their observation windows are extracted; the union of these
+windows is computed; and this union is taken to be the
+window for the superimposed pattern.
+For <code>superimpose.ppp</code> and <code>superimpose.default</code>,
+the arguments <code>...</code> are inspected, and 
+any arguments which are point patterns (objects of class
+<code>"ppp"</code>) are selected; their observation windows
+are extracted, and the union of these windows
+is taken to be the window for the superimposed point pattern.
+For <code>superimpose.default</code> if none of the arguments
+is of class <code>"ppp"</code> then no window is computed
+and the result of <code>superimpose</code> is a <code>list(x,y)</code>.
+</p>
+</li>
+<li>
+<p>If <code>W</code> is one of the strings
+<code>"convex"</code>, <code>"rectangle"</code> or <code>"bbox"</code>
+then a window for the superimposed pattern
+is computed from the coordinates of the
+points or the line segments as follows.
+</p>
+
+<dl>
+<dt><code>"bbox"</code>:</dt><dd><p>the bounding box of the
+points or line segments (see <code><a href="../../spatstat.geom/help/bounding.box.xy.html">bounding.box.xy</a></code>);</p>
+</dd>
+<dt><code>"convex"</code>:</dt><dd><p>the Ripley-Rasson estimator
+of a convex window (see <code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code>);</p>
+</dd>
+<dt><code>"rectangle"</code>:</dt><dd><p>the Ripley-Rasson estimator
+of a rectangular window
+(using <code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code> with argument
+<code>shape="rectangle"</code>).</p>
+</dd>
+</dl>
+
+</li>
+<li>
+<p>If <code>W</code> is a function,
+then this function is used to compute
+a window for the superimposed pattern
+from the coordinates of the
+points or the line segments.
+The function should accept input of the form <code>list(x,y)</code>
+and is expected to return an object of class <code>"owin"</code>.
+Examples of such functions are
+<code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code> and <code><a href="../../spatstat.geom/help/bounding.box.xy.html">bounding.box.xy</a></code>.
+</p>
+</li></ul>
+
+<p>The arguments <code>...</code> may be <em>marked</em> patterns.
+The marks of each component pattern must have the same format.
+Numeric and character marks may be &ldquo;mixed&rdquo;.  If there is such
+mixing then the numeric marks are coerced to character in the
+combining process. If the mark structures are all data frames,
+then these data frames must have the same number of columns and
+identical column names.
+</p>
+<p>If the arguments <code>...</code> are given in the form <code>name=value</code>,
+then the <code>name</code>s will be used as an extra column of marks
+attached to the elements of the corresponding patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>superimpose.ppp</code>, a point pattern (object of class <code>"ppp"</code>).
+For <code>superimpose.default</code>, either a point pattern
+(object of class <code>"ppp"</code>) or a <code>list(x,y)</code>.
+For <code>superimpose.psp</code>, a line segment pattern (object of class
+<code>"psp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/concatxy.html">concatxy</a></code>, <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # superimposing point patterns
+  p1  &lt;- runifrect(30)
+  p2  &lt;- runifrect(42)
+  s1  &lt;- superimpose(p1,p2) # Unmarked pattern.
+  p3  &lt;- list(x=rnorm(20),y=rnorm(20))
+  s2  &lt;- superimpose(p3,p2,p1) # Default method gets called.
+  s2a &lt;- superimpose(p1,p2,p3) # Same as s2 except for order of points.
+  s3  &lt;- superimpose(clyde=p1,irving=p2) # Marked pattern; marks a factor
+                                         # with levels "clyde" and "irving";
+                                         # warning given.
+  marks(p1) &lt;- factor(sample(LETTERS[1:3],30,TRUE))
+  marks(p2) &lt;- factor(sample(LETTERS[1:3],42,TRUE))
+  s5  &lt;- superimpose(clyde=p1,irving=p2) # Marked pattern with extra column
+  marks(p2) &lt;- data.frame(a=marks(p2),b=runif(42))
+  s6  &lt;- try(superimpose(p1,p2)) # Gives an error.
+  marks(p1) &lt;- data.frame(a=marks(p1),b=1:30)
+  s7  &lt;- superimpose(p1,p2) # O.K.
+
+  # how to make a 2-type point pattern with types "a" and "b"
+  u &lt;- superimpose(a = runifrect(10), b = runifrect(20))
+
+  # how to make a 2-type point pattern with types 1 and 2
+  u &lt;- superimpose("1" = runifrect(10), "2" = runifrect(20))
+ 
+  # superimposing line segment patterns
+  X &lt;- as.psp(matrix(runif(20), 5, 4), window=owin())
+  Y &lt;- as.psp(matrix(runif(40), 10, 4), window=owin())
+  Z &lt;- superimpose(X, Y)
+
+  # being unreasonable
+  ## Not run: 
+   if(FALSE) {
+    crud &lt;- try(superimpose(p1,p2,X,Y)) # Gives an error, of course!
+   }
+  
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

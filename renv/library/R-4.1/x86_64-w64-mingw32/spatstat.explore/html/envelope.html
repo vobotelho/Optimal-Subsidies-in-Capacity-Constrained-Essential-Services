@@ -1,0 +1,935 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulation Envelopes of Summary Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for envelope {spatstat.explore}"><tr><td>envelope {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulation Envelopes of Summary Function</h2>
+
+<h3>Description</h3>
+
+<p>Computes simulation envelopes of a summary function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  envelope(Y, fun, ...)
+
+  ## S3 method for class 'ppp'
+envelope(Y, fun=Kest, nsim=99, nrank=1, ...,
+  funargs=list(), funYargs=funargs,
+  simulate=NULL,  fix.n=FALSE, fix.marks=FALSE,
+  verbose=TRUE, clipdata=TRUE,
+  transform=NULL, global=FALSE, ginterval=NULL, use.theory=NULL, 
+  alternative=c("two.sided", "less", "greater"),
+  scale=NULL, clamp=FALSE, 
+  savefuns=FALSE, savepatterns=FALSE,
+  nsim2=nsim, VARIANCE=FALSE, nSD=2, Yname=NULL,
+  maxnerr=nsim, rejectNA=FALSE, silent=FALSE,
+  do.pwrong=FALSE, envir.simul=NULL)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Y</code></td>
+<td>
+
+<p>Object containing point pattern data.
+A point pattern (object of class
+<code>"ppp"</code>) or a fitted point process model
+(object of class <code>"ppm"</code>, <code>"kppm"</code> or <code>"slrm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+
+<p>Function that computes the desired summary statistic
+for a point pattern. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated point patterns to be generated
+when computing the envelopes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrank</code></td>
+<td>
+
+<p>Integer. Rank of the envelope value amongst the <code>nsim</code> simulated
+values. A rank of 1 means that the minimum and maximum
+simulated values will be used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>funargs</code></td>
+<td>
+
+<p>A list, containing extra arguments to be passed to <code>fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>funYargs</code></td>
+<td>
+
+<p>Optional. A list, containing extra arguments to be passed to
+<code>fun</code> when applied to the original data <code>Y</code> only.
+</p>
+</td></tr>
+<tr valign="top"><td><code>simulate</code></td>
+<td>
+
+<p>Optional. Specifies how to generate the simulated point patterns.
+If <code>simulate</code> is an expression in the R language, then this
+expression will be evaluated <code>nsim</code> times,
+to obtain <code>nsim</code> point patterns which are taken as the
+simulated patterns from which the envelopes are computed.
+If <code>simulate</code> is a function, then this function will be
+repeatedly applied to the data pattern <code>Y</code> to obtain
+<code>nsim</code> simulated patterns.
+If <code>simulate</code> is a list of point patterns, then the entries
+in this list will be treated as the simulated patterns from which
+the envelopes are computed.
+Alternatively <code>simulate</code> may be an object produced by the
+<code>envelope</code> command: see Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fix.n</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, simulated patterns will have the
+same number of points as the original data pattern.
+This option is currently not available for <code>envelope.kppm</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fix.marks</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, simulated patterns will have the
+same number of points <em>and</em> the same marks as the
+original data pattern. In a multitype point pattern this means that
+the simulated patterns will have the same number of points
+<em>of each type</em> as the original data.
+This option is currently not available for <code>envelope.kppm</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical flag indicating whether to print progress reports
+during the simulations.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipdata</code></td>
+<td>
+
+<p>Logical flag indicating whether the data point pattern should be
+clipped to the same window as the simulated patterns,
+before the summary function for the data is computed.
+This should usually be <code>TRUE</code> to ensure that the
+data and simulations are properly comparable.
+</p>
+</td></tr>
+<tr valign="top"><td><code>transform</code></td>
+<td>
+
+<p>Optional. A transformation to be applied to the
+function values, before the envelopes are computed.
+An expression object (see Details).
+</p>
+</td></tr>
+<tr valign="top"><td><code>global</code></td>
+<td>
+
+<p>Logical flag indicating whether envelopes should be pointwise
+(<code>global=FALSE</code>) or simultaneous (<code>global=TRUE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>ginterval</code></td>
+<td>
+
+<p>Optional.
+A vector of length 2 specifying
+the interval of <i>r</i> values for the simultaneous critical
+envelopes. Only relevant if <code>global=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.theory</code></td>
+<td>
+
+<p>Logical value indicating whether to use the theoretical value,
+computed by <code>fun</code>, as the reference value for simultaneous
+envelopes. Applicable only when <code>global=TRUE</code>.
+Default is <code>use.theory=TRUE</code> if <code>Y</code> is a point pattern,
+or a point process model equivalent to Complete Spatial Randomness,
+and <code>use.theory=FALSE</code> otherwise.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+
+<p>Character string determining whether the envelope corresponds
+to a two-sided test (<code>side="two.sided"</code>, the default)
+or a one-sided test with a lower critical boundary
+(<code>side="less"</code>) or a one-sided test
+with an upper critical boundary (<code>side="greater"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Optional. Scaling function for global envelopes.
+A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language which determines the
+relative scale of deviations, as a function of
+distance <i>r</i>, when computing the global envelopes.
+Applicable only when <code>global=TRUE</code>.
+Summary function values for distance <code>r</code>
+will be <em>divided</em> by <code>scale(r)</code> before the
+maximum deviation is computed. The resulting global envelopes
+will have width proportional to <code>scale(r)</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>clamp</code></td>
+<td>
+
+<p>Logical value indicating how to compute envelopes when
+<code>alternative="less"</code> or <code>alternative="greater"</code>.
+Deviations of the observed
+summary function from the theoretical summary function are initially
+evaluated as signed real numbers, with large positive values indicating
+consistency with the alternative hypothesis.
+If <code>clamp=FALSE</code> (the default), these values are not changed.
+If <code>clamp=TRUE</code>, any negative values are replaced by zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>savefuns</code></td>
+<td>
+
+<p>Logical flag indicating whether to save all the simulated
+function values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>savepatterns</code></td>
+<td>
+
+<p>Logical flag indicating whether to save all the simulated
+point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim2</code></td>
+<td>
+
+<p>Number of extra simulated point patterns to be generated
+if it is necessary to use simulation to estimate the theoretical
+mean of the summary function. Only relevant when <code>global=TRUE</code>
+and the simulations are not based on CSR.
+</p>
+</td></tr>
+<tr valign="top"><td><code>VARIANCE</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, critical envelopes will be calculated
+as sample mean plus or minus <code>nSD</code> times sample standard
+deviation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nSD</code></td>
+<td>
+
+<p>Number of estimated standard deviations used to determine
+the critical envelopes, if <code>VARIANCE=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Yname</code></td>
+<td>
+
+<p>Character string that should be used as the name of the 
+data point pattern <code>Y</code> when printing or plotting the results.
+</p>
+</td></tr>
+<tr valign="top"><td><code>maxnerr</code></td>
+<td>
+
+<p>Maximum number of rejected patterns.
+If <code>fun</code> yields a fatal error when applied to a simulated point
+pattern (for example, because the pattern is empty and <code>fun</code>
+requires at least one point), the pattern will be rejected
+and a new random point pattern will be generated. If this happens
+more than <code>maxnerr</code> times, the algorithm will give up.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rejectNA</code></td>
+<td>
+
+<p>Logical value specifying whether to reject a simulated pattern
+if the resulting values of <code>fun</code> are all equal to <code>NA</code>,
+<code>NaN</code> or infinite. If <code>FALSE</code> (the default), then
+simulated patterns are only rejected when <code>fun</code> gives a
+fatal error. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+
+<p>Logical value specifying whether to print a report each time
+a simulated pattern is rejected.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.pwrong</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the algorithm will also estimate
+the true significance level of the &ldquo;wrong&rdquo; test (the test that
+declares the summary function for the data to be significant
+if it lies outside the <em>pointwise</em> critical boundary at any
+point). This estimate is printed when the result is printed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>envir.simul</code></td>
+<td>
+
+<p>Environment in which to evaluate the expression <code>simulate</code>,
+if not the current environment.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>envelope</code> command performs simulations and
+computes envelopes of a summary statistic based on the simulations.
+The result is an object that can be plotted to display the envelopes.
+The envelopes can be used to assess the goodness-of-fit of
+a point process model to point pattern data.
+</p>
+<p>For the most basic use, if you have a point pattern <code>X</code> and
+you want to test Complete Spatial Randomness (CSR), type
+<code>plot(envelope(X, Kest,nsim=39))</code> to see the <i>K</i> function
+for <code>X</code> plotted together with the envelopes of the
+<i>K</i> function for 39 simulations of CSR. 
+</p>
+<p>The <code>envelope</code> function is generic, with methods for
+the classes <code>"ppp"</code>, <code>"ppm"</code>, <code>"kppm"</code> and <code>"slrm"</code>
+described here. There are also methods for the classes <code>"pp3"</code>,
+<code>"lpp"</code> and <code>"lppm"</code> which are described separately
+under <code><a href="../help/envelope.pp3.html">envelope.pp3</a></code>
+and <code>envelope.lpp</code>.
+Envelopes can also be computed from other envelopes, using
+<code><a href="../help/envelope.envelope.html">envelope.envelope</a></code>.
+</p>
+<p>To create simulation envelopes, the command <code>envelope(Y, ...)</code> 
+first generates <code>nsim</code> random point patterns
+in one of the following ways. 
+</p>
+
+<ul>
+<li> 
+<p>If <code>Y</code> is a point pattern (an object of class <code>"ppp"</code>)
+and <code>simulate=NULL</code>,
+then we generate <code>nsim</code> simulations of
+Complete Spatial Randomness (i.e. <code>nsim</code> simulated point patterns
+each being a realisation of the uniform Poisson point process)
+with the same intensity as the pattern <code>Y</code>.
+(If <code>Y</code> is a multitype point pattern, then the simulated patterns
+are also given independent random marks; the probability
+distribution of the random marks is determined by the
+relative frequencies of marks in <code>Y</code>.)
+</p>
+</li>
+<li>
+<p>If <code>Y</code> is a fitted point process model (an object of class
+<code>"ppm"</code> or <code>"kppm"</code> or <code>"slrm"</code>) and <code>simulate=NULL</code>,
+then this routine generates <code>nsim</code> simulated
+realisations of that model.
+</p>
+</li>
+<li>
+<p>If <code>simulate</code> is supplied, then it determines how the
+simulated point patterns are generated. It may be either
+</p>
+
+<ul>
+<li>
+<p>an expression in the R language, typically containing a call
+to a random generator. This expression will be evaluated
+<code>nsim</code> times to yield <code>nsim</code> point patterns. For example
+if <code>simulate=expression(runifpoint(100))</code> then each simulated
+pattern consists of exactly 100 independent uniform random points.
+</p>
+</li>
+<li>
+<p>a function in the R language, typically containing a call to a
+random generator. This function will be applied repeatedly
+to the original data pattern <code>Y</code> to yield <code>nsim</code> point
+patterns. For example if <code>simulate=<a href="../../spatstat.random/help/rlabel.html">rlabel</a></code> then each
+simulated pattern was generated by evaluating <code><a href="../../spatstat.random/help/rlabel.html">rlabel</a>(Y)</code>
+and consists of a randomly-relabelled version of <code>Y</code>.
+</p>
+</li>
+<li>
+<p>a list of point patterns.
+The entries in this list will be taken as the simulated patterns.
+</p>
+</li>
+<li>
+<p>an object of class <code>"envelope"</code>. This should have been
+produced by calling <code>envelope</code> with the
+argument <code>savepatterns=TRUE</code>.
+The simulated point patterns that were saved in this object
+will be extracted and used as the simulated patterns for the
+new envelope computation. This makes it possible to plot envelopes
+for two different summary functions based on exactly the same set of
+simulated point patterns.
+</p>
+</li></ul>
+
+</li></ul>
+
+<p>The summary statistic <code>fun</code> is applied to each of these simulated
+patterns. Typically <code>fun</code> is one of the functions
+<code>Kest</code>, <code>Gest</code>, <code>Fest</code>, <code>Jest</code>, <code>pcf</code>,
+<code>Kcross</code>, <code>Kdot</code>, <code>Gcross</code>, <code>Gdot</code>,
+<code>Jcross</code>, <code>Jdot</code>, <code>Kmulti</code>, <code>Gmulti</code>,
+<code>Jmulti</code> or <code>Kinhom</code>. It may also be a character string
+containing the name of one of these functions.
+</p>
+<p>The statistic <code>fun</code> can also be a user-supplied function;
+if so, then it must have arguments <code>X</code> and <code>r</code>
+like those in the functions listed above, and it must return an object
+of class <code>"fv"</code>.
+</p>
+<p>Upper and lower critical envelopes are computed in one of the following ways:
+</p>
+
+<dl>
+<dt>pointwise:</dt><dd><p>by default, envelopes are calculated pointwise
+(i.e. for each value of the distance argument <i>r</i>), by sorting the
+<code>nsim</code> simulated values, and taking the <code>m</code>-th lowest
+and <code>m</code>-th highest values, where <code>m = nrank</code>.
+For example if <code>nrank=1</code>, the upper and lower envelopes
+are the pointwise maximum and minimum of the simulated values.
+</p>
+<p>The pointwise envelopes are <b>not</b> &ldquo;confidence bands&rdquo;
+for the true value of the function! Rather,
+they specify the critical points for a Monte Carlo test
+(Ripley, 1981). The test is constructed by choosing a
+<em>fixed</em> value of <i>r</i>, and rejecting the null hypothesis if the
+observed function value
+lies outside the envelope <em>at this value of</em> <i>r</i>.
+This test has exact significance level
+<code>alpha = 2 * nrank/(1 + nsim)</code>.
+</p>
+</dd>
+<dt>simultaneous:</dt><dd><p>if <code>global=TRUE</code>, then the envelopes are
+determined as follows. First we calculate the theoretical mean value of
+the summary statistic (if we are testing CSR, the theoretical
+value is supplied by <code>fun</code>; otherwise we perform a separate
+set of <code>nsim2</code> simulations, compute the
+average of all these simulated values, and take this average
+as an estimate of the theoretical mean value). Then, for each simulation,
+we compare the simulated curve to the theoretical curve, and compute the
+maximum absolute difference between them (over the interval
+of <i>r</i> values specified by <code>ginterval</code>). This gives a
+deviation value <i>d[i]</i> for each of the <code>nsim</code>
+simulations. Finally we take the <code>m</code>-th largest of the
+deviation values, where <code>m=nrank</code>, and call this
+<code>dcrit</code>. Then the simultaneous envelopes are of the form
+<code>lo = expected - dcrit</code> and <code>hi = expected + dcrit</code> where
+<code>expected</code> is either the theoretical mean value <code>theo</code>
+(if we are testing CSR) or the estimated theoretical value
+<code>mmean</code> (if we are testing another model). The simultaneous critical
+envelopes have constant width <code>2 * dcrit</code>.
+</p>
+<p>The simultaneous critical envelopes allow us to perform a different
+Monte Carlo test (Ripley, 1981). The test rejects the null
+hypothesis if the graph of the observed function
+lies outside the envelope <b>at any value of</b> <i>r</i>.
+This test has exact significance level
+<code>alpha = nrank/(1 + nsim)</code>.
+</p>
+<p>This test can also be performed using <code><a href="../help/mad.test.html">mad.test</a></code>.
+</p>
+</dd>
+<dt>based on sample moments:</dt><dd><p>if <code>VARIANCE=TRUE</code>,
+the algorithm calculates the
+(pointwise) sample mean and sample variance of
+the simulated functions. Then the envelopes are computed
+as mean plus or minus <code>nSD</code> standard deviations.
+These envelopes do not have an exact significance interpretation.
+They are a naive approximation to
+the critical points of the Neyman-Pearson test
+assuming the summary statistic is approximately Normally
+distributed.
+</p>
+</dd>
+</dl>
+
+<p>The return value is an object of class <code>"fv"</code> containing
+the summary function for the data point pattern,
+the upper and lower simulation envelopes, and 
+the theoretical expected value (exact or estimated) of the summary function 
+for the model being tested. It can be plotted
+using <code><a href="../help/plot.envelope.html">plot.envelope</a></code>.
+</p>
+<p>If <code>VARIANCE=TRUE</code> then the return value also includes the
+sample mean, sample variance and other quantities.
+</p>
+<p>Arguments can be passed to the function <code>fun</code> through
+<code>...</code>. This means that you simply specify these arguments in the call to
+<code>envelope</code>, and they will be passed to <code>fun</code>.
+In particular, the argument <code>correction</code>
+determines the edge correction to be used to calculate the summary
+statistic. See the section on Edge Corrections, and the Examples.
+</p>
+<p>Arguments can also be passed to the function <code>fun</code>
+through the list <code>funargs</code>. This mechanism is typically used if
+an argument of <code>fun</code> has the same name as an argument of
+<code>envelope</code>. The list <code>funargs</code> should contain
+entries of the form <code>name=value</code>, where each <code>name</code> is the name
+of an argument of <code>fun</code>.
+</p>
+<p>There is also an option, rarely used, in which different function
+arguments are used when computing the summary function
+for the data <code>Y</code> and for the simulated patterns.
+If <code>funYargs</code> is given, it will be used
+when the summary function for the data <code>Y</code> is computed,
+while <code>funargs</code> will be used when computing the summary function
+for the simulated patterns.
+This option is only needed in rare cases: usually the basic principle
+requires that the data and simulated patterns must be treated
+equally, so that <code>funargs</code> and <code>funYargs</code> should be identical.
+</p>
+<p>If <code>Y</code> is a fitted cluster point process model (object of
+class <code>"kppm"</code>), and <code>simulate=NULL</code>,
+then the model is simulated directly
+using <code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code>.
+</p>
+<p>If <code>Y</code> is a fitted Gibbs point process model (object of
+class <code>"ppm"</code>), and <code>simulate=NULL</code>,
+then the model is simulated
+by running the Metropolis-Hastings algorithm <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+Complete control over this algorithm is provided by the 
+arguments <code>start</code> and <code>control</code> which are passed
+to <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+</p>
+<p>For simultaneous critical envelopes (<code>global=TRUE</code>)
+the following options are also useful:
+</p>
+
+<dl>
+<dt><code>ginterval</code></dt><dd><p>determines the interval of <i>r</i> values
+over which the deviation between curves is calculated.
+It should be a numeric vector of length 2.
+There is a sensible default (namely, the recommended plotting
+interval for <code>fun(X)</code>, or the range of <code>r</code> values if
+<code>r</code> is explicitly specified).
+</p>
+</dd>
+<dt><code>transform</code></dt><dd><p>specifies a transformation of the
+summary function <code>fun</code> that will be carried out before the
+deviations are computed.
+Such transforms are useful if <code>global=TRUE</code> or
+<code>VARIANCE=TRUE</code>.
+The <code>transform</code> must be an expression object
+using the symbol <code>.</code> to represent the function value
+(and possibly other symbols recognised by <code><a href="../help/with.fv.html">with.fv</a></code>).
+For example, 
+the conventional way to normalise the <i>K</i> function
+(Ripley, 1981) is to transform it to the <i>L</i> function
+<i>L(r) = sqrt(K(r)/&pi;)</i>
+and this is implemented by setting
+<code>transform=expression(sqrt(./pi))</code>.
+</p>
+</dd>
+</dl>
+
+<p>It is also possible to extract the summary functions for each of the
+individual simulated point patterns, by setting <code>savefuns=TRUE</code>.
+Then the return value also 
+has an attribute <code>"simfuns"</code> containing all the 
+summary functions for the individual simulated patterns.
+It is an <code>"fv"</code> object containing
+functions named <code>sim1, sim2, ...</code> representing the <code>nsim</code>
+summary functions.
+</p>
+<p>It is also possible to save the simulated point patterns themselves,
+by setting <code>savepatterns=TRUE</code>. Then the return value also has
+an attribute <code>"simpatterns"</code> which is a list of length
+<code>nsim</code> containing all the simulated point patterns.
+</p>
+<p>See <code><a href="../help/plot.envelope.html">plot.envelope</a></code> and <code><a href="../help/plot.fv.html">plot.fv</a></code>
+for information about how to plot the envelopes.
+</p>
+<p>Different envelopes can be recomputed from the same data
+using <code><a href="../help/envelope.envelope.html">envelope.envelope</a></code>.
+Envelopes can be combined using <code><a href="../help/pool.envelope.html">pool.envelope</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"envelope"</code>
+and <code>"fv"</code>, see <code><a href="../help/fv.object.html">fv.object</a></code>,
+which can be printed and plotted directly.
+</p>
+<p>Essentially a data frame containing columns
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the vector of values of the argument <i>r</i> 
+at which the summary function <code>fun</code> has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+
+<p>values of the summary function for the data point pattern
+</p>
+</td></tr>
+<tr valign="top"><td><code>lo</code></td>
+<td>
+
+<p>lower envelope of simulations
+</p>
+</td></tr>
+<tr valign="top"><td><code>hi</code></td>
+<td>
+
+<p>upper envelope of simulations
+</p>
+</td></tr>
+</table>
+<p>and <em>either</em>
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>theo</code></td>
+<td>
+
+<p>theoretical value of the summary function under CSR
+(Complete Spatial Randomness, a uniform Poisson point process)
+if the simulations were generated according to CSR
+</p>
+</td></tr>
+<tr valign="top"><td><code>mmean</code></td>
+<td>
+
+<p>estimated theoretical value of the summary function,
+computed by averaging simulated values, 
+if the simulations were not generated according to CSR.
+</p>
+</td></tr>
+</table>
+<p>Additionally, if <code>savepatterns=TRUE</code>, the return value has an attribute
+<code>"simpatterns"</code> which is a list containing the <code>nsim</code>
+simulated patterns. If <code>savefuns=TRUE</code>, the return value
+has an attribute <code>"simfuns"</code> which is an object of class
+<code>"fv"</code> containing the summary functions
+computed for each of the <code>nsim</code> simulated patterns.
+</p>
+
+
+<h3>Errors and warnings</h3>
+
+<p>An error may be generated if one of the simulations produces a
+point pattern that is empty, or is otherwise unacceptable to the
+function <code>fun</code>.
+</p>
+<p>The upper envelope may be <code>NA</code> (plotted as plus or minus
+infinity) if some of the function values
+computed for the simulated point patterns are <code>NA</code>.
+Whether this occurs will depend on the function <code>fun</code>,
+but it usually happens when the simulated point pattern does not contain
+enough points to compute a meaningful value.
+</p>
+
+
+<h3>Confidence intervals</h3>
+
+<p>Simulation envelopes do <b>not</b> compute confidence intervals;
+they generate significance bands. 
+If you really need a confidence interval for the true summary function
+of the point process, use <code><a href="../help/lohboot.html">lohboot</a></code>.
+See also <code><a href="../help/varblock.html">varblock</a></code>.
+</p>
+
+
+<h3>Edge corrections</h3>
+
+<p>It is common to apply a correction for edge effects when
+calculating a summary function such as the <i>K</i> function.
+Typically the user has a choice between several possible edge
+corrections.
+In a call to <code>envelope</code>, the user can specify the edge correction
+to be applied in <code>fun</code>, using the argument <code>correction</code>.
+See the Examples below.
+</p>
+
+<dl>
+<dt>Summary functions in <span class="pkg">spatstat</span></dt><dd>
+<p>Summary functions that are available in <span class="pkg">spatstat</span>, such as
+<code><a href="../help/Kest.html">Kest</a></code>, <code><a href="../help/Gest.html">Gest</a></code> and <code><a href="../help/pcf.html">pcf</a></code>,
+have a standard argument called <code>correction</code> which specifies
+the name of one or more edge corrections.
+</p>
+<p>The list of available edge
+corrections is different for each summary function,
+and may also depend on the kind of window in which the point pattern is
+recorded.
+In the
+case of <code>Kest</code> (the default and most frequently used value of
+<code>fun</code>) the best edge correction is Ripley's isotropic
+correction if the window is rectangular or polygonal, 
+and the translation correction if the window is a binary mask.
+See the help files for the individual
+functions for more information.
+</p>
+<p>All the summary functions in <span class="pkg">spatstat</span>
+recognise the option <code>correction="best"</code>
+which gives the &ldquo;best&rdquo; (most accurate) available edge correction
+for that function. 
+</p>
+<p>In a call to <code>envelope</code>, if <code>fun</code> is one of the
+summary functions provided in <span class="pkg">spatstat</span>, then the default
+is <code>correction="best"</code>. This means that
+<em>by default, the envelope will be computed
+using the &ldquo;best&rdquo; available edge correction</em>.
+</p>
+<p>The user can override this default by specifying the argument
+<code>correction</code>. For example the computation can be accelerated
+by choosing another edge correction which is less accurate
+than the &ldquo;best&rdquo; one, but faster to compute.
+</p>
+</dd>
+<dt>User-written summary functions</dt><dd>
+<p>If <code>fun</code> is a function written by the user,
+then <code>envelope</code> has to guess what to do.
+</p>
+<p>If <code>fun</code> has an argument
+called <code>correction</code>, or has <code>...</code> arguments,
+then <code>envelope</code> assumes that the function 
+can handle a correction argument. To compute the envelope,
+<code>fun</code> will be called with a <code>correction</code> argument.
+The default is <code>correction="best"</code>, unless
+overridden in the call to <code>envelope</code>.
+</p>
+<p>Otherwise, if <code>fun</code> does not have an argument
+called <code>correction</code> and does not have <code>...</code> arguments,
+then <code>envelope</code> assumes that the function 
+<em>cannot</em> handle a correction argument. To compute the
+envelope, <code>fun</code> is called without a correction argument.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Diggle, P.J., Hardegen, A., Lawrence, T., Milne,
+R.K. and Nair, G. (2014) On tests of spatial pattern based on
+simulation envelopes. <em>Ecological Monographs</em> <b>84</b> (3) 477&ndash;489.
+</p>
+<p>Cressie, N.A.C. <em>Statistics for spatial data</em>.
+John Wiley and Sons, 1991.
+</p>
+<p>Diggle, P.J. <em>Statistical analysis of spatial point patterns</em>.
+Arnold, 2003.
+</p>
+<p>Ripley, B.D. (1981) 
+<em>Spatial statistics</em>.
+John Wiley and Sons.
+</p>
+<p>Ripley, B.D. <em>Statistical inference for spatial processes</em>.
+Cambridge University Press, 1988.
+</p>
+<p>Stoyan, D. and Stoyan, H. (1994)
+Fractals, random shapes and point fields:
+methods of geometrical statistics.
+John Wiley and Sons.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/dclf.test.html">dclf.test</a></code>,
+<code><a href="../help/mad.test.html">mad.test</a></code>
+for envelope-based tests.
+</p>
+<p><code><a href="../help/fv.object.html">fv.object</a></code>,
+<code><a href="../help/plot.envelope.html">plot.envelope</a></code>,
+<code><a href="../help/plot.fv.html">plot.fv</a></code>,
+<code><a href="../help/envelope.envelope.html">envelope.envelope</a></code>,
+<code><a href="../help/pool.envelope.html">pool.envelope</a></code>
+for handling envelopes.
+There are also methods for <code>print</code> and <code>summary</code>.
+</p>
+<p><code><a href="../help/Kest.html">Kest</a></code>,
+<code><a href="../help/Gest.html">Gest</a></code>,
+<code><a href="../help/Fest.html">Fest</a></code>,
+<code><a href="../help/Jest.html">Jest</a></code>,
+<code><a href="../help/pcf.html">pcf</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.random/help/default.expand.html">default.expand</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ X &lt;- simdat
+ online &lt;- interactive()
+ Nsim &lt;- if(online) 19 else 3
+
+ # Envelope of K function under CSR
+ plot(envelope(X, nsim=Nsim))
+
+ # Translation edge correction (this is also FASTER):
+ if(online) {
+   plot(envelope(X, correction="translate"))
+ } else {
+  E &lt;- envelope(X, nsim=Nsim, correction="translate")
+ }
+
+# Global envelopes
+ if(online) {
+   plot(envelope(X, Lest, global=TRUE))
+   plot(envelope(X, Kest,  global=TRUE, scale=function(r) { r }))
+ } else {
+  E &lt;- envelope(X, Lest, nsim=Nsim, global=TRUE)
+  E &lt;- envelope(X, Kest, nsim=Nsim, global=TRUE, scale=function(r) { r })
+  E
+  summary(E)
+ }
+
+
+
+
+ # Envelope of G function under CSR
+ if(online) {
+   plot(envelope(X, Gest))
+ } else {
+  E &lt;- envelope(X, Gest, correction="rs", nsim=Nsim)
+ }
+
+ # Envelope of L function under CSR
+ #  L(r) = sqrt(K(r)/pi)
+ if(online) {
+  E &lt;- envelope(X, Kest)
+ } else {
+  E &lt;- envelope(X, Kest, correction="border", nsim=Nsim)
+ }
+ plot(E, sqrt(./pi) ~ r)
+
+ # Simultaneous critical envelope for L function
+ # (alternatively, use Lest)
+ if(online) {
+  plot(envelope(X, Kest, transform=expression(sqrt(./pi)), global=TRUE))
+ } else {
+  E &lt;- envelope(X, Kest, nsim=Nsim, correction="border",
+               transform=expression(sqrt(./pi)), global=TRUE)
+ }
+
+ ## One-sided envelope
+ if(online) {
+  plot(envelope(X, Lest, alternative="less"))
+ } else {
+  E &lt;- envelope(X, Lest, nsim=Nsim, alternative="less")
+ }
+ 
+ # How to pass arguments needed to compute the summary functions:
+ # We want envelopes for Jcross(X, "A", "B") 
+ # where "A" and "B" are types of points in the dataset 'demopat'
+
+ if(online) {
+ plot(envelope(demopat, Jcross, i="A", j="B"))
+ } else {
+ plot(envelope(demopat, Jcross, correction="rs", i="A", j="B", nsim=Nsim))
+ }
+ 
+ # Use of `simulate' expression
+ if(online) {
+ plot(envelope(cells, Gest, simulate=expression(runifpoint(42))))
+ plot(envelope(cells, Gest, simulate=expression(rMaternI(100,0.02))))
+ } else {
+  plot(envelope(cells, Gest, correction="rs", simulate=expression(runifpoint(42)), nsim=Nsim))
+    plot(envelope(cells, Gest, correction="rs", simulate=expression(rMaternI(100, 0.02)),
+nsim=Nsim, global=TRUE))
+ }
+
+ # Use of `simulate' function
+ if(online) {
+   plot(envelope(amacrine, Kcross, simulate=rlabel))
+ } else {
+   plot(envelope(amacrine, Kcross, simulate=rlabel, nsim=Nsim))
+ }
+
+ # Envelope under random toroidal shifts
+ if(online) {
+ plot(envelope(amacrine, Kcross, i="on", j="off",
+               simulate=expression(rshift(amacrine, radius=0.25)))) 
+ }
+
+ # Envelope under random shifts with erosion
+ if(online) {
+ plot(envelope(amacrine, Kcross, i="on", j="off",
+              simulate=expression(rshift(amacrine, radius=0.1, edge="erode"))))
+ }
+
+
+ # Note that the principle of symmetry, essential to the validity of
+ # simulation envelopes, requires that both the observed and
+ # simulated patterns be subjected to the same method of intensity
+ # estimation. In the following example it would be incorrect to set the
+ # argument 'lambda=red.dens' in the envelope command, because this
+ # would mean that the inhomogeneous K functions of the simulated
+ # patterns would be computed using the intensity function estimated
+ # from the original redwood data, violating the symmetry.  There is
+ # still a concern about the fact that the simulations are generated
+ # from a model that was fitted to the data; this is only a problem in
+ # small datasets.
+
+ if(online) {
+ red.dens &lt;- density(redwood, sigma=bw.diggle, positive=TRUE)
+ plot(envelope(redwood, Kinhom, sigma=bw.diggle,
+         simulate=expression(rpoispp(red.dens))))
+ }
+
+ # Precomputed list of point patterns
+ if(online) {
+  nX &lt;- npoints(X)
+  PatList &lt;- list()
+  for(i in 1:Nsim) PatList[[i]] &lt;- runifpoint(nX)
+  E &lt;- envelope(X, Kest, nsim=19, simulate=PatList)
+ } else {
+  PatList &lt;- list()
+  for(i in 1:Nsim) PatList[[i]] &lt;- runifpoint(10)
+ }
+ E &lt;- envelope(X, Kest, nsim=Nsim, simulate=PatList)
+
+ # re-using the same point patterns
+ EK &lt;- envelope(X, Kest, nsim=Nsim, savepatterns=TRUE)
+ EG &lt;- envelope(X, Gest, nsim=Nsim, simulate=EK)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mean of Empirical Cumulative Distribution Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mean.ewcdf {spatstat.univar}"><tr><td>mean.ewcdf {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mean of Empirical Cumulative Distribution Function</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the mean of a (weighted or unweighted)
+empirical cumulative distribution function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ecdf'
+mean(x, trim=0, ...)
+
+## S3 method for class 'ewcdf'
+mean(x, trim=0, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An empirical cumulative distribution function
+(object of class <code>"ecdf"</code> created by <code><a href="../../stats/help/ecdf.html">ecdf</a></code>)
+or a weighted empirical cumulative distribution function
+(object of class <code>"ewcdf"</code> created by <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>The fraction (0 to 0.5) of data values to be trimmed from
+each end of their range, before the mean is computed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic
+<code><a href="../../base/help/mean.html">mean</a></code> 
+for the classes <code>"ecdf"</code> and <code>"ewcdf"</code>.
+</p>
+<p>They calculate the mean of the probability distribution
+corresponding to the cumulative distribution function <code>x</code>.
+This is equivalent to calculating the (weighted or unweighted)
+mean of the original data values.
+</p>
+<p>For <em>weighted</em> empirical cumulative distribution functions
+(class <code>"ewcdf"</code>) the weights will first be normalised so that they
+sum to 1. The result of <code>mean.ewcdf</code>
+is always an average or weighted average or the original data values.
+The argument <code>trim</code> is interpreted as a probability
+under this normalised distribution; the corresponding
+quantiles are computed, and data outside these quantiles is deleted
+before calculating the weighted mean.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Generic <code><a href="../../base/help/mean.html">mean</a></code> and
+<code><a href="../../stats/help/weighted.mean.html">weighted.mean</a></code>.
+</p>
+<p><code><a href="../../stats/help/ecdf.html">ecdf</a></code>, <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>
+to create the cumulative distribution functions.
+</p>
+<p><code><a href="../help/stieltjes.html">stieltjes</a></code> for integration with respect to
+a cumulative distribution function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- 1:5
+  mean(x)
+  mean(ecdf(x))
+  w &lt;- 1:5
+  mean(ewcdf(x, w))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

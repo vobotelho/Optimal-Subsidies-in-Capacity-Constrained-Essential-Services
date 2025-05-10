@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interaction Structure Family Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for isf.object {spatstat.model}"><tr><td>isf.object {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interaction Structure Family Objects</h2>
+
+<h3>Description</h3>
+
+<p>Objects of class <code>"isf"</code> are used internally by the
+<span class="pkg">spatstat</span> package to represent the structure
+of the interpoint interactions in a family of point process models.
+</p>
+
+
+<h3>Details</h3>
+
+<p><em>Advanced Use Only!</em>
+</p>
+<p>An object of class <code>"isf"</code> (Interaction Structure Family)
+is used internally by the <span class="pkg">spatstat</span> package to
+represent the common mathematical and algorithmic structure of
+the interpoint interactions in a family of point process models.
+</p>
+<p>The existing objects of class <code>"isf"</code> are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code> </td><td style="text-align: left;">
+    pairwise interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/triplet.family.html">triplet.family</a></code> </td><td style="text-align: left;">
+    triplet interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/pairsat.family.html">pairsat.family</a></code> </td><td style="text-align: left;">
+    saturated pairwise interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/hierpair.family.html">hierpair.family</a></code> </td><td style="text-align: left;">
+    hierarchical pairwise interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/inforder.family.html">inforder.family</a></code> </td><td style="text-align: left;">
+    infinite order interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/hybrid.family.html">hybrid.family</a></code> </td><td style="text-align: left;">
+    hybrids of several interactions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/ord.family.html">ord.family</a></code> </td><td style="text-align: left;"> Ord interactions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>The information contained in these objects enables the
+<span class="pkg">spatstat</span> package to select the appropriate algorithm
+for fitting, predicting and simulating each point process model.
+</p>
+<p>For example, in order to fit a model that involves pairwise
+interactions, the model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> would use
+information contained in <code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code> to select the
+appropriate algorithms.
+</p>
+<p>An object of class <code>"isf"</code> is essentially a list of functions
+for various tasks.
+The internal format is undocumented and may be changed
+without notice.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"isf"</code>, essentially a list of functions
+for various tasks.
+</p>
+<p>The internal format is undocumented and may be changed
+without notice.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

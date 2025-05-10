@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Cumulative Distribution Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatialcdf {spatstat.explore}"><tr><td>spatialcdf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Spatial Cumulative Distribution Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the spatial cumulative distribution function of a
+spatial covariate, optionally using spatially-varying weights.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spatialcdf(Z, weights = NULL, normalise = FALSE, ..., W = NULL, Zname = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Z</code></td>
+<td>
+
+<p>Spatial covariate.
+A pixel image or a <code>function(x,y,...)</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Spatial weighting for different locations.
+A pixel image, a <code>function(x,y,...)</code>, a window, a constant value,
+or a fitted point process model (object of class <code>"ppm"</code> or
+<code>"kppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>Logical. Whether the weights should be normalised so that they
+sum to 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to determine the pixel
+resolution, or extra arguments passed to <code>Z</code> if it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Optional window (object of class <code>"owin"</code>) defining the spatial
+domain.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Zname</code></td>
+<td>
+
+<p>Optional character string for the name of the covariate <code>Z</code>
+used in plots.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>weights</code> is missing or <code>NULL</code>, it defaults to 1.
+The values of the covariate <code>Z</code>
+are computed on a grid of pixels. The weighted cumulative distribution
+function of <code>Z</code> values is computed, taking each value with weight
+equal to the pixel area. The resulting function <i>F</i> is such that
+<i>F(t)</i> is the area of the region of space where
+<i>Z &lt;= t</i>.
+</p>
+<p>If <code>weights</code> is a pixel image or a function, then the
+values of <code>weights</code> and of the covariate <code>Z</code>
+are computed on a grid of pixels. The
+<code>weights</code> are multiplied by the pixel area.
+Then the weighted empirical cumulative distribution function
+of <code>Z</code> values
+is computed using <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>. The resulting function
+<i>F</i> is such that <i>F(t)</i> is the total weight (or weighted area)
+of the region of space where <i>Z &lt;= t</i>.
+</p>
+<p>If <code>weights</code> is a fitted point process model, then it should
+be a Poisson process. The fitted intensity of the model,
+and the value of the covariate <code>Z</code>, are evaluated at the
+quadrature points used to fit the model. The <code>weights</code> are
+multiplied by the weights of the quadrature points.
+Then the weighted empirical cumulative distribution of <code>Z</code> values
+is computed using <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>. The resulting function
+<i>F</i> is such that <i>F(t)</i> is the expected number of points
+in the point process that will fall in the region of space
+where <i>Z &lt;= t</i>.
+</p>
+<p>If <code>normalise=TRUE</code>, the function is normalised so that its
+maximum value equals 1, so that it gives the cumulative
+<em>fraction</em> of weight or cumulative fraction of points.
+</p>
+<p>The result can be printed, plotted, and used as a function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A cumulative distribution function object
+belonging to the classes <code>"spatialcdf"</code>,
+<code>"ewcdf"</code>, <code>"ecdf"</code> (only if <code>normalise=TRUE</code>)
+and <code>"stepfun"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code>,
+<code><a href="../../spatstat.explore/help/cdf.test.html">cdf.test</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   with(bei.extra, {
+     plot(spatialcdf(grad))
+     if(require("spatstat.model")) {  
+       fit &lt;- ppm(bei ~ elev)
+       plot(spatialcdf(grad, predict(fit)))
+       A &lt;- spatialcdf(grad, fit)
+       A(0.1)
+     }
+  })
+  plot(spatialcdf("x", W=letterR))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

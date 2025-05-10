@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K Function or Pair Correlation Function of Gibbs Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Kmodel.ppm {spatstat.model}"><tr><td>Kmodel.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>K Function or Pair Correlation Function of Gibbs Point Process model</h2>
+
+<h3>Description</h3>
+
+<p>Returns the theoretical <i>K</i> function or the pair correlation function
+of a fitted Gibbs point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'ppm'
+Kmodel(model, ...)
+
+   ## S3 method for class 'ppm'
+pcfmodel(model, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted Poisson or Gibbs point process model (object of
+class <code>"ppm"</code>) typically obtained from
+the model-fitting algorithm <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes an <em>approximation</em> to the <i>K</i> function
+or the pair correlation function of a Gibbs point process.
+</p>
+<p>The functions <code><a href="../../spatstat.model/help/Kmodel.html">Kmodel</a></code> and <code><a href="../../spatstat.model/help/pcfmodel.html">pcfmodel</a></code> are generic.
+The functions documented here are the methods for the class
+<code>"ppm"</code>.
+</p>
+<p>The approximation is only available for stationary 
+pairwise-interaction models.
+It uses the second order Poisson-saddlepoint approximation
+(Baddeley and Nair, 2012b) which is a combination of
+the Poisson-Boltzmann-Emden and Percus-Yevick approximations.
+</p>
+<p>The return value is a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+which takes one argument <code>r</code>.
+Evaluation of this function, on a numeric vector <code>r</code>,
+yields values of the desired <i>K</i> function or pair correlation
+function at these distance values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language,
+which takes one argument <code>r</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Gopalan Nair.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Nair, G. (2012a) 
+Fast approximation of the intensity of Gibbs point processes.
+<em>Electronic Journal of Statistics</em> <b>6</b> 1155&ndash;1169.
+</p>
+<p>Baddeley, A. and Nair, G. (2012b)
+Approximating the moments of a spatial point process.
+<em>Stat</em> <b>1</b>, 1, 18&ndash;30.
+<code>DOI: 10.1002/sta4.5</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or <code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code>
+to estimate the <i>K</i> function or pair correlation function
+nonparametrically from data.
+</p>
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> to fit Gibbs models.
+</p>
+<p><code><a href="../../spatstat.model/help/Kmodel.html">Kmodel</a></code> for the generic functions.
+</p>
+<p><code><a href="../../spatstat.model/help/Kmodel.kppm.html">Kmodel.kppm</a></code> for the method for cluster/Cox processes.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(swedishpines, ~1, Strauss(8))
+  p &lt;- pcfmodel(fit)
+  K &lt;- Kmodel(fit)
+  p(6)
+  K(8)
+  curve(K(x), from=0, to=15)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

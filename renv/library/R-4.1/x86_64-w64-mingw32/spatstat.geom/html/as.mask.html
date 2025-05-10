@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pixel Image Approximation of a Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.mask {spatstat.geom}"><tr><td>as.mask {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pixel Image Approximation of a Window</h2>
+
+<h3>Description</h3>
+
+<p>Obtain a discrete (pixel image) approximation of a given window
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ as.mask(w, eps=NULL, dimyx=NULL, xy=NULL,
+         rule.eps=c("adjust.eps", "grow.frame", "shrink.frame"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>) or data acceptable
+to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>(optional) width and height of pixels.
+A single number, or a numeric vector of length 2.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dimyx</code></td>
+<td>
+
+<p>(optional) pixel array dimensions.
+A single integer, or an integer vector of length 2
+giving dimensions in the <em>y</em> and <em>x</em> directions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xy</code></td>
+<td>
+
+<p>(optional) data containing pixel coordinates,
+such as a pixel image (object of class <code>"im"</code>),
+or a window of type <code>"mask"</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rule.eps</code></td>
+<td>
+
+<p>Character string (partially matched) specifying what to do when
+<code>eps</code> is not a divisor of the frame size.
+Ignored if <code>eps</code> is missing or null. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A &lsquo;mask&rsquo; is a spatial window that is
+represented by a pixel image with binary values.
+It is an object of class <code>"owin"</code> with type <code>"mask"</code>.
+</p>
+<p>This function <code>as.mask</code> creates a representation of any spatial window
+<code>w</code> as a mask. It generates a rectangular grid of
+locations in the plane, tests whether each of these locations lies
+inside <code>w</code>, and stores the results as a mask.
+</p>
+<p>The most common use of this function is to approximate the shape
+of a rectangular or polygonal window <code>w</code> by a mask,
+for computational purposes. In this case,
+we will usually want to have a very fine grid of pixels.
+</p>
+<p>This function can also be used to generate a coarsely-spaced grid of
+locations inside a window, for purposes such as subsampling
+and prediction.
+</p>
+<p>The argument <code>w</code> should be a window (object of class
+<code>"owin"</code>). If it is another kind of spatial data,
+then the window information will be extracted using <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>. 
+</p>
+<p>The grid spacing and location are controlled by the
+arguments <code>eps</code>, <code>dimyx</code> and <code>xy</code>,
+which are mutually incompatible. 
+</p>
+<p>If <code>eps</code> is given, then it specifies the <em>desired</em> grid spacing,
+that is, the desired size of the pixels. If <code>eps</code> is a single number,
+it specifies that the desired grid spacing is <code>eps</code>
+in both the <i>x</i> and <i>y</i> directions, that is, the desired pixels are
+squares with side length <code>eps</code>. If <code>eps</code> is a
+vector of length 2, it specifies that the desired grid spacing is
+<code>eps[1]</code> in the <i>x</i> direction and 
+<code>eps[2]</code> in the <i>y</i> direction. That is, the desired pixels are
+rectangles of width <code>eps[1]</code> and height <code>eps[2]</code>.
+</p>
+<p>When <code>eps</code> is given,
+the argument <code>rule.eps</code> specifies what to do if pixels
+of the desired size would not fit exactly into the
+rectangular frame of <code>w</code>. 
+</p>
+
+<ul>
+<li>
+<p>if <code>rule.eps="adjust.eps"</code> (the default),
+the rectangular frame will remain unchanged, and
+the grid spacing (pixel size) <code>eps</code> will be reduced slightly
+so that an integer number of pixels fits exactly into the frame.
+</p>
+</li>
+<li><p> if <code>rule.eps="grow.frame"</code>,
+the grid spacing (pixel size) <code>eps</code> will remain unchanged,
+and the rectangular frame will be expanded slightly
+so that it consists of an integer number of pixels in each direction.
+</p>
+</li>
+<li><p> if <code>rule.eps="shrink.frame"</code>,
+the grid spacing (pixel size) <code>eps</code> will remain unchanged,
+and the rectangular frame will be contracted slightly
+so that it consists of an integer number of pixels in each direction.
+</p>
+</li></ul>
+
+<p>If <code>dimyx</code> is given, then the pixel grid will be an
+<i>m * n</i> rectangular grid
+where <i>m, n</i> are given by <code>dimyx[2]</code>, <code>dimyx[1]</code>
+respectively. <b>Warning:</b> <code>dimyx[1]</code> is the number of
+pixels in the <i>y</i> direction, and <code>dimyx[2]</code> is the number
+in the <i>x</i> direction. The grid spacing (pixel size) is determined
+by the frame size and the number of pixels.
+</p>
+<p>If <code>xy</code> is given, then this should be some kind of
+data specifing the coordinates of a pixel grid. It may be
+</p>
+
+<ul>
+<li> 
+<p>a list or structure containing elements <code>x</code> and <code>y</code>
+which are numeric vectors of equal length. These will be taken as
+<i>x</i> and <code>y</code> coordinates of the margins
+of the grid. The pixel coordinates will be generated
+from these two vectors.
+</p>
+</li>
+<li>
+<p>a pixel image (object of class <code>"im"</code>).
+</p>
+</li>
+<li>
+<p>a window (object of class <code>"owin"</code>) which is
+of type <code>"mask"</code> so that it contains pixel coordinates.
+</p>
+</li></ul>
+
+<p>If <code>xy</code> is given and is either a pixel image or a mask,
+then <code>w</code> may be omitted, and the window
+information will be extracted from <code>xy</code>.
+</p>
+<p>If neither <code>eps</code> nor <code>dimyx</code> nor <code>xy</code> is given,
+the pixel raster dimensions are obtained from
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a>("npixel")</code>.
+</p>
+<p>There is no inverse of this function. However, the function
+<code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code> will compute a polygonal approximation
+of a binary mask.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A window (object of class <code>"owin"</code>)
+of type <code>"mask"</code> representing a binary pixel image.
+</p>
+
+
+<h3>Discretisation rule</h3>
+
+<p>The rule used in <code>as.mask</code> is that a pixel is part of the
+discretised window if and only if the centre of the pixel falls in the
+original window. This is usually sufficient for most purposes,
+and is fast to compute.
+</p>
+<p>Other discretisation rules are possible; they are available using the
+function <code><a href="../../spatstat.geom/help/owin2mask.html">owin2mask</a></code>.
+</p>
+
+
+<h3>Converting a spatial pattern to a mask</h3>
+
+<p>If the intention is to discretise or pixellate a spatial pattern,
+such as a point pattern, line segment pattern or a linear network, then
+<code>as.mask</code> is not the appropriate function to use, because
+<code>as.mask</code> extracts only the window information and converts this
+window to a mask.
+</p>
+<p>To discretise a point pattern,
+use <code><a href="../../spatstat.geom/help/pixellate.ppp.html">pixellate.ppp</a></code>. To discretise a line segment pattern,
+use <code><a href="../../spatstat.geom/help/pixellate.psp.html">pixellate.psp</a></code> or <code><a href="../../spatstat.geom/help/psp2mask.html">psp2mask</a></code>.
+To discretise a linear network, use
+<code><a href="../../spatstat.linnet/help/methods.linnet.html">pixellate.linnet</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin2mask.html">owin2mask</a></code>.
+</p>
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.rectangle.html">as.rectangle</a></code>,
+<code><a href="../../spatstat.geom/help/as.polygonal.html">as.polygonal</a></code>,
+<code><a href="../../spatstat.geom/help/spatstat.options.html">spatstat.options</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  w &lt;- owin(c(0,10),c(0,10), poly=list(x=c(1,2,3,2,1), y=c(2,3,4,6,7)))
+  m &lt;- as.mask(w)
+  if(interactive()) {
+     plot(w)
+     plot(m)
+  }
+  x &lt;- 1:9
+  y &lt;- seq(0.25, 9.75, by=0.5)
+  m &lt;- as.mask(w, xy=list(x=x, y=y))
+
+  B &lt;- square(1)
+  as.mask(B, eps=0.3)
+  as.mask(B, eps=0.3, rule.eps="g")
+  as.mask(B, eps=0.3, rule.eps="s")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

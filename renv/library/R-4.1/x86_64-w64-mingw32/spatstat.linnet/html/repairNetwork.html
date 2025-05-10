@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Repair Internal Data in a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for repairNetwork {spatstat.linnet}"><tr><td>repairNetwork {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Repair Internal Data in a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Detect and repair inconsistencies or duplication in the internal data
+of a network object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+repairNetwork(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>)
+or a point pattern
+on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function detects and repairs inconsistencies
+in the internal data of <code>X</code>. Currently it does the following:
+</p>
+
+<ul>
+<li><p> checks that different ways of calculating the number of
+edges give the same answer
+</p>
+</li>
+<li><p> removes any duplicated edges of the network
+</p>
+</li>
+<li><p> ensures that each edge is recorded as a pair of vertex indices
+<code>(from, to)</code> with <code>from &lt; to</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An object of the same kind as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

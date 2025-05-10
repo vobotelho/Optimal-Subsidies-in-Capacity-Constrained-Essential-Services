@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Castilla-La Mancha Forest Fires</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clmfires {spatstat.data}"><tr><td>clmfires {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Castilla-La Mancha Forest Fires
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset is a record of forest fires in the Castilla-La Mancha
+region of Spain between 1998 and 2007.  This region is approximately
+400 by 400 kilometres.  The coordinates are recorded in kilometres.
+</p>
+<p>The dataset <code>clmfires</code> is a point pattern (object of class
+<code>"ppp"</code>) containing the spatial coordinates of each fire,
+with marks containing information about each fire.  There are 4
+columns of marks:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>cause</code> </td><td style="text-align: left;"> cause of fire (see below) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>burnt.area</code> </td><td style="text-align: left;"> total area burned, in hectares </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>date</code> </td><td style="text-align: left;"> the date of fire, as a value of class <code>Date</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>julian.date</code> </td><td style="text-align: left;"> number of days elapsed since 1 January 1998 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>The <code>cause</code> of the fire is a factor with the levels
+<code>lightning</code>, <code>accident</code> (for accidents or negligence),
+<code>intentional</code> (for intentionally started fires) and
+<code>other</code> (for other causes including unknown cause).
+</p>
+<p>The format of <code>date</code> is &ldquo;Year-month-day&rdquo;, e.g.
+&ldquo;2005-07-14&rdquo; means 14 July, 2005.
+</p>
+<p>The accompanying dataset <code>clmfires.extra</code> is a list
+of two items <code>clmcov100</code> and <code>clmcov200</code> containing covariate
+information for the entire Castilla-La Mancha region. Each
+of these two elements is a list of four images (objects of
+class <code>"im"</code>) named <code>elevation</code>, <code>orientation</code>,
+<code>slope</code> and <code>landuse</code>.  The <code>landuse</code> image is
+factor-valued with the factor having levels <code>urban</code>,
+<code>farm</code> (for farms or orchards), <code>meadow</code>,
+<code>denseforest</code> (for dense forest), <code>conifer</code> (for conifer
+forest or plantation), <code>mixedforest</code>, <code>grassland</code>,
+<code>bush</code>, <code>scrub</code> and <code>artifgreen</code> for artificial
+greens such as golf courses.
+</p>
+<p>These images (effectively) provide values for the four
+covariates at every location in the study area. The images in
+<code>clmcov100</code> are 100 by 100 pixels in size, while those in
+<code>clmcov200</code> are 200 by 200 pixels.  For easy handling,
+<code>clmcov100</code> and <code>clmcov200</code> also belong to the
+class <code>"listof"</code> so that they can be plotted and printed
+immediately.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(clmfires)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>clmfires</code> is a marked point pattern (object of class <code>"ppp"</code>). 
+See <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>.
+</p>
+<p><code>clmfires.extra</code> is a list with two components, named
+<code>clmcov100</code> and <code>clmcov200</code>, which are lists of pixel images
+(objects of class <code>"im"</code>).
+</p>
+
+
+<h3>Remark</h3>
+
+<p>The precision with which the coordinates of the locations of the
+fires changed between 2003 and 2004.  From 1998 to 2003 many of
+the locations were recorded as the centroid of the corresponding
+&ldquo;district unit&rdquo;; the rest were recorded as exact UTM
+coordinates of the centroids of the fires.  In 2004 the system
+changed and the exact UTM coordinates of the centroids of the fires
+were used for <em>all</em> fires.  There is thus a strongly apparent
+&ldquo;gridlike&rdquo; quality to the fire locations for the years 1998
+to 2003.
+</p>
+<p>There is however no actual duplication of points in the 1998 to 2003
+patterns due to &ldquo;jittering&rdquo; having been applied in order to
+avoid such duplication.  It is not clear just <em>how</em> the fire
+locations were jittered.  It seems unlikely that the jittering was
+done using the <code>jitter()</code> function from <code>R</code> or the
+<span class="pkg">spatstat</span> function <code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code>.
+</p>
+<p>Of course there are many sets of points which are <em>virtually</em>
+identical, being separated by distances induced by the jittering.
+Typically these distances are of the order of 40 metres which
+is unlikely to be meaningful on the scale at which forest fires
+are observed.
+</p>
+<p>Caution should therefore be exercised in any analyses of the patterns
+for the years 1998 to 2003.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Professor Jorge Mateu.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+plot(clmfires, which.marks="cause", cols=2:5, cex=0.25)
+plot(clmfires.extra$clmcov100)
+# Split the clmfires pattern by year and plot the first and last years:
+yr  &lt;- factor(format(marks(clmfires)$date,format="%Y"))
+X   &lt;- split(clmfires,f=yr)
+fAl &lt;- c("1998","2007")
+plot(X[fAl],use.marks=FALSE,main.panel=fAl,main="")
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

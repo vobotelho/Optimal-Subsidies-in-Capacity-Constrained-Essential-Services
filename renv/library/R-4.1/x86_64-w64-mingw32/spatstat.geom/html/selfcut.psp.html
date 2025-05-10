@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cut Line Segments Where They Intersect</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for selfcut.psp {spatstat.geom}"><tr><td>selfcut.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cut Line Segments Where They Intersect</h2>
+
+<h3>Description</h3>
+
+<p>Finds any crossing points between the line segments in a 
+line segment pattern, and cuts the segments into pieces
+at these crossing-points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+selfcut.psp(A, ..., eps)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A</code></td>
+<td>
+
+<p>Line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Optional. Smallest permissible length of the resulting
+line segments. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function finds any crossing points between
+different line segments in the line segment pattern <code>A</code>,
+and cuts the line segments into pieces at these intersection points.
+</p>
+<p>A crossing point occurs whenever one of the line segments in <code>A</code>
+intersects another line segment in <code>A</code>, at a nonzero
+angle of intersection.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another line segment pattern (object of class <code>"psp"</code>)
+in the same window as <code>A</code> with the same kind of marks as
+<code>A</code>.
+</p>
+<p>The result also has an attribute <code>"camefrom"</code> indicating
+the provenance of each segment in the result.
+For example <code>camefrom[3]=2</code> means that the third segment in the
+result is a piece of the second segment of <code>A</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/selfcrossing.psp.html">selfcrossing.psp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+  Y &lt;- selfcut.psp(X)
+  n &lt;- nsegments(Y)
+  plot(Y %mark% factor(sample(seq_len(n), n, replace=TRUE)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

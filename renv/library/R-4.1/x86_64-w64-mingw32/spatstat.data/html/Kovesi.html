@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Colour Sequences with Uniform Perceptual Contrast</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kovesi {spatstat.data}"><tr><td>Kovesi {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Colour Sequences with Uniform Perceptual Contrast 
+</h2>
+
+<h3>Description</h3>
+
+<p>A collection of 41 different sequences of colours,
+each sequence having a uniform perceptual contrast over its whole
+range. These sequences make very good colour maps which avoid
+introducing artefacts when displaying image data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(Kovesi)</pre>
+
+
+<h3>Format</h3>
+
+<p>A <code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code> with the following columns:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>linear</code> </td><td style="text-align: left;"> Logical: whether the sequence is linear. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>diverging</code> </td><td style="text-align: left;"> Logical: whether the sequence is diverging. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>rainbow</code> </td><td style="text-align: left;"> Logical: whether the sequence is a rainbow. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>cyclic</code> </td><td style="text-align: left;"> Logical: whether the sequence is cyclic. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>isoluminant</code> </td><td style="text-align: left;"> Logical: whether the sequence is isoluminant. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>ternary</code> </td><td style="text-align: left;"> Logical: whether the sequence is ternary. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>colsig</code> </td><td style="text-align: left;"> Character: colour signature (see Details) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>l1</code>, <code>l2</code> </td><td style="text-align: left;"> Numeric: lightness parameters </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>chro</code> </td><td style="text-align: left;"> Numeric: average chroma (percent) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>n</code> </td><td style="text-align: left;"> Numeric: length of colour sequence </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>cycsh</code> </td><td style="text-align: left;"> Numeric: cyclic shift (percent) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>values</code> </td><td style="text-align: left;">: Character: the colour values.
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Details</h3>
+
+<p>Kovesi (2014, 2015) presented a collection of colour sequences
+that have uniform perceptual contrast over their whole range.
+</p>
+<p>The dataset <code>Kovesi</code> provides these data. It is a
+<code>hyperframe</code> with 41 rows, in which each row provides information
+about one colour sequence.
+</p>
+<p>Additional information in each row specifies whether the
+colour sequence is &lsquo;linear&rsquo;, &lsquo;diverging&rsquo;,
+&lsquo;rainbow&rsquo;, &lsquo;cyclic&rsquo;, &lsquo;isoluminant&rsquo;
+and/or &lsquo;ternary&rsquo; as defined by Kovesi (2014, 2015).
+</p>
+<p>The &lsquo;colour signature&rsquo; is a string composed of letters
+representing the successive hues, using the following code:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    r </td><td style="text-align: left;"> red </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    g </td><td style="text-align: left;"> green</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    b </td><td style="text-align: left;"> blue </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    c </td><td style="text-align: left;"> cyan </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    m </td><td style="text-align: left;"> magenta </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    y </td><td style="text-align: left;"> yellow </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    o </td><td style="text-align: left;"> orange </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    v </td><td style="text-align: left;"> violet </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    k </td><td style="text-align: left;"> black </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    w </td><td style="text-align: left;"> white </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    j </td><td style="text-align: left;"> grey (j rhymes with grey)
+  </td>
+</tr>
+
+</table>
+
+<p>For example <code>kryw</code> is the sequence from black to red to yellow to
+white.
+</p>
+<p>The column <code>values</code> contains the colour data themselves.
+The <code>i</code>th colour sequence is <code>Kovesi$values[[i]]</code>,
+a character vector of length 256.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Dr Peter Kovesi, Centre for Exploration Targeting,
+University of Western Australia.
+</p>
+
+
+<h3>References</h3>
+
+<p>Kovesi, P. (2014)
+Website <em>CET Uniform Perceptual Contrast Colour Maps</em>
+<a href="https://www.peterkovesi.com/projects/colourmaps/">https://www.peterkovesi.com/projects/colourmaps/</a>
+</p>
+<p>Kovesi, P. (2015)
+Good Colour Maps: How to Design Them.
+<code>arXiv:1509.03700 [cs.GR]</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Kovesi
+  LinearBMW &lt;- Kovesi$values[[28]]
+  if(require(spatstat.geom)) {
+  plot(colourmap(LinearBMW, range=c(0,1)))
+
+  ## The following would be suitable for spatstat.options(image.colfun)
+  BMWfun &lt;- function(n) { interp.colours(LinearBMW, n) }
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

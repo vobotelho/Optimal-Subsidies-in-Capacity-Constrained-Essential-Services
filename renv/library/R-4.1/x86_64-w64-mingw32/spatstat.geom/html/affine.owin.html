@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Affine Transformation To Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for affine.owin {spatstat.geom}"><tr><td>affine.owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Affine Transformation To Window</h2>
+
+<h3>Description</h3>
+
+<p>Applies any affine transformation of the plane (linear transformation
+plus vector shift) to a window. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'owin'
+affine(X, mat=diag(c(1,1)), vec=c(0,0), ..., rescue=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Window (object of class <code>"owin"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>Matrix representing a linear transformation.</p>
+</td></tr>
+<tr valign="top"><td><code>vec</code></td>
+<td>
+<p>Vector of length 2 representing a translation.</p>
+</td></tr>
+<tr valign="top"><td><code>rescue</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the transformed window
+will be processed by <code><a href="../../spatstat.geom/help/rescue.rectangle.html">rescue.rectangle</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the pixel resolution of the transformed window,
+if <code>X</code> is a binary pixel mask.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The window is subjected first to the linear transformation represented by
+<code>mat</code> (multiplying on the left by <code>mat</code>),
+and then the result is translated by the vector <code>vec</code>.
+</p>
+<p>The argument <code>mat</code> must be a nonsingular <i>2 * 2</i>
+matrix.
+</p>
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/affine.html">affine</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another window (of class <code>"owin"</code>) representing the
+result of applying the affine transformation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/affine.ppp.html">affine.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/affine.psp.html">affine.psp</a></code>,
+<code><a href="../../spatstat.geom/help/affine.im.html">affine.im</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # shear transformation
+  shear &lt;- matrix(c(1,0,0.6,1),ncol=2)
+  X &lt;- affine(owin(), shear)
+  if(interactive()) plot(X)
+  affine(letterR, shear, c(0, 0.5))
+  affine(as.mask(letterR), shear, c(0, 0.5))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

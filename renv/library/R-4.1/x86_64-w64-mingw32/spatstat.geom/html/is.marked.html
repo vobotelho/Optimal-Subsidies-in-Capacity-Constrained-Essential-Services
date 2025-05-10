@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test Whether Marks Are Present</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for is.marked {spatstat.geom}"><tr><td>is.marked {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test Whether Marks Are Present</h2>
+
+<h3>Description</h3>
+
+<p>Generic function to test whether a given object (usually a point
+pattern or something related to a point pattern) has &ldquo;marks&rdquo;
+attached to the points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  is.marked(X, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object to be inspected
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>&ldquo;Marks&rdquo; are observations attached to each point of a point pattern.
+For example the <code><a href="../../spatstat.data/help/longleaf.html">longleaf</a></code> dataset
+contains the locations of trees, each tree being marked by its diameter;
+the <code><a href="../../spatstat.data/help/amacrine.html">amacrine</a></code> dataset gives the locations of cells
+of two types (on/off) and the type of cell may be regarded as a mark attached
+to the location of the cell.
+</p>
+<p>Other objects related to point patterns, such as point process models,
+may involve marked points.
+</p>
+<p>This function tests whether the object <code>X</code>
+contains or involves marked points.
+It is generic; methods are provided
+for point patterns (objects of class <code>"ppp"</code>)
+and point process models (objects of class <code>"ppm"</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical value, equal to <code>TRUE</code> if <code>X</code> is marked.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/is.marked.ppp.html">is.marked.ppp</a></code>,
+<code><a href="../../spatstat.model/help/is.marked.ppm.html">is.marked.ppm</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

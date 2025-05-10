@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for owin {spatstat.geom}"><tr><td>owin {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a Window</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object of class <code>"owin"</code> representing 
+an observation window in the two-dimensional plane
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  owin(xrange=c(0,1), yrange=c(0,1), ..., poly=NULL, mask=NULL,
+unitname=NULL, xy=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xrange</code></td>
+<td>
+<p><i>x</i> coordinate limits of enclosing box</p>
+</td></tr>
+<tr valign="top"><td><code>yrange</code></td>
+<td>
+<p><i>y</i> coordinate limits of enclosing box</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>poly</code></td>
+<td>
+
+<p>Optional. Polygonal boundary of window.
+Incompatible with <code>mask</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mask</code></td>
+<td>
+
+<p>Optional. Logical matrix giving binary image of window.
+Incompatible with <code>poly</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. Name of unit of length. Either a single character string,
+or a vector of two character strings giving the
+singular and plural forms, respectively.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xy</code></td>
+<td>
+
+<p>Optional. List with components <code>x</code> and <code>y</code> specifying the
+pixel coordinates for <code>mask</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In the <span class="pkg">spatstat</span> library, a point pattern dataset must include
+information about the window of observation. This is represented by
+an object of class <code>"owin"</code>.
+See <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code> for an overview.
+</p>
+<p>To create a window in its own right, 
+users would normally invoke <code>owin</code>,
+although sometimes <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code> may be convenient.
+</p>
+<p>A window may be rectangular, polygonal, or a mask (a binary image).
+</p>
+
+<ul>
+<li>
+<p><b>rectangular windows:</b>
+If only <code>xrange</code> and <code>yrange</code> are given, then
+the window will be rectangular, with its <i>x</i> and <i>y</i>
+coordinate dimensions given by these two arguments
+(which must be vectors of length 2).
+If no arguments are given at all, the default is the unit square
+with dimensions <code>xrange=c(0,1)</code> and <code>yrange=c(0,1)</code>.
+</p>
+</li>
+<li>
+<p><b>polygonal windows:</b>
+If <code>poly</code> is given, then the window will be polygonal.
+</p>
+
+<ul>
+<li>
+<p><em>single polygon:</em>
+If <code>poly</code> is a matrix or data frame with two columns, or
+a structure with two component vectors <code>x</code> and <code>y</code>
+of equal length,
+then these values are interpreted as the cartesian coordinates
+of the vertices of a polygon circumscribing the window.
+The vertices must be listed <em>anticlockwise</em>.
+No vertex should be repeated (i.e. do not repeat the first
+vertex).
+</p>
+</li>
+<li>
+<p><em>multiple polygons or holes:</em>
+If <code>poly</code> is a list, each entry <code>poly[[i]]</code>
+of which is a matrix or data frame with two columns
+or a structure with
+two component vectors <code>x</code> and <code>y</code> of equal length,
+then the successive list members <code>poly[[i]]</code>
+are interpreted as separate polygons which together
+make up the boundary of the window.
+The vertices of each polygon must be listed <em>anticlockwise</em>
+if the polygon is part of the external boundary,
+but <em>clockwise</em>
+if the polygon is the boundary of a hole in the window.
+Again, do not repeat any vertex.
+</p>
+</li></ul>
+
+</li>
+<li>
+<p><b>binary masks:</b>
+If <code>mask</code> is given, then the window will be a binary image.
+</p>
+
+<ul>
+<li>
+<p><em>Specified by logical matrix:</em>
+Normally the argument <code>mask</code> should be a logical matrix
+such that <code>mask[i,j]</code> is <code>TRUE</code> if the point
+<code>(x[j],y[i])</code> belongs to the window, and <code>FALSE</code> if it
+does not (<code>NA</code> entries will be treated as <code>FALSE</code>).
+Note carefully that rows of <code>mask</code> correspond to the
+<i>y</i> coordinate, and columns to the <i>x</i> coordinate.
+Here <code>x</code> and <code>y</code> are vectors of <i>x</i> and <i>y</i>
+coordinates equally spaced over <code>xrange</code> and <code>yrange</code>
+respectively. The pixel coordinate vectors <code>x</code> and <code>y</code>
+may be specified explicitly using the argument <code>xy</code>, which
+should be a list containing components <code>x</code> and <code>y</code>.
+Alternatively there is a sensible default.
+</p>
+</li>
+<li>
+<p><em>Specified by list of pixel coordinates:</em>
+Alternatively the argument <code>mask</code> can be a data frame
+with 2 or 3 columns. If it has 2 columns, it is expected to
+contain the spatial coordinates of all the
+pixels which are inside the window.
+If it has 3 columns,
+it should contain the spatial coordinates <i>(x,y)</i>
+of every pixel in the grid, and the logical value associated
+with each pixel. The pixels may be listed in any order.
+</p>
+</li></ul>
+
+</li></ul>
+
+<p>To create a window which is mathematically
+defined by inequalities in the Cartesian coordinates, 
+use <code><a href="../../spatstat.geom/help/raster.x.html">raster.x</a>()</code> and <code><a href="../../spatstat.geom/help/raster.y.html">raster.y</a>()</code>
+as in the examples below.
+</p>
+<p>Functions <code><a href="../../spatstat.geom/help/square.html">square</a></code> and <code><a href="../../spatstat.geom/help/disc.html">disc</a></code>
+will create square and circular windows, respectively.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"owin"</code> 
+describing a window in the two-dimensional plane.
+</p>
+
+
+<h3>Validity of polygon data</h3>
+
+<p>Polygon data may contain geometrical inconsistencies such as
+self-intersections and overlaps. These inconsistencies must be
+removed to prevent problems in other <span class="pkg">spatstat</span> functions.
+By default, polygon data will be repaired automatically
+using polygon-clipping code.
+The repair process may change the number of vertices in a polygon
+and the number of polygon components. 
+To disable the repair process, set <code>spatstat.options(fixpolygons=FALSE)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/complement.owin.html">complement.owin</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>
+</p>
+<p><code><a href="../../spatstat.geom/help/square.html">square</a></code>,
+<code><a href="../../spatstat.geom/help/hexagon.html">hexagon</a></code>,
+<code><a href="../../spatstat.geom/help/regularpolygon.html">regularpolygon</a></code>, <code><a href="../../spatstat.geom/help/disc.html">disc</a></code>,
+<code><a href="../../spatstat.geom/help/ellipse.html">ellipse</a></code>. 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  w &lt;- owin()
+  w &lt;- owin(c(0,1), c(0,1))
+  # the unit square
+
+  w &lt;- owin(c(10,20), c(10,30), unitname=c("foot","feet"))
+  # a rectangle of dimensions 10 x 20 feet
+  # with lower left corner at (10,10)
+
+  # polygon (diamond shape)
+  w &lt;- owin(poly=list(x=c(0.5,1,0.5,0),y=c(0,1,2,1)))
+  w &lt;- owin(c(0,1), c(0,2), poly=list(x=c(0.5,1,0.5,0),y=c(0,1,2,1)))
+
+  # polygon with hole
+  ho &lt;- owin(poly=list(list(x=c(0,1,1,0), y=c(0,0,1,1)),
+                       list(x=c(0.6,0.4,0.4,0.6), y=c(0.2,0.2,0.4,0.4))))
+  
+  w &lt;- owin(c(-1,1), c(-1,1), mask=matrix(TRUE, 100,100))
+          # 100 x 100 image, all TRUE
+  X &lt;- raster.x(w)
+  Y &lt;- raster.y(w)
+  wm &lt;- owin(w$xrange, w$yrange, mask=(X^2 + Y^2 &lt;= 1))
+          # discrete approximation to the unit disc
+
+  # vertices of a polygon (listed anticlockwise)
+  bdry &lt;- list(x=c(0.1,0.3,0.7,0.4,0.2),
+               y=c(0.1,0.1,0.5,0.7,0.3))
+  # vertices could alternatively be read from a file, or use locator()
+  w &lt;- owin(poly=bdry)
+ 
+ ## Not run: 
+ # how to read in a binary mask from a file
+ im &lt;- as.logical(matrix(scan("myfile"), nrow=128, ncol=128))
+ # read in an arbitrary 128 x 128 digital image from text file
+ rim &lt;- im[, 128:1]
+ # Assuming it was given in row-major order in the file
+ # i.e. scanning left-to-right in rows from top-to-bottom,
+ # the use of matrix() has effectively transposed rows &amp; columns,
+ # so to convert it to our format just reverse the column order.
+ w &lt;- owin(mask=rim)
+ plot(w)
+ # display it to check!
+ 
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

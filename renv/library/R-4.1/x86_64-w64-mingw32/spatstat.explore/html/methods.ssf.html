@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Spatially Sampled Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for methods.ssf {spatstat.explore}"><tr><td>methods.ssf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Methods for Spatially Sampled Functions</h2>
+
+<h3>Description</h3>
+
+<p>Methods for various generic commands, for the class
+<code>"ssf"</code> of spatially sampled functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'ssf'
+marks(x, ...)
+
+  ## S3 replacement method for class 'ssf'
+marks(x, ...) &lt;- value
+
+  ## S3 method for class 'ssf'
+unmark(X)
+
+  ## S3 method for class 'ssf'
+as.im(X, ...)
+
+  ## S3 method for class 'ssf'
+as.function(x, ...)
+
+  ## S3 method for class 'ssf'
+as.ppp(X, ...)
+
+  ## S3 method for class 'ssf'
+print(x, ..., brief=FALSE)
+
+  ## S3 method for class 'ssf'
+summary(object, ...)
+
+  ## S3 method for class 'ssf'
+range(x, ...)
+
+  ## S3 method for class 'ssf'
+min(x, ...)
+
+  ## S3 method for class 'ssf'
+max(x, ...)
+
+  ## S3 method for class 'ssf'
+integral(f, domain=NULL, ..., weights=attr(f, "weights"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,X,f,object</code></td>
+<td>
+
+<p>A spatially sampled function (object of class <code>"ssf"</code>). 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to the default method.</p>
+</td></tr>
+<tr valign="top"><td><code>brief</code></td>
+<td>
+<p>Logical value controlling the amount of detail printed.</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>Matrix of replacement values for the function.</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+<p>Optional.
+Domain of integration. An object of class<code>"owin"</code> or <code>"tess"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Numeric vector of <em>quadrature weights</em> associated with the
+sample points.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"ssf"</code> represents a
+function (real- or vector-valued) that has been
+sampled at a finite set of points.
+</p>
+<p>The commands documented here are methods for this class,
+for the generic commands
+<code><a href="../../spatstat.geom/help/marks.html">marks</a></code>,
+<code><a href="../../spatstat.geom/help/marks%3C-.html">marks&lt;-</a></code>,
+<code><a href="../../spatstat.geom/help/unmark.html">unmark</a></code>,
+<code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>,
+<code><a href="../../base/help/as.function.html">as.function</a></code>,
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>,
+<code><a href="../../base/help/print.html">print</a></code>,
+<code><a href="../../base/help/summary.html">summary</a></code>,
+<code><a href="../../base/help/range.html">range</a></code>,
+<code><a href="../../base/help/min.html">min</a></code>,
+<code><a href="../../base/help/max.html">max</a></code>
+and <code><a href="../../spatstat.univar/help/integral.html">integral</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>marks</code> returns a matrix.
+</p>
+<p><code>marks(x) &lt;- value</code> returns an object of class <code>"ssf"</code>.
+</p>
+<p><code>as.owin</code> returns a window (object of class <code>"owin"</code>).
+</p>
+<p><code>as.ppp</code> and <code>unmark</code>
+return a point pattern (object of class <code>"ppp"</code>).
+</p>
+<p><code>as.function</code> returns a <code>function(x,y)</code> of class <code>"funxy"</code>.
+</p>
+<p><code>print</code> returns <code>NULL</code>.
+</p>
+<p><code>summary</code> returns an object of class
+<code>"summary.ssf"</code> which has a print method.
+</p>
+<p><code>range</code> returns a numeric vector of length 2.
+<code>min</code> and <code>max</code> return a single numeric value.
+</p>
+<p><code>integral</code> returns a numeric or complex value, vector, or matrix.
+<code>integral(f)</code> returns a numeric or complex value
+(if <code>f</code> had numeric or complex values)
+or a numeric vector (if <code>f</code> had vector values).
+If <code>domain</code> is a tessellation then <code>integral(f, domain)</code>
+returns a numeric or complex vector with one entry for each tile
+(if <code>f</code> had numeric or complex values)
+or a numeric matrix with one row for each tile
+(if <code>f</code> had vector values).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/ssf.html">ssf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  g &lt;- distfun(cells[1:4])
+  X &lt;- rsyst(Window(cells), 10)
+  f &lt;- ssf(X, g(X))
+  f
+  summary(f)
+  marks(f)
+  as.ppp(f)
+  as.im(f)
+  integral(f)
+  integral(f, quadrats(Window(f), 3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

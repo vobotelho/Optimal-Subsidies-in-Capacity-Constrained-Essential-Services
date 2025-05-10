@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sum By Factor Level</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for tapplysum {spatstat.utils}"><tr><td>tapplysum {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Sum By Factor Level
+</h2>
+
+<h3>Description</h3>
+
+<p>A faster equivalent of <code>tapply(FUN=sum)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  tapplysum(x, flist, do.names = FALSE, na.rm = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Vector of numeric or complex values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>flist</code></td>
+<td>
+
+<p>A list of <code>factor</code>s of the same length as <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.names</code></td>
+<td>
+
+<p>Logical value indicating whether to attach names to the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+
+<p>Logical value indicating whether to remove <code>NA</code> values
+before computing the sums.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is designed to be a faster alternative to
+the idiom <code>y &lt;- <a href="../../base/help/tapply.html">tapply</a>(x, flist, sum); y[is.na(y)] &lt;- 0</code>.
+The result <code>y</code> is a vector, matrix or array of
+dimension equal to the number of factors in <code>flist</code>. Each
+position in <code>y</code> represents one of the possible combinations
+of the factor levels. The resulting value in this position
+is the sum of all entries of <code>x</code>
+where the factors in <code>flist</code> take this particular combination of
+values. The sum is zero if this combination does not occur.
+</p>
+<p>Currently this is implemented for the cases where <code>flist</code>
+has length 1, 2 or 3 (resulting in a vector, matrix or 3D array,
+respectively).
+For other cases we fall back on <code><a href="../../base/help/tapply.html">tapply</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector, matrix or array.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Tilman Davies.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/tapply.html">tapply</a></code>, <code><a href="../../base/help/table.html">table</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- 1:12
+   a &lt;- factor(rep(LETTERS[1:2], each=6))
+   b &lt;- factor(rep(letters[1:4], times=3))
+   ff &lt;- list(a, b)
+   tapply(x, ff, sum)
+   tapplysum(x, ff, do.names=TRUE)
+   tapplysum(x + 2i, ff, do.names=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

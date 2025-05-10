@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Influence Measure for Spatial Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for influence.ppm {spatstat.model}"><tr><td>influence.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Influence Measure for Spatial Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the influence measure for a fitted spatial point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ppm'
+influence(model, ...,
+        drop = FALSE, iScore=NULL, iHessian=NULL, iArgs=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>Fitted point process model (object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. Whether to include (<code>drop=FALSE</code>) or
+exclude (<code>drop=TRUE</code>) contributions from quadrature
+points that were not used to fit the model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>iScore,iHessian</code></td>
+<td>
+
+<p>Components of the score vector and Hessian matrix for
+the irregular parameters, if required. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>iArgs</code></td>
+<td>
+
+<p>List of extra arguments for the functions <code>iScore</code>,
+<code>iHessian</code> if required.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a fitted spatial point process model <code>model</code>,
+this function computes the influence measure
+described in Baddeley, Chang and Song (2013)
+and Baddeley, Rubak and Turner (2019).
+</p>
+<p>The function <code><a href="../../stats/help/influence.html">influence</a></code> is generic,
+and <code>influence.ppm</code> is the method for objects of class
+<code>"ppm"</code> representing point process models.
+</p>
+<p>The influence of a point process model is a value attached to each data point
+(i.e. each point of the point pattern to which the <code>model</code>
+was fitted).
+The influence value <i>s(x[i])</i> at a data point
+<i>x[i]</i> represents the change in the maximised log (pseudo)likelihood
+that occurs when the point <i>x[i]</i> is deleted.
+A relatively large value of <i>s(x[i])</i> indicates a 
+data point with a large influence on the fitted model.
+</p>
+<p>If the point process model trend has irregular parameters that were
+fitted (using <code><a href="../../spatstat.model/help/ippm.html">ippm</a></code>)
+then the influence calculation requires the first and second
+derivatives of the log trend with respect to the irregular parameters. 
+The argument <code>iScore</code> should be a list,
+with one entry for each irregular parameter, of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions that compute the
+partial derivatives of the log trend (i.e. log intensity or
+log conditional intensity) with respect to each irregular
+parameter. The argument <code>iHessian</code> should be a list,
+with <i>p^2</i> entries where <i>p</i> is the number of irregular
+parameters, of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions that compute the second order
+partial derivatives of the
+log trend with respect to each pair of irregular parameters.
+</p>
+<p>The result of <code>influence.ppm</code> is 
+an object of class <code>"influence.ppm"</code>. It can be printed and plotted.
+It can be converted to a marked
+point pattern by <code>as.ppp</code> (see <code><a href="../../spatstat.model/help/as.ppp.influence.ppm.html">as.ppp.influence.ppm</a></code>).
+There are also methods for <code>[</code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>, <code><a href="../../spatstat.geom/help/domain.html">domain</a></code>,
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>, <code><a href="../../spatstat.univar/help/integral.html">integral</a></code>
+and <code><a href="../../spatstat.explore/help/Smooth.html">Smooth</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"influence.ppm"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Chang, Y.M. and Song, Y. (2013)
+Leverage and influence diagnostics for spatial point process models.
+<em>Scandinavian Journal of Statistics</em> <b>40</b>, 86&ndash;104.
+</p>
+<p>Baddeley, A., Rubak, E. and Turner, R. (2019)
+Leverage and influence diagnostics for Gibbs spatial point processes.
+<em>Spatial Statistics</em> <b>29</b>, 15&ndash;48.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/leverage.ppm.html">leverage.ppm</a></code>,
+<code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppmInfluence.html">ppmInfluence</a></code>,
+<code><a href="../../spatstat.model/help/plot.influence.ppm.html">plot.influence.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X ~x+y)
+   plot(influence(fit))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

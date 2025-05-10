@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide a Linear Network into Tiles Using Infinite Lines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for chop.linnet {spatstat.linnet}"><tr><td>chop.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Divide a Linear Network into Tiles Using Infinite Lines
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a linear network and a set of infinite lines,
+divide the network into tiles demarcated by the lines.
+The result is a tessellation of the network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+chop.linnet(X, L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>)
+or data acceptable to <code><a href="../../spatstat.linnet/help/as.linnet.html">as.linnet</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Infinite line or lines (object of class <code>"infline"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The first line of <code>L</code> divides <code>X</code> into two tiles.
+Subsequent lines divide each of these tiles. The result is a
+tessellation of <code>X</code>. Tiles are not necessarily connected sets.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Tessellation on a linear network
+(object of class <code>"lintess"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/crossing.linnet.html">crossing.linnet</a></code> to determine the crossing points
+between the lines and the network.
+</p>
+<p><code><a href="../../spatstat.linnet/help/divide.linnet.html">divide.linnet</a></code> to divide a network into a tessellation
+using arbitrary cut points.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   L &lt;- infline(p=runif(3), theta=runif(3, max=pi/2))
+   Y &lt;- chop.linnet(simplenet, L)
+   plot(Y, main="")
+   plot(L, col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

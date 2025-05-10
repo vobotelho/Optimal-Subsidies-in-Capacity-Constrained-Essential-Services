@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rotate or Shift Infinite Lines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for rotate.infline {spatstat.geom}"><tr><td>rotate.infline {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Rotate or Shift Infinite Lines
+</h2>
+
+<h3>Description</h3>
+
+<p>Given the coordinates of one or more infinite straight lines in the
+plane, apply a rotation or shift.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'infline'
+rotate(X, angle = pi/2, ...)
+
+## S3 method for class 'infline'
+shift(X, vec = c(0,0), ...)
+
+## S3 method for class 'infline'
+reflect(X)
+
+## S3 method for class 'infline'
+flipxy(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object of class <code>"infline"</code> representing one or more
+infinite straight lines in the plane.
+</p>
+</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+
+<p>Angle of rotation, in radians.
+</p>
+</td></tr>
+<tr valign="top"><td><code>vec</code></td>
+<td>
+
+<p>Translation (shift) vector: a numeric vector of length 2,
+or a <code>list(x,y)</code>, or a point pattern containing one point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>, <code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code> and <code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a></code>
+for the class <code>"infline"</code>.
+</p>
+<p>An object of class <code>"infline"</code> represents one or more
+infinite lines in the plane.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another <code>"infline"</code> object representing the
+result of the transformation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/infline.html">infline</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  L &lt;- infline(v=0.5)
+
+  plot(square(c(-1,1)), main="rotate lines", type="n")
+  points(0, 0, pch=3)
+  plot(L, col="green")
+  plot(rotate(L, pi/12), col="red")
+  plot(rotate(L, pi/6), col="red")
+  plot(rotate(L, pi/4), col="red")
+
+  L &lt;- infline(p=c(0.4, 0.9), theta=pi* c(0.2, 0.6))
+
+  plot(square(c(-1,1)), main="shift lines", type="n")
+  L &lt;- infline(p=c(0.7, 0.8), theta=pi* c(0.2, 0.6))
+  plot(L, col="green")
+  plot(shift(L, c(-0.5, -0.4)), col="red")
+
+  plot(square(c(-1,1)), main="reflect lines", type="n")
+  points(0, 0, pch=3)
+  L &lt;- infline(p=c(0.7, 0.8), theta=pi* c(0.2, 0.6))
+  plot(L, col="green")
+  plot(reflect(L), col="red")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

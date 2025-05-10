@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Disc of Given Radius in Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lineardisc {spatstat.linnet}"><tr><td>lineardisc {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Disc of Given Radius in Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the &lsquo;disc&rsquo; of given radius and centre
+in a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  lineardisc(L, x = locator(1), r, plotit = TRUE,
+             cols=c("blue", "red","green"), add=TRUE)
+
+  lineardisclength(L, x = locator(1), r)
+
+  countends(L, x = locator(1), r, toler=NULL, internal=list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Location of centre of disc.
+Either a point pattern (object of class <code>"ppp"</code>)
+containing exactly 1 point, or a numeric vector of length 2.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Radius of disc.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plotit</code></td>
+<td>
+
+<p>Logical. Whether to plot the disc.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical. If <code>add=TRUE</code> (the default),
+the disc will be plotted on the current plot frame.
+If <code>add=FALSE</code>, a new plot frame will be started,
+the entire network will be displayed, and then
+the disc will be plotted over this.
+</p>
+</td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+
+<p>Colours for plotting the disc. A numeric or character vector of
+length 3 specifying the colours of the disc centre, disc lines and
+disc endpoints respectively.
+</p>
+</td></tr>
+<tr valign="top"><td><code>toler</code></td>
+<td>
+
+<p>Optional. Distance threshold for <code>countends</code>. See Details.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+<p>Argument for internal use by the package.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The &lsquo;disc&rsquo; <i>B(u,r)</i> of centre <i>x</i> and radius <i>r</i>
+in a linear network <i>L</i> is the set of all points
+<i>u</i> in <i>L</i> such that the shortest path distance from <i>x</i>
+to <i>u</i> is less than or equal to <i>r</i>. This is a union of line
+segments contained in <i>L</i>.
+</p>
+<p>The <em>relative boundary</em> of the disc <i>B(u,r)</i>
+is the set of points <i>v</i> such that the shortest path distance from
+<i>x</i> to <i>u</i> is <em>equal</em> to <i>r</i>.
+</p>
+<p>The function <code>lineardisc</code> computes the
+disc of radius <i>r</i> and its relative boundary,
+optionally plots them, and returns them.
+The faster function <code>lineardisclength</code> computes only the total
+length of the disc, and <code>countends</code> computes only the number of
+endpoints of the disc.
+</p>
+<p>Note that <code>countends</code> requires the linear network <code>L</code>
+to be given in the non-sparse matrix format (see the argument
+<code>sparse</code> in <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code> or <code><a href="../../spatstat.linnet/help/as.linnet.html">as.linnet</a></code>)
+while <code>lineardisc</code> and <code>lineardisclength</code> accept
+both sparse and non-sparse formats.
+</p>
+<p>The optional threshold <code>toler</code> is used to suppress numerical
+errors in <code>countends</code>.
+If the distance from <i>u</i> to a network vertex <i>v</i>
+is between <code>r-toler</code> and <code>r+toler</code>, the vertex
+will be treated as lying on the relative boundary.    
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value of <code>lineardisc</code> is a list with two entries:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>lines </code></td>
+<td>
+<p>Line segment pattern (object of class <code>"psp"</code>)
+representing the interior disc</p>
+</td></tr>
+<tr valign="top"><td><code>endpoints</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code>)
+representing the relative boundary of the disc.
+</p>
+</td></tr>
+</table>
+<p>The value of <code>lineardisclength</code> is a single number
+giving the total length of the disc.
+</p>
+<p>The value of <code>countends</code> is an integer giving the number of
+points in the relative boundary.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ang Qi Wei <a href="mailto:aqw07398@hotmail.com">aqw07398@hotmail.com</a> and
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ang, Q.W. (2010)
+<em>Statistical methodology for events on a network</em>.
+Master's thesis, School of Mathematics and Statistics, University of
+Western Australia.
+</p>
+<p>Ang, Q.W., Baddeley, A. and Nair, G. (2012)
+Geometrically corrected second-order analysis of 
+events on a linear network, with applications to
+ecology and criminology.
+<em>Scandinavian Journal of Statistics</em> <b>39</b>, 591&ndash;617.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # letter 'A' 
+    v &lt;- ppp(x=(-2):2, y=3*c(0,1,2,1,0), c(-3,3), c(-1,7))
+    edg &lt;- cbind(1:4, 2:5)
+    edg &lt;- rbind(edg, c(2,4))
+    letterA &lt;- linnet(v, edges=edg)
+    plot(letterA)
+
+   di &lt;- lineardisc(letterA, c(0,3), 1.6)
+   di
+
+   # count the endpoints more efficiently
+   countends(letterA, c(0,3), 1.6)
+   # cross-check 
+   npoints(di$endpoints)
+
+   # measure the length more efficiently
+   lineardisclength(letterA, c(0,3), 1.6)
+   # cross-check
+   sum(lengths_psp(di$lines))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

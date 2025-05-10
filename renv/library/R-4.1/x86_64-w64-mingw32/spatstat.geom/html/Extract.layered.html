@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract or Replace Subset of a Layered Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.layered {spatstat.geom}"><tr><td>Extract.layered {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract or Replace Subset of a Layered Object</h2>
+
+<h3>Description</h3>
+
+<p>Extract or replace some or all of the layers of a layered object,
+or extract a spatial subset of each layer.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'layered'
+x[i, j, drop=FALSE, ...]
+
+  ## S3 replacement method for class 'layered'
+x[i] &lt;- value
+
+  ## S3 replacement method for class 'layered'
+x[[i]] &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A layered object (class <code>"layered"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Subset index for the list of layers.
+A logical vector, integer vector or character vector
+specifying which layers are to be extracted or replaced.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+
+<p>Subset index to be applied to the data in each layer.
+Typically a spatial window (class <code>"owin"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>i</code> specifies only a single layer
+and <code>drop=TRUE</code>, then the contents of this layer
+will be returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments, passed to other subset methods
+if the subset index is a window.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>List of objects which shall replace the designated
+subset, or an object which shall replace the designated element.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A layered object represents data that should be plotted in
+successive layers, for example, a background and a foreground.
+See <code><a href="../../spatstat.geom/help/layered.html">layered</a></code>.
+</p>
+<p>The function <code>[.layered</code>
+extracts a designated subset of a layered object.
+It is a method for <code><a href="../../base/html/Extract.html">[</a></code> for the
+class <code>"layered"</code>.
+</p>
+<p>The functions <code>[&lt;-.layered</code> and <code>[[&lt;-.layered</code>
+replace a designated subset or designated entry of the object by new
+values. They are methods for <code><a href="../../base/html/Extract.html">[&lt;-</a></code> and <code><a href="../../base/html/Extract.html">[[&lt;-</a></code>
+for the <code>"layered"</code> class.
+</p>
+<p>The index <code>i</code> specifies which layers will be retained.
+It should be a valid subset index for the list of layers.
+</p>
+<p>The index <code>j</code> will be applied to each layer. It is typically
+a spatial window (class <code>"owin"</code>) so that each of the layers
+will be restricted to the same spatial region.
+Alternatively <code>j</code> may be any subset index
+which is permissible for the <code>"["</code> method for each of the layers.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Usually an object of class <code>"layered"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/layered.html">layered</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ D &lt;- distmap(cells)
+ L &lt;- layered(D, cells,
+              plotargs=list(list(ribbon=FALSE), list(pch=16)))
+
+ L[-2]
+ L[, square(0.5)]
+
+ L[[3]] &lt;- japanesepines
+ L
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

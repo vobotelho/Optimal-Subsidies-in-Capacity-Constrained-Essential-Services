@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Matern Model I</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rMaternI {spatstat.random}"><tr><td>rMaternI {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate Matern Model I</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern, a simulated realisation of the
+Matern Model I inhibition process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rMaternI(kappa, r, win = owin(c(0,1),c(0,1)), stationary=TRUE, ...,
+          nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+
+<p>Intensity of the Poisson process of proposal points.
+A single positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Inhibition distance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Window in which to simulate the pattern.
+An object of class <code>"owin"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+Alternatively a higher-dimensional box of class
+<code>"box3"</code> or <code>"boxx"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>stationary</code></td>
+<td>
+
+<p>Logical. Whether to start with a stationary process of proposal points
+(<code>stationary=TRUE</code>) or to generate the
+proposal points only inside the window (<code>stationary=FALSE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm generates one or more realisations
+of Matern's Model I
+inhibition process inside the window <code>win</code>.
+</p>
+<p>The process is constructed by first
+generating a uniform Poisson point process of &ldquo;proposal&rdquo; points 
+with intensity <code>kappa</code>. If <code>stationary = TRUE</code> (the
+default), the proposal points are generated in a window larger than
+<code>win</code> that effectively means the proposals are stationary.
+If <code>stationary=FALSE</code> then the proposal points are
+only generated inside the window <code>win</code>.
+</p>
+<p>A proposal point is then deleted if it lies within <code>r</code> units' distance
+of another proposal point. Otherwise it is retained.
+</p>
+<p>The retained points constitute Matern's Model I.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern
+if <code>nsim=1</code>, or a list of point patterns if <code>nsim &gt; 1</code>.
+Each point pattern is normally an object of class <code>"ppp"</code>,
+but may be of class <code>"pp3"</code> or <code>"ppx"</code> depending on the window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ute Hahn,
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ X &lt;- rMaternI(20, 0.05)
+ Y &lt;- rMaternI(20, 0.05, stationary=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

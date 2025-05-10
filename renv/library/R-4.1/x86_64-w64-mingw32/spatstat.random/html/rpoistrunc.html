@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Values from the Truncated Poisson Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rpoistrunc {spatstat.random}"><tr><td>rpoistrunc {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Random Values from the Truncated Poisson Distribution
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate realisations of a Poisson random variable
+which are truncated, that is, conditioned to be nonzero, or conditioned
+to be at least a given number.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rpoisnonzero(n, lambda, method=c("harding", "transform"), implem=c("R", "C"))
+rpoistrunc(n, lambda, minimum = 1, method=c("harding", "transform"), implem=c("R", "C"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Number of random values to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Mean value of the un-truncated Poisson distribution.
+A nonnegative number, or vector of nonnegative numbers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>minimum</code></td>
+<td>
+
+<p>Minimum permitted value for the random variables.
+A nonnegative integer, or vector of nonnegative integers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Character string (partially matched) specifying the simulation
+algorithm to be used. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>implem</code></td>
+<td>
+
+<p>Character string specifying whether to use the implementation
+in interpreted R code (<code>implem="R"</code>, the default)
+or C code (<code>implem="C"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>rpoisnonzero</code>
+generates realisations of the
+Poisson distribution with mean <code>lambda</code>
+conditioned on the event that the values are not equal to zero.
+</p>
+<p><code>rpoistrunc</code> 
+generates realisations of the
+Poisson distribution with mean <code>lambda</code>
+conditioned on the event that the values are greater than
+or equal to <code>minimum</code>.
+The default <code>minimum=1</code> is equivalent to
+generating zero-truncated Poisson random variables
+using <code>rpoisnonzero</code>.
+The value <code>minimum=0</code> is equivalent to
+generating un-truncated Poisson random variables
+using <code><a href="../../stats/help/rpois.html">rpois</a></code>.
+</p>
+<p>The arguments <code>lambda</code> and <code>minimum</code> can be
+vectors of length <code>n</code>, specifying different means
+for the un-truncated Poisson distribution, and different
+minimum values, for each of the <code>n</code> random output values.
+</p>
+<p>If <code>method="transform"</code> the simulated values are generated
+by transforming a uniform random variable using the quantile function
+of the Poisson distribution.
+If <code>method="harding"</code> (the default) the simulated values are
+generated using an algorithm proposed by E.F. Harding which exploits
+properties of the Poisson point process. The Harding algorithm seems
+to be faster.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer vector of length <code>n</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, after ideas of Ted Harding and Peter Dalgaard.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/rpois.html">rpois</a></code> for Poisson random variables.
+</p>
+<p><code><a href="../../spatstat.random/help/recipEnzpois.html">recipEnzpois</a></code> for the reciprocal moment of <code>rpoisnonzero</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  rpoisnonzero(10, 0.8)
+
+  rpoistrunc(10, 1, 2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

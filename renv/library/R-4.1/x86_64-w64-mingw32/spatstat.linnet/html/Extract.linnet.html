@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Subset of Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Extract.linnet {spatstat.linnet}"><tr><td>Extract.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Subset of Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'linnet'
+x[i, ..., snip=TRUE]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Spatial window defining the subregion.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>snip</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), segments of <code>x</code>
+which cross the boundary of <code>i</code> will be cut by the boundary.
+If <code>FALSE</code>, these segments will be deleted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the intersection
+between the linear network <code>x</code> and the domain specified by <code>i</code>.
+</p>
+<p>This function is a method for the subset operator <code>"["</code> for
+linear networks (objects of class <code>"linnet"</code>). It is provided
+mainly for completeness.
+</p>
+<p>The index <code>i</code> should be a window.
+</p>
+<p>The argument <code>snip</code> specifies what to do with segments of <code>x</code>
+which cross the boundary of <code>i</code>. 
+If <code>snip=FALSE</code>, such segments are simply deleted.  
+If <code>snip=TRUE</code> (the default), such segments are cut into pieces by the
+boundary of <code>i</code>, and those pieces which lie inside the window
+<code>i</code> are included in the resulting network. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another linear network (object of class <code>"linnet"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>,
+Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+and Suman Rakshit.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  p &lt;- par(mfrow=c(1,2), mar=0.2+c(0,0,1,0))
+  B &lt;- owin(c(0.1,0.7),c(0.19,0.6))
+
+  plot(simplenet, main="x[w, snip=TRUE]")
+  plot(simplenet[B], add=TRUE, col="green", lwd=3)
+  plot(B, add=TRUE, border="red", lty=3)
+
+  plot(simplenet, main="x[w, snip=FALSE]")
+  plot(simplenet[B, snip=FALSE], add=TRUE, col="green", lwd=3)
+  plot(B, add=TRUE, border="red", lty=3)
+
+  par(p)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

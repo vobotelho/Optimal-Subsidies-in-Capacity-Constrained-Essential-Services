@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest Neighbour Distance Distribution Function of a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for G3est {spatstat.explore}"><tr><td>G3est {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nearest Neighbour Distance Distribution Function
+of a Three-Dimensional Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the nearest-neighbour distance distribution function
+<i>G3(r)</i> from a three-dimensional point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+G3est(X, ..., rmax = NULL, nrval = 128, correction = c("rs", "km", "Hanisch"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Three-dimensional point pattern (object of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum value of argument <i>r</i> for which
+<i>G3(r)</i> will be estimated. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrval</code></td>
+<td>
+
+<p>Optional. Number of values of <i>r</i> for which
+<i>G3(r)</i> will be estimated. A large value of <code>nrval</code>
+is required to avoid discretisation effects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional. Character vector specifying the edge correction(s)
+to be applied. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For a stationary point process <i>Phi</i> in three-dimensional
+space, the nearest-neighbour function
+is
+</p>
+<p style="text-align: center;"><i>
+    G3(r) = P(d*(x,Phi) &lt;= r | x in Phi)
+  </i></p>
+
+<p>the cumulative distribution function of the distance 
+<i>d*(x,Phi)</i> from a typical point <i>x</i>
+in  <i>Phi</i> to its nearest neighbour, i.e.
+to the nearest <em>other</em> point of <i>Phi</i>.
+</p>
+<p>The three-dimensional point pattern <code>X</code> is assumed to be a
+partial realisation of a stationary point process <i>Phi</i>.
+The nearest neighbour function of <i>Phi</i> can then be estimated using
+techniques described in the References. For each data point, the
+distance to the nearest neighbour is computed.
+The empirical cumulative distribution
+function of these values, with appropriate edge corrections, is the
+estimate of <i>G3(r)</i>.
+</p>
+<p>The available edge corrections are:
+</p>
+
+<dl>
+<dt><code>"rs"</code>:</dt><dd>
+<p>the reduced sample (aka minus sampling, border correction)
+estimator (Baddeley et al, 1993)
+</p>
+</dd>
+<dt><code>"km"</code>:</dt><dd>
+<p>the three-dimensional version of the
+Kaplan-Meier estimator (Baddeley and Gill, 1997)
+</p>
+</dd>
+<dt><code>"Hanisch"</code>:</dt><dd>
+<p>the three-dimensional generalisation of
+the Hanisch estimator (Hanisch, 1984).
+</p>
+</dd>
+</dl>
+
+<p>Alternatively <code>correction="all"</code> selects all options.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>) that can be
+plotted, printed or coerced to a data frame containing the function values.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>A large value of <code>nrval</code> is required in order to avoid
+discretisation effects (due to the use of histograms in the
+calculation).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rana Moyeed.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J, Moyeed, R.A., Howard, C.V. and Boyde, A. (1993)
+Analysis of a three-dimensional point pattern with replication.
+<em>Applied Statistics</em> <b>42</b>, 641&ndash;668.
+</p>
+<p>Baddeley, A.J. and Gill, R.D. (1997)
+Kaplan-Meier estimators of interpoint distance
+distributions for spatial point processes.
+<em>Annals of Statistics</em> <b>25</b>, 263&ndash;292.
+</p>
+<p>Hanisch, K.-H. (1984) 
+Some remarks on estimators of the distribution function
+of nearest neighbour distance in stationary spatial point patterns.
+<em>Mathematische Operationsforschung und Statistik, series Statistics</em>
+<b>15</b>, 409&ndash;412.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code> to create a three-dimensional point
+pattern (object of class <code>"pp3"</code>).
+</p>
+<p><code><a href="../../spatstat.explore/help/F3est.html">F3est</a></code>,
+<code><a href="../../spatstat.explore/help/K3est.html">K3est</a></code>,
+<code><a href="../../spatstat.explore/help/pcf3est.html">pcf3est</a></code> for other summary functions of
+a three-dimensional point pattern.
+</p>
+<p><code><a href="../../spatstat.explore/help/Gest.html">Gest</a></code> to estimate the empty space function of
+point patterns in two dimensions.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoispp3(42)
+  Z &lt;- G3est(X)
+  if(interactive()) plot(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

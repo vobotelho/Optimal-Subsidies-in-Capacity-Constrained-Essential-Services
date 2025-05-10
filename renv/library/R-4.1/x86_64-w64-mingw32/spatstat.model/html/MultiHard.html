@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Multitype Hard Core Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for MultiHard {spatstat.model}"><tr><td>MultiHard {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Multitype Hard Core Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of the multitype hard core point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  MultiHard(hradii, types=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>hradii</code></td>
+<td>
+<p>Matrix of hard core radii</p>
+</td></tr>
+<tr valign="top"><td><code>types</code></td>
+<td>
+<p>Optional; vector of all possible types (i.e. the possible levels
+of the <code>marks</code> variable in the data)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a multitype version of the hard core process.
+A pair of points
+of types <i>i</i> and <i>j</i>
+must not lie closer than <i>h[i,j]</i> units apart.
+</p>
+<p>The argument <code>types</code> need not be specified in normal use.
+It will be determined automatically from the point pattern data set
+to which the MultiStrauss interaction is applied,
+when the user calls <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+However, the user should be confident that
+the ordering of types in the dataset corresponds to the ordering of
+rows and columns in the matrix <code>hradii</code>.
+</p>
+<p>The matrix <code>hradii</code>
+must be symmetric, with entries
+which are either positive numbers or <code>NA</code>. 
+A value of <code>NA</code> indicates that no distance constraint should be applied
+for this combination of types.
+</p>
+<p>Note that only the hardcore radii
+are specified in <code>MultiHard</code>.
+The canonical parameters <i>log(beta[j])</i>
+are estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, not fixed in
+<code>MultiHard()</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the multitype hard core process with
+hard core radii <i>hradii[i,j]</i>.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>In order that <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> can fit the multitype hard core
+model correctly to a point pattern <code>X</code>, this pattern must
+be marked, with <code>markformat</code> equal to <code>vector</code> and the
+mark vector <code>marks(X)</code> must be a factor.  If the argument
+<code>types</code> is specified it is interpreted as a set of factor
+levels and this set must equal <code>levels(marks(X))</code>.
+</p>
+
+
+<h3>Changed Syntax</h3>
+
+<p>Before <span class="pkg">spatstat</span> version <code>1.37-0</code>,
+the syntax of this function was different:
+<code>MultiHard(types=NULL, hradii)</code>.
+The new code attempts to handle the old syntax as well.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/MultiStrauss.html">MultiStrauss</a></code>,
+<code><a href="../../spatstat.model/help/MultiStraussHard.html">MultiStraussHard</a></code>,
+<code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.random/help/ragsMultiHard.html">ragsMultiHard</a></code> and <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code> for
+simulation.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   h &lt;- matrix(c(1,2,2,1), nrow=2,ncol=2)
+
+   # prints a sensible description of itself
+   MultiHard(h)
+
+   # Fit the stationary multitype hardcore process to `amacrine'
+   # with hard core operating only between cells of the same type.
+   h &lt;- 0.02 * matrix(c(1, NA, NA, 1), nrow=2,ncol=2)
+   ppm(amacrine ~1, MultiHard(h))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

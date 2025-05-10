@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Data Using Graphics Symbol Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for invoke.symbolmap {spatstat.geom}"><tr><td>invoke.symbolmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Data Using Graphics Symbol Map
+</h2>
+
+<h3>Description</h3>
+
+<p>Apply a graphics symbol map to a vector of data values and
+plot the resulting symbols.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+invoke.symbolmap(map, values, x=NULL, y = NULL, ...,
+                 angleref=NULL,
+                 add = FALSE,
+                 do.plot = TRUE, started = add &amp;&amp; do.plot)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>map</code></td>
+<td>
+
+<p>Graphics symbol map (object of class <code>"symbolmap"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>values</code></td>
+<td>
+
+<p>Vector of data that can be mapped by the symbol map.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>Coordinate vectors for the spatial locations of the
+symbols to be plotted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional graphics parameters (which will be applied to the entire plot).
+</p>
+</td></tr>
+<tr valign="top"><td><code>angleref</code></td>
+<td>
+
+<p>Optional. Reference angle, or vector of reference angles,
+used when plotting some of the symbols. A numeric value or vector
+giving angles in degrees between 0 and 360.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether to add the symbols to
+an existing plot (<code>add=TRUE</code>) or to initialise a new
+plot (<code>add=FALSE</code>, the default).
+</p>
+</td></tr>
+<tr valign="top"><td><code>do.plot</code></td>
+<td>
+
+<p>Logical value indicating whether to actually perform the plotting.
+</p>
+</td></tr>
+<tr valign="top"><td><code>started</code></td>
+<td>
+
+<p>Logical value indicating whether the plot has already been initialised.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A symbol map is an association between data values and graphical symbols. 
+</p>
+<p>This command applies the symbol map <code>map</code> to the data 
+<code>values</code> and plots the resulting symbols at the locations
+given by <code><a href="../../grDevices/html/xy.coords.html">xy.coords</a>(x,y)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) the maximum diameter of the symbols, in user coordinate units.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/plot.symbolmap.html">plot.symbolmap</a></code> to plot the graphics map itself.
+</p>
+<p><code><a href="../../spatstat.geom/help/symbolmap.html">symbolmap</a></code> to create a graphics map.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  g &lt;- symbolmap(range=c(-1,1),
+                   shape=function(x) ifelse(x &gt; 0, "circles", "squares"),
+                   size=function(x) sqrt(ifelse(x &gt; 0, x/pi, -x))/15,
+                   bg=function(x) ifelse(x &gt; 0, "green", "red"))
+  plot(square(1), main="")
+  a &lt;- invoke.symbolmap(g, runif(10, -1, 1), runifrect(10), add=TRUE)
+  a 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

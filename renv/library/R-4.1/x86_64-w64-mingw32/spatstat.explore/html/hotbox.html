@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Heat Kernel for a Two-Dimensional Rectangle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hotbox {spatstat.explore}"><tr><td>hotbox {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Heat Kernel for a Two-Dimensional Rectangle
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculate values of the heat kernel in a rectangle
+with insulated edges.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hotbox(Xsource, Xquery, sigma,
+       ..., W=NULL, squared=FALSE, nmax=20)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Xsource</code></td>
+<td>
+
+<p>Point pattern of sources of heat.
+Object of class <code>"ppp"</code>
+or convertible to a point pattern using <code>as.ppp(Xsource, W)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Xquery</code></td>
+<td>
+
+<p>Locations where the heat kernel value is required.
+An object of class <code>"ppp"</code> specifying query location points,
+or an object of class <code>"im"</code> or <code>"owin"</code> specifying a
+grid of query points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Bandwidth for kernel. A single number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments (passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>)
+controlling the
+pixel resolution of the result, when <code>Xquery</code> is a window
+or an image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window (object of class <code>"owin"</code>) used to define the spatial domain
+when <code>Xsource</code> is not of class <code>"ppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>squared</code></td>
+<td>
+
+<p>Logical value indicating whether to take the square
+of each heat kernel value, before summing over the source points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nmax</code></td>
+<td>
+
+<p>Number of terms to be used from the infinite-sum expression
+for the heat kernel. A single integer.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the sum of heat kernels
+associated with each of the source points, evaluating them
+at each query location.
+</p>
+<p>The window for evaluation of the heat kernel must be a rectangle.
+</p>
+<p>The heat kernel in any region can be expressed as an infinite sum of terms
+associated with the eigenfunctions of the Laplacian. The heat kernel
+in a rectangle is the product of heat kernels for
+one-dimensional intervals on the horizontal and vertical axes. This
+function uses <code><a href="../../spatstat.univar/help/hotrod.html">hotrod</a></code> to compute the
+one-dimensional heat kernels, truncating the infinite sum to the
+first <code>nmax</code> terms, and then calculates the two-dimensional heat
+kernel from each source point to each query location. If
+<code>squared=TRUE</code> these values are squared. Finally the values are
+summed over all source points to obtain a single value for each
+query location.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>Xquery</code> is a point pattern,
+the result is a numeric vector with one entry for each query point.
+</p>
+<p>If <code>Xquery</code> is an image or window, the result is
+a pixel image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley and Greg McSwiggan.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Davies, T., Rakshit, S., Nair, G. and McSwiggan, G. (2021)
+Diffusion smoothing for spatial point patterns.
+<em>Statistical Science</em>, in press.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/densityHeat.ppp.html">densityHeat.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifpoint(10)
+
+  Y &lt;- runifpoint(5)
+  hotbox(X, Y, 0.1)
+
+  plot(hotbox(X, Window(X), 0.1))
+  points(X, pch=16)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

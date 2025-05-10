@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mark Correlation Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for markcorr {spatstat.explore}"><tr><td>markcorr {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Mark Correlation Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimate the marked correlation function
+of a marked point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+markcorr(X, f = function(m1, m2) { m1 * m2}, r=NULL,
+         correction=c("isotropic", "Ripley", "translate"),
+         method="density", ..., weights=NULL,
+         f1=NULL, normalise=TRUE, fargs=NULL, internal=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern.
+An object of class <code>"ppp"</code> or something acceptable to
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>Optional. Test function <i>f</i> used in the definition of the
+mark correlation function. An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function with at least two
+arguments. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Optional. Numeric vector. The values of the argument <i>r</i>
+at which the mark correlation function 
+<i>k[f](r)</i> should be evaluated.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"isotropic"</code>, <code>"Ripley"</code>, <code>"translate"</code>,
+<code>"translation"</code>, <code>"none"</code> or <code>"best"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>A character vector indicating the user's choice of
+density estimation technique to be used. Options are
+<code>"density"</code>, 
+<code>"loess"</code>,
+<code>"sm"</code> and <code>"smrep"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to the density estimation routine
+(<code><a href="../../stats/html/density.html">density</a></code>, <code><a href="../../stats/html/loess.html">loess</a></code> or <code>sm.density</code>)
+selected by <code>method</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Numeric weights for each data point in <code>X</code>.
+A numeric vector, a pixel image, or a <code>function(x,y)</code>.
+Alternatively, an <code>expression</code> to be evaluated to yield the
+weights; the expression may involve the variables
+<code>x,y,marks</code> representing the coordinates and marks of<code>X</code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>f1</code></td>
+<td>
+
+<p>An alternative to <code>f</code>. If this argument is given,
+then <i>f</i> is assumed to take the form
+<i>f(u,v)=f1(u) * f1(v)</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>If <code>normalise=FALSE</code>,
+compute only the numerator of the expression for the
+mark correlation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fargs</code></td>
+<td>
+
+<p>Optional. A list of extra arguments to be passed to the function
+<code>f</code> or <code>f1</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>internal</code></td>
+<td>
+<p>Do not use this argument.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>By default, this command calculates an estimate of
+Stoyan's mark correlation <i>k[mm](r)</i>
+for the point pattern.
+</p>
+<p>Alternatively if the argument <code>f</code> or <code>f1</code> is given, then it
+calculates Stoyan's generalised mark correlation <i>k[f](r)</i>
+with test function <i>f</i>.
+</p>
+<p>Theoretical definitions are as follows
+(see Stoyan and Stoyan (1994, p. 262)):
+</p>
+
+<ul>
+<li>
+<p>For a point process <i>X</i> with numeric marks,
+Stoyan's mark correlation function <i>k[mm](r)</i>,
+is
+</p>
+<p style="text-align: center;"><i>
+      k[mm](r) = E[0u](M(0) * M(u))/E(M * M')
+    </i></p>
+
+<p>where <i>E[0u]</i> denotes the conditional expectation
+given that there are points of the process at the locations
+<i>0</i> and <i>u</i> separated by a distance <i>r</i>,
+and where <i>M(0),M(u)</i> denote the marks attached to these
+two points. On the denominator, <i>M,M'</i> are random marks
+drawn independently from the marginal distribution of marks,
+and <i>E</i> is the usual expectation.
+</p>
+</li>
+<li>
+<p>For a multitype point process <i>X</i>, the mark correlation is 
+</p>
+<p style="text-align: center;"><i>
+      k[mm](r) = P[0u](M(0) = M(u))/P(M = M')
+    </i></p>
+
+<p>where <i>P</i> and <i>P[0u]</i> denote the
+probability and conditional probability.
+</p>
+</li>
+<li> 
+<p>The <em>generalised</em> mark correlation function <i>k[f](r)</i>
+of a marked point process <i>X</i>, with test function <i>f</i>,
+is
+</p>
+<p style="text-align: center;"><i>
+      k[f](r) = E[0u](f(M(0),M(u))]/E(f(M,M'))
+    </i></p>
+
+</li></ul>
+
+<p>The test function <i>f</i> is any function
+<i>f(m1,m2)</i>
+with two arguments which are possible marks of the pattern,
+and which returns a nonnegative real value.
+Common choices of <i>f</i> are:
+for continuous nonnegative real-valued marks,
+</p>
+<p style="text-align: center;"><i>f(m1,m2)= m1 * m2</i></p>
+
+<p>for discrete marks (multitype point patterns),
+</p>
+<p style="text-align: center;"><i>f(m1,m2)= (m1 == m2)</i></p>
+
+<p>and for marks taking values in <i>[0,2 * pi)</i>,
+</p>
+<p style="text-align: center;"><i>f(m1,m2) = sin(m1-m2)</i></p>
+<p>.
+</p>
+<p>Note that <i>k[f](r)</i> is not a &ldquo;correlation&rdquo;
+in the usual statistical sense. It can take any 
+nonnegative real value. The value 1 suggests &ldquo;lack of correlation&rdquo;:
+if the marks attached to the points of <code>X</code> are independent
+and identically distributed, then
+<i>k[f](r) =  1</i>.
+The interpretation of values larger or smaller than 1 depends
+on the choice of function <i>f</i>.
+</p>
+<p>The argument <code>X</code> must be a point pattern (object of class
+<code>"ppp"</code>) or any data that are acceptable to <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>.
+It must be a marked point pattern.
+</p>
+<p>The argument <code>f</code> determines the function to be applied to
+pairs of marks. It has a sensible default, which depends on the
+kind of marks in <code>X</code>. If the marks
+are numeric values, then <code>f &lt;- function(m1, m2) { m1 * m2}</code>
+computes the product of two marks.
+If the marks are a factor (i.e. if <code>X</code> is a multitype point
+pattern) then <code>f &lt;- function(m1, m2) { m1 == m2}</code> yields
+the value 1 when the two marks are equal, and 0 when they are unequal.
+These are the conventional definitions for numerical
+marks and multitype points respectively.
+</p>
+<p>The argument <code>f</code> may be specified by the user.
+It must be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function, accepting two arguments <code>m1</code>
+and <code>m2</code> which are vectors of equal length containing mark
+values (of the same type as the marks of <code>X</code>).
+(It may also take additional arguments, passed through <code>fargs</code>).
+It must return a vector of numeric
+values of the same length as <code>m1</code> and <code>m2</code>.
+The values must be non-negative, and <code>NA</code> values are not permitted.
+</p>
+<p>Alternatively the user may specify the argument <code>f1</code>
+instead of <code>f</code>. This indicates that the test function <i>f</i>
+should take the form <i>f(u,v)=f1(u) * f1(v)</i>
+where <i>f1(u)</i> is given by the argument <code>f1</code>.
+The argument <code>f1</code> should be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function with at least one
+argument.
+(It may also take additional arguments, passed through <code>fargs</code>).
+</p>
+<p>The argument <code>r</code> is the vector of values for the
+distance <i>r</i> at which <i>k[f](r)</i> is estimated.
+</p>
+<p>This algorithm assumes that <code>X</code> can be treated
+as a realisation of a stationary (spatially homogeneous) 
+random spatial point process in the plane, observed through
+a bounded window.
+The window (which is specified in <code>X</code> as <code>Window(X)</code>)
+may have arbitrary shape.
+</p>
+<p>Biases due to edge effects are
+treated in the same manner as in <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>.
+The edge corrections implemented here are
+</p>
+
+<dl>
+<dt>isotropic/Ripley</dt><dd><p>Ripley's isotropic correction
+(see Ripley, 1988; Ohser, 1983).
+This is implemented only for rectangular and polygonal windows
+(not for binary masks).
+</p>
+</dd>
+<dt>translate</dt><dd><p>Translation correction (Ohser, 1983).
+Implemented for all window geometries, but slow for
+complex windows. 
+</p>
+</dd>
+</dl>
+
+<p>Note that the estimator assumes the process is stationary (spatially
+homogeneous). 
+</p>
+<p>The numerator and denominator of the mark correlation function
+(in the expression above) are estimated using density estimation
+techniques. The user can choose between
+</p>
+
+<dl>
+<dt><code>"density"</code></dt><dd>
+<p>which uses the standard kernel
+density estimation routine <code><a href="../../stats/html/density.html">density</a></code>, and
+works only for evenly-spaced <code>r</code> values;
+</p>
+</dd>
+<dt><code>"loess"</code></dt><dd>
+<p>which uses the function <code>loess</code> in the
+package <span class="pkg">modreg</span>;
+</p>
+</dd>
+<dt><code>"sm"</code></dt><dd>
+<p>which uses the function <code>sm.density</code> in the
+package <span class="pkg">sm</span> and is extremely slow;
+</p>
+</dd>
+<dt><code>"smrep"</code></dt><dd>
+<p>which uses the function <code>sm.density</code> in the
+package <span class="pkg">sm</span> and is relatively fast, but may require manual
+control of the smoothing parameter <code>hmult</code>.
+</p>
+</dd>
+</dl>
+
+<p>If <code>normalise=FALSE</code> then the algorithm will compute
+only the numerator
+</p>
+<p style="text-align: center;"><i>
+    c[f](r) = E[0u] f(M(0),M(u))
+  </i></p>
+
+<p>of the expression for the mark correlation function.
+In this case, negative values of <code>f</code> are permitted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>)
+or a list of function value tables, one for each column of marks.
+</p>
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>)
+is essentially a data frame containing numeric columns 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the mark correlation function <i>k[f](r)</i>
+has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value of <i>k[f](r)</i>
+when the marks attached to different points are independent,
+namely 1
+</p>
+</td></tr>
+</table>
+<p>together with a column or columns named 
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the mark correlation function <i>k[f](r)</i>
+obtained by the edge corrections named.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Stoyan, D. and Stoyan, H. (1994)
+Fractals, random shapes and point fields:
+methods of geometrical statistics.
+John Wiley and Sons.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Mark variogram <code><a href="../../spatstat.explore/help/markvario.html">markvario</a></code> for numeric marks.
+</p>
+<p>Mark connection function <code><a href="../../spatstat.explore/help/markconnect.html">markconnect</a></code> and 
+multitype K-functions <code><a href="../../spatstat.explore/help/Kcross.html">Kcross</a></code>, <code><a href="../../spatstat.explore/help/Kdot.html">Kdot</a></code>
+for factor-valued marks.
+</p>
+<p>Mark cross-correlation function <code><a href="../../spatstat.explore/help/markcrosscorr.html">markcrosscorr</a></code>
+for point patterns with several columns of marks.
+</p>
+<p><code><a href="../../spatstat.explore/help/Kmark.html">Kmark</a></code> to estimate a cumulative function
+related to the mark correlation function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # CONTINUOUS-VALUED MARKS:
+    # (1) Spruces
+    # marks represent tree diameter
+    # mark correlation function
+    ms &lt;- markcorr(spruces)
+    plot(ms)
+
+    # (2) simulated data with independent marks
+    
+      X &lt;- rpoispp(100)
+      X &lt;- X %mark% runif(npoints(X))
+      Xc &lt;- markcorr(X)
+      plot(Xc)
+    
+    
+    # MULTITYPE DATA:
+    # Hughes' amacrine data
+    # Cells marked as 'on'/'off'
+    X &lt;- if(interactive()) amacrine else amacrine[c(FALSE, TRUE)]
+    # (3) Kernel density estimate with Epanecnikov kernel
+    # (as proposed by Stoyan &amp; Stoyan)
+    M &lt;- markcorr(X, function(m1,m2) {m1==m2},
+                  correction="translate", method="density",
+                  kernel="epanechnikov")
+    # Note: kernel="epanechnikov" comes from help(density)
+
+    # (4) Same again with explicit control over bandwidth
+    
+      M &lt;- markcorr(X, 
+                  correction="translate", method="density",
+                  kernel="epanechnikov", bw=0.02)
+      # see help(density) for correct interpretation of 'bw'
+   
+   
+
+   # weighted mark correlation
+   X &lt;- if(interactive()) betacells else betacells[c(TRUE,FALSE)]
+   Y &lt;- subset(X, select=type)
+   a &lt;- marks(X)$area
+   v &lt;- markcorr(Y, weights=a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

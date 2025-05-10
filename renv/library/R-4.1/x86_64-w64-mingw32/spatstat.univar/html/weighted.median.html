@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Weighted Median, Quantiles or Variance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for weighted.median {spatstat.univar}"><tr><td>weighted.median {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Weighted Median, Quantiles or Variance
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the median, quantiles or variance of a set of numbers which have
+weights associated with them.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+weighted.median(x, w, na.rm = TRUE, type=2, collapse=TRUE)
+
+weighted.quantile(x, w, probs=seq(0,1,0.25), na.rm = TRUE, type=4, collapse=TRUE)
+
+weighted.var(x, w, na.rm = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Data values.
+A vector of numeric values, for which the median or quantiles are required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>Weights.
+A vector of nonnegative numbers, of the same length as <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>probs</code></td>
+<td>
+
+<p>Probabilities for which the quantiles should be computed.
+A numeric vector of values between 0 and 1.
+</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+
+<p>Logical. Whether to ignore <code>NA</code> values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Integer specifying the rule for calculating the median or quantile,
+corresponding to the rules available for
+<code><a href="../../stats/help/quantile.html">quantile</a></code>.
+The only valid choices are <code>type=1</code>, <code>2</code> or <code>4</code>.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>collapse</code></td>
+<td>
+<p>Research use only.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>i</code>th observation <code>x[i]</code> is treated as having
+a weight proportional to <code>w[i]</code>.
+</p>
+<p>The weighted median is a value <code>m</code>
+such that the total weight of data less than or equal to <code>m</code>
+is equal to half the total weight. More generally, the weighted quantile with
+probability <code>p</code> is a value <code>q</code> 
+such that the total weight of data less than or equal to <code>q</code>
+is equal to <code>p</code> times the total weight.
+</p>
+<p>If there is no such value, then
+</p>
+
+<ul>
+<li><p> if <code>type=1</code>, the next largest value is returned
+(this is the right-continuous inverse of the left-continuous
+cumulative distribution function);
+</p>
+</li>
+<li><p> if <code>type=2</code>, the average of the two surrounding values is
+returned (the average of the right-continuous and left-continuous
+inverses);
+</p>
+</li>
+<li><p> if <code>type=4</code>, linear interpolation is performed.
+</p>
+</li></ul>
+
+<p>Note that the default rule for <code>weighted.median</code> is
+<code>type=2</code>, consistent with the traditional definition of the median, 
+while the default for <code>weighted.quantile</code> is <code>type=4</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric value or vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/quantile.html">quantile</a></code>, <code><a href="../../stats/help/median.html">median</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- 1:20
+  w &lt;- runif(20)
+  weighted.median(x, w)
+  weighted.quantile(x, w)
+  weighted.var(x, w)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

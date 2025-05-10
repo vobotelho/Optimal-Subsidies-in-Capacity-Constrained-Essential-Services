@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Geyer's Saturation Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Geyer {spatstat.model}"><tr><td>Geyer {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Geyer's Saturation Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of Geyer's saturation point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Geyer(r,sat)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Interaction radius. A positive real number.</p>
+</td></tr>
+<tr valign="top"><td><code>sat</code></td>
+<td>
+<p>Saturation threshold. A non-negative real number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Geyer (1999) introduced the &ldquo;saturation process&rdquo;,
+a modification of the Strauss process (see <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>)
+in which the total contribution
+to the potential  from each point (from its pairwise interaction with all 
+other points) is trimmed to a maximum value <i>s</i>. 
+The interaction structure of this
+model is implemented in the function <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a>()</code>.
+</p>
+<p>The saturation point process with interaction radius <i>r</i>,
+saturation threshold <i>s</i>, and 
+parameters <i>beta</i> and <i>gamma</i>,
+is the point process
+in which each point
+<i>x[i]</i> in the pattern <i>X</i>
+contributes a factor
+</p>
+<p style="text-align: center;"><i>
+    beta gamma^min(s, t(x[i],X))
+  </i></p>
+
+<p>to the probability density of the point pattern,
+where <i>t(x[i],X)</i> denotes the
+number of &lsquo;close neighbours&rsquo; of <i>x[i]</i> in the pattern
+<i>X</i>. A close neighbour of <i>x[i]</i> is a point
+<i>x[j]</i> with <i>j != i</i>
+such that the distance between 
+<i>x[i]</i> and <i>x[j]</i> is less than or equal to <i>r</i>.
+</p>
+<p>If the saturation threshold <i>s</i> is set to infinity,
+this model reduces to the Strauss process (see <code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>)
+with interaction parameter <i>gamma^2</i>.
+If <i>s = 0</i>, the model reduces to the Poisson point process.
+If <i>s</i> is a finite positive number, then the interaction parameter
+<i>gamma</i> may take any positive value (unlike the case
+of the Strauss process), with
+values <i>gamma &lt; 1</i>
+describing an &lsquo;ordered&rsquo; or &lsquo;inhibitive&rsquo; pattern,
+and 
+values <i>gamma &gt; 1</i>
+describing a &lsquo;clustered&rsquo; or &lsquo;attractive&rsquo; pattern.
+</p>
+<p>The nonstationary saturation process is similar except that 
+the value <i>beta</i> 
+is replaced by a function <i>beta(x[i])</i>
+of location.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the saturation process interaction is
+yielded by <code>Geyer(r, sat)</code> where the
+arguments <code>r</code> and <code>sat</code> specify
+the Strauss interaction radius <i>r</i> and the saturation threshold
+<i>s</i>, respectively. See the examples below.
+</p>
+<p>Note the only arguments are the interaction radius <code>r</code>
+and the saturation threshold <code>sat</code>.
+When <code>r</code> and <code>sat</code> are fixed,
+the model becomes an exponential family.
+The canonical parameters <i>log(beta)</i>
+and <i>log(gamma)</i>
+are estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, not fixed in
+<code>Geyer()</code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of Geyer's saturation point process
+with interaction radius <i>r</i> and saturation threshold <code>sat</code>.
+</p>
+
+
+<h3>Zero saturation</h3>
+
+<p>The value <code>sat=0</code> is permitted by <code>Geyer</code>,
+but this is not very useful.
+For technical reasons, when <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> fits a
+Geyer model with <code>sat=0</code>, the default behaviour is to return
+an &ldquo;invalid&rdquo; fitted model in which the estimate of
+<i>gamma</i> is <code>NA</code>.  In order to get a Poisson
+process model returned when <code>sat=0</code>,
+you would need to set <code>emend=TRUE</code> in
+the call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Geyer, C.J. (1999)
+Likelihood Inference for Spatial Point Processes.
+Chapter 3 in 
+O.E. Barndorff-Nielsen, W.S. Kendall and M.N.M. Van Lieshout (eds)
+<em>Stochastic Geometry: Likelihood and Computation</em>,
+Chapman and Hall / CRC, 
+Monographs on Statistics and Applied Probability, number 80.
+Pages 79&ndash;140.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/Strauss.html">Strauss</a></code>.
+</p>
+<p>To make an interaction object like <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code> but having
+multiple interaction radii, see <code><a href="../../spatstat.model/help/BadGey.html">BadGey</a></code> or <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   ppm(cells, ~1, Geyer(r=0.07, sat=2))
+   # fit the stationary saturation process to `cells'
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

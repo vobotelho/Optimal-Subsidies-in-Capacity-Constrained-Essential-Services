@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residuals for Fitted Spatial Logistic Regression Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for residuals.slrm {spatstat.model}"><tr><td>residuals.slrm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Residuals for Fitted Spatial Logistic Regression Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial logistic regression model fitted to a point pattern,
+compute the residuals for each pixel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'slrm'
+residuals(object,
+                           type=c("raw", "deviance", "pearson", "working", 
+                                  "response", "partial", "score"),
+                           ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The fitted point process model (an object of class <code>"ppm"</code>)
+for which residuals should be calculated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>String (partially matched)
+indicating the type of residuals to be calculated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes several kinds of residuals for the fit of
+a spatial logistic regression model to a spatial point pattern dataset.
+</p>
+<p>The argument <code>object</code> must be a fitted spatial logistic
+regression model (object of class <code>"slrm"</code>). Such objects are
+created by the fitting algorithm <code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>.
+</p>
+<p>The residuals are computed for each pixel
+that was used to fit the original model. The residuals are
+returned as a pixel image (if the residual values are scalar),
+or a list of pixel images (if the residual values are vectors).
+</p>
+<p>The type of residual is chosen by the argument <code>type</code>.
+</p>
+<p>For a given pixel, suppose <i>p</i> is the fitted probability of
+presence of a point, and <i>y</i> is the presence indicator
+(equal to 1 if the pixel contains any data points, and equal to 0
+otherwise). Then 
+</p>
+
+<ul>
+<li> <p><code>type="raw"</code> or <code>type="response"</code> specifies
+the response residual
+</p>
+<p style="text-align: center;"><i>r = y - p</i></p>
+
+</li>
+<li> <p><code>type="pearson"</code> is the Pearson residual
+</p>
+<p style="text-align: center;"><i>
+      rP = (y-p)/sqrt(p * (1-p))
+    </i></p>
+
+</li>
+<li> <p><code>type="deviance"</code> is the deviance residual
+</p>
+<p style="text-align: center;"><i>
+      rD = (-1)^(y+1) (-2(y log p + (1-y) log(1-p)))^(1/2)
+    </i></p>
+
+</li>
+<li> <p><code>type="score"</code> specifies the score residuals
+</p>
+<p style="text-align: center;"><i>
+      rS = (y-p) x
+    </i></p>
+
+<p>where <code>x</code> is the vector of canonical covariate values
+for the pixel
+</p>
+</li>
+<li> <p><code>type="working"</code> specifies the working residuals
+as defined in <code><a href="../../stats/help/residuals.glm.html">residuals.glm</a></code>
+</p>
+</li>
+<li> <p><code>type="partial"</code> specifies the partial residuals
+as defined in <code><a href="../../stats/help/residuals.glm.html">residuals.glm</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A pixel image (if the residual values are scalar),
+or a list of pixel images (if the residual values are vectors).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/residuals.glm.html">residuals.glm</a></code>,
+<code><a href="../../spatstat.model/help/residuals.ppm.html">residuals.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   d &lt;- if(interactive()) 128 else 32
+   H &lt;- unmark(humberside)
+   fit &lt;- slrm(H ~ x + y, dimyx=d)
+
+   plot(residuals(fit))
+
+   plot(residuals(fit, type="score"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

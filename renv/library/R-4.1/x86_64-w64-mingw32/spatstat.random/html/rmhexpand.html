@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Specify Simulation Window or Expansion Rule</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rmhexpand {spatstat.random}"><tr><td>rmhexpand {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Specify Simulation Window or Expansion Rule
+</h2>
+
+<h3>Description</h3>
+
+<p>Specify a spatial domain in which point process simulations
+will be performed. Alternatively, specify a rule which will be
+used to determine the simulation window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rmhexpand(x = NULL, ..., area = NULL, length = NULL, distance = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Any kind of data determining the simulation window or the
+expansion rule.
+A window (object of class <code>"owin"</code>) specifying the
+simulation window, a numerical value specifying an expansion
+factor or expansion distance, a list containing
+one numerical value, an object of class <code>"rmhexpand"</code>,
+or <code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>area</code></td>
+<td>
+
+<p>Area expansion factor. 
+Incompatible with other arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>length</code></td>
+<td>
+
+<p>Length expansion factor.
+Incompatible with other arguments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>distance</code></td>
+<td>
+
+<p>Expansion distance (buffer width).
+Incompatible with other arguments.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In the Metropolis-Hastings algorithm <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>
+for simulating spatial point processes, 
+simulations are usually carried out on a spatial domain that is
+larger than the original window of the point process model,
+then subsequently clipped to the original window.
+</p>
+<p>The command <code>rmhexpand</code> can be used to specify the simulation window,
+or to specify a rule which will later be used to determine the
+simulation window from data.
+</p>
+<p>The arguments are all incompatible: at most one of them should be
+given.
+</p>
+<p>If the first argument <code>x</code> is given, it may be any of the
+following:
+</p>
+
+<ul>
+<li>
+<p>a window (object of class <code>"owin"</code>) specifying the
+simulation window.
+</p>
+</li>
+<li>
+<p>an object of class <code>"rmhexpand"</code> specifying the
+expansion rule.
+</p>
+</li>
+<li>
+<p>a single numerical value, without attributes.
+This will be interpreted as the value of the argument <code>area</code>.
+</p>
+</li>
+<li>
+<p>either <code>c(area=v)</code> or <code>list(area=v)</code>,
+where <code>v</code> is a single numeric value.
+This will be interpreted as the value of the argument <code>area</code>.
+</p>
+</li>
+<li>
+<p>either <code>c(length=v)</code> or <code>list(length=v)</code>,
+where <code>v</code> is a single numeric value.
+This will be interpreted as the value of the argument <code>length</code>.
+</p>
+</li>
+<li>
+<p>either <code>c(distance=v)</code> or <code>list(distance=v)</code>,
+where <code>v</code> is a single numeric value.
+This will be interpreted as the value of the argument <code>distance</code>.
+</p>
+</li>
+<li> 
+<p><code>NULL</code>, meaning that the expansion rule is not yet
+determined. 
+</p>
+</li></ul>
+
+<p>If one of the arguments <code>area</code>, <code>length</code> or <code>distance</code>
+is given, then the simulation window is determined from the original
+data window as follows.
+</p>
+
+<dl>
+<dt>area</dt><dd>
+<p>The bounding box of the original data window will be extracted,
+and the simulation window will be a scalar dilation of this rectangle.
+The argument <code>area</code> should be a numerical value, greater than
+or equal to 1. It specifies the area expansion factor, i.e. the ratio
+of the area of the simulation window to the area of the
+original point process window's bounding box.
+</p>
+</dd>
+<dt>length</dt><dd>
+<p>The bounding box of the original data window will be extracted,
+and the simulation window will be a scalar dilation of this rectangle.
+The argument <code>length</code> should be a numerical value, greater than
+or equal to 1. It specifies the length expansion factor, i.e. the ratio
+of the width (height) of the simulation window to the width
+(height) of the original point process window's bounding box.
+</p>
+</dd>
+<dt>distance</dt><dd>
+<p>The argument <code>distance</code> should be a numerical value, greater than
+or equal to 0. It specifies the width of a buffer region around the
+original data window. 
+If the original data window is a rectangle, then this window
+is extended by a margin of width equal to <code>distance</code>
+around all sides of the original rectangle. The result is a
+rectangle.
+If the original data window is not a rectangle, then
+morphological dilation is applied using
+<code><a href="../../spatstat.geom/help/dilation.owin.html">dilation.owin</a></code>
+so that a margin or buffer of width equal to <code>distance</code>
+is created around all sides of the original window. The result
+is a non-rectangular window, typically of a different shape.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"rmhexpand"</code> specifying the
+expansion rule. There is a <code>print</code> method for this class.
+</p>
+
+
+<h3>Undetermined expansion</h3>
+
+<p>If <code>expand=NULL</code>, this is interpreted to mean that the
+expansion rule is &ldquo;not yet decided&rdquo;. Expansion will be decided
+later, by the simulation algorithm <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+If the model cannot be expanded (for example if the covariate data
+in the model are not available on a larger domain) then expansion
+will not occur. If the model can be expanded, then
+if the point process model has a finite interaction range <code>r</code>,
+the default is <code>rmhexpand(distance=2*r)</code>, and
+otherwise <code>rmhexpand(area=2)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/expand.owin.html">expand.owin</a></code> to apply the rule to a window.
+</p>
+<p><code><a href="../../spatstat.random/help/will.expand.html">will.expand</a></code> to test whether expansion will occur.
+</p>
+<p><code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>, <code><a href="../../spatstat.random/help/rmhcontrol.html">rmhcontrol</a></code> for background details.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  rmhexpand()
+  rmhexpand(2)
+  rmhexpand(1)
+  rmhexpand(length=1.5)
+  rmhexpand(distance=0.1)
+  rmhexpand(letterR)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

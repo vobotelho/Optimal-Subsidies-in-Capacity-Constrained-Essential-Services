@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Perturbation of Line Segment Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rjitter.psp {spatstat.random}"><tr><td>rjitter.psp {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Perturbation of Line Segment Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Randomly pertubs a spatial pattern of line segments by applying
+independent random displacements to the segment endpoints.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'psp'
+rjitter(X, radius, ..., clip=TRUE, nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+
+<p>Scale of perturbations. A positive numerical value.
+Each point will be displaced by a random distance,
+with maximum displacement equal to this value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clip</code></td>
+<td>
+
+<p>Logical value specifying what to do if segments cross the boundary
+of the window. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a spatial pattern of line segments (class
+<code>"psp"</code>) rather than a list of length 1 containing this pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> is generic. This function is
+the method for the class <code>"psp"</code> of line segment patterns.
+</p>
+<p>Each of the endpoints of each segment in <code>X</code> will be
+subjected to an independent random displacement. The displacement vectors are
+uniformly distributed in a circle of radius <code>radius</code>.
+</p>
+<p>If <code>clip=TRUE</code> (the default), segment endpoints
+are permitted to move to locations slightly outside the window of <code>X</code>,
+and the resulting segments will be clipped to the window.
+If <code>clip=FALSE</code>, segment endpoints are conditioned to fall
+inside the window.
+</p>
+<p>If <code>nsim=1</code> and <code>drop=TRUE</code>, the result is another
+spatial pattern of line segments (object of class <code>"psp"</code>).
+Otherwise, the result is a list of <code>nsim</code> line segment patterns.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A spatial pattern of line segments
+(object of class <code>"psp"</code>)
+or a list of such patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/rjitter.html">rjitter</a></code> for point patterns in two dimensions.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   E &lt;- edges(letterR)
+   Window(E) &lt;- owin(c(1.9, 4.1), c(0.5, 3.5))
+   plot(rjitter(E, 0.1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

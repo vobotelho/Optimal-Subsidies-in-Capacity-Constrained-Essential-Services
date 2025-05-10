@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read Point Pattern From Data File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for scanpp {spatstat.geom}"><tr><td>scanpp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read Point Pattern From Data File</h2>
+
+<h3>Description</h3>
+
+<p>Reads a point pattern dataset from a text file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   scanpp(filename, window, header=TRUE, dir="", factor.marks=NULL, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+
+<p>String name of the file containing
+the coordinates of the points in the point pattern,
+and their marks if any.
+</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+
+<p>Window for the point pattern. An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+
+<p>Logical flag indicating whether the first line of the
+file contains headings for the columns.
+Passed to <code><a href="../../utils/help/read.table.html">read.table</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dir</code></td>
+<td>
+
+<p>String containing the path name of the directory
+in which <code>filename</code> is to be found.
+Default is the current directory.
+</p>
+</td></tr>
+<tr valign="top"><td><code>factor.marks</code></td>
+<td>
+
+<p>Logical vector (or NULL) indicating whether marks are to be
+interpreted as factors. Defaults to <code>NULL</code> which means that
+strings will be interpreted as factors while numeric variables
+will not. See details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This simple function reads a point pattern dataset from a file
+containing the cartesian coordinates of its points,
+and optionally the mark values for these points.
+</p>
+<p>The file identified by <code>filename</code> in directory <code>dir</code>
+should be a text file that can be read using <code><a href="../../utils/help/read.table.html">read.table</a></code>.
+Thus, each line of the file (except possibly the first line)
+contains data for one point in the
+point pattern. Data are arranged in columns. There should be either
+two columns (for an unmarked point pattern) or more columns (for a
+marked point pattern).
+</p>
+<p>If <code>header=FALSE</code> then the first two columns of data
+will be interpreted as the <i>x</i> and <i>y</i> coordinates
+of points. Remaining columns, if present, will be interpreted as
+containing the marks for these points.
+</p>
+<p>If <code>header=TRUE</code> then the first line of the file should contain
+string names for each of the columns of data. If there are columns
+named <code>x</code> and <code>y</code> then these will be taken as the
+cartesian coordinates, and any remaining columns will be taken as
+the marks. If there are no columns named <code>x</code> and <code>y</code>
+then the first and second columns will be taken as the cartesian
+coordinates.
+</p>
+<p>If a logical vector is provided for <code>factor.marks</code> the length
+should equal the number of mark columns (a shorter <code>factor.marks</code>
+is recycled to this length). This vector is then used to determine
+which mark columns should be interpreted as factors. Note: Strings will
+not be interpreted as factors if the corresponding entry in
+<code>factor.marks</code> is <code>FALSE</code>.
+</p>
+<p>Note that there is intentionally no default for <code>window</code>.
+The window of observation should be specified.
+If you really need to estimate the window, use the
+Ripley-Rasson estimator <code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>,
+see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>,
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/ripras.html">ripras</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ##  files installed with spatstat, for demonstration
+  d &lt;- system.file("rawdata", "finpines", package="spatstat.data")
+  if(nzchar(d)) {
+    W &lt;- owin(c(-5,5), c(-8,2))
+    X &lt;- scanpp("finpines.txt", dir=d, window=W)
+    print(X)
+  }
+  d &lt;- system.file("rawdata", "amacrine", package="spatstat.data")
+  if(nzchar(d)) {
+    W &lt;- owin(c(0, 1060/662), c(0, 1))
+    Y &lt;- scanpp("amacrine.txt", dir=d, window=W, factor.marks=TRUE)
+    print(Y)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residual Diagnostics for Multiple Fitted Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for compareFit {spatstat.model}"><tr><td>compareFit {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Residual Diagnostics for Multiple Fitted Models
+</h2>
+
+<h3>Description</h3>
+
+<p>Compares several fitted point process models using the
+same residual diagnostic. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+compareFit(object, Fun, r = NULL, breaks = NULL, ...,
+         trend = ~1, interaction = Poisson(), rbord = NULL,
+         modelnames = NULL, same = NULL, different = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Object or objects to be analysed.
+Either a fitted point process model (object of class <code>"ppm"</code>),
+a point pattern (object of class <code>"ppp"</code>),
+or a list of these objects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Fun</code></td>
+<td>
+
+<p>Diagnostic function to be computed for each model.
+One of the functions <code>Kcom</code>, <code>Kres</code>, <code>Gcom</code>,
+<code>Gres</code>, <code>psst</code>, <code>psstA</code> or <code>psstG</code>
+or a string containing one of these names.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional. 
+Vector of values of the argument <i>r</i> at which the
+diagnostic should be computed.
+This argument is usually not specified. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Optional alternative to <code>r</code> for advanced use. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments passed to <code>Fun</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend,interaction,rbord</code></td>
+<td>
+
+<p>Optional. Arguments passed to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+to fit a point process model to the data,
+if <code>object</code> is a point pattern or list of point patterns.
+See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for details.
+Each of these arguments can be a list, specifying different
+<code>trend</code>, <code>interaction</code> and/or <code>rbord</code>
+values to be used to generate different fitted models.
+</p>
+</td></tr>
+<tr valign="top"><td><code>modelnames</code></td>
+<td>
+
+<p>Character vector. Short descriptive names for the different models.
+</p>
+</td></tr>
+<tr valign="top"><td><code>same,different</code></td>
+<td>
+
+<p>Character strings or character vectors passed to
+<code><a href="../../spatstat.explore/help/collapse.fv.html">collapse.fv</a></code> to
+determine the format of the output.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a convenient way to collect diagnostic information
+for several different point process models fitted to the same
+point pattern dataset, or for point process models of the same form fitted to
+several different datasets, etc.
+</p>
+<p>The first argument, <code>object</code>, is usually a list of
+fitted point process models
+(objects of class <code>"ppm"</code>), obtained from the
+model-fitting function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>For convenience, <code>object</code> can also be a list of point patterns
+(objects of class <code>"ppp"</code>).
+In that case, point process models will be fitted to
+each of the point pattern datasets,
+by calling <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> using the arguments
+<code>trend</code> (for the first order trend),
+<code>interaction</code> (for the interpoint interaction)
+and <code>rbord</code> (for the erosion distance in the border correction
+for the pseudolikelihood). See <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> for details
+of these arguments.
+</p>
+<p>Alternatively <code>object</code> can be a single point pattern
+(object of class <code>"ppp"</code>) and one or more of the arguments
+<code>trend</code>, <code>interaction</code> or <code>rbord</code>
+can be a list. In this case, point process models will be fitted to
+the same point pattern dataset, using each of the model specifications
+listed.
+</p>
+<p>The diagnostic function <code>Fun</code> will be applied to each of the
+point process models. The results will be collected into a single
+function value table. The <code>modelnames</code> are used to label the
+results from each fitted model.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Function value table (object of class <code>"fv"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>, 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Jesper Moller.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/Kcom.html">Kcom</a></code>,
+<code><a href="../../spatstat.model/help/Kres.html">Kres</a></code>,
+<code><a href="../../spatstat.model/help/Gcom.html">Gcom</a></code>,
+<code><a href="../../spatstat.model/help/Gres.html">Gres</a></code>,
+<code><a href="../../spatstat.model/help/psst.html">psst</a></code>,
+<code><a href="../../spatstat.model/help/psstA.html">psstA</a></code>,
+<code><a href="../../spatstat.model/help/psstG.html">psstG</a></code>,
+<code><a href="../../spatstat.explore/help/collapse.fv.html">collapse.fv</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   nd &lt;- 40
+   
+   ilist &lt;- list(Poisson(), Geyer(7, 2), Strauss(7))
+   iname &lt;- c("Poisson", "Geyer", "Strauss")
+   
+   K &lt;- compareFit(swedishpines, Kcom, interaction=ilist, rbord=9,
+            correction="translate",
+            same="trans", different="tcom", modelnames=iname, nd=nd)
+   K
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

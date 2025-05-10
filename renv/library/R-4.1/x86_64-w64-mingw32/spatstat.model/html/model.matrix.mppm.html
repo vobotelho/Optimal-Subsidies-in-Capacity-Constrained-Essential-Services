@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Design Matrix of Point Process Model for Several...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for model.matrix.mppm {spatstat.model}"><tr><td>model.matrix.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Design Matrix of Point Process Model for Several Point Patterns</h2>
+
+<h3>Description</h3>
+
+<p>Given a point process model fitted to a list of point patterns,
+this function extracts the design matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'mppm'
+model.matrix(object, ..., keepNA=TRUE, separate=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A point process model fitted to several point patterns. 
+An object of class <code>"mppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments (such as <code>na.action</code>) passed to
+<code><a href="../../stats/html/model.matrix.html">model.matrix.lm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>keepNA</code></td>
+<td>
+
+<p>Logical. Determines whether rows containing <code>NA</code> values will be
+deleted or retained.
+</p>
+</td></tr>
+<tr valign="top"><td><code>separate</code></td>
+<td>
+
+<p>Logical value indicating whether to split the model matrix into
+sub-matrices corresponding to each of the original point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command is a method for the generic function
+<code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>. It extracts the design matrix of a
+point process model fitted to several point patterns. 
+</p>
+<p>The argument <code>object</code> must be a fitted point process model
+(object of class <code>"mppm"</code>) produced by the 
+fitting algorithm <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>). This represents a
+point process model that has been fitted
+to a list of several point pattern datasets. See <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>
+for information.
+</p>
+<p>The result is a matrix with one column for every
+constructed covariate in the model, and one row
+for every quadrature point.
+</p>
+<p>If <code>separate=TRUE</code> this matrix will be split into
+sub-matrices corresponding to the original point patterns,
+and the result will be a list containing these matrices.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix (or list of matrices).
+Columns of the matrix are canonical covariates in the model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/model.matrix.html">model.matrix</a></code>,
+<code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- mppm(Points ~ Image + x, demohyper)
+   head(model.matrix(fit))
+   # matrix with three columns: '(Intercept)', 'x' and 'Image'
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

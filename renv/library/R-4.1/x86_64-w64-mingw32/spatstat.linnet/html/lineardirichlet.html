@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dirichlet Tessellation on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lineardirichlet {spatstat.linnet}"><tr><td>lineardirichlet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Dirichlet Tessellation on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern on a linear network, compute the Dirichlet
+(or Voronoi or Thiessen) tessellation induced by the points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lineardirichlet(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Dirichlet tessellation induced by a point pattern <code>X</code>
+on a linear network <code>L</code>
+is a partition of <code>L</code> into subsets. The subset <code>L[i]</code>
+associated with the data point <code>X[i]</code> is the part of <code>L</code>
+lying closer to <code>X[i]</code> than to any other data point <code>X[j]</code>,
+where distance is measured by the shortest path.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tessellation on a linear network
+(object of class <code>"lintess"</code>).
+</p>
+
+
+<h3>Missing tiles</h3>
+
+<p>If the linear network is not connected, and if one of the connected
+components contains no data points, then the Dirichlet tessellation
+is mathematically undefined inside this component.
+The resulting tessellation object includes
+a tile with label <code>NA</code>, which contains this component of the network.
+A plot of the tessellation will not show this tile. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lintess.html">lintess</a></code>.
+</p>
+<p>For the Dirichlet tessellation in two-dimensional space,
+see <code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(5, simplenet)
+  plot(lineardirichlet(X), lwd=3)
+  points(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

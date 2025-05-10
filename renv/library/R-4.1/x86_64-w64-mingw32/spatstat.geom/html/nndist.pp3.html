@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest neighbour distances in three dimensions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nndist.pp3 {spatstat.geom}"><tr><td>nndist.pp3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nearest neighbour distances in three dimensions</h2>
+
+<h3>Description</h3>
+
+<p>Computes the distance from each point to its nearest neighbour
+in a three-dimensional point pattern.
+Alternatively computes the distance to the
+second nearest neighbour, or third nearest, etc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'pp3'
+nndist(X, ..., k=1, by=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Three-dimensional point pattern
+(object of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer, or integer vector. The algorithm will compute the distance to the
+<code>k</code>th nearest neighbour. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>by</code></td>
+<td>
+
+<p>Optional. A factor, which separates <code>X</code> into groups.
+The algorithm will compute the distance to
+the nearest point in each group. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the Euclidean distance from each point
+in a three-dimensional
+point pattern to its nearest neighbour (the nearest other
+point of the pattern). If <code>k</code> is specified, it computes the
+distance to the <code>k</code>th nearest neighbour.
+</p>
+<p>The function <code>nndist</code> is generic; this function
+<code>nndist.pp3</code> is the method for the class <code>"pp3"</code>.
+</p>
+<p>The argument <code>k</code> may be a single integer, or an integer vector.
+If it is a vector, then the <i>k</i>th nearest neighbour distances are
+computed for each value of <i>k</i> specified in the vector.
+</p>
+<p>If there is only one point (if <code>x</code> has length 1),
+then a nearest neighbour distance of <code>Inf</code> is returned.
+If there are no points (if <code>x</code> has length zero)
+a numeric vector of length zero is returned.
+</p>
+<p>If the argument <code>by</code> is given, it should be a <code>factor</code>,
+of length equal to the number of points in <code>X</code>.
+This factor effectively partitions <code>X</code> into subsets,
+each subset associated with one of the levels of <code>X</code>.
+The algorithm will then compute, for each point of <code>X</code>,
+the distance to the nearest neighbour <em>in each subset</em>.
+</p>
+<p>To identify <em>which</em> point is the nearest neighbour of a given point,
+use <code><a href="../../spatstat.geom/help/nnwhich.html">nnwhich</a></code>.
+</p>
+<p>To use the nearest neighbour distances for statistical inference,
+it is often advisable to use the edge-corrected empirical distribution,
+computed by <code><a href="../../spatstat.explore/help/G3est.html">G3est</a></code>.
+</p>
+<p>To find the nearest neighbour distances from one point pattern
+to another point pattern, use <code><a href="../../spatstat.geom/help/nncross.html">nncross</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector or matrix containing the 
+nearest neighbour distances for each point.
+</p>
+<p>If <code>k = 1</code> (the default), the return value is a
+numeric vector <code>v</code> such that <code>v[i]</code> is the
+nearest neighbour distance for the <code>i</code>th data point.
+</p>
+<p>If <code>k</code> is a single integer, then the return value is a
+numeric vector <code>v</code> such that <code>v[i]</code> is the
+<code>k</code>th nearest neighbour distance for the
+<code>i</code>th data point.
+</p>
+<p>If <code>k</code> is a vector, then the return value is a
+matrix <code>m</code> such that <code>m[i,j]</code> is the
+<code>k[j]</code>th nearest neighbour distance for the
+<code>i</code>th data point.
+</p>
+
+
+<h3>Distance values</h3>
+
+<p>The values returned by <code>nndist(X)</code> are distances,
+expressed as multiples of the unit of length of the spatial
+coordinates in <code>X</code>.
+The unit of length is given by <code><a href="../../spatstat.geom/help/unitname.html">unitname</a>(X)</code>.
+</p>
+<p>Note that, if the unit of length in <code>X</code> is a composite
+expression such as &lsquo;2 microns&rsquo;,
+then the values of <code>nndist(X)</code> are expressed as multiples
+of 2 microns, rather than being expressed in microns.
+</p>
+
+
+<h3>Warnings</h3>
+
+<p>An infinite or <code>NA</code> value is returned if the
+distance is not defined (e.g. if there is only one point
+in the point pattern).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+based on code for two dimensions by
+Pavel Grabarnik <a href="mailto:pavel.grabar@issp.serpukhov.su">pavel.grabar@issp.serpukhov.su</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>,
+<code><a href="../../spatstat.geom/help/pairdist.html">pairdist</a></code>,
+<code><a href="../../spatstat.explore/help/G3est.html">G3est</a></code>,
+<code><a href="../../spatstat.geom/help/nnwhich.html">nnwhich</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- pp3(runif(40), runif(40), runif(40), box3(c(0,1)))
+
+   # nearest neighbours
+   d &lt;- nndist(X)
+
+   # second nearest neighbours
+   d2 &lt;- nndist(X, k=2)
+
+   # first, second and third nearest
+   d1to3 &lt;- nndist(X, k=1:3)
+
+   # distance to nearest point in each group
+   marks(X) &lt;- factor(rep(letters[1:4], 10))
+   dby &lt;- nndist(X, by=marks(X))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

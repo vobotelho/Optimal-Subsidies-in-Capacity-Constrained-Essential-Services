@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Terminal Vertices of a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for terminalvertices {spatstat.linnet}"><tr><td>terminalvertices {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Terminal Vertices of a Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Finds the terminal vertices of a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ terminalvertices(L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+<p>A linear network (object of class <code>"linnet"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given the linear network <code>L</code>, this function
+examines the vertices (segment endpoints) of the network
+and determines which of them are &lsquo;terminal&rsquo; vertices
+(i.e. the endpoint of only one segment). These terminal vertices
+are returned as a point pattern on the network.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern on the same linear network
+(object of class <code>"lpp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Mehdi Moradi <a href="mailto:m2.moradi@yahoo.com">m2.moradi@yahoo.com</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/vertices.linnet.html">vertices.linnet</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  B &lt;- terminalvertices(simplenet)
+  plot(simplenet, main="")
+  plot(B, add=TRUE, pch=16, cex=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

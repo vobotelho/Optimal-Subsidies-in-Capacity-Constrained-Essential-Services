@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Variance-Covariance Matrix for a Fitted Cluster Point Process...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for vcov.kppm {spatstat.model}"><tr><td>vcov.kppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Variance-Covariance Matrix for a Fitted Cluster Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Returns the variance-covariance matrix of the estimates of the
+parameters of a fitted cluster point process model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'kppm'
+vcov(object, ...,
+          what=c("vcov", "corr", "fisher"),
+          fast = NULL, rmax = NULL, eps.rmax = 0.01,
+          verbose = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted cluster point process model (an object of class
+<code>"kppm"</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string (partially-matched)
+that specifies what matrix is returned.
+Options are <code>"vcov"</code> for the variance-covariance matrix,
+<code>"corr"</code> for the correlation matrix, and
+<code>"fisher"</code> for the Fisher information matrix.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fast</code></td>
+<td>
+
+<p>Logical specifying whether tapering (using sparse matrices from
+<span class="pkg">Matrix</span>) should be used to speed up calculations. Warning: This
+is expected to underestimate the true asymptotic
+variances/covariances.
+</p>
+</td></tr>  
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. The dependence range. Not usually specified by the
+user. Only used when <code>fast=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps.rmax</code></td>
+<td>
+
+<p>Numeric. A small positive number which is used to determine <code>rmax</code>
+from the tail behaviour of the pair correlation function when fast
+option (<code>fast=TRUE</code>) is used. Namely
+<code>rmax</code> is the smallest value of <i>r</i>
+at which <i>(g(r)-1)/(g(0)-1)</i>
+falls below <code>eps.rmax</code>.
+Only used when <code>fast=TRUE</code>.
+Ignored if <code>rmax</code> is provided.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print progress reports
+during very long calculations.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes the asymptotic variance-covariance
+matrix of the estimates of the canonical (regression) parameters in the
+cluster point process model <code>object</code>. It is a method for the 
+generic function <code><a href="../../stats/html/vcov.html">vcov</a></code>.
+</p>
+<p>The result is an <code>n * n</code> matrix where <code>n =
+    length(coef(model))</code>.
+</p>
+<p>To calculate a confidence interval for a regression parameter,
+use <code><a href="../../stats/help/confint.html">confint</a></code> as shown in the examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A square matrix. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Abdollah Jalilian and Rasmus Waagepetersen.
+Ported to <span class="pkg">spatstat</span> by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Waagepetersen, R. (2007)
+Estimating functions for inhomogeneous spatial point processes
+with incomplete covariate data.
+<em>Biometrika</em> <b>95</b>, 351&ndash;363.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>, 
+<code><a href="../../stats/html/vcov.html">vcov</a></code>, 
+<code><a href="../../spatstat.model/help/vcov.ppm.html">vcov.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   fit &lt;- kppm(redwood ~ x + y)
+   vcov(fit)
+   vcov(fit, what="corr")
+
+   # confidence interval
+   confint(fit)
+   # cross-check the confidence interval by hand:
+   sd &lt;- sqrt(diag(vcov(fit)))
+   t(coef(fit) + 1.96 * outer(sd, c(lower=-1, upper=1)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

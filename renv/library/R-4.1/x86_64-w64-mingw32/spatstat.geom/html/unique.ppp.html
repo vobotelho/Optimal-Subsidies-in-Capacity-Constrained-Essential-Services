@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Unique Points from a Spatial Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for unique.ppp {spatstat.geom}"><tr><td>unique.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Unique Points from a Spatial Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Removes any points that are identical to other points
+in a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppp'
+unique(x, ..., warn=FALSE)
+
+ ## S3 method for class 'ppx'
+unique(x, ..., warn=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial point pattern
+(object of class <code>"ppp"</code> or <code>"ppx"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>
+or <code><a href="../../base/html/duplicated.html">duplicated.data.frame</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, issue a warning message if any
+duplicated points were found.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic function <code>unique</code> for 
+point pattern datasets (of class <code>"ppp"</code>, see
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>, or class <code>"ppx"</code>).
+</p>
+<p>This function removes duplicate points in <code>x</code>,
+and returns a point pattern.
+</p>
+<p>Two points in a point pattern are deemed to be identical
+if their <i>x,y</i> coordinates are the same,
+<em>and</em> their marks are the same (if they carry marks).
+This is the default rule: see <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>
+for other options. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another point pattern object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/multiplicity.ppp.html">multiplicity.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- ppp(c(1,1,0.5), c(2,2,1), window=square(3))
+   unique(X)
+   unique(X, rule="deldir")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

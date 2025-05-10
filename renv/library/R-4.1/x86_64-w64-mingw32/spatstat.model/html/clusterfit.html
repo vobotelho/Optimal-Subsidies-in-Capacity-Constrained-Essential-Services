@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit Cluster or Cox Point Process Model via Minimum Contrast</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for clusterfit {spatstat.model}"><tr><td>clusterfit {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit Cluster or Cox Point Process Model via Minimum Contrast</h2>
+
+<h3>Description</h3>
+
+<p>Fit a homogeneous or inhomogeneous cluster process or
+Cox point process model to a point pattern by the Method of Minimum Contrast.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+clusterfit(X, clusters, lambda = NULL, startpar = NULL, ...,
+           q = 1/4, p = 2, rmin = NULL, rmax = NULL,
+           ctrl=list(q=q, p=p, rmin=rmin, rmax=rmax),
+           statistic = NULL, statargs = NULL, algorithm="Nelder-Mead",
+           verbose=FALSE, pspace=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data to which the cluster or Cox model will be fitted.
+Either a point pattern or a summary statistic.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>clusters</code></td>
+<td>
+
+<p>Character string determining the cluster or Cox model.
+Partially matched.
+Options are <code>"Thomas"</code>, <code>"MatClust"</code>,
+<code>"Cauchy"</code>, <code>"VarGamma"</code> and <code>"LGCP"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional. An estimate of the intensity of the point process.
+Either a single numeric specifying a constant intensity,
+a pixel image (object of class <code>"im"</code>) giving the
+intensity values at all locations, a fitted point process model
+(object of class <code>"ppm"</code> or <code>"kppm"</code>)
+or a <code>function(x,y)</code> which
+can be evaluated to give the intensity value at any location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>startpar</code></td>
+<td>
+
+<p>Vector of initial values of the parameters of the
+point process mode. If <code>X</code> is a point pattern sensible defaults
+are used. Otherwise rather arbitrary values are used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>q,p</code></td>
+<td>
+
+<p>Optional. Exponents for the contrast criterion.
+See <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmin, rmax</code></td>
+<td>
+
+<p>Optional. The interval of <i>r</i> values for the contrast criterion.
+See <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ctrl</code></td>
+<td>
+
+<p>Optional. Named list containing values of the parameters
+<code>q,p,rmin,rmax</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a>.</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+
+<p>Optional. Name of the summary statistic to be used
+for minimum contrast estimation: either <code>"K"</code> or <code>"pcf"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>statargs</code></td>
+<td>
+
+<p>Optional list of arguments to be used when calculating
+the <code>statistic</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>algorithm</code></td>
+<td>
+
+<p>Character string determining the mathematical optimisation algorithm
+to be used by <code><a href="../../stats/help/optim.html">optim</a></code>. See
+the argument <code>method</code> of <code><a href="../../stats/help/optim.html">optim</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>Logical value indicating whether to print detailed progress reports
+for debugging purposes.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pspace</code></td>
+<td>
+<p>For internal use by package code only.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function fits the clustering parameters of a cluster or Cox point
+process model by the Method of Minimum Contrast, that is, by
+matching the theoretical <i>K</i>-function of the model to the
+empirical <i>K</i>-function of the data, as explained in
+<code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>If <code>statistic="pcf"</code> (or <code>X</code> appears to be an
+estimated pair correlation function) then instead of using the
+<i>K</i>-function, the algorithm will use the pair correlation
+function.
+</p>
+<p>If <code>X</code> is a point pattern of class <code>"ppp"</code> an estimate of
+the summary statistic specfied by <code>statistic</code> (defaults to
+<code>"K"</code>) is first computed before minimum contrast estimation is
+carried out as described above. In this case the argument
+<code>statargs</code> can be used for controlling the summary statistic
+estimation. The precise algorithm for computing the summary statistic
+depends on whether the intensity specification (<code>lambda</code>) is:
+</p>
+
+<dl>
+<dt>homogeneous:</dt><dd>
+<p>If <code>lambda</code> is <code>NUll</code> or a single numeric the pattern is
+considered homogeneous and either <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or
+<code><a href="../../spatstat.explore/help/pcf.html">pcf</a></code> is invoked. In this case <code>lambda</code> is
+<b>not</b> used for anything when estimating the summary statistic.
+</p>
+</dd>
+<dt>inhomogeneous:</dt><dd>
+<p>If <code>lambda</code> is a pixel image (object of class <code>"im"</code>),
+a fitted point process model (object of class <code>"ppm"</code> or
+<code>"kppm"</code>) or a <code>function(x,y)</code> the pattern is considered
+inhomogeneous. In this case either <code><a href="../../spatstat.explore/help/Kinhom.html">Kinhom</a></code> or
+<code><a href="../../spatstat.explore/help/pcfinhom.html">pcfinhom</a></code> is invoked with <code>lambda</code> as an
+argument.
+</p>
+</dd>
+</dl>
+
+<p>After the clustering parameters of the model have been estimated by
+minimum contrast <code>lambda</code> (if non-null) is used to compute the
+additional model parameter <i>&mu;</i>.
+</p>
+<p>The algorithm parameters <code>q,p,rmax,rmin</code> are described in the
+help for <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>. They may be provided either
+as individually-named arguments, or as entries in the list
+<code>ctrl</code>. The individually-named arguments <code>q,p,rmax,rmin</code>
+override the entries in the list <code>ctrl</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"minconfit"</code>. There are methods for printing
+and plotting this object. See <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Diggle, P.J. and Gratton, R.J. (1984)
+Monte Carlo methods of inference for implicit statistical models.
+<em>Journal of the Royal Statistical Society, series B</em>
+<b>46</b>, 193 &ndash; 212.
+</p>
+<p>Moller, J. and Waagepetersen, R. (2003).
+Statistical Inference and Simulation for Spatial Point Processes.
+Chapman and Hall/CRC, Boca Raton.
+</p>
+<p>Waagepetersen, R. (2007).
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b> (2007) 252&ndash;258.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- clusterfit(redwood, "Thomas")
+  fit
+  if(interactive()){
+    plot(fit)
+  }
+  K &lt;- Kest(redwood)
+  fit2 &lt;- clusterfit(K, "MatClust")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

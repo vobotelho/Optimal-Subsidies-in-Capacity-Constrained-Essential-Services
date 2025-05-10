@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Subset of spatially sampled function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for [.ssf {spatstat.explore}"><tr><td>[.ssf {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Subset of spatially sampled function
+</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of the data for a spatially sampled function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ssf'
+x[i, j, ..., drop]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"ssf"</code>.
+</p>
+</td></tr>  
+<tr valign="top"><td><code>i</code></td>
+<td>
+
+<p>Subset index applying to the locations where the function is sampled.
+</p>
+</td></tr>
+<tr valign="top"><td><code>j</code></td>
+<td>
+
+<p>Subset index applying to the columns (variables) measured at each location.
+</p>
+</td></tr>
+<tr valign="top"><td><code>..., drop</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the subset operator for the class <code>"ssf"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"ssf"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/ssf.html">ssf</a></code>, 
+<code><a href="../../spatstat.explore/help/with.ssf.html">with.ssf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  f &lt;- ssf(cells, data.frame(d=nndist(cells), i=1:42))
+  f
+  f[1:10,]
+  f[ ,1]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

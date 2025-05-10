@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply a Function Over a List and Obtain a List of Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for solapply {spatstat.geom}"><tr><td>solapply {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Apply a Function Over a List and Obtain a List of Objects
+</h2>
+
+<h3>Description</h3>
+
+<p>Applies the function <code>FUN</code> to each element of the list <code>X</code>,
+and returns the result as a list of class <code>"solist"</code>
+or <code>"anylist"</code> as appropriate.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  anylapply(X, FUN, ...)
+
+  solapply(X, FUN, ..., check = TRUE, promote = TRUE, demote = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A list.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+
+<p>Function to be applied to each element of <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments to <code>FUN</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>check,promote,demote</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/solist.html">solist</a></code> which determine
+how to handle different classes of objects.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These convenience functions are similar to <code><a href="../../base/help/lapply.html">lapply</a></code>
+except that they return a list of class <code>"solist"</code> or
+<code>"anylist"</code>.
+</p>
+<p>In both functions, the result is computed by 
+<code>lapply(X, FUN, ...)</code>.
+</p>
+<p>In <code>anylapply</code> the result is converted to a list of class
+<code>"anylist"</code> and returned.
+</p>
+<p>In <code>solapply</code> the result is converted to
+a list of class <code>"solist"</code> <b>if possible</b>, using 
+<code><a href="../../spatstat.geom/help/as.solist.html">as.solist</a></code>. If this is not possible,
+then the behaviour depends on the argument <code>demote</code>.
+If <code>demote=TRUE</code> the result will be returned as a
+list of class <code>"anylist"</code>. If <code>demote=FALSE</code> (the default),
+an error occurs.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list, usually of class <code>"solist"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/solist.html">solist</a></code>, 
+<code><a href="../../spatstat.geom/help/anylist.html">anylist</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  solapply(waterstriders, distmap)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

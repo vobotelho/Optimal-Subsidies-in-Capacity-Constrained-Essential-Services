@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Case Deletion Effect Measure of Fitted Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dffit.ppm {spatstat.model}"><tr><td>dffit.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Case Deletion Effect Measure of Fitted Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the case deletion effect measure <code>DFFIT</code>
+for a fitted model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dffit(object, ...)
+
+## S3 method for class 'ppm'
+dffit(object, ..., collapse = FALSE, dfb = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted model, such as a point process model
+(object of class <code>"ppm"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>collapse</code></td>
+<td>
+
+<p>Logical value specifying whether to collapse the vector-valued
+measure to a scalar-valued measure by adding all the components.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dfb</code></td>
+<td>
+
+<p>Optional. The result of <code>dfbetas(object)</code>,
+if it has already been computed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The case deletion effect measure <code>DFFIT</code> is a model diagnostic
+traditionally used for regression models. In that context,
+<code>DFFIT[i,j]</code> is the negative change, in the value of the
+<code>j</code>th term in the linear predictor, that would occur if the <code>i</code>th
+data value was deleted. It is closely related to the
+diagnostic <code>DFBETA</code>.
+</p>
+<p>For a spatial point process model, <code>dffit</code> computes
+the analogous spatial case deletion diagnostic, described in
+Baddeley, Rubak and Turner (2019).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2019)
+Leverage and influence diagnostics for Gibbs spatial point processes.
+<em>Spatial Statistics</em> <b>29</b>, 15&ndash;48.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dfbetas.ppm.html">dfbetas.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X ~x+y)
+   
+   plot(dffit(fit))
+   plot(dffit(fit, collapse=TRUE))
+   
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Measure To Layered Object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.layered.msr {spatstat.model}"><tr><td>as.layered.msr {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Measure To Layered Object</h2>
+
+<h3>Description</h3>
+
+<p>Converts a measure into a layered object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'msr'
+as.layered(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A measure (object of class <code>"msr"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function converts the object <code>X</code>
+into an object of class <code>"layered"</code>.
+</p>
+<p>It is a method for the generic <code><a href="../../spatstat.geom/help/as.layered.html">as.layered</a></code>
+for the class of measures.
+</p>
+<p>If <code>X</code> is a vector-valued measure,
+then <code>as.layered(X)</code> consists of several layers,
+each containing a scalar-valued measure.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"layered"</code> (see <code><a href="../../spatstat.geom/help/layered.html">layered</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.layered.html">as.layered</a></code>,
+<code><a href="../../spatstat.model/help/msr.html">msr</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   P &lt;- rpoispp(100)
+   fit &lt;- ppm(P ~ x+y)
+   rs &lt;- residuals(fit, type="score")
+   as.layered(rs)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

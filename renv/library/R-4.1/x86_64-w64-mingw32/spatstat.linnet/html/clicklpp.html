@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interactively Add Points on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for clicklpp {spatstat.linnet}"><tr><td>clicklpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interactively Add Points on a Linear Network</h2>
+
+<h3>Description</h3>
+
+<p>Allows the user to create a point pattern on a linear network by
+point-and-click in the display.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  clicklpp(L, n=NULL, types=NULL, ...,
+           add=FALSE, main=NULL, hook=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+
+<p>Linear network on which the points will be placed.
+An object of class <code>"linnet"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>Number of points to be added (if this is predetermined).
+</p>
+</td></tr>
+<tr valign="top"><td><code>types</code></td>
+<td>
+
+<p>Vector of types, when creating a multitype point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional extra arguments to be passed to <code><a href="../../graphics/help/locator.html">locator</a></code>
+to control the display.
+</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+
+<p>Logical value indicating whether to create a new plot
+(<code>add=FALSE</code>) or draw over the existing plot (<code>add=TRUE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Main heading for plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>hook</code></td>
+<td>
+<p>For internal use only. Do not use this argument.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function allows the user to create a point pattern
+on a linear network
+by interactively clicking on the screen display.
+</p>
+<p>First the linear network <code>L</code> is plotted on the current screen device.
+Then the user is prompted to point the mouse at any desired locations
+and click the left mouse button to add each point.
+Interactive input stops after <code>n</code> clicks (if <code>n</code> was given)
+or when the middle mouse button is pressed.
+</p>
+<p>The return value is a point pattern on the network <code>L</code>,
+containing the locations of all the clicked points,
+after they have been projected onto the network <code>L</code>.
+Any points that were clicked outside the bounding window of the network
+will be ignored.
+</p>
+<p>If the argument <code>types</code> is given, then a multitype point pattern
+will be created. The user is
+prompted to input the locations of points of type <code>type[i]</code>,
+for each successive index <code>i</code>. (If the argument <code>n</code> was
+given, there will be <code>n</code> points of <em>each</em> type.)
+The return value is a multitype point pattern on a linear network.
+</p>
+<p>This function uses the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> command <code><a href="../../graphics/help/locator.html">locator</a></code> to
+input the mouse clicks. It only works on screen devices such as
+&lsquo;X11&rsquo;, &lsquo;windows&rsquo; and &lsquo;quartz&rsquo;. Arguments that can be
+passed to <code><a href="../../graphics/help/locator.html">locator</a></code> through <code>...</code> include
+<code>pch</code> (plotting character), <code>cex</code> (character expansion
+factor) and <code>col</code> (colour). See <code><a href="../../graphics/help/locator.html">locator</a></code>
+and <code><a href="../../graphics/help/par.html">par</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"lpp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>, based on an idea by Dominic Schuhmacher.  
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/clickppp.html">clickppp</a></code>,
+<code><a href="../../spatstat.linnet/help/identify.lpp.html">identify.lpp</a></code>,
+<code><a href="../../graphics/help/locator.html">locator</a></code>,
+<code><a href="../../spatstat.geom/help/clickpoly.html">clickpoly</a></code>,
+<code><a href="../../spatstat.geom/help/clickbox.html">clickbox</a></code>,
+<code><a href="../../spatstat.geom/help/clickdist.html">clickdist</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

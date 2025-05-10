@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Translation Edge Correction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for edge.Trans {spatstat.explore}"><tr><td>edge.Trans {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Translation Edge Correction
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes Ohser and Stoyan's translation edge correction weights
+for a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+edge.Trans(X, Y = X, W = Window(X),
+      exact = FALSE, paired = FALSE,
+      ..., 
+      trim = spatstat.options("maxedgewt"),
+      dx=NULL, dy=NULL,
+      give.rmax=FALSE, gW=NULL)
+
+rmax.Trans(W, g=setcov(W))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Point patterns (objects of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Window for which the edge correction is required.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, a slow algorithm will be used
+to compute the exact value. If <code>FALSE</code>, a fast algorithm
+will be used to compute the approximate value.
+</p>
+</td></tr>
+<tr valign="top"><td><code>paired</code></td>
+<td>
+
+<p>Logical value indicating whether <code>X</code> and <code>Y</code>
+are paired. If <code>TRUE</code>, compute
+the edge correction for corresponding points
+<code>X[i], Y[i]</code> for all <code>i</code>.
+If <code>FALSE</code>, compute the edge correction for
+each possible pair of points <code>X[i], Y[j]</code>
+for all <code>i</code> and <code>j</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>trim</code></td>
+<td>
+
+<p>Maximum permitted value of the edge correction weight.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dx,dy</code></td>
+<td>
+
+<p>Alternative data giving the <i>x</i> and <i>y</i> coordinates
+of the vector differences between the points.
+Incompatible with <code>X</code> and <code>Y</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>give.rmax</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, also compute the value of
+<code>rmax.Trans(W)</code> and return it as an attribute
+of the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>g, gW</code></td>
+<td>
+
+<p>Optional. Set covariance of <code>W</code>, if it has already been
+computed. Not required if <code>W</code> is a rectangle.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>edge.Trans</code>
+computes Ohser and Stoyan's translation edge correction
+weight, which is used in estimating the <i>K</i> function and in many
+other contexts.
+</p>
+<p>The function <code>rmax.Trans</code> computes the maximum value of
+distance <i>r</i> for which the translation edge correction
+estimate of <i>K(r)</i> is valid.
+</p>
+<p>For a pair of points <i>x</i> and <i>y</i> in a window <i>W</i>,
+the translation edge correction weight
+is
+</p>
+<p style="text-align: center;"><i>
+    e(u, r) = area(W) / area(intersect(W, W + y - x))
+  </i></p>
+
+<p>where <i>W + y - x</i> is the result of shifting the window <i>W</i>
+by the vector <i>y - x</i>. The denominator is the area of the overlap between
+this shifted window and the original window.
+</p>
+<p>The function <code>edge.Trans</code> computes this edge correction weight.
+If <code>paired=TRUE</code>, then <code>X</code> and <code>Y</code> should contain the
+same number of points. The result is a vector containing the
+edge correction weights <code>e(X[i], Y[i])</code> for each <code>i</code>.
+</p>
+<p>If <code>paired=FALSE</code>, 
+then the result is a matrix whose <code>i,j</code> entry gives the
+edge correction weight <code>e(X[i], Y[j])</code>.
+</p>
+<p>Computation is exact if the window is a rectangle.
+Otherwise,
+</p>
+
+<ul>
+<li><p> if <code>exact=TRUE</code>, the edge
+correction weights are computed exactly using 
+<code><a href="../../spatstat.geom/help/overlap.owin.html">overlap.owin</a></code>, which can be quite slow.
+</p>
+</li>
+<li><p> if <code>exact=FALSE</code> (the default),
+the weights are computed rapidly by evaluating the
+set covariance function <code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code>
+using the Fast Fourier Transform.
+</p>
+</li></ul>
+
+<p>If any value of the edge correction weight exceeds <code>trim</code>,
+it is set to <code>trim</code>.
+</p>
+<p>The arguments <code>dx</code> and <code>dy</code> can be provided as
+an alternative to <code>X</code> and <code>Y</code>.
+If <code>paired=TRUE</code> then <code>dx,dy</code> should be vectors of equal length
+such that the vector difference of the <i>i</i>th pair is
+<code>c(dx[i], dy[i])</code>. If <code>paired=FALSE</code> then 
+<code>dx,dy</code> should be matrices of the same dimensions,
+such that the vector difference between <code>X[i]</code> and <code>Y[j]</code> is
+<code>c(dx[i,j], dy[i,j])</code>. The argument <code>W</code> is needed.
+</p>
+<p>The value of <code>rmax.Trans</code> is the shortest distance from the
+origin <i>(0,0)</i> to the boundary of the support of
+the set covariance function of <code>W</code>. It is computed by pixel
+approximation using <code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code>, unless <code>W</code> is a
+rectangle, when <code>rmax.Trans(W)</code> is the length of the
+shortest side of the rectangle.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector or matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Ohser, J. (1983)
+On estimators for the reduced second moment measure of
+point processes. <em>Mathematische Operationsforschung und
+Statistik, series Statistics</em>, <b>14</b>, 63 &ndash; 71.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/rmax.Trans.html">rmax.Trans</a></code>,
+<code><a href="../../spatstat.explore/help/edge.Ripley.html">edge.Ripley</a></code>,
+<code><a href="../../spatstat.geom/help/setcov.html">setcov</a></code>,
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  v &lt;- edge.Trans(cells)
+  rmax.Trans(Window(cells))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

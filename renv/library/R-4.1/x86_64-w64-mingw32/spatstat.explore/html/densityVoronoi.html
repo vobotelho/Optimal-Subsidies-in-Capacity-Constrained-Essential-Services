@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intensity Estimate of Point Pattern Using Voronoi-Dirichlet...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for densityVoronoi {spatstat.explore}"><tr><td>densityVoronoi {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Intensity Estimate of Point Pattern Using Voronoi-Dirichlet Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Computes an adaptive estimate of the intensity function of a point
+pattern using the Dirichlet-Voronoi tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+densityVoronoi(X, ...)
+
+## S3 method for class 'ppp'
+densityVoronoi(X, f = 1, ...,
+                          counting=FALSE,
+                          fixed=FALSE,
+                          nrep = 1, verbose=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Point pattern dataset (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+
+<p>Fraction (between 0 and 1 inclusive) of the data points that will be
+used to build a tessellation for the intensity estimate.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code> determining the
+pixel resolution of the result.
+</p>
+</td></tr>
+<tr valign="top"><td><code>counting</code></td>
+<td>
+
+<p>Logical value specifying the choice of estimation method.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fixed</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code> (the default), the data points are independently
+randomly thinned, so the number of data points that are retained
+is random. If <code>TRUE</code>, the number of data points retained
+is fixed. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+<p>Number of independent repetitions of the randomised
+procedure.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Logical value indicating whether to print
+progress reports.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is an alternative to <code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>. It
+computes an estimate of the intensity function of a point pattern
+dataset. The result is a pixel image giving the estimated intensity.
+</p>
+<p>If <code>f=1</code> (the default), the Voronoi estimate (Barr and Schoenberg, 2010)
+is computed: the point pattern <code>X</code> is used to construct
+a Voronoi/Dirichlet tessellation (see <code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>);
+the areas of the Dirichlet tiles are computed; the estimated intensity
+in each tile is the reciprocal of the tile area.
+The result is a pixel image
+of intensity estimates which are constant on each tile of the tessellation.
+</p>
+<p>If <code>f=0</code>, the intensity estimate at every location is
+equal to the average intensity (number of points divided by window area).
+The result is a pixel image
+of intensity estimates which are constant.
+</p>
+<p>If <code>f</code> is strictly between 0 and 1,
+the estimation method is applied to a random subset of <code>X</code>.
+This randomised procedure is repeated <code>nrep</code> times,
+and the results are averaged.
+The subset is selected as follows:
+</p>
+
+<ul>
+<li>
+<p>if <code>fixed=FALSE</code>,
+the dataset <code>X</code> is randomly
+thinned by deleting or retaining each point independently, with
+probability <code>f</code> of retaining a point.
+</p>
+</li>
+<li>
+<p>if <code>fixed=TRUE</code>,
+a random sample of fixed size <code>m</code> is taken from
+the dataset <code>X</code>, where <code>m</code> is the largest integer
+less than or equal to <code>f*n</code> and <code>n</code> is the number of
+points in <code>X</code>.
+</p>
+</li></ul>
+
+<p>Then the intensity estimate is calculated as follows:
+</p>
+
+<ul>
+<li><p> if <code>counting = FALSE</code> (the default), the thinned pattern
+is used to construct a Dirichlet tessellation and form the
+Voronoi estimate (Barr and Schoenberg, 2010) which is then
+adjusted by a factor <code>1/f</code> or <code>n/m</code> as appropriate.
+to obtain an estimate
+of the intensity of <code>X</code> in the tile.
+</p>
+</li>
+<li><p> if <code>counting = TRUE</code>,
+the randomly selected subset <code>A</code>
+is used to construct a Dirichlet tessellation, while the
+complementary subset <code>B</code> (consisting of points that were not
+selected in the sample) is used for counting
+to calculate a quadrat count estimate of intensity.
+For each tile of the Dirichlet tessellation formed by <code>A</code>,
+we count the number of points of <code>B</code> falling in the
+tile, and divide by the area of the same tile, to obtain an estimate
+of the intensity of the pattern <code>B</code> in the tile.
+This estimate is adjusted by <code>1/(1-f)</code>
+or <code>n/(n-m)</code> as appropriate 
+to obtain an estimate of the intensity of <code>X</code> in the tile.
+</p>
+</li></ul>
+
+<p>Ogata et al. (2003) and Ogata (2004) estimated intensity using the
+Dirichlet-Voronoi tessellation in a modelling context.
+Baddeley (2007) proposed intensity estimation by subsampling
+with <code>0 &lt; f &lt; 1</code>, and used the  technique described above 
+with <code>fixed=TRUE</code> and <code>counting=TRUE</code>.
+Barr and Schoenberg (2010) described and analysed the
+Voronoi estimator (corresponding to <code>f=1</code>).
+Moradi et al (2019) developed the subsampling technique with
+<code>fixed=FALSE</code> and <code>counting=FALSE</code> and called it the
+<em>smoothed Voronoi estimator</em>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A pixel image (object of class <code>"im"</code>) whose values are
+estimates of the intensity of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Mehdi Moradi <a href="mailto:m2.moradi@yahoo.com">m2.moradi@yahoo.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. (2007)
+Validation of statistical models for spatial point patterns.
+In J.G. Babu and E.D. Feigelson (eds.)
+<em>SCMA IV: Statistical Challenges in Modern Astronomy IV</em>,
+volume 317 of Astronomical Society of the Pacific Conference Series,
+San Francisco, California USA, 2007. Pages 22&ndash;38.
+</p>
+<p>Barr, C., and Schoenberg, F.P. (2010).
+On the Voronoi estimator for the intensity of an inhomogeneous
+planar Poisson process. <em>Biometrika</em> <b>97</b> (4), 977&ndash;984.
+</p>
+<p>Moradi, M., Cronie, 0., Rubak, E., Lachieze-Rey, R.,
+Mateu, J. and Baddeley, A. (2019)
+Resample-smoothing of Voronoi intensity estimators.
+<em>Statistics and Computing</em> <b>29</b> (5) 995&ndash;1010.
+</p>
+<p>Ogata, Y. (2004)
+Space-time model for regional seismicity and detection of crustal
+stress changes.
+<em>Journal of Geophysical Research</em>, <b>109</b>, 2004.
+</p>
+<p>Ogata, Y., Katsura, K. and Tanemura, M. (2003).
+Modelling heterogeneous space-time occurrences of earthquakes and its
+residual analysis.
+<em>Applied Statistics</em> <b>52</b> 499&ndash;509.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/adaptive.density.html">adaptive.density</a></code>,
+<code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(densityVoronoi(nztrees, 1, f=1), main="Voronoi estimate")
+  nr &lt;- if(interactive()) 100 else 5
+  plot(densityVoronoi(nztrees, f=0.5, nrep=nr), main="smoothed Voronoi estimate")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

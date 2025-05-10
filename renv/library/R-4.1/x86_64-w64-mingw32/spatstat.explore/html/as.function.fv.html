@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Function Value Table to Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for as.function.fv {spatstat.explore}"><tr><td>as.function.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Function Value Table to Function
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts an object of class <code>"fv"</code> to an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'fv'
+as.function(x, ..., value=".y", extrapolate=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Object of class <code>"fv"</code> or <code>"rhohat"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Optional. Character string or character vector selecting
+one or more of the columns of <code>x</code>
+for use as the function value. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>extrapolate</code></td>
+<td>
+
+<p>Logical, indicating whether to extrapolate the function
+outside the domain of <code>x</code>. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A function value table (object of class <code>"fv"</code>)
+is a convenient way of storing and plotting
+several different estimates of the same function.
+Objects of this class are returned 
+by many commands in <span class="pkg">spatstat</span>,
+such as <code><a href="../help/Kest.html">Kest</a></code>,
+which returns an estimate of Ripley's <i>K</i>-function
+for a point pattern dataset.
+</p>
+<p>Sometimes it is useful to convert the function value table
+to a <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language. This is done by
+<code>as.function.fv</code>. It converts an object <code>x</code> of class <code>"fv"</code>
+to an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code>f</code>.
+</p>
+<p>If <code>f &lt;- as.function(x)</code> then <code>f</code> is an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function
+that accepts a numeric argument and returns a corresponding value
+for the summary function by linear interpolation between the values
+in the table <code>x</code>. 
+</p>
+<p>Argument values lying outside the range of the table
+yield an <code>NA</code> value (if <code>extrapolate=FALSE</code>)
+or the function value at the nearest endpoint of the range
+(if <code>extrapolate = TRUE</code>).
+To apply different rules to the left and right extremes,
+use <code>extrapolate=c(TRUE,FALSE)</code> and so on.
+</p>
+<p>Typically the table <code>x</code> contains several columns of
+function values corresponding to different edge corrections.
+Auxiliary information for the table identifies one of these
+columns as the <em>recommended value</em>. 
+By default, the values of the function <code>f &lt;- as.function(x)</code>
+are taken from this column of recommended values. 
+This default can be changed using the argument <code>value</code>,
+which can be a character string or character vector of names of
+columns of <code>x</code>. Alternatively <code>value</code> can be one of
+the abbreviations used by <code><a href="../../spatstat.explore/help/fvnames.html">fvnames</a></code>.
+</p>
+<p>If <code>value</code> specifies a single column of the table,
+then the result is a function <code>f(r)</code> with a single numeric
+argument <code>r</code> (with the same name as the orginal argument
+of the function table).
+</p>
+<p>If <code>value</code> specifies several columns of the table,
+then the result is a function <code>f(r,what)</code> 
+where <code>r</code> is the numeric argument and 
+<code>what</code> is a character string identifying the column of values
+to be used.
+</p>
+<p>The formal arguments of the resulting function
+are <code>f(r, what=value)</code>, which
+means that in a call to this function <code>f</code>, the permissible values
+of <code>what</code> are the entries of the original vector <code>value</code>;
+the default value of <code>what</code> is the first entry of <code>value</code>.
+</p>
+<p>The command <code>as.function.fv</code> is a method for the generic command
+<code><a href="../../base/html/as.function.html">as.function</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function(r)</code> or <code>function(r,what)</code>
+where <code>r</code> is the name of the original argument of the function table.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/as.function.rhohat.html">as.function.rhohat</a></code>, 
+<code><a href="../../spatstat.explore/help/fv.html">fv</a></code>, 
+<code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>, 
+<code><a href="../../spatstat.explore/help/fvnames.html">fvnames</a></code>, 
+<code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>, 
+<code><a href="../help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  K &lt;- Kest(cells)
+  f &lt;- as.function(K)
+  f
+  f(0.1)
+  g &lt;- as.function(K, value=c("iso", "trans"))
+  g
+  g(0.1, "trans")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

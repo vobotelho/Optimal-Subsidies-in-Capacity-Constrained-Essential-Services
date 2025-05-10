@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Fiksel Interaction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Fiksel {spatstat.model}"><tr><td>Fiksel {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Fiksel Interaction</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of Fiksel's double exponential
+pairwise interaction point process model,
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Fiksel(r, hc=NA, kappa)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>The interaction radius of the Fiksel model</p>
+</td></tr>
+<tr valign="top"><td><code>hc</code></td>
+<td>
+<p>The hard core distance</p>
+</td></tr>
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+<p>The rate parameter</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Fiksel (1984) introduced a pairwise interaction point process
+with the following interaction function <i>c</i>.
+For two points <i>u</i> and <i>v</i> separated by a distance
+<i>d=||u-v||</i>, the interaction
+<i>c(u,v)</i> is equal to <i>0</i> if <i>d &lt; h</i>,
+equal to <i>1</i> if <i>d &gt; r</i>, and
+equal to
+</p>
+<p style="text-align: center;"><i>exp(a * exp(-kappa * d))</i></p>
+
+<p>if <i>h &lt;= d &lt;= r</i>, where
+<i>h,r,kappa,a</i> are parameters.
+</p>
+<p>A graph of this interaction function is shown in the Examples.
+The interpretation of the parameters is as follows.
+</p>
+
+<ul>
+<li> <p><i>h</i> is the hard core distance: distinct points are
+not permitted to come closer than a distance <i>h</i> apart.
+</p>
+</li>
+<li> <p><i>r</i> is the interaction range: points further than
+this distance do not interact.
+</p>
+</li>
+<li> <p><i>kappa</i> is the rate or slope parameter,
+controlling the decay of the interaction as distance increases.
+</p>
+</li>
+<li> <p><i>a</i> is the interaction strength parameter,
+controlling the strength and type of interaction.
+If <i>a</i> is zero, the process is Poisson. If <code>a</code> is positive,
+the process is clustered. If <code>a</code> is negative, the process is
+inhibited (regular).
+</p>
+</li></ul>
+
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the Fiksel
+pairwise interaction is
+yielded by the function <code>Fiksel()</code>. See the examples below.
+</p>
+<p>The parameters <i>h</i>, <i>r</i> and <i>kappa</i> must be
+fixed and given in the call to <code>Fiksel</code>, while the canonical
+parameter <i>a</i> is estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>.
+</p>
+<p>To estimate <i>h</i>, <i>r</i> and<i>kappa</i>
+it is possible to use <code><a href="../../spatstat.model/help/profilepl.html">profilepl</a></code>. The maximum likelihood
+estimator of<i>h</i> is the minimum interpoint distance.
+</p>
+<p>If the hard core distance argument <code>hc</code> is missing or <code>NA</code>,
+it will be estimated from the data when <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> is called.
+The estimated value of <code>hc</code> is the minimum nearest neighbour distance
+multiplied by <i>n/(n+1)</i>, where <i>n</i> is the
+number of data points.
+</p>
+<p>See also Stoyan, Kendall and Mecke (1987) page 161.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of the Fiksel
+process with interaction radius <i>r</i>,
+hard core distance <code>hc</code> and
+rate parameter <code>kappa</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Fiksel, T. (1984)
+Estimation of parameterized pair potentials
+of marked and non-marked Gibbsian point processes.
+<em>Electronische Informationsverabeitung und Kybernetika</em>
+<b>20</b>, 270&ndash;278.
+</p>
+<p>Stoyan, D, Kendall, W.S. and Mecke, J. (1987)
+<em>Stochastic geometry and its applications</em>.  Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>,
+<code><a href="../../spatstat.model/help/StraussHard.html">StraussHard</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   Fiksel(r=1,hc=0.02, kappa=2)
+   # prints a sensible description of itself
+
+   X &lt;- unmark(spruces)
+
+   fit &lt;- ppm(X ~ 1, Fiksel(r=3.5, kappa=1))
+   plot(fitin(fit))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The spatstat.univar Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.univar-package {spatstat.univar}"><tr><td>spatstat.univar-package {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The spatstat.univar Package</h2>
+
+<h3>Description</h3>
+
+<p>The <span class="pkg">spatstat.univar</span> package
+belongs to the <span class="pkg">spatstat</span> family of packages.
+It provides utilities for estimating the probability distribution
+of one-dimensional (real-valued) data.
+</p>
+
+
+<h3>Details</h3>
+
+<p>This package is a member of the <span class="pkg">spatstat</span>
+family of packages. It provides utilities for
+estimation of the probability distribution of
+one-dimensional (i.e. numerical, real-valued) data.
+The utilities include:
+</p>
+
+<dl>
+<dt>kernel density estimation:</dt><dd>
+<p>including
+variable-bandwidth kernels, boundary correction,
+bandwidth selection,
+unnormalised weighted densities, and cumulative distribution
+functions of density estimates.
+</p>
+</dd>
+<dt>weighted distributions and weighted statistics:</dt><dd>
+<p>including weighted empirical cumulative distributions, weighted median,
+weighted quantiles, calculating the CDF from a density estimate
+</p>
+</dd>
+<dt>estimation for right-censored data:</dt><dd>
+<p>including Kaplan-Meier, reduced-sample and other estimators
+of the cumulative distribution function and hazard function
+from right-censored data
+</p>
+</dd>
+<dt>quantiles:</dt><dd>
+<p>including calculation of quantiles from an empirical cumulative
+distribution or a kernel density estimate
+</p>
+</dd>
+<dt>kernels:</dt><dd>
+<p>including calculation of the probability density, cumulative distribution
+function, quantiles, random generation, moments and partial
+moments of the standard smoothing kernels
+</p>
+</dd>
+<dt>heat kernel:</dt><dd>
+<p>calculation of the one-dimensional heat kernel in an interval
+</p>
+</dd>
+<dt>integration:</dt><dd>
+<p>Numerical integration including Stieltjes integrals
+and indefinite integrals.
+</p>
+</dd>
+</dl>
+
+<p>The facilities are described in more detail below.
+</p>
+<p><b>Kernel density estimation</b>
+</p>
+<p>The package supports 
+fixed-bandwidth and variable-bandwidth kernel estimation
+of probability densities from numerical data.
+It provides boundary corrections for kernel estimates
+of densities on the positive half-line (applicable when the original
+observations are positive numbers) for both fixed-bandwidth
+and variable-bandwidth estimates.
+</p>
+<p>If the observations have numerical weights associated with them,
+these weights will not be automatically normalised, and indeed
+the weights may be negative or zero. This is 
+unlike the standard <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> method <code><a href="../../stats/help/density.default.html">density.default</a></code>.
+</p>
+<p>The main functions are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/unnormdensity.html">unnormdensity</a></code>
+    </td><td style="text-align: left;">
+    extension of <code><a href="../../stats/help/density.default.html">density.default</a></code>
+    allowing weights to be negative or zero.
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/densityBC.html">densityBC</a></code>
+    </td><td style="text-align: left;">
+    fixed-bandwidth kernel estimate with optional boundary correction
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/densityAdaptiveKernel.html">densityAdaptiveKernel</a></code>
+    </td><td style="text-align: left;">
+    adaptive (variable-bandwidth) kernel estimation (generic)
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/densityAdaptiveKernel.default.html">densityAdaptiveKernel.default</a></code>
+    </td><td style="text-align: left;">
+    adaptive (variable-bandwidth) kernel estimate
+    (method for numeric data, with optional boundary correction)
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/bw.abram.default.html">bw.abram.default</a></code>
+    </td><td style="text-align: left;">
+    calculate data-dependent bandwidths using Abramson rule
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/CDF.density.html">CDF.density</a></code> </td><td style="text-align: left;"> cumulative distribution function from
+    kernel density estimate
+  </td>
+</tr>
+
+</table>
+
+<p><b>Weighted distributions and weighted statistics</b>
+</p>
+<p>Weighted versions of standard operations such as the histogram
+and empirical distribution function are provided:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/whist.html">whist</a></code> </td><td style="text-align: left;"> weighted histogram </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/ewcdf.html">ewcdf</a></code> </td><td style="text-align: left;"> weighted empirical cumulative distribution
+    function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/mean.ewcdf.html">mean.ewcdf</a></code> </td><td style="text-align: left;"> mean of weighted ecdf </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/quantile.ewcdf.html">quantile.ewcdf</a></code> </td><td style="text-align: left;"> quantiles of weighted ecdf </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/knots.ewcdf.html">knots.ewcdf</a></code> </td><td style="text-align: left;"> jump points of weighted ecdf </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/weighted.median.html">weighted.median</a></code> </td><td style="text-align: left;"> weighted median of numeric values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/weighted.quantile.html">weighted.quantile</a></code> </td><td style="text-align: left;"> weighted quantile of numeric values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p><b>Estimation for right-censored data</b>
+</p>
+<p>Facilities are provided for estimating the probability distribution
+of right-censored lifetimes (non-negative real random variables).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/kaplan.meier.html">kaplan.meier</a></code> </td><td style="text-align: left;"> Kaplan-Meier estimator of cumulative
+    distribution function and hazard rate, from right-censored data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/reduced.sample.html">reduced.sample</a></code> </td><td style="text-align: left;"> reduced-sample estimator of
+    cumulative distribution function, from right-censored data
+  </td>
+</tr>
+
+</table>
+
+<p><b>Quantiles</b>
+</p>
+<p>Facilities are provided for computing the quantiles
+of a probability distribution, given estimates of the
+probability density or the cumulative distribution function
+and so on.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/CDF.density.html">CDF.density</a></code> </td><td style="text-align: left;"> cumulative distribution function from
+    kernel density estimate </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/quantile.density.html">quantile.density</a></code> </td><td style="text-align: left;"> quantiles of kernel density estimate </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/quantile.ewcdf.html">quantile.ewcdf</a></code> </td><td style="text-align: left;"> quantiles of weighted ecdf </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/quantilefun.html">quantilefun</a></code> </td><td style="text-align: left;"> quantiles as a function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/quantilefun.ewcdf.html">quantilefun.ewcdf</a></code> </td><td style="text-align: left;"> quantiles as a function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/weighted.quantile.html">weighted.quantile</a></code> </td><td style="text-align: left;"> weighted quantile of numeric values </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/transformquantiles.html">transformquantiles</a></code> </td><td style="text-align: left;"> transform the quantiles of a dataset
+  </td>
+</tr>
+
+</table>
+
+<p><b>Kernels</b>
+</p>
+<p>The standard <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function <code><a href="../../stats/help/density.default.html">density.default</a></code>
+recognises a list of smoothing kernels by name:
+<code>"gaussian"</code>, <code>"rectangular"</code>, <code>"triangular"</code>,
+<code>"epanechnikov"</code>, <code>"biweight"</code>, <code>"cosine"</code>
+and <code>"optcosine"</code>. For these kernels, <span class="pkg">spatstat.univar</span>
+provides various characteristics:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/dkernel.html">dkernel</a></code>
+    </td><td style="text-align: left;">
+    probability density of the kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/pkernel.html">pkernel</a></code>
+    </td><td style="text-align: left;">
+    cumulative distribution function of the kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/qkernel.html">qkernel</a></code>
+    </td><td style="text-align: left;">
+    quantiles of the kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/rkernel.html">rkernel</a></code>
+    </td><td style="text-align: left;">
+    generate simulated realisations from the kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/kernel.factor.html">kernel.factor</a></code>
+    </td><td style="text-align: left;">
+    scale factor relating bandwidth to half-width of kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/kernel.moment.html">kernel.moment</a></code>
+    </td><td style="text-align: left;">
+    partial moment of kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/kernel.squint.html">kernel.squint</a></code>
+    </td><td style="text-align: left;">
+    integral of squared kernel
+    </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/dkernelBC.html">dkernelBC</a></code>
+    </td><td style="text-align: left;">
+    evaluate the kernel with boundary correction
+  </td>
+</tr>
+
+</table>
+
+<p><b>Heat kernels</b>
+</p>
+<p>The heat kernel in an interval can be calculated.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">  
+    <code><a href="../../spatstat.univar/help/hotrod.html">hotrod</a></code>
+    </td><td style="text-align: left;">
+    calculate the heat kernel in an interval
+  </td>
+</tr>
+
+</table>
+
+<p><b>Integration</b>
+</p>
+<p>A few facilities are provided for calculating integrals
+of real functions.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/indefinteg.html">indefinteg</a></code> </td><td style="text-align: left;"> indefinite integral </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/integral.density.html">integral.density</a></code> </td><td style="text-align: left;"> integral of a kernel density
+    estimate </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/stieltjes.html">stieltjes</a></code> </td><td style="text-align: left;"> Stieltjes integral
+  </td>
+</tr>
+
+</table>
+
+<p><b>Utilities</b>
+</p>
+<p>A few utilities for numerical data are also provided.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/uniquemap.default.html">uniquemap.default</a></code> </td><td style="text-align: left;"> map duplicates to unique entries </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/rounding.default.html">rounding.default</a></code> </td><td style="text-align: left;"> determine whether values have
+    been rounded </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/firstdigit.html">firstdigit</a></code> </td><td style="text-align: left;"> leading digit in decimal
+    representation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/lastdigit.html">lastdigit</a></code> </td><td style="text-align: left;"> least significant digit in decimal
+    representation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.univar/help/ndigits.html">ndigits</a></code> </td><td style="text-align: left;"> number of digits in decimal
+    representation
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Licence</h3>
+
+<p>This library and its documentation are usable under the terms of the &quot;GNU 
+General Public License&quot;, a copy of which is distributed with the package.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a>, Martin Hazelton <a href="mailto:Martin.Hazelton@otago.ac.nz">Martin.Hazelton@otago.ac.nz</a>, Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Greg McSwiggan.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

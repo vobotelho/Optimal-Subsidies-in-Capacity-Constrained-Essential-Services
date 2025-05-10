@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dendritic Spines Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dendrite {spatstat.data}"><tr><td>dendrite {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Dendritic Spines Data
+</h2>
+
+<h3>Description</h3>
+
+<p>Dendrites are branching filaments which extend from the
+main body of a neuron (nerve cell) to propagate electrochemical
+signals. Spines are small protrusions on the dendrites.
+</p>
+<p>This dataset gives the locations of 566 spines
+observed on one branch of the dendritic tree of a rat neuron.
+The spines are classified according to their shape into three types:
+mushroom, stubby or thin.
+</p>
+<p>The data have been analysed in Jammalamadaka et al (2013) and
+Baddeley et al (2014). Please cite these papers and
+acknowledge the Kosik Lab, UC Santa Barbara, in any use of the data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data("dendrite")</pre>
+
+
+<h3>Format</h3>
+
+<p>Object of class <code>"lpp"</code>. 
+See <code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>.
+</p>
+<p>Spatial coordinates are expressed in microns.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Kosik Lab, UC Santa Barbara (Dr Kenneth Kosik, Dr Sourav Banerjee).
+Formatted for <code>spatstat</code> by Dr Aruna Jammalamadaka.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A, Jammalamadaka, A. and Nair, G. (2014)
+Multitype point process analysis of spines on the
+dendrite network of a neuron.
+<em>Applied Statistics</em> (Journal of the Royal Statistical
+Society, Series C), <b>63</b>, 673&ndash;694. 
+</p>
+<p>Jammalamadaka, A., Banerjee, S., Manjunath, B.S. and Kosik, K. (2013)
+Statistical Analysis of Dendritic Spine Distributions in
+Rat Hippocampal Cultures.
+<em>BMC Bioinformatics</em> <b>14</b>, 287.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.linnet)) {
+plot(dendrite,leg.side="bottom", main="", cex=0.75, cols=2:4)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

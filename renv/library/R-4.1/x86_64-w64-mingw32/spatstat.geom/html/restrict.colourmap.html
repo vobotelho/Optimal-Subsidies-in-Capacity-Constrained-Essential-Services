@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Restrict a Colour Map to a Subset of Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for restrict.colourmap {spatstat.geom}"><tr><td>restrict.colourmap {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Restrict a Colour Map to a Subset of Values
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a colour map defined on a range of numerical values or a set of
+discrete inputs, the command restricts the range of values to a narrower range,
+or restricts the set of inputs to a subset, and returns the associated
+colour map.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+restrict.colourmap(x, ..., range = NULL, breaks = NULL, inputs = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Colour map (object of class <code>"colourmap"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+
+<p>New, restricted range of numerical values to which the
+colour map will apply. A numeric vector of length 2 giving the
+minimum and maximum values of the input.
+Incompatible with <code>breaks</code> and <code>inputs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Vector of breakpoints for the new colour map.
+A numeric vector with increasing entries.
+Incompatible with <code>range</code> and <code>inputs</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>inputs</code></td>
+<td>
+
+<p>Values accepted as inputs for the new colour map.
+A factor or vector.
+Incompatible with <code>breaks</code> and <code>range</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command produces a new colour map <code>y</code> which is consistent with the
+original colour map <code>x</code>, except that <code>y</code> is defined on a
+narrower interval of numeric values, or a smaller set of discrete
+input values, than <code>x</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Colour map (object of class <code>"colourmap"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/colourmap.html">colourmap</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  plot(a &lt;- colourmap(topo.colors(128), range=c(-1,1)))
+  plot(b &lt;- restrict.colourmap(a, range=c(0,1)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

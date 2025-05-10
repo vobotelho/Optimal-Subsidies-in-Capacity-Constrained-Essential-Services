@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Subset of Function Array</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Extract.fasp {spatstat.explore}"><tr><td>Extract.fasp {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Subset of Function Array</h2>
+
+<h3>Description</h3>
+
+<p>Extract a subset of a function array (an object of class
+<code>"fasp"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'fasp'
+x[I, J, drop=TRUE,...]
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A function array. An object of class <code>"fasp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>I</code></td>
+<td>
+
+<p>any valid expression for a subset of the row indices of the array.
+</p>
+</td></tr>
+<tr valign="top"><td><code>J</code></td>
+<td>
+
+<p>any valid expression for a subset of the column indices of the array.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical.
+When the selected subset consists of only one cell of the array,
+if <code>drop=FALSE</code> the result is still returned as a
+<i>1 * 1</i> array of functions (class <code>"fasp"</code>)
+while if <code>drop=TRUE</code> it is returned as a
+function (class <code>"fv"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A function array can be regarded as a matrix whose entries
+are functions. See <code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code> for an explanation of
+function arrays.
+</p>
+<p>This routine extracts a sub-array according to the usual
+conventions for matrix indexing.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function array (of class <code>"fasp"</code>).
+Exceptionally, if the array has only one cell, and
+if <code>drop=TRUE</code>, then the result is a function value table
+(class <code>"fv"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fasp.object.html">fasp.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ online &lt;- interactive()
+ # Lansing woods data - multitype points with 6 types
+ X &lt;- lansing
+
+ if(!online) {
+   # subsample data (from 2251 to 450 points) to shorten check time
+   X &lt;- X[c(FALSE,FALSE,FALSE,FALSE,TRUE)]
+ }
+
+ a &lt;- alltypes(X, 'K')
+
+ # extract first three marks only
+ b &lt;- a[1:3,1:3]
+ if(online) {plot(b)}
+ # subset of array pertaining to hickories
+ h &lt;- a["hickory", ]
+ if(online) {plot(h)}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

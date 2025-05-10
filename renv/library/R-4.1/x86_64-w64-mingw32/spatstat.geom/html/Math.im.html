@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: S3 Group Generic methods for images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for Math.im {spatstat.geom}"><tr><td>Math.im {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>S3 Group Generic methods for images</h2>
+
+<h3>Description</h3>
+
+<p>These are group generic methods for images of class <code>"im"</code>, which
+allows for usual mathematical functions and operators to be applied
+directly to images. See Details for a list of implemented functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 methods for group generics have prototypes:
+Math(x, ...)
+Ops(e1, e2)
+Complex(z)
+Summary(..., na.rm=FALSE, drop=TRUE)
+
+
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, z, e1, e2</code></td>
+<td>
+<p>objects of class <code>"im"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to methods.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm,drop</code></td>
+<td>
+
+<p>Logical values specifying whether missing values
+should be removed. This will happen if either
+<code>na.rm=TRUE</code> or <code>drop=TRUE</code>. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Below is a list of mathematical functions and operators which are
+defined for images. Not all functions will make sense for all
+types of images. For example, none of the functions in the <code>"Math"</code> group
+make sense for character-valued images. Note that the <code>"Ops"</code>
+group methods are implemented using <code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code>, which tries
+to harmonise images via <code><a href="../../spatstat.geom/help/harmonise.im.html">harmonise.im</a></code> if they aren't
+compatible to begin with.
+</p>
+
+<ol>
+<li><p> Group <code>"Math"</code>:
+</p>
+
+<ul>
+<li>
+<p><code>abs</code>, <code>sign</code>, <code>sqrt</code>,<br />
+<code>floor</code>, <code>ceiling</code>, <code>trunc</code>,<br />
+<code>round</code>, <code>signif</code>
+</p>
+</li>
+<li>
+<p><code>exp</code>, <code>log</code>,  <code>expm1</code>, <code>log1p</code>,<br />
+<code>cos</code>, <code>sin</code>, <code>tan</code>,<br />
+<code>cospi</code>, <code>sinpi</code>, <code>tanpi</code>,<br />
+<code>acos</code>, <code>asin</code>, <code>atan</code>
+</p>
+<p><code>cosh</code>, <code>sinh</code>, <code>tanh</code>,<br />
+<code>acosh</code>, <code>asinh</code>, <code>atanh</code>
+</p>
+</li>
+<li>
+<p><code>lgamma</code>, <code>gamma</code>, <code>digamma</code>, <code>trigamma</code>
+</p>
+</li>
+<li> <p><code>cumsum</code>, <code>cumprod</code>, <code>cummax</code>, <code>cummin</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Ops"</code>:
+</p>
+
+<ul>
+<li>
+<p><code>"+"</code>, <code>"-"</code>, <code>"*"</code>, <code>"/"</code>,
+<code>"^"</code>, <code>"%%"</code>, <code>"%/%"</code>
+</p>
+</li>
+<li> <p><code>"&amp;"</code>, <code>"|"</code>, <code>"!"</code>
+</p>
+</li>
+<li> <p><code>"=="</code>, <code>"!="</code>,
+<code>"&lt;"</code>, <code>"&lt;="</code>, <code>"&gt;="</code>, <code>"&gt;"</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Summary"</code>:
+</p>
+
+<ul>
+<li> <p><code>all</code>, <code>any</code>
+</p>
+</li>
+<li> <p><code>sum</code>, <code>prod</code>
+</p>
+</li>
+<li> <p><code>min</code>, <code>max</code>
+</p>
+</li>
+<li> <p><code>range</code>
+</p>
+</li></ul>
+
+</li>
+<li><p> Group <code>"Complex"</code>:
+</p>
+
+<ul>
+<li> <p><code>Arg</code>, <code>Conj</code>, <code>Im</code>, <code>Mod</code>, <code>Re</code>
+</p>
+</li></ul>
+
+</li></ol>
+
+<p>For the <code>Summary</code> group, the generic has an argument
+<code>na.rm=FALSE</code>, but for pixel images it makes
+sense to set <code>na.rm=TRUE</code> so that pixels outside the domain of
+the image are ignored. To enable this, we added the argument
+<code>drop</code>. Pixel values that are <code>NA</code> are removed
+if <code>drop=TRUE</code> or if <code>na.rm=TRUE</code>.
+</p>
+<p>For the <code>Ops</code> group, one of the arguments is permitted to be
+a single atomic value instead of an image.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a> and Kassel Hingee.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/eval.im.html">eval.im</a></code> for evaluating expressions involving images.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Convert gradient values to angle of inclination:
+  V &lt;- atan(bei.extra$grad) * 180/pi
+  ## Make logical image which is TRUE when heat equals 'Moderate': 
+  A &lt;- (gorillas.extra$heat == "Moderate")
+  ## Summary:
+  any(A)
+  ## Complex:
+  Z &lt;- exp(1 + V * 1i)
+  Z
+  Re(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

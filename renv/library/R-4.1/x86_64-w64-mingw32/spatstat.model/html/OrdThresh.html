@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ord's Interaction model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for OrdThresh {spatstat.model}"><tr><td>OrdThresh {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Ord's Interaction model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of Ord's point process model
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  OrdThresh(r)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Positive number giving the threshold value
+for Ord's model.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Ord's point process model (Ord, 1977) is a Gibbs point process
+of infinite order. Each point <i>x[i]</i> in the point pattern
+<i>x</i> contributes a factor <i>g(a[i])</i> where
+<i>a[i] = a(x[i], x)</i> is the area of the
+tile associated with <i>x[i]</i>
+in the Dirichlet tessellation of <i>x</i>. The function <i>g</i> is
+simply <i>g(a) = 1</i> if <i>a &gt;= r</i> and
+<i>g(a) = gamma &lt; 1</i> if <i>a &lt; r</i>,
+where <i>r</i> is called the threshold value.
+</p>
+<p>This function creates an instance of Ord's model with a given
+value of <i>r</i>. It can then be fitted to point process data
+using <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of a point process. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+<p>Ord, J.K. (1977) 
+Contribution to the discussion of Ripley (1977).
+</p>
+<p>Ord, J.K. (1978) 
+How many trees in a forest?
+<em>Mathematical Scientist</em> <b>3</b>, 23&ndash;33.
+</p>
+<p>Ripley, B.D. (1977)
+Modelling spatial patterns (with discussion).
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>39</b>, 172 &ndash; 212.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

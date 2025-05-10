@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K-function of a Three-Dimensional Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for K3est {spatstat.explore}"><tr><td>K3est {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+K-function of a Three-Dimensional Point Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the <i>K</i>-function from a three-dimensional point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  K3est(X, ...,
+        rmax = NULL, nrval = 128,
+        correction = c("translation", "isotropic"),
+        ratio=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Three-dimensional point pattern (object of class <code>"pp3"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmax</code></td>
+<td>
+
+<p>Optional. Maximum value of argument <i>r</i> for which
+<i>K3(r)</i> will be estimated. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrval</code></td>
+<td>
+
+<p>Optional. Number of values of <i>r</i> for which
+<i>K3(r)</i> will be estimated. A large value of <code>nrval</code>
+is required to avoid discretisation effects.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>Optional. Character vector specifying the edge correction(s)
+to be applied. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+
+<p>Logical. 
+If <code>TRUE</code>, the numerator and denominator of
+each edge-corrected estimate will also be saved,
+for use in analysing replicated point patterns.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For a stationary point process <i>Phi</i> in three-dimensional
+space, the three-dimensional <i>K</i> function
+is
+</p>
+<p style="text-align: center;"><i>
+    K3(r) = (1/lambda) E(N(Phi,x,r) | x in Phi)
+  </i></p>
+
+<p>where <i>lambda</i> is the intensity of the process
+(the expected number of points per unit volume) and
+<i>N(Phi,x,r)</i> is the number of points of
+<i>Phi</i>, other than <i>x</i> itself, which fall within a
+distance <i>r</i> of <i>x</i>. This is the three-dimensional
+generalisation of Ripley's <i>K</i> function for two-dimensional
+point processes (Ripley, 1977).
+</p>
+<p>The three-dimensional point pattern <code>X</code> is assumed to be a
+partial realisation of a stationary point process <i>Phi</i>.
+The distance between each pair of distinct points is computed.
+The empirical cumulative distribution
+function of these values, with appropriate edge corrections, is
+renormalised to give the estimate of <i>K3(r)</i>.
+</p>
+<p>The available edge corrections are:
+</p>
+
+<dl>
+<dt><code>"translation"</code>:</dt><dd>
+<p>the Ohser translation correction estimator
+(Ohser, 1983; Baddeley et al, 1993)
+</p>
+</dd>
+<dt><code>"isotropic"</code>:</dt><dd>
+<p>the three-dimensional counterpart of
+Ripley's isotropic edge correction (Ripley, 1977; Baddeley et al, 1993).
+</p>
+</dd>
+</dl>
+
+<p>Alternatively <code>correction="all"</code> selects all options.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function value table (object of class <code>"fv"</code>) that can be
+plotted, printed or coerced to a data frame containing the function values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rana Moyeed.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A.J, Moyeed, R.A., Howard, C.V. and Boyde, A. (1993)
+Analysis of a three-dimensional point pattern with replication.
+<em>Applied Statistics</em> <b>42</b>, 641&ndash;668.
+</p>
+<p>Ohser, J. (1983)
+On estimators for the reduced second moment measure of
+point processes. <em>Mathematische Operationsforschung und
+Statistik, series Statistics</em>, <b>14</b>, 63 &ndash; 71.
+</p>
+<p>Ripley, B.D. (1977)
+Modelling spatial patterns (with discussion).
+<em>Journal of the Royal Statistical Society, Series B</em>,
+<b>39</b>, 172 &ndash; 212.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code> to create a three-dimensional point
+pattern (object of class <code>"pp3"</code>).
+</p>
+<p><code><a href="../../spatstat.explore/help/pcf3est.html">pcf3est</a></code>,
+<code><a href="../../spatstat.explore/help/F3est.html">F3est</a></code>,
+<code><a href="../../spatstat.explore/help/G3est.html">G3est</a></code>
+for other summary functions of
+a three-dimensional point pattern.
+</p>
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> to estimate the <i>K</i>-function of
+point patterns in two dimensions or other spaces.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- rpoispp3(42)
+  Z &lt;- K3est(X)
+  if(interactive()) plot(Z)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate an Expression in Each Row of a Hyperframe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for with.hyperframe {spatstat.geom}"><tr><td>with.hyperframe {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate an Expression in Each Row of a Hyperframe</h2>
+
+<h3>Description</h3>
+
+<p>An expression, involving the names of columns in a hyperframe,
+is evaluated separately for each row of the hyperframe.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'hyperframe'
+with(data, expr, ...,
+                         simplify = TRUE,
+                         ee = NULL, enclos=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>A hyperframe (object of class <code>"hyperframe"</code>)
+containing data.
+</p>
+</td></tr>
+<tr valign="top"><td><code>expr</code></td>
+<td>
+<p>An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language expression to be evaluated.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>simplify</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, the return value
+will be simplified to a vector whenever possible.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ee</code></td>
+<td>
+
+<p>Alternative form of <code>expr</code>, as an object of class
+<code>"expression"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>enclos</code></td>
+<td>
+
+<p>An environment in which to search for objects that are
+not found in the hyperframe. Defaults to <code><a href="../../base/html/sys.parent.html">parent.frame</a>()</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function evaluates the expression <code>expr</code> in each row
+of the hyperframe <code>data</code>. It is a method for the generic
+function <code><a href="../../base/html/with.html">with</a></code>.
+</p>
+<p>The argument <code>expr</code> should be an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language expression
+in which each variable name is either the name of a column in the
+hyperframe <code>data</code>, or the name of an object in the parent frame
+(the environment in which <code>with</code> was called.)
+The argument <code>ee</code> can be used as an alternative
+to <code>expr</code> and should be an expression object (of
+class <code>"expression"</code>).
+</p>
+<p>For each row of <code>data</code>, the expression will be evaluated
+so that variables which are column names of <code>data</code> are
+interpreted as the entries for those columns in the current row.
+</p>
+<p>For example, if a hyperframe <code>h</code> has columns
+called <code>A</code> and <code>B</code>, then <code>with(h, A != B)</code> inspects
+each row of <code>data</code> in turn,
+tests whether the entries in columns <code>A</code> and <code>B</code> are
+equal, and returns the <i>n</i> logical values.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Normally a list of length
+<i>n</i> (where <i>n</i> is the number of rows) containing the results
+of evaluating the expression for each row. 
+If <code>simplify=TRUE</code> and each result is a single atomic value,
+then the result is a vector or factor 
+containing the same values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>,
+<code><a href="../../spatstat.geom/help/plot.hyperframe.html">plot.hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # generate Poisson point patterns with intensities 10 to 100
+   H &lt;- hyperframe(L=seq(10,100, by=10))
+if(require(spatstat.random)) {
+   X &lt;- with(H, rpoispp(L))
+} else {
+   X &lt;- with(H, runifrect(rpois(1, L)))
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

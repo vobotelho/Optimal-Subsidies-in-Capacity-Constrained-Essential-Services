@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit a Log-Gaussian Cox Point Process by Minimum Contrast</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for lgcp.estK {spatstat.model}"><tr><td>lgcp.estK {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit a Log-Gaussian Cox Point Process by Minimum Contrast</h2>
+
+<h3>Description</h3>
+
+<p>Fits a log-Gaussian Cox point process model
+to a point pattern dataset by the Method of Minimum Contrast.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lgcp.estK(X, startpar=c(var=1,scale=1),
+             covmodel=list(model="exponential"),
+             lambda=NULL,
+             q = 1/4, p = 2, rmin = NULL, rmax = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data to which the model will be fitted.
+Either a point pattern or a summary statistic.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>startpar</code></td>
+<td>
+
+<p>Vector of starting values for the parameters of the
+log-Gaussian Cox process model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covmodel</code></td>
+<td>
+
+<p>Specification of the covariance model
+for the log-Gaussian field. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Optional. An estimate of the intensity of the point process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>q,p</code></td>
+<td>
+
+<p>Optional. Exponents for the contrast criterion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rmin, rmax</code></td>
+<td>
+
+<p>Optional. The interval of <i>r</i> values for the contrast criterion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments passed to <code><a href="../../stats/help/optim.html">optim</a></code>
+to control the optimisation algorithm. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm fits a log-Gaussian Cox point process (LGCP) model
+to a point pattern dataset by the Method of Minimum Contrast,
+using the K function of the point pattern.
+</p>
+<p>The shape of the covariance of the LGCP must be specified:
+the default is the exponential covariance function,
+but other covariance models can be selected.
+</p>
+<p>The argument <code>X</code> can be either
+</p>
+
+<dl>
+<dt>a point pattern:</dt><dd><p>An object of class <code>"ppp"</code>
+representing a point pattern dataset. 
+The <i>K</i> function of the point pattern will be computed
+using <code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code>, and the method of minimum contrast
+will be applied to this.
+</p>
+</dd>
+<dt>a summary statistic:</dt><dd><p>An object of class <code>"fv"</code> containing
+the values of a summary statistic, computed for a point pattern
+dataset. The summary statistic should be the <i>K</i> function,
+and this object should have been obtained by a call to
+<code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> or one of its relatives.
+</p>
+</dd>
+</dl>
+
+<p>The algorithm fits a log-Gaussian Cox point process (LGCP)
+model to <code>X</code>,  by finding the parameters of the LGCP model
+which give the closest match between the
+theoretical <i>K</i> function of the LGCP model
+and the observed <i>K</i> function.
+For a more detailed explanation of the Method of Minimum Contrast,
+see <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>The model fitted is a stationary, isotropic log-Gaussian Cox process
+(Moller and Waagepetersen, 2003, pp. 72-76).
+To define this process we start with
+a stationary Gaussian random field <i>Z</i> in the two-dimensional plane,
+with constant mean <i>mu</i> and covariance function <i>C(r)</i>.
+Given <i>Z</i>, we generate a Poisson point process <i>Y</i> with intensity
+function <i>lambda(u) = exp(Z(u))</i> at
+location <i>u</i>. Then <i>Y</i> is a log-Gaussian Cox process.
+</p>
+<p>The <i>K</i>-function of the LGCP is
+</p>
+<p style="text-align: center;"><i>
+    K(r) = integral from 0 to r of (2 * pi * s * exp(C(s))) ds.
+  </i></p>
+
+<p>The intensity of the LGCP is 
+</p>
+<p style="text-align: center;"><i>
+    lambda= exp(mu + C(0)/2).
+  </i></p>
+
+<p>The covariance function <i>C(r)</i> is parametrised in the form
+</p>
+<p style="text-align: center;"><i>
+    C(r) = sigma^2 * c(-r/alpha)
+  </i></p>
+
+<p>where <i>sigma^2</i> and <i>alpha</i> are parameters
+controlling the strength and the scale of autocorrelation,
+respectively, and <i>c(r)</i> is a known covariance function
+determining the shape of the covariance. 
+The strength and scale parameters
+<i>sigma^2</i> and <i>alpha</i>
+will be estimated by the algorithm as the values
+<code>var</code> and <code>scale</code> respectively.
+The template covariance function <i>c(r)</i> must be specified
+as explained below.
+</p>
+<p>In this algorithm, the Method of Minimum Contrast is first used to find
+optimal values of the parameters <i>sigma^2</i>
+and <i>alpha^2</i>. Then the remaining parameter
+<i>mu</i> is inferred from the estimated intensity
+<i>lambda</i>.
+</p>
+<p>The template covariance function <i>c(r)</i> is specified
+using the argument <code>covmodel</code>. This should be of the form
+<code>list(model="modelname", ...)</code> where
+<code>modelname</code> is a string identifying the template model
+as explained below, and  <code>...</code> are optional arguments of the
+form <code>tag=value</code> giving the values of parameters controlling the
+<em>shape</em> of the template model.
+The default is the exponential covariance
+<i>c(r) = e^(-r)</i>
+so that the scaled covariance is 
+</p>
+<p style="text-align: center;"><i>
+    C(r) = sigma^2 * exp(-r/alpha).
+  </i></p>
+
+<p>For a list of available models see <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+</p>
+<p>If the argument <code>lambda</code> is provided, then this is used
+as the value of <i>lambda</i>. Otherwise, if <code>X</code> is a
+point pattern, then  <i>lambda</i>
+will be estimated from <code>X</code>. 
+If <code>X</code> is a summary statistic and <code>lambda</code> is missing,
+then the intensity <i>lambda</i> cannot be estimated, and
+the parameter <i>mu</i> will be returned as <code>NA</code>.
+</p>
+<p>The remaining arguments <code>rmin,rmax,q,p</code> control the
+method of minimum contrast; see <code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code>.
+</p>
+<p>The optimisation algorithm can be controlled through the
+additional arguments <code>"..."</code> which are passed to the
+optimisation function <code><a href="../../stats/help/optim.html">optim</a></code>. For example,
+to constrain the parameter values to a certain range,
+use the argument <code>method="L-BFGS-B"</code> to select an optimisation
+algorithm that respects box constraints, and use the arguments
+<code>lower</code> and <code>upper</code> to specify (vectors of) minimum and
+maximum values for each parameter.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"minconfit"</code>. There are methods for printing
+and plotting this object. It contains the following main components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>par </code></td>
+<td>
+<p>Vector of fitted parameter values.</p>
+</td></tr>
+<tr valign="top"><td><code>fit </code></td>
+<td>
+<p>Function value table (object of class <code>"fv"</code>)
+containing the observed values of the summary statistic
+(<code>observed</code>) and the theoretical values of the summary
+statistic computed from the fitted model parameters.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>This function is considerably slower than <code><a href="../../spatstat.model/help/lgcp.estpcf.html">lgcp.estpcf</a></code>
+because of the computation time required for the integral
+in the <i>K</i>-function.
+</p>
+<p>Computation can be accelerated, at the cost of less accurate results,
+by setting <code>spatstat.options(fastK.lgcp=TRUE)</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Rasmus Plenge Waagepetersen <a href="mailto:rw@math.auc.dk">rw@math.auc.dk</a>.
+Adapted for <span class="pkg">spatstat</span> by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+Further modifications by Rasmus Waagepetersen
+and Shen Guochun, and by Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Moller, J, Syversveen, A. and Waagepetersen, R. (1998)
+Log Gaussian Cox Processes.
+<em>Scandinavian Journal of Statistics</em> <b>25</b>, 451&ndash;482.
+</p>
+<p>Moller, J. and Waagepetersen, R. (2003).
+Statistical Inference and Simulation for Spatial Point Processes.
+Chapman and Hall/CRC, Boca Raton.
+</p>
+<p>Waagepetersen, R. (2007)
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b>, 252&ndash;258.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/kppm.html">kppm</a></code> and
+<code><a href="../../spatstat.model/help/lgcp.estpcf.html">lgcp.estpcf</a></code> for alternative methods of fitting LGCP.
+</p>
+<p><code><a href="../../spatstat.model/help/matclust.estK.html">matclust.estK</a></code>,
+<code><a href="../../spatstat.model/help/thomas.estK.html">thomas.estK</a></code> for other models.
+</p>
+<p><code><a href="../../spatstat.model/help/mincontrast.html">mincontrast</a></code> for the generic minimum contrast
+fitting algorithm, including important parameters that affect
+the accuracy of the fit.
+</p>
+<p><code><a href="../../spatstat.explore/help/Kest.html">Kest</a></code> for the <i>K</i> function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    if(interactive()) {
+      u &lt;- lgcp.estK(redwood)
+      print(u)
+      plot(u)
+    } else {
+      # faster - better starting point
+      u &lt;- lgcp.estK(redwood, c(var=1.05, scale=0.1))
+    }
+  
+    
+    if(FALSE) {
+      ## takes several minutes!
+      lgcp.estK(redwood, covmodel=list(model="matern", nu=0.3))
+    }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

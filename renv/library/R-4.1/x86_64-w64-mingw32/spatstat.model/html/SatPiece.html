@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Piecewise Constant Saturated Pairwise Interaction Point...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for SatPiece {spatstat.model}"><tr><td>SatPiece {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Piecewise Constant Saturated Pairwise Interaction Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Creates an instance of a saturated pairwise interaction point process model
+with piecewise constant potential function. The model
+can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  SatPiece(r, sat)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>vector of jump points for the potential function</p>
+</td></tr>
+<tr valign="top"><td><code>sat</code></td>
+<td>
+
+<p>vector of saturation values,
+or a single saturation value
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a generalisation of the Geyer saturation point process model,
+described in <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>, to the case of multiple interaction
+distances. It can also be described as the saturated analogue of a
+pairwise interaction process with piecewise-constant pair potential,
+described in <code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code>.
+</p>
+<p>The saturated point process with interaction radii
+<i>r[1], ..., r[k]</i>,
+saturation thresholds <i>s[1],...,s[k]</i>,
+intensity parameter <i>beta</i> and
+interaction parameters
+<i>gamma[1], ..., gamma[k]</i>,
+is the point process
+in which each point
+<i>x[i]</i> in the pattern <i>X</i>
+contributes a factor
+</p>
+<p style="text-align: center;"><i>
+    beta gamma[1]^v(1, x_i, X) ... gamma[k]^v(k, x_i, X)
+  </i></p>
+
+<p>to the probability density of the point pattern,
+where
+</p>
+<p style="text-align: center;"><i>
+    v(j, x_i, X) = min(s[j], t(j, x_i, X))
+  </i></p>
+
+<p>where <i>t(j,x[i],X)</i> denotes the
+number of points in the pattern <i>X</i> which lie
+at a distance between <i>r[j-1]</i> and <i>r[j]</i>
+from the point <i>x[i]</i>. We take <i>r[0] = 0</i>
+so that <i>t(1, x[i], X)</i> is the number of points of
+<i>X</i> that lie within a distance <i>r[1]</i> of the point
+<i>x[i]</i>. 
+</p>
+<p><code>SatPiece</code> is used to fit this model to data.
+The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the piecewise constant Saturated pairwise
+interaction is yielded by the function <code>SatPiece()</code>.
+See the examples below.
+</p>
+<p>Simulation of this point process model is not yet implemented.
+This model is not locally stable (the conditional intensity is
+unbounded).
+</p>
+<p>The argument <code>r</code> specifies the vector of interaction distances.
+The entries of <code>r</code> must be strictly increasing, positive numbers.
+</p>
+<p>The argument <code>sat</code> specifies the vector of saturation parameters.
+It should be a vector of the same length as <code>r</code>, and its entries
+should be nonnegative numbers. Thus <code>sat[1]</code> corresponds to the
+distance range from <code>0</code> to <code>r[1]</code>, and <code>sat[2]</code> to the
+distance range from <code>r[1]</code> to <code>r[2]</code>, etc.
+Alternatively <code>sat</code> may be a single number, and this saturation
+value will be applied to every distance range.
+</p>
+<p>Infinite values of the
+saturation parameters are also permitted; in this case
+<i>v(j, x_i, X) = t(j, x_i, X)</i>
+and there is effectively no &lsquo;saturation&rsquo; for the distance range in
+question. If all the saturation parameters are set to <code>Inf</code> then
+the model is effectively a pairwise interaction process, equivalent to
+<code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code> (however the interaction parameters
+<i>gamma</i> obtained from <code><a href="../../spatstat.model/help/SatPiece.html">SatPiece</a></code> are the
+square roots of the parameters <i>gamma</i>
+obtained from <code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code>).
+</p>
+<p>If <code>r</code> is a single number, this model is virtually equivalent to the 
+Geyer process, see <code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the interpoint interaction
+structure of a point process. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+in collaboration with Hao Wang and Jeff Picka
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairsat.family.html">pairsat.family</a></code>,
+<code><a href="../../spatstat.model/help/Geyer.html">Geyer</a></code>,
+<code><a href="../../spatstat.model/help/PairPiece.html">PairPiece</a></code>,
+<code><a href="../../spatstat.model/help/BadGey.html">BadGey</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   SatPiece(c(0.1,0.2), c(1,1))
+   # prints a sensible description of itself
+   SatPiece(c(0.1,0.2), 1)
+
+   ppm(cells ~1, SatPiece(c(0.07, 0.1, 0.13), 2))
+   # fit a stationary piecewise constant Saturated pairwise interaction process
+
+   
+     ppm(cells ~polynom(x,y,3), SatPiece(c(0.07, 0.1, 0.13), 2))
+     # nonstationary process with log-cubic polynomial trend
+   
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

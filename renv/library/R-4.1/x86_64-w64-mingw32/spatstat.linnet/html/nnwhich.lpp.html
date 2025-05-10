@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Identify Nearest Neighbours on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nnwhich.lpp {spatstat.linnet}"><tr><td>nnwhich.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Identify Nearest Neighbours on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a pattern of points on a linear network, identify the
+nearest neighbour for each point, measured
+by the shortest path in the network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lpp'
+nnwhich(X, ..., k=1, method="C")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>Optional string determining the method of calculation.
+Either <code>"interpreted"</code> or <code>"C"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer, or integer vector. The algorithm will find the
+<code>k</code>th nearest neighbour. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a pattern of points on a linear network,
+this function finds the nearest neighbour of each point
+(i.e. for each point it identifies the nearest other point)
+measuring distance by the shortest path in the network.
+</p>
+<p>If <code>method="C"</code> the task is performed using
+code in the C language. If <code>method="interpreted"</code> then the
+computation is performed using interpreted <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code. The <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code is
+much slower, but is provided for checking purposes.
+</p>
+<p>The result is <code>NA</code> if the <code>k</code>th nearest neighbour
+does not exist. This can occur
+if there are fewer than <code>k+1</code> points in the dataset, or if
+the linear network is not connected.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An integer vector, of length equal to the number of points in
+<code>X</code>, identifying the nearest neighbour of each point.
+If <code>nnwhich(X)[2] = 4</code> then the nearest neighbour of
+point 2 is point 4.
+</p>
+<p>Alternatively a matrix with one row for each point in <code>X</code>
+and one column for each entry of <code>k</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lpp.html">lpp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(10, simplenet)
+   nnwhich(X)
+   nnwhich(X, k=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bandwidth Selection for Kernel Density Estimation by...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bw.taylor {spatstat.univar}"><tr><td>bw.taylor {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Bandwidth Selection for Kernel Density Estimation by Non-Random Bootstrap
+</h2>
+
+<h3>Description</h3>
+
+<p>Use Taylor's non-random bootstrap technique to select
+the bandwidth for kernel density estimation on the real line.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bw.taylor(x, ..., srange = NULL, useC = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Numeric vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>srange</code></td>
+<td>
+
+<p>Range of bandwidths to be considered.
+A numeric vector of length 2.
+</p>
+</td></tr>
+<tr valign="top"><td><code>useC</code></td>
+<td>
+
+<p>Logical value specifying whether to use faster C code.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects a bandwidth for kernel density estimation
+of a probability density on the real line,
+using the numeric data <code>x</code> and assuming a Gaussian kernel. The result
+is the numeric value of the standard deviation of the Gaussian kernel.
+</p>
+<p>The function uses the method of Taylor (1989) who showed that,
+when using the Gaussian kernel, the optimisation criterion
+can be computed rapidly from the data without any randomised
+resampling. 
+</p>
+<p>The domain of the probability density is assumed to be
+the entire real line. Boundary correction is not currently implemented.
+
+
+
+</p>
+<p>The result of <code>bw.taylor</code> is a single numeric value
+giving the selected bandwidth.
+
+
+
+
+
+
+
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numeric value.
+
+
+
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tilman Davies <a href="mailto:Tilman.Davies@otago.ac.nz">Tilman.Davies@otago.ac.nz</a> and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Taylor, C.C. (1989) Choice of the Smoothing Parameter in Kernel
+Density Estimation, <em>Biometrika</em> <b>76</b> 4, 705&ndash;712. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/bw.nrd.html">bw.nrd</a></code> in the <span class="pkg">stats</span> package
+for standard bandwidth selectors.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- rnorm(30)
+  bw.taylor(x)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

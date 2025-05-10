@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Elimination matrix for lower triangular matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for elimination.matrix {matrixcalc}"><tr><td>elimination.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Elimination matrix for lower triangular matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function returns a matrix with n * ( n + 1 ) / 2 rows and N * n columns which
+for any lower triangular matrix A transforms vec( A ) into vech(A)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+elimination.matrix(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> row or column dimension </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a wrapper function to the function <code>L.matrix</code>.
+The formula used to compute the L matrix which is also called the elimination matrix is  <i>{\bf{L}} = &sum;\limits_{j = 1}^n {&sum;\limits_{i = j}^n {{{\bf{u}}_{i,j}}{{&le;ft( {vec\;{{\bf{E}}_{i,j}}} \right)}^\prime }} } </i>
+<i>{{{\bf{u}}_{i,j}}}</i> are the order <i>n&le;ft( {n + 1} \right)/2</i> vectors constructed by the function <code>u.vectors</code>.
+<i>{{{\bf{E}}_{i,j}}}</i> are the <i> n \times n</i> matrices constructed by the function <code>E.matrices</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An <i>&le;ft[ {\frac{1}{2}n&le;ft( {n + 1} \right)} \right] \times {n^2}</i> matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>If the argument is not an integer, the function displays an error message and stops.
+If the argument is less than two, the function displays an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Magnus, J. R. and H. Neudecker (1980). The elimination matrix, some lemmas and applications,
+<em>SIAM Journal on Algebraic Discrete Methods</em>, 1(4), December 1980, 422-449.
+</p>
+<p>Magnus, J. R. and H. Neudecker (1999) <em>Matrix Differential Calculus with Applications in Statistics and Econometrics</em>,
+Second Edition, John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/E.matrices.html">E.matrices</a></code>,
+<code><a href="../../matrixcalc/help/L.matrix.html">L.matrix</a></code>,
+<code><a href="../../matrixcalc/help/u.vectors.html">u.vectors</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+L &lt;- elimination.matrix( 4 )
+A &lt;- lower.triangle( matrix( seq( 1, 16, 1 ), nrow=4, byrow=TRUE ) )
+vecA &lt;- vec( A )
+vechA &lt;- vech( A )
+y &lt;- L %*% vecA
+print( y )
+print( vechA )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Integral of Squared Kernel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kernel.squint {spatstat.univar}"><tr><td>kernel.squint {spatstat.univar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Integral of Squared Kernel</h2>
+
+<h3>Description</h3>
+
+<p>Computes the integral of the squared kernel,
+for the kernels used in density estimation
+for numerical data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  kernel.squint(kernel = "gaussian", bw=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>String name of the kernel.
+Options are
+<code>"gaussian"</code>, <code>"rectangular"</code>,
+<code>"triangular"</code>,
+<code>"epanechnikov"</code>,
+<code>"biweight"</code>,
+<code>"cosine"</code> and <code>"optcosine"</code>.
+(Partial matching is used).
+</p>
+</td></tr>
+<tr valign="top"><td><code>bw</code></td>
+<td>
+
+<p>Bandwidth (standard deviation) of the kernel.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Kernel estimation of a probability density in one dimension
+is performed by <code><a href="../../stats/help/density.default.html">density.default</a></code>
+using a kernel function selected from the list above.
+</p>
+<p>This function computes the integral of the squared kernel,
+</p>
+<p style="text-align: center;"><i>
+    R = integral of k(x)^2 dx from x = -infinity to x = +infinity
+  </i></p>
+
+<p>where <i>k(x)</i> is the kernel with bandwidth <code>bw</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single number.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Martin Hazelton <a href="mailto:Martin.Hazelton@otago.ac.nz">Martin.Hazelton@otago.ac.nz</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/density.default.html">density.default</a></code>,
+<code><a href="../../spatstat.univar/help/dkernel.html">dkernel</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.moment.html">kernel.moment</a></code>,
+<code><a href="../../spatstat.univar/help/kernel.factor.html">kernel.factor</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   kernel.squint("gaussian", 3)
+
+   # integral of squared Epanechnikov kernel with half-width h=1
+   h &lt;- 1
+   bw &lt;- h/kernel.factor("epa")
+   kernel.squint("epa", bw)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.univar</em> version 3.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

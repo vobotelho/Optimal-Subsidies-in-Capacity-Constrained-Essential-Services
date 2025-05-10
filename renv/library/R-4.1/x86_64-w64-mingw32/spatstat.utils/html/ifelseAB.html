@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conditional Selection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ifelseAB {spatstat.utils}"><tr><td>ifelseAB {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Conditional Selection
+</h2>
+
+<h3>Description</h3>
+
+<p>These low-level functions provide faster alternatives to
+some uses of <code>ifelse</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ifelseAB(test, a, b)
+ifelseAX(test, a, x)
+ifelseXB(test, x, b)
+ifelseXY(test, x, y)
+ifelseNegPos(test, x)
+ifelse0NA(test)
+ifelse1NA(test)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>test</code></td>
+<td>
+<p>A logical vector.</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>A single atomic value.</p>
+</td></tr>
+<tr valign="top"><td><code>b</code></td>
+<td>
+<p>A single atomic value.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A vector of values, of the same length as <code>test</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>A vector of values, of the same length as <code>test</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These low-level functions provide faster alternatives to
+some uses of <code><a href="../../base/help/ifelse.html">ifelse</a></code>. They were developed by
+trial-and-error comparison of computation times of different expressions.
+</p>
+<p><code>ifelse0NA(test)</code> is equivalent to <code>ifelse(test, 0, NA)</code>.
+</p>
+<p><code>ifelse1NA(test)</code> is equivalent to <code>ifelse(test, 1, NA)</code>.
+</p>
+<p><code>ifelseAB(test, a, b)</code> is equivalent to <code>ifelse(test, a, b)</code>
+where <code>a</code> and <code>b</code> must be single values.
+</p>
+<p><code>ifelseAX(test, a, x)</code> is equivalent to <code>ifelse(test, a, x)</code>
+where <code>a</code> must be a single value, and <code>x</code> a vector of the
+same length as <code>test</code>.
+</p>
+<p><code>ifelseXB(test, x, b)</code> is equivalent to <code>ifelse(test, x, b)</code>
+where <code>b</code> must be a single value, and <code>x</code> a vector of the
+same length as <code>test</code>.
+</p>
+<p><code>ifelseXY(test, x, y)</code> is equivalent to <code>ifelse(test, x, y)</code>
+where <code>x</code> and <code>y</code> must be vectors of the
+same length as <code>test</code>.
+</p>
+<p><code>ifelseNegPos(test, x)</code> is equivalent to <code>ifelse(test, x, -x)</code>
+where <code>x</code> must be a vector of the same length as <code>test</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of the same length as <code>test</code> containing values of the
+same type as <code>a,b,x,y</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/ifelse.html">ifelse</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   x &lt;- runif(4e5)
+   u &lt;- (x &lt; 0.5)
+   system.time(ifelse(u, 2, x))
+   system.time(ifelseAX(u, 2, x))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

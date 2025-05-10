@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Quadrature Weights Based on Dirichlet Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dirichletWeights {spatstat.geom}"><tr><td>dirichletWeights {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Quadrature Weights Based on Dirichlet Tessellation</h2>
+
+<h3>Description</h3>
+
+<p>Computes quadrature weights for a given set of points,
+using the areas of tiles in the Dirichlet tessellation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ dirichletWeights(X, window=NULL, exact=TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Data defining a point pattern.</p>
+</td></tr>
+<tr valign="top"><td><code>window</code></td>
+<td>
+<p>Default window for the point pattern</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+<p>Logical value. If <code>TRUE</code>, compute exact areas
+using the package <code>deldir</code>. If <code>FALSE</code>, compute
+approximate areas using a pixel raster.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes a set of quadrature weights
+for a given pattern of points
+(typically comprising both &ldquo;data&rdquo; and 'dummy&rdquo; points).
+See <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code> for an explanation of quadrature
+weights and quadrature schemes.
+</p>
+<p>The weights are computed using the Dirichlet tessellation.
+First <code>X</code> and (optionally) <code>window</code> are converted into a
+point pattern object. Then the Dirichlet tessellation of the points
+of <code>X</code> is computed.
+The weight attached to a point of <code>X</code> is the area of
+its Dirichlet tile (inside the window <code>Window(X)</code>).
+</p>
+<p>If <code>exact=TRUE</code> the Dirichlet tessellation is computed exactly
+by the Lee-Schachter algorithm using the package <code>deldir</code>.
+Otherwise a pixel raster approximation is constructed and the areas
+are approximations to the true weights. In all cases the sum of the
+weights is equal to the area of the window.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Vector of nonnegative weights for each point in <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.geom/help/gridweights.html">gridweights</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  Q &lt;- quadscheme(runifrect(10))
+  X &lt;- as.ppp(Q) # data and dummy points together
+  w &lt;- dirichletWeights(X, exact=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

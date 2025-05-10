@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Poisson Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rpoispp {spatstat.random}"><tr><td>rpoispp {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate Poisson Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern using the
+(homogeneous or inhomogeneous) Poisson process.
+Includes CSR (complete spatial randomness).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rpoispp(lambda, lmax=NULL, win=owin(), ...,
+         nsim=1, drop=TRUE, ex=NULL,
+         forcewin=FALSE, warnwin=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Intensity of the Poisson process.
+Either a single positive number, a <code>function(x,y, ...)</code>,
+or a pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lmax</code></td>
+<td>
+
+<p>Optional. An upper bound for the value of <code>lambda(x,y)</code>,
+if <code>lambda</code> is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Window in which to simulate the pattern.
+An object of class <code>"owin"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+(Ignored if <code>lambda</code> is a pixel image
+unless <code>forcewin=TRUE</code>.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code>lambda</code> if it is a function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ex</code></td>
+<td>
+
+<p>Optional. A point pattern to use as the example.
+If <code>ex</code> is given and <code>lambda,lmax,win</code> are missing,
+then <code>lambda</code> and <code>win</code> will be calculated from
+the point pattern <code>ex</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>forcewin</code></td>
+<td>
+
+<p>Logical value specifying whether to use the argument <code>win</code>
+as the simulation window when <code>lambda</code> is an image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warnwin</code></td>
+<td>
+
+<p>Logical value specifying whether to issue a warning
+when <code>win</code> is ignored (which occurs when <code>lambda</code>
+is an image, <code>win</code> is present and <code>forcewin=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>lambda</code> is a single number,
+then this algorithm generates a realisation
+of the uniform Poisson process (also known as 
+Complete Spatial Randomness, CSR) inside the window <code>win</code> with 
+intensity <code>lambda</code> (points per unit area).
+</p>
+<p>If <code>lambda</code> is a function, then this algorithm generates a realisation
+of the inhomogeneous Poisson process with intensity function
+<code>lambda(x,y,...)</code> at spatial location <code>(x,y)</code>
+inside the window <code>win</code>.
+The function <code>lambda</code> must work correctly with vectors <code>x</code>
+and <code>y</code>.
+</p>
+<p>If <code>lmax</code> is given,
+it must be an upper bound on the values of <code>lambda(x,y,...)</code>
+for all locations <code>(x, y)</code>
+inside the window <code>win</code>. That is, we must have
+<code>lambda(x,y,...) &lt;= lmax</code> for all locations <code>(x,y)</code>.
+If this is not true then the results of
+the algorithm will be incorrect.
+</p>
+<p>If <code>lmax</code> is missing or <code>NULL</code>,
+an approximate upper bound is computed by finding the maximum value
+of <code>lambda(x,y,...)</code>
+on a grid of locations <code>(x,y)</code> inside the window <code>win</code>,
+and adding a safety margin equal to 5 percent of the range of
+<code>lambda</code> values. This can be computationally intensive,
+so it is advisable to specify <code>lmax</code> if possible.
+</p>
+<p>If <code>lambda</code> is a pixel image object of class <code>"im"</code>
+(see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>), this algorithm generates a realisation
+of the inhomogeneous Poisson process with intensity equal to the
+pixel values of the image. (The value of the intensity function at an
+arbitrary location is the pixel value of the nearest pixel.)
+If <code>forcewin=FALSE</code> (the default),
+the simulation window will be the window of the pixel image
+(converted to a rectangle if possible
+using <code><a href="../../spatstat.geom/help/rescue.rectangle.html">rescue.rectangle</a></code>).
+If <code>forcewin=TRUE</code>, the simulation window will be the argument
+<code>win</code>.
+</p>
+<p>For <em>marked</em> point patterns, use <code><a href="../../spatstat.random/help/rmpoispp.html">rmpoispp</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>)
+if <code>nsim=1</code>, or a list of point patterns if <code>nsim &gt; 1</code>.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>Note that <code>lambda</code> is the <b>intensity</b>, that is,
+the expected number of points <b>per unit area</b>.
+The total number of points in the simulated
+pattern will be random with expected value <code>mu = lambda * a</code>
+where <code>a</code> is the area of the window <code>win</code>. 
+</p>
+
+
+<h3>Reproducibility</h3>
+
+<p>The simulation algorithm, for the case where
+<code>lambda</code> is a pixel image, was changed in <span class="pkg">spatstat</span>
+version <code>1.42-3</code>. Set <code>spatstat.options(fastpois=FALSE)</code>
+to use the previous, slower algorithm, if it is desired to reproduce
+results obtained with earlier versions.
+</p>
+<p>The previous slower algorithm uses &ldquo;thinning&rdquo;: it first generates a uniform
+Poisson process of intensity <code>lmax</code>,
+then randomly deletes or retains each point, independently of other points,
+with retention probability
+<i>p(x,y) = lambda(x,y)/lmax</i>.
+The new faster algorithm randomly selects pixels with
+probability proportional to intensity, and generates point locations
+inside the selected pixels.
+</p>
+<p>Thinning is still used when <code>lambda</code> is a <code>function(x,y,...)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rmpoispp.html">rmpoispp</a></code> for Poisson <em>marked</em> point patterns,
+<code><a href="../../spatstat.random/help/runifpoint.html">runifpoint</a></code> for a fixed number of independent
+uniform random points;
+<code><a href="../../spatstat.random/help/rpoint.html">rpoint</a></code>, <code><a href="../../spatstat.random/help/rmpoint.html">rmpoint</a></code> for a fixed number of
+independent random points with any distribution;
+<code><a href="../../spatstat.random/help/rMaternI.html">rMaternI</a></code>,
+<code><a href="../../spatstat.random/help/rMaternII.html">rMaternII</a></code>,
+<code><a href="../../spatstat.random/help/rSSI.html">rSSI</a></code>,
+<code><a href="../../spatstat.random/help/rStrauss.html">rStrauss</a></code>,
+<code><a href="../../spatstat.random/help/rstrat.html">rstrat</a></code>
+for random point processes with spatial inhibition
+or regularity; 
+<code><a href="../../spatstat.random/help/rThomas.html">rThomas</a></code>,
+<code><a href="../../spatstat.random/help/rGaussPoisson.html">rGaussPoisson</a></code>,
+<code><a href="../../spatstat.random/help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../../spatstat.random/help/rcell.html">rcell</a></code>
+for random point processes exhibiting clustering;
+<code><a href="../../spatstat.random/help/rmh.default.html">rmh.default</a></code> for Gibbs processes.
+See also <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # uniform Poisson process with intensity 100 in the unit square
+ pp &lt;- rpoispp(100)
+ 
+ # uniform Poisson process with intensity 1 in a 10 x 10 square
+ pp &lt;- rpoispp(1, win=owin(c(0,10),c(0,10)))
+ # plots should look similar !
+ 
+ # inhomogeneous Poisson process in unit square
+ # with intensity lambda(x,y) = 100 * exp(-3*x)
+ # Intensity is bounded by 100
+ pp &lt;- rpoispp(function(x,y) {100 * exp(-3*x)}, 100)
+
+ # How to tune the coefficient of x
+ lamb &lt;- function(x,y,a) { 100 * exp( - a * x)}
+ pp &lt;- rpoispp(lamb, 100, a=3)
+
+ # pixel image
+ Z &lt;- as.im(function(x,y){100 * sqrt(x+y)}, unit.square())
+ pp &lt;- rpoispp(Z)
+
+ # randomising an existing point pattern
+ rpoispp(intensity(cells), win=Window(cells))
+ rpoispp(ex=cells)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fourier Basis Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for fourierbasis {spatstat.geom}"><tr><td>fourierbasis {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fourier Basis Functions</h2>
+
+<h3>Description</h3>
+
+<p>Evaluates the Fourier basis functions
+on a <i>d</i>-dimensional box
+with <i>d</i>-dimensional frequencies <i>k_i</i> at the
+<i>d</i>-dimensional coordinates <i>x_j</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  fourierbasis(x, k, win = boxx(rep(list(0:1), ncol(k))))
+  fourierbasisraw(x, k, boxlengths)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Coordinates. 
+A <code>data.frame</code> or matrix with
+<i>n</i> rows and <i>d</i> columns giving
+the <i>d</i>-dimensional coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>Frequencies.
+A <code>data.frame</code> or matrix with <i>m</i> rows and <i>d</i> columns
+giving the frequencies of the Fourier-functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>window (of class <code>"owin"</code>, <code>"box3"</code> or <code>"boxx"</code>)
+giving the <i>d</i>-dimensional box domain of the Fourier functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>boxlengths</code></td>
+<td>
+
+<p>numeric giving the side lengths of the box domain of the Fourier functions.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The result is an <i>m</i> by <i>n</i> matrix where the <i>(i,j)</i>'th
+entry is the <i>d</i>-dimensional Fourier basis function with
+frequency <i>k_i</i> evaluated at the point <i>x_j</i>, i.e.,
+</p>
+<p style="text-align: center;"><i>
+    1/sqrt(|W|) * exp(2*pi*i*(k_{i,1}*x_{j,1}/L_1 + ... + k_{i,d}*x_{j,d}/L_d))
+  </i></p>
+
+<p>where <i>L_l</i>, <i>l=1,...,d</i> are the box side lengths
+and <i>|W|</i> is the volume of the 
+domain (window/box). Note that the algorithm does not check whether
+the coordinates given in <code>x</code> are contained in the given box.
+Actually the box is only used to determine the side lengths and volume of the
+domain for normalization.
+</p>
+<p>The stripped down faster version <code>fourierbasisraw</code> doesn't do checking or
+conversion of arguments and requires <code>x</code> and <code>k</code> to be matrices.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An <code>m</code> by <code>n</code> matrix of complex values.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## 27 rows of three dimensional Fourier frequencies:
+k &lt;- expand.grid(-1:1,-1:1, -1:1)
+## Two random points in the three dimensional unit box:
+x &lt;- rbind(runif(3),runif(3))
+## 27 by 2 resulting matrix:
+v &lt;- fourierbasis(x, k)
+head(v)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

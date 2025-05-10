@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Log-Gaussian Cox Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rLGCP {spatstat.random}"><tr><td>rLGCP {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate Log-Gaussian Cox Process</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern, a realisation of the
+log-Gaussian Cox process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rLGCP(model=c("exponential", "gauss", "stable", "gencauchy", "matern"),
+       mu = 0, param = NULL,
+       ...,
+       win=NULL, saveLambda=TRUE, nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>character string (partially matched) giving the name of a
+covariance model for the Gaussian random field. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>mean function of the Gaussian random field. Either a
+single number, a <code>function(x,y, ...)</code> or a pixel
+image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>param</code></td>
+<td>
+
+<p>List of parameters for the covariance.
+Standard arguments are <code>var</code> and <code>scale</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional parameters for the covariance,
+or arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code> to determine
+the pixel resolution.
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Window in which to simulate the pattern.
+An object of class <code>"owin"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>saveLambda</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default) then the
+simulated random intensity will also be saved,
+and returns as an attribute of the point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a realisation of a log-Gaussian Cox
+process (LGCP). This is a Cox point process in which
+the logarithm of the random intensity is a Gaussian random
+field with mean function <i>&mu;</i> and covariance function
+<i>c(r)</i>. Conditional on the random intensity, the point process
+is a Poisson process with this intensity.
+</p>
+<p>The string <code>model</code> specifies the covariance 
+function of the Gaussian random field, and the parameters
+of the covariance are determined by <code>param</code> and <code>...</code>.
+</p>
+<p>All models recognise the parameters <code>var</code>
+for the variance at distance zero, and <code>scale</code> for the scale
+parameter. Some models require additional parameters which are listed
+below. 
+</p>
+<p>The available models are as follows:
+</p>
+
+<dl>
+<dt><code>model="exponential"</code>:</dt><dd>
+<p>the exponential covariance function
+</p>
+<p style="text-align: center;"><i>C(r) = sigma^2 * exp(-r/h)</i></p>
+
+<p>where <i>&sigma;^2</i> is the variance parameter <code>var</code>,
+and <i>h</i> is the scale parameter <code>scale</code>.
+</p>
+</dd>
+<dt><code>model="gauss"</code>:</dt><dd>
+<p>the Gaussian covariance function
+</p>
+<p style="text-align: center;"><i>C(r) = sigma^2 * exp(-(r/h)^2)</i></p>
+
+<p>where <i>&sigma;^2</i> is the variance parameter <code>var</code>,
+and <i>h</i> is the scale parameter <code>scale</code>.
+</p>
+</dd>
+<dt><code>model="stable"</code>:</dt><dd>
+<p>the stable covariance function
+</p>
+<p style="text-align: center;"><i>
+	C(r) = sigma^2 * exp(-(r/h)^alpha)
+      </i></p>
+
+<p>where <i>&sigma;^2</i> is the variance parameter <code>var</code>,
+<i>h</i> is the scale parameter <code>scale</code>,
+and <i>&alpha;</i> is the shape parameter <code>alpha</code>.
+The parameter <code>alpha</code> must be given, either as a stand-alone
+argument, or as an entry in the list <code>param</code>.
+</p>
+</dd>
+<dt><code>model="gencauchy"</code>:</dt><dd>
+<p>the generalised Cauchy covariance function
+</p>
+<p style="text-align: center;"><i>
+	C(r) = sigma^2 * (1 + (x/h)^&alpha;)^(-&beta;/&alpha;)
+      </i></p>
+
+<p>where <i>&sigma;^2</i> is the variance parameter <code>var</code>,
+<i>h</i> is the scale parameter <code>scale</code>,
+and <i>&alpha;</i> and <i>&beta;</i> are the shape parameters
+<code>alpha</code> and <code>beta</code>.
+The parameters <code>alpha</code> and <code>beta</code>
+must be given, either as stand-alone arguments, or as entries
+in the list <code>param</code>.
+</p>
+</dd>
+<dt><code>model="matern"</code>:</dt><dd>
+<p>the Whittle-Matern covariance function
+</p>
+<p style="text-align: center;"><i>
+	C(r) = &sigma;^2 * 2^(1-&nu;) * &Gamma;(&nu;)^(-1) *
+	       (sqrt(2 *&nu;) * r/h)^&nu; * K[&nu;](sqrt(2 * nu) * r/h)
+      </i></p>
+
+<p>where <i>&sigma;^2</i> is the variance parameter <code>var</code>,
+<i>h</i> is the scale parameter <code>scale</code>,
+and <i>&nu;</i> is the shape parameter <code>nu</code>.
+The parameter <code>nu</code> must be given, either as a stand-alone
+argument, or as an entry in the list <code>param</code>.
+</p>
+</dd>
+</dl>
+
+<p>The algorithm uses the circulant embedding technique to 
+generate values of a Gaussian random field,
+with the specified mean function <code>mu</code>
+and the covariance specified by the arguments <code>model</code> and
+<code>param</code>, on the points of a regular grid. The exponential
+of this random field is taken as the intensity of a Poisson point
+process, and a realisation of the Poisson process is then generated by the 
+function <code><a href="../help/rpoispp.html">rpoispp</a></code> in the <span class="pkg">spatstat.random</span> package.
+</p>
+<p>If the simulation window <code>win</code> is missing or <code>NULL</code>,
+then it defaults to 
+<code>Window(mu)</code> if <code>mu</code> is a pixel image,
+and it defaults to the unit square otherwise.
+</p>
+<p>The LGCP model can be fitted to data using <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>)
+or a list of point patterns.
+</p>
+<p>Additionally, the simulated intensity function for each point pattern is
+returned as an attribute <code>"Lambda"</code> of the point pattern,
+if <code>saveLambda=TRUE</code>.
+</p>
+
+
+<h3>Warning: new implementation</h3>
+
+<p>The simulation algorithm for <code>rLGCP</code> has been completely re-written
+in <span class="pkg">spatstat.random</span> version <code>3.2-0</code> to avoid depending on
+the package <span class="pkg">RandomFields</span> which is now defunct (and is sadly missed).
+</p>
+<p>It is no longer possible to replicate results that were obtained using
+<code>rLGCP</code> in previous versions of <span class="pkg">spatstat.random</span>.
+</p>
+<p>The current code is a new implementation and should be considered
+vulnerable to new bugs. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Abdollah Jalilian and Rasmus Waagepetersen.
+Modified by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Moller, J., Syversveen, A. and Waagepetersen, R. (1998)
+Log Gaussian Cox Processes.
+<em>Scandinavian Journal of Statistics</em> <b>25</b>, 451&ndash;482.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rpoispp.html">rpoispp</a></code>,
+<code><a href="../help/rMatClust.html">rMatClust</a></code>,
+<code><a href="../help/rGaussPoisson.html">rGaussPoisson</a></code>,
+<code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>.
+</p>
+<p>For fitting the model, see <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.model/help/lgcp.estK.html">lgcp.estK</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    online &lt;- interactive()
+
+    # homogeneous LGCP with exponential covariance function
+    X &lt;- rLGCP("exp", 3, var=0.2, scale=.1)
+
+    # inhomogeneous LGCP with Gaussian covariance function
+    m &lt;- as.im(function(x, y){5 - 1.5 * (x - 0.5)^2 + 2 * (y - 0.5)^2}, W=owin())
+    X &lt;- rLGCP("gauss", m, var=0.15, scale =0.1)
+
+    if(online) {
+     plot(attr(X, "Lambda"))
+     points(X)
+    }
+
+    # inhomogeneous LGCP with Matern covariance function
+    X &lt;- rLGCP("matern", function(x, y){ 1 - 0.4 * x},
+               var=2, scale=0.7, nu=0.5,
+               win = owin(c(0, 10), c(0, 10)))
+    if(online) plot(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

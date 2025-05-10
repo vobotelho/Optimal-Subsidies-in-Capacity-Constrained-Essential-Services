@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest Neighbour Map on Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nnfun.lpp {spatstat.linnet}"><tr><td>nnfun.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nearest Neighbour Map on Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the nearest neighbour function of a point pattern on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'lpp'
+nnfun(X, ..., k=1, value=c("index", "mark"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network
+(object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>Integer. The algorithm finds the <code>k</code>th nearest neighbour in
+<code>X</code> from any spatial location.    
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>String (partially matched) specifying whether to return the
+index of the neighbour (<code>value="index"</code>, the default)
+or the mark value of the neighbour (<code>value="mark"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Other arguments are ignored. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The (geodesic) <em>nearest neighbour function</em> of a
+point pattern <code>X</code> on a linear network <code>L</code>
+tells us which point of <code>X</code> is closest to
+any given location.
+</p>
+<p>If <code>X</code> is a point pattern on a linear network <code>L</code>,
+the <em>nearest neighbour function</em> of <code>X</code>
+is the mathematical function <i>f</i> defined for any 
+location <i>s</i> on the network by <code>f(s) = i</code>, where
+<code>X[i]</code> is the closest point of <code>X</code> to the location <code>s</code>
+measured by the shortest path. In other words the value of <code>f(s)</code>
+is the identifier or serial number of the closest point of <code>X</code>.
+</p>
+<p>The command <code>nnfun.lpp</code> is a method for the generic command
+<code><a href="../../spatstat.geom/help/nnfun.html">nnfun</a></code>
+for the class <code>"lpp"</code> of point patterns on a linear network.
+</p>
+<p>If <code>X</code> is a point pattern on a linear network,
+<code>f &lt;- nnfun(X)</code> returns a <em>function</em>
+in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with arguments <code>x,y, ...</code>, that represents the
+nearest neighbour function of <code>X</code>. Evaluating the function <code>f</code>
+in the form <code>v &lt;- f(x,y)</code>, where <code>x</code> and <code>y</code>
+are any numeric vectors of equal length containing coordinates of
+spatial locations, yields a vector of identifiers or serial numbers of
+the data points closest to these spatial locations.
+More efficiently <code>f</code> can take the arguments
+<code>x, y, seg, tp</code> where <code>seg</code> and <code>tp</code> are the local
+coordinates on the network.
+</p>
+<p>The result of <code>f &lt;- nnfun(X)</code> also belongs to the class
+<code>"linfun"</code>.
+It can be printed and plotted immediately as shown in the Examples.
+It can be converted to a pixel image
+using <code><a href="../../spatstat.linnet/help/as.linim.html">as.linim</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with arguments <code>x,y</code> and optional
+arguments <code>seg,tp</code>.
+It also belongs to the class <code>"linfun"</code> which has methods
+for <code>plot</code>, <code>print</code> etc.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linfun.html">linfun</a></code>,
+<code><a href="../../spatstat.linnet/help/methods.linfun.html">methods.linfun</a></code>.
+</p>
+<p>To compute the <em>distance</em> to the nearest neighbour, see
+<code><a href="../../spatstat.linnet/help/distfun.lpp.html">distfun.lpp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- runiflpp(3, simplenet)
+   f &lt;- nnfun(X)
+   f
+   plot(f)
+   plot(nnfun(chicago, value="m"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

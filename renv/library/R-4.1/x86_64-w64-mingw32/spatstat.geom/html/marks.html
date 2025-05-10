@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Marks of a Point Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for marks {spatstat.geom}"><tr><td>marks {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Marks of a Point Pattern</h2>
+
+<h3>Description</h3>
+
+<p>Extract or change the marks attached to
+a point pattern dataset.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+marks(x, ...)
+
+## S3 method for class 'ppp'
+marks(x, ..., dfok=TRUE, drop=TRUE)           
+
+## S3 method for class 'ppx'
+marks(x, ..., drop=TRUE)
+
+marks(x, ...) &lt;- value
+
+## S3 replacement method for class 'ppp'
+marks(x, ..., dfok=TRUE, drop=TRUE) &lt;- value
+
+## S3 replacement method for class 'ppx'
+marks(x, ...) &lt;- value
+
+setmarks(x, value)
+
+x %mark% value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Point pattern dataset (object of class <code>"ppp"</code> or <code>"ppx"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dfok</code></td>
+<td>
+
+<p>Logical. If <code>FALSE</code>, data frames of marks are not permitted
+and will generate an error.
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, a data frame consisting of a single column
+of marks will be converted to a vector or factor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Replacement value. A vector, data frame or hyperframe of mark values,
+or <code>NULL</code>. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions extract or change the marks
+attached to the points of the point pattern <code>x</code>.
+</p>
+<p>The expression <code>marks(x)</code> extracts the marks of <code>x</code>.
+The assignment <code>marks(x) &lt;- value</code> assigns new marks to the
+dataset <code>x</code>, and updates the dataset <code>x</code> in the current
+environment. The expression <code>setmarks(x,value)</code>
+or equivalently <code>x %mark% value</code> returns a point pattern
+obtained by replacing the marks of <code>x</code> by <code>value</code>, but does
+not change the dataset <code>x</code> itself.
+</p>
+<p>For point patterns in two-dimensional space (objects of class
+<code>"ppp"</code>) the marks can be a vector, a factor, or a data frame.
+</p>
+<p>For general point patterns (objects of class &quot;ppx&quot;) the
+marks can be a vector, a factor, a data frame or a
+hyperframe.
+</p>
+<p>For the assignment <code>marks(x) &lt;- value</code>, the <code>value</code>
+should be a vector or factor of length equal to the number of
+points in <code>x</code>, or a data frame or hyperframe with as many rows
+as there are points in <code>x</code>. If <code>value</code> is a single value,
+or a data frame or hyperframe with one row, then it will be replicated
+so that the same marks will be attached to each point.
+</p>
+<p>To remove marks, use <code>marks(x) &lt;- NULL</code> or
+<code><a href="../../spatstat.geom/help/unmark.html">unmark</a>(x)</code>.
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code> or <code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code>
+to create point patterns in more general
+situations.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>marks(x)</code>, the result is a vector, factor, data frame or hyperframe,
+containing the mark values attached to the points of <code>x</code>.
+</p>
+<p>For <code>marks(x) &lt;- value</code>, the result is the updated point pattern
+<code>x</code> (with the side-effect that the dataset <code>x</code> is updated in
+the current environment).
+</p>
+<p>For <code>setmarks(x,value)</code> and <code>x %mark% value</code>, the return value
+is the point pattern obtained by replacing the
+marks of <code>x</code> by <code>value</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code>,
+<code><a href="../../spatstat.geom/help/unmark.html">unmark</a></code>,
+<code><a href="../../spatstat.geom/help/hyperframe.html">hyperframe</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- amacrine
+   # extract marks
+   m &lt;- marks(X)
+   # recode the mark values "off", "on" as 0, 1
+   marks(X) &lt;- as.integer(m == "on")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nearest Neighbour Index Map as a Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nnfun {spatstat.geom}"><tr><td>nnfun {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Nearest Neighbour Index Map as a Function 
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the nearest neighbour index map of an object,
+and return it as a function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nnfun(X, ...)
+
+  ## S3 method for class 'ppp'
+nnfun(X, ..., k=1, value=c("index", "mark"))
+
+  ## S3 method for class 'psp'
+nnfun(X, ..., value=c("index", "mark"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Any suitable dataset representing a two-dimensional
+collection of objects,
+such as a point pattern (object of class <code>"ppp"</code>)
+or a line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+
+<p>A single integer. The <code>k</code>th nearest neighbour will be found.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments are ignored. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>String (partially matched) specifying whether to return the
+index of the neighbour (<code>value="index"</code>, the default)
+or the mark value of the neighbour (<code>value="mark"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For a collection <i>X</i> of two dimensional objects
+(such as a point pattern or a line segment pattern),
+the &ldquo;nearest neighbour index function&rdquo;
+of <i>X</i> is the mathematical function <i>f</i> such that, for any 
+two-dimensional spatial location <i>(x,y)</i>,
+the function value <code>f(x,y)</code>
+is the index <i>i</i> identifying the closest member of <i>X</i>.
+That is, if <i>i = f(x,y)</i> then <i>X[i]</i> is the closest member of
+the collection <i>X</i> to the location <i>(x,y)</i>.
+</p>
+<p>The command <code>f &lt;- nnfun(X)</code> returns a <em>function</em>
+in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, with arguments <code>x,y</code>, that represents the
+nearest neighbour index function of <code>X</code>. Evaluating the function <code>f</code>
+in the form <code>v &lt;- f(x,y)</code>, where <code>x</code> and <code>y</code>
+are any numeric vectors of equal length containing coordinates of
+spatial locations, yields the indices of the nearest neighbours
+to these locations.
+</p>
+<p>If the argument <code>k</code> is specified then the <code>k</code>-th nearest
+neighbour will be found.
+</p>
+<p>The result of <code>f &lt;- nnfun(X)</code> also belongs to the class
+<code>"funxy"</code> and to the special class <code>"nnfun"</code>.
+It can be printed and plotted immediately as shown in the Examples.
+</p>
+<p>A <code>nnfun</code> object can be converted to a pixel image
+using <code><a href="../../spatstat.geom/help/as.im.html">as.im</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>function</code> with arguments <code>x,y</code>.
+The function also belongs to the class <code>"nnfun"</code> which has
+a method for <code>print</code>.
+It also belongs to the class <code>"funxy"</code> which has methods
+for <code>plot</code>, <code>contour</code> and <code>persp</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/distfun.html">distfun</a></code>,
+<code><a href="../../spatstat.geom/help/plot.funxy.html">plot.funxy</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   f &lt;- nnfun(cells)
+   f
+   plot(f)
+   f(0.2, 0.3)
+
+   g &lt;- nnfun(cells, k=2)
+   g(0.2, 0.3)
+
+   plot(nnfun(amacrine, value="m"))
+
+   L &lt;- psp(runif(10), runif(10), runif(10), runif(10), window=owin())
+   h &lt;- nnfun(L)
+   h(0.2, 0.3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

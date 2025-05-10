@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determine Breakpoints for Cut</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for exactCutBreaks {spatstat.utils}"><tr><td>exactCutBreaks {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Determine Breakpoints for Cut
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the numerical breakpoints used by <code>cut.default</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+exactCutBreaks(x, breaks)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Numeric vector which would be converted to a factor.</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+
+<p>Either a numeric vector of breakpoints,
+or a single integer giving the number of intervals into which
+<code>x</code> will be cut.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function contains a copy of the code in
+<code><a href="../../base/help/cut.html">cut.default</a></code> which determines the
+numerical breakpoints used to convert <code>x</code> to a factor.
+It returns the breakpoints only.
+</p>
+<p>The arguments <code>x</code> and <code>breaks</code> have the same interpretation
+as in <code><a href="../../base/help/cut.html">cut.default</a></code>. Only the range of <code>x</code>
+is used in the computation, so <code>x</code> could be replaced by <code>range(x)</code>.
+</p>
+<p>This function would normally be used when <code>breaks</code> is a single
+integer specifying the number of intervals for the cut operation.
+It returns the exact numerical values of the breakpoints which are
+determined, but not returned, by <code><a href="../../base/help/cut.html">cut.default</a></code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/help/cut.html">cut.default</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   exactCutBreaks(c(0,1), 4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

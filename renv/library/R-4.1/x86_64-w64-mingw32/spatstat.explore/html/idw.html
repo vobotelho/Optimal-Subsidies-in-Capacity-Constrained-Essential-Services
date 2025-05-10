@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inverse-distance weighted smoothing of observations at...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for idw {spatstat.explore}"><tr><td>idw {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Inverse-distance weighted smoothing of observations at irregular points</h2>
+
+<h3>Description</h3>
+
+<p>Performs spatial smoothing of numeric values observed
+at a set of irregular locations using inverse-distance weighting.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+idw(X, power=2, at=c("pixels", "points"), ..., se=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A marked point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>power</code></td>
+<td>
+<p>Numeric. Power of distance used in the weighting.</p>
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+<p>Character string specifying whether to compute the intensity values
+at a grid of pixel locations (<code>at="pixels"</code>) or
+only at the points of <code>X</code> (<code>at="points"</code>).
+String is partially matched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>
+to control the pixel resolution of the result.</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+
+<p>Logical value specifying whether to calculate a standard error.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function performs spatial smoothing of numeric values
+observed at a set of irregular locations.
+</p>
+<p>Smoothing is performed by inverse distance weighting. If the
+observed values are <i>v[1],...,v[n]</i>
+at locations <i>x[1],...,x[n]</i> respectively,
+then the smoothed value at a location <i>u</i> is
+</p>
+<p style="text-align: center;"><i>
+    g(u) = (sum of w[i] * v[i])/(sum of w[i])
+  </i></p>
+
+<p>where the weights are the inverse <i>p</i>-th powers of distance,
+</p>
+<p style="text-align: center;"><i>
+    w[i] = 1/d(u,x[i])^p
+  </i></p>
+
+<p>where <i>d(u,x[i])</i>
+is the Euclidean distance from <i>u</i> to <i>x[i]</i>.
+</p>
+<p>The argument <code>X</code> must be a marked point pattern (object
+of class <code>"ppp"</code>, see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>).
+The points of the pattern are taken to be the
+observation locations <i>x[i]</i>, and the marks of the pattern
+are taken to be the numeric values <i>v[i]</i> observed at these
+locations.
+</p>
+<p>The marks are allowed to be a data frame.
+Then the smoothing procedure is applied to each
+column of marks. 
+</p>
+<p>If <code>at="pixels"</code> (the default), the smoothed mark value
+is calculated at a grid of pixels, and the result is a pixel image.
+The arguments <code>...</code> control the pixel resolution.
+See <code><a href="../../spatstat.geom/help/as.mask.html">as.mask</a></code>.
+</p>
+<p>If <code>at="points"</code>, the smoothed mark values are calculated
+at the data points only, using a leave-one-out rule (the mark value
+at a data point is excluded when calculating the smoothed value
+for that point). 
+</p>
+<p>An estimate of standard error is also calculated, if <code>se=TRUE</code>.
+The calculation assumes that the data point locations are fixed,
+that is, the standard error only takes into account the variability
+in the mark values, and not the variability due to randomness of the
+data point locations.
+</p>
+<p>An alternative to  inverse-distance weighting is kernel smoothing,
+which is performed by <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><em>If <code>X</code> has a single column of marks:</em>
+</p>
+
+<ul>
+<li> 
+<p>If <code>at="pixels"</code> (the default), the result is
+a pixel image (object of class <code>"im"</code>). 
+Pixel values are values of the interpolated function.
+</p>
+</li>
+<li>
+<p>If <code>at="points"</code>, the result is a numeric vector
+of length equal to the number of points in <code>X</code>.
+Entries are values of the interpolated function at the points of <code>X</code>.
+</p>
+</li></ul>
+
+<p><em>If <code>X</code> has a data frame of marks:</em>
+</p>
+
+<ul>
+<li> 
+<p>If <code>at="pixels"</code> (the default), the result is a named list of 
+pixel images (object of class <code>"im"</code>). There is one
+image for each column of marks. This list also belongs to
+the class <code>"solist"</code>, for which there is a plot method.
+</p>
+</li>
+<li>
+<p>If <code>at="points"</code>, the result is a data frame
+with one row for each point of <code>X</code>,
+and one column for each column of marks. 
+Entries are values of the interpolated function at the points of <code>X</code>.
+</p>
+</li></ul>
+
+<p>If <code>se=TRUE</code>, then the result is a list
+with two entries named <code>estimate</code> and <code>SE</code>, which
+each have the format described above.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+Variance calculation by Andrew P Wheeler with modifications by
+Adrian Baddeley.
+</p>
+
+
+<h3>References</h3>
+
+<p>Shepard, D. (1968) A two-dimensional interpolation function for
+irregularly-spaced data.
+<em>Proceedings of the 1968 ACM National Conference</em>,
+1968, pages 517&ndash;524. DOI: 10.1145/800186.810616
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/density.ppp.html">density.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.explore/help/Smooth.ppp.html">Smooth.ppp</a></code> for kernel smoothing,
+<code><a href="../../spatstat.explore/help/SpatialMedian.ppp.html">SpatialMedian.ppp</a></code> for median smoothing
+and <code><a href="../../spatstat.geom/help/nnmark.html">nnmark</a></code> for nearest-neighbour interpolation.
+</p>
+<p>To perform other kinds of interpolation, see also the <code>akima</code> package.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # data frame of marks: trees marked by diameter and height
+   plot(idw(finpines))
+   idw(finpines, at="points")[1:5,]
+   plot(idw(finpines, se=TRUE)$SE)
+   idw(finpines, at="points", se=TRUE)$SE[1:5, ]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

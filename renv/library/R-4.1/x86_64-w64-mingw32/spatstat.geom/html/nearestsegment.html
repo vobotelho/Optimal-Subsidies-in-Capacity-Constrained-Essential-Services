@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find Line Segment Nearest to Each Point</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for nearestsegment {spatstat.geom}"><tr><td>nearestsegment {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find Line Segment Nearest to Each Point</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern and a line segment pattern,
+this function finds the nearest line segment for each point.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nearestsegment(X, Y)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+<p>A line segment pattern (object of class <code>"psp"</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The distance between a point <code>x</code> and a straight line segment <code>y</code> is
+defined to be the shortest Euclidean distance between <code>x</code> and any
+location on <code>y</code>. This algorithm first calculates the distance
+from each point of <code>X</code> to
+each segment of <code>Y</code>. Then it determines, for each point <code>x</code> in
+<code>X</code>, which segment of <code>Y</code> is closest. The index of this
+segment is returned.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Integer vector <code>v</code> (of length equal to the number of points in
+<code>X</code>) identifying the nearest segment to each point.
+If <code>v[i] = j</code>, then
+<code>Y[j]</code> is the line segment lying closest to <code>X[i]</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/project2segment.html">project2segment</a></code> to project each point of <code>X</code> to
+a point lying on one of the line segments.
+</p>
+<p>Use <code><a href="../../spatstat.geom/help/distmap.psp.html">distmap.psp</a></code> to 
+identify the nearest line segment for each pixel in a grid.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runifrect(3)
+  Y &lt;- as.psp(matrix(runif(20), 5, 4), window=owin())
+  v &lt;- nearestsegment(X,Y)
+  plot(Y)
+  plot(X, add=TRUE)
+  plot(X[1], add=TRUE, col="red")
+  plot(Y[v[1]], add=TRUE, lwd=2, col="red") 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

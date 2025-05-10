@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Intensity Estimates Using Quadrat Counts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for intensity.quadratcount {spatstat.geom}"><tr><td>intensity.quadratcount {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Intensity Estimates Using Quadrat Counts
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses quadrat count data to estimate the intensity of a point pattern
+in each tile of a tessellation, assuming the intensity is constant in
+each tile.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'quadratcount'
+intensity(X, ..., image=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>An object of class <code>"quadratcount"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>image</code></td>
+<td>
+
+<p>Logical value specifying whether to return
+a table of estimated intensities (the default)
+or a pixel image of the estimated intensity (<code>image=TRUE</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code> to determine
+the resolution of the pixel image, if <code>image=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>.
+It computes an estimate of the intensity of a point pattern
+from its quadrat counts.
+</p>
+<p>The argument <code>X</code> should be an object of class
+<code>"quadratcount"</code>. It would have been obtained by applying the function
+<code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code> to a point pattern
+(object of class <code>"ppp"</code>). It contains
+the counts of the numbers of points of the point pattern falling in each
+tile of a tessellation.
+</p>
+<p>Using this information, <code>intensity.quadratcount</code>
+divides the quadrat counts by the tile areas,
+yielding the average density of points per unit area
+in each tile of the tessellation.
+</p>
+<p>If <code>image=FALSE</code> (the default), these intensity values
+are returned in a contingency table. Cells of the contingency
+table correspond to tiles of the tessellation.
+</p>
+<p>If <code>image=TRUE</code>, the estimated intensity function is
+returned as a pixel image. For each pixel, the pixel value is the
+estimated intensity in the tile which contains that pixel.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>image=FALSE</code> (the default), a contingency table.
+If <code>image=TRUE</code>, a pixel image (object of class <code>"im"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/intensity.html">intensity</a></code>, 
+<code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  qa &lt;- quadratcount(swedishpines, 4,3)
+  qa
+  intensity(qa)
+  plot(intensity(qa, image=TRUE))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

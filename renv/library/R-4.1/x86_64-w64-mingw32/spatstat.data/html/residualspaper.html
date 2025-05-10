@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data and Code From JRSS Discussion Paper on Residuals</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for residualspaper {spatstat.data}"><tr><td>residualspaper {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Data and Code From JRSS Discussion Paper on Residuals
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset contains the point patterns
+used as examples in the paper of Baddeley et al (2005).
+[Figure 2 is already available in <span class="pkg">spatstat.data</span>
+as the <code><a href="../help/copper.html">copper</a></code> dataset.] 
+</p>
+<p>R code is also provided to reproduce all
+the Figures displayed in Baddeley et al (2005).
+The component <code>plotfig</code>
+is a function, which can be called
+with a numeric or character argument specifying the Figure or Figures
+that should be plotted. See the Examples.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(residualspaper)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>residualspaper</code> is a list with the following components:
+</p>
+
+<dl>
+<dt>Fig1</dt><dd>
+<p>The locations of Japanese pine seedlings and saplings
+from Figure 1 of the paper.
+A point pattern (object of class <code>"ppp"</code>).
+</p>
+</dd>
+<dt>Fig3</dt><dd>
+<p>The Chorley-Ribble data from Figure 3 of the paper.
+A list with three components, <code>lung</code>, <code>larynx</code>
+and <code>incin</code>. Each is a matrix with 2 columns
+giving the coordinates of the lung cancer cases,
+larynx cancer cases, and the incinerator, respectively.
+Coordinates are Eastings and Northings in km.
+</p>
+</dd>
+<dt>Fig4a</dt><dd>
+<p>The synthetic dataset in Figure 4 (a) of the paper.
+</p>
+</dd>
+<dt>Fig4b</dt><dd>
+<p>The synthetic dataset in Figure 4 (b) of the paper.
+</p>
+</dd>
+<dt>Fig4c</dt><dd>
+<p>The synthetic dataset in Figure 4 (c) of the paper.
+</p>
+</dd>
+<dt>Fig11</dt><dd>
+<p>The covariate displayed in Figure 11. A pixel image (object of
+class <code>"im"</code>) whose pixel values are distances to the
+nearest line segment in the <code>copper</code> data.
+</p>
+</dd>
+<dt>plotfig</dt><dd><p>A function which will compute and plot
+any of the Figures from the paper. The argument of
+<code>plotfig</code> is either a numeric vector or a character vector,
+specifying the Figure or Figures to be plotted. See the Examples.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>Figure 1: Prof M. Numata. Data kindly supplied by Professor Y. Ogata
+with kind permission of Prof M. Tanemura.
+</p>
+<p>Figure 3:  Professor P.J. Diggle (rescaled by Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>)
+</p>
+<p>Figure 4 (a,b,c): Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Turner, R., Moller, J. and Hazelton, M. (2005)
+Residual analysis for spatial point processes.
+<em>Journal of the Royal Statistical Society, Series B</em>
+<b>67</b>, 617&ndash;666.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+if(FALSE) {
+  data(residualspaper)
+  
+  if(require(spatstat.model)) {
+
+  X &lt;- residualspaper$Fig4a
+  summary(X)
+  plot(X)
+
+  # reproduce all Figures
+  residualspaper$plotfig()
+
+  # reproduce Figures 1 to 10
+  residualspaper$plotfig(1:10)
+
+  # reproduce Figure 7 (a)
+  residualspaper$plotfig("7a")
+  }
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

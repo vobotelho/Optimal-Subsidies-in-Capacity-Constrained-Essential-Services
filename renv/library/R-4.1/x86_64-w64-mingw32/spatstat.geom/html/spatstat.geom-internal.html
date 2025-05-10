@@ -1,0 +1,502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal spatstat.geom functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for spatstat.geom-internal {spatstat.geom}"><tr><td>spatstat.geom-internal {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal spatstat.geom functions</h2>
+
+<h3>Description</h3>
+
+<p>Internal spatstat.geom functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'diagramobj'
+x[...]
+## S3 method for class 'pp3'
+x[i, drop, ...]
+## S3 method for class 'splitppx'
+x[...]
+## S3 replacement method for class 'splitppx'
+x[...] &lt;- value
+acedist.show(X, Y, n, d, timelag)
+acedist.noshow(X, Y, n, d)
+## S3 method for class 'diagramobj'
+affine(X, ...)
+affinexy(X, mat, vec, invert)
+affinexypolygon(p, mat, vec, detmat)
+allElementsIdentical(x, entry)
+anycrossing.psp(A,B)
+applytolayers(L, FUN, ...)
+applyPolyclipArgs(x, p)
+areaGain.diri(u, X, r, ..., W, verbose)
+areaGain.grid(u, X, r, ..., W, ngrid)
+areaLoss.diri(X, r, ..., W, subset)
+areaLoss.grid(X, r, ..., W, subset,
+                         method = c("count", "distmap"),
+                         ngrid = spatstat.options("ngrid.disc"),
+                         exact = FALSE)
+areaLoss.poly(X, r, ..., W, subset, splitem)
+AsMaskInternal(w, ..., eps, dimyx, xy, rule.eps)
+AsymmDistance.psp(X, Y, metric, method)
+## S3 method for class 'unitname'
+as.character(x, ...)
+## S3 method for class 'ppplist'
+as.data.frame(x, row.names, ...)
+## S3 method for class 'im'
+as.double(x, ...)
+as.imlist(x, check)
+as.linimlist(x, check)
+## S3 method for class 'hyperframe'
+as.list(x, ...)
+as.listof(x)
+as.ppplist(x, check)
+as.unitname(s)
+avenndist(X)
+bbEngine(...)
+bdry.mask(W)
+## S3 method for class 'list'
+boundingbox(...)
+bounding.box3(...)
+break.holes(x, splitby, depth, maxdepth)
+cartesian(pp, markset, fac = TRUE)
+cellmiddles(W, nx, ny, npix, distances)
+checkbigmatrix(n, m, fatal, silent)
+checkfields(X,L)
+check.arc(arc, fatal)
+check.finespacing(r, eps, win, rmaxdefault, context, action, rname)
+circunion(arcs)
+clip.psp(x, window, check, fragments)
+cliprect.psp(x, window, fragments)
+clippoly.psp(s, window, fragments)
+closethresh(X,R,S,twice,...)
+cocoEngine(nv, ie, je, algoname)
+coerce.marks.numeric(X, warn)
+crosspairquad(Q,rmax,what)
+cobble.xy(x, y, f, fatal, ...)
+codetime(x, hms, what)
+col.args.to.grey(x, ...)
+commonPolyclipArgs(..., p)
+conform.imagelist(X, Zlist)
+countingweights(id, areas, check = TRUE)
+default.n.tiling(X, nd, ntile, npix, eps, random, quasi, verbose)
+default.ntile(X)
+## S3 method for class 'hyperframe'
+dimnames(x)
+## S3 replacement method for class 'hyperframe'
+dimnames(x) &lt;- value
+dflt.redraw(button, name, env)
+diagramobj(X, ...)
+## S3 method for class 'hyperframe'
+dim(x)
+## S3 method for class 'im'
+dim(x)
+## S3 method for class 'owin'
+dim(x)
+dist2dpath(dist, method="C")
+do.as.im(x, action, ..., W, eps, dimyx, xy, rule.eps, na.replace)
+do.call.plotfun(fun, arglist, ..., envir)
+drawSignedPoly(x,y,pars,sgn)
+emptywindow(w)
+equalpairs.quad(Q)
+equals.quad(Q)          
+equalsfun.quad(Q)
+erodemask(w,r,strict)
+even.breaks.owin(w)
+exactdt(X, ...)              
+exactPdt(w)
+existsSpatstatVariable(name)
+expandSpecialLists(x, special)
+fakemaintitle(bb, main, ...)
+fft2D(z, inverse, west)
+fftwAvailable()
+fillNA(x, value)
+## S3 method for class 'diagramobj'
+flipxy(X)
+flipxypolygon(p)
+## S3 method for class 'numberwithunit'
+format(x, ..., collapse, modifier)
+framebottomleft(w)
+gammabreaks(ra, n, gamma)
+genericNNdistBy(X, by, k)
+getfields(X, L, fatal = TRUE)
+getlastshift(X)
+getSpatstatVariable(name, default)
+gridindex(x, y, xrange, yrange, nx, ny)            
+grid1index(x, xrange, nx)
+grow.mask(M, xmargin=0, ymargin=xmargin)
+handle.r.b.args(r = NULL, breaks = NULL, window, pixeps = NULL, rmaxdefault)
+## S3 method for class 'hyperframe'
+head(x,n,...)
+hsvNA(h, s, v, alpha)
+idorempty(w, r, caller)
+imageOp(e1, e2, op)
+imagelistOp(e1, e2, op)
+inpoint(W)
+inside.arc(theta, arc)
+interpretAsOrigin(x, W)
+intX.owin(w)
+intX.xypolygon(polly)
+intY.owin(w)
+intY.xypolygon(polly)
+invokeColourmapRule(colfun, x, ..., zlim, colargs)
+is.col.argname(x)
+is.data(Q)
+is.fv(x)
+is.hyperframe(x)
+is.imlist(x)
+is.infline(x)
+## Default S3 method:
+is.marked(...)  
+## S3 method for class 'psp'
+is.marked(X, ...)
+## S3 method for class 'quad'
+is.marked(X, na.action="warn", ...)
+## Default S3 method:
+is.multitype(X, ...)  
+## S3 method for class 'quad'
+is.multitype(X, na.action="warn", ...)
+is.ppplist(x)
+is.pp3(x)
+is.ppx(x)
+is.psp(x)
+is.quad(x)
+is.solist(x)
+is.sob(x)
+is.tess(x)
+is.vanilla(u)
+## S3 method for class 'im'
+levels(x)
+## S3 replacement method for class 'im'
+levels(x) &lt;- value
+levelsAsFactor(x)
+listof(...)
+logi.dummy(X, dummytype, nd, mark.repeat, ...)
+markvaluetype(x)
+packupNNdata(NND, NNW, what, k)
+parbreak(terse)
+perspVisible(x, y, z, M)
+plan.legend.layout(B, ..., side, sep, leg.size, sep.frac, size.frac,
+                   started, map)
+pointweights(X, ..., weights, parent, dfok)
+polytileareaEngine(P, xrange, yrange, nx, ny, DivideByPixelArea)
+putSpatstatVariable(name, value)
+lookup.im(Z, x, y, naok, strict)
+majorminorversion(v)
+makeunitname(sing, plur, mul)
+markappend(...)
+markcbind(...)
+markformat(x)
+## S3 method for class 'ppp'
+markformat(x) 
+## S3 method for class 'ppx'
+markformat(x) 
+## S3 method for class 'psp'
+markformat(x) 
+## Default S3 method:
+markformat(x) 
+mark.scale.default(marx, w, ...,
+                   markrange,
+                   markscale, maxsize, meansize,
+                   minsize, zerosize, characters)
+markspace.integral(X)
+## Default S3 method:
+marks(x, ...)
+## S3 method for class 'quad'
+marks(x, dfok=FALSE, ...)
+markappendop(x, y)
+x %mapp% y
+marksubset(x, index, format)
+marksubsetop(x, i)
+x %msub% i
+markreplicateop(x, n)
+x %mrep% n
+mask2df(w)
+maxflow(costm)
+meanX.owin(w)            
+meanY.owin(w)
+MinimalTess(W, ...)
+multiplicityNumeric(x)
+multiply.only.finite.entries(x, a)
+na.handle.im(X, na.replace)
+## S3 method for class 'hyperframe'
+names(x)
+## S3 replacement method for class 'hyperframe'
+names(x) &lt;- value
+nearest.pixel(x, y, Z)
+nearest.valid.pixel(x, y, Z, method, nsearch)
+n.quad(Q)
+numberwithunit(x, u)
+numeric.columns(M, logical, others)
+onecolumn(m)
+owinInternalRect(xrange, yrange, ..., unitname,
+                 check)
+owinInternalMask(xrange, yrange, ..., mask, unitname, xy,
+                 check)
+owinInternalPoly(xrange, yrange, ..., poly, unitname,
+                 check, calculate, strict, fix)
+owinpolycheck(W, verbose=TRUE)
+owinpoly2mask(w, rasta, check=TRUE)
+owin2polypath(w)
+param.quad(Q)
+PDtoNN(d, what, k, ...)
+pickoption(what="option", key, keymap, ...,
+           exact=FALSE, list.on.err=TRUE, die=TRUE, multi=FALSE,
+           allow.all=TRUE)
+plotEachLayer(x, ..., main, plotargs, add, show.all, do.plot)
+plot3Dpoints(xyz, eye, org,
+             ...,
+             type, xlim, ylim, zlim,
+             add, box, main, cex, box.back, box.front)
+plotPolygonBdry(x, ...)
+plotWidthMap(bb.leg, zlim, phys.scale, leg.scale, leg.side, leg.args, grafpar)
+## S3 method for class 'barplotdata'
+plot(x, ...)
+## S3 method for class 'indicfun'
+plot(x, W, ..., main)
+pointgrid(W, ngrid)
+ppllengine(X, Y, action="project", check=FALSE)
+pppdist.mat(X, Y, cutoff = 1, q = 1, matching = TRUE,
+            precision = 9, approximation = 10)
+pppdist.prohorov(X, Y, n, dfix, type, cutoff, matching,
+            ccode, auction, precision, approximation) 
+ppsubset(X, I, Iname, fatal)
+prepareTitle(main)
+## S3 method for class 'anylist'
+print(x, ...)
+## S3 method for class 'colourmap'
+print(x, ...)
+## S3 method for class 'distfun'
+print(x, ...)
+## S3 method for class 'funxy'
+print(x, ...)
+## S3 method for class 'hyperframe'
+print(x, ...)
+## S3 method for class 'indicfun'
+print(x, ...)
+## S3 method for class 'layered'
+print(x, ...)
+## S3 method for class 'lut'
+print(x, ...)
+## S3 method for class 'metric'
+print(x, ...)
+## S3 method for class 'metricfun'
+print(x, ...)
+## S3 method for class 'nnfun'
+print(x, ...)
+## S3 method for class 'numberwithunit'
+print(x, ...)
+## S3 method for class 'onearrow'
+print(x, ...)
+## S3 method for class 'pppmatching'
+print(x, ...)
+## S3 method for class 'simplepanel'
+print(x, ...)
+## S3 method for class 'solist'
+print(x, ...)
+## S3 method for class 'splitppp'
+print(x, ...)
+## S3 method for class 'splitppx'
+print(x, ...)
+## S3 method for class 'summary.distfun'
+print(x, ...)
+## S3 method for class 'summary.funxy'
+print(x, ...)
+## S3 method for class 'summary.hyperframe'
+print(x, ...)
+## S3 method for class 'summary.listof'
+print(x, ...)
+## S3 method for class 'summary.logiquad'
+print(x, ..., dp=3)
+## S3 method for class 'summary.lut'
+print(x, ...)
+## S3 method for class 'summary.owin'
+print(x, ...)
+## S3 method for class 'summary.ppp'
+print(x, ..., dp)
+## S3 method for class 'summary.psp'
+print(x, ...)
+## S3 method for class 'summary.splitppp'
+print(x, ...)
+## S3 method for class 'summary.solist'
+print(x, ...)
+## S3 method for class 'summary.splitppx'
+print(x, ...)
+## S3 method for class 'summary.symbolmap'
+print(x, ...)
+## S3 method for class 'summary.unitname'
+print(x, ...)
+## S3 method for class 'symbolmap'
+print(x, ...)
+## S3 method for class 'textstring'
+print(x, ...)
+## S3 method for class 'texturemap'
+print(x, ...)
+## S3 method for class 'tess'
+print(x, ..., brief=FALSE)
+## S3 method for class 'timed'
+print(x, ...)
+## S3 method for class 'yardstick'
+print(x, ...)
+project3Dhom(xyz, eye, org, vert)
+putlastshift(X, vec)
+qtPrepareCoordinate(covname, W, origin)
+quad(data, dummy, w, param)
+quadscheme.replicated(data, dummy, method, ...)
+quadscheme.spatial(data, dummy, method, ...)
+rasterfilter(X, f)
+rastersample(X, Y)
+rasterx.mask(w, drop)
+rastery.mask(w, drop)
+rasterxy.mask(w, drop)
+rasterx.im(x)
+rastery.im(x)
+rasterxy.im(x, drop)
+rebound(x, rect)
+## S3 method for class 'im'
+rebound(x, rect)  
+## S3 method for class 'ppp'
+rebound(x, rect) 
+## S3 method for class 'psp'
+rebound(x, rect) 
+## S3 method for class 'owin'
+rebound(x, rect)
+recognise.spatstat.type(x)
+rectquadrat.breaks(xr, yr, nx = 5, ny = nx, xbreaks = NULL, ybreaks = NULL)
+rectquadrat.countEngine(x, y, xbreaks, ybreaks, weights)
+## S3 method for class 'diagramobj'
+reflect(X)
+remove.identical.pairs(cl, imap, jmap)
+repair.image.xycoords(x)
+repair.old.factor.image(x)
+resolve.stringsAsFactors(stringsAsFactors)
+restrict.mask(M, W)
+reversePolyclipArgs(x, p)
+rgbNA(red, green, blue, alpha, maxColorValue)
+## S3 method for class 'diagramobj'
+rotate(X, ...)
+rotxy(X, angle = pi/2)
+rotxypolygon(p, angle = pi/2)
+## S3 method for class 'hyperframe'
+row.names(x)
+## S3 replacement method for class 'hyperframe'
+row.names(x) &lt;- value
+ruletextline(ch, n, terse)
+safedeldir(X)
+safeDevCapabilities()
+safelookup(Z, x, factor, warn)
+## S3 method for class 'breakpts'
+scalardilate(X, f, ...)
+## S3 method for class 'diagramobj'
+scalardilate(X, f, ...)
+## S3 method for class 'diagramobj'
+shift(X, ...)
+## S3 method for class 'quadratcount'
+shift(X, ...)
+shiftxy(X, vec = c(0, 0))
+shiftxypolygon(p, vec = c(0, 0))
+simulationresult(resultlist, nsim, drop, NameBase)
+smudge(X)
+## S3 method for class 'im'
+sort(x, ...)
+spatstatDiagnostic(msg)
+spatstat.deldir.setopt(use.trigrafS, use.trigraf, debug.delaunay)
+spatstat.xy.coords(x, y)
+store.versionstring.spatstat()
+## S3 method for class 'hyperframe'
+str(object, ...)
+## S3 method for class 'hyperframe'
+summary(object, ..., brief=FALSE)
+## S3 method for class 'logiquad'
+summary(object, ..., checkdup=FALSE)
+## S3 method for class 'lut'
+summary(object, ...)
+## S3 method for class 'metric'
+summary(object, ...)
+## S3 method for class 'pppmatching'
+summary(object, ...)
+## S3 method for class 'ppx'
+summary(object, ...)
+## S3 method for class 'splitppx'
+summary(object, ...)
+## S3 method for class 'symbolmap'
+summary(object, ...)
+superimposeMarks(arglist, nobj)
+symbolmapdomain(x)
+symbolmapparnames(x)
+symbolmaptype(x)
+symbol.sizes.default(markvalues, ...)
+## S3 method for class 'hyperframe'
+tail(x,n,...)
+thickSegments(x, widths, ...,
+             add, main, do.plot, show.all, show.window,
+             scale, adjust, negative.args,
+             legend, leg.side, leg.sep, leg.wid, leg.args, leg.scale,
+             zlim, box)
+tilecentroids(W, nx, ny)
+trianglediameters(iedge, jedge, edgelength, ...,
+                  nvert, dmax, check)
+trim.mask(M, R, tolerant)
+tweak.closepairs(cl, rmax, i, deltax, deltay, deltaz)
+x %unit% u
+## Default S3 method:
+unitname(x) 
+## Default S3 replacement method:
+unitname(x) &lt;- value 
+unstackFilter(x)
+## S3 method for class 'im'
+update(object, ...) 
+validradius(r, caller)
+validate.mask(w, fatal=TRUE)        
+validate.quad(Q, fatal, repair, announce)
+versioncurrency.spatstat(today, checkR)
+versionstring.spatstat()
+veryunique(z)
+verifyclass(X, C, N = deparse(substitute(X)), fatal = TRUE)
+warn.once(key, ...)
+warn.no.metric.support(caller, ..., metric)
+warn.unsupported.args(unsup, ...)
+waxlyrical(type, terse)
+wrangle2image(values, template)
+w.quad(Q)               
+x.quad(Q)
+y.quad(Q)
+xy.grid(xr, yr, nx, ny, dx, dy)
+## S3 method for class 'im'
+xtfrm(x)
+xypolyselfint(p, eps, proper, yesorno, checkinternal)
+XDtoNN(d, what, iX, iY, k, ...)
+xypolygon2psp(p, w, check)
+ZeroValue(x)
+## S3 method for class 'im'
+ZeroValue(x)
+
+
+
+
+
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These internal <span class="pkg">spatstat.geom</span> functions should not be called
+directly by the user. Their names and capabilities may change
+without warning from one version of <span class="pkg">spatstat.geom</span> to the next.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return values of these functions are not documented,
+and may change without warning.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

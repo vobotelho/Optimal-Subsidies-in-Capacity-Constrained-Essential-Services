@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Galaxies in the Shapley Supercluster</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for shapley {spatstat.data}"><tr><td>shapley {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Galaxies in the Shapley Supercluster</h2>
+
+<h3>Description</h3>
+
+<p>A point pattern recording the sky positions of 4215 galaxies
+in the Shapley Supercluster.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(shapley)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>shapley</code> is an object of class <code>"ppp"</code>
+representing the point pattern of galaxy locations
+(see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>).
+</p>
+<p><code>shapley.extra</code> is a list containing additional data
+described under Notes.
+</p>
+
+
+<h3>Notes</h3>
+
+<p>This dataset comes from a survey by Drinkwater et al (2004) 
+of the Shapley Supercluster, one of the most massive concentrations
+of galaxies in the local universe. The data give the sky positions
+of 4215 galaxies observed using the FLAIR-II spectrograph
+on the UK Schmidt Telescope (UKST). They were kindly provided by
+Dr Michael Drinkwater through the Centre for Astrostatistics
+at Penn State University.
+</p>
+<p>Sky positions are given using the coordinates
+Right Ascension (degrees from 0 to 360) and
+Declination (degrees from -90 to 90).
+</p>
+<p>The point pattern has three mark variables:
+</p>
+
+<dl>
+<dt>Mag</dt><dd>
+<p>Galaxy magnitude (a negative logarithmic measure of
+visible brightness).
+</p>
+</dd>
+<dt>V</dt><dd>
+<p>Recession velocity (km/sec) inferred from redshift,
+with corrections applied.
+</p>
+</dd>
+<dt>SigV</dt><dd>
+<p>Estimated standard error for <code>V</code>.
+</p>
+</dd>
+</dl>
+
+<p>The region covered by the survey was approximately the
+UKST's standard quadrilateral survey fields 382 to 384 and 443 to 446.
+However, a few of the galaxy positions lie outside these fields.
+</p>
+<p>The point pattern dataset <code>shapley</code> consists of all 4215 galaxy
+locations. The observation window for this pattern is a
+dilated copy of the convex hull of the galaxy positions,
+constructed so that all galaxies lie within the window.
+</p>
+<p>Note that the data contain duplicated points (two points at the
+same location). To determine which points are duplicates,
+use <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>.
+To remove the duplication, use <code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code>.
+</p>
+<p>The auxiliary dataset <code>shapley.extra</code> contains 
+the following components:
+</p>
+
+<dl>
+<dt><code>UKSTfields</code></dt><dd>
+<p>a list of seven windows
+(objects of class <code>"owin"</code>) giving the UKST standard survey
+fields.
+</p>
+</dd>
+<dt><code>UKSTdomain</code></dt><dd>
+<p>the union of these seven fields,
+an object of class <code>"owin"</code>.
+</p>
+</dd>
+<dt><code>plotit</code></dt><dd>
+<p>a function (called without arguments)
+that will plot the data and the survey fields
+in the conventional astronomical presentation,
+in which Right Ascension is converted
+to hours and minutes (1 hour equals 15 degrees) and 
+Right Ascension decreases as we move to the right of the plot.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>M.J. Drinkwater, Department of Physics, University of
+Queensland</p>
+
+
+<h3>References</h3>
+
+<p>Drinkwater, M.J., Parker, Q.A., Proust, D., Slezak, E.
+and Quintana, H. (2004)
+The large scale distribution of galaxies in the Shapley
+Supercluster.
+<em>Publications of the Astronomical Society of Australia</em>
+<b>21</b>, 89-96. <code>DOI 10.1071/AS03057</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  data(shapley)
+  if(require(spatstat.geom)) {
+  shapley.extra$plotit(main="Shapley Supercluster")
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

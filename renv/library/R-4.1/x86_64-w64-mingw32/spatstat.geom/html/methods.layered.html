@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for Layered Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.layered {spatstat.geom}"><tr><td>methods.layered {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for Layered Objects
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for geometrical transformations of
+layered objects (class <code>"layered"</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'layered'
+shift(X, vec=c(0,0), ...)
+
+  ## S3 method for class 'layered'
+rotate(X, ..., centre=NULL)
+
+  ## S3 method for class 'layered'
+affine(X, ...)
+
+  ## S3 method for class 'layered'
+reflect(X)
+
+  ## S3 method for class 'layered'
+flipxy(X)
+
+  ## S3 method for class 'layered'
+rescale(X, s, unitname)
+
+  ## S3 method for class 'layered'
+scalardilate(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Object of class <code>"layered"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to the relevant methods
+when applying the operation to each layer of <code>X</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>Rescaling factor passed to the relevant method for
+<code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>. May be missing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>vec</code></td>
+<td>
+
+<p>Shift vector (numeric vector of length 2).
+</p>
+</td></tr>
+<tr valign="top"><td><code>centre</code></td>
+<td>
+
+<p>Centre of rotation.
+Either a vector of length 2, or a character string
+(partially matched to <code>"centroid"</code>, <code>"midpoint"</code>
+or <code>"bottomleft"</code>).
+The default is the coordinate origin <code>c(0,0)</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. New name for the unit of length.
+A value acceptable to the function <code><a href="../../spatstat.geom/help/unitname+3C-.html">unitname&lt;-</a></code>
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../spatstat.geom/help/shift.html">shift</a></code>,
+<code><a href="../../spatstat.geom/help/rotate.html">rotate</a></code>,
+<code><a href="../../spatstat.geom/help/reflect.html">reflect</a></code>,
+<code><a href="../../spatstat.geom/help/affine.html">affine</a></code>,
+<code><a href="../../spatstat.geom/help/rescale.html">rescale</a></code>,
+<code><a href="../../spatstat.geom/help/scalardilate.html">scalardilate</a></code> and
+<code><a href="../../spatstat.geom/help/flipxy.html">flipxy</a></code>
+for the class of layered objects.
+</p>
+<p>A layered object represents data that should be plotted in
+successive layers, for example, a background and a foreground.
+See <code><a href="../../spatstat.geom/help/layered.html">layered</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"layered"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/layered.html">layered</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  B &lt;- owin(c(5500, 9000), c(2500, 7400))
+  L &lt;- layered(Window(demopat), unmark(demopat)[B])
+  plot(L)
+  plot(rotate(L, pi/4))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

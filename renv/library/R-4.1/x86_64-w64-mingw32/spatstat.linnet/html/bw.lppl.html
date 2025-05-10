@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Likelihood Cross Validation Bandwidth Selection for Kernel...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for bw.lppl {spatstat.linnet}"><tr><td>bw.lppl {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Likelihood Cross Validation Bandwidth Selection for Kernel Density on
+a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Uses likelihood cross-validation to select a smoothing bandwidth
+for the kernel estimation of point process intensity on a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   bw.lppl(X, ..., srange=NULL, ns=16, sigma=NULL, weights=NULL,
+           distance=c("euclidean", "path"), shortcut=TRUE, warn=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>srange</code></td>
+<td>
+
+<p>Optional numeric vector of length 2 giving the
+range of values of bandwidth to be searched.
+</p>
+</td></tr>
+<tr valign="top"><td><code>ns</code></td>
+<td>
+
+<p>Optional integer giving the number of values of
+bandwidth to search.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Optional. Vector of values of the bandwidth to be searched.
+Overrides the values of <code>ns</code> and <code>srange</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+
+<p>Optional. Numeric vector of weights for the points of <code>X</code>.
+Argument passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>distance</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code> controlling the
+type of kernel estimator. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>shortcut</code></td>
+<td>
+
+<p>Logical value indicating whether to speed up the calculation
+by omitting the integral term in the cross-validation criterion.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, issue a warning if the maximum of
+the cross-validation criterion occurs at one of the ends of the
+search interval.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function selects an appropriate bandwidth <code>sigma</code>
+for the kernel estimator of point process intensity
+computed by <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>.
+</p>
+<p>The argument <code>X</code> should be a point pattern on a linear network
+(class <code>"lpp"</code>).
+</p>
+<p>The bandwidth <i>&sigma;</i> is chosen to 
+maximise the point process likelihood cross-validation criterion
+</p>
+<p style="text-align: center;"><i>
+    LCV(&sigma;) = sum[i] log(&lambda;[-i](x[i])) - integral[L] &lambda;(u) du
+  </i></p>
+
+<p>where the sum is taken over all the data points <i>x[i]</i>,
+where <i>&lambda;[-i](x_i)</i> is the
+leave-one-out kernel-smoothing estimate of the intensity at
+<i>x[i]</i> with smoothing bandwidth <i>&sigma;</i>,
+and <i>&lambda;(u)</i> is the kernel-smoothing estimate
+of the intensity at a spatial location <i>u</i> with smoothing
+bandwidth <i>&sigma;</i>.
+See Loader(1999, Section 5.3).
+</p>
+<p>The value of <i>LCV(&sigma;)</i> is computed
+directly, using <code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>, 
+for <code>ns</code> different values of <i>&sigma;</i>
+between <code>srange[1]</code> and <code>srange[2]</code>.
+</p>
+<p>The result is a numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+which can be plotted to show the (rescaled) mean-square error
+as a function of <code>sigma</code>.
+</p>
+<p>If <code>shortcut=TRUE</code>, the computation is accelerated by
+omitting the integral term in the equation above. This is valid
+because the integral is approximately constant.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value giving the selected bandwidth.
+The result also belongs to the class <code>"bw.optim"</code>
+(see <code><a href="../../spatstat.explore/help/bw.optim.object.html">bw.optim.object</a></code>)
+which can be plotted to show the bandwidth selection criterion
+as a function of <code>sigma</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan, Suman Rakshit and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Loader, C. (1999)
+<em>Local Regression and Likelihood</em>.
+Springer, New York.
+</p>
+<p>McSwiggan, G., Baddeley, A. and Nair, G. (2019)
+Estimation of relative risk for events on a linear network.
+<em>Statistics and Computing</em> <b>30</b> (2) 469&ndash;484.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/density.lpp.html">density.lpp</a></code>,
+<code><a href="../../spatstat.explore/help/bw.scott.html">bw.scott</a></code>.
+</p>
+<p><code><a href="../../spatstat.explore/help/bw.optim.object.html">bw.optim.object</a></code>.
+</p>
+<p>For point patterns in two-dimensional space, use <code><a href="../../spatstat.explore/help/bw.ppl.html">bw.ppl</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    b &lt;- bw.lppl(spiders)
+    plot(b, main="Likelihood cross validation for spiders")
+    plot(density(spiders, b, distance="e"))
+  } else {
+    b1 &lt;- bw.lppl(spiders, ns=2)
+    b2 &lt;- bw.lppl(spiders, ns=2, shortcut=FALSE)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

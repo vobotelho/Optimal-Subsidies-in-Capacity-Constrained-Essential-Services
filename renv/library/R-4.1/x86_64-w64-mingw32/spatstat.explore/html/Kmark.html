@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mark-Weighted K Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kmark {spatstat.explore}"><tr><td>Kmark {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mark-Weighted K Function</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the mark-weighted <i>K</i> function
+of a marked point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Kmark(X, f = NULL, r = NULL,
+        correction = c("isotropic", "Ripley", "translate"), ...,
+        f1 = NULL, normalise = TRUE, returnL = FALSE, fargs = NULL)
+
+  markcorrint(X, f = NULL, r = NULL,
+              correction = c("isotropic", "Ripley", "translate"), ...,
+              f1 = NULL, normalise = TRUE, returnL = FALSE, fargs = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>The observed point pattern.
+An object of class <code>"ppp"</code> or something acceptable to
+<code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>Optional. Test function <i>f</i> used in the definition of the
+mark correlation function. An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function with at least two
+arguments. There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>Optional. Numeric vector. The values of the argument <i>r</i>
+at which the mark correlation function 
+<i>k[f](r)</i> should be evaluated.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>A character vector containing any selection of the
+options <code>"isotropic"</code>, <code>"Ripley"</code> or <code>"translate"</code>.
+It specifies the edge correction(s) to be applied.
+Alternatively <code>correction="all"</code> selects all options.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>f1</code></td>
+<td>
+
+<p>An alternative to <code>f</code>. If this argument is given,
+then <i>f</i> is assumed to take the form
+<i>f(u,v)=f1(u) * f1(v)</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+
+<p>If <code>normalise=FALSE</code>,
+compute only the numerator of the expression for the
+mark correlation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>returnL</code></td>
+<td>
+
+<p>Compute the analogue of the K-function if <code>returnL=FALSE</code>
+or the analogue of the L-function if <code>returnL=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fargs</code></td>
+<td>
+
+<p>Optional. A list of extra arguments to be passed to the function
+<code>f</code> or <code>f1</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>Kmark</code> and <code>markcorrint</code> are identical.
+(Eventually <code>markcorrint</code> will be deprecated.)
+</p>
+<p>The <em>mark-weighted <i>K</i> function</em> <i>K[f](r)</i>
+of a marked point process (Penttinen et al, 1992)
+is a generalisation of Ripley's <i>K</i> function, in which the contribution
+from each pair of points is weighted by a function of their marks.
+If the marks of the two points are <i>m1, m2</i> then
+the weight is proportional to <i>f(m1, m2)</i> where
+<i>f</i> is a specified <em>test function</em>.
+</p>
+<p>The mark-weighted <i>K</i> function is defined so that
+</p>
+<p style="text-align: center;"><i>
+    lambda * K_f(r) = C[f](r)/E[f(M1, M2)]
+  </i></p>
+
+<p>where 
+</p>
+<p style="text-align: center;"><i>
+    C[f](r) = E[ sum[x in X] f(m(u), m(x)) 1(0 &lt; d(u,x) &lt;= r) | u in X]
+  </i></p>
+
+<p>for any spatial location <i>u</i> taken to be a typical point of
+the point process <i>X</i>. Here <i>d(u,x)</i> is the
+euclidean distance between <i>u</i> and <i>x</i>, so that the sum
+is taken over all random points <i>x</i> that lie within a distance
+<i>r</i> of the point <i>u</i>. The function <i>C[f](r)</i> is
+the <em>unnormalised</em> mark-weighted <i>K</i> function.
+To obtain <i>K[f](r)</i> we standardise <i>C[f](r)</i>
+by dividing by <i>E[f(M1,M2)]</i>, the expected value of
+<i>f(M1,M2)</i> when <i>M1</i> and <i>M2</i> are
+independent random marks with the same distribution as the marks in
+the point process. 
+</p>
+<p>Under the hypothesis of random labelling, the
+mark-weighted <i>K</i> function 
+is equal to Ripley's <i>K</i> function,
+<i>K[f](r) = K(r)</i>.
+</p>
+<p>The mark-weighted <i>K</i> function is sometimes called the 
+<em>mark correlation integral</em> because it is related to the
+mark correlation function <i>k[f](r)</i>
+and the pair correlation function <i>g(r)</i> by
+</p>
+<p style="text-align: center;"><i>
+    K[f](r) = 2 * pi * integral[0,r] (s * k[f](s) * g(s) ) ds
+  </i></p>
+
+<p>See <code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code> for a definition of the
+mark correlation function.
+</p>
+<p>Given a marked point pattern <code>X</code>,
+this command computes edge-corrected estimates
+of the mark-weighted <i>K</i> function.
+If <code>returnL=FALSE</code> then the estimated
+function <i>K[f](r)</i> is returned;
+otherwise the function
+</p>
+<p style="text-align: center;"><i>
+    L[f](r) = sqrt(K[f](r)/pi)
+  </i></p>
+
+<p>is returned.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"fv"</code> (see <code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>).
+</p>
+<p>Essentially a data frame containing numeric columns 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>the values of the argument <i>r</i> 
+at which the mark correlation integral <i>K[f](r)</i>
+has been  estimated
+</p>
+</td></tr>
+<tr valign="top"><td><code>theo</code></td>
+<td>
+<p>the theoretical value of <i>K[f](r)</i>
+when the marks attached to different points are independent,
+namely <i>pi * r^2</i>
+</p>
+</td></tr>
+</table>
+<p>together with a column or columns named 
+<code>"iso"</code> and/or <code>"trans"</code>,
+according to the selected edge corrections. These columns contain
+estimates of the mark-weighted <i>K</i> function <i>K[f](r)</i>
+obtained by the edge corrections named (if <code>returnL=FALSE</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Penttinen, A., Stoyan, D. and Henttonen, H. M. (1992)
+Marked point processes in forest statistics.
+<em>Forest Science</em> <b>38</b> (1992) 806-824.
+</p>
+<p>Illian, J., Penttinen, A., Stoyan, H. and Stoyan, D. (2008)
+<em>Statistical analysis and modelling of spatial point patterns</em>.
+Chichester: John Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/markcorr.html">markcorr</a></code> to estimate the mark correlation function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # CONTINUOUS-VALUED MARKS:
+    # (1) Spruces
+    # marks represent tree diameter
+    # mark correlation function
+    ms &lt;- Kmark(spruces)
+    plot(ms)
+
+    # (2) simulated data with independent marks
+    X &lt;- rpoispp(100)
+    X &lt;- X %mark% runif(npoints(X))
+    Xc &lt;- Kmark(X)
+    plot(Xc)
+    
+    # MULTITYPE DATA:
+    # Hughes' amacrine data
+    # Cells marked as 'on'/'off'
+    M &lt;- Kmark(amacrine, function(m1,m2) {m1==m2},
+                         correction="translate")
+    plot(M)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

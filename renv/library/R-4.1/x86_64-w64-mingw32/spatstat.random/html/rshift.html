@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Shift</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rshift {spatstat.random}"><tr><td>rshift {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Shift</h2>
+
+<h3>Description</h3>
+
+<p>Randomly shifts the points of a point pattern or
+line segment pattern. Generic.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   rshift(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Pattern to be subjected to a random shift.
+A point pattern (class <code>"ppp"</code>),
+a line segment pattern (class <code>"psp"</code>)
+or an object of class <code>"splitppp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments controlling the generation of the
+random shift vector, or specifying which parts of the pattern
+will be shifted. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This operation applies a random shift (vector displacement) to
+the points in a point pattern,
+or to the segments in a line segment pattern.
+</p>
+<p>The argument <code>X</code> may be 
+</p>
+
+<ul>
+<li>
+<p>a point pattern
+(an object of class <code>"ppp"</code>)
+</p>
+</li>
+<li>
+<p>a line segment pattern
+(an object of class <code>"psp"</code>)
+</p>
+</li>
+<li>
+<p>an object of class <code>"splitppp"</code>
+(basically a list of point patterns, obtained from
+<code><a href="../../spatstat.geom/help/split.ppp.html">split.ppp</a></code>).
+</p>
+</li></ul>
+
+<p>The function <code>rshift</code> is generic, with
+methods for the three classes <code>"ppp"</code>,
+<code>"psp"</code> and <code>"splitppp"</code>.
+</p>
+<p>See the help pages for these methods, <code><a href="../../spatstat.random/help/rshift.ppp.html">rshift.ppp</a></code>,
+<code><a href="../../spatstat.random/help/rshift.psp.html">rshift.psp</a></code> and
+<code><a href="../../spatstat.random/help/rshift.splitppp.html">rshift.splitppp</a></code>, for further information.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of the same type as <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rshift.ppp.html">rshift.ppp</a></code>,
+<code><a href="../../spatstat.random/help/rshift.psp.html">rshift.psp</a></code>,
+<code><a href="../../spatstat.random/help/rshift.splitppp.html">rshift.splitppp</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

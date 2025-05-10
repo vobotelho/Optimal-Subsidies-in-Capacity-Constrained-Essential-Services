@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Perspective View of Function on a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for persp.linfun {spatstat.linnet}"><tr><td>persp.linfun {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Perspective View of Function on a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a function on a linear network, generate a
+perspective view.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'linfun'
+persp(x, ..., main, eps = NULL, dimyx = NULL, xy = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The function to be plotted. An object of class <code>"linfun"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.linnet/help/persp.linim.html">persp.linim</a></code>
+controlling the appearance of the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+
+<p>Main title for the plot.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps,dimyx,xy</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../help/as.linim.html">as.linim</a></code> determining the
+spatial resolution when the function is converted to an image.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>x</code> is converted to a pixel image on the linear
+network using <code><a href="../help/as.linim.html">as.linim</a></code>. Then
+<code><a href="../../spatstat.linnet/help/persp.linim.html">persp.linim</a></code> is invoked to generate the perspective plot.
+</p>
+<p>This style of plot is often attributed to Okabe and Sugihara (2012).
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) the perspective transformation matrix,
+as described in the help for <code><a href="../../graphics/help/persp.default.html">persp.default</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a> and Greg McSwiggan.
+</p>
+
+
+<h3>References</h3>
+
+<p>Okabe, A. and Sugihara, K. (2012)
+<em>Spatial Analysis Along Networks</em>. John Wiley and Sons, New York.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/persp.linim.html">persp.linim</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+f &lt;- linfun(function(x,y,seg,tp) { abs(sin(25*x)) + abs(sin(15*y)) }, simplenet)
+persp(f, phi=20)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: First Reciprocal Moment of the Truncated Poisson Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for recipEnzpois {spatstat.random}"><tr><td>recipEnzpois {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+First Reciprocal Moment of the Truncated Poisson Distribution
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the first reciprocal moment (first negative moment)
+of the truncated Poisson distribution
+(the Poisson distribution conditioned to have a nonzero value).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  recipEnzpois(mu, exact=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>The mean of the original Poisson distribution.
+A single positive numeric value, or a vector of positive numbers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+
+<p>Logical value specifying whether to use the exact analytic formula
+if possible.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function calculates the expected value of <i>1/N</i>
+given <i>N &gt; 0</i>, where <i>N</i> is a Poisson random variable
+with mean <i>&mu;</i>.
+</p>
+<p>If the library <span class="pkg">gsl</span> is loaded, and if <code>exact=TRUE</code> (the
+default), then the calculation uses
+the exact analytic formula
+</p>
+<p style="text-align: center;"><i>
+    nu = (exp(-mu)/(1 - exp(-mu))) (Ei(mu) - log(mu) - gamma)
+  </i></p>
+
+<p>(see e.g. Grab and Savage, 1954)
+where <i>&nu;</i> is the desired reciprocal moment, and
+</p>
+<p style="text-align: center;"><i>
+    Ei(x) = int_[-infty]^x t * exp(-t) dt
+  </i></p>
+
+<p>is the first exponential integral, and
+<i>&gamma; ~= 0.577</i>
+is the Euler-Mascheroni constant.
+</p>
+<p>If <span class="pkg">gsl</span> is not loaded, or if <code>exact=FALSE</code> is specified,
+the value is computed approximately (and more slowly)
+by summing over the possible values of <i>N</i> up to a finite limit.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single numerical value or a numeric vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Grab, E.L. and Savage, I.R. (1954)
+Tables of the expected value of 1/X for positive
+Bernoulli and Poisson variables.
+<em>Journal of the American Statistical Association</em>
+<b>49</b>, 169&ndash;177.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/rpoisnonzero.html">rpoisnonzero</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(gsl)) {
+    v &lt;- recipEnzpois(10)
+    print(v)
+  }
+  recipEnzpois(10, exact=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

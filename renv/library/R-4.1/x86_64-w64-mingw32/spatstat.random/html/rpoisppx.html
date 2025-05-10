@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Poisson Point Pattern in Any Dimensions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rpoisppx {spatstat.random}"><tr><td>rpoisppx {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Generate Poisson Point Pattern in Any Dimensions
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random multi-dimensional point pattern
+using the homogeneous Poisson process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rpoisppx(lambda, domain, nsim=1, drop=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Intensity of the Poisson process.
+A single positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>Multi-dimensional box in which the process should be generated.
+An object of class <code>"boxx"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a single point pattern.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a realisation
+of the homogeneous Poisson process in multi dimensions,
+with intensity <code>lambda</code> (points per unit volume).
+</p>
+<p>The realisation is generated inside the multi-dimensional region
+<code>domain</code> which currently must be a rectangular box (object of
+class <code>"boxx"</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>nsim = 1</code> and <code>drop=TRUE</code>,
+a point pattern (an object of class <code>"ppx"</code>).
+If <code>nsim &gt; 1</code> or <code>drop=FALSE</code>, a list of such point patterns.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The intensity <code>lambda</code> is the expected number of points
+<em>per unit volume</em>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.random/help/runifpointx.html">runifpointx</a></code>, 
+<code><a href="../../spatstat.geom/help/ppx.html">ppx</a></code>, 
+<code><a href="../../spatstat.geom/help/boxx.html">boxx</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   w &lt;- boxx(x=c(0,1), y=c(0,1), z=c(0,1), t=c(0,3))
+   X &lt;- rpoisppx(10, w)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

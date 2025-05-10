@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kimboto trees at Paracou, French Guiana</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for paracou {spatstat.data}"><tr><td>paracou {spatstat.data}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Kimboto trees at Paracou, French Guiana
+</h2>
+
+<h3>Description</h3>
+
+<p>This dataset is a point pattern of adult and juvenile Kimboto trees
+(<em>Pradosia cochlearia</em> or <em>P. ptychandra</em>)
+recorded at Paracou in French Guiana.
+See Flores (2005).
+</p>
+<p>The dataset <code>paracou</code> is a point pattern
+(object of class <code>"ppp"</code>) containing the spatial coordinates
+of each tree, marked by age (a factor with levels <code>adult</code> and
+<code>juvenile</code>. The survey region is a rectangle
+approximately 400 by 525 metres. Coordinates are given in metres.
+</p>
+<p>Note that the data contain duplicated points (two points at the
+same location). To determine which points are duplicates,
+use <code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>.
+To remove the duplication, use <code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(paracou)</pre>
+
+
+<h3>Source</h3>
+
+<p>Data kindly contributed by Olivier Flores.
+All data belong to CIRAD <a href="https://www.cirad.fr">https://www.cirad.fr</a>
+and UMR EcoFoG <a href="http://www.ecofog.gf">http://www.ecofog.gf</a> and
+are included in <span class="pkg">spatstat</span> with permission.
+Original data sources:
+juvenile and some adult trees collected by Flores (2005);
+adult tree data sourced from CIRAD Paracou experimental plots dataset
+(2003 campaign).
+</p>
+
+
+<h3>References</h3>
+
+<p>Flores, O. (2005)
+<em> Determinisme de la regeneration
+chez quinze especes d'arbres tropicaux en foret guyanaise: les
+effets de l'environnement et de la limitation par la dispersion.</em>
+PhD Thesis, University of Montpellier 2, Montpellier, France.
+</p>
+<p>Picard, N, Bar-Hen, A., Mortier, F. and Chadoeuf, J. (2009)
+The multi-scale marked area-interaction point process: a model for
+the spatial pattern of trees.
+<em>Scandinavian Journal of Statistics</em> <b>36</b> 23&ndash;41
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(require(spatstat.geom)) {
+plot(paracou, cols=2:3, chars=c(16,3))
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.data</em> version 3.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vandermonde matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vandermonde.matrix {matrixcalc}"><tr><td>vandermonde.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Vandermonde matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns an m by n matrix of the powers of the alpha vector
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+vandermonde.matrix(alpha, n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p> A numerical vector of values </p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> The column dimension of the Vandermonde matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In linear algebra, a Vandermonde matrix is an <i>m \times n</i> matrix with terms
+of a geometric progression of an <i>m \times 1</i> parameter vector <i>{\bf{&alpha; }} = {&le;ft\lbrack {\begin{array}{cccc}
+{{&alpha; _1}}&amp;{{&alpha; _2}}&amp; \cdots &amp;{{&alpha; _m}}
+\end{array}} \right\rbrack^\prime }</i>
+</p>
+<p>such that <i>V&le;ft( {\bf{&alpha; }} \right) = &le;ft\lbrack {\begin{array}{ccccc}
+1&amp;{{&alpha; _1}}&amp;{&alpha; _1^2}&amp; \cdots &amp;{&alpha; _1^{n - 1}}\\
+1&amp;{{&alpha; _2}}&amp;{&alpha; _2^2}&amp; \cdots &amp;{&alpha; _2^{n - 1}}\\
+1&amp;{{&alpha; _3}}&amp;{&alpha; _3^2}&amp; \cdots &amp;{&alpha; _3^{n - 1}}\\
+ \cdots &amp; \cdots &amp; \cdots &amp; \cdots &amp; \cdots \\
+1&amp;{{&alpha; _m}}&amp;{&alpha; _m^2}&amp; \cdots &amp;{&alpha; _m^{n - 1}}
+\end{array}} \right\rbrack</i>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Horn, R. A. and C. R. Johnson (1991). <em>Topics in matrix analysis</em>, Cambridge
+University Press.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+alpha &lt;- c( .1, .2, .3, .4 )
+V &lt;- vandermonde.matrix( alpha, 4 )
+print( V )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

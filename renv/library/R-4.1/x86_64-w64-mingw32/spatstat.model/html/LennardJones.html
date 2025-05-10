@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Lennard-Jones Potential</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for LennardJones {spatstat.model}"><tr><td>LennardJones {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Lennard-Jones Potential</h2>
+
+<h3>Description</h3>
+
+<p>Creates the Lennard-Jones pairwise interaction structure
+which can then be fitted to point pattern data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  LennardJones(sigma0=NA)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>sigma0</code></td>
+<td>
+
+<p>Optional. Initial estimate of the parameter <i>sigma</i>.
+A positive number.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In a pairwise interaction point process with the
+Lennard-Jones pair potential (Lennard-Jones, 1924)
+each pair of points in the point pattern,
+a distance <i>d</i> apart,
+contributes a factor
+</p>
+<p style="text-align: center;"><i>
+    v(d) = exp( - 4 * epsilon * ((sigma/d)^12 - (sigma/d)^6))
+  </i></p>
+
+<p>to the probability density,
+where <i>sigma</i> and <i>epsilon</i> are
+positive parameters to be estimated.
+</p>
+<p>See <b>Examples</b> for a plot of this expression.
+</p>
+<p>This potential causes very strong inhibition between points at short
+range, and attraction between points at medium range.
+The parameter  <i>sigma</i> is called the
+<em>characteristic diameter</em> and controls the scale of interaction.
+The parameter <i>epsilon</i> is called the <em>well depth</em>
+and determines the strength of attraction.
+The potential switches from inhibition to attraction at
+<i>d=sigma</i>.
+The maximum value of the pair potential is
+<i>exp(epsilon)</i>
+occuring at distance
+<i>d = 2^(1/6) * sigma</i>.
+Interaction is usually considered to be negligible for distances
+<i>d &gt; 2.5 * sigma * max(1, epsilon^(1/6))</i>.
+</p>
+<p>This potential is used 
+to model interactions between uncharged molecules in statistical physics.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code>, which fits point process models to 
+point pattern data, requires an argument 
+of class <code>"interact"</code> describing the interpoint interaction
+structure of the model to be fitted. 
+The appropriate description of the Lennard-Jones pairwise interaction is
+yielded by the function <code>LennardJones()</code>.
+See the examples below.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"interact"</code>
+describing the Lennard-Jones interpoint interaction
+structure.
+</p>
+
+
+<h3>Rescaling</h3>
+
+<p>To avoid numerical instability,
+the interpoint distances <code>d</code> are rescaled
+when fitting the model.
+</p>
+<p>Distances are rescaled by dividing by <code>sigma0</code>.
+In the formula for <i>v(d)</i> above,
+the interpoint distance <i>d</i> will be replaced by <code>d/sigma0</code>.
+</p>
+<p>The rescaling happens automatically by default.
+If the argument <code>sigma0</code> is missing or <code>NA</code> (the default),
+then <code>sigma0</code> is taken to be the minimum
+nearest-neighbour distance in the data point pattern (in the
+call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>). 
+</p>
+<p>If the argument <code>sigma0</code> is given, it should be a positive
+number, and it should be a rough estimate of the
+parameter <i>sigma</i>. 
+</p>
+<p>The &ldquo;canonical regular parameters&rdquo; estimated by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> are
+<i>theta1 = 4 * epsilon * (sigma/sigma0)^12</i>
+and 
+<i>theta2 = 4 * epsilon * (sigma/sigma0)^6</i>.
+</p>
+
+
+<h3>Warnings and Errors</h3>
+
+<p>Fitting the Lennard-Jones model is extremely unstable, because
+of the strong dependence between the functions <i>d^(-12)</i>
+and <i>d^(-6)</i>. The fitting algorithm often fails to
+converge. Try increasing the number of
+iterations of the GLM fitting algorithm, by setting
+<code>gcontrol=list(maxit=1e3)</code> in the call to <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>Errors are likely to occur if this model is fitted to a point pattern dataset
+which does not exhibit both short-range inhibition and
+medium-range attraction between points.  The values of the parameters
+<i>sigma</i> and <i>epsilon</i> may be <code>NA</code>
+(because the fitted canonical parameters have opposite sign, which
+usually occurs when the pattern is completely random).
+</p>
+<p>An absence of warnings does not mean that the fitted model is sensible.
+A negative value of <i>epsilon</i> may be obtained (usually when
+the pattern is strongly clustered); this does not correspond
+to a valid point process model, but the software does not issue a warning.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Lennard-Jones, J.E. (1924) On the determination of molecular fields.
+<em>Proc Royal Soc London A</em> <b>106</b>, 463&ndash;477.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/pairwise.family.html">pairwise.family</a></code>,
+<code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   badfit &lt;- ppm(cells ~1, LennardJones(), rbord=0.1)
+   badfit
+
+   fit &lt;- ppm(unmark(longleaf) ~1, LennardJones(), rbord=1)
+   fit
+   plot(fitin(fit))
+   # Note the Longleaf Pines coordinates are rounded to the nearest decimetre
+   # (multiple of 0.1 metres) so the apparent inhibition may be an artefact
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

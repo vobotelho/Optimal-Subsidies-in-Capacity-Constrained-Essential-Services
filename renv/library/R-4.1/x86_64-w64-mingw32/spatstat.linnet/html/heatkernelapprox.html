@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Approximation to Heat Kernel on Linear Network at Source...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for heatkernelapprox {spatstat.linnet}"><tr><td>heatkernelapprox {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Approximation to Heat Kernel on Linear Network at Source Point
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes an approximation to the value of the heat kernel on a network
+evaluated at its source location.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+heatkernelapprox(X, sigma, nmax = 20, floored=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+
+<p>Numeric. Bandwidth for kernel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nmax</code></td>
+<td>
+
+<p>Number of terms to be used in the sum.
+</p>
+</td></tr>
+<tr valign="top"><td><code>floored</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, all values are constrained to be
+greater than or equal to <i>1/L</i> where <i>L</i> is the total
+length of the network. This the exact value of the heat kernel
+when the bandwidth is infinite.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each point <code>X[i]</code> in the pattern <code>X</code>, this algorithm computes an
+approximation to the value of the heat kernel with source point
+<code>X[i]</code> evaluated at the same location.
+</p>
+<p>The heat kernel <i>&kappa;(u,v)</i> for a source location <i>u</i>
+evaluated at location <i>v</i>
+can be expressed as an infinite sum of contributions
+from all possible paths from <i>u</i> to <i>v</i>.
+This algorithm applies to the special case <i>u=v</i> where the source
+point and the query point are the same.
+</p>
+<p>The algorithm computes an approximation to <i>&kappa;(u,u)</i>
+by taking only the contributions from paths 
+which (a) remain in the line segment containing the point <i>u</i> and
+(b) visit a vertex at most <code>nmax</code> times. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector with one entry for each point in <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg McSwiggan and Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.univar/help/hotrod.html">hotrod</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- runiflpp(3,simplenet)
+  heatkernelapprox(X, 0.5)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

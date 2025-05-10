@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Safely Convert Point Pattern Window to Binary Mask</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for discretise {spatstat.geom}"><tr><td>discretise {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Safely Convert Point Pattern Window to Binary Mask
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a point pattern, discretise its window by converting it to a
+binary pixel mask, adjusting the mask so that it still contains all
+the points. Optionally discretise the point locations as well,
+by moving them to the nearest pixel centres.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  discretise(X, eps = NULL, dimyx = NULL, xy = NULL, move.points=FALSE,
+             rule.eps=c("adjust.eps", "grow.frame", "shrink.frame"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A point pattern (object of class <code>"ppp"</code>) to be converted.</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+<p>(optional) width and height of each pixel</p>
+</td></tr>
+<tr valign="top"><td><code>dimyx</code></td>
+<td>
+<p>(optional) pixel array dimensions</p>
+</td></tr>
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>(optional) pixel coordinates</p>
+</td></tr>
+<tr valign="top"><td><code>move.points</code></td>
+<td>
+<p>Logical value specifying whether the points should
+also be discretised by moving each point to the nearest pixel
+centre.</p>
+</td></tr>
+<tr valign="top"><td><code>rule.eps</code></td>
+<td>
+
+<p>Argument passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the discretisation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function modifies the point pattern <code>X</code> by converting its
+observation window <code>Window(X)</code> to a binary pixel image (a window
+of type <code>"mask"</code>). It ensures that no points of <code>X</code> are
+deleted by the discretisation.
+If <code>move.points=TRUE</code>, the point coordinates are also discretised.
+</p>
+<p>The window is first discretised using <code><a href="../help/as.mask.html">as.mask</a></code>.
+Next,
+</p>
+
+<ul>
+<li><p> If <code>move.points=TRUE</code>, each point of <code>X</code>
+is moved to the centre of the nearest pixel inside the
+discretised window.
+</p>
+</li>
+<li><p> If <code>move.points=FALSE</code> (the default),
+the point coordinates are unchanged.
+It can happen that points of <code>X</code> that were inside the original
+window may fall outside the new mask.
+The <code>discretise</code> function corrects this by augmenting the mask
+(so that the mask includes any pixel that contains a point of the
+pattern).
+</p>
+</li></ul>
+
+<p>The arguments <code>eps</code>, <code>dimyx</code>, <code>xy</code> and <code>rule.eps</code>
+control the fineness of the pixel array. They are passed to
+<code><a href="../help/as.mask.html">as.mask</a></code>.
+</p>
+<p>If <code>eps</code>, <code>dimyx</code> and <code>xy</code> are all absent or
+<code>NULL</code>, and if the window of <code>X</code> is of type <code>"mask"</code>
+to start with, then <code>discretise(X)</code> returns <code>X</code> unchanged.
+</p>
+<p>See <code><a href="../help/as.mask.html">as.mask</a></code> for further details
+about the arguments <code>eps</code>, <code>dimyx</code>,
+<code>xy</code> and <code>rule.eps</code>, and the process of converting
+a window to one of type <code>mask</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (object of class <code>"ppp"</code>).
+</p>
+
+
+<h3>Error checking</h3>
+
+<p>Before doing anything, <code>discretise</code> checks that
+all the points of the pattern are actually
+inside the original window.  This is guaranteed to
+be the case if the pattern was constructed using <code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code>
+or <code><a href="../../spatstat.geom/help/as.ppp.html">as.ppp</a></code>. However anomalies are possible if the
+point pattern was created or manipulated inappropriately.
+These will cause an error.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/as.mask.html">as.mask</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  X &lt;- demopat
+  plot(X, main="original pattern")
+  Y &lt;- discretise(X, dimyx=50)
+  plot(Y, main="discretise(X)")
+  stopifnot(npoints(X) == npoints(Y))
+
+  # what happens if we just convert the window to a mask?
+  W &lt;- Window(X)
+  M &lt;- as.mask(W, dimyx=50)
+  plot(M, main="window of X converted to mask")
+  plot(X, add=TRUE, pch=16)
+  plot(X[M], add=TRUE, pch=1, cex=1.5)
+  XM &lt;- X[M]
+  cat(paste(npoints(X) - npoints(XM), "points of X lie outside M\n"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

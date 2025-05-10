@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Evaluate Expression Involving Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for eval.fv {spatstat.explore}"><tr><td>eval.fv {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate Expression Involving Functions</h2>
+
+<h3>Description</h3>
+
+<p>Evaluates any expression involving one or more function value (fv) objects,
+and returns another object of the same kind.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  eval.fv(expr, envir, dotonly=TRUE, equiv=NULL, relabel=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>expr</code></td>
+<td>
+<p>An expression.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+
+<p>Optional. The environment in which to evaluate the
+expression, or a named list containing <code>"fv"</code> objects to be
+used in the expression.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dotonly</code></td>
+<td>
+<p>Logical. See Details.</p>
+</td></tr>
+<tr valign="top"><td><code>equiv</code></td>
+<td>
+<p>Mapping between column names of different objects
+that are deemed to be equivalent. See Details.</p>
+</td></tr>
+<tr valign="top"><td><code>relabel</code></td>
+<td>
+
+<p>Logical value indicating whether to
+compute appropriate labels for the resulting function.
+This should normally be <code>TRUE</code> (the default).
+See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a wrapper to make it easier to perform
+pointwise calculations with the summary functions
+used in spatial statistics.
+</p>
+<p>An object of class <code>"fv"</code> is essentially a data frame
+containing several different statistical estimates of the same
+function. Such objects are returned by <code><a href="../help/Kest.html">Kest</a></code> and its
+relatives.
+</p>
+<p>For example, suppose <code>X</code> is an object of class <code>"fv"</code>
+containing several different estimates of the Ripley's K function <i>K(r)</i>,
+evaluated at a sequence of values of <i>r</i>.
+Then <code>eval.fv(X+3)</code> effectively adds 3 to 
+each function estimate in <code>X</code>, and returns
+the resulting object. 
+</p>
+<p>Suppose <code>X</code> and <code>Y</code> are two objects of class <code>"fv"</code>
+which are compatible (in particular they have the same vector
+of <i>r</i> values). Then 
+<code>eval.im(X + Y)</code> will add the corresponding function values in
+<code>X</code> and <code>Y</code>, and return the resulting function.
+</p>
+<p>In general, <code>expr</code> can be any expression involving
+(a) the <em>names</em> of objects of class <code>"fv"</code>, (b) scalar
+constants, and (c) functions which are vectorised.
+See the Examples.
+</p>
+<p>First <code>eval.fv</code> determines which of the <em>variable names</em>
+in the expression <code>expr</code> refer to objects of class <code>"fv"</code>.
+Each such name is replaced by a vector containing the function values.
+The expression is then evaluated. The result should be a vector;
+it is taken as the new vector of function values.
+</p>
+<p>The expression <code>expr</code> must be vectorised.
+There must be at least one object of class <code>"fv"</code> in the expression.
+If the objects are not compatible, they will be made compatible
+by <code><a href="../../spatstat.explore/help/harmonise.fv.html">harmonise.fv</a></code>.
+</p>
+<p>If <code>dotonly=TRUE</code> (the default), the expression will be
+evaluated only for those columns of an <code>"fv"</code> object
+that contain values of the function itself (rather than
+values of the derivative of the function, the hazard rate, etc).
+If <code>dotonly=FALSE</code>, the expression will be evaluated for all columns.
+</p>
+<p>For example the result of <code><a href="../help/Fest.html">Fest</a></code> includes several columns
+containing estimates of the empty space function <i>F(r)</i>,
+but also includes an estimate of the
+<em>hazard</em> <i>h(r)</i> of <i>F(r)</i>. Transformations that are valid
+for <i>F</i> may not be valid for <i>h</i>. Accordingly, <i>h</i> would
+normally be omitted from the calculation.
+</p>
+<p>The columns of an object <code>x</code> that represent the function itself
+are identified by its &ldquo;dot&rdquo; names, <code>fvnames(x, ".")</code>.
+They are the columns normally plotted by <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>
+and identified by the symbol <code>"."</code> in plot formulas
+in <code><a href="../../spatstat.explore/help/plot.fv.html">plot.fv</a></code>.
+</p>
+<p>The argument <code>equiv</code> can be used to specify that 
+two different column names in different function objects
+are mathematically equivalent or cognate.
+It should be a list of <code>name=value</code> pairs, or a named vector of
+character strings, indicating the pairing of equivalent names.
+(Without this argument, these columns would be discarded.)
+See the Examples.
+</p>
+<p>The argument <code>relabel</code> should normally be <code>TRUE</code> (the default).
+It determines whether to compute appropriate mathematical labels and
+descriptions for the resulting function object
+(used when the object is printed or plotted).
+If <code>relabel=FALSE</code> then this does not occur,
+and the mathematical labels and descriptions
+in the result are taken from the function object
+that appears first in the expression. This reduces computation time
+slightly (for advanced use only).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Another object of class <code>"fv"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/fv.object.html">fv.object</a></code>,
+<code><a href="../help/Kest.html">Kest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # manipulating the K function
+  X &lt;- runifrect(42)
+  Ks &lt;- Kest(X)
+
+  eval.fv(Ks + 3)
+  Ls &lt;- eval.fv(sqrt(Ks/pi))
+
+  # manipulating two K functions
+  Y &lt;- runifrect(20)
+  Kr &lt;- Kest(Y)
+
+  Kdif &lt;- eval.fv(Ks - Kr)
+  Z &lt;- eval.fv(sqrt(Ks/pi) - sqrt(Kr/pi))
+
+  ## Use of 'envir'
+  U &lt;- eval.fv(sqrt(K), list(K=Ks))
+
+  ## Use of 'equiv'
+  Fc &lt;- Fest(cells)
+  Gc &lt;- Gest(cells)
+  # Hanisch and Chiu-Stoyan estimators are cognate
+  Dc &lt;- eval.fv(Fc - Gc, equiv=list(cs="han"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

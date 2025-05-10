@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check Whether Points Have Close Neighbours</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for has.close {spatstat.geom}"><tr><td>has.close {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Check Whether Points Have Close Neighbours
+</h2>
+
+<h3>Description</h3>
+
+<p>For each point in a point pattern, determine whether the
+point has a close neighbour in the same pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  has.close(X, r, Y=NULL, ...)
+
+  ## Default S3 method:
+has.close(X,r, Y=NULL, ..., periodic=FALSE)
+
+  ## S3 method for class 'ppp'
+has.close(X,r, Y=NULL, ..., periodic=FALSE, sorted=FALSE)
+
+  ## S3 method for class 'pp3'
+has.close(X,r, Y=NULL, ..., periodic=FALSE, sorted=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X,Y</code></td>
+<td>
+
+<p>Point patterns of class <code>"ppp"</code> or <code>"pp3"</code> or <code>"lpp"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Threshold distance: a number greater than zero.
+</p>
+</td></tr>
+<tr valign="top"><td><code>periodic</code></td>
+<td>
+
+<p>Logical value indicating whether to measure distances in the
+periodic sense, so that opposite sides of the (rectangular) window
+are treated as identical.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sorted</code></td>
+<td>
+
+<p>Logical value, indicating whether the points of <code>X</code>
+(and <code>Y</code>, if given) are already sorted into increasing order of the
+<i>x</i> coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Other arguments are ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is simply a faster version of <code>(nndist(X) &lt;= r)</code>
+or <code>(nncross(X,Y,what="dist") &lt;= r)</code>.
+</p>
+<p><code>has.close(X,r)</code> determines, for each point in the pattern <code>X</code>,
+whether or not this point has a neighbour in the same pattern <code>X</code>
+which lies at a distance less than or equal to <code>r</code>.
+</p>
+<p><code>has.close(X,r,Y)</code> determines, for each point in the pattern <code>X</code>,
+whether or not this point has a neighbour in the <em>other</em> pattern
+<code>Y</code> which lies at a distance less than or equal to <code>r</code>.
+</p>
+<p>The function <code>has.close</code> is generic, with methods for
+<code>"ppp"</code> and <code>"pp3"</code> and a default method.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical vector, with one entry for each point of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/nndist.html">nndist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  has.close(redwood, 0.05)
+  with(split(amacrine), has.close(on, 0.05, off))
+  with(osteo, sum(has.close(pts, 20)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

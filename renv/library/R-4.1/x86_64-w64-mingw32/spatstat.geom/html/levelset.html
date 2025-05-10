@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Level Set of a Pixel Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for levelset {spatstat.geom}"><tr><td>levelset {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Level Set of a Pixel Image</h2>
+
+<h3>Description</h3>
+
+<p>Given a pixel image, find all pixels which have values less than a
+specified threshold value (or greater than a threshold, etc),
+and assemble these pixels into a window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  levelset(X, thresh, compare="&lt;=")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A pixel image (object of class &quot;im&quot;)</p>
+</td></tr></table>
+<p>.
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>thresh</code></td>
+<td>
+<p>Threshold value.
+A single number or value compatible with the pixel values in
+<code>X</code></p>
+</td></tr></table>
+<p>.
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>compare</code></td>
+<td>
+<p>Character string specifying one of the comparison
+operators <code>"&lt;", "&gt;", "==", "&lt;=", "&gt;=", "!="</code>. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>X</code> is a pixel image with numeric values,
+then <code>levelset(X, thresh)</code> finds the region of space
+where the pixel values are less than or equal to
+the threshold value <code>thresh</code>.
+This region is returned as a spatial window.
+</p>
+<p>The argument <code>compare</code> specifies how the pixel values should be
+compared with the threshold value.
+Instead of requiring pixel values to be less than or equal to
+<code>thresh</code>, you can specify that they must be less than (<code>&lt;</code>),
+greater than (<code>&gt;</code>), equal to (<code>==</code>), greater than or equal
+to (<code>&gt;=</code>), or not equal to (<code>!=</code>) the threshold value
+<code>thresh</code>.
+</p>
+<p>If <code>X</code> has non-numeric pixel values (for example, logical
+or factor values) it is advisable to use only the comparisons
+<code>==</code> and <code>!=</code>, unless you really know what you are doing.
+</p>
+<p>For more complicated logical comparisons, see <code><a href="../../spatstat.geom/help/solutionset.html">solutionset</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A spatial window (object of class <code>"owin"</code>,
+see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>) containing the pixels satisfying the
+constraint.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/solutionset.html">solutionset</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # test image
+  X &lt;- as.im(function(x,y) { x^2 - y^2 }, unit.square())
+
+  W &lt;- levelset(X, 0.2)
+  W &lt;- levelset(X, -0.3, "&gt;")
+
+  # compute area of level set
+  area(levelset(X, 0.1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

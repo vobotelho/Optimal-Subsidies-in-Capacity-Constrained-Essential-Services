@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: LU Decomposition of Square Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lu.decomposition {matrixcalc}"><tr><td>lu.decomposition {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> LU Decomposition of Square Matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function performs an LU decomposition of the given square matrix argument
+the results are returned in a list of named components.  The Doolittle decomposition
+method is used to obtain the lower and upper triangular matrices
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lu.decomposition(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a numeric square matrix </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Doolittle decomposition without row exchanges is performed generating
+the lower and upper triangular matrices separately rather than in one matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with two named components.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>L </code></td>
+<td>
+<p>The numeric lower triangular matrix</p>
+</td></tr>
+<tr valign="top"><td><code>U </code></td>
+<td>
+<p>The number upper triangular matrix</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+<p>Golub, G. H. and C. F. Van Loan (1996). <em>Matrix Computations</em>, Third Edition,
+John Hopkins University Press
+</p>
+<p>Horn, R. A. and C. R. Johnson (1985). <em>Matrix Analysis</em>, Cambridge University Press.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- matrix( c ( 1, 2, 2, 1 ), nrow=2, byrow=TRUE)
+luA &lt;- lu.decomposition( A )
+L &lt;- luA$L
+U &lt;- luA$U
+print( L )
+print( U )
+print( L %*% U )
+print( A )
+B &lt;- matrix( c( 2, -1, -2, -4, 6, 3, -4, -2, 8 ), nrow=3, byrow=TRUE )
+luB &lt;- lu.decomposition( B )
+L &lt;- luB$L
+U &lt;- luB$U
+print( L )
+print( U )
+print( L %*% U )
+print( B )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

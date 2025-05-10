@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Chi-Squared Test for Multiple Point Process Model Based on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for quadrat.test.mppm {spatstat.model}"><tr><td>quadrat.test.mppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Chi-Squared Test for Multiple Point Process Model Based on
+Quadrat Counts</h2>
+
+<h3>Description</h3>
+
+<p>Performs a chi-squared goodness-of-fit test of a 
+Poisson point process model fitted to multiple point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'mppm'
+quadrat.test(X, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>An object of class <code>"mppm"</code> representing a
+point process model fitted to multiple point patterns.
+It should be a Poisson model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/quadrat.test.ppm.html">quadrat.test.ppm</a></code>
+which determine the size of the quadrats.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function performs a <i>chi^2</i> test of goodness-of-fit
+for a Poisson point process model, based on quadrat counts.
+It can also be used to perform a test of Complete Spatial Randomness
+for a list of point patterns.
+</p>
+<p>The function <code>quadrat.test</code> is generic, with methods for
+point patterns (class <code>"ppp"</code>), point process models
+(class <code>"ppm"</code>) and
+multiple point process models (class
+<code>"mppm"</code>).
+</p>
+<p>For this function, the argument <code>X</code> should be a
+multiple point process model (object of class <code>"mppm"</code>)
+obtained by fitting a point process model to a list of
+point patterns using the function <code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>.
+</p>
+<p>To perform the test, the data point patterns are extracted from <code>X</code>.
+For each point pattern
+</p>
+
+<ul>
+<li><p> the window of observation is divided
+into rectangular tiles, and the number of data points in each tile is
+counted, as described in <code><a href="../../spatstat.geom/help/quadratcount.html">quadratcount</a></code>.
+</p>
+</li>
+<li> 
+<p>The expected number of points in each quadrat is calculated,
+as determined by the fitted model.
+</p>
+</li></ul>
+
+<p>Then we perform a single <i>chi^2</i> test of goodness-of-fit
+based on these observed and expected counts. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"htest"</code>.
+Printing the object gives comprehensible output
+about the outcome of the test.
+The <i>p</i>-value of the test is stored in the
+component <code>p.value</code>.
+</p>
+<p>The return value also belongs to
+the special class <code>"quadrat.test"</code>. Plotting the object
+will display, for each window, the position of the quadrats,
+annotated by their observed and expected
+counts and the Pearson residuals. See the examples.
+</p>
+<p>The return value also has an attribute <code>"components"</code>
+which is a list containing the results of 
+<i>chi^2</i> tests of goodness-of-fit
+for each individual point pattern.
+</p>
+
+
+<h3>Testing Complete Spatial Randomness</h3>
+
+<p>If the intention is to test Complete Spatial Randomness (CSR)
+there are two options:
+</p>
+
+<ul>
+<li><p> CSR with the same intensity of points in each point pattern;
+</p>
+</li>
+<li><p> CSR with a different, unrelated intensity of points in each
+point pattern.
+</p>
+</li></ul>
+
+<p>In the first case, 
+suppose <code>P</code> is a list of point patterns we want to test.
+Then fit the multiple model <code>fit1 &lt;- mppm(P ~1)</code> which signifies a
+Poisson point process model with a constant intensity. Then
+apply <code>quadrat.test(fit1)</code>.
+</p>
+<p>In the second case, fit the model <code>fit2 &lt;- mppm(P ~id)</code>
+which signifies a Poisson point process with a different constant
+intensity for each point pattern. Then apply <code>quadrat.test(fit2)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Ida-Maria Sintorn and Leanne Bischoff.
+Implemented by 
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/mppm.html">mppm</a></code>,
+<code><a href="../../spatstat.explore/help/quadrat.test.html">quadrat.test</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  H &lt;- hyperframe(X=waterstriders)
+  # Poisson with constant intensity for all patterns
+  fit1 &lt;- mppm(X~1, H)
+  quadrat.test(fit1, nx=2)
+
+  # uniform Poisson with different intensity for each pattern
+  fit2 &lt;- mppm(X ~ id, H)
+  quadrat.test(fit2, nx=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

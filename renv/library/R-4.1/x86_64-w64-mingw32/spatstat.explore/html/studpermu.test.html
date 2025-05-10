@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Studentised Permutation Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for studpermu.test {spatstat.explore}"><tr><td>studpermu.test {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Studentised Permutation Test
+</h2>
+
+<h3>Description</h3>
+
+<p>Perform a studentised permutation test for a difference between
+groups of point patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   studpermu.test(X, formula, summaryfunction = Kest,
+       ..., rinterval = NULL, nperm = 999,
+        use.Tbar = FALSE, minpoints = 20, rsteps = 128,
+        r = NULL, arguments.in.data = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Data. Either a <code>hyperframe</code> or a list of lists of point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+
+<p>Formula describing the grouping, when <code>X</code> is a hyperframe.
+The left side of the formula identifies which column of <code>X</code>
+contains the point patterns.
+The right side identifies the grouping factor. 
+If the formula is missing, the grouping variable is taken to be the
+first column of <code>X</code> that contains a factor, and the point
+patterns are taken from the first column that contains point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>summaryfunction</code></td>
+<td>
+
+<p>Summary function applicable to point patterns.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code>summaryfunction</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rinterval</code></td>
+<td>
+
+<p>Interval of distance values <i>r</i> over which the
+summary function should be evaluated and over which the test
+statistic will be integrated. If <code>NULL</code>, the default
+range of the summary statistic is used (taking the intersection
+of these ranges over all patterns).
+</p>
+</td></tr>
+<tr valign="top"><td><code>nperm</code></td>
+<td>
+
+<p>Number of random permutations for the test.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.Tbar</code></td>
+<td>
+
+<p>Logical value indicating choice of test statistic.
+If <code>TRUE</code>, use the alternative test statistic,
+which is appropriate for summary functions with
+roughly constant variance, such as <i>K(r)/r</i> or <i>L(r)</i>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>minpoints</code></td>
+<td>
+
+<p>Minimum permissible number of points in a point pattern
+for inclusion in the test calculation.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rsteps</code></td>
+<td>
+
+<p>Number of discretisation steps in the <code>rinterval</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+
+<p>Optional vector of distance values as the argument for
+<code>summaryfunction</code>. Should not usually be given.
+There is a sensible default.
+</p>
+</td></tr>
+<tr valign="top"><td><code>arguments.in.data</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code>, individual extra arguments to
+<code>summaryfunction</code> will be taken from <code>X</code>
+(which must be a hyperframe). This assumes that 
+the first argument of <code>summaryfunction</code> is the
+point pattern dataset.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function performs the studentized permutation test
+of Hahn (2012) for a difference between groups of point patterns.
+</p>
+<p>The first argument <code>X</code> should be either
+</p>
+
+<dl>
+<dt>a list of lists of point patterns.</dt><dd>
+<p>Each element of <code>X</code> will be interpreted as a group of
+point patterns, assumed to be replicates of the same point process.
+</p>
+</dd>
+<dt>a hyperframe:</dt><dd>
+<p>One column of the hyperframe should contain point patterns,
+and another column should contain a factor indicating the
+grouping. The argument <code>formula</code> should be a formula in the
+<span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language specifying the grouping: it should be of the form
+<code>P ~ G</code> where <code>P</code> is the name of the column of point
+patterns, and <code>G</code> is the name of the factor.
+</p>
+</dd>
+</dl>
+
+<p>A group needs to contain at least two point patterns with at least
+<code>minpoints</code> points in each pattern.
+</p>
+<p>The function returns an object of class <code>"htest"</code>
+and <code>"studpermutest"</code> that can be printed and plotted.
+The printout shows the test result and <i>p</i>-value.
+The plot shows the summary functions for the
+groups (and the group means if requested).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>"studpermutest"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ute Hahn.
+</p>
+<p>Modified for <code>spatstat</code> by
+Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Hahn, U. (2012) 
+A studentized permutation test for the comparison of
+spatial point patterns.
+<em>Journal of the American Statistical Association</em>
+<b>107</b> (498), 754&ndash;764.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.explore/help/plot.studpermutest.html">plot.studpermutest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  np &lt;- if(interactive()) 99 else 19
+  testpyramidal &lt;- studpermu.test(pyramidal, Neurons ~ group, nperm=np)
+  testpyramidal
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

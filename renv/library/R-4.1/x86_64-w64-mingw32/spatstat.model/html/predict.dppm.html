@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prediction from a Fitted Determinantal Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for predict.dppm {spatstat.model}"><tr><td>predict.dppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Prediction from a Fitted Determinantal Point Process Model</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted determinantal point process model,
+these functions compute the fitted intensity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'dppm'
+fitted(object, ...)
+
+  ## S3 method for class 'dppm'
+predict(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>Fitted determinantal point process model.
+An object of class <code>"dppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code> or
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code> respectively.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are methods for the generic functions
+<code><a href="../../stats/html/fitted.values.html">fitted</a></code> and <code><a href="../../stats/html/predict.html">predict</a></code>.
+The argument <code>object</code> should be a determinantal point process model
+(object of class <code>"dppm"</code>) obtained using
+the function <code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>.
+</p>
+<p>The <em>intensity</em> of the fitted model
+is computed, using <code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code> or
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code> respectively.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value of <code>fitted.dppm</code> is a numeric vector
+giving the fitted values at the quadrature points.
+</p>
+<p>The value of <code>predict.dppm</code> is usually a pixel image
+(object of class <code>"im"</code>), but see <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+for details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,
+<code><a href="../../spatstat.model/help/plot.dppm.html">plot.dppm</a></code>,
+<code><a href="../../spatstat.model/help/fitted.ppm.html">fitted.ppm</a></code>,
+<code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if(interactive()) {
+    fit &lt;- dppm(swedishpines ~ x + y, dppGauss())
+  } else {
+    fit &lt;- dppm(redwood ~ x, dppGauss())
+  }
+  predict(fit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

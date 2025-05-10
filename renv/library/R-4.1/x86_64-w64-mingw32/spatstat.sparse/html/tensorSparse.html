@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Tensor Product of Sparse Vectors, Matrices or Arrays</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for tensorSparse {spatstat.sparse}"><tr><td>tensorSparse {spatstat.sparse}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Tensor Product of Sparse Vectors, Matrices or Arrays
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the tensor product of two vectors, matrices or arrays
+which may be sparse or non-sparse. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+tensorSparse(A, B, alongA = integer(0), alongB = integer(0))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>A,B</code></td>
+<td>
+
+<p>Vectors, matrices, three-dimensional arrays,
+or objects of class <code>sparseVector</code>, <code>sparseMatrix</code>
+or <code>sparse3Darray</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alongA</code></td>
+<td>
+
+<p>Integer vector specifying the dimensions of <code>A</code> to be collapsed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alongB</code></td>
+<td>
+
+<p>Integer vector specifying the dimensions of <code>B</code> to be collapsed.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a generalisation, to sparse arrays, of the function
+<code><a href="../../tensor/help/tensor.html">tensor</a></code> in the <span class="pkg">tensor</span> package.
+</p>
+<p><code>tensorSparse</code> has the same syntax and interpretation
+as <code><a href="../../tensor/help/tensor.html">tensor</a></code>.
+For example, if <code>A</code> and <code>B</code> are matrices, then
+<code>tensor(A,B,2,1)</code> is the matrix product <code>A %*% B</code>
+while <code>tensor(A,B,2,2)</code> is <code>A %*% t(B)</code>.
+</p>
+<p>This function <code>tensorSparse</code> handles
+sparse vectors (class <code>"sparseVector"</code> in the <span class="pkg">Matrix</span> package), 
+sparse matrices (class <code>"sparseMatrix"</code> in the <span class="pkg">Matrix</span>
+package) and sparse three-dimensional arrays (class
+<code>"sparse3Darray"</code> in the <span class="pkg">spatstat.sparse</span> package)
+in addition to the usual vectors, matrices and arrays.
+</p>
+<p>The result is a sparse object if at least one of <code>A</code> and <code>B</code>
+is sparse. Otherwise, if neither <code>A</code> nor <code>B</code> is sparse, then the
+result is computed using <code><a href="../../tensor/help/tensor.html">tensor</a></code>.
+</p>
+<p>The main limitation is that the result cannot have more than 3
+dimensions (because sparse arrays with more than 3 dimensions are not yet
+supported).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either a scalar, a vector, a matrix, an array,
+a sparse vector (class <code>"sparseVector"</code> in the <span class="pkg">Matrix</span> package), 
+a sparse matrix (class <code>"sparseMatrix"</code> in the <span class="pkg">Matrix</span>
+package) or a sparse three-dimensional array (class
+<code>"sparse3Darray"</code> in the <span class="pkg">spatstat.sparse</span> package).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.sparse/help/sparse3Darray.html">sparse3Darray</a></code>,
+<code><a href="../../spatstat.sparse/help/aperm.sparse3Darray.html">aperm.sparse3Darray</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  M &lt;- sparse3Darray(i=1:4, j=sample(1:4, replace=TRUE),
+                     k=c(1,2,1,2), x=1:4, dims=c(5,5,2))
+  A &lt;- tensorSparse(M, M, 1:2, 2:1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.sparse</em> version 3.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

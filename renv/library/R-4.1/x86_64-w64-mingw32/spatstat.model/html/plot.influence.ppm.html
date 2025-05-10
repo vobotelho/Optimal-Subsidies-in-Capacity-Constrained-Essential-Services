@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Influence Measure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot.influence.ppm {spatstat.model}"><tr><td>plot.influence.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot Influence Measure
+</h2>
+
+<h3>Description</h3>
+
+<p>Plots an influence measure that has been
+computed by <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'influence.ppm'
+plot(x, ..., multiplot=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Influence measure (object of class <code>"influence.ppm"</code>) computed by
+<code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.geom/help/plot.ppp.html">plot.ppp</a></code>
+to control the plotting.
+</p>
+</td></tr>
+<tr valign="top"><td><code>multiplot</code></td>
+<td>
+
+<p>Logical value indicating whether it is permissible to
+plot more than one panel. This happens if the original point process
+model is multitype.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the plot method for objects of class <code>"influence.ppm"</code>.
+These objects are computed by the command <code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>.
+</p>
+<p>For a point process model fitted by maximum likelihood or
+maximum pseudolikelihood (the default), influence values are
+associated with the data points.
+The display shows circles centred at the data points
+with radii proportional to the influence values.
+If the original data were a multitype point pattern, then
+if <code>multiplot=TRUE</code> (the default), 
+there is one such display for each possible type of point,
+while if <code>multiplot=FALSE</code> there is a single plot
+combining all data points regardless of type.
+</p>
+<p>For a model fitted by logistic composite likelihood
+(<code>method="logi"</code> in <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>) influence values
+are associated with the data points and also with the
+dummy points used to fit the model. The display consist of two
+panels, for the data points and dummy points respectively,
+showing circles with radii proportional to the influence values.
+If the original data were a multitype point pattern, then
+if <code>multiplot=TRUE</code> (the default), 
+there is one pair of panels for each possible type of point,
+while if <code>multiplot=FALSE</code> there is a single plot
+combining all data and dummy points regardless of type.
+</p>
+<p>Use the argument <code>clipwin</code> to restrict the plot to a subset
+of the full data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Chang, Y.M. and Song, Y. (2013)
+Leverage and influence diagnostics for spatial point process models.
+<em>Scandinavian Journal of Statistics</em> <b>40</b>, 86&ndash;104.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/influence.ppm.html">influence.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- rpoispp(function(x,y) { exp(3+3*x) })
+   fit &lt;- ppm(X, ~x+y)
+   plot(influence(fit))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

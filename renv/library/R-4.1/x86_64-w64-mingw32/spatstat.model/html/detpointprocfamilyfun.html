@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Construct a New Determinantal Point Process Model Family...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for detpointprocfamilyfun {spatstat.model}"><tr><td>detpointprocfamilyfun {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Construct a New Determinantal Point Process Model Family Function</h2>
+
+<h3>Description</h3>
+
+<p>Function to ease the implementation of a new determinantal
+point process model family.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>detpointprocfamilyfun(kernel = NULL,
+    specden = NULL, basis = "fourierbasis", 
+    convkernel = NULL, Kfun = NULL, valid = NULL, intensity = NULL, 
+    dim = 2, name = "User-defined", isotropic = TRUE, range = NULL, 
+    parbounds = NULL, specdenrange = NULL, startpar = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+
+<p>function specifying the kernel.
+May be set to <code>NULL</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>specden</code></td>
+<td>
+
+<p>function specifying the spectral density.
+May be set to <code>NULL</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>basis</code></td>
+<td>
+
+<p>character string giving the name of the basis.
+Defaults to the Fourier basis. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>convkernel</code></td>
+<td>
+
+<p>function specifying the k-fold auto-convolution of the kernel.
+May be set to <code>NULL</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Kfun</code></td>
+<td>
+
+<p>function specifying the K-function.
+May be set to <code>NULL</code>. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>valid</code></td>
+<td>
+
+<p>function determining whether a given set of parameter values
+yields a valid model. May be set to <code>NULL</code>. See Examples.
+</p>
+</td></tr>
+<tr valign="top"><td><code>intensity</code></td>
+<td>
+
+<p>character string specifying which parameter is the intensity in the
+model family. Should be <code>NULL</code> if the model family has no intensity
+parameter.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dim</code></td>
+<td>
+
+<p>character strig specifying which parameter is the dimension of the
+state space in this model family (if any).
+Alternatively a positive integer specifying the dimension.
+</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+
+<p>character string giving the name of the model family used for
+printing.
+</p>
+</td></tr>
+<tr valign="top"><td><code>isotropic</code></td>
+<td>
+
+<p>logical value indicating whether or not the model is isotropic.
+</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+
+<p>function determining the interaction range of the model. May be
+set to <code>NULL</code>. See Examples.
+</p>
+</td></tr>
+<tr valign="top"><td><code>parbounds</code></td>
+<td>
+
+<p>function determining the bounds for each model parameter when all
+other parameters are fixed. May be set to <code>NULL</code>. See Examples.
+</p>
+</td></tr>
+<tr valign="top"><td><code>specdenrange</code></td>
+<td>
+
+<p>function specifying the the range of the spectral density if it
+is finite (only the case for very few models). May be set to
+<code>NULL</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>startpar</code></td>
+<td>
+
+<p>function determining starting values for parameters in any estimation
+algorithm. May be set to <code>NULL</code>. See Examples.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments for inclusion in the returned model object. These
+are not checked in any way.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A determinantal point process family is specified either
+in terms of a kernel (a positive semi-definite function, i.e. a
+covariance function) or a spectral density, or preferably both. 
+One of these can be <code>NULL</code> if it is unknown, but not both.
+When both are supplied they must have the same arguments.
+The first argument gives
+the values at which the function should be evaluated. In general
+the function should accept an  <i>n</i> by <i>d</i> matrix or
+<code>data.frame</code> specifying <i>n (&gt;=0)</i>
+points in dimension <i>d</i>. If the model is isotropic it only needs to
+accept a non-negative valued numeric of length <i>n</i>. (In fact
+there is currently almost no support for non-isotropic models, so
+it is recommended not to specify such a model.) The name
+of this argument could be chosen freely, but <i>x</i> is
+recommended. The remaining arguments are the parameters of the
+model. If one of these is an intensity parameter the name should
+be mentioned in the argument <code>intensity</code>. If one of these
+specifies the dimension of the model it should be mentioned in the
+argument <code>dim</code>.
+</p>
+<p>The kernel and spectral density is with respect to a
+specific set of basis functions, which is typically the Fourier
+basis. However this can be changed to any user-supplied basis in
+the argument <code>basis</code>. If such an alternative is supplied it
+must be the name of a function expecting the same arguments as
+<code><a href="../../spatstat.geom/help/fourierbasis.html">fourierbasis</a></code> and returning the results in the same
+form as <code><a href="../../spatstat.geom/help/fourierbasis.html">fourierbasis</a></code>.
+</p>
+<p>If supplied, the arguments of convkernel must obey the
+following: first argument should be like the first argument of
+kernel and/or specden (see above). The second argument (preferably
+called <code>k</code>) should be the positive integer specifying how many times
+the auto-convolution is done (i.e. the <i>k</i> in <i>k</i>-fold
+auto-convolution). The remaining arguments must agree with the
+arguments of <code>kernel</code> and/or <code>specden</code> (see above).
+</p>
+<p>If supplied, the arguments of <code>Kfun</code> should be like the
+arguments of <code>kernel</code> and <code>specden</code> (see above).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A function in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language, belonging to the class
+<code>"detpointprocfamilyfun"</code>. The function has formal arguments
+<code>...</code> and returns a determinantal point process family
+(object of class <code>"detpointprocfamily"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Example of how to define the Gauss family
+exGauss &lt;- detpointprocfamilyfun(
+    name="Gaussian",
+    kernel=function(x, lambda, alpha, d){
+        lambda*exp(-(x/alpha)^2)
+    },
+    specden=function(x, lambda, alpha, d){
+        lambda * (sqrt(pi)*alpha)^d * exp(-(x*alpha*pi)^2)
+    },
+    convkernel=function(x, k, lambda, alpha, d){
+        logres &lt;- k*log(lambda*pi*alpha^2) - log(pi*k*alpha^2) - x^2/(k*alpha^2)
+        return(exp(logres))
+    },
+    Kfun = function(x, lambda, alpha, d){
+        pi*x^2 - pi*alpha^2/2*(1-exp(-2*x^2/alpha^2))
+    },
+    valid=function(lambda, alpha, d){
+        lambda&gt;0 &amp;&amp; alpha&gt;0 &amp;&amp; d&gt;=1 &amp;&amp; lambda &lt;= (sqrt(pi)*alpha)^(-d)
+    },
+    isotropic=TRUE,
+    intensity="lambda",
+    dim="d",
+    range=function(alpha, bound = .99){
+        if(missing(alpha))
+            stop("The parameter alpha is missing.")
+        if(!(is.numeric(bound)&amp;&amp;bound&gt;0&amp;&amp;bound&lt;1))
+            stop("Argument bound must be a numeric between 0 and 1.")
+        return(alpha*sqrt(-log(sqrt(1-bound))))
+    },
+    parbounds=function(name, lambda, alpha, d){
+        switch(name,
+               lambda = c(0, (sqrt(pi)*alpha)^(-d)),
+               alpha = c(0, lambda^(-1/d)/sqrt(pi)),
+               stop("Parameter name misspecified")
+               )
+    },
+    startpar=function(model, X){
+        rslt &lt;- NULL
+        if("lambda" %in% model$freepar){
+            lambda &lt;- intensity(X)
+            rslt &lt;- c(rslt, "lambda" = lambda)
+            model &lt;- update(model, lambda=lambda)
+        }
+        if("alpha" %in% model$freepar){
+            alpha &lt;- .8*dppparbounds(model, "alpha")[2]
+            rslt &lt;- c(rslt, "alpha" = alpha)
+        }
+        return(rslt)
+    }
+    )
+  exGauss
+  m &lt;- exGauss(lambda=100, alpha=.05, d=2)
+  m
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

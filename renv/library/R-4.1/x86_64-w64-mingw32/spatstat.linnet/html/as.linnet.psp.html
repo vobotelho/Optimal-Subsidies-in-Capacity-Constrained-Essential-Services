@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Line Segment Pattern to Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.linnet.psp {spatstat.linnet}"><tr><td>as.linnet.psp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Convert Line Segment Pattern to Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Converts a line segment pattern to a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'psp'
+as.linnet(X, ..., eps, sparse=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Line segment pattern (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Optional. Distance threshold. If two segment endpoints
+are closer than <code>eps</code> units apart, they will be treated
+as the same point, and will become a single vertex in the
+linear network.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sparse</code></td>
+<td>
+
+<p>Logical value indicating whether to use a sparse matrix
+representation, as explained in <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This command converts any collection of line segments into a linear
+network by guessing the connectivity of the network,
+using the distance threshold <code>eps</code>.
+</p>
+<p>If any segments in <code>X</code> cross over each other, they are first
+cut into pieces using <code><a href="../../spatstat.geom/help/selfcut.psp.html">selfcut.psp</a></code>.
+</p>
+<p>Then any pair of segment endpoints lying closer than <code>eps</code>
+units apart, is treated as a single vertex. The linear network
+is then constructed using <code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>.
+</p>
+<p>It would be wise to check the result by plotting the degree
+of each vertex, as shown in the Examples.
+</p>
+<p>If <code>X</code> has marks, then these are stored in
+the resulting linear network <code>Y &lt;- as.linnet(X)</code>,
+and can be extracted as <code>marks(as.psp(Y))</code> or <code>marks(Y$lines)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A linear network (object of class <code>"linnet"</code>).
+</p>
+<p>The result also has an attribute <code>"camefrom"</code> indicating
+the provenance of each line in the resulting network.
+For example <code>camefrom[3]=2</code> means that the third line segment
+in the result is a piece of the second segment of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/linnet.html">linnet</a></code>, <code><a href="../../spatstat.geom/help/selfcut.psp.html">selfcut.psp</a></code>,
+<code><a href="../../spatstat.linnet/help/methods.linnet.html">methods.linnet</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # make some data
+  A &lt;- psp(0.09, 0.55, 0.79, 0.80, window=owin())
+  B &lt;- superimpose(A, as.psp(simplenet))
+
+  # convert to a linear network
+  L &lt;- as.linnet(B)
+
+  # check validity
+  L
+  plot(L)
+  text(vertices(L), labels=vertexdegree(L))
+
+  # show the pieces that came from original segment number 1
+  S &lt;- as.psp(L)
+  (camefrom &lt;- attr(L, "camefrom"))
+  parts &lt;- which(camefrom == 1)
+  plot(S[parts], add=TRUE, col="green", lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

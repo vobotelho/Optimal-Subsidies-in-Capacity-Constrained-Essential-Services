@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Connected Components of a Linear Network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for connected.linnet {spatstat.linnet}"><tr><td>connected.linnet {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Connected Components of a Linear Network
+</h2>
+
+<h3>Description</h3>
+
+<p>Find the topologically-connected components of a linear network.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'linnet'
+connected(X, ..., what = c("labels", "components"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>A linear network (object of class <code>"linnet"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+
+<p>Character string specifying the kind of result.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>connected</code> is generic. This is the method for
+linear networks (objects of class <code>"linnet"</code>).
+</p>
+<p>Two vertices of the network are connected if they are joined by a path
+in the network. This function divides the network into subsets, such
+that all points in a subset are connected to each other.
+</p>
+<p>If <code>what="labels"</code> the return value is a factor with one entry
+for each vertex of <code>X</code>, identifying which connected component the
+vertex belongs to. 
+</p>
+<p>If <code>what="components"</code> the return value is a list of linear
+networks, which are the connected components of <code>X</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>what="labels"</code>, a factor.
+If <code>what="components"</code>, a list of linear networks.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+and Suman Rakshit.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/thinNetwork.html">thinNetwork</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # remove some edges from a network to make it disconnected
+   plot(simplenet, col="grey", main="", lty=2)
+   A &lt;- thinNetwork(simplenet, retainedges=-c(3,5))
+   plot(A, add=TRUE, lwd=2)
+   # find the connected components
+   connected(A)
+   cA &lt;- connected(A, what="components")
+   plot(cA[[1]], add=TRUE, col="green", lwd=2)
+   plot(cA[[2]], add=TRUE, col="blue", lwd=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Matern Cluster Process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rMatClust {spatstat.random}"><tr><td>rMatClust {spatstat.random}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate Matern Cluster Process</h2>
+
+<h3>Description</h3>
+
+<p>Generate a random point pattern, a simulated realisation of the
+Matern Cluster Process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ rMatClust(kappa, scale, mu, win = square(1),
+           nsim=1, drop=TRUE, ...,
+           n.cond=NULL, w.cond=NULL,
+           algorithm=c("BKBC", "naive"),
+           nonempty=TRUE, 
+           poisthresh=1e-6, saveparents=FALSE, saveLambda=FALSE,
+           kappamax=NULL, mumax=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kappa</code></td>
+<td>
+
+<p>Intensity of the Poisson process of cluster centres.
+A single positive number, a function, or a pixel image.
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+
+<p>Radius of the clusters. A single positive number.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+
+<p>Mean number of points per cluster (a single positive number)
+or reference intensity for the cluster points (a function or
+a pixel image).
+</p>
+</td></tr>
+<tr valign="top"><td><code>win</code></td>
+<td>
+
+<p>Window in which to simulate the pattern.
+An object of class <code>"owin"</code>
+or something acceptable to <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>Number of simulated realisations to be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>Logical. If <code>nsim=1</code> and <code>drop=TRUE</code> (the default), the
+result will be a point pattern, rather than a list 
+containing a point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Passed to <code><a href="../help/clusterfield.html">clusterfield</a></code> to control the image
+resolution when <code>saveLambda=TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n.cond</code></td>
+<td>
+
+<p>Optional. Integer specifying a fixed number of points.
+See the section on <em>Conditional Simulation</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>w.cond</code></td>
+<td>
+
+<p>Optional. Conditioning region. A window (object of class <code>"owin"</code>)
+specifying the region which must contain exactly <code>n.cond</code> points.
+See the section on <em>Conditional Simulation</em>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>algorithm</code></td>
+<td>
+
+<p>String (partially matched) specifying the simulation algorithm.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nonempty</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> (the default), a more efficient algorithm is
+used, in which parents are generated conditionally on having at
+least one offspring point in the window.
+If <code>FALSE</code>, parents are generated
+even if they have no offspring in the window. The default
+is recommended unless you need to simulate all the parent points
+for some other purpose.
+</p>
+</td></tr>
+<tr valign="top"><td><code>poisthresh</code></td>
+<td>
+
+<p>Numerical threshold below which the model will be treated
+as a Poisson process. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>saveparents</code></td>
+<td>
+
+<p>Logical value indicating whether to save the locations of the
+parent points as an attribute.
+</p>
+</td></tr>
+<tr valign="top"><td><code>saveLambda</code></td>
+<td>
+
+<p>Logical. If <code>TRUE</code> then the random intensity corresponding to
+the simulated parent points will also be calculated and saved,
+and returns as an attribute of the point pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>kappamax</code></td>
+<td>
+
+<p>Optional. Numerical value which is an upper bound for the
+values of <code>kappa</code>, when <code>kappa</code> is a pixel image or a
+function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mumax</code></td>
+<td>
+
+<p>Optional. Numerical value which is an upper bound for the
+values of <code>mu</code>, when <code>mu</code> is a pixel image or a
+function.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This algorithm generates a realisation of
+Matern's cluster process,
+a special case of the Neyman-Scott process, inside the window <code>win</code>.
+</p>
+<p>In the simplest case, where <code>kappa</code> and <code>mu</code>
+are single numbers, the cluster process is formed by first
+generating a uniform Poisson point process of &ldquo;parent&rdquo; points 
+with intensity <code>kappa</code>. Then each parent point is
+replaced by a random cluster of &ldquo;offspring&rdquo; points,
+the number of points per cluster being Poisson (<code>mu</code>)
+distributed, and their
+positions being placed and uniformly inside
+a disc of radius <code>scale</code> centred on the parent point.
+The resulting point pattern
+is a realisation of the classical
+&ldquo;stationary Matern cluster process&rdquo;.
+This point process has intensity <code>kappa * mu</code>.
+</p>
+<p>The algorithm can also generate spatially inhomogeneous versions of
+the Matern cluster process:
+</p>
+
+<ul>
+<li><p> The parent points can be spatially inhomogeneous.
+If the argument <code>kappa</code> is a <code>function(x,y)</code>
+or a pixel image (object of class <code>"im"</code>), then it is taken
+as specifying the intensity function of an inhomogeneous Poisson
+process that generates the parent points.
+</p>
+</li>
+<li><p> The offspring points can be inhomogeneous. If the
+argument <code>mu</code> is a <code>function(x,y)</code>
+or a pixel image (object of class <code>"im"</code>), then it is
+interpreted as the reference density for offspring points,
+in the sense of Waagepetersen (2007).
+For a given parent point, the offspring constitute a Poisson process
+with intensity function equal to 
+<code>mu/(pi * scale^2)</code>
+inside the disc of radius <code>scale</code> centred on the parent
+point, and zero intensity outside this disc.
+Equivalently we first generate,
+for each parent point, a Poisson (<i>M</i>) random number of
+offspring (where <i>M</i> is the maximum value of <code>mu</code>)
+placed independently and uniformly in the disc of radius <code>scale</code>
+centred on the parent location, and then randomly thin the
+offspring points, with retention probability <code>mu/M</code>.
+</p>
+</li>
+<li>
+<p>Both the parent points and the offspring points can be
+inhomogeneous, as described above.
+</p>
+</li></ul>
+
+<p>The intensity of the Matern cluster
+process is <code>kappa * mu</code>
+if either <code>kappa</code> or <code>mu</code> is a single number. In the general
+case the intensity is an integral involving <code>kappa</code>, <code>mu</code>
+and <code>scale</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern (an object of class <code>"ppp"</code>) if <code>nsim=1</code>,
+or a list of point patterns if <code>nsim &gt; 1</code>.
+</p>
+<p>Additionally, some intermediate results of the simulation are returned
+as attributes of this point pattern (see <code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>).
+Furthermore, the simulated intensity
+function is returned as an attribute <code>"Lambda"</code>, if
+<code>saveLambda=TRUE</code>.
+</p>
+
+
+<h3>Simulation Algorithm</h3>
+
+<p>Two simulation algorithms are implemented.
+</p>
+
+<ul>
+<li><p> The <em>naive</em> algorithm generates the cluster process 
+by directly following the description given above. First the window
+<code>win</code> is expanded by a distance equal to <code>scale</code>.
+Then the parent points are generated in the expanded window according to
+a Poisson process with intensity <code>kappa</code>. Then each parent
+point is replaced by a finite cluster of offspring points as
+described above.
+The naive algorithm is used if <code>algorithm="naive"</code> or if
+<code>nonempty=FALSE</code>.
+</p>
+</li>
+<li><p> The <em>BKBC</em> algorithm, proposed by Baddeley and Chang
+(2023), is a modification of the algorithm of Brix and Kendall (2002). 
+Parents are generated in the infinite plane, subject to the
+condition that they have at least one offspring point inside the
+window <code>win</code>.
+The BKBC algorithm is used when <code>algorithm="BKBC"</code> (the default)
+and <code>nonempty=TRUE</code> (the default).
+</p>
+</li></ul>
+
+<p>The naive algorithm becomes very slow when <code>scale</code> is large,
+while the BKBC algorithm is uniformly fast (Baddeley and Chang, 2023).
+</p>
+<p>If <code>saveparents=TRUE</code>, then the simulated point pattern will
+have an attribute <code>"parents"</code> containing the coordinates of the
+parent points, and an attribute <code>"parentid"</code> mapping each
+offspring point to its parent.
+</p>
+<p>If <code>nonempty=TRUE</code> (the default), then parents are generated
+subject to the condition that they have at least one offspring point 
+in the window <code>win</code>. 
+<code>nonempty=FALSE</code>, then parents without offspring will be included;
+this option is not available in the <em>BKBC</em> algorithm.
+</p>
+<p>Note that if <code>kappa</code> is a pixel image, its domain must be larger
+than the window <code>win</code>. This is because an offspring point inside
+<code>win</code> could have its parent point lying outside <code>win</code>.
+In order to allow this, the naive simulation algorithm
+first expands the original window <code>win</code>
+by a distance equal to <code>scale</code> and generates the Poisson process of
+parent points on this larger window. If <code>kappa</code> is a pixel image,
+its domain must contain this larger window.
+</p>
+<p>If the pair correlation function of the model is very close
+to that of a Poisson process, with maximum deviation less than
+<code>poisthresh</code>, then the model is approximately a Poisson process.
+This is detected by the naive algorithm which then
+simulates a Poisson process with intensity
+<code>kappa * mu</code>, using <code><a href="../help/rpoispp.html">rpoispp</a></code>. 
+This avoids computations that would otherwise require huge amounts
+of memory.
+</p>
+
+
+<h3>Fitting cluster models to data</h3>
+
+<p>The Matern cluster process model with homogeneous parents
+(i.e. where <code>kappa</code> is a single number)
+where the offspring are either homogeneous or inhomogeneous (<code>mu</code>
+is a single number, a function or pixel image)
+can be fitted to point pattern data using <code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+or fitted to the inhomogeneous <i>K</i> function
+using <code><a href="../../spatstat.model/help/matclust.estK.html">matclust.estK</a></code>
+or <code><a href="../../spatstat.model/help/matclust.estpcf.html">matclust.estpcf</a></code>.
+</p>
+<p>Currently <span class="pkg">spatstat</span> does not support fitting the
+Matern cluster process model
+with inhomogeneous parents.
+</p>
+<p>A fitted Matern cluster process model can be simulated automatically
+using   <code><a href="../../spatstat.model/help/simulate.kppm.html">simulate.kppm</a></code>
+(which invokes <code>rMatClust</code> to perform the simulation).
+</p>
+
+
+<h3>Conditional Simulation</h3>
+
+<p>If <code>n.cond</code> is specified, it should be a single integer.
+Simulation will be conditional on the event 
+that the pattern contains exactly <code>n.cond</code> points
+(or contains exactly <code>n.cond</code> points inside
+the region <code>w.cond</code> if it is given).
+</p>
+<p>Conditional simulation uses the rejection algorithm described
+in Section 6.2 of Moller, Syversveen and Waagepetersen (1998).
+There is a maximum number of proposals which will be attempted.
+Consequently the return value may contain fewer
+than <code>nsim</code> point patterns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Ya-Mei Chang <a href="mailto:yamei628@gmail.com">yamei628@gmail.com</a> and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Chang, Y.-M. (2023) Robust algorithms for simulating cluster point processes. <em>Journal of Statistical Computation and Simulation</em>. In Press. DOI <code>10.1080/00949655.2023.2166045</code>.
+</p>
+<p>Brix, A. and Kendall, W.S. (2002)
+Simulation of cluster point processes without edge effects.
+<em>Advances in Applied Probability</em> <b>34</b>, 267&ndash;280.
+</p>
+<p>Matern, B. (1960)
+<em>Spatial Variation</em>.
+Meddelanden fraan
+Statens Skogsforskningsinstitut,
+volume 59, number 5.  Statens Skogsforskningsinstitut, Sweden.
+</p>
+<p>Matern, B. (1986)
+<em>Spatial Variation</em>.
+Lecture Notes in Statistics 36, Springer-Verlag, New York.
+</p>
+<p>Moller, J., Syversveen, A. and Waagepetersen, R. (1998)
+Log Gaussian Cox Processes.
+<em>Scandinavian Journal of Statistics</em> <b>25</b>, 451&ndash;482.
+</p>
+<p>Waagepetersen, R. (2007)
+An estimating function approach to inference for
+inhomogeneous Neyman-Scott processes.
+<em>Biometrics</em> <b>63</b>, 252&ndash;258.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/rpoispp.html">rpoispp</a></code>, 
+<code><a href="../help/rThomas.html">rThomas</a></code>, 
+<code><a href="../help/rCauchy.html">rCauchy</a></code>, 
+<code><a href="../help/rVarGamma.html">rVarGamma</a></code>, 
+<code><a href="../help/rNeymanScott.html">rNeymanScott</a></code>, 
+<code><a href="../help/rGaussPoisson.html">rGaussPoisson</a></code>.
+</p>
+<p>For fitting the model, see 
+<code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.model/help/clusterfit.html">clusterfit</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # homogeneous
+ X &lt;- rMatClust(10, 0.05, 4)
+ # inhomogeneous
+ ff &lt;- function(x,y){ 4 * exp(2 * abs(x) - 1) }
+ Z &lt;- as.im(ff, owin())
+ Y &lt;- rMatClust(10, 0.05, Z)
+ YY &lt;- rMatClust(ff, 0.05, 3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.random</em> version 3.3-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

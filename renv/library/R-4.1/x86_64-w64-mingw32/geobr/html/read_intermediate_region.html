@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download spatial data of Brazil's Intermediate Geographic...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read_intermediate_region {geobr}"><tr><td>read_intermediate_region {geobr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download spatial data of Brazil's Intermediate Geographic Areas</h2>
+
+<h3>Description</h3>
+
+<p>The intermediate Geographic Areas are part of the geographic division of
+Brazil created in 2017 by IBGE. These regions were created to replace the
+&quot;Meso Regions&quot; division. Data at scale 1:250,000, using Geodetic reference
+system &quot;SIRGAS2000&quot; and CRS(4674)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read_intermediate_region(
+  code_intermediate = "all",
+  year = 2019,
+  simplified = TRUE,
+  showProgress = TRUE,
+  cache = TRUE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>code_intermediate</code></td>
+<td>
+<p>4-digit code of an intermediate region. If the
+two-digit code or a two-letter uppercase abbreviation of a state is
+passed, (e.g. 33 or &quot;RJ&quot;) the function will load all intermediate
+regions of that state. If <code>code_intermediate="all"</code> (Default), the
+function downloads all intermediate regions of the country.</p>
+</td></tr>
+<tr valign="top"><td><code>year</code></td>
+<td>
+<p>Numeric. Year of the data in YYYY format. Defaults to <code>2019</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>simplified</code></td>
+<td>
+<p>Logic <code>FALSE</code> or <code>TRUE</code>, indicating whether the function
+should return the data set with 'original' spatial resolution or a data set
+with 'simplified' geometry. Defaults to <code>TRUE</code>. For spatial analysis and
+statistics users should set <code>simplified = FALSE</code>. Borders have been
+simplified by removing vertices of borders using <code style="white-space: pre;">st_simplify{sf}</code> preserving
+topology with a <code>dTolerance</code> of 100.</p>
+</td></tr>
+<tr valign="top"><td><code>showProgress</code></td>
+<td>
+<p>Logical. Defaults to <code>TRUE</code> display progress bar.</p>
+</td></tr>
+<tr valign="top"><td><code>cache</code></td>
+<td>
+<p>Logical. Whether the function should read the data cached
+locally, which is faster. Defaults to <code>cache = TRUE</code>. By default,
+<code>geobr</code> stores data files in a temporary directory that exists only
+within each R session. If <code>cache = FALSE</code>, the function will download
+the data again and overwrite the local file.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An <code style="white-space: pre;">"sf" "data.frame"</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other area functions: 
+<code><a href="../../geobr/help/read_amazon.html">read_amazon</a>()</code>,
+<code><a href="../../geobr/help/read_biomes.html">read_biomes</a>()</code>,
+<code><a href="../../geobr/help/read_capitals.html">read_capitals</a>()</code>,
+<code><a href="../../geobr/help/read_comparable_areas.html">read_comparable_areas</a>()</code>,
+<code><a href="../../geobr/help/read_country.html">read_country</a>()</code>,
+<code><a href="../../geobr/help/read_disaster_risk_area.html">read_disaster_risk_area</a>()</code>,
+<code><a href="../../geobr/help/read_health_facilities.html">read_health_facilities</a>()</code>,
+<code><a href="../../geobr/help/read_health_region.html">read_health_region</a>()</code>,
+<code><a href="../../geobr/help/read_immediate_region.html">read_immediate_region</a>()</code>,
+<code><a href="../../geobr/help/read_indigenous_land.html">read_indigenous_land</a>()</code>,
+<code><a href="../../geobr/help/read_meso_region.html">read_meso_region</a>()</code>,
+<code><a href="../../geobr/help/read_metro_area.html">read_metro_area</a>()</code>,
+<code><a href="../../geobr/help/read_micro_region.html">read_micro_region</a>()</code>,
+<code><a href="../../geobr/help/read_municipal_seat.html">read_municipal_seat</a>()</code>,
+<code><a href="../../geobr/help/read_municipality.html">read_municipality</a>()</code>,
+<code><a href="../../geobr/help/read_neighborhood.html">read_neighborhood</a>()</code>,
+<code><a href="../../geobr/help/read_pop_arrangements.html">read_pop_arrangements</a>()</code>,
+<code><a href="../../geobr/help/read_region.html">read_region</a>()</code>,
+<code><a href="../../geobr/help/read_schools.html">read_schools</a>()</code>,
+<code><a href="../../geobr/help/read_semiarid.html">read_semiarid</a>()</code>,
+<code><a href="../../geobr/help/read_state.html">read_state</a>()</code>,
+<code><a href="../../geobr/help/read_statistical_grid.html">read_statistical_grid</a>()</code>,
+<code><a href="../../geobr/help/read_urban_area.html">read_urban_area</a>()</code>,
+<code><a href="../../geobr/help/read_urban_concentrations.html">read_urban_concentrations</a>()</code>,
+<code><a href="../../geobr/help/read_weighting_area.html">read_weighting_area</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# Read an specific intermediate region
+  im &lt;- read_intermediate_region(code_intermediate=1202)
+
+# Read intermediate regions of a state
+  im &lt;- read_intermediate_region(code_intermediate=12)
+  im &lt;- read_intermediate_region(code_intermediate="AM")
+
+# Read all intermediate regions of the country
+  im &lt;- read_intermediate_region()
+  im &lt;- read_intermediate_region(code_intermediate="all")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>geobr</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

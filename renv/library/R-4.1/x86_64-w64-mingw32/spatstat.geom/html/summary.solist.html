@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summary of a List of Spatial Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for summary.solist {spatstat.geom}"><tr><td>summary.solist {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summary of a List of Spatial Objects</h2>
+
+<h3>Description</h3>
+
+<p>Prints a useful summary of each entry in a list of two-dimensional
+spatial objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'solist'
+summary(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An object of class <code>"solist"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for the generic function <code><a href="../../base/html/summary.html">summary</a></code>.
+</p>
+<p>An object of the class <code>"solist"</code> is effectively a list
+of two-dimensional spatial datasets.
+See <code><a href="../../spatstat.geom/help/solist.html">solist</a></code>.
+</p>
+<p>This function extracts a useful summary of each of the datasets.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/solist.html">solist</a></code>,
+<code><a href="../../base/html/summary.html">summary</a></code>,
+<code><a href="../../spatstat.geom/help/plot.solist.html">plot.solist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  x &lt;- solist(cells, japanesepines, redwood)
+  summary(x)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quadrature Scheme Based on Pixel Grid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pixelquad {spatstat.geom}"><tr><td>pixelquad {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Quadrature Scheme Based on Pixel Grid</h2>
+
+<h3>Description</h3>
+
+<p>Makes a quadrature scheme with a dummy point at every pixel
+of a pixel image.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pixelquad(X, W = as.owin(X), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>Point pattern (object of class <code>"ppp"</code>) containing the
+data points for the quadrature scheme.
+</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Specifies the pixel grid.
+A pixel image (object of class <code>"im"</code>),
+a window (object of class <code>"owin"</code>), or anything that can
+be converted to a window by <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Optional arguments to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the pixel raster dimensions.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a method for producing a quadrature scheme
+for use by <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>. It is an alternative to
+<code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>.
+</p>
+<p>The function <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code> fits a point process model to an
+observed point pattern using 
+the Berman-Turner quadrature approximation (Berman and Turner, 1992;
+Baddeley and Turner, 2000) to the pseudolikelihood of the model. 
+It requires a quadrature scheme consisting of 
+the original data point pattern, an additional pattern of dummy points,
+and a vector of quadrature weights for all these points.
+Such quadrature schemes are represented by objects of class
+<code>"quad"</code>. See <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code> for a description of this class.
+</p>
+<p>Given a grid of pixels, this function creates a quadrature scheme
+in which there is one dummy point at the centre of each pixel. The
+counting weights are used (the weight attached to each quadrature
+point is 1 divided by the number of quadrature points falling
+in the same pixel).
+</p>
+<p>The argument <code>X</code> specifies the locations of the data points
+for the quadrature scheme. Typically this would be a point pattern
+dataset.
+</p>
+<p>The argument <code>W</code> specifies the grid of pixels for the dummy
+points of the quadrature scheme. It should be a pixel image
+(object of class <code>"im"</code>), a window (object of class
+<code>"owin"</code>), or anything that can
+be converted to a window by <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>. If <code>W</code> is a
+pixel image or a binary mask (a window of type <code>"mask"</code>)
+then the pixel grid of <code>W</code> will be used. If <code>W</code> is a
+rectangular or polygonal window, then it will first be converted to a
+binary mask using <code><a href="../help/as.mask.html">as.mask</a></code> at the default pixel
+resolution.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"quad"</code> describing the quadrature scheme
+(data points, dummy points, and quadrature weights)
+suitable as the argument <code>Q</code> of the function <code><a href="../../spatstat.model/help/ppm.html">ppm</a>()</code> for
+fitting a point process model.
+</p>
+<p>The quadrature scheme can be inspected using the
+<code>print</code> and <code>plot</code> methods for objects
+of class <code>"quad"</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>,
+<code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>,
+<code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  W &lt;- owin(c(0,1),c(0,1))
+  X &lt;- runifrect(42, W)
+  W &lt;- as.mask(W,dimyx=128)
+  pixelquad(X,W)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

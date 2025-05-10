@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extrapolate Line Segments to Obtain Infinite Lines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for extrapolate.psp {spatstat.geom}"><tr><td>extrapolate.psp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extrapolate Line Segments to Obtain Infinite Lines
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a spatial pattern of line segments,
+extrapolate the segments to infinite lines.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+extrapolate.psp(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>Spatial pattern of line segments (object of class <code>"psp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each line segment in the pattern <code>x</code> is
+extrapolated to an infinite line, drawn through its two endpoints.
+The resulting pattern of infinite lines
+is returned as an object of class <code>"infline"</code>.
+</p>
+<p>If a segment's endpoints are identical
+(so that it has zero length)
+the resulting infinite line is vertical (i.e. parallel to the <i>y</i>
+coordinate axis).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"infline"</code> representing the pattern of
+infinite lines. See <code><a href="../../spatstat.geom/help/infline.html">infline</a></code> for details of
+structure.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/psp.html">psp</a></code>,
+<code><a href="../../spatstat.geom/help/infline.html">infline</a></code>
+</p>
+<p><code><a href="../../spatstat.geom/help/midpoints.psp.html">midpoints.psp</a></code>,
+<code><a href="../../spatstat.geom/help/lengths_psp.html">lengths_psp</a></code>
+<code><a href="../../spatstat.geom/help/angles.psp.html">angles.psp</a></code>,
+<code><a href="../../spatstat.geom/help/endpoints.psp.html">endpoints.psp</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- psp(runif(4), runif(4), runif(4), runif(4), window=owin())
+   Y &lt;- extrapolate.psp(X)
+   plot(X, col=3, lwd=4)
+   plot(Y, lty=3)
+   Y
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit Point Process Model to Point Pattern Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ppm.ppp {spatstat.model}"><tr><td>ppm.ppp {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fit Point Process Model to Point Pattern Data
+</h2>
+
+<h3>Description</h3>
+
+<p>Fits a point process model to an observed point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+   ## S3 method for class 'ppp'
+ppm(Q, trend=~1, interaction=Poisson(),
+       ...,
+       covariates=data,
+       data=NULL,
+       covfunargs = list(),
+       subset,
+       clipwin,
+       correction="border",
+       rbord=reach(interaction),
+       use.gam=FALSE,
+       method=c("mpl", "logi", "VBlogi"),
+       forcefit=FALSE,
+       improve.type = c("none", "ho", "enet"),
+       improve.args=list(),
+       emend=project,
+       project=FALSE,
+       prior.mean = NULL,
+       prior.var = NULL,
+       nd = NULL,
+       eps = NULL,
+       quad.args=list(),
+       gcontrol=list(),
+       nsim=100, nrmh=1e5, start=NULL, control=list(nrep=nrmh),
+       verb=TRUE,
+       callstring=NULL)
+
+   ## S3 method for class 'quad'
+ppm(Q, trend=~1, interaction=Poisson(),
+       ...,
+       covariates=data,
+       data=NULL,
+       covfunargs = list(),
+       subset,
+       clipwin,
+       correction="border",
+       rbord=reach(interaction),
+       use.gam=FALSE,
+       method=c("mpl", "logi", "VBlogi"),
+       forcefit=FALSE,
+       improve.type = c("none", "ho", "enet"),
+       improve.args=list(),
+       emend=project,
+       project=FALSE,
+       prior.mean = NULL,
+       prior.var = NULL,
+       nd = NULL,
+       eps = NULL,
+       quad.args=list(),
+       gcontrol=list(),
+       nsim=100, nrmh=1e5, start=NULL, control=list(nrep=nrmh),
+       verb=TRUE,
+       callstring=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>Q</code></td>
+<td>
+
+<p>A data point pattern (of class <code>"ppp"</code>)
+to which the model will be fitted,
+or a quadrature scheme (of class <code>"quad"</code>)
+containing this pattern.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trend</code></td>
+<td>
+
+<p>An <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> formula object specifying the spatial trend to be fitted. 
+The default formula, <code>~1</code>, indicates the model is stationary
+and no trend is to be fitted. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>interaction</code></td>
+<td>
+
+<p>An object of class <code>"interact"</code>
+describing the point process interaction
+structure, or a function that makes such an object,
+or <code>NULL</code> indicating that a Poisson process (stationary
+or nonstationary) should be fitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>data,covariates</code></td>
+<td>
+
+<p>The values of any spatial covariates (other than the Cartesian
+coordinates) required by the model.
+Either a data frame, or a list whose entries are images,
+functions, windows, tessellations or single numbers. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+
+<p>Optional.
+An expression (which may involve the names of the
+Cartesian coordinates <code>x</code> and <code>y</code>
+and the names of entries in <code>data</code>)
+defining a subset of the spatial domain,
+to which the likelihood or pseudolikelihood should be restricted.
+See Details.
+The result of evaluating the expression should be either a logical
+vector, or a window (object of class <code>"owin"</code>)
+or a logical-valued pixel image (object of class <code>"im"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>clipwin</code></td>
+<td>
+
+<p>Optional. A spatial window (object of class <code>"owin"</code>)
+to which data will be restricted, before model-fitting
+is performed. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>covfunargs</code></td>
+<td>
+
+<p>A named list containing the values of any additional arguments
+required by covariate functions.
+</p>
+</td></tr>
+<tr valign="top"><td><code>correction</code></td>
+<td>
+
+<p>The name of the edge correction to be used. The default 
+is <code>"border"</code> indicating the border correction.
+Other possibilities may include <code>"Ripley"</code>, <code>"isotropic"</code>,
+<code>"periodic"</code>, <code>"translate"</code> and <code>"none"</code>, depending on the 
+<code>interaction</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rbord</code></td>
+<td>
+
+<p>If <code>correction = "border"</code>
+this argument specifies the distance by which
+the window should be eroded for the border correction.
+</p>
+</td></tr>
+<tr valign="top"><td><code>use.gam</code></td>
+<td>
+
+<p>Logical flag; if <code>TRUE</code> then computations are performed
+using <code>gam</code> instead of <code><a href="../../stats/html/glm.html">glm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+
+<p>String (partially matched) specifying the method used to fit the
+model. Options are 
+<code>"mpl"</code> for the method of Maximum PseudoLikelihood (the default),
+<code>"logi"</code> for the Logistic Likelihood method and
+<code>"VBlogi"</code> for the Variational Bayes Logistic Likelihood method.
+</p>
+</td></tr>
+<tr valign="top"><td><code>forcefit</code></td>
+<td>
+
+<p>Logical flag for internal use.
+If <code>forcefit=FALSE</code>, some trivial models will be
+fitted by a shortcut. If <code>forcefit=TRUE</code>,
+the generic fitting method will always be used. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>improve.type</code></td>
+<td>
+
+<p>String (partially matched) specifying a method for improving the
+initial fit. 
+If <code>improve.type = "none"</code> (the default), no improvement is
+performed. If <code>improve.type="ho"</code>, the Huang-Ogata approximate
+maximum likelihood method is used. If <code>improve.type="enet"</code>,
+the model coefficients are re-estimated using a regularized version
+of the composite likelihood.
+</p>
+</td></tr>
+<tr valign="top"><td><code>improve.args</code></td>
+<td>
+
+<p>Arguments used to control the algorithm
+for improving the initial fit. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>emend,project</code></td>
+<td>
+
+<p>(These are equivalent: <code>project</code> is an older name for
+<code>emend</code>.)
+Logical value. Setting <code>emend=TRUE</code> will ensure that the
+fitted model is always a valid point process by
+applying <code><a href="../../spatstat.model/help/emend.ppm.html">emend.ppm</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>prior.mean</code></td>
+<td>
+
+<p>Optional vector of prior means for canonical parameters (for
+<code>method="VBlogi"</code>). See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>prior.var</code></td>
+<td>
+
+<p>Optional prior variance covariance matrix for canonical parameters (for <code>method="VBlogi"</code>). See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>nd</code></td>
+<td>
+
+<p>Optional. Integer or pair of integers.
+The dimension of the grid of dummy points (<code>nd * nd</code>
+or <code>nd[1] * nd[2]</code>)
+used to evaluate the integral in the pseudolikelihood.
+Incompatible with <code>eps</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>Optional. 
+A positive number, or a vector of two positive numbers, giving the
+horizontal and vertical spacing, respectively, of the grid of
+dummy points. Incompatible with <code>nd</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>quad.args</code></td>
+<td>
+
+<p>Arguments controlling the construction of the quadrature scheme,
+when <code>Q</code> is a point pattern. A list of arguments that will be
+passed to <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>
+or (if <code>method="logi"</code>) to <code><a href="../../spatstat.geom/help/quadscheme.logi.html">quadscheme.logi</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>gcontrol</code></td>
+<td>
+
+<p>Optional. List of parameters passed to <code><a href="../../stats/html/glm.control.html">glm.control</a></code>
+(or passed to <code><a href="../../mgcv/help/gam.control.html">gam.control</a></code> if <code>use.gam=TRUE</code>)
+controlling the model-fitting algorithm. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+
+<p>Number of simulated realisations
+to generate (for <code>improve.type="ho"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>nrmh</code></td>
+<td>
+
+<p>Number of Metropolis-Hastings iterations
+for each simulated realisation (for <code>improve.type="ho"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>start,control</code></td>
+<td>
+
+<p>Arguments passed to <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code> controlling the behaviour
+of the Metropolis-Hastings algorithm (for <code>improve.type="ho"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>verb</code></td>
+<td>
+
+<p>Logical flag indicating whether to print progress reports
+(for <code>improve.type="ho"</code>)
+</p>
+</td></tr>
+<tr valign="top"><td><code>callstring</code></td>
+<td>
+
+<p>Internal use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><b>NOTE:</b> This help page describes the <b>old syntax</b> of the
+function <code>ppm</code>, described in many older documents.
+This old syntax is still supported. However, if you are learning about
+<code>ppm</code> for the first time, we recommend you use the
+<b>new syntax</b> described in the help file for <code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>.
+</p>
+<p>This function fits a point process model
+to an observed point pattern.
+The model may include
+spatial trend, interpoint interaction, and dependence on covariates.
+</p>
+
+<dl>
+<dt>basic use:</dt><dd>
+<p>In basic use, <code>Q</code> is a point pattern dataset
+(an object of class <code>"ppp"</code>) to which we wish to fit a model.
+</p>
+<p>The syntax of <code>ppm()</code> is closely analogous to the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> functions
+<code><a href="../../stats/html/glm.html">glm</a></code> and <code><a href="../../mgcv/help/gam.html">gam</a></code>.
+The analogy is:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<b>glm</b> </td><td style="text-align: left;"> <b>ppm</b> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code>formula</code> </td><td style="text-align: left;"> <code>trend</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code>family</code> </td><td style="text-align: left;"> <code>interaction</code>
+      </td>
+</tr>
+
+</table>
+
+<p>The point process model to be fitted is specified by the 
+arguments <code>trend</code> and <code>interaction</code>
+which are respectively analogous to
+the <code>formula</code> and <code>family</code> arguments of glm(). 
+</p>
+<p>Systematic effects (spatial trend and/or dependence on 
+spatial covariates) are specified by the argument
+<code>trend</code>. This is an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> formula object, which may be expressed
+in terms of the Cartesian coordinates <code>x</code>, <code>y</code>,
+the marks <code>marks</code>,
+or the variables in <code>covariates</code> (if supplied), or both.
+It specifies the <b>logarithm</b> of the first order potential
+of the process.
+The formula should not use any names beginning with <code>.mpl</code>
+as these are reserved for internal use.
+If <code>trend</code> is absent or equal to the default, <code>~1</code>, then
+the model to be fitted is stationary (or at least, its first order 
+potential is constant). 
+</p>
+<p>The symbol <code>.</code> in the trend expression stands for
+all the covariates supplied in the argument <code>data</code>.
+For example the formula <code>~ .</code> indicates an additive
+model with a main effect for each covariate in <code>data</code>.
+</p>
+<p>Stochastic interactions between random points of the point process
+are defined by the argument <code>interaction</code>. This is an object of
+class <code>"interact"</code> which is initialised in a very similar way to the
+usage of family objects in <code><a href="../../stats/html/glm.html">glm</a></code> and <code><a href="../../mgcv/help/gam.html">gam</a></code>.
+The models currently available are:
+<code><a href="../help/AreaInter.html">AreaInter</a></code>, <code><a href="../help/BadGey.html">BadGey</a></code>, <code><a href="../help/Concom.html">Concom</a></code>, <code><a href="../help/DiggleGatesStibbard.html">DiggleGatesStibbard</a></code>, <code><a href="../help/DiggleGratton.html">DiggleGratton</a></code>, <code><a href="../help/Fiksel.html">Fiksel</a></code>, <code><a href="../help/Geyer.html">Geyer</a></code>, <code><a href="../help/Hardcore.html">Hardcore</a></code>, <code><a href="../help/HierHard.html">HierHard</a></code>, <code><a href="../help/HierStrauss.html">HierStrauss</a></code>, <code><a href="../help/HierStraussHard.html">HierStraussHard</a></code>, <code><a href="../help/Hybrid.html">Hybrid</a></code>, <code><a href="../help/LennardJones.html">LennardJones</a></code>, <code><a href="../help/MultiHard.html">MultiHard</a></code>, <code><a href="../help/MultiStrauss.html">MultiStrauss</a></code>, <code><a href="../help/MultiStraussHard.html">MultiStraussHard</a></code>, <code><a href="../help/OrdThresh.html">OrdThresh</a></code>, <code><a href="../help/Ord.html">Ord</a></code>, <code><a href="../help/Pairwise.html">Pairwise</a></code>, <code><a href="../help/PairPiece.html">PairPiece</a></code>, <code><a href="../help/Penttinen.html">Penttinen</a></code>, <code><a href="../help/Poisson.html">Poisson</a></code>, <code><a href="../help/Saturated.html">Saturated</a></code>, <code><a href="../help/SatPiece.html">SatPiece</a></code>, <code><a href="../help/Softcore.html">Softcore</a></code>, <code><a href="../help/Strauss.html">Strauss</a></code>, <code><a href="../help/StraussHard.html">StraussHard</a></code> and <code><a href="../help/Triplets.html">Triplets</a></code>.
+See the examples below.
+It is also possible to combine several interactions
+using <code><a href="../../spatstat.model/help/Hybrid.html">Hybrid</a></code>.
+</p>
+<p>If <code>interaction</code> is missing or <code>NULL</code>,
+then the model to be fitted
+has no interpoint interactions, that is, it is a Poisson process
+(stationary or nonstationary according to <code>trend</code>). In this case
+the methods of maximum pseudolikelihood and maximum logistic likelihood
+coincide with maximum likelihood. 
+</p>
+<p>The fitted point process model returned by this function can be printed 
+(by the print method <code><a href="../../spatstat.model/help/print.ppm.html">print.ppm</a></code>)
+to inspect the fitted parameter values.
+If a nonparametric spatial trend was fitted, this can be extracted using
+the predict method <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code>.
+</p>
+</dd>
+<dt>Models with covariates:</dt><dd>
+<p>To fit a model involving spatial covariates
+other than the Cartesian coordinates <i>x</i> and <i>y</i>,
+the values of the covariates should be supplied in the
+argument <code>covariates</code>. 
+Note that it is not sufficient to have observed
+the covariate only at the points of the data point pattern; 
+the covariate must also have been observed at other 
+locations in the window.
+</p>
+<p>Typically the argument <code>covariates</code> is a list,
+with names corresponding to variables in the <code>trend</code> formula.
+Each entry in the list is either
+</p>
+
+<dl>
+<dt>a pixel image,</dt><dd>
+<p>giving the values of a spatial covariate at 
+a fine grid of locations. It should be an object of
+class <code>"im"</code>, see <code><a href="../../spatstat.geom/help/im.object.html">im.object</a></code>.
+</p>
+</dd>
+<dt>a function,</dt><dd>
+<p>which can be evaluated
+at any location <code>(x,y)</code> to obtain the value of the spatial
+covariate. It should be a <code>function(x, y)</code>
+or <code>function(x, y, ...)</code> in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> language.
+For marked point pattern data, the covariate can be a
+<code>function(x, y, marks)</code> or <code>function(x, y, marks, ...)</code>.
+The first two arguments of the function should be the
+Cartesian coordinates <i>x</i> and <i>y</i>. The function may have
+additional arguments; if the function does not have default
+values for these additional arguments, then the user must
+supply values for them, in <code>covfunargs</code>.
+See the Examples.
+</p>
+</dd>
+<dt>a window,</dt><dd>
+<p>interpreted as a logical variable
+which is <code>TRUE</code> inside the window and <code>FALSE</code> outside
+it. This should be an object of class <code>"owin"</code>.
+</p>
+</dd>
+<dt>a tessellation,</dt><dd>
+<p>interpreted as a factor covariate.
+For each spatial location, the factor value indicates
+which tile of the tessellation it belongs to.
+This should be an object of class <code>"tess"</code>.
+</p>
+</dd>
+<dt>a single number,</dt><dd><p>indicating a covariate that is
+constant in this dataset.
+</p>
+</dd>
+</dl>
+
+<p>The software will look up
+the values of each covariate at the required locations
+(quadrature points).
+</p>
+<p>Note that, for covariate functions, only the <em>name</em> of the
+function appears in the trend formula. A covariate function is
+treated as if it were a single variable. The function arguments do not
+appear in the trend formula. See the Examples.
+</p>
+<p>If <code>covariates</code> is a list,
+the list entries should have names corresponding to
+the names of covariates in the model formula <code>trend</code>.
+The variable names <code>x</code>, <code>y</code> and <code>marks</code>
+are reserved for the Cartesian 
+coordinates and the mark values,
+and these should not be used for variables in <code>covariates</code>.
+</p>
+<p>If <code>covariates</code> is a data frame, <code>Q</code> must be a
+quadrature scheme (see under Quadrature Schemes below).
+Then <code>covariates</code> must have
+as many rows as there are points in <code>Q</code>.
+The <i>i</i>th row of <code>covariates</code> should contain the values of
+spatial variables which have been observed
+at the <i>i</i>th point of <code>Q</code>. 
+</p>
+</dd>
+<dt>Quadrature schemes:</dt><dd>
+<p>In advanced use, <code>Q</code> may be a &lsquo;quadrature scheme&rsquo;.
+This was originally just a technicality but it has turned out
+to have practical uses, as we explain below.
+</p>
+<p>Quadrature schemes are required for our implementation of
+the method of maximum pseudolikelihood.
+The definition of the pseudolikelihood involves an integral over
+the spatial window containing the data. In practice this integral
+must be approximated by a finite sum over a set of quadrature points.
+We use the technique of Baddeley and Turner (2000), a generalisation
+of the Berman-Turner (1992) device. In this technique the quadrature
+points for the numerical approximation include all the data points
+(points of the observed point pattern) as well as
+additional &lsquo;dummy&rsquo; points. 
+</p>
+<p>Quadrature schemes are also required for 
+the method of maximum logistic likelihood, which
+combines the data points with additional &lsquo;dummy&rsquo; points.
+</p>
+<p>A quadrature scheme is an object of class <code>"quad"</code>
+(see <code><a href="../../spatstat.geom/help/quad.object.html">quad.object</a></code>)
+which specifies both the data point pattern and the dummy points
+for the quadrature scheme, as well as the quadrature weights
+associated with these points.
+If <code>Q</code> is simply a point pattern
+(of class <code>"ppp"</code>, see <code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>)
+then it is interpreted as specifying the
+data points only; a set of dummy points specified
+by <code><a href="../../spatstat.geom/help/default.dummy.html">default.dummy</a>()</code> is added,
+and the default weighting rule is
+invoked to compute the quadrature weights.
+</p>
+<p>Finer quadrature schemes (i.e. those with more dummy
+points) generally yield a better approximation, at the
+expense of higher computational load. 
+</p>
+<p>An easy way to fit models using a finer quadrature scheme
+is to let <code>Q</code> be the original point pattern data,
+and use the argument <code>nd</code>
+to determine the number of dummy points in the quadrature scheme.
+</p>
+<p>Complete control over the quadrature scheme is possible.
+See <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code> for an overview.
+Use <code>quadscheme(X, D, method="dirichlet")</code> to compute
+quadrature weights based on the Dirichlet tessellation,
+or <code>quadscheme(X, D, method="grid")</code> to compute
+quadrature weights by counting points in grid squares,
+where <code>X</code> and <code>D</code> are the patterns of data points
+and dummy points respectively.
+Alternatively use <code><a href="../../spatstat.geom/help/pixelquad.html">pixelquad</a></code> to make a quadrature
+scheme with a dummy point at every pixel in a pixel image.
+</p>
+<p>The argument <code>quad.args</code> can be used to control the
+construction of the quadrature scheme. For example
+<code>quad.args=list(quasi=TRUE, method="dirichlet", eps=0.1)</code> would
+create dummy points according to a quasirandom pattern, with a
+typical spacing of 0.1 units between dummy points,
+and compute quadrature weights based on the Dirichlet tessellation.
+</p>
+<p>A practical advantage of quadrature schemes arises when we want to fit
+a model involving covariates (e.g. soil pH). Suppose we have only been
+able to observe the covariates at a small number of locations.
+Suppose <code>cov.dat</code> is a data frame containing the values of
+the covariates at the data points (i.e.\ <code>cov.dat[i,]</code>
+contains the observations for the <code>i</code>th data point)
+and <code>cov.dum</code> is another data frame (with the same columns as
+<code>cov.dat</code>) containing the covariate values at another
+set of points whose locations are given by the point pattern <code>Y</code>.
+Then setting <code>Q = quadscheme(X,Y)</code> combines the data points
+and dummy points into a quadrature scheme, and 
+<code>covariates = rbind(cov.dat, cov.dum)</code> combines the covariate
+data frames. We can then fit the model by calling
+<code>ppm(Q, ..., covariates)</code>.
+</p>
+</dd>
+<dt>Model-fitting technique:</dt><dd>
+<p>There are several choices for the technique used
+to fit the model.
+</p>
+
+<dl>
+<dt>method=&quot;mpl&quot;</dt><dd>
+<p>(the default):
+the model will be fitted by maximising the 
+pseudolikelihood (Besag, 1975) using the
+Berman-Turner computational approximation
+(Berman and Turner, 1992; Baddeley and Turner, 2000).
+Maximum pseudolikelihood is equivalent to maximum likelihood
+if the model is a Poisson process. 
+Maximum pseudolikelihood is biased if the
+interpoint interaction is very strong, unless there
+is a large number of dummy points.
+The default settings for <code>method='mpl'</code>
+specify a moderately large number of dummy points,
+striking a compromise between speed and accuracy.
+</p>
+</dd>
+<dt>method=&quot;logi&quot;:</dt><dd>
+<p>the model will be fitted by maximising the 
+logistic likelihood (Baddeley et al, 2014).
+This technique is roughly equivalent in speed to
+maximum pseudolikelihood, but is 
+believed to be less biased. Because it is less biased,
+the default settings for <code>method='logi'</code>
+specify a relatively small number of dummy points,
+so that this method is the fastest, in practice.
+</p>
+</dd>
+<dt>method=&quot;VBlogi&quot;:</dt><dd>	  
+<p>the model will be fitted in a Bayesian setup by maximising the
+posterior probability density for the canonical model
+parameters. This uses the variational Bayes approximation to
+the posterior derived from the logistic likelihood as described
+in Rajala (2014). The prior is assumed to be multivariate
+Gaussian with mean vector <code>prior.mean</code> and variance-covariance
+matrix <code>prior.var</code>.	  
+</p>
+</dd>
+</dl>
+
+<p>Note that <code>method='logi'</code> and <code>method='VBlogi'</code>
+involve randomisation, so that the results are
+subject to random variation.
+</p>
+<p>After this initial fit, there are several ways to improve the fit:
+</p>
+
+<dl>
+<dt>improve.type=&quot;none&quot;:</dt><dd>
+<p>No further improvement is performed.
+</p>
+</dd>
+<dt>improve.type=&quot;ho&quot;:</dt><dd>
+<p>the model will be re-fitted
+by applying the approximate maximum likelihood
+method of Huang and Ogata (1999). See below.
+The Huang-Ogata method is slower than the other options,
+but has better statistical properties.
+This method involves randomisation, so the results are subject
+to random variation.
+</p>
+</dd>
+<dt>improve.type=&quot;enet&quot;:</dt><dd>
+<p>The model will be re-fitted using a regularized version of the
+composite likelihood. See below.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt>Huang-Ogata method:</dt><dd>
+<p>If <code>improve.type="ho"</code> then the model will be fitted using
+the Huang-Ogata (1999) approximate maximum likelihood method.
+First the model is fitted by maximum pseudolikelihood as
+described above, yielding an initial estimate of the parameter
+vector <i>theta0</i>.
+From this initial model, <code>nsim</code> simulated
+realisations are generated. The score and Fisher information of
+the model at <i>theta=theta0</i>
+are estimated from the simulated realisations. Then one step
+of the Fisher scoring algorithm is taken, yielding an updated
+estimate <i>theta1</i>. The corresponding model is
+returned.
+</p>
+<p>Simulated realisations are generated using <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+The iterative behaviour of the Metropolis-Hastings algorithm
+is controlled by the arguments <code>start</code> and <code>control</code>
+which are passed to <code><a href="../../spatstat.random/help/rmh.html">rmh</a></code>.
+</p>
+<p>As a shortcut, the argument
+<code>nrmh</code> determines the number of Metropolis-Hastings
+iterations run to produce one simulated realisation (if
+<code>control</code> is absent). Also
+if <code>start</code> is absent or equal to <code>NULL</code>, it defaults to
+<code>list(n.start=N)</code> where <code>N</code> is the number of points
+in the data point pattern.
+</p>
+</dd>
+<dt>Regularization:</dt><dd>
+<p>This requires the package <span class="pkg">glmnet</span>. 
+<b>Details to be written.</b>
+</p>
+</dd>
+<dt>Edge correction</dt><dd>
+<p>Edge correction should be applied to the sufficient statistics
+of the model, to reduce bias.
+The argument <code>correction</code> is the name of an edge correction
+method.
+The default <code>correction="border"</code> specifies the border correction,
+in which the quadrature window (the domain of integration of the 
+pseudolikelihood) is obtained by trimming off a margin of width
+<code>rbord</code> from the observation window of the data pattern.
+Not all edge corrections are implemented (or implementable)
+for arbitrary windows.
+Other options depend on the argument <code>interaction</code>, but these
+generally include <code>correction="periodic"</code> (the periodic or toroidal edge
+correction in which opposite edges of a rectangular window are
+identified) and <code>correction="translate"</code> (the translation correction,
+see Baddeley 1998 and Baddeley and Turner 2000).
+For pairwise interaction models
+there is also Ripley's isotropic correction,
+identified by <code>correction="isotropic"</code> or <code>"Ripley"</code>.
+</p>
+</dd>
+<dt>Subsetting</dt><dd>
+<p>The arguments <code>subset</code> and <code>clipwin</code> specify that the
+model should be fitted to a restricted subset of the available
+data. These arguments are equivalent for Poisson point process models,
+but different for Gibbs models.
+If <code>clipwin</code> is specified, then all the available data will
+be restricted to this spatial region, and data outside this region
+will be discarded, before the model is fitted.
+If <code>subset</code> is specified, then no data are deleted, but
+the domain of integration of the likelihood or pseudolikelihood
+is restricted to the <code>subset</code>.
+For Poisson models, these two arguments have the same effect;
+but for a Gibbs model, 
+interactions between points inside and outside the <code>subset</code>
+are taken into account, while
+interactions between points inside and outside the <code>clipwin</code>
+are ignored.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"ppm"</code> describing a fitted point process
+model.
+</p>
+<p>See <code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code> for details of the format of this object
+and methods available for manipulating it.
+</p>
+
+
+<h3>Interaction parameters</h3>
+
+<p>Apart from the Poisson model, every point process model fitted by
+<code>ppm</code> has parameters that determine the strength and
+range of &lsquo;interaction&rsquo; or dependence between points.
+These parameters are of two types:
+</p>
+
+<dl>
+<dt>regular parameters:</dt><dd>
+<p>A parameter <i>phi</i> is called <em>regular</em>
+if the log likelihood is a linear function of <i>theta</i> where 
+<i>theta = theta(psi)</i> is some transformation of 
+<i>psi</i>. [Then <i>theta</i> is called the canonical
+parameter.]
+</p>
+</dd>
+<dt>irregular parameters</dt><dd>
+<p>Other parameters are called <em>irregular</em>. 
+</p>
+</dd>
+</dl>
+
+<p>Typically, regular parameters determine the &lsquo;strength&rsquo;
+of the interaction, while irregular parameters determine the
+&lsquo;range&rsquo; of the interaction. For example, the Strauss process
+has a regular parameter <i>gamma</i> controlling the strength
+of interpoint inhibition, and an irregular parameter <i>r</i>
+determining the range of interaction.
+</p>
+<p>The <code>ppm</code> command is only designed to estimate regular
+parameters of the interaction.
+It requires the values of any irregular parameters of the interaction
+to be fixed. For example, to fit a Strauss process model to the <code>cells</code>
+dataset, you could type <code>ppm(cells, ~1, Strauss(r=0.07))</code>.
+Note that the value of the irregular parameter <code>r</code> must be given.
+The result of this command will be a fitted model in which the
+regular parameter <i>gamma</i> has been estimated.
+</p>
+<p>To determine the irregular parameters, there are several
+practical techniques, but no general statistical theory available.
+Useful techniques include maximum profile pseudolikelihood, which
+is implemented in the command <code><a href="../../spatstat.model/help/profilepl.html">profilepl</a></code>,
+and Newton-Raphson maximisation, implemented in the
+experimental command <code><a href="../../spatstat.model/help/ippm.html">ippm</a></code>. 
+</p>
+<p>Some irregular parameters can be estimated directly from data:
+the hard-core radius in the model <code><a href="../../spatstat.model/help/Hardcore.html">Hardcore</a></code>
+and the matrix of hard-core radii in <code><a href="../../spatstat.model/help/MultiHard.html">MultiHard</a></code> can be
+estimated easily from data. In these cases, <code>ppm</code> allows the user
+to specify the interaction without giving
+the value of the irregular parameter. The user can give the
+hard core interaction as <code>interaction=Hardcore()</code>
+or even <code>interaction=Hardcore</code>, and 
+the hard core radius will then be estimated from the data.
+</p>
+
+
+<h3>Error and Warning Messages</h3>
+
+<p>Some common error messages and warning messages 
+are listed below, with explanations.
+</p>
+
+<dl>
+<dt>&ldquo;Model is invalid&rdquo; or &ldquo;Model is not valid&rdquo;</dt><dd>
+<p>The fitted model coefficients do not define a valid point
+process. This can occur because some of the fitted coefficients
+are <code>NA</code> (perhaps because the model formula included redundant
+covariates so that the coefficients cannot be estimated), or
+because the fitted interaction coefficients do not define
+a valid point process (e.g. because a point process
+model which always has inhibition between points was fitted to a
+clustered point pattern). See <code><a href="../../spatstat.model/help/valid.ppm.html">valid.ppm</a></code> for detailed
+information. 
+</p>
+</dd>
+<dt>&ldquo;System is computationally singular&rdquo; or
+&ldquo;Fisher information matrix is singular&rdquo;</dt><dd>
+<p>The software cannot calculate standard errors or confidence
+intervals for the coefficients of the fitted model.
+This requires the (asymptotic) variance-covariance
+matrix, which is the inverse matrix of the Fisher information
+matrix of the fitted model. The error message states
+that the determinant of the Fisher information matrix is zero,
+or close to zero, so that the matrix cannot be inverted.
+This error is usually reported when the model is printed,
+because the <code>print</code> method calculates standard errors for the
+fitted parameters. Singularity usually occurs because the spatial
+coordinates in the original data were very large numbers
+(e.g. expressed in metres) so that the fitted coefficients were
+very small numbers. The simple remedy is to
+<b>rescale the data</b>, for example, to convert from metres to
+kilometres by <code>X &lt;- <a href="../../spatstat.geom/help/rescale.html">rescale</a>(X, 1000)</code>, then re-fit the
+model. Singularity can also occur if the covariate values are
+very large numbers, or if the covariates are approximately
+collinear.       
+</p>
+</dd>
+<dt>&ldquo;Covariate values were NA or undefined at X%
+(M out of N) of the quadrature points&rdquo;</dt><dd>
+<p>The covariate data (typically a pixel image) did not provide
+values of the covariate at some of the spatial locations in the 
+observation window of the point pattern. This means that the
+spatial domain of the pixel image does not completely cover the
+observation window of the point pattern. If the percentage
+is small, this warning can be ignored - typically it happens
+because of rounding effects which cause the pixel image
+to be one-pixel-width narrower than the observation window.
+However if more than a few percent of covariate values are
+undefined, it would be prudent to check that the pixel images
+are correct, and are correctly registered in their spatial relation to
+the observation window.
+</p>
+</dd>
+<dt>&ldquo;Some tiles with positive area do not contain any
+quadrature points: relative error = X%&rdquo;</dt><dd>
+<p>A problem has arisen when creating the quadrature scheme
+used to fit the model. In the default rule for computing the
+quadrature weights, space is divided into rectangular tiles,
+and the number of quadrature points (data and dummy points) in
+each tile is counted. It is possible for a tile with non-zero area
+to contain no quadrature points; in this case, the quadrature
+scheme will contribute a bias to the model-fitting procedure.
+<b>A small relative error (less than 2 percent) is not	important.</b>
+Relative errors of a few percent can occur because of the shape of
+the window.
+If the relative error is greater than about 5 percent, we
+recommend trying different parameters for the quadrature scheme,
+perhaps setting a larger value of <code>nd</code> to increase the number
+of dummy points. A relative error greater than 10 percent
+indicates a major problem with the input data: in this case,
+extract the quadrature scheme by applying <code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code>
+to the fitted model, and inspect it. 
+(The most likely cause of this problem is that the spatial coordinates
+of the original data were not handled correctly, for example,
+coordinates of the locations and the window boundary were incompatible.)
+</p>
+</dd>
+<dt>&ldquo;Model is unidentifiable&rdquo;</dt><dd>
+<p>It is not possible to estimate all the model parameters
+from this dataset. The error message gives a further explanation,
+such as &ldquo;data pattern is empty&rdquo;.
+Choose a simpler model, or check the data.
+</p>
+</dd>
+<dt>&ldquo;N data points are illegal (zero conditional intensity)&rdquo;</dt><dd>
+<p>In a Gibbs model (i.e. with interaction between
+points), the conditional intensity may be zero at some spatial
+locations, indicating that the model forbids the presence of a 
+point at these locations. However if the conditional intensity is
+zero <em>at a data point</em>, this means that the model is
+inconsistent with the data. Modify the interaction parameters so
+that the data point is not illegal (e.g. reduce the value of the
+hard core radius) or choose a different interaction.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>Warnings</h3>
+
+<p>The implementation of the Huang-Ogata method is experimental;
+several bugs were fixed in <span class="pkg">spatstat</span> 1.19-0.
+</p>
+<p>See the comments above about the possible inefficiency
+and bias of the maximum pseudolikelihood estimator.
+</p>
+<p>The accuracy of the Berman-Turner approximation to
+the pseudolikelihood depends on the number of dummy points used
+in the quadrature scheme. The number of dummy points should 
+at least equal the number of data points.
+</p>
+<p>The parameter values of the fitted model
+do not necessarily determine a valid point process.
+Some of the point process models are only defined when the parameter
+values lie in a certain subset. For example the Strauss process only 
+exists when the interaction parameter <i>gamma</i>
+is less than or equal to <i>1</i>,
+corresponding to a value of <code>ppm()$theta[2]</code>
+less than or equal to <code>0</code>.
+</p>
+<p>By default (if <code>emend=FALSE</code>) the algorithm
+maximises the pseudolikelihood
+without constraining the parameters, and does not apply any checks for
+sanity after fitting the model.
+This is because the fitted parameter value
+could be useful information for data analysis.
+To constrain the parameters to ensure that the model is a valid
+point process, set <code>emend=TRUE</code>. See also the functions
+<code><a href="../../spatstat.model/help/valid.ppm.html">valid.ppm</a></code> and <code><a href="../../spatstat.model/help/emend.ppm.html">emend.ppm</a></code>.
+</p>
+<p>The <code>trend</code> formula should not use any variable names
+beginning with the prefixes <code>.mpl</code> or <code>Interaction</code>
+as these names are reserved
+for internal use. The data frame <code>covariates</code> should have as many rows
+as there are points in <code>Q</code>. It should not contain
+variables called <code>x</code>, <code>y</code> or <code>marks</code>
+as these names are reserved for the Cartesian coordinates
+and the marks.
+</p>
+<p>If the model formula involves one of the functions
+<code>poly()</code>, <code>bs()</code>
+or <code>ns()</code>
+(e.g. applied to spatial coordinates <code>x</code> and <code>y</code>),
+the fitted coefficients can be misleading.
+The resulting fit is not to the raw spatial variates
+(<code>x</code>, <code>x^2</code>, <code>x*y</code>, etc.) 
+but to a transformation of these variates.  The transformation is implemented
+by <code>poly()</code> in order to achieve better numerical stability.
+However the
+resulting coefficients are appropriate for use with the transformed
+variates, not with the raw variates.  
+This affects the interpretation of the constant
+term in the fitted model, <code>logbeta</code>. 
+Conventionally, <i>beta</i> is the background intensity, i.e. the  
+value taken by the conditional intensity function when all predictors
+(including spatial or &ldquo;trend&rdquo; predictors) are set equal to <i>0</i>.
+However the coefficient actually produced is the value that the
+log conditional intensity takes when all the predictors, 
+including the <em>transformed</em>
+spatial predictors, are set equal to <code>0</code>, which is not the same thing.
+</p>
+<p>Worse still, the result of <code><a href="../../spatstat.model/help/predict.ppm.html">predict.ppm</a></code> can be
+completely wrong if the trend formula contains one of the
+functions <code>poly()</code>, <code>bs()</code>
+or <code>ns()</code>. This is a weakness of the underlying
+function <code><a href="../../stats/html/predict.glm.html">predict.glm</a></code>. 
+</p>
+<p>If you wish to fit a polynomial trend, 
+we offer an alternative to <code><a href="../../stats/help/poly.html">poly</a>()</code>,
+namely <code>polynom()</code>, which avoids the
+difficulty induced by transformations.  It is completely analogous
+to <code>poly</code> except that it does not orthonormalise.
+The resulting coefficient estimates then have
+their natural interpretation and can be predicted correctly. 
+Numerical stability may be compromised.
+</p>
+<p>Values of the maximised pseudolikelihood are not comparable
+if they have been obtained with different values of <code>rbord</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Coeurjolly, J.-F., Rubak, E. and Waagepetersen, R. (2014)
+Logistic regression for spatial Gibbs point processes.
+<em>Biometrika</em> <b>101</b> (2) 377&ndash;392.
+</p>
+<p>Baddeley, A. and Turner, R.
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b> (2000) 283&ndash;322.
+</p>
+<p>Berman, M. and Turner, T.R. 
+Approximating point process likelihoods with GLIM.
+<em>Applied Statistics</em> <b>41</b> (1992) 31&ndash;38.
+</p>
+<p>Besag, J.
+Statistical analysis of non-lattice data.
+<em>The Statistician</em> <b>24</b> (1975) 179-195.
+</p>
+<p>Diggle, P.J., Fiksel, T., Grabarnik, P., Ogata, Y., Stoyan, D. and
+Tanemura, M.
+On parameter estimation for pairwise interaction processes.
+<em>International Statistical Review</em> <b>62</b> (1994) 99-117.
+</p>
+<p>Huang, F. and Ogata, Y.
+Improvements of the maximum pseudo-likelihood estimators
+in various spatial statistical models.
+<em>Journal of Computational and Graphical Statistics</em>
+<b>8</b> (1999) 510-530.
+</p>
+<p>Jensen, J.L. and Moeller, M.
+Pseudolikelihood for exponential family models of spatial point processes.
+<em>Annals of Applied Probability</em> <b>1</b> (1991) 445&ndash;461.
+</p>
+<p>Jensen, J.L. and Kuensch, H.R. 
+On asymptotic normality of pseudo likelihood
+estimates for pairwise interaction processes,
+<em>Annals of the Institute of Statistical Mathematics</em>
+<b>46</b> (1994) 475-486.
+</p>
+<p>Rajala T. (2014)
+<em>A note on Bayesian logistic regression for spatial exponential family
+Gibbs point processes</em>,
+Preprint on ArXiv.org. <a href="https://arxiv.org/abs/1411.0539">https://arxiv.org/abs/1411.0539</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.object.html">ppm.object</a></code> for details of how to
+print, plot and manipulate a fitted model.
+</p>
+<p><code><a href="../../spatstat.geom/help/ppp.html">ppp</a></code> and <code><a href="../../spatstat.geom/help/quadscheme.html">quadscheme</a></code>
+for constructing data.
+</p>
+<p>Interactions:
+<code><a href="../help/AreaInter.html">AreaInter</a></code>, <code><a href="../help/BadGey.html">BadGey</a></code>, <code><a href="../help/Concom.html">Concom</a></code>, <code><a href="../help/DiggleGatesStibbard.html">DiggleGatesStibbard</a></code>, <code><a href="../help/DiggleGratton.html">DiggleGratton</a></code>, <code><a href="../help/Fiksel.html">Fiksel</a></code>, <code><a href="../help/Geyer.html">Geyer</a></code>, <code><a href="../help/Hardcore.html">Hardcore</a></code>, <code><a href="../help/HierHard.html">HierHard</a></code>, <code><a href="../help/HierStrauss.html">HierStrauss</a></code>, <code><a href="../help/HierStraussHard.html">HierStraussHard</a></code>, <code><a href="../help/Hybrid.html">Hybrid</a></code>, <code><a href="../help/LennardJones.html">LennardJones</a></code>, <code><a href="../help/MultiHard.html">MultiHard</a></code>, <code><a href="../help/MultiStrauss.html">MultiStrauss</a></code>, <code><a href="../help/MultiStraussHard.html">MultiStraussHard</a></code>, <code><a href="../help/OrdThresh.html">OrdThresh</a></code>, <code><a href="../help/Ord.html">Ord</a></code>, <code><a href="../help/Pairwise.html">Pairwise</a></code>, <code><a href="../help/PairPiece.html">PairPiece</a></code>, <code><a href="../help/Penttinen.html">Penttinen</a></code>, <code><a href="../help/Poisson.html">Poisson</a></code>, <code><a href="../help/Saturated.html">Saturated</a></code>, <code><a href="../help/SatPiece.html">SatPiece</a></code>, <code><a href="../help/Softcore.html">Softcore</a></code>, <code><a href="../help/Strauss.html">Strauss</a></code>, <code><a href="../help/StraussHard.html">StraussHard</a></code> and <code><a href="../help/Triplets.html">Triplets</a></code>.
+</p>
+<p>See <code><a href="../../spatstat.model/help/profilepl.html">profilepl</a></code> for advice on
+fitting nuisance parameters in the interaction,
+and <code><a href="../../spatstat.model/help/ippm.html">ippm</a></code> for irregular parameters in the trend.
+</p>
+<p>See <code><a href="../../spatstat.model/help/valid.ppm.html">valid.ppm</a></code> and <code><a href="../../spatstat.model/help/emend.ppm.html">emend.ppm</a></code> for
+ensuring the fitted model is a valid point process.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ # fit the stationary Poisson process
+ # to point pattern 'nztrees'
+
+ ppm(nztrees)
+ ppm(nztrees ~ 1)
+ # equivalent.
+
+ Q &lt;- quadscheme(nztrees) 
+ ppm(Q) 
+ # equivalent.
+
+ fit1 &lt;- ppm(nztrees, ~ x)
+ # fit the nonstationary Poisson process 
+ # with intensity function lambda(x,y) = exp(a + bx)
+ # where x,y are the Cartesian coordinates
+ # and a,b are parameters to be estimated
+
+ # For other examples, see help(ppm)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

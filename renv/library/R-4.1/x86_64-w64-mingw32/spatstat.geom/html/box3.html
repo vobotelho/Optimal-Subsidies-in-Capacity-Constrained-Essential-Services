@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Three-Dimensional Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for box3 {spatstat.geom}"><tr><td>box3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Three-Dimensional Box
+</h2>
+
+<h3>Description</h3>
+
+<p>Creates an object representing a three-dimensional box.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+box3(xrange = c(0, 1), yrange = xrange, zrange = yrange, unitname = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xrange, yrange, zrange</code></td>
+<td>
+
+<p>Dimensions of the box in the <i>x,y,z</i> directions.
+Each of these arguments should be a numeric vector of length 2.
+</p>
+</td></tr>
+<tr valign="top"><td><code>unitname</code></td>
+<td>
+
+<p>Optional. Name of the unit of length. See Details.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function creates an object representing
+a three-dimensional rectangular parallelepiped (box)
+with sides parallel to the coordinate axes.
+</p>
+<p>The object can be used to specify the domain of a three-dimensional
+point pattern (see <code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>) and in various
+geometrical calculations (see <code><a href="../../spatstat.geom/help/volume.box3.html">volume.box3</a></code>,
+<code><a href="../../spatstat.geom/help/diameter.box3.html">diameter.box3</a></code>, <code><a href="../../spatstat.geom/help/eroded.volumes.html">eroded.volumes</a></code>). 
+</p>
+<p>The optional argument <code>unitname</code> specifies the name
+of the unit of length. See <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>
+for valid formats.
+</p>
+<p>The function <code><a href="../../spatstat.geom/help/as.box3.html">as.box3</a></code> can be used to convert other kinds
+of data to this format.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"box3"</code>. There is a print method for this class.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.box3.html">as.box3</a></code>, 
+<code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>,
+<code><a href="../../spatstat.geom/help/volume.box3.html">volume.box3</a></code>,
+<code><a href="../../spatstat.geom/help/diameter.box3.html">diameter.box3</a></code>,
+<code><a href="../../spatstat.geom/help/eroded.volumes.html">eroded.volumes</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    box3()
+    box3(c(0,10),c(0,10),c(0,5), unitname=c("metre","metres"))
+    box3(c(-1,1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

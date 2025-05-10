@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Areas of Tiles in Dirichlet Tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dirichletAreas {spatstat.geom}"><tr><td>dirichletAreas {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Compute Areas of Tiles in Dirichlet Tessellation
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the area of each tile in the 
+Dirichlet-Voronoi tessellation of a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dirichletAreas(X)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+
+<p>Point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is an efficient algorithm to calculate the areas
+of the tiles in the Dirichlet-Voronoi tessellation.
+</p>
+<p>If the window of <code>X</code> is a binary pixel mask, the
+tile areas are computed by counting pixels. Otherwise the
+areas are computed exactly using analytic geometry.
+</p>
+<p>If any points of <code>X</code> are duplicated, the duplicates will
+have tile area zero.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Numeric vector with one entry for each point of <code>X</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/dirichlet.html">dirichlet</a></code>,
+<code><a href="../../spatstat.geom/help/dirichletVertices.html">dirichletVertices</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ aa &lt;- dirichletAreas(cells)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

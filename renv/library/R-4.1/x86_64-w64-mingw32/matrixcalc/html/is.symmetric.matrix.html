@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test for symmetric numeric matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for is.symmetric.matrix {matrixcalc}"><tr><td>is.symmetric.matrix {matrixcalc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Test for symmetric numeric matrix </h2>
+
+<h3>Description</h3>
+
+<p>This function returns TRUE if the argument is a numeric symmetric square matrix and FALSE otherwise.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.symmetric.matrix(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> an R object </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>TRUE or FALSE.
+</p>
+
+
+<h3>Note</h3>
+
+ 
+<p>If the argument is not a numeric matrix, the function displays an error message and stops.
+If the argument is not a square matrix, the function displays an error message and stops.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Frederick Novomestky <a href="mailto:fnovomes@poly.edu">fnovomes@poly.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Bellman, R. (1987). <em>Matrix Analysis</em>, Second edition, Classics in Applied Mathematics,
+Society for Industrial and Applied Mathematics.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../matrixcalc/help/is.square.matrix.html">is.square.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+A &lt;- matrix( c( 1, 2, 3, 4 ), nrow=2, byrow=TRUE )
+is.symmetric.matrix( A )
+B &lt;- matrix( c( 1, 2, 2, 1 ), nrow=2, byrow=TRUE )
+is.symmetric.matrix( B )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>matrixcalc</em> version 1.0-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

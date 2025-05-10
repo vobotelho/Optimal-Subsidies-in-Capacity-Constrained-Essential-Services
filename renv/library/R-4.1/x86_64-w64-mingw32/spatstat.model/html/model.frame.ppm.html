@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract the Variables in a Point Process Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for model.frame.ppm {spatstat.model}"><tr><td>model.frame.ppm {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract the Variables in a Point Process Model
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted point process model, this function
+returns a data frame containing all the variables needed to
+fit the model using the Berman-Turner device.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'ppm'
+model.frame(formula, ...)
+
+ ## S3 method for class 'kppm'
+model.frame(formula, ...)
+
+ ## S3 method for class 'dppm'
+model.frame(formula, ...)
+
+ ## S3 method for class 'slrm'
+model.frame(formula, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+
+<p>A fitted point process model.
+An object of class <code>"ppm"</code>, <code>"kppm"</code>, <code>"slrm"</code>,
+or <code>"dppm"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments passed to <code><a href="../../stats/html/model.frame.html">model.frame.glm</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code><a href="../../stats/html/model.frame.html">model.frame</a></code> is generic.
+These functions are method for <code><a href="../../stats/html/model.frame.html">model.frame</a></code>
+for fitted point process models (objects of class <code>"ppm"</code>,
+<code>"kppm"</code>, <code>"slrm"</code>,
+or <code>"dppm"</code>).
+The first argument should be a fitted point process model;
+it has to be named <code>formula</code> for consistency with the generic
+function.
+</p>
+<p>The result is a data frame containing all the variables used in
+fitting the model. The data frame has one row for each quadrature point
+used in fitting the model. The quadrature scheme can be extracted using
+<code><a href="../../spatstat.model/help/quad.ppm.html">quad.ppm</a></code>.  
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>data.frame</code> containing all the variables used in the
+fitted model, plus additional variables specified in <code>...</code>.
+It has an additional attribute <code>"terms"</code> containing information
+about the model formula. For details see <code><a href="../../stats/html/model.frame.html">model.frame.glm</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A. and Turner, R. (2000)
+Practical maximum pseudolikelihood for spatial point patterns.
+<em>Australian and New Zealand Journal of Statistics</em>
+<b>42</b>, 283&ndash;322.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.model/help/ppm.html">ppm</a></code>,
+<code><a href="../../spatstat.model/help/kppm.html">kppm</a></code>,
+<code><a href="../../spatstat.model/help/dppm.html">dppm</a></code>,
+<code><a href="../../spatstat.model/help/slrm.html">slrm</a></code>,
+<code><a href="../../stats/html/model.frame.html">model.frame</a></code>,
+<code><a href="../../spatstat.model/help/model.matrix.ppm.html">model.matrix.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  fit &lt;- ppm(cells ~ x)
+  mf &lt;- model.frame(fit)
+  kfit &lt;- kppm(redwood ~ x, "Thomas")
+  kmf &lt;- model.frame(kfit)
+  sfit &lt;- slrm(cells ~ x)
+  smf &lt;- model.frame(sfit)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

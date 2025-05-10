@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculations for Polygons in the Plane</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for methods.xypolygon {spatstat.utils}"><tr><td>methods.xypolygon {spatstat.utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Calculations for Polygons in the Plane
+</h2>
+
+<h3>Description</h3>
+
+<p>Compute the area or boundary length of a polygon,
+determine whether a point falls inside a polygon,
+compute the area of overlap between two polygons,
+and related tasks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+verify.xypolygon(p, fatal = TRUE)
+is.hole.xypolygon(polly)
+Area.xypolygon(polly)
+bdrylength.xypolygon(polly)
+reverse.xypolygon(p, adjust=FALSE)
+overlap.xypolygon(P, Q)
+simplify.xypolygon(p, dmin)
+inside.xypolygon(pts, polly, test01, method)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p,polly,P,Q</code></td>
+<td>
+
+<p>Data representing a polygon. See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dmin</code></td>
+<td>
+
+<p>Single numeric value giving the minimum permissible
+length of an edge in the simplified polygon.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value indicating whether failure is a fatal error.
+</p>
+</td></tr>
+<tr valign="top"><td><code>pts</code></td>
+<td>
+
+<p>Coordinates of points to be tested.
+A named list with entries <code>x,y</code> which are numeric vectors
+of coordinates.
+</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+
+<p>Logical value indicating whether internal data should be adjusted.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>test01,method</code></td>
+<td>
+
+<p>For developer use only.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In the <span class="pkg">spatstat</span> family of packages, a polygon in the
+Euclidean plane is represented as a named list 
+with the following entries:
+</p>
+
+<dl>
+<dt><code>x</code>,<code>y</code></dt><dd>
+<p>Numeric vectors giving the coordinates of the vertices.
+The vertices should be traversed in anti-clockwise order
+(unless the polygon is a hole, when they should be traversed
+in clockwise order) and the last vertex should <b>not</b> repeat
+the first vertex.
+</p>
+</dd>
+<dt>hole</dt><dd>
+<p>Optional. A logical value indicating whether the
+polygon is a hole. 
+</p>
+</dd>
+<dt>area</dt><dd>
+<p>Optional. Single numeric value giving the area of the polygon
+(negative if it is a hole).
+</p>
+</dd>
+</dl>
+
+<p>The function <code>verify.xypolygon</code> checks whether its argument
+satisfies this format. If so, it returns <code>TRUE</code>; if not,
+it returns <code>FALSE</code> or (if <code>fatal=TRUE</code>) generates a fatal error.
+</p>
+<p>The other functions listed here perform basic calculations for
+polygons using elementary Cartesian analytic geometry in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+<p><code>is.hole.xypolygon</code> determines whether a polygon is a hole or not.
+</p>
+<p><code>Area.xypolygon</code> computes the area of the polygon using the
+discrete Green's formula.
+</p>
+<p><code>bdrylength.xypolygon</code> calculates the total length of edges
+of the polygon.
+</p>
+<p><code>reverse.xypolygon</code> reverses the order of the
+coordinate vectors <code>x</code> and <code>y</code>. If <code>adjust=TRUE</code>,
+the other entries <code>hole</code> and <code>area</code> will be adjusted as well.
+</p>
+<p><code>overlap.xypolygon</code> computes the area of overlap between two
+polygons using the discrete Green's formula. It is slow compared
+to the code in the <span class="pkg">polyclip</span> package.
+</p>
+<p><code>simplify.xypolygon</code> removes vertices of the polygon until
+every edge is longer than <code>dmin</code>.
+</p>
+<p><code>inside.xypolygon(pts, polly)</code> determines whether each point
+in <code>pts</code> lies inside the polygon <code>polly</code> and returns a
+logical vector.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>verify.xypolygon</code> and 
+<code>is.hole.xypolygon</code> return a single logical value.
+</p>
+<p><code>inside.xypolygon</code> returns a logical vector.
+</p>
+<p><code>Area.xypolygon</code>, <code>bdrylength.xypolygon</code>
+and <code>overlap.xypolygon</code>    
+return a single numeric value.
+</p>
+<p><code>reverse.xypolygon</code> and <code>simplify.xypolygon</code>
+return another polygon object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  p &lt;- list(x=c(0,1,4,2), y=c(0,0,2,3))
+  is.hole.xypolygon(p)
+  Area.xypolygon(p)
+  bdrylength.xypolygon(p)
+  overlap.xypolygon(p, list(x=p$x+1, y=p$y+1))
+  reverse.xypolygon(p)
+
+  plot(c(0,5),c(0,3),type="n",xlab="x", ylab="y")
+  polygon(p)
+  polygon(simplify.xypolygon(p, 1.1), lty=3)
+
+  plot(c(0,5),c(0,3),type="n",xlab="x", ylab="y")
+  polygon(p)
+  xx &lt;- runif(10, max=5)
+  yy &lt;- runif(10, max=3)
+  points(xx, yy)
+  ok &lt;- as.logical(inside.xypolygon(list(x=xx, y=yy), p))
+  points(xx[ok], yy[ok], pch=16)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.utils</em> version 3.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

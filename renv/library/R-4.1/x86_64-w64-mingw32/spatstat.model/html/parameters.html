@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Model Parameters in Understandable Form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for parameters {spatstat.model}"><tr><td>parameters {spatstat.model}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Extract Model Parameters in Understandable Form
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted model of some kind, this function
+extracts all the parameters needed to specify the model,
+and returns them as a list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+parameters(model, ...)
+
+## S3 method for class 'dppm'
+parameters(model, ...)
+
+## S3 method for class 'kppm'
+parameters(model, ...)
+
+## S3 method for class 'slrm'
+parameters(model, ...)
+
+## S3 method for class 'ppm'
+parameters(model, ...)
+
+## S3 method for class 'profilepl'
+parameters(model, ...)
+
+## S3 method for class 'fii'
+parameters(model, ...)
+
+## S3 method for class 'interact'
+parameters(model, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+
+<p>A fitted model of some kind.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed to methods.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The argument <code>model</code> should be a fitted model of some kind.
+This function extracts all the parameters that would be needed to
+specify the model, and returns them as a list.
+</p>
+<p>The function <code>parameters</code> is generic, with methods
+for class <code>"ppm"</code>, <code>"kppm"</code>, <code>"dppm"</code> and <code>"profilepl"</code>
+and other classes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A named list, whose format depends on the fitted model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/coef.html">coef</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  parameters(Strauss(0.1))
+  fit1 &lt;- ppm(cells ~ x, Strauss(0.1))
+  parameters(fit1)
+  fit2 &lt;- kppm(redwood ~ x, "Thomas")
+  parameters(fit2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.model</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

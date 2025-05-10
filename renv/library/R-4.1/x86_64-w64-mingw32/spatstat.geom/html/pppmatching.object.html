@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class of Point Matchings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for pppmatching.object {spatstat.geom}"><tr><td>pppmatching.object {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class of Point Matchings</h2>
+
+<h3>Description</h3>
+
+<p>A class <code>"pppmatching"</code> to represent a matching of two planar
+point patterns.
+Optionally includes information about the construction of the matching
+and its associated distance between the point patterns.
+</p>
+
+
+<h3>Details</h3>
+
+<p>This class represents a (possibly weighted and incomplete) matching
+between two planar point patterns (objects of class <code>"ppp"</code>).
+</p>
+<p>A matching can be thought of as a bipartite weighted graph where
+the vertices are given by the two point patterns and edges of positive
+weights are drawn each time a point of the first point pattern is
+&quot;matched&quot; with a point of the second point pattern.
+</p>
+<p>If <code>m</code> is an object of type <code>pppmatching</code>, it contains the
+following elements
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code>pp1, pp2</code> </td><td style="text-align: left;"> the two point patterns to be matched (vertices) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>matrix</code> </td><td style="text-align: left;"> a matrix specifying which points are matched </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                  </td><td style="text-align: left;"> and with what weights (edges) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>type</code> </td><td style="text-align: left;"> (optional) a character string for the type of </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                 </td><td style="text-align: left;"> the matching (one of <code>"spa"</code>, <code>"ace"</code> or <code>"mat"</code>) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>cutoff</code> </td><td style="text-align: left;"> (optional) cutoff value for interpoint distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>q</code> </td><td style="text-align: left;"> (optional) the order for taking averages of </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             </td><td style="text-align: left;"> interpoint distances </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code>distance</code> </td><td style="text-align: left;"> (optional) the distance associated with the matching
+  </td>
+</tr>
+
+</table>
+
+<p>The element <code>matrix</code> is a &quot;generalized adjacency matrix&quot;.
+The numbers of rows
+and columns match the cardinalities of the first and second point
+patterns, respectively. The <code>[i,j]</code>-th entry is positive if
+the <code>i</code>-th point of <code>X</code> and the <code>j</code>-th point of
+<code>Y</code> are matched (zero otherwise) and its value then gives
+the corresponding weight of the match. For an unweighted matching
+all the weights are set to <i>1</i>.
+</p>
+<p>The optional elements are for saving details about matchings in the context of
+optimal point matching techniques. <code>type</code> can be one of <code>"spa"</code> (for
+&quot;subpattern assignment&quot;), <code>"ace"</code> (for &quot;assignment only if
+cardinalities differ&quot;) or <code>"mat"</code> (for &quot;mass transfer&quot;). <code>cutoff</code>
+is a positive numerical value that specifies the maximal interpoint distance and
+<code>q</code> is a value in <i>[1,Inf]</i> that gives the order of the average
+applied to the interpoint distances. See the help files for <code><a href="../../spatstat.geom/help/pppdist.html">pppdist</a></code>
+and <code><a href="../../spatstat.geom/help/matchingdist.html">matchingdist</a></code> for detailed information about these elements.
+</p>
+<p>Objects of class <code>"pppmatching"</code> may be created by the function 
+<code><a href="../../spatstat.geom/help/pppmatching.html">pppmatching</a></code>, and are most commonly obtained as output of the
+function <code><a href="../../spatstat.geom/help/pppdist.html">pppdist</a></code>. There are methods <code>plot</code>, <code>print</code> and
+<code>summary</code> for this class.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Dominic Schuhmacher <a href="mailto:dominic.schuhmacher@mathematik.uni-goettingen.de">dominic.schuhmacher@mathematik.uni-goettingen.de</a>, URL <code>http://dominic.schuhmacher.name/</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/matchingdist.html">matchingdist</a></code>,
+<code><a href="../../spatstat.geom/help/pppmatching.html">pppmatching</a></code>,
+<code><a href="../../spatstat.geom/help/plot.pppmatching.html">plot.pppmatching</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # a random complete unweighted matching
+  X &lt;- runifrect(10)
+  Y &lt;- runifrect(10)
+  am &lt;- r2dtable(1, rep(1,10), rep(1,10))[[1]]
+        # generates a random permutation matrix
+  m &lt;- pppmatching(X, Y, am)
+  summary(m)
+  m$matrix
+  if(interactive()) {
+    plot(m)
+  }
+
+  # an optimal complete unweighted matching
+  m2 &lt;- pppdist(X,Y)
+  summary(m2)
+  m2$matrix
+  if(interactive()) {
+    plot(m2)
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

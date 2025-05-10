@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods for three-dimensional point patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for methods.pp3 {spatstat.geom}"><tr><td>methods.pp3 {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Methods for three-dimensional point patterns
+</h2>
+
+<h3>Description</h3>
+
+<p>Methods for class <code>"pp3"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'pp3'
+print(x, ...)
+  ## S3 method for class 'summary.pp3'
+print(x, ...)
+  ## S3 method for class 'pp3'
+summary(object, ...)
+  ## S3 method for class 'pp3'
+unitname(x)
+  ## S3 replacement method for class 'pp3'
+unitname(x) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+
+<p>Object of class <code>"pp3"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+
+<p>Name of the unit of length. See <code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are methods for the generic functions
+<code><a href="../../base/html/print.html">print</a></code>, <code><a href="../../base/html/summary.html">summary</a></code>,
+<code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code> and  <code><a href="../../spatstat.geom/help/unitname+3C-.html">unitname&lt;-</a></code>
+for the class <code>"pp3"</code> of three-dimensional point patterns.
+</p>
+<p>The <code>print</code> and <code>summary</code> methods print a description
+of the point pattern.
+</p>
+<p>The <code>unitname</code> method extracts the name of the unit of
+length in which the point coordinates are expressed.
+The <code>unitname&lt;-</code> method assigns the name of the unit of length.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>print.pp3</code> the value is <code>NULL</code>.
+For <code>unitname.pp3</code> an object of class <code>"units"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/pp3.html">pp3</a></code>,
+<code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../spatstat.geom/help/unitname.html">unitname</a></code>
+<code><a href="../../spatstat.geom/help/unitname+3C-.html">unitname&lt;-</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- pp3(runif(42),runif(42),runif(42), box3(c(0,1), unitname="mm"))
+   X
+   unitname(X)
+   unitname(X) &lt;- c("foot", "feet")
+   summary(X)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

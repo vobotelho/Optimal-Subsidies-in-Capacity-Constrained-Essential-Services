@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data on a Network to class owin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for as.owin.lpp {spatstat.linnet}"><tr><td>as.owin.lpp {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data on a Network to class owin</h2>
+
+<h3>Description</h3>
+
+<p>Converts data on a linear network
+into an object of class <code>"owin"</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ## S3 method for class 'lpp'
+as.owin(W, ..., fatal=TRUE)
+
+ ## S3 method for class 'lppm'
+as.owin(W, ..., fatal=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>W</code></td>
+<td>
+
+<p>Data specifying an observation window, in any of several formats
+described under <em>Details</em> below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fatal</code></td>
+<td>
+
+<p>Logical value determining what to do
+if the data cannot be converted to an observation window.
+See Details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The class <code>"owin"</code> is a way of specifying the observation window
+for a point pattern. See <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>
+for an overview.
+</p>
+<p>The function <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+converts data in any of several formats 
+into an object of class <code>"owin"</code> for use by the <span class="pkg">spatstat</span>
+package. The function <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+is generic, with methods
+for different classes of objects, and a default method.
+</p>
+<p>A long list of methods for
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+is documented in the help file for <code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>
+in the <span class="pkg">spatstat.geom</span> package.
+</p>
+<p>This help file documents additional methods applicable when <code>W</code> is
+</p>
+
+<ul>
+<li>
+<p>an object of class <code>"lpp"</code>
+representing a point pattern on a linear network.
+In this case, <code>as.owin</code> extracts the linear network
+and returns a window containing this network. 
+</p>
+</li>
+<li>
+<p>an object of class <code>"lppm"</code>
+representing a fitted point process model on a linear network.
+In this case, <code>as.owin</code> extracts the linear network
+and returns a window containing this network. 
+</p>
+</li></ul>
+
+<p>If the argument <code>W</code> 
+cannot be converted to a window, then an error will
+be generated (if <code>fatal=TRUE</code>) or a value of <code>NULL</code>
+will be returned (if <code>fatal=FALSE</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"owin"</code>
+(see <code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>)
+specifying an observation window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code>,
+<code><a href="../../spatstat.geom/help/owin.object.html">owin.object</a></code>,
+<code><a href="../../spatstat.geom/help/owin.html">owin</a></code>.
+</p>
+<p>Additional methods for <code>as.owin</code> may be provided
+by other packages outside the <span class="pkg">spatstat</span> family.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  as.owin(simplenet)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

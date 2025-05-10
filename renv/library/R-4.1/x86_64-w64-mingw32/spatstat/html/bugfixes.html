@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: List Recent Bug Fixes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for bugfixes {spatstat}"><tr><td>bugfixes {spatstat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+List Recent Bug Fixes
+</h2>
+
+<h3>Description</h3>
+
+<p>List all bug fixes in a package, starting from a certain date or
+version of the package. Fixes are sorted alphabetically by the name of the
+affected function. The default is to list bug fixes in the latest
+version of the <span class="pkg">spatstat</span> family of packages.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  bugfixes(sinceversion = NULL, sincedate = NULL,
+           package = spatstat.family(), show = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>sinceversion</code></td>
+<td>
+
+<p>Earliest version of <code>package</code>
+for which bugs should be listed.
+A character string.
+The default is the current installed version.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sincedate</code></td>
+<td>
+
+<p>Earliest release date of <code>package</code>
+for which bugs should be listed.
+A character string or a date-time object.
+</p>
+</td></tr>
+<tr valign="top"><td><code>package</code></td>
+<td>
+
+<p>The name of the package (or packages) for which bugs are to be listed.
+A character string or character vector.
+</p>
+</td></tr>
+<tr valign="top"><td><code>show</code></td>
+<td>
+
+<p>Logical value indicating whether to display the bug table
+on the terminal.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Bug reports are extracted from the NEWS file
+of the specified <code>package</code>.
+Only those after a specified date, or after a specified version
+of the package, are retained.
+The bug reports are then sorted alphabetically, so that all bugs affecting a
+particular function are listed consecutively. Finally the table of bug
+reports is displayed (if <code>show=TRUE</code>) and returned invisibly.
+</p>
+<p>The argument <code>sinceversion</code> should be a character string
+like <code>"1.2-3"</code>. The default is the current installed version of the
+package.
+</p>
+<p>The argument <code>sincedate</code> should be a 
+character string like <code>"2015-05-27"</code>, or a date-time object.
+</p>
+<p>If <code>sinceversion="all"</code> or <code>sincedate="all"</code>
+then all recorded bugs will be listed.
+</p>
+<p>The special options <code>sinceversion="book"</code> and <code>sincedate="book"</code>
+are interpreted to mean <code>sincedate="2015-06-05"</code>,
+which gives all bugs reported after publication of
+the book by Baddeley, Rubak and Turner (2015).
+</p>
+<p>Typing <code>bugfixes</code> without parentheses will display a table of
+all bugs that were fixed in the current installed version of
+<span class="pkg">spatstat</span> and its sub-packages.
+</p>
+<p>By default, bugs in the <em>extension</em> packages
+<span class="pkg">spatstat.local</span>, <span class="pkg">spatstat.Knet</span>, <span class="pkg">spatstat.gui</span>
+are <em>not</em> reported. To include these bugs as well,
+set <code>package=spatstat.family(TRUE,TRUE)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>(Invisibly) a data frame, belonging to the class <code>"bugtable"</code>,
+which has a <code>print</code> method.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Baddeley, A., Rubak, E. and Turner, R. (2015) <em>Spatial Point Patterns: Methodology and Applications with R</em>. Chapman and Hall/CRC Press. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat/help/latest.changes.html">latest.changes</a></code>,
+<code><a href="../../spatstat/help/latest.news.html">latest.news</a></code>,
+<code><a href="../../utils/help/news.html">news</a></code>.  
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   bugfixes
+   ## show all bugs reported after publication of the spatstat book
+   if(interactive()) bugfixes(sinceversion="book")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat</em> version 3.3-1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Original Data from a Fitted Point Process Model on a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for data.lppm {spatstat.linnet}"><tr><td>data.lppm {spatstat.linnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Original Data from a Fitted Point Process Model on a Network</h2>
+
+<h3>Description</h3>
+
+<p>Given a fitted point process model on a linear network,
+this function extracts the original point pattern dataset 
+to which the model was fitted.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  data.lppm(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>fitted point process model
+on a linear network (an object of class <code>"lppm"</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"lppm"</code> represents a point process model
+that has been fitted to a point pattern dataset on a linear network.
+It is typically produced by
+the model-fitting algorithm <code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>.
+The object contains complete information about the original data
+point pattern to which the model was fitted.
+This function extracts the original data pattern.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A point pattern on a linear network (object of class <code>"lpp"</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.linnet/help/lppm.html">lppm</a></code>,
+<code><a href="../../spatstat.model/help/data.ppm.html">data.ppm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ fit &lt;- lppm(spiders ~ x)
+ X &lt;- data.lppm(fit)
+ # 'X' is identical to 'spiders'
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.linnet</em> version 3.2-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

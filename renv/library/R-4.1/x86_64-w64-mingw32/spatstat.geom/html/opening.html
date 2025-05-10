@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Morphological Opening</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for opening {spatstat.geom}"><tr><td>opening {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Morphological Opening</h2>
+
+<h3>Description</h3>
+
+<p>Perform morphological opening of a window, a line segment pattern
+or a point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ opening(w, r, ...)
+
+ ## S3 method for class 'owin'
+opening(w, r, ..., polygonal=NULL)
+
+ ## S3 method for class 'ppp'
+opening(w, r, ...)
+
+ ## S3 method for class 'psp'
+opening(w, r, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+
+<p>A window (object of class <code>"owin"</code>
+or a line segment pattern (object of class <code>"psp"</code>)
+or a point pattern (object of class <code>"ppp"</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>positive number: the radius of the opening.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>extra arguments passed to <code><a href="../help/as.mask.html">as.mask</a></code>
+controlling the pixel resolution, if a pixel approximation is used
+</p>
+</td></tr>
+<tr valign="top"><td><code>polygonal</code></td>
+<td>
+
+<p>Logical flag indicating whether to compute a polygonal
+approximation to the erosion (<code>polygonal=TRUE</code>) or
+a pixel grid approximation (<code>polygonal=FALSE</code>).
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The morphological opening (Serra, 1982)
+of a set <i>W</i> by a distance <i>r &gt; 0</i>
+is the subset of points in <i>W</i> that can be 
+separated from the boundary of <i>W</i> by a circle of radius <i>r</i>.
+That is, a point <i>x</i> belongs to the opening 
+if it is possible to draw a circle of radius <i>r</i> (not necessarily
+centred on <i>x</i>) that has <i>x</i> on the inside
+and the boundary of <i>W</i> on the outside.
+The opened set is a subset of <code>W</code>.
+</p>
+<p>For a small radius <i>r</i>, the opening operation
+has the effect of smoothing out irregularities in the boundary of
+<i>W</i>. For larger radii, the opening operation removes promontories
+in the boundary. For very large radii, the opened set is empty.
+</p>
+<p>The algorithm applies <code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code> followed by
+<code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>r &gt; 0</code>, an object of class <code>"owin"</code> representing the
+opened region. If <code>r=0</code>, the result is identical to <code>w</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>and Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Serra, J. (1982)
+Image analysis and mathematical morphology.
+Academic Press.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/closing.html">closing</a></code> for the opposite operation.
+</p>
+<p><code><a href="../../spatstat.geom/help/dilation.html">dilation</a></code>, <code><a href="../../spatstat.geom/help/erosion.html">erosion</a></code> for the basic
+operations.  
+</p>
+<p><code><a href="../../spatstat.geom/help/owin.html">owin</a></code>,
+<code><a href="../../spatstat.geom/help/as.owin.html">as.owin</a></code> for information about windows.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  v &lt;- opening(letterR, 0.3)
+  plot(letterR, type="n", main="opening")
+  plot(v, add=TRUE, col="grey")
+  plot(letterR, add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

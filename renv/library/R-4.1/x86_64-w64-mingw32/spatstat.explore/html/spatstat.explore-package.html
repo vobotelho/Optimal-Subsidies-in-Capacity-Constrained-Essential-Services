@@ -1,0 +1,1282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The spatstat.explore Package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spatstat.explore-package {spatstat.explore}"><tr><td>spatstat.explore-package {spatstat.explore}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The spatstat.explore Package</h2>
+
+<h3>Description</h3>
+
+<p>The <span class="pkg">spatstat.explore</span> package
+belongs to the <span class="pkg">spatstat</span> family of packages.
+It contains the core functionality
+for statistical analysis and modelling of spatial data.
+</p>
+
+
+<h3>Details</h3>
+
+<p><span class="pkg">spatstat</span> is
+a family of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> packages
+for the statistical analysis of spatial data.
+Its main focus is the analysis of
+spatial patterns of points in two-dimensional space.
+</p>
+<p>The original <span class="pkg">spatstat</span> package
+has now been split into several
+sub-packages.
+</p>
+<p>This sub-package <span class="pkg">spatstat.explore</span> contains the 
+user-level functions
+that perform exploratory data analysis and
+nonparametric data analysis of spatial data.
+</p>
+<p>(The main exception is that functions for linear networks
+are in the separate sub-package <span class="pkg">spatstat.linnet</span>.)
+</p>
+
+
+<h3>Structure of the spatstat family</h3>
+
+  
+<p>The orginal <span class="pkg">spatstat</span> package grew to be very large.
+It has now been divided into several <b>sub-packages</b>:
+</p>
+
+<ul>
+<li> <p><span class="pkg">spatstat.utils</span> containing basic utilities
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.sparse</span> containing linear algebra utilities
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.data</span> containing datasets
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.univar</span> containing functions for estimating
+probability distributions of random variables
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.geom</span> containing geometrical objects
+and geometrical operations
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.explore</span> containing the functionality
+for exploratory data analysis and nonparametric analysis of spatial data.
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.model</span> containing the functionality
+for statistical modelling, model-fitting, formal statistical
+inference  and informal model diagnostics.
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.linnet</span> containing functions for
+spatial data on a linear network
+</p>
+</li>
+<li> <p><span class="pkg">spatstat</span>, which simply loads the other sub-packages
+listed above, and provides documentation.
+</p>
+</li></ul>
+
+<p>When you install <span class="pkg">spatstat</span>, these sub-packages are also
+installed. Then if you load the <span class="pkg">spatstat</span> package by typing
+<code>library(spatstat)</code>, the other sub-packages listed above will
+automatically be loaded or imported.
+</p>
+<p>For an overview of all the functions available in
+the sub-packages of <span class="pkg">spatstat</span>,
+see the help file for <code>"spatstat-package"</code>
+in the <span class="pkg">spatstat</span> package.
+</p>
+<p>Additionally there are several <b>extension packages:</b>
+</p>
+
+<ul>
+<li> <p><span class="pkg">spatstat.gui</span> for interactive graphics
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.local</span> for local likelihood
+(including geographically weighted regression)
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.Knet</span> for additional, computationally efficient code
+for linear networks
+</p>
+</li>
+<li> <p><span class="pkg">spatstat.sphere</span> (under development) for spatial data
+on a sphere, including spatial data on the earth's surface
+</p>
+</li></ul>
+
+<p>The extension packages must be installed separately
+and loaded explicitly if needed. They also have separate documentation.
+</p>
+
+
+<h3>Overview of Functionality in <span class="pkg">spatstat.explore</span></h3>
+
+<p>The <span class="pkg">spatstat</span> family of packages
+is designed to support a complete statistical analysis
+of spatial data. It supports
+</p>
+
+<ul>
+<li><p> creation, manipulation and plotting of point patterns;
+</p>
+</li>
+<li><p> exploratory data analysis;
+</p>
+</li>
+<li><p> spatial random sampling;
+</p>
+</li>
+<li><p> simulation of point process models;
+</p>
+</li>
+<li><p> parametric model-fitting;
+</p>
+</li>
+<li><p> non-parametric smoothing and regression;
+</p>
+</li>
+<li><p> formal inference (hypothesis tests, confidence intervals);
+</p>
+</li>
+<li><p> model diagnostics.
+</p>
+</li></ul>
+
+<p>For an overview, see the help file for <code>"spatstat-package"</code>
+in the <span class="pkg">spatstat</span> package. 
+</p>
+<p>Following is a list of the functionality provided in the
+<span class="pkg">spatstat.explore</span> package only.
+</p>
+<p><b>To simulate a random point pattern:</b>
+</p>
+<p>Functions for generating random point patterns
+are now contained in the <span class="pkg">spatstat.random</span> package.
+</p>
+<p><b>To interrogate a point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/density.ppp.html">density.ppp</a></code> </td><td style="text-align: left;">
+	kernel estimation of point pattern intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/densityHeat.ppp.html">densityHeat.ppp</a></code> </td><td style="text-align: left;">
+	diffusion kernel estimation of point pattern intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code> </td><td style="text-align: left;">
+	kernel smoothing of marks of point pattern</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/sharpen.ppp.html">sharpen.ppp</a></code> </td><td style="text-align: left;">
+	data sharpening</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      </td>
+</tr>
+
+</table>
+
+<p><b>Manipulation of pixel images:</b>
+</p>
+<p>An object of class <code>"im"</code> represents a pixel image.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/blur.html">blur</a></code> </td><td style="text-align: left;"> apply Gaussian blur to image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/Smooth.im.html">Smooth.im</a></code> </td><td style="text-align: left;"> apply Gaussian blur to image</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../help/transect.im.html">transect.im</a></code> </td><td style="text-align: left;"> line transect of image </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.geom/help/pixelcentres.html">pixelcentres</a></code> </td><td style="text-align: left;"> extract centres of pixels </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+	<code><a href="../../spatstat.random/help/rnoise.html">rnoise</a></code> </td><td style="text-align: left;"> random pixel noise
+     </td>
+</tr>
+
+</table>
+
+<p><b>Line segment patterns</b>
+</p>
+<p>An object of class <code>"psp"</code> represents a pattern of straight line
+segments.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../help/density.psp.html">density.psp</a></code> </td><td style="text-align: left;"> kernel smoothing of line segments</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoisline.html">rpoisline</a></code> </td><td style="text-align: left;"> generate a realisation of the
+      Poisson line process inside a window
+    </td>
+</tr>
+
+</table>
+
+<p><b>Tessellations</b>
+</p>
+<p>An object of class <code>"tess"</code> represents a tessellation.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoislinetess.html">rpoislinetess</a></code> </td><td style="text-align: left;"> generate tessellation using Poisson line
+      process 
+    </td>
+</tr>
+
+</table>
+
+<p><b>Three-dimensional point patterns</b>
+</p>
+<p>An object of class <code>"pp3"</code> represents a three-dimensional
+point pattern in a rectangular box. The box is represented by
+an object of class <code>"box3"</code>.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/runifpoint3.html">runifpoint3</a></code> </td><td style="text-align: left;"> generate uniform random points in 3-D </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoispp3.html">rpoispp3</a></code> </td><td style="text-align: left;"> generate Poisson random points in 3-D </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../help/envelope.pp3.html">envelope.pp3</a></code> </td><td style="text-align: left;"> generate simulation envelopes for
+      3-D pattern </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    </td>
+</tr>
+
+</table>
+
+<p><b>Multi-dimensional space-time point patterns</b>
+</p>
+<p>An object of class <code>"ppx"</code> represents a 
+point pattern in multi-dimensional space and/or time.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/runifpointx.html">runifpointx</a></code> </td><td style="text-align: left;"> generate uniform random points </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code><a href="../../spatstat.random/help/rpoisppx.html">rpoisppx</a></code> </td><td style="text-align: left;"> generate Poisson random points 
+    </td>
+</tr>
+
+</table>
+
+<p><b>Classical exploratory tools:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/clarkevans.html">clarkevans</a></code> </td><td style="text-align: left;"> Clark and Evans aggregation index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/fryplot.html">fryplot</a></code> </td><td style="text-align: left;"> Fry plot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/miplot.html">miplot</a></code> </td><td style="text-align: left;"> Morisita Index plot
+  </td>
+</tr>
+
+</table>
+
+<p><b>Smoothing:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/density.ppp.html">density.ppp</a></code> </td><td style="text-align: left;"> kernel smoothed density/intensity</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/relrisk.html">relrisk</a></code> </td><td style="text-align: left;"> kernel estimate of relative risk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code> </td><td style="text-align: left;"> spatial interpolation of marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.diggle.html">bw.diggle</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../help/density.ppp.html">density.ppp</a></code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.ppl.html">bw.ppl</a></code> </td><td style="text-align: left;"> likelihood cross-validated bandwidth selection
+                               for <code><a href="../help/density.ppp.html">density.ppp</a></code></td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.CvL.html">bw.CvL</a></code> </td><td style="text-align: left;"> Cronie-Van Lieshout bandwidth selection
+                                for density estimation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.scott.html">bw.scott</a></code> </td><td style="text-align: left;"> Scott's rule of thumb 
+                                for density estimation</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.abram.ppp.html">bw.abram.ppp</a></code> </td><td style="text-align: left;"> Abramson's rule for adaptive bandwidths</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.relrisk.html">bw.relrisk</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../help/relrisk.html">relrisk</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.smoothppp.html">bw.smoothppp</a></code> </td><td style="text-align: left;"> cross-validated bandwidth selection
+                               for <code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.frac.html">bw.frac</a></code> </td><td style="text-align: left;"> bandwidth selection using window geometry</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bw.stoyan.html">bw.stoyan</a></code> </td><td style="text-align: left;"> Stoyan's rule of thumb for bandwidth
+                               for <code><a href="../help/pcf.html">pcf</a></code>
+  </td>
+</tr>
+
+</table>
+
+<p><b>Modern exploratory tools:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/clusterset.html">clusterset</a></code> </td><td style="text-align: left;"> Allard-Fraley feature detection  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/nnclean.html">nnclean</a></code> </td><td style="text-align: left;"> Byers-Raftery feature detection  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/sharpen.ppp.html">sharpen.ppp</a></code> </td><td style="text-align: left;"> Choi-Hall data sharpening </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/rhohat.html">rhohat</a></code> </td><td style="text-align: left;"> Kernel estimate of covariate effect</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/rho2hat.html">rho2hat</a></code> </td><td style="text-align: left;"> Kernel estimate of effect of two covariates</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/spatialcdf.html">spatialcdf</a></code> </td><td style="text-align: left;"> Spatial cumulative distribution function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/roc.html">roc</a></code> </td><td style="text-align: left;"> Receiver operating characteristic curve </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/sdr.html">sdr</a></code> </td><td style="text-align: left;"> Sufficient Data Reduction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/thresholdSelect.html">thresholdSelect</a></code> </td><td style="text-align: left;"> optimal
+    thresholding of a predictor 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a point pattern:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Fest.html">Fest</a></code> </td><td style="text-align: left;"> empty space function <i>F</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Gest.html">Gest</a></code> </td><td style="text-align: left;"> nearest neighbour distribution function <i>G</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Jest.html">Jest</a></code> </td><td style="text-align: left;"> <i>J</i>-function <i>J = (1-G)/(1-F)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kest.html">Kest</a></code> </td><td style="text-align: left;"> Ripley's <i>K</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Lest.html">Lest</a></code> </td><td style="text-align: left;"> Besag <i>L</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Tstat.html">Tstat</a></code> </td><td style="text-align: left;"> Third order <i>T</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/allstats.html">allstats</a></code> </td><td style="text-align: left;"> all four functions <i>F</i>, <i>G</i>, <i>J</i>, <i>K</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcf.html">pcf</a></code> </td><td style="text-align: left;"> 	pair correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kinhom.html">Kinhom</a></code> </td><td style="text-align: left;"> <i>K</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Linhom.html">Linhom</a></code> </td><td style="text-align: left;"> <i>L</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcfinhom.html">pcfinhom</a></code> </td><td style="text-align: left;"> pair correlation for inhomogeneous patterns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Finhom.html">Finhom</a></code> </td><td style="text-align: left;"> <i>F</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Ginhom.html">Ginhom</a></code> </td><td style="text-align: left;"> <i>G</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Jinhom.html">Jinhom</a></code> </td><td style="text-align: left;"> <i>J</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localL.html">localL</a></code> </td><td style="text-align: left;"> Getis-Franklin neighbourhood density function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localK.html">localK</a></code> </td><td style="text-align: left;"> neighbourhood K-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localpcf.html">localpcf</a></code> </td><td style="text-align: left;"> local pair correlation function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localKinhom.html">localKinhom</a></code> </td><td style="text-align: left;"> local <i>K</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localLinhom.html">localLinhom</a></code> </td><td style="text-align: left;"> local <i>L</i> for inhomogeneous point patterns </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localpcfinhom.html">localpcfinhom</a></code> </td><td style="text-align: left;"> local pair correlation for inhomogeneous patterns</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Ksector.html">Ksector</a></code> </td><td style="text-align: left;"> Directional <i>K</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kscaled.html">Kscaled</a></code> </td><td style="text-align: left;"> locally scaled <i>K</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kest.fft.html">Kest.fft</a></code> </td><td style="text-align: left;"> fast <i>K</i>-function using FFT for large datasets </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kmeasure.html">Kmeasure</a></code> </td><td style="text-align: left;"> reduced second moment measure </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> simulation envelopes for a summary
+    function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/varblock.html">varblock</a></code> </td><td style="text-align: left;"> variances and confidence intervals</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+                   </td><td style="text-align: left;"> for a summary function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/lohboot.html">lohboot</a></code> </td><td style="text-align: left;"> bootstrap for a summary function 
+  </td>
+</tr>
+
+</table>
+
+<p>Related facilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/plot.fv.html">plot.fv</a></code> </td><td style="text-align: left;"> plot a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/eval.fv.html">eval.fv</a></code> </td><td style="text-align: left;"> evaluate any expression involving
+    summary functions</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/harmonise.fv.html">harmonise.fv</a></code> </td><td style="text-align: left;"> make functions compatible </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/eval.fasp.html">eval.fasp</a></code> </td><td style="text-align: left;"> evaluate any expression involving
+    an array of functions</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/with.fv.html">with.fv</a></code> </td><td style="text-align: left;"> evaluate an expression for a 
+    summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Smooth.fv.html">Smooth.fv</a></code> </td><td style="text-align: left;"> apply smoothing to a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/deriv.fv.html">deriv.fv</a></code> </td><td style="text-align: left;"> calculate derivative of a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pool.fv.html">pool.fv</a></code> </td><td style="text-align: left;"> pool several estimates of a summary function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/density.ppp.html">density.ppp</a></code> </td><td style="text-align: left;"> kernel smoothed density</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/densityHeat.ppp.html">densityHeat.ppp</a></code> </td><td style="text-align: left;"> diffusion kernel smoothed density</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Smooth.ppp.html">Smooth.ppp</a></code> </td><td style="text-align: left;"> spatial interpolation of marks  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/relrisk.html">relrisk</a></code> </td><td style="text-align: left;"> kernel estimate of relative risk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/sharpen.ppp.html">sharpen.ppp</a></code> </td><td style="text-align: left;"> data sharpening  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rknn.html">rknn</a></code> </td><td style="text-align: left;"> theoretical distribution of nearest
+    neighbour distance
+ </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a multitype point pattern:</b>
+A multitype point pattern is represented by an object <code>X</code>
+of class <code>"ppp"</code> such that <code>marks(X)</code> is a factor. 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/relrisk.html">relrisk</a></code> </td><td style="text-align: left;"> kernel estimation of relative risk  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/scan.test.html">scan.test</a></code> </td><td style="text-align: left;"> spatial scan test of elevated risk  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Gcross.html">Gcross</a>,<a href="../help/Gdot.html">Gdot</a>,<a href="../help/Gmulti.html">Gmulti</a></code> </td><td style="text-align: left;">
+    multitype nearest neighbour distributions 
+    <i>G[i,j], G[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kcross.html">Kcross</a>,<a href="../help/Kdot.html">Kdot</a>, <a href="../help/Kmulti.html">Kmulti</a></code> </td><td style="text-align: left;">
+    multitype <i>K</i>-functions 
+    <i>K[i,j], K[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Lcross.html">Lcross</a>,<a href="../help/Ldot.html">Ldot</a></code> </td><td style="text-align: left;">
+    multitype <i>L</i>-functions 
+    <i>L[i,j], L[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Jcross.html">Jcross</a>,<a href="../help/Jdot.html">Jdot</a>,<a href="../help/Jmulti.html">Jmulti</a></code> </td><td style="text-align: left;">
+    multitype <i>J</i>-functions
+    <i>J[i,j],J[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcfcross.html">pcfcross</a></code> </td><td style="text-align: left;">
+    multitype pair correlation function <i>g[i,j]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcfdot.html">pcfdot</a></code> </td><td style="text-align: left;">
+    multitype pair correlation function <i>g[i.]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcfmulti.html">pcfmulti</a></code> </td><td style="text-align: left;">
+    general pair correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markconnect.html">markconnect</a></code> </td><td style="text-align: left;">
+    marked connection function <i>p[i,j]</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/alltypes.html">alltypes</a></code> </td><td style="text-align: left;">  estimates of the above
+    for all <i>i,j</i> pairs </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Iest.html">Iest</a></code> </td><td style="text-align: left;">  multitype <i>I</i>-function</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kcross.inhom.html">Kcross.inhom</a>,<a href="../help/Kdot.inhom.html">Kdot.inhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous counterparts of <code>Kcross</code>, <code>Kdot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Lcross.inhom.html">Lcross.inhom</a>,<a href="../help/Ldot.inhom.html">Ldot.inhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous counterparts of <code>Lcross</code>, <code>Ldot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcfcross.inhom.html">pcfcross.inhom</a>,<a href="../help/pcfdot.inhom.html">pcfdot.inhom</a></code> </td><td style="text-align: left;">
+    inhomogeneous counterparts of <code>pcfcross</code>, <code>pcfdot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localKcross.html">localKcross</a>,<a href="../help/localKdot.html">localKdot</a></code> </td><td style="text-align: left;">
+    local counterparts of <code>Kcross</code>, <code>Kdot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localLcross.html">localLcross</a>,<a href="../help/localLdot.html">localLdot</a></code> </td><td style="text-align: left;">
+    local counterparts of <code>Lcross</code>, <code>Ldot</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/localKcross.inhom.html">localKcross.inhom</a>,<a href="../help/localLcross.inhom.html">localLcross.inhom</a></code> </td><td style="text-align: left;">
+    local counterparts of <code>Kcross.inhom</code>, <code>Lcross.inhom</code> 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a marked point pattern:</b>
+A marked point pattern is represented by an object <code>X</code>
+of class <code>"ppp"</code> with a component <code>X$marks</code>.
+The entries in the vector <code>X$marks</code> may be numeric, complex,
+string or any other atomic type. For numeric marks, there are the
+following functions:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markmean.html">markmean</a></code> </td><td style="text-align: left;"> smoothed local average of marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markvar.html">markvar</a></code> </td><td style="text-align: left;"> smoothed local variance of marks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markcorr.html">markcorr</a></code> </td><td style="text-align: left;"> mark correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markcrosscorr.html">markcrosscorr</a></code> </td><td style="text-align: left;"> mark cross-correlation function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markvario.html">markvario</a></code> </td><td style="text-align: left;"> mark variogram </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/markmarkscatter.html">markmarkscatter</a></code> </td><td style="text-align: left;"> mark-mark scatterplot </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kmark.html">Kmark</a></code> </td><td style="text-align: left;"> mark-weighted <i>K</i> function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Emark.html">Emark</a></code> </td><td style="text-align: left;"> mark independence diagnostic <i>E(r)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Vmark.html">Vmark</a></code> </td><td style="text-align: left;"> mark independence diagnostic <i>V(r)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/nnmean.html">nnmean</a></code> </td><td style="text-align: left;"> nearest neighbour mean index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/nnvario.html">nnvario</a></code> </td><td style="text-align: left;"> nearest neighbour mark variance index 
+  </td>
+</tr>
+
+</table>
+
+<p>For marks of any type, there are the following:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Gmulti.html">Gmulti</a></code> </td><td style="text-align: left;"> multitype nearest neighbour distribution </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Kmulti.html">Kmulti</a></code> </td><td style="text-align: left;"> multitype <i>K</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Jmulti.html">Jmulti</a></code> </td><td style="text-align: left;"> multitype <i>J</i>-function 
+  </td>
+</tr>
+
+</table>
+
+<p>Alternatively use <code><a href="../../spatstat.geom/help/cut.ppp.html">cut.ppp</a></code> to convert a marked point pattern
+to a multitype point pattern.
+</p>
+<p><b>Programming tools:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/marktable.html">marktable</a></code> </td><td style="text-align: left;"> tabulate the marks of neighbours
+    in a point pattern 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for a three-dimensional point pattern:</b>
+</p>
+<p>These are for 3-dimensional point pattern objects (class <code>pp3</code>).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/F3est.html">F3est</a></code> </td><td style="text-align: left;"> empty space function <i>F</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/G3est.html">G3est</a></code> </td><td style="text-align: left;"> nearest neighbour function <i>G</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/K3est.html">K3est</a></code> </td><td style="text-align: left;"> <i>K</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/pcf3est.html">pcf3est</a></code> </td><td style="text-align: left;"> pair correlation function
+  </td>
+</tr>
+
+</table>
+
+<p>Related facilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/envelope.pp3.html">envelope.pp3</a></code> </td><td style="text-align: left;"> simulation envelopes 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Summary statistics for random sets:</b>
+</p>
+<p>These work for point patterns (class <code>ppp</code>),
+line segment patterns (class <code>psp</code>)
+or windows (class <code>owin</code>).
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Hest.html">Hest</a></code> </td><td style="text-align: left;"> spherical contact distribution <i>H</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Gfox.html">Gfox</a></code> </td><td style="text-align: left;"> Foxall <i>G</i>-function </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/Jfox.html">Jfox</a></code> </td><td style="text-align: left;"> Foxall <i>J</i>-function
+  </td>
+</tr>
+
+</table>
+
+<p><b>Model fitting</b>
+</p>
+<p>Functions for fitting point process models
+are now contained in the <span class="pkg">spatstat.model</span> package.
+</p>
+<p><b>Simulation</b>
+</p>
+<p>There are many ways to generate a random point pattern,
+line segment pattern, pixel image or tessellation
+in <span class="pkg">spatstat</span>. 
+</p>
+<p><b>Random point patterns:</b>
+Functions for random generation are now contained in the <span class="pkg">spatstat.random</span> package.
+</p>
+<p>See also <code><a href="../help/varblock.html">varblock</a></code> for estimating the variance
+of a summary statistic by block resampling, and
+<code><a href="../help/lohboot.html">lohboot</a></code> for another bootstrap technique.
+</p>
+<p><b>Fitted point process models:</b>
+</p>
+<p>If you have fitted a point process model to a point pattern dataset,
+the fitted model can be simulated.
+</p>
+<p>Methods for simulating a fitted model are now
+contained in the <span class="pkg">spatstat.model</span> package.
+</p>
+<p><b>Other random patterns:</b>
+Functions for random generation are now contained in the
+<span class="pkg">spatstat.random</span> package.
+</p>
+<p><b>Simulation-based inference</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> critical envelope for Monte Carlo
+    test of goodness-of-fit </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bits.envelope.html">bits.envelope</a></code> </td><td style="text-align: left;"> critical envelope for balanced
+    two-stage Monte Carlo test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/qqplot.ppm.html">qqplot.ppm</a></code> </td><td style="text-align: left;"> diagnostic plot for interpoint
+    interaction </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/scan.test.html">scan.test</a></code> </td><td style="text-align: left;"> spatial scan statistic/test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/studpermu.test.html">studpermu.test</a></code> </td><td style="text-align: left;"> studentised permutation test</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/segregation.test.html">segregation.test</a></code> </td><td style="text-align: left;"> test of segregation of types 
+  </td>
+</tr>
+
+</table>
+
+<p><b>Hypothesis tests:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/quadrat.test.html">quadrat.test</a></code> </td><td style="text-align: left;"> <i>chi^2</i> goodness-of-fit
+    test on quadrat counts </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/clarkevans.test.html">clarkevans.test</a></code> </td><td style="text-align: left;"> Clark and Evans test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/cdf.test.html">cdf.test</a></code> </td><td style="text-align: left;"> Spatial distribution goodness-of-fit test</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/berman.test.html">berman.test</a></code> </td><td style="text-align: left;"> Berman's goodness-of-fit tests</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/envelope.html">envelope</a></code> </td><td style="text-align: left;"> critical envelope for Monte Carlo
+    test of goodness-of-fit </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/scan.test.html">scan.test</a></code> </td><td style="text-align: left;"> spatial scan statistic/test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/dclf.test.html">dclf.test</a></code> </td><td style="text-align: left;"> Diggle-Cressie-Loosmore-Ford test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/mad.test.html">mad.test</a></code> </td><td style="text-align: left;"> Mean Absolute Deviation test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.model/help/anova.ppm.html">anova.ppm</a></code> </td><td style="text-align: left;"> Analysis of Deviance for
+    point process models 
+  </td>
+</tr>
+
+</table>
+
+<p><b>More recently-developed tests:</b>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/dg.test.html">dg.test</a></code> </td><td style="text-align: left;"> Dao-Genton test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/bits.test.html">bits.test</a></code> </td><td style="text-align: left;"> Balanced independent two-stage test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/dclf.progress.html">dclf.progress</a></code> </td><td style="text-align: left;"> Progress plot for DCLF test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../help/mad.progress.html">mad.progress</a></code> </td><td style="text-align: left;"> Progress plot for MAD test </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p><b>Model diagnostics:</b>
+</p>
+<p>Classical measures of model sensitivity such as leverage and
+influence, and classical model diagnostic tools such as 
+residuals, partial residuals, and effect estimates,
+have been adapted to point process models. 
+These capabilities are now provided in the <span class="pkg">spatstat.model</span> package.
+</p>
+<p><b>Resampling and randomisation procedures</b>
+</p>
+<p>You can build your own tests based on randomisation
+and resampling using the following capabilities:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/quadratresample.html">quadratresample</a></code> </td><td style="text-align: left;"> block resampling </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rshift.html">rshift</a></code> </td><td style="text-align: left;"> random shifting of (subsets of) points</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    <code><a href="../../spatstat.random/help/rthin.html">rthin</a></code> </td><td style="text-align: left;">  random thinning  
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Licence</h3>
+
+<p>This library and its documentation are usable under the terms of the &quot;GNU 
+General Public License&quot;, a copy of which is distributed with the package.
+</p>
+
+
+<h3>Acknowledgements</h3>
+
+<p>Kasper Klitgaard Berthelsen,
+Ottmar Cronie,
+Tilman Davies,
+Julian Gilbey, 
+Yongtao Guan,
+Ute Hahn,
+Kassel Hingee,
+Abdollah Jalilian,
+Marie-Colette van Lieshout,
+Greg McSwiggan,
+Tuomas Rajala,
+Suman Rakshit,
+Dominic Schuhmacher,
+Rasmus Waagepetersen
+and
+Hangsheng Wang
+made substantial contributions of code.
+</p>
+<p>For comments, corrections, bug alerts and suggestions, we thank
+Monsuru Adepeju,
+Corey Anderson,
+Ang Qi Wei,
+Ryan Arellano,
+Jens Astrom,
+Robert Aue,
+Marcel Austenfeld,
+Sandro Azaele,
+Malissa Baddeley,
+Guy Bayegnak,
+Colin Beale,
+Melanie Bell,
+Thomas Bendtsen,
+Ricardo Bernhardt,
+Andrew Bevan,
+Brad Biggerstaff,
+Anders Bilgrau,
+Leanne Bischof,
+Christophe Biscio,
+Roger Bivand,
+Jose M. Blanco Moreno,
+Florent Bonneu,
+Jordan Brown,
+Ian Buller,
+Julian Burgos,
+Simon Byers,
+Ya-Mei Chang,
+Jianbao Chen,
+Igor Chernayavsky,
+Y.C. Chin,
+Bjarke Christensen,
+Lucia Cobo Sanchez,
+Jean-Francois Coeurjolly,
+Kim Colyvas,
+Hadrien Commenges,
+Rochelle Constantine,
+Robin Corria Ainslie,
+Richard Cotton,
+Marcelino de la Cruz,
+Peter Dalgaard,
+Mario D'Antuono,
+Sourav Das,
+Peter Diggle,
+Patrick Donnelly,
+Ian Dryden,
+Stephen Eglen,
+Ahmed El-Gabbas,
+Belarmain Fandohan,
+Olivier Flores,
+David Ford,
+Peter Forbes,
+Shane Frank,
+Janet Franklin,
+Funwi-Gabga Neba,
+Oscar Garcia,
+Agnes Gault,
+Jonas Geldmann,
+Marc Genton,
+Shaaban Ghalandarayeshi,
+Jason Goldstick,
+Pavel Grabarnik,
+C. Graf,
+Ute Hahn,
+Andrew Hardegen,
+Martin Bogsted Hansen,
+Martin Hazelton,
+Juha Heikkinen,
+Mandy Hering,
+Markus Herrmann,
+Maximilian Hesselbarth,
+Paul Hewson,
+Hamidreza Heydarian,
+Kurt Hornik,
+Philipp Hunziker,
+Jack Hywood,
+Ross Ihaka,
+Cenk Icos,
+Aruna Jammalamadaka,
+Robert John-Chandran,
+Devin Johnson,
+Mahdieh Khanmohammadi,
+Bob Klaver,
+Lily Kozmian-Ledward,
+Peter Kovesi,
+Mike Kuhn,
+Jeff Laake,
+Robert Lamb,
+Frederic Lavancier,
+Tom Lawrence,
+Tomas Lazauskas,
+Jonathan Lee,
+George Leser,
+Angela Li,
+Li Haitao,
+George Limitsios,
+Andrew Lister,
+Nestor Luambua,
+Ben Madin,
+Martin Maechler,
+Kiran Marchikanti,
+Jeff Marcus,
+Robert Mark,
+Peter McCullagh,
+Monia Mahling,
+Jorge Mateu Mahiques,
+Ulf Mehlig,
+Frederico Mestre,
+Sebastian Wastl Meyer,
+Mi Xiangcheng,
+Lore De Middeleer,
+Robin Milne,
+Enrique Miranda,
+Jesper Moller,
+Annie Mollie,
+Ines Moncada,
+Mehdi Moradi,
+Virginia Morera Pujol,
+Erika Mudrak,
+Gopalan Nair,
+Nader Najari,
+Nicoletta Nava,
+Linda Stougaard Nielsen,
+Felipe Nunes,
+Jens Randel Nyengaard,
+Jens Oehlschlaegel,
+Thierry Onkelinx,
+Sean O'Riordan,
+Evgeni Parilov,
+Jeff Picka,
+Nicolas Picard,
+Tim Pollington,
+Mike Porter,
+Sergiy Protsiv,
+Adrian Raftery,
+Ben Ramage,
+Pablo Ramon,
+Xavier Raynaud,
+Nicholas Read,
+Matt Reiter,
+Ian Renner,
+Tom Richardson,
+Brian Ripley,
+Ted Rosenbaum,
+Barry Rowlingson,
+Jason Rudokas,
+Tyler Rudolph,
+John Rudge,
+Christopher Ryan,
+Farzaneh Safavimanesh,
+Aila Sarkka,
+Cody Schank,
+Katja Schladitz,
+Sebastian Schutte,
+Bryan Scott,
+Olivia Semboli,
+Francois Semecurbe,
+Vadim Shcherbakov,
+Shen Guochun,
+Shi Peijian,
+Harold-Jeffrey Ship,
+Tammy L Silva,
+Ida-Maria Sintorn,
+Yong Song, 
+Malte Spiess,
+Mark Stevenson,
+Kaspar Stucki,
+Jan Sulavik,
+Michael Sumner,
+P. Surovy,
+Ben Taylor,
+Thordis Linda Thorarinsdottir,
+Leigh Torres,
+Berwin Turlach,
+Torben Tvedebrink,
+Kevin Ummer,
+Medha Uppala,
+Andrew van Burgel,
+Tobias Verbeke,
+Mikko Vihtakari,
+Alexendre Villers,
+Fabrice Vinatier,
+Maximilian Vogtland,
+Sasha Voss,
+Sven Wagner,
+Hao Wang,
+H. Wendrock,
+Jan Wild,
+Carl G. Witthoft,
+Selene Wong,
+Maxime Woringer,
+Luke Yates,
+Mike Zamboni
+and
+Achim Zeileis.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>, Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a> and Ege Rubak <a href="mailto:rubak@math.aau.dk">rubak@math.aau.dk</a>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.explore</em> version 3.3-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

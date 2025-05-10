@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Count Multiplicity of Duplicate Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for multiplicity.ppp {spatstat.geom}"><tr><td>multiplicity.ppp {spatstat.geom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Count Multiplicity of Duplicate Points</h2>
+
+<h3>Description</h3>
+
+<p>Counts the number of duplicates for each point
+in a spatial point pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ multiplicity(x)
+
+ ## S3 method for class 'ppp'
+multiplicity(x)
+
+ ## S3 method for class 'ppx'
+multiplicity(x)
+
+ ## S3 method for class 'data.frame'
+multiplicity(x)
+
+ ## Default S3 method:
+multiplicity(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A spatial point pattern
+(object of class <code>"ppp"</code> or <code>"ppx"</code>)
+or a vector, matrix or data frame.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Two points in a point pattern are deemed to be identical
+if their <i>x,y</i> coordinates are the same,
+and their marks are also the same (if they carry marks).
+The Examples section illustrates how it is possible for
+a point pattern to contain a pair of identical points.
+</p>
+<p>For each point in <code>x</code>, the function <code>multiplicity</code> counts how many
+points are identical to it, and returns the vector of counts.
+</p>
+<p>The argument <code>x</code> can also be a vector, a matrix or a data frame.
+When <code>x</code> is a vector, <code>m &lt;- multiplicity(x)</code> is a vector
+of the same length as <code>x</code>, and <code>m[i]</code> is the
+number of elements of <code>x</code> that are identical to <code>x[i]</code>.
+When <code>x</code> is a matrix or data frame,
+<code>m &lt;- multiplicity(x)</code> is a vector
+of length equal to the number of rows of <code>x</code>, and <code>m[i]</code>
+is the number of rows of <code>x</code> that are identical to
+the <code>i</code>th row.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of integers (multiplicities) of length equal to the
+number of points in <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Adrian Baddeley <a href="mailto:Adrian.Baddeley@curtin.edu.au">Adrian.Baddeley@curtin.edu.au</a>
+</p>
+<p>,
+Rolf Turner <a href="mailto:rolfturner@posteo.net">rolfturner@posteo.net</a>
+</p>
+<p>and Sebastian Meyer.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../spatstat.geom/help/ppp.object.html">ppp.object</a></code>,
+<code><a href="../../spatstat.geom/help/duplicated.ppp.html">duplicated.ppp</a></code>,
+<code><a href="../../spatstat.geom/help/unique.ppp.html">unique.ppp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   X &lt;- ppp(c(1,1,0.5,1), c(2,2,1,2), window=square(3), check=FALSE)
+   m &lt;- multiplicity(X)
+
+   # unique points in X, marked by their multiplicity
+   first &lt;- !duplicated(X)
+   Y &lt;- X[first] %mark% m[first]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spatstat.geom</em> version 3.3-5 <a href="00Index.html">Index</a>]</div>
+</div></body></html>
