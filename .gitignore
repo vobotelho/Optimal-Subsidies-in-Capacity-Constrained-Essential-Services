@@ -1,0 +1,15 @@
+/institucional/
+/materials/
+/methods/
+/readings/
+/working/
+/test/
+/keys/keys.R
+
+.Rproj.user
+.Rhistory
+.Rprofile
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
