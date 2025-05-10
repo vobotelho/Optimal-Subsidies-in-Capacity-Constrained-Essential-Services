@@ -109,7 +109,7 @@ file_upload <- function(object, name){
           autorename = FALSE,
           mode = "overwrite",
           mute = FALSE,
-          path = paste0("/working papers/Affirmative action/working/", name),
+          path = paste0("/working papers/Optimal Subsidies in Capacity-Constrained Essential Services/working/", name),
           strict_conflict = FALSE
         ), auto_unbox = TRUE),
         "Content-Type" = "application/octet-stream"
@@ -149,7 +149,7 @@ upload_log <- function(object, name){
           autorename = FALSE,
           mode = "overwrite",
           mute = FALSE,
-          path = paste0("/working papers/Affirmative action/logs/", name),
+          path = paste0("/working papers/Optimal Subsidies in Capacity-Constrained Essential Services/logs/", name),
           strict_conflict = FALSE
         ), auto_unbox = TRUE),
         "Content-Type" = "application/octet-stream"
@@ -189,7 +189,7 @@ file_upload_RData <- function(object, name){
           autorename = FALSE,
           mode = "overwrite",
           mute = FALSE,
-          path = paste0("/working papers/Affirmative action/working/", name),
+          path = paste0("/working papers/Optimal Subsidies in Capacity-Constrained Essential Services/working/", name),
           strict_conflict = FALSE
         ), auto_unbox = TRUE),
         "Content-Type" = "application/octet-stream"
@@ -254,6 +254,6 @@ list_folder <- function(path_consulta){
 }
 
 working_file <- function(filename){
-  basic_wd <- paste0("working papers/Affirmative action/working/", filename)
+  basic_wd <- paste0("working papers/Optimal Subsidies in Capacity-Constrained Essential Services/working/", filename)
   return(basic_wd)
 }
