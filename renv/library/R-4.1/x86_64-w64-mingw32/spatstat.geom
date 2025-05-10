@@ -1,0 +1,1 @@
+C:/Users/vinic/AppData/Local/R/cache/R/renv/cache/v5/R-4.1/x86_64-w64-mingw32/spatstat.geom/3.3-5/17df27ed59af5b5300916af99dd326b3/spatstat.geom
