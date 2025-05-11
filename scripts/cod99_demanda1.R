@@ -106,11 +106,19 @@ data_starter <- list(MERCADOS = MERCADOS,
 demand_starter(data_starter)
 
 data <- list(MERCADOS = MERCADOS,
+             DELTA = DELTA,
+             CURSOS = CURSOS,
+             DISTANCIAS = DISTANCIAS,
+             MARKET_SIZE = MARKET_SIZE,
              TEMP_MERCADOS = TEMP_MERCADOS,
-             LOG = log)
+             LOG = log,
+             exogenous = exogenous,
+             fixed_effects = fixed_effects,
+             functions = functions,
+             options = "J")
 
-system.time(gmm_criterion(coef = rep(0, times = 12), data = data))
-valor <- gmm_criterion(coef = rep(0, times = 12), data = data)
+system.time(gmm_criterion(coef = rep(0, times = 6), data = data))
+valor <- gmm_criterion(coef = rep(0, times = 6), data = data)
 print(valor)
 
 "------------------------------------------------------------"

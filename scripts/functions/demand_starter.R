@@ -66,13 +66,7 @@ demand_starter <- function(data){
              M_RDPC3_PRC = ifelse(RDPC == 3, PRECO_1000, 0),
              M_RDPC4_PRC = ifelse(RDPC == 4, PRECO_1000, 0),
              M_RDPC5_PRC = ifelse(RDPC == 5, PRECO_1000, 0),
-             M_ENEM0_PRC = (ENEM / 100) * PRECO_1000,
-             M_ENRD0_PRC = (ENEM / 100) * (RDPC / 5) * PRECO_1000,
-             M_DIST0_DIS = distancia,
-             M_ENEM0_PUB = (ENEM / 100) * PUBLICA,
-             M_RDPC0_PUB = (RDPC / 5) * PUBLICA,
-             M_ENEM0_PRI = (ENEM / 100) * (1 - PUBLICA),
-             M_RDPC0_PRI = (RDPC / 5) * (1 - PUBLICA)) %>%
+             M_ENEM0_PRC = (ENEM / 100) * PRECO_1000) %>%
       select(-c(CUTOFF, RG_INT_CURSO, RG_INT_ALUNO, PUBLICA, PRECO_1000, distancia, ENEM, RDPC, COTA))
     print("1")
     gc()

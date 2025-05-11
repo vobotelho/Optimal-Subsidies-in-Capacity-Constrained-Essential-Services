@@ -6,7 +6,7 @@ gmm_criterion <- function(coef, data){
   DISTANCIAS <- data[["DISTANCIAS"]]
   MARKET_SIZE <- data[["MARKET_SIZE"]]
   TEMP_MERCADOS <- data[["TEMP_MERCADOS"]]
-  log <- data[["log"]]
+  log <- data[["LOG"]]
   exogenous <- data[["exogenous"]]
   fixed_effects <- data[["fixed_effects"]]
   demean <- data[["functions"]]$demean
