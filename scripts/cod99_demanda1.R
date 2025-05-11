@@ -19,6 +19,7 @@ market_restrict <- c(11, 12, 13, 14, 15, 16, 17,
 "------------------------------------------------------------"
 load(file_download(working_file("cod03_CURSOS.RData")))
 load(file_download(working_file("cod03_MARKET.RData")))
+load(file_download(working_file("cod03_DELTA.RData")))
 load(file_download(working_file("cod03_INSTRUMENTS.RData")))
 load(file_download(working_file("cod03_parameters.RData")))
 load(file_download(working_file("cod02_DISTANCIAS.RData")))
