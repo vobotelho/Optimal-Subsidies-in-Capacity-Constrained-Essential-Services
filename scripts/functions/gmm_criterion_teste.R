@@ -13,7 +13,7 @@ gmm_criterion <- function(coef, data){
   find_delta <- data[["functions"]]$find_delta
   options <- data[["options"]]
   
-  myCluster <- makeCluster(2, type = "PSOCK")
+  myCluster <- makeCluster(8, type = "PSOCK")
   registerDoParallel(myCluster)
   DELTAS <- foreach(i = 1:NROW(MERCADOS),
                     .packages = c("dplyr", "reshape2", "matrixcalc", "corpcor", "foreach", "data.table", "SQUAREM"),

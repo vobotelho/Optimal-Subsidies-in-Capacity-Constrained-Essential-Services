@@ -51,7 +51,7 @@ demand_starter <- function(data){
     summarise(SHARE_OUT = (sum(SIZE) - sum(ALUNOS)) / sum(SIZE)) %>%
     ungroup()
   
-  for(i in 20:NROW(MERCADOS)) {
+  for(i in 1:NROW(MERCADOS)) {
     REGIOES <- unique(MARKET_SIZE$RG_INT_ALUNO[MARKET_SIZE$RG_UF_ALUNO == MERCADOS[i]])
     CHOICE_SET <- cross_join(subset(MARKET_SIZE, RG_UF_ALUNO == MERCADOS[i]), select(subset(CURSOS, RG_UF_CURSO == MERCADOS[i]), c("ENEM_MIN_G0", "ENEM_MIN_G1", "ENEM_MIN_G2", "CO_CURSO_N", "RG_INT_CURSO", "PRECO_1000", "PUBLICA", "TARGET"))) %>%
       mutate(CUTOFF = NA,
