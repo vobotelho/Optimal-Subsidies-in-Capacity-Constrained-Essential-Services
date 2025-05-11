@@ -68,7 +68,6 @@ demand_starter <- function(data){
              M_RDPC5_PRC = ifelse(RDPC == 5, PRECO_1000, 0),
              M_ENEM0_PRC = (ENEM / 100) * PRECO_1000) %>%
       select(-c(CUTOFF, RG_INT_CURSO, RG_INT_ALUNO, PUBLICA, PRECO_1000, distancia, ENEM, RDPC, COTA))
-    print("1")
     gc()
     
     SHARE_OUT <- as.double(SHARE_OUT_ALL$SHARE_OUT[SHARE_OUT_ALL$RG_UF_CURSO == MERCADOS[i]])
@@ -81,7 +80,6 @@ demand_starter <- function(data){
     save(F_matrix, file = paste0("test\\F_", MERCADOS[i], ".RData"))
     rm("F_matrix")
     CHOICE_SET <- select(CHOICE_SET, -c(SIZE))
-    print("2")
     gc()
     
     A_matrix <- dcast(CHOICE_SET, SEGMENT ~ CO_CURSO_N, value.var = "A")
@@ -91,7 +89,6 @@ demand_starter <- function(data){
     save(A_matrix, file = paste0("test\\A_", MERCADOS[i], ".RData"))
     rm("A_matrix")
     CHOICE_SET <- select(CHOICE_SET, -c(A))
-    print("3")
     gc()
     
     TARGET_matrix <- dcast(CHOICE_SET, SEGMENT ~ CO_CURSO_N, value.var = "TARGET")
@@ -100,7 +97,6 @@ demand_starter <- function(data){
     save(TARGET_matrix, file = paste0("test\\TARGET_", MERCADOS[i], ".RData"))
     rm("TARGET_matrix")
     CHOICE_SET <- select(CHOICE_SET, -c(TARGET))
-    print("4")
     gc()
     
     MKs <- grep("^M_", colnames(CHOICE_SET), value = TRUE)
@@ -116,7 +112,6 @@ demand_starter <- function(data){
     save(Mk_matrix, file = paste0("test\\MK_", MERCADOS[i], ".RData"))
     rm("Mk_matrix")
     rm("CHOICE_SET")
-    print("5")
     gc()
   }
 }

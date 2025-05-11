@@ -108,7 +108,7 @@ demand_starter(data_starter)
 data <- list(MERCADOS = MERCADOS,
              DELTA = DELTA,
              CURSOS = CURSOS,
-             DISTANCIAS = DISTANCIAS,
+             DISTANCIAS = cod02_DISTANCIAS,
              MARKET_SIZE = MARKET_SIZE,
              TEMP_MERCADOS = TEMP_MERCADOS,
              LOG = log,
