@@ -15,8 +15,8 @@ find_delta <- function(MERCADO, M, temp){
   
   contraction <- function(DELTA_TRY){
     V <- A_matrix * exp(kronecker(matrix(1, nrow = nrow(F_matrix), ncol = 1), t(DELTA_TRY)) + M)
-    Vaux <- diag(as.vector(V %*% matrix(1, nrow = nrow(DELTA_TRY), ncol = 1) + matrix(1, nrow = nrow(F_matrix), ncol = 1)))
-    S <- solve(Vaux) %*% V
+    VauxINV <- diag(1 / (as.vector(V %*% matrix(1, nrow = nrow(DELTA_TRY), ncol = 1) + matrix(1, nrow = nrow(F_matrix), ncol = 1))))
+    S <- VauxINV %*% V
     SHARES <- t(S) %*% F_matrix
     NEW_DELTA <- DELTA_TRY + log(TARGET_matrix) - log(SHARES)
     return(as.matrix(NEW_DELTA))
