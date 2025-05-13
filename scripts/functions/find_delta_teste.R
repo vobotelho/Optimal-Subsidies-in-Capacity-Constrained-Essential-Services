@@ -24,7 +24,7 @@ find_delta <- function(MERCADO, M, temp){
   
   RESULT <- squarem(DELTA_START, contraction, control = list(tol = 1e-12, trace = TRUE))
   save(RESULT, file = temp)
-  OUTPUT <- data.frame(DELTA = RESULT$par, CO_CURSO_N = as.double(rownames(TARGET_matrix)))
+  OUTPUT <- data.frame(DELTA = as.double(RESULT$par), CO_CURSO_N = as.double(rownames(RESULT$par)))
   
   return(OUTPUT)
 }
