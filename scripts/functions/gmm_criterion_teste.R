@@ -19,7 +19,7 @@ gmm_criterion <- function(coef, data){
                     .packages = c("dplyr", "reshape2", "matrixcalc", "corpcor", "foreach", "data.table", "SQUAREM"),
                     .combine = "rbind") %dopar% {
                       
-                      load(paste0("working\\cod04_MK_", MERCADOS[i], ".RData"))
+                      load(paste0("local\\cod04_MK_", MERCADOS[i], ".RData"))
                       M <- foreach(j = 1:length(Mk_matrix),
                                    .combine = "+") %do% {
                         partial <- as.matrix(coef[j] * Mk_matrix[[j]])

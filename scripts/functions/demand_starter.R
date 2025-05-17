@@ -25,11 +25,11 @@ demand_starter <- function(data){
   Z_ELSE <- cbind(Z_ELSE, as.matrix(select(CURSOS, all_of(exogenous))))
   
   Z <- (1 / NROW(CURSOS)) * as.matrix(bdiag(Z_BASE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE))
-  save(Z, file = "working\\cod04_Z.RData")
+  save(Z, file = "local\\cod04_Z.RData")
   
   #WEIGHTING MATRIX W (11 SMM CONDITIONS: ENEM1, ENEM2, ENEM3, ENEM4, RDPC1, RDPC2, RDPC3, RDPC4, AA-G1, AA-G2, DIST0)
   W <- diag(ncol(Z))
-  save(W, file = "working\\cod04_W.RData")
+  save(W, file = "local\\cod04_W.RData")
   rm("W")
   rm("Z")
   rm("Z_BASE")
@@ -150,9 +150,9 @@ demand_starter <- function(data){
     n_j <- length(CO_CURSO_N_levels)
     
     SHARE_OUT <- as.double(SHARE_OUT_ALL$SHARE_OUT[SHARE_OUT_ALL$RG_UF_CURSO == MERCADOS[i]])
-    save(SHARE_OUT, file = paste0("working\\cod04_OUT_", MERCADOS[i], ".RData"))
-    save(SEGMENT_levels, file = paste0("working\\cod04_SEGMENT_levels_", MERCADOS[i], ".RData"))
-    save(CO_CURSO_N_levels, file = paste0("working\\cod04_CURSO_levels_", MERCADOS[i], ".RData"))
+    save(SHARE_OUT, file = paste0("local\\cod04_OUT_", MERCADOS[i], ".RData"))
+    save(SEGMENT_levels, file = paste0("local\\cod04_SEGMENT_levels_", MERCADOS[i], ".RData"))
+    save(CO_CURSO_N_levels, file = paste0("local\\cod04_CURSO_levels_", MERCADOS[i], ".RData"))
     
     CHOICE_SET[, `:=`(
       i = as.integer(factor(SEGMENT, levels = SEGMENT_levels)),
@@ -176,7 +176,7 @@ demand_starter <- function(data){
         levels(factor(SEGMENT_levels)),
         "value_I")
       )
-    save(F_matrix, file = paste0("working\\cod04_F_", MERCADOS[i], ".RData"))
+    save(F_matrix, file = paste0("local\\cod04_F_", MERCADOS[i], ".RData"))
     rm("F_matrix")
     gc()
     
@@ -189,7 +189,7 @@ demand_starter <- function(data){
         levels(factor(CO_CURSO_N_levels))
       )
     )
-    save(A_matrix, file = paste0("working\\cod04_A_", MERCADOS[i], ".RData"))
+    save(A_matrix, file = paste0("local\\cod04_A_", MERCADOS[i], ".RData"))
     rm("A_matrix")
     CHOICE_SET[, A := NULL]
     gc()
@@ -204,7 +204,7 @@ demand_starter <- function(data){
         levels("value_J")
       )
     )
-    save(TARGET_matrix, file = paste0("working\\cod04_TARGET_", MERCADOS[i], ".RData"))
+    save(TARGET_matrix, file = paste0("local\\cod04_TARGET_", MERCADOS[i], ".RData"))
     rm("TARGET_matrix")
     gc()
     
@@ -224,7 +224,7 @@ demand_starter <- function(data){
       gc()
       return(Matrix)
     }
-    save(G_matrix, file = paste0("working\\cod04_G_", MERCADOS[i], ".RData"))
+    save(G_matrix, file = paste0("local\\cod04_G_", MERCADOS[i], ".RData"))
     
     MKs <- grep("^M_", colnames(CHOICE_SET), value = TRUE)
     Mk_matrix <- foreach(j = 1:NROW(MKs)) %do% {
@@ -242,7 +242,7 @@ demand_starter <- function(data){
       gc()
       return(Matrix)
     }
-    save(Mk_matrix, file = paste0("working\\cod04_MK_", MERCADOS[i], ".RData"))
+    save(Mk_matrix, file = paste0("local\\cod04_MK_", MERCADOS[i], ".RData"))
     rm("Mk_matrix")
     
     rm("CHOICE_SET")
