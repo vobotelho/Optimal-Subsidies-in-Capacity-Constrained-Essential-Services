@@ -99,6 +99,7 @@ TEMP_MERCADOS <- foreach(i = 1:NROW(MERCADOS),
 data_starter <- list(MERCADOS = MERCADOS,
                      MARKET_SIZE = MARKET_SIZE,
                      CURSOS = CURSOS,
+                     DELTA = DELTA,
                      DISTANCIAS = cod02_DISTANCIAS,
                      instruments = instruments,
                      smm_fe_moments = smm_fe_moments)
@@ -117,8 +118,8 @@ data <- list(MERCADOS = MERCADOS,
              functions = functions,
              options = "J")
 
-system.time(gmm_criterion(coef = rep(0, times = 6), data = data))
-valor <- gmm_criterion(coef = rep(0, times = 6), data = data)
+system.time(gmm_criterion(coef = rep(0, times = 7), data = data))
+valor <- gmm_criterion(coef = rep(0, times = 7), data = data)
 print(valor)
 
 "------------------------------------------------------------"
