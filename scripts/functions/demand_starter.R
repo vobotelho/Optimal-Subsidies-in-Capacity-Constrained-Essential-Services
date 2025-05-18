@@ -243,7 +243,7 @@ demand_starter <- function(data){
     }
     save(Gcross_matrix, file = paste0("local\\cod04_Gcross_", MERCADOS[i], ".RData"))
     
-    CHOICE_matrix <- sparseMatrix(
+    S_matrix <- sparseMatrix(
       i        = CHOICE_SET[["i"]],
       j        = CHOICE_SET[["j"]],
       x        = CHOICE_SET[["PROB_CHOICE"]],
@@ -254,12 +254,22 @@ demand_starter <- function(data){
     )
     CHOICE_SET[, PROB_CHOICE := NULL]
     
-    CHOICE_matrix <- CHOICE_matrix * as.vector(F_matrix)
-    PROP_matrix <- t(t(CHOICE_matrix) / as.vector(colSums(CHOICE_matrix)))
-    
-    
+    PROP_matrix <- S_matrix * as.vector(F_matrix)
+    PROP_matrix <- t(PROP_matrix) / as.vector(colSums(PROP_matrix))
+    GTot <- NROW(Ginds) + NROW(Gs)
+    MOMENTS <- foreach(j = 1:NROW(GTot)) %do% {
+      if (j <= NROW(Ginds)){
+        Matrix <- PROP_matrix %*% Gind_matrix[[j]]
+      } else {
+        Matrix <- rowSums(PROP_matrix * t(Gcross_matrix[[j - NROW(Ginds)]]))
+      }
+      return(Matrix)
+    }
+    save(MOMind, file = paste0("local\\cod04_MOMENTS_", MERCADOS[i], ".RData"))
+    rm("MOMENTS")
     rm("F_matrix")
     rm("S_matrix")
+    rm("PROP_matrix")
     rm("Gind_matrix")
     rm("Gcross_matrix")
     
