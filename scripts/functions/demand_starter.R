@@ -126,6 +126,7 @@ demand_starter <- function(data){
     ]
     
     CHOICE_SET[, `:=`(
+      PROB_CHOICE = fifelse(is.na(N), 0, N / SIZE),
       A = as.integer(ENEM >= CUTOFF),
       M_RDPC1_PRC = fifelse(RDPC == 1, PRECO_1000, 0),
       M_RDPC2_PRC = fifelse(RDPC == 2, PRECO_1000, 0),
@@ -179,26 +180,8 @@ demand_starter <- function(data){
         levels(factor(SEGMENT_levels)),
         "value_I")
       )
+    F_matrix <- F_matrix / sum(F_matrix)
     save(F_matrix, file = paste0("local\\cod04_F_", MERCADOS[i], ".RData"))
-    rm("F_matrix")
-    
-    Ginds <- grep("^Gind_", colnames(SUB_MARKET_SIZE), value = TRUE)
-    Gind_matrix <- foreach(j = 1:NROW(Ginds)) %do% {
-      Matrix <- sparseMatrix(
-        i = SUB_MARKET_SIZE[["i"]],
-        j = rep(1L, n_i),
-        x = SUB_MARKET_SIZE[[Ginds[j]]],
-        dims = c(n_i, 1L),
-        dimnames = list(
-          levels(factor(SEGMENT_levels)),
-          "value_I"
-        )
-      )
-      Gind_matrix[, (Ginds[j]) := NULL]
-      return(Matrix)
-    }
-    save(Gind_matrix, file = paste0("local\\cod04_Gind_", MERCADOS[i], ".RData"))
-    rm("Gind_matrix")
     
     A_matrix <- sparseMatrix(
       i        = CHOICE_SET[["i"]],
@@ -226,6 +209,23 @@ demand_starter <- function(data){
     save(TARGET_matrix, file = paste0("local\\cod04_TARGET_", MERCADOS[i], ".RData"))
     rm("TARGET_matrix")
     
+    Ginds <- grep("^Gind_", colnames(SUB_MARKET_SIZE), value = TRUE)
+    Gind_matrix <- foreach(j = 1:NROW(Ginds)) %do% {
+      Matrix <- sparseMatrix(
+        i = SUB_MARKET_SIZE[["i"]],
+        j = rep(1L, n_i),
+        x = SUB_MARKET_SIZE[[Ginds[j]]],
+        dims = c(n_i, 1L),
+        dimnames = list(
+          levels(factor(SEGMENT_levels)),
+          "value_I"
+        )
+      )
+      Gind_matrix[, (Ginds[j]) := NULL]
+      return(Matrix)
+    }
+    save(Gind_matrix, file = paste0("local\\cod04_Gind_", MERCADOS[i], ".RData"))
+    
     Gs <- grep("^Gcross_", colnames(CHOICE_SET), value = TRUE)
     Gcross_matrix <- foreach(j = 1:NROW(Gs)) %do% {
       Matrix <- sparseMatrix(
@@ -242,6 +242,25 @@ demand_starter <- function(data){
       return(Matrix)
     }
     save(Gcross_matrix, file = paste0("local\\cod04_Gcross_", MERCADOS[i], ".RData"))
+    
+    CHOICE_matrix <- sparseMatrix(
+      i        = CHOICE_SET[["i"]],
+      j        = CHOICE_SET[["j"]],
+      x        = CHOICE_SET[["PROB_CHOICE"]],
+      dimnames = list(
+        levels(factor(SEGMENT_levels)),
+        levels(factor(CO_CURSO_N_levels))
+      )
+    )
+    CHOICE_SET[, PROB_CHOICE := NULL]
+    
+    CHOICE_matrix <- CHOICE_matrix * as.vector(F_matrix)
+    PROP_matrix <- t(t(CHOICE_matrix) / as.vector(colSums(CHOICE_matrix)))
+    
+    
+    rm("F_matrix")
+    rm("S_matrix")
+    rm("Gind_matrix")
     rm("Gcross_matrix")
     
     MKs <- grep("^M_", colnames(CHOICE_SET), value = TRUE)

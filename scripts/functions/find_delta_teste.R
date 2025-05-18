@@ -4,7 +4,6 @@ find_delta <- function(MERCADO, M, temp){
   load(paste0("local\\cod04_A_", MERCADO, ".RData"))
   load(paste0("local\\cod04_TARGET_", MERCADO, ".RData"))
   load(paste0("local\\cod04_OUT_", MERCADO, ".RData"))
-  F_matrix <- F_matrix / sum(F_matrix)
   
   load(temp)
   if (RESULT[1] == "Start"){
