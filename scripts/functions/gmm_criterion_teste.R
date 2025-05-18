@@ -16,8 +16,7 @@ gmm_criterion <- function(coef, data){
   myCluster <- makeCluster(8, type = "PSOCK")
   registerDoParallel(myCluster)
   DELTAS <- foreach(i = 1:NROW(MERCADOS),
-                    .packages = c("dplyr", "reshape2", "matrixcalc", "corpcor", "foreach", "data.table", "SQUAREM"),
-                    .combine = "rbind") %dopar% {
+                    .packages = c("dplyr", "reshape2", "matrixcalc", "corpcor", "foreach", "data.table", "SQUAREM")) %dopar% {
                       
                       load(paste0("local\\cod04_MK_", MERCADOS[i], ".RData"))
                       M <- foreach(j = 1:length(Mk_matrix),

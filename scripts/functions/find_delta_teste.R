@@ -4,7 +4,7 @@ find_delta <- function(MERCADO, M, temp){
   load(paste0("local\\cod04_A_", MERCADO, ".RData"))
   load(paste0("local\\cod04_TARGET_", MERCADO, ".RData"))
   load(paste0("local\\cod04_OUT_", MERCADO, ".RData"))
-  load(paste0("local\\cod04_SEGMENT_levels_", MERCADO, ".RData"))
+  load(paste0("local\\cod04_CURSO_levels_", MERCADO, ".RData"))
   load(paste0("local\\cod04_Gind_", MERCADO, ".RData"))
   load(paste0("local\\cod04_Gcross_", MERCADO, ".RData"))
   load(paste0("local\\cod04_MOMENTS_", MERCADO, ".RData"))
@@ -50,7 +50,7 @@ find_delta <- function(MERCADO, M, temp){
     return(Matrix)
   }
   
-  DELTA_PAR <- data.frame(CO_CURSO_N = SEGMENT_levels, 
+  DELTA_PAR <- data.frame(CO_CURSO_N = CO_CURSO_N_levels, 
                           DELTA = as.double(RESULT$par))
   
   OUTPUT <- list(DELTA_PAR = DELTA_PAR,
