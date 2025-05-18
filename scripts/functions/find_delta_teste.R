@@ -7,6 +7,8 @@ find_delta <- function(MERCADO, M, temp){
   load(paste0("local\\cod04_SEGMENT_levels_", MERCADO, ".RData"))
   load(paste0("local\\cod04_Gind_", MERCADO, ".RData"))
   load(paste0("local\\cod04_Gcross_", MERCADO, ".RData"))
+  load(paste0("local\\cod04_Gcross_", MERCADO, ".RData"))
+  load(paste0("local\\cod04_MOMENTS_", MERCADO, ".RData"))
   
   load(temp)
   if (RESULT[1] == "Start"){
@@ -36,17 +38,24 @@ find_delta <- function(MERCADO, M, temp){
   PROP_matrix <- S * as.vector(F_matrix)
   PROP_matrix <- t(PROP_matrix) / as.vector(colSums(PROP_matrix))
   GTot <- length(Gind_matrix) + length(Gcross_matrix)
-  MOMENTS <- foreach(j = 1:GTot) %do% {
+  MOMENTS_SMM <- foreach(j = 1:GTot,
+                         .combine = "rbind") %do% {
     if (j <= length(Gind_matrix)){
       Matrix <- PROP_matrix %*% Gind_matrix[[j]]
     } else {
       Matrix <- rowSums(PROP_matrix * t(Gcross_matrix[[j - length(Gind_matrix)]]))
     }
+    
+    Matrix <- Matrix - MOMENTS[[j]]
+    
     return(Matrix)
   }
   
-  OUTPUT <- data.frame(CO_CURSO_N = as.double(rownames(RESULT$par)),
-                       DELTA = as.double(RESULT$par))
+  DELTA_PAR <- data.frame(CO_CURSO_N = SEGMENT_levels, 
+                          DELTA = as.double(RESULT$par))
+  
+  OUTPUT <- list(DELTA_PAR = DELTA_PAR,
+                 MOMENTS_SMM = MOMENTS_SMM)
   
   return(OUTPUT)
 }
