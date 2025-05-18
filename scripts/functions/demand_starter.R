@@ -221,7 +221,7 @@ demand_starter <- function(data){
           "value_I"
         )
       )
-      Gind_matrix[, (Ginds[j]) := NULL]
+      SUB_MARKET_SIZE[, (Ginds[j]) := NULL]
       return(Matrix)
     }
     save(Gind_matrix, file = paste0("local\\cod04_Gind_", MERCADOS[i], ".RData"))
