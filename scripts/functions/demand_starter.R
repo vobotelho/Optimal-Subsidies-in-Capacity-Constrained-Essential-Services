@@ -67,6 +67,19 @@ demand_starter <- function(data){
     
     SUB_MARKET_SIZE <- MARKET_SIZE[RG_UF_ALUNO == MERCADOS[i]]
     
+    SUB_MARKET_SIZE <- SUB_MARKET_SIZE[, `:=`(
+      Gind_01 = fifelse(ENEM > 0 & ENEM <= 20, 1, 0),
+      Gind_02 = fifelse(ENEM > 20 & ENEM <= 40, 1, 0),
+      Gind_03 = fifelse(ENEM > 40 & ENEM <= 60, 1, 0),
+      Gind_04 = fifelse(ENEM > 60 & ENEM <= 80, 1, 0),
+      Gind_05 = fifelse(RDPC == 1, 1, 0),
+      Gind_06 = fifelse(RDPC == 2, 1, 0),
+      Gind_07 = fifelse(RDPC == 3, 1, 0),
+      Gind_08 = fifelse(RDPC == 4, 1, 0),
+      Gind_09 = fifelse(COTA == "G1", 1, 0),
+      Gind_10 = fifelse(COTA == "G2", 1, 0)
+    )]
+    
     SUB_CURSOS <- CURSOS[
       RG_UF_CURSO == MERCADOS[i],
       .(CO_CURSO_N,
@@ -121,17 +134,7 @@ demand_starter <- function(data){
       M_RDPC5_PRC = fifelse(RDPC == 5, PRECO_1000, 0),
       M_ENEM0_PRC = (ENEM / 100) * PRECO_1000,
       M_DIST0_PRC = distancia,
-      G_01 = fifelse(ENEM > 0 & ENEM <= 20, 1, 0),
-      G_02 = fifelse(ENEM > 20 & ENEM <= 40, 1, 0),
-      G_03 = fifelse(ENEM > 40 & ENEM <= 60, 1, 0),
-      G_04 = fifelse(ENEM > 60 & ENEM <= 80, 1, 0),
-      G_05 = fifelse(RDPC == 1, 1, 0),
-      G_06 = fifelse(RDPC == 2, 1, 0),
-      G_07 = fifelse(RDPC == 3, 1, 0),
-      G_08 = fifelse(RDPC == 4, 1, 0),
-      G_09 = fifelse(COTA == "G1", 1, 0),
-      G_10 = fifelse(COTA == "G2", 1, 0),
-      G_11 = fifelse(distancia == 0, 1, 0)
+      Gcross_01 = fifelse(distancia == 0, 1, 0)
     )]
     
     CHOICE_SET[, c("CUTOFF",
@@ -178,7 +181,24 @@ demand_starter <- function(data){
       )
     save(F_matrix, file = paste0("local\\cod04_F_", MERCADOS[i], ".RData"))
     rm("F_matrix")
-    gc()
+    
+    Ginds <- grep("^Gind_", colnames(SUB_MARKET_SIZE), value = TRUE)
+    Gind_matrix <- foreach(j = 1:NROW(Ginds)) %do% {
+      Matrix <- sparseMatrix(
+        i = SUB_MARKET_SIZE[["i"]],
+        j = rep(1L, n_i),
+        x = SUB_MARKET_SIZE[[Ginds[j]]],
+        dims = c(n_i, 1L),
+        dimnames = list(
+          levels(factor(SEGMENT_levels)),
+          "value_I"
+        )
+      )
+      Gind_matrix[, (Ginds[j]) := NULL]
+      return(Matrix)
+    }
+    save(Gind_matrix, file = paste0("local\\cod04_Gind_", MERCADOS[i], ".RData"))
+    rm("Gind_matrix")
     
     A_matrix <- sparseMatrix(
       i        = CHOICE_SET[["i"]],
@@ -192,7 +212,6 @@ demand_starter <- function(data){
     save(A_matrix, file = paste0("local\\cod04_A_", MERCADOS[i], ".RData"))
     rm("A_matrix")
     CHOICE_SET[, A := NULL]
-    gc()
     
     TARGET_matrix <- sparseMatrix(
       i = SUB_CURSOS[["i"]],
@@ -206,10 +225,9 @@ demand_starter <- function(data){
     )
     save(TARGET_matrix, file = paste0("local\\cod04_TARGET_", MERCADOS[i], ".RData"))
     rm("TARGET_matrix")
-    gc()
     
-    Gs <- grep("^G_", colnames(CHOICE_SET), value = TRUE)
-    G_matrix <- foreach(j = 1:NROW(Gs)) %do% {
+    Gs <- grep("^Gcross_", colnames(CHOICE_SET), value = TRUE)
+    Gcross_matrix <- foreach(j = 1:NROW(Gs)) %do% {
       Matrix <- sparseMatrix(
         i        = CHOICE_SET[["i"]],
         j        = CHOICE_SET[["j"]],
@@ -221,10 +239,10 @@ demand_starter <- function(data){
         )
       )
       CHOICE_SET[, (Gs[j]) := NULL]
-      gc()
       return(Matrix)
     }
-    save(G_matrix, file = paste0("local\\cod04_G_", MERCADOS[i], ".RData"))
+    save(Gcross_matrix, file = paste0("local\\cod04_Gcross_", MERCADOS[i], ".RData"))
+    rm("Gcross_matrix")
     
     MKs <- grep("^M_", colnames(CHOICE_SET), value = TRUE)
     Mk_matrix <- foreach(j = 1:NROW(MKs)) %do% {
