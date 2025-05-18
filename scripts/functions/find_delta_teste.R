@@ -7,7 +7,6 @@ find_delta <- function(MERCADO, M, temp){
   load(paste0("local\\cod04_SEGMENT_levels_", MERCADO, ".RData"))
   load(paste0("local\\cod04_Gind_", MERCADO, ".RData"))
   load(paste0("local\\cod04_Gcross_", MERCADO, ".RData"))
-  load(paste0("local\\cod04_Gcross_", MERCADO, ".RData"))
   load(paste0("local\\cod04_MOMENTS_", MERCADO, ".RData"))
   
   load(temp)
