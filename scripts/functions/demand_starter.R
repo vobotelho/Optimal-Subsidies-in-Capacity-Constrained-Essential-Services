@@ -261,7 +261,7 @@ demand_starter <- function(data){
       if (j <= NROW(Ginds)){
         Matrix <- PROP_matrix %*% Gind_matrix[[j]]
       } else {
-        Matrix <- rowSums(PROP_matrix * t(Gcross_matrix[[j - NROW(Ginds)]]))
+        Matrix <- as.matrix(rowSums(PROP_matrix * t(Gcross_matrix[[j - NROW(Ginds)]])))
       }
       return(Matrix)
     }
