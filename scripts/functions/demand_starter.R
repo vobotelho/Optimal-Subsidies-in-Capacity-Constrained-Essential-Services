@@ -265,7 +265,7 @@ demand_starter <- function(data){
       }
       return(Matrix)
     }
-    save(MOMind, file = paste0("local\\cod04_MOMENTS_", MERCADOS[i], ".RData"))
+    save(MOMENTS, file = paste0("local\\cod04_MOMENTS_", MERCADOS[i], ".RData"))
     rm("MOMENTS")
     rm("F_matrix")
     rm("S_matrix")
