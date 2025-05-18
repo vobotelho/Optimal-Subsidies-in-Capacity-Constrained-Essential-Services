@@ -257,7 +257,7 @@ demand_starter <- function(data){
     PROP_matrix <- S_matrix * as.vector(F_matrix)
     PROP_matrix <- t(PROP_matrix) / as.vector(colSums(PROP_matrix))
     GTot <- NROW(Ginds) + NROW(Gs)
-    MOMENTS <- foreach(j = 1:NROW(GTot)) %do% {
+    MOMENTS <- foreach(j = 1:GTot) %do% {
       if (j <= NROW(Ginds)){
         Matrix <- PROP_matrix %*% Gind_matrix[[j]]
       } else {
