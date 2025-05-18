@@ -30,8 +30,11 @@ gmm_criterion <- function(coef, data){
                     }
   stopCluster(myCluster)
   
+  DELTAS_PAR <- do.call(rbind, lapply(DELTAS, `[[`, 1))
+  MOMENTS <- do.call(rbind, lapply(DELTAS, `[[`, 2))
+  
   CURSOS <- CURSOS %>%
-    left_join(DELTAS, by = "CO_CURSO_N")
+    left_join(DELTAS_PAR, by = "CO_CURSO_N")
   
   demanda <- felm(as.formula(sprintf('%s~%s|%s|%s|%s', 
                                      "DELTA", 

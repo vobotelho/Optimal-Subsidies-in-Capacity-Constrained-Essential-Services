@@ -38,7 +38,7 @@ find_delta <- function(MERCADO, M, temp){
   PROP_matrix <- t(PROP_matrix) / as.vector(colSums(PROP_matrix))
   GTot <- length(Gind_matrix) + length(Gcross_matrix)
   MOMENTS_SMM <- foreach(j = 1:GTot,
-                         .combine = "rbind") %do% {
+                         .combine = "cbind") %do% {
     if (j <= length(Gind_matrix)){
       Matrix <- PROP_matrix %*% Gind_matrix[[j]]
     } else {
