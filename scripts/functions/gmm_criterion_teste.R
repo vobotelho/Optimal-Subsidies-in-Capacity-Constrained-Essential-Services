@@ -13,6 +13,8 @@ gmm_criterion <- function(coef, data){
   find_delta <- data[["functions"]]$find_delta
   options <- data[["options"]]
   
+  load("local\\cod04_Z.RData")
+  
   myCluster <- makeCluster(8, type = "PSOCK")
   registerDoParallel(myCluster)
   DELTAS <- foreach(i = 1:NROW(MERCADOS),
@@ -44,17 +46,17 @@ gmm_criterion <- function(coef, data){
                                      0)), data = CURSOS)
   
   x_BASE <- rbind(as.matrix(demanda$residuals),
-                  as.matrix(CURSOS$ENEM_SM1 - CURSOS$ENEM_DT1),
-                  as.matrix(CURSOS$ENEM_SM2 - CURSOS$ENEM_DT2),
-                  as.matrix(CURSOS$ENEM_SM3 - CURSOS$ENEM_DT3),
-                  as.matrix(CURSOS$ENEM_SM4 - CURSOS$ENEM_DT4),
-                  as.matrix(CURSOS$RDPC_SM1 - CURSOS$RDPC_DT1),
-                  as.matrix(CURSOS$RDPC_SM2 - CURSOS$RDPC_DT2),
-                  as.matrix(CURSOS$RDPC_SM3 - CURSOS$RDPC_DT3),
-                  as.matrix(CURSOS$RDPC_SM4 - CURSOS$RDPC_DT4),
-                  as.matrix(CURSOS$COTA_SM1 - CURSOS$COTA_DT1),
-                  as.matrix(CURSOS$COTA_SM2 - CURSOS$COTA_DT2),
-                  as.matrix(CURSOS$DIST_SM0 - CURSOS$DIST_DT0))
+                  as.matrix(MOMENTS[,1]),
+                  as.matrix(MOMENTS[,2]),
+                  as.matrix(MOMENTS[,3]),
+                  as.matrix(MOMENTS[,4]),
+                  as.matrix(MOMENTS[,5]),
+                  as.matrix(MOMENTS[,6]),
+                  as.matrix(MOMENTS[,7]),
+                  as.matrix(MOMENTS[,8]),
+                  as.matrix(MOMENTS[,9]),
+                  as.matrix(MOMENTS[,10]),
+                  as.matrix(MOMENTS[,11]))
   
   meanG <- t(x_BASE) %*% Z
   
