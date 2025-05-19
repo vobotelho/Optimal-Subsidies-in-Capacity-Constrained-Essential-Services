@@ -14,6 +14,7 @@ gmm_criterion <- function(coef, data){
   options <- data[["options"]]
   
   load("local\\cod04_Z.RData")
+  load("local\\cod04_W.RData")
   
   myCluster <- makeCluster(8, type = "PSOCK")
   registerDoParallel(myCluster)
