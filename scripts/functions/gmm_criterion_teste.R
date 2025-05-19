@@ -66,6 +66,19 @@ gmm_criterion <- function(coef, data){
   if (options == "J"){
     RESULT = J
   } else {
+    xi_BASE <- as.vector(demanda$residual)
+    xi_ENEM_1 <- as.vector(MOMENTS[,1])
+    xi_ENEM_2 <- as.vector(MOMENTS[,2])
+    xi_ENEM_3 <- as.vector(MOMENTS[,3])
+    xi_ENEM_4 <- as.vector(MOMENTS[,4])
+    xi_RDPC_1 <- as.vector(MOMENTS[,5])
+    xi_RDPC_2 <- as.vector(MOMENTS[,6])
+    xi_RDPC_3 <- as.vector(MOMENTS[,7])
+    xi_RDPC_4 <- as.vector(MOMENTS[,8])
+    xi_COTA_1 <- as.vector(MOMENTS[,9])
+    xi_COTA_2 <- as.vector(MOMENTS[,10])
+    xi_DIST_0 <- as.vector(MOMENTS[,11])
+    
     G <- NROW(CURSOS) * cbind(diag(xi_BASE) %*% Z_BASE, 
                diag(xi_ENEM_1) %*% Z_ELSE, 
                diag(xi_ENEM_2) %*% Z_ELSE, 
