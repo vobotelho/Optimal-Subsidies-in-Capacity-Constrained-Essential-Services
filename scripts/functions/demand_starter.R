@@ -55,8 +55,8 @@ demand_starter <- function(data){
     summarise(SHARE_OUT = 1 - sum(TARGET)) %>%
     ungroup()
   
-  SEGMENT_master <- sort(unique(MARKET_SIZE$SEGMENT))
-  CO_CURSO_master <- sort(unique(CURSOS$CO_CURSO_N))
+  SEGMENT_master <- MARKET_SIZE$SEGMENT
+  CO_CURSO_master <- CURSOS$CO_CURSO_N
   setDT(MARKET_SIZE)
   setDT(CURSOS)
   setDT(DISTANCIAS)
