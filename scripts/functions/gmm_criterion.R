@@ -64,6 +64,8 @@ gmm_criterion <- function(coef, data){
   J = meanG %*% W %*% t(meanG)
   
   cat(format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"), sep = "\n", file = log, append = TRUE)
+  cat(paste("coef:", paste(round(coef, 4), collapse = " ")), sep = "\n", file = log, append = TRUE)
+  cat(paste("J:", paste(round(J, 8))), sep = "\n", file = log, append = TRUE)
   cat("-----------------", sep = "\n", file = log, append = TRUE)
   cat("", sep = "\n", file = log, append = TRUE)
   upload_log(log, "cod04.txt")
