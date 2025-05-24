@@ -16,8 +16,6 @@ load(file_download(working_file("cod04_theta1.RData")))
 load(file_download(working_file("cod04_stage1.RData")))
 load(file_download(working_file("cod04_data1.RData")))
 
-source("scripts\\functions\\find_shares.R")
-source("scripts\\functions\\find_shares_convergence.R")
 source("scripts\\functions\\find_delta.R")
 source("scripts\\functions\\gmm_criterion.R")
 
@@ -50,6 +48,8 @@ simul_stage2 <- gmm_criterion(coef = theta_stage2, data = data)
 "------------------------------------------------------------"
 #SAVE
 "------------------------------------------------------------"
+TEMP_MERCADOS <- foreach(i = 1:NROW(MERCADOS), .combine = "rbind") %do% {unlink(TEMP_MERCADOS[i])}
+
 file_upload_RData(object = theta_stage2, name = "cod04_theta2.RData")
 file_upload_RData(object = simul_stage2, name = "cod04_stage2.RData")
 file_upload_RData(object = data, name = "cod04_data2.RData")

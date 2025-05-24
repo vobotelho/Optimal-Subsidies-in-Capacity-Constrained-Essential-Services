@@ -29,6 +29,7 @@ demand_starter <- function(data){
   
   #WEIGHTING MATRIX W (11 SMM CONDITIONS: ENEM1, ENEM2, ENEM3, ENEM4, RDPC1, RDPC2, RDPC3, RDPC4, AA-G1, AA-G2, DIST0)
   W <- diag(ncol(Z))
+  save(W, file = "local\\cod04_W0.RData")
   save(W, file = "local\\cod04_W.RData")
   rm("W")
   rm("Z")
