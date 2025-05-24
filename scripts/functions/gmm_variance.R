@@ -25,6 +25,8 @@ gmm_variance <- function(coef, data){
   CURSOS_BASE <- CURSOS %>%
     left_join(DELTAS, by = "CO_CURSO_N")
   
+  ####ANTES, O Z estava multiplicado por (1/n). Agora não está mais
+  
   xi_BASE <- as.vector(CURSOS_BASE$DELTA)
   xi_ENEM_1 <- as.vector(CURSOS_BASE$ENEM_SM1 - CURSOS_BASE$ENEM_DT1)
   xi_ENEM_2 <- as.vector(CURSOS_BASE$ENEM_SM2 - CURSOS_BASE$ENEM_DT2)

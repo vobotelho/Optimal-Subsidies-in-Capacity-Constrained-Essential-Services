@@ -35,6 +35,7 @@ gmm_criterion <- function(coef, data){
   
   DELTAS_PAR <- do.call(rbind, lapply(DELTAS, `[[`, 1))
   MOMENTS <- do.call(rbind, lapply(DELTAS, `[[`, 2))
+  MOMENTS <- MOMENTS[as.character(CURSOS$CO_CURSO_N), ]
   
   CURSOS <- CURSOS %>%
     left_join(DELTAS_PAR, by = "CO_CURSO_N")
