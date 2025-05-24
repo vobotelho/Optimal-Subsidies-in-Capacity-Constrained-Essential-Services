@@ -64,7 +64,7 @@ gmm_criterion <- function(coef, data){
   J = meanG %*% W %*% t(meanG)
   
   cat(format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"), sep = "\n", file = log, append = TRUE)
-  cat(paste("coef:", paste(round(coef, 4), collapse = " ")), sep = "\n", file = log, append = TRUE)
+  cat(paste("coef:", paste(round(coef, 5), collapse = " ")), sep = "\n", file = log, append = TRUE)
   cat(paste("J:", paste(round(J, 8))), sep = "\n", file = log, append = TRUE)
   cat("-----------------", sep = "\n", file = log, append = TRUE)
   cat("", sep = "\n", file = log, append = TRUE)
@@ -76,18 +76,18 @@ gmm_criterion <- function(coef, data){
     load("local\\cod04_Z_BASE.RData")
     load("local\\cod04_Z_ELSE.RData")
     
-    G <- cbind(diag(as.matrix(demanda$residuals)) %*% Z_BASE, 
-               diag(as.matrix(MOMENTS[,1])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,2])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,3])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,4])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,5])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,6])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,7])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,8])) %*% Z_ELSE, 
-               diag(as.matrix(MOMENTS[,9])) %*% Z_ELSE,
-               diag(as.matrix(MOMENTS[,10])) %*% Z_ELSE,
-               diag(as.matrix(MOMENTS[,11])) %*% Z_ELSE)
+    G <- cbind(diag(as.vector(demanda$residuals)) %*% Z_BASE, 
+               diag(as.vector(MOMENTS[,1])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,2])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,3])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,4])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,5])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,6])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,7])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,8])) %*% Z_ELSE, 
+               diag(as.vector(MOMENTS[,9])) %*% Z_ELSE,
+               diag(as.vector(MOMENTS[,10])) %*% Z_ELSE,
+               diag(as.vector(MOMENTS[,11])) %*% Z_ELSE)
     
     demeanG <- foreach (i = 1:ncol(G),
                         .combine = "cbind") %do% {
