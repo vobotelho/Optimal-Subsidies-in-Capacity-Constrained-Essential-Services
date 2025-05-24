@@ -102,7 +102,11 @@ gmm_criterion <- function(coef, data){
     
     W_update <- solve(VAR)
     
-    RESULT = list(J = J, W_update = W_update, DELTAS = DELTAS, modelo = demanda)
+    RESULT = list(J = J, 
+                  W_update = W_update, 
+                  DELTAS = DELTAS_PAR, 
+                  MOMENTS = MOMENTS,
+                  modelo = demanda)
   }
   
   return(RESULT)

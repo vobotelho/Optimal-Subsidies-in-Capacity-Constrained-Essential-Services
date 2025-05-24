@@ -46,7 +46,7 @@ find_delta <- function(MERCADO, M, temp){
     }
     
     Matrix <- Matrix - MOMENTS[[j]]
-    
+    rownames(Matrix) <- CO_CURSO_N_levels
     return(Matrix)
   }
   

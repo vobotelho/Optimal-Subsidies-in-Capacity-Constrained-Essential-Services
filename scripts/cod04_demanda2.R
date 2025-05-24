@@ -22,7 +22,6 @@ source("scripts\\functions\\gmm_criterion.R")
 "------------------------------------------------------------"
 #DATA ANALYSIS
 "------------------------------------------------------------"
-MERCADOS <- data[["MERCADOS"]]
 TEMP_MERCADOS <- foreach(i = 1:NROW(MERCADOS),
                          .combine = "rbind") %do% {
                            new <- tempfile(fileext = ".RData")

@@ -12,30 +12,15 @@ gmm_variance <- function(coef, data){
   smm_fe_moments <- data[["smm_fe_moments"]]
   demean <- data[["functions"]]$demean
   find_delta <- data[["functions"]]$find_delta
-  find_shares <- data[["functions"]]$find_shares
-  find_shares_convergence <- data[["functions"]]$find_shares_convergence
-  W <- data[["W"]]
   options <- data[["options"]]
   log <- data[["log"]]
   
   DELTAS <- data[["DELTAS"]]
   epsilon <- 0.001
   
-  Z_BASE <- as.matrix(select(CURSOS, all_of(instruments)))
-  Z_ELSE <- foreach(j = 1:NROW(smm_fe_moments),
-                    .combine = "cbind") %do% {
-                      
-                      #REMOVE FIRST DUMMY TO AVOID MULTICOLLINEARITY
-                      new <- dummy_columns(select(CURSOS, smm_fe_moments[j]) %>% rename("FE" = smm_fe_moments[j]), 
-                                           remove_first_dummy = TRUE,
-                                           remove_selected_columns = TRUE)
-                      
-                      new <- as.matrix(new)
-                      return(new)
-                    }
-  #ADD CONSTANT TO Z_ELSE
-  Z_ELSE <- cbind(Z_ELSE, matrix(1, nrow = nrow(Z_ELSE), ncol = 1))
-  Z_ELSE <- cbind(Z_ELSE, as.matrix(select(CURSOS, all_of(exogenous))))
+  load("local\\cod04_Z_BASE.RData")
+  load("local\\cod04_Z_ELSE.RData")
+  load("local\\cod04_W.RData")
   
   CURSOS_BASE <- CURSOS %>%
     left_join(DELTAS, by = "CO_CURSO_N")
