@@ -59,7 +59,7 @@ gmm_criterion <- function(coef, data){
                   as.matrix(MOMENTS[,10]),
                   as.matrix(MOMENTS[,11]))
   
-  meanG <- t(x_BASE) %*% Z
+  meanG <- (1 / NROW(CURSOS)) * t(x_BASE) %*% Z
   
   J = meanG %*% W %*% t(meanG)
   
@@ -73,40 +73,31 @@ gmm_criterion <- function(coef, data){
   if (options == "J"){
     RESULT = J
   } else {
-    xi_BASE <- as.vector(demanda$residual)
-    xi_ENEM_1 <- as.vector(MOMENTS[,1])
-    xi_ENEM_2 <- as.vector(MOMENTS[,2])
-    xi_ENEM_3 <- as.vector(MOMENTS[,3])
-    xi_ENEM_4 <- as.vector(MOMENTS[,4])
-    xi_RDPC_1 <- as.vector(MOMENTS[,5])
-    xi_RDPC_2 <- as.vector(MOMENTS[,6])
-    xi_RDPC_3 <- as.vector(MOMENTS[,7])
-    xi_RDPC_4 <- as.vector(MOMENTS[,8])
-    xi_COTA_1 <- as.vector(MOMENTS[,9])
-    xi_COTA_2 <- as.vector(MOMENTS[,10])
-    xi_DIST_0 <- as.vector(MOMENTS[,11])
+    load("local\\cod04_Z_BASE.RData")
+    load("local\\cod04_Z_ELSE.RData")
     
-    G <- NROW(CURSOS) * cbind(diag(xi_BASE) %*% Z_BASE, 
-               diag(xi_ENEM_1) %*% Z_ELSE, 
-               diag(xi_ENEM_2) %*% Z_ELSE, 
-               diag(xi_ENEM_3) %*% Z_ELSE, 
-               diag(xi_ENEM_4) %*% Z_ELSE, 
-               diag(xi_RDPC_1) %*% Z_ELSE, 
-               diag(xi_RDPC_2) %*% Z_ELSE, 
-               diag(xi_RDPC_3) %*% Z_ELSE, 
-               diag(xi_RDPC_4) %*% Z_ELSE, 
-               diag(xi_COTA_1) %*% Z_ELSE,
-               diag(xi_COTA_2) %*% Z_ELSE,
-               diag(xi_DIST_0) %*% Z_ELSE)
+    G <- cbind(diag(as.matrix(demanda$residuals)) %*% Z_BASE, 
+               diag(as.matrix(MOMENTS[,1])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,2])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,3])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,4])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,5])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,6])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,7])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,8])) %*% Z_ELSE, 
+               diag(as.matrix(MOMENTS[,9])) %*% Z_ELSE,
+               diag(as.matrix(MOMENTS[,10])) %*% Z_ELSE,
+               diag(as.matrix(MOMENTS[,11])) %*% Z_ELSE)
     
     demeanG <- foreach (i = 1:ncol(G),
                         .combine = "cbind") %do% {
-                          new <- G[, i] - meanG[i]
+                          new <- matrix(G[, i] - meanG[i], nrow = nrow(G), ncol = 1)
                           return(new)}
     
     VAR <- foreach (i = 1:nrow(demeanG),
                     .combine = "+") %do% {
-                      new <- (1 / nrow(demeanG)) * demeanG[i, ] %*% t(demeanG[i, ])
+                      base <- matrix(demeanG[i, ], nrow = 1, ncol = ncol(demeanG))
+                      new <- (1 / nrow(demeanG)) * t(base) %*% base)
                       return(new)}
     
     W_update <- solve(VAR)

@@ -111,7 +111,8 @@ data <- list(MERCADOS = MERCADOS,
 gmm_stage1 <- optim(par = rep(0, times = 7),
                     fn = gmm_criterion,
                     data = data,
-                    method = "L-BFGS-B")
+                    method = "L-BFGS-B",
+                    control = list(ndeps = 1e-5))
 
 data[["options"]] <- "Full"
 theta_stage1 <- gmm_stage1$par

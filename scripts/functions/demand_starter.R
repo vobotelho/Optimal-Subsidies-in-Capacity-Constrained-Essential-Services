@@ -24,8 +24,10 @@ demand_starter <- function(data){
   Z_ELSE <- cbind(Z_ELSE, matrix(1, nrow = nrow(Z_ELSE), ncol = 1))
   Z_ELSE <- cbind(Z_ELSE, as.matrix(select(CURSOS, all_of(exogenous))))
   
-  Z <- (1 / NROW(CURSOS)) * as.matrix(bdiag(Z_BASE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE))
+  Z <- as.matrix(bdiag(Z_BASE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE, Z_ELSE))
   save(Z, file = "local\\cod04_Z.RData")
+  save(Z_BASE, file = "local\\cod04_Z_BASE.RData")
+  save(Z_ELSE, file = "local\\cod04_Z_ELSE.RData")
   
   #WEIGHTING MATRIX W (11 SMM CONDITIONS: ENEM1, ENEM2, ENEM3, ENEM4, RDPC1, RDPC2, RDPC3, RDPC4, AA-G1, AA-G2, DIST0)
   W <- diag(ncol(Z))
