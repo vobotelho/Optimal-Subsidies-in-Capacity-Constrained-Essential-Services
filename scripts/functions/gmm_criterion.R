@@ -97,7 +97,7 @@ gmm_criterion <- function(coef, data){
     VAR <- foreach (i = 1:nrow(demeanG),
                     .combine = "+") %do% {
                       base <- matrix(demeanG[i, ], nrow = 1, ncol = ncol(demeanG))
-                      new <- (1 / nrow(demeanG)) * t(base) %*% base)
+                      new <- (1 / nrow(demeanG)) * t(base) %*% base
                       return(new)}
     
     W_update <- solve(VAR)
